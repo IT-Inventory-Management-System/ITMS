@@ -1,0 +1,38 @@
+<nav class="navbar navbar-expand-lg my-navbar">
+    <div class="container-fluid">
+      <a class="navbar-brand" routerLink="/dashboard">
+        <img src="../../../../assets/logos/logo.svg" >
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          
+        <div class="toggle_box">
+            <li class="nav-item">
+                <div class="btn-group box1" role="group" aria-label="Basic radio toggle button group">
+                    
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+                    <label class="btn rounded-pill toggle-color" for="btnradio1">INDIA</label>
+    
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                    <label class="btn rounded-pill" for="btnradio2">USA</label>
+                </div>
+              </li>
+        </div>
+          
+        </ul>
+        <div class="nav-icons">
+            <button type="button" class="btn btn-primary add-asset" routerLink="/add-asset">
+                <img src="../../../../assets/icons/nut-fill rotated.svg" >
+                Add Assets
+            </button>
+            <div class="avatar-dropdown">
+                <ngx-avatars name="John Doe" [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true"></ngx-avatars>      
+                <img src="../../../../assets/icons/arrow.svg" >  
+            </div>
+        </div>
+     </div>
+    </div>
+  </nav>
