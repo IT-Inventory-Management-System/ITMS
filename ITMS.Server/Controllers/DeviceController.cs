@@ -32,10 +32,10 @@ namespace ITMS.Server.Controllers
             return Ok(device);
         }
 
-        public IEnumerable<Device> FilterDevice(string Name,int CategoryId,int StatusId)
+        public IEnumerable<Device> FilterDevice(string Name, int CategoryId, int StatusId)
         {
-            var devices = _deviceService.Filter(Name,CategoryId,StatusId);
-            
+            var devices = _deviceService.Filter(Name, CategoryId, StatusId);
+
             return Ok(devices);
         }
 
