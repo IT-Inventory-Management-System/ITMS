@@ -17,14 +17,14 @@ namespace ITMS.Server.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Inventory>> GetDevices()
+        public ActionResult<IEnumerable<ItinventorySystemContext>> GetDevices()
         {
             var inventory = _dashboardService.GetInventory();
             return Ok(inventory);
         }
 
 
-      
+
 
     }
 }
