@@ -9,7 +9,9 @@ public partial class Location
 
     public string Location1 { get; set; } = null!;
 
-    public virtual ICollection<Category> Categories { get; } = new List<Category>();
+    public virtual ICollection<Device> Devices { get; } = new List<Device>();
 
     public virtual ICollection<Employee> Employees { get; } = new List<Employee>();
+
+    public virtual ICollection<SoftwareAllocation> SoftwareAllocations { get; } = new List<SoftwareAllocation>();
 }
