@@ -1,0 +1,88 @@
+:host {
+  display: contents;
+}
+
+.stepper-container {
+  width: 100%;
+  display: flex;
+  overflow: auto;
+  min-height: 100vh;
+  align-items: center;
+  flex-direction: column;
+}
+
+.stepper-stepper {
+  gap: 16px;
+  width: 100%;
+  height: auto;
+  display: flex;
+  padding: 16px 0;
+  align-self: stretch;
+  align-items: center;
+  flex-shrink: 0;
+  border-color: rgba(233, 236, 235, 1);
+  border-style: solid;
+  border-width: 1.0680030584335327px;
+  border-radius: 4.272012233734131px;
+  justify-content: center;
+  background-color: rgba(249, 249, 249, 1);
+}
+
+.stepper-stepper1 {
+  gap: 4.272012233734131px;
+  height: 51.26414489746094px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  flex-direction: column;
+}
+
+.stepper-laptopsolid {
+  width: 24px;
+  height: 24px;
+}
+
+.stepper-text {
+  color: var(--dl-color-primary-gray);
+  height: auto;
+  font-size: 14px;
+  font-style: SemiBold;
+  text-align: center;
+  font-family: Roboto;
+  font-weight: 600;
+  line-height: normal;
+  font-stretch: normal;
+  text-decoration: none;
+}
+
+.stepper-vector16-stroke {
+  width: 131px;
+  height: 1px;
+}
+
+.stepper-stepper2 {
+  gap: 4.272012233734131px;
+  height: 51.26414489746094px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  flex-direction: column;
+}
+
+.stepper-serial-number {
+  width: 24px;
+  height: 24px;
+}
+
+.stepper-text2 {
+  color: var(--dl-color-secondary-gray);
+  height: auto;
+  font-size: 14px;
+  font-style: SemiBold;
+  text-align: center;
+  font-family: Roboto;
+  font-weight: 600;
+  line-height: normal;
+  font-stretch: normal;
+  text-decoration: none;
+}

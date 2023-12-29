@@ -14,6 +14,7 @@ import { EmployeeComponent } from './employee/employee.component';
 import { LicenseComponent } from './license/license.component';
 import { HistoryComponent } from './history/history.component';
 import { AddAssetComponent } from './add-asset/add-asset.component';
+import { AddDeviceFormComponent } from './add-asset/add-device-form/add-device-form.component';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { AddAssetComponent } from './add-asset/add-asset.component';
     LicenseComponent,
     HistoryComponent,
     AddAssetComponent,
+    AddDeviceFormComponent,
   ],
   imports: [
     BrowserModule,
