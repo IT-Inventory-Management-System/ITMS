@@ -24,19 +24,26 @@ public class UserDeviceLogDto
     public string Action { get; set; }
 }
 
-public class CategoryTypeDto
+public class CategoryDTO
+{
+    public Guid Id { get; set; }
+    public string Name { get; set; }
+    public Guid CategoryTypeId { get; set; }
+    public string CategoryTypeName { get; set; }
+}
+
+public class CategoryTypeDTO
 {
     public Guid Id { get; set; }
     public string TypeName { get; set; }
-
+    public List<CategoryDTO> Categories { get; set; }
 }
 
-public class CategoryDTO
+public class CategoryTypeWithCategoriesDTO
 {
-
-    public string Name { get; set; }
-    public CategoryTypeDto categoryType { get; set; }
-
+    public Guid Id { get; set; }
+    public string TypeName { get; set; }
+    public List<CategoryDTO> Categories { get; set; }
 }
 
 
