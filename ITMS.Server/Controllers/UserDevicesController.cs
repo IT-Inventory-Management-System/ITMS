@@ -13,10 +13,10 @@
 //        _userDeviceService = userDeviceService;
 //    }
 
-//    //[HttpGet("user/{userId}")]
-//    //public ActionResult<IEnumerable<UserDeviceDto>> GetDevicesForUser(int userId)
-//    //{
-//        //List<UserDeviceDto> userDeviceDtos = _userDeviceService.GetDevicesForUser(userId);
-//        //return Ok(userDeviceDtos);
-//    //}
+//    [HttpGet("user/{userId}")]
+//    public ActionResult<IEnumerable<UserDeviceDto>> GetDevicesForUser(int userId)
+//    {
+//        List<UserDeviceDto> userDeviceDtos = _userDeviceService.GetDevicesForUser(userId);
+//        return Ok(userDeviceDtos);
+//    }
 //}
