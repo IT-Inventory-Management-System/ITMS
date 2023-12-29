@@ -1,4 +1,6 @@
-﻿//using Microsoft.AspNetCore.Mvc;
+﻿using ITMS.Server.Models;
+using Microsoft.AspNetCore.Mvc;
+
 
 //namespace ITMS.Server.Controllers
 //{
@@ -14,12 +16,14 @@
 //            _deviceService = deviceService;
 //        }
 
-//        [HttpGet]
-//        public ActionResult<IEnumerable<Device>> GetDevices()
-//        {
-//            var devices = _deviceService.GetDevices();
-//            return Ok(devices);
-//        }
+        [HttpGet]
+        public ActionResult<IEnumerable<Device>> GetDevices()
+        {
+            var devices = _deviceService.GetDevices();
+
+            return Ok(devices);
+        }
+
 
 //        [HttpGet("{id}")]
 //        public ActionResult<Device> GetDeviceById(int id)
@@ -32,12 +36,13 @@
 //            return Ok(device);
 //        }
 
-//        public IEnumerable<Device> FilterDevice(string Name, int CategoryId, int StatusId)
-//        {
-//            var devices = _deviceService.Filter(Name, CategoryId, StatusId);
+        public IEnumerable<Device> FilterDevice(string Name,int CategoryId,int StatusId)
+        {
+            var devices = _deviceService.Filter(Name,CategoryId,StatusId);
+            
+            return Ok(devices);
+        }
 
-//            return Ok(devices);
-//        }
 
 //        [HttpPost]
 //        public ActionResult<Device> AddDevice(Device device)
@@ -55,12 +60,30 @@
 //            return NoContent();
 //        }
 
-//        [HttpDelete("{id}")]
-//        public IActionResult DeleteDevice(int id)
-//        {
-//            _deviceService.DeleteDevice(id);
-//            return NoContent();
-//        }
-//    }
+        [HttpDelete("{id}")]
+        public IActionResult DeleteDevice(int id)
+        {
+            _deviceService.DeleteDevice(id);
+            return NoContent();
+        }
+
+
+     
+        [HttpGet("categories")]
+        public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
+        {
+            try
+            {
+                var categories = await _deviceService.GetCategoriesAsync();
+                return Ok(categories);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
+    }
+
 
 //}
