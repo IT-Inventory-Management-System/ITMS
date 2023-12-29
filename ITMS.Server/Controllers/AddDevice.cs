@@ -1,5 +1,4 @@
 ﻿using ITMS.Server.Models;
-using ITMS.Server.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,11 +6,11 @@ namespace ITMS.Server.Controllers
 {
     [ApiController]
     [Route("api/devices")]
-    public class DeviceController : ControllerBase
+    public class AddDeviceController : ControllerBase
     {
         private readonly IDeviceService _deviceService;
 
-        public DeviceController(IDeviceService deviceService)
+        public AddDeviceController(IDeviceService deviceService)
         {
             _deviceService = deviceService;
         }
