@@ -7,6 +7,7 @@
     <SpaRoot>..\itms.client</SpaRoot>
     <SpaProxyLaunchCommand>npm start</SpaProxyLaunchCommand>
     <SpaProxyServerUrl>https://localhost:4200</SpaProxyServerUrl>
+    <UserSecretsId>7cdb183f-af2e-4e5c-9721-375e35eeff0d</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -33,6 +34,10 @@
     <ProjectReference Include="..\itms.client\itms.client.esproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="NewFolder\" />
   </ItemGroup>
 
 </Project>
