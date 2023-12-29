@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ITMS.Server.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 
 public class DeviceService
 {
-    private readonly AppDbContext _context;
+    private readonly ItinventorySystemContext _context;
 
-    public DeviceService(AppDbContext context)
+    public DeviceService(ItinventorySystemContext context)
     {
         _context = context;
     }

@@ -33,10 +33,10 @@ public class CategoryTypeDto
 
 public class CategoryDTO
 {
-    
+
     public string Name { get; set; }
     public CategoryTypeDto categoryType { get; set; }
-  
-    }
+
+}
 
 
