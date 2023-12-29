@@ -6,7 +6,6 @@
   width: 100%;
   display: flex;
   overflow: auto;
-  min-height: 100vh;
   align-items: center;
   flex-direction: column;
 }
@@ -86,3 +85,28 @@
   font-stretch: normal;
   text-decoration: none;
 }
+
+
+/* counter */
+.counter-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid #28519E;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.btn-counter {
+  background-color: #28519E;
+  color: white;
+  border: 1px solid #28519E;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+  .btn-counter:hover {
+    background-color: #1c3a70;
+    border-color: #1c3a70;
+  }
+
+
