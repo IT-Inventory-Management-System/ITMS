@@ -13,7 +13,7 @@ builder.Services.AddDbContext<ItinventoryManagementSystemContext>(options =>
 {
     //the change occurs here.
     //builder.cofiguration and not just configuration
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Server=.\\SQLExpress;Database=ITInventoryManagement;Trusted_Connection=True;"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Server=.\\SQLExpress;Database=ITInventoryManagementSystem;Trusted_Connection=True;"));
 });
 
 var app = builder.Build();
