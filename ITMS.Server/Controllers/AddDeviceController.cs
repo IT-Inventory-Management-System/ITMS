@@ -25,7 +25,7 @@ namespace ITMS.Server.Controllers
 
 
         [HttpPost]
-        public ActionResult PutLaptops([FromBody] PutLaptop putLaptop)
+        public ActionResult PutLaptops([FromBody] PutLaptop pLaptop)
         {
             try
             {
@@ -51,7 +51,7 @@ namespace ITMS.Server.Controllers
                 //putLaptopDesc.IsArchived = putLaptop.IsArchived;
 
 
-                _deviceService.AddDevice(putLaptop);
+                _deviceService.AddDevice(pLaptop);
                 return Ok("Success");
                 //return CreatedAtAction(nameof(GetDeviceById), new { id = device.Id }, device);
             }
@@ -61,7 +61,7 @@ namespace ITMS.Server.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost("update")]
         public ActionResult PutDeviceModel([FromBody] DeviceModel model)
         {
             try

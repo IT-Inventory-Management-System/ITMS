@@ -25,7 +25,7 @@ public partial class ItinventorySystemContext : DbContext
 
     public virtual DbSet<Device> Devices { get; set; }
 
-    public virtual DbSet<DeviceModel> DeviceModels { get; set; }
+    public virtual DbSet<DeviceModel> DeviceModel { get; set; }
 
     public virtual DbSet<DevicesLog> DevicesLogs { get; set; }
 

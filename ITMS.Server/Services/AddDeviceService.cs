@@ -27,7 +27,7 @@ namespace ITMS.Server.Services
                 inventoriesItem.CreatedBy = device.CreatedBy;
                 inventoriesItem.CreatedAtUtc = device.CreatedAtUtc;
                 inventoriesItem.IsArchived = device.IsArchived;
-                //_context.Devices.Add(inventoriesItem);
+                _context.Devices.Add(inventoriesItem);
             }
             //_context.Devices.Add(device);
             _context.SaveChanges();
@@ -35,7 +35,7 @@ namespace ITMS.Server.Services
 
         public void AddDeviceModel(DeviceModel model)
         {
-            _context.DeviceModels.Add(model);
+            _context.DeviceModel.Add(model);
             _context.SaveChanges();
         }
     }
