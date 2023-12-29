@@ -2,10 +2,10 @@
 {
     public class DashboardDtocs
     {
-        public string OS {  get; set; }
-        public String Status {  get; set; }
+        public string OS { get; set; }
+        public String Status { get; set; }
         public List<RecentActivityDto> RecentActivities { get; set; }
-       // public int TotalSoftwareLicenses { get; set; }
+        // public int TotalSoftwareLicenses { get; set; }
         public List<SoftwareLicsenseDto> SoftwareLicsense { get; set; }
     }
 

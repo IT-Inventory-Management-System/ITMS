@@ -9,11 +9,11 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<ItinventoryManagementSystemContext>(options =>
+builder.Services.AddDbContext<ItinventorySystemContext>(options =>
 {
     //the change occurs here.
     //builder.cofiguration and not just configuration
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Server=.\\SQLExpress;Database=ITInventoryManagementSystem;Trusted_Connection=True;"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Server=.\\SQLExpress;Database=ITInventorySystem;Trusted_Connection=True;"));
 });
 
 var app = builder.Build();
