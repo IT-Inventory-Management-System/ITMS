@@ -1,6 +1,7 @@
 ﻿// DTOs/UserDeviceDto.cs
 public class UserDeviceDto
 {
+
     public Guid Id { get; set; }
     public Guid DeviceId { get; set; }
     public Guid ModelId { get; set; }

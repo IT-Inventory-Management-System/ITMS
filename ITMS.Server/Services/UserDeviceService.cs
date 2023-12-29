@@ -1,11 +1,12 @@
 ﻿// Services/UserDeviceService.cs
+using ITMS.Server.Models;
 using System;
 
 public class UserDeviceService
 {
-    private readonly AppDbContext _dbContext;
+    private readonly ItinventorySystemContext _dbContext;
 
-    public UserDeviceService(AppDbContext dbContext)
+    public UserDeviceService(ItinventorySystemContext dbContext)
     {
         _dbContext = dbContext;
     }

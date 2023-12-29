@@ -26,7 +26,7 @@ public class DeviceLogService
 
         return deviceHistory;
     }
-       
+
     public List<UserDeviceLogDto> GetDeviceHistoryForUser(string userId)
     {
         var userDeviceHistory = _context.DevicesLogs

@@ -1,4 +1,6 @@
 ﻿// DTOs/DeviceLogDto.cs
+using ITMS.Server.DTO;
+
 public class DeviceLogDto
 {
     public Guid Id { get; set; }
@@ -21,3 +23,20 @@ public class UserDeviceLogDto
     public DateTime AllotedDate { get; set; }
     public string Action { get; set; }
 }
+
+public class CategoryTypeDto
+{
+    public Guid Id { get; set; }
+    public string TypeName { get; set; }
+
+}
+
+public class CategoryDTO
+{
+
+    public string Name { get; set; }
+    public CategoryTypeDto categoryType { get; set; }
+
+}
+
+
