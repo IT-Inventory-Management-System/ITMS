@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-category-type',
@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./category-type.component.css']
 })
 export class CategoryTypeComponent {
+
+  @Input() type: string = '';
 
 }
