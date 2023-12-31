@@ -14,6 +14,8 @@ builder.Services.AddDbContext<ItinventorySystemContext>(options =>
     //builder.cofiguration and not just configuration
     options.UseSqlServer(builder.Configuration.GetConnectionString("Server=.\\SQLExpress;Database=ITInventorySystem;Trusted_Connection=True;"));
 });
+builder.Services.AddScoped<IDeviceService, AddDeviceService>();
+;
 
 var app = builder.Build();
 
