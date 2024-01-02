@@ -1,0 +1,18 @@
+.assetdiv {
+  width: Hug(1,176px);
+  height: Fixed (739px) ;
+  top: 72px;
+  left: 84px ;
+  gap: 16px;
+
+}
+p {
+  width: 62px;
+  height: 23px;
+  font-family: Roboto;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 23px;
+  letter-spacing: 0em;
+  text-align: left;
+}
