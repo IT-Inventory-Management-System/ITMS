@@ -14,6 +14,8 @@ import { EmployeeComponent } from './employee/employee.component';
 import { LicenseComponent } from './license/license.component';
 import { HistoryComponent } from './history/history.component';
 import { AddAssetComponent } from './add-asset/add-asset.component';
+import { UserListComponent } from './user-list/user-list.component';
+import { UserDetailsComponent } from './user-details/user-details.component';
 import { CategoryTypeComponent } from './add-asset/category-type/category-type.component';
 import { CategoryCardComponent } from './add-asset/category-card/category-card.component';
 import { CategoryNameComponent } from './add-asset/category-name/category-name.component';
@@ -31,6 +33,8 @@ import { CategoryNameComponent } from './add-asset/category-name/category-name.c
     LicenseComponent,
     HistoryComponent,
     AddAssetComponent,
+    UserListComponent,
+    UserDetailsComponent,
     CategoryTypeComponent,
     CategoryCardComponent,
     CategoryNameComponent,
