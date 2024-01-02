@@ -81,17 +81,21 @@
         </div>
       </div>
       <div *ngIf="currentStep === 2" >
-        <app-id-input *ngFor="let i of counterRange"></app-id-input>
+        <app-id-input></app-id-input>
       </div>
     </form>
   </div>
 
   <div class="add-device-footer">
-    <button class="button-layout cancel-button"><span>Cancel</span></button>
-    <button *ngIf="currentStep === 1" class="button-layout next-button" (click)="next()"><span>Next</span></button>
-    <button *ngIf="currentStep === 2" class="button-layout"><span>Submit</span></button>
+    <div class="previous-button">
+      <button *ngIf="currentStep === 2" class="button-layout" (click)="previous()"><span>Previous</span></button>
+    </div>
+    <div class="save-device-button">
+      <button class="button-layout cancel-button"><span>Cancel</span></button>
+      <button *ngIf="currentStep === 1" class="button-layout next-button" (click)="next()"><span>Next</span></button>
+      <button *ngIf="currentStep === 2" class="button-layout"><span>Submit</span></button>
+    </div>
   </div>
-
 </div>
 
 

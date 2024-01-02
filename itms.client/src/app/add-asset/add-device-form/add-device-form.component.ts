@@ -44,8 +44,6 @@ export class AddDeviceFormComponent implements OnInit {
       }
     }
 
-  counterRange: number[] = Array.from({ length: this.counterValue }, (_, i) => i + 1);
-
   showDeviceDetailsForm = false;
 
   toggleDeviceDetailsForm() {
@@ -55,6 +53,10 @@ export class AddDeviceFormComponent implements OnInit {
   next() {
     console.log(this.currentStep);
     this.currentStep++;
+  }
+
+  previous() {
+    this.currentStep--;
   }
 
  }

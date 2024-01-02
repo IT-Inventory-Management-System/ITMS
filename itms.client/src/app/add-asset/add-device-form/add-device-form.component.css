@@ -252,11 +252,9 @@
 .add-device-footer {
   display: flex;
   padding: 1rem 0rem;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: flex-start;
-  gap: 1rem;
   align-self: stretch;
-  border-top: 1px solid var(--Secondary-Light-Gray, #E9ECEB);
 }
 
 .button-layout {
@@ -303,4 +301,14 @@
   align-items: flex-end;
   gap: 1.25rem;
   align-self: stretch;
+}
+
+.save-device-button {
+  display: flex;
+  width: 5.75rem;
+  height: 2.5rem;
+  padding: 0.75rem 0.5rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
 }
