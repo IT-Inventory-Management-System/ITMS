@@ -32,7 +32,7 @@ export class AddDeviceFormComponent implements OnInit {
     );
   }
 
-  counterValue = 0;
+  counterValue: number = 0;
     
   increment() {
       this.counterValue++;
@@ -43,6 +43,8 @@ export class AddDeviceFormComponent implements OnInit {
         this.counterValue--;
       }
     }
+
+  counterRange: number[] = Array.from({ length: this.counterValue }, (_, i) => i + 1);
 
   showDeviceDetailsForm = false;
 

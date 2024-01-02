@@ -80,8 +80,8 @@
           </div>
         </div>
       </div>
-      <div *ngIf="currentStep === 2">
-        <app-id-input></app-id-input>
+      <div *ngIf="currentStep === 2" >
+        <app-id-input *ngFor="let i of counterRange"></app-id-input>
       </div>
     </form>
   </div>
