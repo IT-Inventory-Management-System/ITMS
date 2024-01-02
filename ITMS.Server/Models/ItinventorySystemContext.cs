@@ -89,6 +89,7 @@ public partial class ItinventorySystemContext : DbContext
             entity.HasIndex(e => e.TypeName, "UQ__Category__D4E7DFA8A1D933F5").IsUnique();
 
             entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
+            entity.Property(e => e.Priority);
             entity.Property(e => e.TypeName).HasMaxLength(255);
         });
 
