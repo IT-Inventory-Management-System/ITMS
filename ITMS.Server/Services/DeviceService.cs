@@ -12,10 +12,11 @@ public class DeviceService
         _context = context;
     }
 
-   
+
 
     public async Task<IEnumerable<CategoryTypeWithCategoriesDTO>> GetCategoriesAsync()
     {
+
        
             var categoryTypesWithCategories = await _context.CategoryTypes
              .OrderBy(ct => ct.Priority)
@@ -37,6 +38,6 @@ public class DeviceService
             })
             .ToListAsync();
 
-        return categoryTypesWithCategories;
+return categoryTypesWithCategories;
     }
 }
