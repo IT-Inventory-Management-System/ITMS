@@ -1,64 +1,15 @@
 <app-navbar></app-navbar>
 <app-sidebar></app-sidebar>
-<app-software-form></app-software-form>
+
 
 <main>
-  <!--<div class="container-fluid">
+  <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
         <router-outlet></router-outlet>
       </div>
     </div>
-  </div>-->
-
-  <div class="container mt-5">
-    <h2 class="mb-4">Software Form</h2>
-
-
-    <!--<form [formGroup]="softwareForm" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>-->
-    <form>
-      <div class="form-group">
-        <label for="softwareName">Software Name</label>
-        <input type="text" class="form-control" id="softwareName" formControlName="softwareName" required>
-        <div class="invalid-feedback">Software Name is required.</div>
-      </div>
-
-      <div class="form-check mb-3">
-        <input type="checkbox" class="form-check-input" id="addNewSoftware" formControlName="addNewSoftware">
-        <label class="form-check-label" for="addNewSoftware">Add new Software</label>
-      </div>
-
-      <!--<div *ngIf="!softwareForm.get('addNewSoftware').value">-->
-      <div>
-
-        <div class="form-group">
-          <label for="softwareVersion">Software Version</label>
-          <input type="text" class="form-control" id="softwareVersion" formControlName="softwareVersion" required>
-          <div class="invalid-feedback">Software Version is required.</div>
-        </div>
-
-        <div class="form-group">
-          <label for="purchaseDate">Date of Purchase</label>
-          <input type="date" class="form-control" id="purchaseDate" formControlName="purchaseDate" required>
-          <div class="invalid-feedback">Date of Purchase is required.</div>
-        </div>
-
-        <div class="form-group">
-          <label for="quantity">Quantity</label>
-          <input type="number" class="form-control" id="quantity" formControlName="quantity" required min="1">
-          <div class="invalid-feedback">Quantity must be at least 1.</div>
-        </div>
-
-      </div>
-
-      <div class="form-group">
-        <label for="activationKey">Activation Key</label>
-        <input type="text" class="form-control" id="activationKey" formControlName="activationKey" required>
-        <div class="invalid-feedback">Activation Key is required.</div>
-      </div>
-
-      <button type="submit" class="btn btn-primary">Submit</button>
-
-    </form>
   </div>
+
+  
 </main>

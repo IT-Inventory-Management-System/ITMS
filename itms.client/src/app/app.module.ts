@@ -14,7 +14,7 @@ import { EmployeeComponent } from './employee/employee.component';
 import { LicenseComponent } from './license/license.component';
 import { HistoryComponent } from './history/history.component';
 import { AddAssetComponent } from './add-asset/add-asset.component';
-import { SoftwareFormComponent } from './shared/components/software-form/software-form.component';
+
 
 
 @NgModule({
@@ -29,7 +29,7 @@ import { SoftwareFormComponent } from './shared/components/software-form/softwar
     LicenseComponent,
     HistoryComponent,
     AddAssetComponent,
-    SoftwareFormComponent,
+    
   ],
   imports: [
     BrowserModule,
