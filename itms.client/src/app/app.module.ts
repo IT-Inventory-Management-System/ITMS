@@ -16,6 +16,7 @@ import { HistoryComponent } from './history/history.component';
 import { AddAssetComponent } from './add-asset/add-asset.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
+import { LaptopComponent } from './user-detail/laptop/laptop.component';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { UserDetailsComponent } from './user-details/user-details.component';
     AddAssetComponent,
     UserListComponent,
     UserDetailsComponent,
+    LaptopComponent,
   ],
   imports: [
     BrowserModule,
