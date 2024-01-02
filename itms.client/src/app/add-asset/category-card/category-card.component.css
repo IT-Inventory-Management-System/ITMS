@@ -18,4 +18,7 @@ app-category-name {
   line-height: normal;
   margin-bottom:0.5rem;
 }
+  app-category-name:active {
+    background: var(--Primary-Blue, #28519E);
+  }
 
