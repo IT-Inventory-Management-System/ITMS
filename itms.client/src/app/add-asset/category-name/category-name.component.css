@@ -1,3 +1,22 @@
-.category_name{
-    width: 100%;
+
+
+
+.font-style {
+  text-align: center;
+  font-family: Roboto;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  display: flex;
+  padding: 0.75rem;
+  align-items: center;
+  gap: 0.625rem;
+  align-self: stretch;
+  border-radius: 0.25rem;
+  border: 1px solid var(--Primary-Blue, #28519E);
+  background: #F5F8FE;
+  color: var(--Primary-Gray, #343435);
+  margin-bottom: 0.5rem;
+  width:100%;
 }
