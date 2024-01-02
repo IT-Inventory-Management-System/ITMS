@@ -9,7 +9,7 @@
         <img src="../../assets/icons/Search.svg" class="search_image" />
         <input type="text" class="serach_input" placeholder="Search Device" />
       </div>
-      <app-category-card *ngFor="let category of categoryData" [typeName]="category.typeName"></app-category-card>
+      <app-category-card *ngFor="let category of categoryData" [typeName]="category.typeName" [categories]="category.categories"></app-category-card>
       
 
 

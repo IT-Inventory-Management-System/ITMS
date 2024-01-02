@@ -9,28 +9,6 @@ import { DataService } from '../../shared/services/data.service';
 export class CategoryCardComponent {
 
   @Input() typeName: string = '';
-  categories: any[] = [];
-
-  constructor(private dataService: DataService) {
-    this.categories = [];
-  }
-
-  ngOnInit(): void {
-    this.showCategories();
-  }
-
-  showCategories() {
-    this.dataService.getCategories().subscribe(
-      (data) => {
-        this.categories = data;
-        console.log(this.categories);
-      },
-      (error) => {
-        console.log(error);
-      }
-    )
-  }
-
-
+  @Input() categories: any[] = [];
 
 }
