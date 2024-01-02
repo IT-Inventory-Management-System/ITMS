@@ -1,40 +1,192 @@
-.nav-icons{
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+.nav-icons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
-.avatar-dropdown{
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    cursor: pointer;
+.avatar-dropdown {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
 }
 
-.add-asset{
-    background-color: #28519e;
-    border-color: #28519e;
+.add-asset {
+  background-color: #28519e;
+  border-color: #28519e;
 }
 
-.my-navbar{
-    box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2);
-    position: sticky;
+.my-navbar {
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  height: 56px !important;
 }
 
-.toggle_box {
-    display: block;
-    background-color: #e9eceb;
-    border-radius: 1000px;
-    cursor: pointer;
-    position: relative;
-    padding: 2%;
-}
+/*.toggle_box {
+  display: block;
+  background-color: #e9eceb;
+  border-radius: 1000px;
+  cursor: pointer;
+  position: relative;
+  padding: 2%;
+}*/
 
 .btn-check:checked + .btn {
-    background-color: #28519e;
-    color: #ffffff; 
-  }
+  background-color: #28519e;
+  color: #ffffff;
+  transition: transform 3s;
+}
 
-.btn{
-    font-weight: 600;
+.btn {
+  font-weight: 600;
+  transition: color 0.2s;
+}
+.dropdown-both:hover {
+  background-color: lightgrey;
+  /* Remove default margin */
+  display: flex;
+  gap: 8px;
+  text-align: center;
+  align-items: center;
+}
+
+.dropdown-btn {
+  display: flex;
+  margin-left:10px;
+  align-items: center;
+  gap: 8px;
+  text-align:center;
+}
+.additional-options {
+  top: 45px;
+  width: 161px;
+  border-radius: 4px;
+  background: #FFF;
+  box-shadow: 0px 4px 20px 0px rgba(40, 52, 73, 0.15);
+ padding:10px 0px 10px 0px;
+}
+.dropdown-both {
+  display: flex;
+  gap: 8px; /*
+  text-align:center;
+      */
+  align-items:center;
+  padding: 0px 5px 0px 5px;
+}
+
+/*.selected {
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  width: calc(50% - 1px);
+  height: calc(100% - 2px);
+  border-radius: 20px;
+  transition: transform 0.2s;
+  background-color: var(--blue);
+}
+*/
+
+input[type=radio]:checked + .off-label + .selected {
+  transform: translateX(100%);
+}
+.inputs {
+  width: fit-content;
+  height: fit-content;
+}
+
+.title {
+  margin-bottom: 10px;
+}
+
+.inputf {
+  width: 142px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgb(232, 232, 232);
+  position: relative;
+  border-radius: 53px;
+  background: var(--Secondary-Light-Gray, #E9ECEB);
+}
+
+.inputf label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 36px;
+  padding: 10px 15px;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+}
+
+.inputf input {
+  display: none;
+}
+
+.inputf .slider {
+  position: absolute;
+  width: 70px;
+  height: 36px;
+  background: white;
+  border-radius: 48px;
+  background: #28519E;
+  /* Toggle Shadow */
+  box-shadow: 0px 1px 4px 0px rgba(40, 81, 158, 0.30);
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  transition: 0.25s ease-in;
+}
+
+.inputf input:nth-child(1):checked ~ .slider {
+  left: 2px;
+}
+
+.inputf input:nth-child(3):checked ~ .slider {
+  left: 67px;
+}
+
+.inputf input:nth-child(5):checked ~ .slider {
+  left: 132px;
+}
+
+.inputf input:nth-child(1):checked + label {
+  font-weight: 500;
+  color: white;
+}
+
+.inputf input:nth-child(3):checked + label {
+  font-weight: 500;
+  color: white;
+}
+
+.inputf input:nth-child(5):checked + label {
+  font-weight: 500;
+  color: white;
+}
+.radio-txt {
+  text-align: center;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+.dropdown-main {
+  display: flex;
+  padding: 8px 8px 8px 12px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 4px;
+  background: var(--Primary-Blue, #28519E);
+  color: var(--Primary-White, #FFF);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }

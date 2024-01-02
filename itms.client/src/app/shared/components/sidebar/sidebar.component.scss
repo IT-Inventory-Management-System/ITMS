@@ -1,17 +1,33 @@
-.side-nav-content{
-    color: black;
-    height: 100vh;
+.side-nav-content {
+  color: black;
+  height: 100vh;
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center;
+  transition: width 0.3s ease;
 }
-.nav-list{
-    list-style-type: none;
-    padding: 0%;
-    margin: 0%;
-    height: 100%;
+.collapsed {
+  width: 50px; /* Adjust the collapsed width as needed */
+}
+.collapse-icon {
+  border: none;
+  background: none;
+  cursor: pointer;
+  margin-top: auto; /* Push the icon to the bottom of the sidebar */
+}
+.nav-list {
+  list-style-type: none;
+  padding: 0%;
+  margin: 0%;
+  height: 100%;
+  flex-direction:column;
+  align-items: center;
 }
 
-.nav-list-item{    
-    height: 50px;
-    padding-left: 10px;
+.nav-list-item {
+  height: 50px;
+
+  width: 100%;
 }
 
 .nav-list-item a{
@@ -21,7 +37,7 @@
     display: flex;
     align-items: center;
 }
-.nav-list-item:hover{
+/*.nav-list-item:hover{
     background-color: #28519e;
     cursor: pointer;
     color: white;
@@ -30,16 +46,18 @@
 .nav-list-item:hover a{
     cursor: pointer;
     color: white;
+}*/
+.nav-list-item i {
+  margin-right: 15px;
+  font-size: 20px;
+  text-align: center;
+  /*margin-left: 10px;*/
+  line-height: 25px;
+ 
 }
-.nav-list-item i{
-    margin-right: 15px;
-    font-size: 20px;
-    text-align: center;
-    margin-left: 10px;
-    line-height: 25px;
-}
-.nav-list-item span{
-    text-transform: capitalize;
+.nav-list-item span {
+  text-transform: capitalize;
+  
 }
 a{
     text-decoration: none;
@@ -51,7 +69,13 @@ a{
 
   
  
- .side-nav-content:hover .name{
+/* .side-nav-content .name{
     display: inline-block;
  }
-  
+*/
+
+.side-nav-icons {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}

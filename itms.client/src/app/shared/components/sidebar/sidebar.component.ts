@@ -6,37 +6,41 @@ import { Component, Output } from '@angular/core';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent {
+  isSidebarCollapsed = false;
  
 list=[
   {
     number:'1',
     name:'Dashboard',
-    icon:'fa-solid fa-home',
+    icon:'../../../../assets/icons/Dashbord.svg',
   },
   {
     number:'2',
-    name:'Category',
-    icon:'fa-brands fa-windows',
+    name:'Assets',
+    icon:'../../../../assets/icons/Assets.svg',
   },
   {
     number:'3',
-    name:'Inventory',
-    icon:'fa-solid fa-desktop',
+    name:'Software',
+    icon:'../../../../assets/icons/Software.svg',
   },
   {
     number:'4',
-    name:'Employee',
-    icon:'fa-solid fa-user',
+    name:'User',
+    icon:'../../../../assets/icons/Users.svg',
   },
   {
     number:'5',
-    name:'Licence',
-    icon:'fa-solid fa-id-card',
+    name:'Activity Logs',
+    icon:'../../../../assets/icons/Logs.svg',
   },
-  {
-    number:'6',
-    name:'History',
-    icon:'fa-solid fa-clock-rotate-left',
+  //{
+  //  number:'6',
+  //  name:'Collapse',
+  //  icon:'../../../../assets/icons/Group.svg',
+  //}
+  ]
+  toggleSidebar() {
+    this.isSidebarCollapsed = !this.isSidebarCollapsed;
   }
-]
 }
