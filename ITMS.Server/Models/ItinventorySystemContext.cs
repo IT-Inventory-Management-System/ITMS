@@ -99,6 +99,7 @@ public partial class ItinventorySystemContext : DbContext
 
             entity.ToTable("Comment");
 
+            entity.Property(e => e.Description).HasColumnType("nvarchar(MAX)").HasColumnName("Description");
             entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
             entity.Property(e => e.CreatedAtUtc)
                 .HasColumnType("datetime")
