@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { DataService } from '../../shared/services/data.service';
 
 @Component({
   selector: 'app-category-card',
@@ -8,5 +9,28 @@ import { Component, Input } from '@angular/core';
 export class CategoryCardComponent {
 
   @Input() typeName: string = '';
-  @Input() categories: string[] = [];
+  categories: any[] = [];
+
+  constructor(private dataService: DataService) {
+    this.categories = [];
+  }
+
+  ngOnInit(): void {
+    this.showCategories();
+  }
+
+  showCategories() {
+    this.dataService.getCategories().subscribe(
+      (data) => {
+        this.categories = data;
+        console.log(this.categoryData);
+      },
+      (error) => {
+        console.log(error);
+      }
+    )
+  }
+
+
+
 }

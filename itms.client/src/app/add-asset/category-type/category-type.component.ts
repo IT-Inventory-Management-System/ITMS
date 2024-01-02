@@ -5,6 +5,7 @@ import { Component, Input } from '@angular/core';
   templateUrl: './category-type.component.html',
   styleUrls: ['./category-type.component.css']
 })
+
 export class CategoryTypeComponent {
 
   @Input() type: string = '';

@@ -7,6 +7,6 @@ import { Component, Input } from '@angular/core';
 })
 export class CategoryNameComponent {
 
-  @Input() category: { name: string, description: string } = { name: '', description: '' };
+  @Input() name: string = '';
 
 }
