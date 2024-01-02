@@ -19,6 +19,9 @@ import { UserDetailsComponent } from './user-details/user-details.component';
 import { CategoryTypeComponent } from './add-asset/category-type/category-type.component';
 import { CategoryCardComponent } from './add-asset/category-card/category-card.component';
 import { CategoryNameComponent } from './add-asset/category-name/category-name.component';
+import { AssetsCategoryComponent } from './inventory/assets-category/assets-category.component';
+import { HeaderComponent } from './inventory/assets-category/header/header.component';
+import { AssestComponent } from './inventory/assets-category/assest/assest.component';
 
 
 @NgModule({
@@ -38,6 +41,9 @@ import { CategoryNameComponent } from './add-asset/category-name/category-name.c
     CategoryTypeComponent,
     CategoryCardComponent,
     CategoryNameComponent,
+    AssetsCategoryComponent,
+    HeaderComponent,
+    AssestComponent,
   ],
   imports: [
     BrowserModule,
