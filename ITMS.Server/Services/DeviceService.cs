@@ -20,13 +20,15 @@ public class DeviceService
             .Include(ct => ct.Categories)
             .Select(ct => new CategoryTypeWithCategoriesDTO
             {
-                
+                Id= ct.Id,
                 TypeName = ct.TypeName,
                 Categories = ct.Categories.Select(c => new CategoryDTO
                 {
-                    
+                    Id= c.Id,
                     Name = c.Name,
-                    CategoryTypeName = c.CategoryType.TypeName
+                    CategoryTypeName = c.CategoryType.TypeName,
+                    CategoryTypeId=c.CategoryType.Id
+                    
                 }).ToList()
             })
             .ToListAsync();
