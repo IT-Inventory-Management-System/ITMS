@@ -1,15 +1,24 @@
 ﻿using ITMS.Server.DTO;
 using ITMS.Server.Models;
 using ITMS.Server.ViewModel;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 using System;
 
-namespace ITMS.Server.Services
+namespace ITMS.Server.Services;
+    public interface IDeviceService
 {
+    void AddDevice(PutLaptop device);
+    void AddSoftwareAllocation(PutSofwareAllocation sofwareAllocation);
+    void AddSoftware(PutSoftware software);
+    void AddDeviceModel (PutDeviceModel model);
     Task<List<LaptopModelDTO>> GetLaptopModelsAsync();
     Task<List<SoftwareModelDTO>> GetSoftwareModelsAsync();
 }
-    public class AddDeviceService
-    {
+
+public class AddDeviceService : IDeviceService
+{
+    
         private readonly ItinventorySystemContext _context;
 
         public AddDeviceService(ItinventorySystemContext context)
@@ -60,40 +69,45 @@ namespace ITMS.Server.Services
             _context.SaveChanges();
         }
 
-    public async Task<List<LaptopModelDTO>> GetLaptopModelsAsync()
-    {
-        var uniqueLaptopModels = await _dbContext.DeviceModels
-            .Join(
-                _dbContext.Ostypes,
-                deviceModel => deviceModel.Os,
-                osType => osType.Id,
-                (deviceModel, osType) => new { DeviceModel = deviceModel, OsType = osType }
-            )
-            .GroupBy(joinResult => new { joinResult.DeviceModel.DeviceName, joinResult.OsType.Osname })
-            .Select(g => new LaptopModelDTO
+        public async Task<List<LaptopModelDTO>> GetLaptopModelsAsync()
+        {
+            var uniqueLaptopModels = await _context.DeviceModel
+                .Join(
+                    _context.Ostypes,
+                    deviceModel => deviceModel.Os,
+                    osType => osType.Id,
+                    (deviceModel, osType) => new { DeviceModel = deviceModel, OsType = osType }
+                )
+                .GroupBy(joinResult => new { joinResult.DeviceModel.DeviceName, joinResult.OsType.Osname })
+                .Select(g => new LaptopModelDTO
+
+                {
+                    Id = g.First().DeviceModel.Id,
+                    DeviceName = g.Key.DeviceName,
+                    OSName = g.Key.Osname,
+                })
+                .ToListAsync();
+            return uniqueLaptopModels;
+        }
+        public async Task<List<SoftwareModelDTO>> GetSoftwareModelsAsync()
+        {
+            var uniqueSoftwareModels = await _context.Software
+                .Select(s => new SoftwareModelDTO
+                {
+                    Id = s.Id,
+                    SoftwareName = s.SoftwareName,
+                    SoftwareTypeId = s.SoftwareTypeId
+                })
+                .Distinct()
+                .ToListAsync();
+            return uniqueSoftwareModels;
+        }
         public void AddSoftware(PutSoftware software)
         {
             Software softwareForDb = new Software
             {
-                Id = g.First().DeviceModel.Id,
-                DeviceName = g.Key.DeviceName,
-                OSName = g.Key.Osname,
-            })
-            .ToListAsync();
-        return uniqueLaptopModels;
-    }
-    public async Task<List<SoftwareModelDTO>> GetSoftwareModelsAsync()
-    {
-        var uniqueSoftwareModels = await _dbContext.Softwares
-            .Select(s => new SoftwareModelDTO
-            {
-                Id = s.Id,
-                SoftwareName = s.SoftwareName,
-                SoftwareTypeId = s.SoftwareTypeId
-            })
-            .Distinct()
-            .ToListAsync();
-        return uniqueSoftwareModels;
+
+
                 SoftwareName = software.SoftwareName,
                 SoftwareTypeId = software.SoftwareTypeId,
                 CategoryId = software.CategoryId,
@@ -127,4 +141,4 @@ namespace ITMS.Server.Services
             _context.SaveChanges();
         }
     }
-}
+
