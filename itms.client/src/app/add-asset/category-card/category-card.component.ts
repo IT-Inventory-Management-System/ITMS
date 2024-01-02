@@ -23,7 +23,7 @@ export class CategoryCardComponent {
     this.dataService.getCategories().subscribe(
       (data) => {
         this.categories = data;
-        console.log(this.categoryData);
+        console.log(this.categories);
       },
       (error) => {
         console.log(error);
