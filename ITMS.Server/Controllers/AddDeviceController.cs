@@ -1,5 +1,6 @@
 ﻿using ITMS.Server.DTO;
 using ITMS.Server.Models;
+using ITMS.Server.ViewModel;
 using ITMS.Server.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -62,7 +63,7 @@ namespace ITMS.Server.Controllers
         }
 
         [HttpPost("update")]
-        public ActionResult PutDeviceModel([FromBody] DeviceModel model)
+        public ActionResult PutDeviceModel([FromBody] PutDeviceModel model)
         {
             try
             {
@@ -73,6 +74,34 @@ namespace ITMS.Server.Controllers
             {
                 return BadRequest(e);
             }
+        }
+
+
+        [HttpPost("add-software")]
+        public ActionResult PutSoftware([FromBody] PutSoftware software)
+        {
+            try
+            {
+                _deviceService.AddSoftware(software);
+                return Ok("Created");
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+        }
+
+        [HttpPost("add-software-allocation")]
+        public ActionResult PutSoftwareAllocation([FromBody] PutSofwareAllocation softwareAllocation) {
+            try
+            {
+                _deviceService.AddSoftwareAllocation(softwareAllocation);
+                return Ok("Success");
+            }catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+
         }
     }
 }

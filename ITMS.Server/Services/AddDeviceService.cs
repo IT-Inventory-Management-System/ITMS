@@ -1,5 +1,6 @@
 ﻿using ITMS.Server.DTO;
 using ITMS.Server.Models;
+using ITMS.Server.ViewModel;
 using System;
 
 namespace ITMS.Server.Services
@@ -33,9 +34,63 @@ namespace ITMS.Server.Services
             _context.SaveChanges();
         }
 
-        public void AddDeviceModel(DeviceModel model)
+        public void AddDeviceModel(PutDeviceModel model)
         {
-            _context.DeviceModel.Add(model);
+            DeviceModel deviceModel = new DeviceModel
+            {
+                DeviceName = model.DeviceName,
+                Brand = model.Brand,
+                ModelNo = model.ModelNo,
+                Processor = model.Processor,
+                Os = model.Os,
+                Ram = model.Ram,
+                Storage = model.Storage,
+                IsWired = model.IsWired,
+                CategoryId = model.CategoryId,
+                CreatedBy = model.CreatedBy,
+                CreatedAtUtc = model.CreatedAtUtc,
+                UpdatedBy = model.UpdatedBy,
+                UpdatedAtUtc = model.UpdatedAtUtc,
+                IsArchived = model.IsArchived,
+            };
+            _context.DeviceModel.Add(deviceModel);
+            _context.SaveChanges();
+        }
+
+        public void AddSoftware(PutSoftware software)
+        {
+            Software softwareForDb = new Software
+            {
+                SoftwareName = software.SoftwareName,
+                SoftwareTypeId = software.SoftwareTypeId,
+                CategoryId = software.CategoryId,
+                SoftwareThumbnail = software.SoftwareThumbnail,
+                CreatedBy = software.CreatedBy,
+                CreatedAtUtc = software.CreatedAtUtc,
+                UpdatedBy = software.UpdatedBy,
+                UpdatedAtUtc = software.UpdatedAtUtc
+            };
+
+            _context.Software.Add(softwareForDb);
+            _context.SaveChanges();
+        }
+
+        public void AddSoftwareAllocation(PutSofwareAllocation sofwareAllocation)
+        {
+            for (int i = 0; i < sofwareAllocation.Qty; i++)
+            {
+                SoftwareAllocation softwareAllocationForDb = new SoftwareAllocation();
+                softwareAllocationForDb.SoftwareId = sofwareAllocation.SoftwareId;
+                softwareAllocationForDb.ActivationKey = sofwareAllocation.ActivationKey;
+                softwareAllocationForDb.SoftwareVersion = sofwareAllocation.SoftwareVersion;
+                softwareAllocationForDb.PurchasedDate = sofwareAllocation.PurchasedDate;
+                softwareAllocationForDb.ExpiryDate = sofwareAllocation.ExpiryDate;
+                softwareAllocationForDb.AssignedTo = sofwareAllocation.AssignedTo;
+                softwareAllocationForDb.AssignedBy = sofwareAllocation.AssignedBy;
+                softwareAllocationForDb.AssignedDate = sofwareAllocation.AssignedDate;
+                softwareAllocationForDb.LocationId = sofwareAllocation.LocationId;
+                _context.SoftwareAllocations.Add(softwareAllocationForDb);
+            }
             _context.SaveChanges();
         }
     }
