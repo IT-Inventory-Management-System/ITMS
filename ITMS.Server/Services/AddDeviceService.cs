@@ -4,7 +4,8 @@ using System;
 
 public interface IDeviceService
 {
-    Task<List<DeviceModelDTO>> GetUniqueDeviceModelsAsync();
+    Task<List<LaptopModelDTO>> GetLaptopModelsAsync();
+    Task<List<SoftwareModelDTO>> GetSoftwareModelsAsync();
 }
 
 public class AddDeviceService : IDeviceService
@@ -16,9 +17,9 @@ public class AddDeviceService : IDeviceService
         _dbContext = dbContext;
     }
 
-    public async Task<List<DeviceModelDTO>> GetUniqueDeviceModelsAsync()
+    public async Task<List<LaptopModelDTO>> GetLaptopModelsAsync()
     {
-        var uniqueDeviceModels = await _dbContext.DeviceModels
+        var uniqueLaptopModels = await _dbContext.DeviceModels
             .Join(
                 _dbContext.Ostypes,
                 deviceModel => deviceModel.Os,
@@ -26,18 +27,26 @@ public class AddDeviceService : IDeviceService
                 (deviceModel, osType) => new { DeviceModel = deviceModel, OsType = osType }
             )
             .GroupBy(joinResult => new { joinResult.DeviceModel.DeviceName, joinResult.OsType.Osname })
-            .Select(g => new DeviceModelDTO
+            .Select(g => new LaptopModelDTO
             {
                 Id = g.First().DeviceModel.Id,
                 DeviceName = g.Key.DeviceName,
                 OSName = g.Key.Osname,
-                // Map other properties as needed
             })
             .ToListAsync();
-
-
-
-
-        return uniqueDeviceModels;
+        return uniqueLaptopModels;
+    }
+    public async Task<List<SoftwareModelDTO>> GetSoftwareModelsAsync()
+    {
+        var uniqueSoftwareModels = await _dbContext.Softwares
+            .Select(s => new SoftwareModelDTO
+            {
+                Id = s.Id,
+                SoftwareName = s.SoftwareName,
+                SoftwareTypeId = s.SoftwareTypeId
+            })
+            .Distinct()
+            .ToListAsync();
+        return uniqueSoftwareModels;
     }
 }

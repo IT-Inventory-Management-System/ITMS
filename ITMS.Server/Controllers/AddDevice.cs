@@ -15,11 +15,18 @@ namespace ITMS.Server.Controllers
             _deviceService = deviceService;
         }
 
-        [HttpGet("unique-device-models")]
-        public async Task<IActionResult> GetUniqueDeviceModels()
+        [HttpGet("device-models")]
+        public async Task<IActionResult> GetLaptopModelsName()
         {
-            var uniqueDeviceModels = await _deviceService.GetUniqueDeviceModelsAsync();
+            var uniqueDeviceModels = await _deviceService.GetLaptopModelsAsync();
             return Ok(uniqueDeviceModels);
+        }
+
+        [HttpGet("software-models")]
+        public async Task<IActionResult> GetSoftwareModelsName()
+        {
+            var uniqueSoftwareModels = await _deviceService.GetSoftwareModelsAsync();
+            return Ok(uniqueSoftwareModels);
         }
     }
 }
