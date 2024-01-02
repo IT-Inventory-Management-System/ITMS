@@ -1,3 +1,42 @@
+.add-device-container {
+  display: flex;
+  height: 42.5625rem;
+  padding-right: 1rem;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1rem;
+  flex: 1 0 0;
+  width: 100%;
+}
+
+.required {
+  color: var(--Other-Red, #E03E2D);
+}
+
+.add-device-header {
+  align-self: stretch;
+}
+
+.add-device-header span {
+  color: #343435;
+  font-family: Roboto;
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.add-device-content {
+  display: flex;
+  height: 34.6875rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.25rem;
+  flex-shrink: 0;
+  align-self: stretch;
+}
+
+
 :host {
   display: contents;
 }
@@ -5,7 +44,6 @@
 .stepper-container {
   width: 100%;
   display: flex;
-  overflow: auto;
   align-items: center;
   flex-direction: column;
 }
@@ -45,7 +83,6 @@
   color: var(--dl-color-primary-gray);
   height: auto;
   font-size: 14px;
-  font-style: SemiBold;
   text-align: center;
   font-family: Roboto;
   font-weight: 600;
@@ -77,7 +114,6 @@
   color: var(--dl-color-secondary-gray);
   height: auto;
   font-size: 14px;
-  font-style: SemiBold;
   text-align: center;
   font-family: Roboto;
   font-weight: 600;
@@ -86,27 +122,185 @@
   text-decoration: none;
 }
 
+.os-radio-button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.375rem;
+  align-self: stretch;
+  margin-bottom: 1.25rem;
+}
 
-/* counter */
-.counter-container {
+.os-label {
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 0.8125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.os-input {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.window-input, .mac-input {
   display: flex;
   align-items: center;
-  border: 1px solid #28519E;
-  border-radius: 4px;
-  overflow: hidden;
+  gap: 0.375rem;
 }
 
-.btn-counter {
-  background-color: #28519E;
-  color: white;
-  border: 1px solid #28519E;
-  padding: 8px 12px;
-  cursor: pointer;
+.window-input label, .mac-input label {
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
-  .btn-counter:hover {
-    background-color: #1c3a70;
-    border-color: #1c3a70;
+.device-model-input {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 0.5rem;
+  align-self: stretch;
+  margin-bottom: 1.25rem;
+}
+
+.device-model-select {
+  display: flex;
+  align-items: flex-end;
+  gap: 1.25rem;
+}
+
+.select-device-dropdown {
+  display: flex;
+  width: 23.4375rem;
+  height: 3.8125rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.375rem;
+}
+
+  .select-device-dropdown label, .select-device-dropdown placeholder {
+    color: var(--Primary-Gray, #343435);
+    font-family: Roboto;
+    font-size: 0.8125rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
   }
 
+  .select-device-dropdown select {
+    display: flex;
+    height: 2.5rem;
+    padding: 0.5rem 0.75rem;
+    align-items: center;
+    gap: 6.625rem;
+    flex-shrink: 0;
+    align-self: stretch;
+    border-radius: 0.25rem;
+    border: 1px solid var(--Secondary-Gray, #B2B2B3);
+    background: #FFF;
+  }
 
+  .select-device-dropdown placeholder{
+      opacity: 0.5;
+  }
+
+.add-device-check {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: 0.5rem;
+}
+
+.add-device-check label {
+  color: var(--Primary-Blue, #28519E);
+  font-family: Roboto;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+/* counter */
+.quantity-counter {
+  display: flex;
+  width: 8.625rem;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 0.25rem;
+  border: 1px solid var(--Primary-Blue, #28519E);
+  background: #FFF;
+}
+
+.reduce-button img{
+  width: 2.5rem;
+  height: 2.5rem;
+  flex-shrink: 0;
+  fill: var(--Primary-White, #FFF);
+  stroke-width: 1px;
+  stroke: var(--Primary-Blue, #28519E);
+}
+
+
+.add-device-footer {
+  display: flex;
+  padding: 1rem 0rem;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 1rem;
+  align-self: stretch;
+  border-top: 1px solid var(--Secondary-Light-Gray, #E9ECEB);
+}
+
+.button-layout {
+  display: flex;
+  width: 5.75rem;
+  height: 2.5rem;
+  padding: 0.75rem 0.5rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cancel-button {
+  border-radius: 0.25rem;
+  border: 1px solid #28519E;
+}
+
+.next-button {
+  border-radius: 0.25rem;
+  background: var(--Primary-Blue, #28519E);
+}
+
+
+.cancel-button span {
+  color: var(--Primary-Blue, #28519E);
+  font-family: Roboto;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.next-button span {
+  color: #FFF;
+  font-family: Roboto;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.serial-number {
+  display: flex;
+  align-items: flex-end;
+  gap: 1.25rem;
+  align-self: stretch;
+}

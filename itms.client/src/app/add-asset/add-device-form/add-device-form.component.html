@@ -1,103 +1,101 @@
-<div class="stepper-container">
-  <div class="stepper-stepper">
-    <div class="stepper-stepper1">
-      <img src="../../../assets/icons/laptop-solid.svg" />
-      <span class="stepper-text"><span>Laptop Details</span></span>
-    </div>
-    <img src="../../../assets/icons/Vector 16 (Stroke).svg" />
-    <div class="stepper-stepper2">
-      <img src="../../../assets/icons/serial Number.svg" />
-      <span class="stepper-text2"><span>Serial No. Details</span></span>
-    </div>
+
+<div class="add-device-container">
+
+  <div class="add-device-header">
+    <span>Add Laptop</span>
   </div>
-</div>
+  
+  <div class="add-device-content overflow-auto">
 
-<div class="container">
-  <form class="my-form">
-    <!-- Row 1: Radio Button Selection for Windows or macOS -->
-    <div class="form-row mb-3">
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="osType" id="windowsRadio" value="Windows">
-        <label class="form-check-label" for="windowsRadio">Windows</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="osType" id="macRadio" value="Mac">
-        <label class="form-check-label" for="macRadio">Mac</label>
+    <div class="stepper-container">
+      <div class="stepper-stepper">
+        <div class="stepper-stepper1">
+          <img *ngIf="currentStep === 1" src="../../../assets/icons/laptop-solid.svg" />
+          <img *ngIf="currentStep === 2" src="../../../assets/icons/completed.svg" />
+          <span class="stepper-text"><span>Laptop Details</span></span>
+        </div>
+        <img src="../../../assets/icons/Vector 16 (Stroke).svg" />
+        <div class="stepper-stepper2">
+          <img *ngIf="currentStep === 1" src="../../../assets/icons/serial Number.svg" />
+          <img *ngIf="currentStep === 2" src="../../../assets/icons/laptop-solid-2.svg" />
+          <span class="stepper-text2"><span>Serial No. Details</span></span>
+        </div>
       </div>
     </div>
 
-    <!-- Row 2: Device Name Dropdown and Quantity Counter -->
-    <div class="row mb-3">
-      <div class="col-md-6">
-        <label for="deviceName">Device Name</label>
-
-        <select>
-          <option *ngFor="let value of dropdownValues" [value]="value.id">
-            {{ value.name }}
-          </option>
-        </select>
-
-      </div>
-      <div class="col-md-6">
-        <label for="quantity">Quantity</label>
-        <div class="">
-          <button type='button' class="" (click)="decrement()">-</button>
-          <span class="counter-value">{{ counterValue }}</span>
-          <button type='button' class="" (click)="increment()">+</button>
+    <form>
+      <div *ngIf="currentStep === 1">
+        <div class="os-radio-button">
+          <label class="os-label">Operating System <span class="required">*</span></label>
+          <div class="os-input">
+            <div class="window-input">
+              <input type="radio" name="osType" id="windowsRadio" value="Windows">
+              <label for="windowsRadio">Windows</label>
+            </div>
+            <div class="mac-input">
+              <input type="radio" name="osType" id="macRadio" value="Mac">
+              <label for="macRadio">Mac</label>
+            </div>
+          </div>
         </div>
 
-      </div>
-    </div>
+        <div class="device-model-input">
+          <div class="device-model-select">
+            <div class="select-device-dropdown">
+              <label for="deviceName">Device Name <span class="required">*</span></label>
+              <select>
+                <option value="" selected class="placeholder">Select Device Name</option>
+                <option *ngFor="let value of dropdownValues" [value]="value.id">
+                  {{ value.name }}
+                </option>
+              </select>
+            </div>
+            <div class="quantity-select">
+              <label for="quantity">Quantity <span class="required">*</span></label>
+              <div class="quantity-counter">
+                <div class="reduce-button" (click)="decrement()"><img src="../../../assets/icons/reduce-quantity.svg" /></div>
+                <span class="counter-value">{{ counterValue }}</span>
+                <div class="add-button" (click)="increment()"><img src="../../../assets/icons/add-quantity.svg" /></div>
+              </div>
+            </div>
+          </div>
+          <div class="add-device-check">
+            <input class="form-check-input" type="checkbox" id="addDetailsCheckbox" (change)="toggleDeviceDetailsForm()">
+            <label class="form-check-label" for="addDetailsCheckbox">Add New Device Details</label>
+          </div>
+          <div class="mb-3" *ngIf="showDeviceDetailsForm">
+            <app-add-device-model></app-add-device-model>
+          </div>
+        </div>
 
-    <!-- Row 3: Checkbox to Toggle Div -->
-    <div class="form-row mb-3">
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="addDetailsCheckbox" (change)="toggleDeviceDetailsForm()">
-        <label class="form-check-label" for="addDetailsCheckbox">Add New Device Details</label>
-      </div>
-    </div>
 
-    <div class="form-row mb-3" *ngIf="showDeviceDetailsForm">
-      <div class="col-md-6">
-        <label for="deviceName">Device Name *</label>
-        <input type="text" class="form-control" id="deviceName" name="deviceName" required>
+        <div class="row mb-3" id="deviceDetailsDiv">
+          <div class="col-6">
+            <label for="purchaseDate">Date of Purchase</label>
+            <input type="date" class="form-control" id="purchaseDate" name="purchaseDate">
+          </div>
+          <div class="col-6">
+            <label for="warrantyYear">Warranty Year</label>
+            <input type="number" class="form-control" id="warrantyYear" name="warrantyYear" min="1">
+          </div>
+        </div>
       </div>
-      <div class="col-md-6">
-        <label for="brand">Brand</label>
-        <input type="text" class="form-control" id="brand" name="brand">
+      <div *ngIf="currentStep === 2">
+        <app-id-input></app-id-input>
       </div>
-      <div class="col-md-6">
-        <label for="modelNo">Model No. *</label>
-        <input type="text" class="form-control" id="modelNo" name="modelNo" required>
-      </div>
-      <div class="col-md-6">
-        <label for="ram">RAM (GB) *</label>
-        <input type="number" class="form-control" id="ram" name="ram" required>
-      </div>
-      <div class="col-md-6">
-        <label for="processor">Processor *</label>
-        <input type="text" class="form-control" id="processor" name="processor" required>
-      </div>
-      <div class="col-md-6">
-        <label for="storage">Storage (GB) *</label>
-        <input type="number" class="form-control" id="storage" name="storage" required>
-      </div>
-    </div>
+    </form>
+  </div>
 
-    <!-- Row 3: Hidden Div (Initially Hidden) -->
-    <div class="row mb-3" id="deviceDetailsDiv">
-      <div class="col-6">
-        <label for="purchaseDate">Date of Purchase</label>
-        <input type="date" class="form-control" id="purchaseDate" name="purchaseDate">
-      </div>
-      <div class="col-6">
-        <label for="warrantyYear">Warranty Year</label>
-        <input type="number" class="form-control" id="warrantyYear" name="warrantyYear" min="1">
-      </div>
-    </div>
+  <div class="add-device-footer">
+    <button class="button-layout cancel-button"><span>Cancel</span></button>
+    <button *ngIf="currentStep === 1" class="button-layout next-button" (click)="next()"><span>Next</span></button>
+    <button *ngIf="currentStep === 2" class="button-layout"><span>Submit</span></button>
+  </div>
 
-    <!-- Add your submit button or any other controls here -->
-
-  </form>
 </div>
+
+
+
+
+
 

@@ -15,6 +15,9 @@ import { LicenseComponent } from './license/license.component';
 import { HistoryComponent } from './history/history.component';
 import { AddAssetComponent } from './add-asset/add-asset.component';
 import { AddDeviceFormComponent } from './add-asset/add-device-form/add-device-form.component';
+import { AddDeviceModelComponent } from './add-asset/add-device-form/add-device-model/add-device-model.component';
+import { IdInputComponent } from './add-asset/add-device-form/id-input/id-input.component';
+
 
 
 @NgModule({
@@ -30,6 +33,8 @@ import { AddDeviceFormComponent } from './add-asset/add-device-form/add-device-f
     HistoryComponent,
     AddAssetComponent,
     AddDeviceFormComponent,
+    AddDeviceModelComponent,
+    IdInputComponent,
   ],
   imports: [
     BrowserModule,

@@ -14,6 +14,8 @@ export class AddDeviceFormComponent implements OnInit {
     this.dropdownValues = [];
   }
 
+  currentStep: number = 1;
+
   ngOnInit(): void {
     this.loadDropdownValues();
   }
@@ -46,6 +48,11 @@ export class AddDeviceFormComponent implements OnInit {
 
   toggleDeviceDetailsForm() {
     this.showDeviceDetailsForm = !this.showDeviceDetailsForm;
+  }
+
+  next() {
+    console.log(this.currentStep);
+    this.currentStep++;
   }
 
  }
