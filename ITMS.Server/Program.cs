@@ -14,7 +14,18 @@ builder.Services.AddDbContext<ItinventorySystemContext>(options =>
 {
     //the change occurs here.
     //builder.cofiguration and not just configuration
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Server=.\\SQLExpress;Database=ITInventorySystem;Trusted_Connection=True;"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Server=.\\SQLExpress;Database=ITInventoryManagement;Trusted_Connection=True;"));
+});
+builder.Services.AddScoped<IDeviceService, AddDeviceService>();
+builder.Services.AddScoped<DeviceService>();
+
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowOrigin", builder =>
+    {
+        builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+    });
 });
 
 var app = builder.Build();
@@ -30,6 +41,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowOrigin");
 
 app.UseAuthorization();
 

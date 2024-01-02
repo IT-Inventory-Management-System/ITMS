@@ -17,6 +17,9 @@ import { AddAssetComponent } from './add-asset/add-asset.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { LaptopComponent } from './user-detail/laptop/laptop.component';
+import { CategoryTypeComponent } from './add-asset/category-type/category-type.component';
+import { CategoryCardComponent } from './add-asset/category-card/category-card.component';
+import { CategoryNameComponent } from './add-asset/category-name/category-name.component';
 
 
 @NgModule({
@@ -33,7 +36,6 @@ import { LaptopComponent } from './user-detail/laptop/laptop.component';
     AddAssetComponent,
     UserListComponent,
     UserDetailsComponent,
-    LaptopComponent,
   ],
   imports: [
     BrowserModule,
