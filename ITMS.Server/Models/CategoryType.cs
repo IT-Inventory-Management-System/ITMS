@@ -7,6 +7,8 @@ public partial class CategoryType
 {
     public Guid Id { get; set; }
 
+    public int Priority { get; set; }
+
     public string TypeName { get; set; } = null!;
 
     public virtual ICollection<Category> Categories { get; } = new List<Category>();

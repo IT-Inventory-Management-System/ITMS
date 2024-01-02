@@ -11,7 +11,4 @@ export class CategoryCardComponent {
   @Input() typeName: string = '';
   @Input() categories: any[] = [];
 
-
 }
-
-
