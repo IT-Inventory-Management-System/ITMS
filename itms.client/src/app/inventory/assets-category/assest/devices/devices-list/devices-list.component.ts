@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-devices-list',
@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./devices-list.component.css']
 })
 export class DevicesListComponent {
+  @Input() Cygid: string = '';
+
+  constructor() {
+    console.log(this.Cygid);
+  }
 
 }
