@@ -19,6 +19,9 @@ import { AddDeviceModelComponent } from './add-asset/add-device-form/add-device-
 import { IdInputComponent } from './add-asset/add-device-form/id-input/id-input.component';
 import { AddSoftwareFormComponent } from './add-asset/add-software-form/add-software-form.component';
 
+import { CategoryTypeComponent } from './add-asset/category-type/category-type.component';
+import { CategoryCardComponent } from './add-asset/category-card/category-card.component';
+import { CategoryNameComponent } from './add-asset/category-name/category-name.component';
 
 
 @NgModule({
@@ -37,6 +40,9 @@ import { AddSoftwareFormComponent } from './add-asset/add-software-form/add-soft
     AddDeviceModelComponent,
     IdInputComponent,
     AddSoftwareFormComponent,
+    CategoryTypeComponent,
+    CategoryCardComponent,
+    CategoryNameComponent,
   ],
   imports: [
     BrowserModule,
