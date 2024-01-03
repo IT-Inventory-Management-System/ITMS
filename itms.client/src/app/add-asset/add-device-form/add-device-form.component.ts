@@ -17,20 +17,20 @@ export class AddDeviceFormComponent implements OnInit {
   currentStep: number = 1;
 
   ngOnInit(): void {
-    this.loadDropdownValues();
+    //this.loadDropdownValues();
   }
 
-  loadDropdownValues() {
-    this.dataService.getDropdownValues().subscribe(
-      (data) => {
-        this.dropdownValues = data
-        console.log(data);
-      },
-      (error) => {
-        console.error('Error fetching dropdown values', error);
-      }
-    );
-  }
+  //loadDropdownValues() {
+  //  this.dataService.getDropdownValues().subscribe(
+  //    (data) => {
+  //      this.dropdownValues = data
+  //      console.log(data);
+  //    },
+  //    (error) => {
+  //      console.error('Error fetching dropdown values', error);
+  //    }
+  //  );
+  //}
 
   counterValue: number = 0;
     
