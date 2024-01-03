@@ -1,4 +1,3 @@
-
 ﻿//using ITMS.Server.Models;
 //using System;
 
@@ -13,10 +12,6 @@
 //            _context = context;
 //        }
 
-
-
-
-        
 //        public IEnumerable<Device> GetInventory()
 //        {
 //            return _context.Devices.ToList();
