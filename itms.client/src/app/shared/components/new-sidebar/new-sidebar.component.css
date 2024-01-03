@@ -1,5 +1,5 @@
 /* sidebar.component.scss */
-.side-nav-content {
+/*.side-nav-content {
   color: black;
   height: 100vh;
   display: flex;
@@ -54,8 +54,8 @@ box-shadow: 4px 0px 4px 0px rgba(0, 0, 0, 0.15);
   }
 
 .visible {
-  display: inline-block !important; /* Add !important to override other styles */
-}
+  display: inline-block !important;*/ /* Add !important to override other styles */
+/*}
 
 .nav-list-item:hover {
   background-color: #28519e;
@@ -64,4 +64,49 @@ box-shadow: 4px 0px 4px 0px rgba(0, 0, 0, 0.15);
 
   .nav-list-item:hover a {
     cursor: pointer;
+  }*/
+
+
+.sidebar {
+  background: #FFF;
+  box-shadow: 4px 0px 4px 0px rgba(0, 0, 0, 0.15);
+  color: black;
+  margin-top: 56px;
+  transition: width 0.3s ease;
+  display: flex;
+  height: 58.4375rem;
+  padding: 1.25rem 0.5rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+  width: 16rem;
+  transition: width 0.3s ease;
+}
+
+.collapsed {
+  width: 4rem;
+
+
+
+
+}
+
+.icon ,.collapse-btn{
+  cursor: pointer;
+  padding: 10px;
+  text-align: center;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+  .content img {
+    margin-right: 10px;
   }
+
+.collapse-expand{
+    margin-left:5px;
+}

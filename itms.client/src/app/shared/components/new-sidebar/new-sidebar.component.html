@@ -1,0 +1,49 @@
+<!-- sidebar.component.html -->
+<!--<div class="side-nav-content" [ngClass]="{'collapsed': isSidebarCollapsed}">
+  <ul class="nav-list">
+    <li class="nav-list-item" *ngFor="let item of list">
+      <a class="hover-container side-nav-icons" [routerLink]="['/', item.name.toLowerCase()]">
+        <img src="{{ item.icon }}" />
+        <span class="name" [class.visible]="!isSidebarCollapsed">{{ item.name }}</span>
+      </a>
+    </li>
+    <button class="collapse-icon" (click)="toggleSidebar()">
+      <img src="../../../../assets/icons/Group.svg" />
+    </button>
+  </ul>
+</div>-->
+<!--<div class="collapse-btn" (click)="toggleCollapse()">
+  <img src="path/to/collapse-btn.png" alt="Collapse Button" />
+</div>-->
+
+
+<div class="sidebar" [ngClass]="{'collapsed': isCollapsed}">
+
+  <div class="content">
+    <img src="../../assets/icons/Dashbord.svg" alt="Sidebar Image" />
+    <span *ngIf="!isCollapsed">Dashboard</span>
+  </div>
+  <div class="content">
+    <img src="../../assets/icons/Assets.svg" alt="Sidebar Image" />
+    <span *ngIf="!isCollapsed">Assets</span>
+  </div>
+  <div class="content">
+    <img src="../../assets/icons/Software.svg" alt="Sidebar Image" />
+    <span *ngIf="!isCollapsed">Software</span>
+  </div>
+  <div class="content">
+    <img src="../../assets/icons/Users.svg" alt="Sidebar Image" />
+    <span *ngIf="!isCollapsed">User</span>
+  </div>
+  <div class="content">
+    <img src="../../assets/icons/Logs.svg" alt="Sidebar Image" />
+    <span *ngIf="!isCollapsed">Activity Logs</span>
+  </div>
+  <div class="content" (click)="toggleCollapse()">
+    <img class="collapse-expand" src="../../assets/icons/collapse.svg" alt="Expanded Icon" *ngIf="!isCollapsed" />
+    <img class="collapse-expand" src="../../assets/icons/expand.svg" alt="Collapsed Icon" *ngIf="isCollapsed" />
+    <span *ngIf="!isCollapsed">Collapse</span>
+  </div>
+</div>
+
+

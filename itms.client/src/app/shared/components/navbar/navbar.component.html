@@ -8,21 +8,6 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
-        <!--<div class="toggle_box">
-      <li class="nav-item">
-        <div class="btn-group box1" role="group" aria-label="Basic radio toggle button group">
-
-          <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-          <label class="btn rounded-pill toggle-color" for="btnradio1">INDIA</label>
-
-          <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-          <label class="btn rounded-pill off-label" for="btnradio2">USA</label>
-
-          <span class="slider" aria-hidden="true"></span>
-        </div>
-      </li>
-  </div>-->
         <div class="center">
           <div class="inputs">
             <div class="inputf">
@@ -45,15 +30,17 @@
       
       <div *ngIf="isOptionsVisible" class="additional-options position-absolute">
         <!-- Display additional options when isOptionsVisible is true -->
-        <div class="dropdown-both">
-          <img src="../../../../assets/icons/laptop-solid 2.svg" />
-          <p class="centre-text dropdown-btn" (click)="handleOptionClick('add-assets')">Add Assets</p>
+        <div class="dropdown-both dropdown-btn"(click)="handleOptionClick('add-assets')" routerLink="/add-asset">
+            <img class="dropdown-icn" src="../../../../assets/icons/laptop-solid 2.svg" />
+            Add Assets
         </div>
-        <p class="dropdown-list">
-        <div class="dropdown-both">
-          <img src="../../../../assets/icons/laptop-solid 2 (1).svg" />
-          <p class="centre-text dropdown-btn" (click)="handleOptionClick('manage-assets')">Assign Assets</p>
-        </div>
+        <!--<p class="dropdown-list">-->
+          <div class="dropdown-both dropdown-btn"(click)="handleOptionClick('manage-assets')">
+            <img src="../../../../assets/icons/laptop-solid 2 (1).svg" />
+            Assign Assets
+            <!--<p class="centre-text dropdown-btn" ></p>-->
+
+          </div>
       </div>
       <div class="avatar-dropdown">
         <ngx-avatars name="John Doe" [textSizeRatio]=2.7 bgColor="#b8dde1" fgColor="#264f9d" [round]="true"></ngx-avatars>
