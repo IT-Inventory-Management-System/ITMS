@@ -7,15 +7,19 @@ public partial class DeviceModel
 {
     public Guid Id { get; set; }
 
-    public string? ModelName { get; set; }
+    public string? DeviceName { get; set; }
+
+    public string? Brand { get; set; }
+
+    public string? ModelNo { get; set; }
 
     public string? Processor { get; set; }
 
-    public string? Os { get; set; }
+    public Guid? Os { get; set; }
 
     public string? Ram { get; set; }
 
-    public string? Rom { get; set; }
+    public string? Storage { get; set; }
 
     public bool? IsWired { get; set; }
 
@@ -25,19 +29,19 @@ public partial class DeviceModel
 
     public DateTime CreatedAtUtc { get; set; }
 
-    public Guid UpdatedBy { get; set; }
+    public Guid? UpdatedBy { get; set; }
 
-    public DateTime UpdatedAtUtc { get; set; }
+    public DateTime? UpdatedAtUtc { get; set; }
 
-    public bool IsArchived { get; set; }
+    public bool? IsArchived { get; set; }
 
     public virtual Category Category { get; set; } = null!;
 
     public virtual Employee CreatedByNavigation { get; set; } = null!;
 
-    public virtual ICollection<DevicesLog> DevicesLogs { get; } = new List<DevicesLog>();
+    public virtual ICollection<Device> Devices { get; } = new List<Device>();
 
-    public virtual ICollection<Inventory> Inventories { get; } = new List<Inventory>();
+    public virtual Ostype? OsNavigation { get; set; }
 
-    public virtual Employee UpdatedByNavigation { get; set; } = null!;
+    public virtual Employee? UpdatedByNavigation { get; set; }
 }

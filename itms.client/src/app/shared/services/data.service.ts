@@ -6,11 +6,10 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class DataService {
-  private apiUrl = 'https://localhost:44382/api/';
-
+  private apiUrl = 'https://localhost:7283/api/'; 
   constructor(private http: HttpClient) { }
 
-  getDropdownValues(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl + 'User/dropdown-values');
+  getCategories(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + 'devices/categories');
   }
 }
