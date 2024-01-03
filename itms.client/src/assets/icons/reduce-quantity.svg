@@ -1,0 +1,13 @@
+<svg width="40" height="41" viewBox="0 0 40 41" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Remove">
+<g clip-path="url(#clip0_66_144)">
+<path id="Vector" d="M29 22.8962H11V19.8962H29V22.8962Z" fill="#28519E"/>
+</g>
+<path d="M0.5 4.89621C0.5 2.96321 2.067 1.39621 4 1.39621H39.5V40.3962H4C2.067 40.3962 0.5 38.8292 0.5 36.8962V4.89621Z" stroke="#28519E"/>
+</g>
+<defs>
+<clipPath id="clip0_66_144">
+<path d="M0 4.89621C0 2.68707 1.79086 0.89621 4 0.89621H40V40.8962H4C1.79086 40.8962 0 39.1054 0 36.8962V4.89621Z" fill="white"/>
+</clipPath>
+</defs>
+</svg>
