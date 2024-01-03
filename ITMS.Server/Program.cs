@@ -11,9 +11,10 @@ builder.Services.AddDbContext<ItinventorySystemContext>(options =>
 {
     //the change occurs here.
     //builder.cofiguration and not just configuration
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Server=.\\SQLExpress;Database=ITInventoryManagement;Trusted_Connection=True;"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Server=.\\SQLExpress;Database=ITInventorySystem;Trusted_Connection=True;"));
 });
 builder.Services.AddScoped<IDeviceService, AddDeviceService>();
+builder.Services.AddScoped<IUserListService, UserListService>();
 builder.Services.AddScoped<DeviceService>();
 
 

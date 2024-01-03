@@ -1,0 +1,55 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300ita‌​lic,400italic,500,500italic,700,700italic,900italic,900);
+
+.user-list-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.534rem;
+  flex: 1 0 0;
+  align-self: stretch;
+  width: 100%
+}
+
+
+.user-list-container-items {
+  display: flex;
+  padding: 0.5rem 0.75rem;
+  align-items: center;
+  gap: 0.5rem;
+  align-self: stretch;
+  border: 1px solid #E9ECEB;
+  background: white;
+  border-radius: 0.267rem;
+  transition: 0.3s ease-in-out;
+}
+
+  .user-list-container-items:focus, .user-list-container-items:active {
+    border: 1px solid #28519E;
+    background: #E3F3FC;
+  }
+
+
+
+.user-name {
+  color: #343435;
+  font-family: Roboto;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  width: 9.345rem;
+  margin: 0;
+  text-align: left;
+}
+
+.user-int {
+  color: #6D6D6D;
+  font-family: Roboto;
+  font-size: 0.8125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0;
+  text-transform: uppercase;
+  text-align: left;
+}

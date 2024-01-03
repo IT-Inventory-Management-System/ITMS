@@ -16,7 +16,7 @@ namespace ITMS.Server.Services
 
         public List<SoftwareDTO> GetAllSoftware()
         {
-            var softwareEntities = _dbContext.Softwares
+            var softwareEntities = _dbContext.Software
                 .Include(s => s.SoftwareType)
                 .Include(s => s.Category)
                 .Include(s => s.CreatedBy)
@@ -54,7 +54,7 @@ namespace ITMS.Server.Services
                 //UpdatedAtUTC = softwareDTO.UpdatedAtUTC
             };
 
-            _dbContext.Softwares.Add(softwareEntity);
+            _dbContext.Software.Add(softwareEntity);
             _dbContext.SaveChanges();
         }
     }
