@@ -16,7 +16,7 @@ namespace ITMS.Server.Controllers
             _deviceService = deviceService;
         }
 
-       
+
 
 
         [HttpGet("categories")]

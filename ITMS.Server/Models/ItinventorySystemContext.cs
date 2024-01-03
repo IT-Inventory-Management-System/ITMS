@@ -25,7 +25,7 @@ public partial class ItinventorySystemContext : DbContext
 
     public virtual DbSet<Device> Devices { get; set; }
 
-    public virtual DbSet<DeviceModel> DeviceModels { get; set; }
+    public virtual DbSet<DeviceModel> DeviceModel { get; set; }
 
     public virtual DbSet<DevicesLog> DevicesLogs { get; set; }
 
@@ -37,7 +37,7 @@ public partial class ItinventorySystemContext : DbContext
 
     public virtual DbSet<Role> Roles { get; set; }
 
-    public virtual DbSet<Software> Softwares { get; set; }
+    public virtual DbSet<Software> Software { get; set; }
 
     public virtual DbSet<SoftwareAllocation> SoftwareAllocations { get; set; }
 
@@ -89,6 +89,7 @@ public partial class ItinventorySystemContext : DbContext
             entity.HasIndex(e => e.TypeName, "UQ__Category__D4E7DFA8A1D933F5").IsUnique();
 
             entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
+            entity.Property(e => e.Priority);
             entity.Property(e => e.TypeName).HasMaxLength(255);
         });
 
@@ -98,6 +99,7 @@ public partial class ItinventorySystemContext : DbContext
 
             entity.ToTable("Comment");
 
+            entity.Property(e => e.Description).HasColumnType("nvarchar(MAX)").HasColumnName("Description");
             entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
             entity.Property(e => e.CreatedAtUtc)
                 .HasColumnType("datetime")
