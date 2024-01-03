@@ -23,6 +23,8 @@ import { CategoryNameComponent } from './add-asset/category-name/category-name.c
 import { AssetsCategoryComponent } from './inventory/assets-category/assets-category.component';
 import { HeaderComponent } from './inventory/assets-category/header/header.component';
 import { AssestComponent } from './inventory/assets-category/assest/assest.component';
+import { SpecificationComponent } from './inventory/assets-category/assest/specification/specification.component';
+import { SpecInfoComponent } from './inventory/assets-category/assest/specification/spec-info/spec-info.component';
 
 
 @NgModule({
@@ -45,6 +47,8 @@ import { AssestComponent } from './inventory/assets-category/assest/assest.compo
     AssetsCategoryComponent,
     HeaderComponent,
     AssestComponent,
+    SpecificationComponent,
+    SpecInfoComponent,
   ],
   imports: [
     BrowserModule,
