@@ -18,6 +18,8 @@ builder.Services.AddDbContext<ItinventorySystemContext>(options =>
 });
 builder.Services.AddScoped<IDeviceService, AddDeviceService>();
 builder.Services.AddScoped<DeviceService>();
+builder.Services.AddScoped<DeviceLogService>();
+
 
 
 builder.Services.AddCors(options =>
