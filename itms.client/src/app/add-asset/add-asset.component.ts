@@ -8,6 +8,8 @@ import { DataService } from '../shared/services/data.service';
 })
 export class AddAssetComponent {
 
+  showSoftwareForm = false;
+
   categoryData: any[] = [];
 
   constructor(private dataService: DataService) {
