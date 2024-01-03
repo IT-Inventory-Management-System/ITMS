@@ -14,6 +14,7 @@ import { EmployeeComponent } from './employee/employee.component';
 import { LicenseComponent } from './license/license.component';
 import { HistoryComponent } from './history/history.component';
 import { AddAssetComponent } from './add-asset/add-asset.component';
+
 import { AddDeviceFormComponent } from './add-asset/add-device-form/add-device-form.component';
 import { AddDeviceModelComponent } from './add-asset/add-device-form/add-device-model/add-device-model.component';
 import { IdInputComponent } from './add-asset/add-device-form/id-input/id-input.component';
@@ -27,6 +28,8 @@ import { CategoryNameComponent } from './add-asset/category-name/category-name.c
 import { AssetsCategoryComponent } from './inventory/assets-category/assets-category.component';
 import { HeaderComponent } from './inventory/assets-category/header/header.component';
 import { AssestComponent } from './inventory/assets-category/assest/assest.component';
+import { SpecificationComponent } from './inventory/assets-category/assest/specification/specification.component';
+import { SpecInfoComponent } from './inventory/assets-category/assest/specification/spec-info/spec-info.component';
 import { DevicesComponent } from './inventory/assets-category/assest/devices/devices.component';
 import { DevicesListComponent } from './inventory/assets-category/assest/devices/devices-list/devices-list.component';
 
@@ -55,6 +58,8 @@ import { DevicesListComponent } from './inventory/assets-category/assest/devices
     AssetsCategoryComponent,
     HeaderComponent,
     AssestComponent,
+    SpecificationComponent,
+    SpecInfoComponent,
     DevicesComponent,
     DevicesListComponent,
 
