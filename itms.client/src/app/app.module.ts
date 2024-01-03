@@ -17,6 +17,7 @@ import { AddAssetComponent } from './add-asset/add-asset.component';
 import { AddDeviceFormComponent } from './add-asset/add-device-form/add-device-form.component';
 import { AddDeviceModelComponent } from './add-asset/add-device-form/add-device-model/add-device-model.component';
 import { IdInputComponent } from './add-asset/add-device-form/id-input/id-input.component';
+import { AddSoftwareFormComponent } from './add-asset/add-software-form/add-software-form.component';
 
 
 
@@ -35,6 +36,7 @@ import { IdInputComponent } from './add-asset/add-device-form/id-input/id-input.
     AddDeviceFormComponent,
     AddDeviceModelComponent,
     IdInputComponent,
+    AddSoftwareFormComponent,
   ],
   imports: [
     BrowserModule,
