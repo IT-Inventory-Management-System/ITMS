@@ -12,4 +12,8 @@ export class DataService {
   getCategories(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl + 'devices/categories');
   }
+  getDevices(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + 'DeviceLog/devices');
+  }
+
 }
