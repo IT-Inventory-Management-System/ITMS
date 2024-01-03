@@ -1,28 +1,33 @@
 ﻿// DTOs/DeviceLogDto.cs
 using ITMS.Server.DTO;
 
-public class DeviceLogDto
+public class DeviceDto
 {
     public Guid Id { get; set; }
-    public Guid DeviceId { get; set; }
-    public Guid ModelId { get; set; }
-    public string UserId { get; set; }
-    public string Description { get; set; }
-    public Guid StatusId { get; set; }
-    public DateTime AllotedDate { get; set; }
-    public string Action { get; set; }
+
+    public string? SerialNumber { get; set; }
+
+    public string? Cygid { get; set; }
+
+    public Guid? DeviceModelId { get; set; }
+
+    public Guid CreatedBy { get; set; }
+
+    public DateTime CreatedAtUtc { get; set; }
+
+    public Guid? UpdatedBy { get; set; }
+
+    public DateTime? UpdatedAtUtc { get; set; }
+
+    public Guid? AssignedTo { get; set; }
+
 }
 
-public class UserDeviceLogDto
+public class DevicelogDto
 {
-    public Guid Id { get; set; }
-    public Guid DeviceId { get; set; }
-    public Guid ModelId { get; set; }
-    public string Description { get; set; }
-    public Guid StatusId { get; set; }
-    public DateTime AllotedDate { get; set; }
-    public string Action { get; set; }
+    public string? Cygid { get; set; }
 }
+
 
 public class CategoryDTO
 {
@@ -30,6 +35,7 @@ public class CategoryDTO
     public string Name { get; set; }
     public Guid CategoryTypeId { get; set; }
     public string CategoryTypeName { get; set; }
+    
 }
 
 public class CategoryTypeDTO
@@ -37,6 +43,7 @@ public class CategoryTypeDTO
     public Guid Id { get; set; }
     public string TypeName { get; set; }
     public List<CategoryDTO> Categories { get; set; }
+    public int Priority { get; set; }
 }
 
 public class CategoryTypeWithCategoriesDTO
@@ -44,6 +51,8 @@ public class CategoryTypeWithCategoriesDTO
     public Guid Id { get; set; }
     public string TypeName { get; set; }
     public List<CategoryDTO> Categories { get; set; }
+
+    public int Priority { get; set; }
 }
 
 
