@@ -1,0 +1,105 @@
+
+<div class="add-device-container">
+
+  <div class="add-device-header">
+    <span>Add Laptop</span>
+  </div>
+  
+  <div class="add-device-content overflow-auto">
+
+    <div class="stepper-container">
+      <div class="stepper-stepper">
+        <div class="stepper-stepper1">
+          <img *ngIf="currentStep === 1" src="../../../assets/icons/laptop-solid.svg" />
+          <img *ngIf="currentStep === 2" src="../../../assets/icons/completed.svg" />
+          <span class="stepper-text"><span>Laptop Details</span></span>
+        </div>
+        <img src="../../../assets/icons/Vector 16 (Stroke).svg" />
+        <div class="stepper-stepper2">
+          <img *ngIf="currentStep === 1" src="../../../assets/icons/serial Number.svg" />
+          <img *ngIf="currentStep === 2" src="../../../assets/icons/laptop-solid-2.svg" />
+          <span class="stepper-text2"><span>Serial No. Details</span></span>
+        </div>
+      </div>
+    </div>
+
+    <form>
+      <div *ngIf="currentStep === 1">
+        <div class="os-radio-button">
+          <label class="os-label">Operating System <span class="required">*</span></label>
+          <div class="os-input">
+            <div class="window-input">
+              <input type="radio" name="osType" id="windowsRadio" value="Windows">
+              <label for="windowsRadio">Windows</label>
+            </div>
+            <div class="mac-input">
+              <input type="radio" name="osType" id="macRadio" value="Mac">
+              <label for="macRadio">Mac</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="device-model-input">
+          <div class="device-model-select">
+            <div class="select-device-dropdown">
+              <label for="deviceName">Device Name <span class="required">*</span></label>
+              <select>
+                <option value="" selected class="placeholder">Select Device Name</option>
+                <option *ngFor="let value of dropdownValues" [value]="value.id">
+                  {{ value.name }}
+                </option>
+              </select>
+            </div>
+            <div class="quantity-select">
+              <label for="quantity">Quantity <span class="required">*</span></label>
+              <div class="quantity-counter">
+                <div class="reduce-button" (click)="decrement()"><img src="../../../assets/icons/reduce-quantity.svg" /></div>
+                <span class="counter-value">{{ counterValue }}</span>
+                <div class="add-button" (click)="increment()"><img src="../../../assets/icons/add-quantity.svg" /></div>
+              </div>
+            </div>
+          </div>
+          <div class="add-device-check">
+            <input class="form-check-input" type="checkbox" id="addDetailsCheckbox" (change)="toggleDeviceDetailsForm()">
+            <label class="form-check-label" for="addDetailsCheckbox">Add New Device Details</label>
+          </div>
+          <div class="mb-3" *ngIf="showDeviceDetailsForm">
+            <app-add-device-model></app-add-device-model>
+          </div>
+        </div>
+
+
+        <div class="row mb-3" id="deviceDetailsDiv">
+          <div class="col-6">
+            <label for="purchaseDate">Date of Purchase</label>
+            <input type="date" class="form-control" id="purchaseDate" name="purchaseDate">
+          </div>
+          <div class="col-6">
+            <label for="warrantyYear">Warranty Year</label>
+            <input type="number" class="form-control" id="warrantyYear" name="warrantyYear" min="1">
+          </div>
+        </div>
+      </div>
+      <div *ngIf="currentStep === 2" >
+        <app-id-input></app-id-input>
+      </div>
+    </form>
+  </div>
+
+  <div class="add-device-footer">
+    <div class="previous-button">
+      <button *ngIf="currentStep === 2" class="button-layout" (click)="previous()"><span>Previous</span></button>
+    </div>
+    <div class="save-device-button">
+      <button class="button-layout cancel-button"><span>Cancel</span></button>
+      <button *ngIf="currentStep === 1" class="button-layout next-button" (click)="next()"><span>Next</span></button>
+      <button *ngIf="currentStep === 2" class="button-layout"><span>Submit</span></button>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
