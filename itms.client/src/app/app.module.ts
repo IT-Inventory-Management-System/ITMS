@@ -14,9 +14,19 @@ import { EmployeeComponent } from './employee/employee.component';
 import { LicenseComponent } from './license/license.component';
 import { HistoryComponent } from './history/history.component';
 import { AddAssetComponent } from './add-asset/add-asset.component';
+import { AddDeviceFormComponent } from './add-asset/add-device-form/add-device-form.component';
+import { AddDeviceModelComponent } from './add-asset/add-device-form/add-device-model/add-device-model.component';
+import { IdInputComponent } from './add-asset/add-device-form/id-input/id-input.component';
+import { AddSoftwareFormComponent } from './add-asset/add-software-form/add-software-form.component';
+import { UserListComponent } from './user-list/user-list.component';
+import { UserDetailsComponent } from './user-details/user-details.component';
+import { LaptopComponent } from './user-detail/laptop/laptop.component';
 import { CategoryTypeComponent } from './add-asset/category-type/category-type.component';
 import { CategoryCardComponent } from './add-asset/category-card/category-card.component';
 import { CategoryNameComponent } from './add-asset/category-name/category-name.component';
+import { AssetsCategoryComponent } from './inventory/assets-category/assets-category.component';
+import { HeaderComponent } from './inventory/assets-category/header/header.component';
+import { AssestComponent } from './inventory/assets-category/assest/assest.component';
 
 
 @NgModule({
@@ -31,9 +41,19 @@ import { CategoryNameComponent } from './add-asset/category-name/category-name.c
     LicenseComponent,
     HistoryComponent,
     AddAssetComponent,
+    AddDeviceFormComponent,
+    AddDeviceModelComponent,
+    IdInputComponent,
+    AddSoftwareFormComponent,
+    UserListComponent,
+    UserDetailsComponent,
     CategoryTypeComponent,
     CategoryCardComponent,
     CategoryNameComponent,
+    AssetsCategoryComponent,
+    HeaderComponent,
+    AssestComponent,
+
   ],
   imports: [
     BrowserModule,
