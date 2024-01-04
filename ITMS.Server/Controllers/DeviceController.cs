@@ -1,3 +1,4 @@
+
 ﻿using ITMS.Server.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,10 +12,7 @@ namespace ITMS.Server.Controllers
     {
         private readonly DeviceService _deviceService;
 
-        public DeviceController(DeviceService deviceService)
-        {
-            _deviceService = deviceService;
-        }
+
 
 
 
@@ -37,3 +35,5 @@ namespace ITMS.Server.Controllers
 
 
 }
+
+

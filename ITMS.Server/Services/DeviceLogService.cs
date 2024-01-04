@@ -1,4 +1,5 @@
-﻿// Services/DeviceLogService.cs
+
+
 using ITMS.Server.Models;
 
 public class DeviceLogService
@@ -24,5 +25,4 @@ public class DeviceLogService
     }
 
     
-    // Add other methods for specific business logic related to device history
-}
+

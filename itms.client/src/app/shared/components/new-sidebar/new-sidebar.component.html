@@ -1,0 +1,31 @@
+
+<div class="sidebar" [ngClass]="{'collapsed': isCollapsed}">
+
+  <div class="content">
+    <img class="sidebar-icon" src="../../assets/icons/Dashbord.svg" alt="Sidebar Image" />
+    <span *ngIf="!isCollapsed">Dashboard</span>
+  </div>
+  <div class="content">
+    <img src="../../assets/icons/Assets.svg" alt="Sidebar Image" />
+    <span *ngIf="!isCollapsed">Assets</span>
+  </div>
+  <div class="content">
+    <img src="../../assets/icons/Software.svg" alt="Sidebar Image" />
+    <span *ngIf="!isCollapsed">Software</span>
+  </div>
+  <div class="content">
+    <img src="../../assets/icons/Users.svg" alt="Sidebar Image" />
+    <span *ngIf="!isCollapsed">User</span>
+  </div>
+  <div class="content">
+    <img src="../../assets/icons/Logs.svg" alt="Sidebar Image" />
+    <span *ngIf="!isCollapsed">Activity Logs</span>
+  </div>
+  <div class="content-collapse" (click)="toggleCollapse()">
+    <img class="collapse-expand" src="../../assets/icons/collapse.svg" alt="Expanded Icon" *ngIf="!isCollapsed" />
+    <img class="collapse-expand" src="../../assets/icons/expand.svg" alt="Collapsed Icon" *ngIf="isCollapsed" />
+    <span *ngIf="!isCollapsed">Collapse</span>
+  </div>
+</div>
+
+

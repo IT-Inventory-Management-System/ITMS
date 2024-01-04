@@ -1,16 +1,17 @@
-// Controllers/DeviceLogController.cs
-using Microsoft.AspNetCore.Mvc;
+//// Controllers/DeviceLogController.cs
+//using Microsoft.AspNetCore.Mvc;
 
-[ApiController]
-[Route("api/[controller]")]
-public class DeviceLogController : ControllerBase
-{
-    private readonly DeviceLogService _deviceLogService;
+//[ApiController]
+//[Route("api/[controller]")]
+//public class DeviceLogController : ControllerBase
+//{
+//    private readonly DeviceLogService _deviceLogService;
 
-    public DeviceLogController(DeviceLogService deviceLogService)
-    {
-        _deviceLogService = deviceLogService;
-    }
+//    public DeviceLogController(DeviceLogService deviceLogService)
+//    {
+//        _deviceLogService = deviceLogService;
+//    }
+
 
     [HttpGet("devices")]
     public IActionResult GetDeviceHistory()
