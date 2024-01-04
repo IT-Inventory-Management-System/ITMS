@@ -22,7 +22,6 @@ import { UserListComponent } from './user-list/user-list.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { LaptopComponent } from './user-detail/laptop/laptop.component';
 import { CategoryTypeComponent } from './add-asset/category-type/category-type.component';
-import { CategoryNameComponent } from './add-asset/category-name/category-name.component';
 import { AssetsCategoryComponent } from './inventory/assets-category/assets-category.component';
 import { HeaderComponent } from './inventory/assets-category/header/header.component';
 import { AssestComponent } from './inventory/assets-category/assest/assest.component';
@@ -38,6 +37,11 @@ import { SoftwareDetailsComponent } from './user-details/software-details/softwa
 import { AccessoriesDetailsComponent } from './user-details/accessories-details/accessories-details.component';
 import { CommentsComponent } from './shared/components/comments/comments.component';
 import { CategoryCardComponent } from './add-asset/category-card/category-card.component';
+import { CategoryNameComponent } from './add-asset/category-name/category-name.component';
+import { AssignAssetComponent } from './assign-asset/assign-asset.component';
+import { AssignLaptopComponent } from './assign-asset/assign-laptop/assign-laptop.component';
+import { AssignSoftwareComponent } from './assign-asset/assign-software/assign-software.component';
+import { AssignAccessoriesComponent } from './assign-asset/assign-accessories/assign-accessories.component';
 
 
 @NgModule({
@@ -61,6 +65,10 @@ import { CategoryCardComponent } from './add-asset/category-card/category-card.c
     CategoryTypeComponent,
     CategoryCardComponent,
     CategoryNameComponent,
+    AssignAssetComponent,
+    AssignLaptopComponent,
+    AssignSoftwareComponent,
+    AssignAccessoriesComponent,
     AssetsCategoryComponent,
     HeaderComponent,
     AssestComponent,
