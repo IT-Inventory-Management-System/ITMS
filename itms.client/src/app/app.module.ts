@@ -13,6 +13,7 @@ import { EmployeeComponent } from './employee/employee.component';
 import { LicenseComponent } from './license/license.component';
 import { HistoryComponent } from './history/history.component';
 import { AddAssetComponent } from './add-asset/add-asset.component';
+
 import { AddDeviceFormComponent } from './add-asset/add-device-form/add-device-form.component';
 import { AddDeviceModelComponent } from './add-asset/add-device-form/add-device-model/add-device-model.component';
 import { IdInputComponent } from './add-asset/add-device-form/id-input/id-input.component';
@@ -21,12 +22,22 @@ import { UserListComponent } from './user-list/user-list.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { LaptopComponent } from './user-detail/laptop/laptop.component';
 import { CategoryTypeComponent } from './add-asset/category-type/category-type.component';
-import { CategoryCardComponent } from './add-asset/category-card/category-card.component';
 import { CategoryNameComponent } from './add-asset/category-name/category-name.component';
 import { AssetsCategoryComponent } from './inventory/assets-category/assets-category.component';
 import { HeaderComponent } from './inventory/assets-category/header/header.component';
 import { AssestComponent } from './inventory/assets-category/assest/assest.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DashboardAssetsComponent } from './dashboard/dashboard-assets/dashboard-assets.component';
+
+import { SpecificationComponent } from './inventory/assets-category/assest/specification/specification.component';
+import { SpecInfoComponent } from './inventory/assets-category/assest/specification/spec-info/spec-info.component';
+import { DevicesComponent } from './inventory/assets-category/assest/devices/devices.component';
+import { DevicesListComponent } from './inventory/assets-category/assest/devices/devices-list/devices-list.component';
+import { LaptopDetailsComponent } from './user-details/laptop-details/laptop-details.component';
+import { SoftwareDetailsComponent } from './user-details/software-details/software-details.component';
+import { AccessoriesDetailsComponent } from './user-details/accessories-details/accessories-details.component';
+import { CommentsComponent } from './shared/components/comments/comments.component';
+import { CategoryCardComponent } from './add-asset/category-card/category-card.component';
 
 
 @NgModule({
@@ -53,6 +64,15 @@ import { ReactiveFormsModule } from '@angular/forms';
     AssetsCategoryComponent,
     HeaderComponent,
     AssestComponent,
+    DashboardAssetsComponent,
+    LaptopDetailsComponent,
+    SoftwareDetailsComponent,
+    AccessoriesDetailsComponent,
+    CommentsComponent,
+    SpecificationComponent,
+    SpecInfoComponent,
+    DevicesComponent,
+    DevicesListComponent,
 
   ],
   imports: [
