@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class DataService {
-  private apiUrl = 'https://localhost:7283/api/'; 
+  private apiUrl = 'https://localhost:44384/api/'; 
   constructor(private http: HttpClient) { }
 
   getCategories(): Observable<any[]> {
