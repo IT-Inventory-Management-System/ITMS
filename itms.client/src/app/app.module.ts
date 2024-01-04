@@ -32,6 +32,8 @@ import { SpecificationComponent } from './inventory/assets-category/assest/speci
 import { SpecInfoComponent } from './inventory/assets-category/assest/specification/spec-info/spec-info.component';
 import { DevicesComponent } from './inventory/assets-category/assest/devices/devices.component';
 import { DevicesListComponent } from './inventory/assets-category/assest/devices/devices-list/devices-list.component';
+import { AssignHistoryComponent } from './inventory/assets-category/assest/assign-history/assign-history.component';
+import { CommentCardComponent } from './inventory/assets-category/assest/assign-history/comment-card/comment-card.component';
 
 
 @NgModule({
@@ -62,6 +64,8 @@ import { DevicesListComponent } from './inventory/assets-category/assest/devices
     SpecInfoComponent,
     DevicesComponent,
     DevicesListComponent,
+    AssignHistoryComponent,
+    CommentCardComponent
 
   ],
   imports: [
