@@ -58,6 +58,10 @@
     outline-color: transparent;
 }
 
-user-name-list{
+.user-name-list{
     width: 100%;
+    gap: 0.5rem;
+    display: flex;
+    flex-direction:column;
+
 }

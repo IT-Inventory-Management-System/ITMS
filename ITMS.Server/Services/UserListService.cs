@@ -28,7 +28,7 @@ public class UserListService : IUserListService
                                 FirstName = e.FirstName,
                                 LastName = e.LastName
                             }).ToListAsync();
-
+        
         return result;
     }
 

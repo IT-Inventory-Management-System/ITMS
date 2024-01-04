@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'user-name-list',
@@ -6,5 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./user-name-list.component.css']
 })
 export class UserNameListComponent {
+  @Input() cgiid: string;
+  @Input() firstName: string;
+  @Input() lastName: string;
 
 }

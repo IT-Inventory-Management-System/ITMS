@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
@@ -33,6 +32,11 @@ import { AssestComponent } from './inventory/assets-category/assest/assest.compo
 @NgModule({
   declarations: [
     AppComponent,
+    AssestComponent,
+    UserNameListComponent,
+    AssetsCategoryComponent,
+    HeaderComponent,
+    LaptopComponent,
     SidebarComponent,
     NavbarComponent,
     DashboardComponent,
