@@ -31,12 +31,6 @@ export class DevicesComponent {
     )
   }
 
-  @Output() deviceClicked = new EventEmitter<string>();
-
-  onDeviceClick() {
-    this.deviceClicked.emit(this.DeviceData);
-  }
-
   //loadDeviceData(deviceId: string) {
   //  // Fetch and set data for the selected device
   //  this.dataService.getDevicesInfo(deviceId).subscribe(

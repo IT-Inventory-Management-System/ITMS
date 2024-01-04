@@ -16,9 +16,4 @@ export class DataService {
     return this.http.get<any[]>(this.apiUrl + 'DeviceLog/devices');
   }
 
-
-  getDevicesInfo(deviceId:string): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl+'devices/{deviceId}');
-
-  }
 }
