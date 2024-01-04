@@ -17,6 +17,10 @@ import { AddAssetComponent } from './add-asset/add-asset.component';
 import { CategoryTypeComponent } from './add-asset/category-type/category-type.component';
 import { CategoryCardComponent } from './add-asset/category-card/category-card.component';
 import { CategoryNameComponent } from './add-asset/category-name/category-name.component';
+import { AssignAssetComponent } from './assign-asset/assign-asset.component';
+import { AssignLaptopComponent } from './assign-asset/assign-laptop/assign-laptop.component';
+import { AssignSoftwareComponent } from './assign-asset/assign-software/assign-software.component';
+import { AssignAccessoriesComponent } from './assign-asset/assign-accessories/assign-accessories.component';
 
 
 @NgModule({
@@ -34,6 +38,10 @@ import { CategoryNameComponent } from './add-asset/category-name/category-name.c
     CategoryTypeComponent,
     CategoryCardComponent,
     CategoryNameComponent,
+    AssignAssetComponent,
+    AssignLaptopComponent,
+    AssignSoftwareComponent,
+    AssignAccessoriesComponent,
   ],
   imports: [
     BrowserModule,
