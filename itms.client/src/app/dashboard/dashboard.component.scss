@@ -1,0 +1,47 @@
+
+.dashboard-title {
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-align:left;
+}
+.header{
+    text-align:right;
+}
+
+
+.lastupdate {
+  color: var(--Primary-Gray, #343435);
+  text-align: right !important;
+  font-family: Roboto;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  
+  line-height: normal;
+}
+
+.Time {
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.GMT {
+  color: var(--Primary-Gray, #343435);
+  text-align: right;
+  font-family: Roboto;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+
+

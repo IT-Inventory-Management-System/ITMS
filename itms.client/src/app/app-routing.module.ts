@@ -9,6 +9,7 @@ import { HistoryComponent } from './history/history.component';
 import { AddAssetComponent } from './add-asset/add-asset.component';
 
 
+
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'category', component: CategoryComponent },
