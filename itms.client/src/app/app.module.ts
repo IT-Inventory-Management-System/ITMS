@@ -23,6 +23,10 @@ import { CategoryNameComponent } from './add-asset/category-name/category-name.c
 import { AssetsCategoryComponent } from './inventory/assets-category/assets-category.component';
 import { HeaderComponent } from './inventory/assets-category/header/header.component';
 import { AssestComponent } from './inventory/assets-category/assest/assest.component';
+import { LaptopDetailsComponent } from './user-details/laptop-details/laptop-details.component';
+import { SoftwareDetailsComponent } from './user-details/software-details/software-details.component';
+import { AccessoriesDetailsComponent } from './user-details/accessories-details/accessories-details.component';
+import { CommentsComponent } from './shared/components/comments/comments.component';
 
 
 @NgModule({
@@ -46,6 +50,10 @@ import { AssestComponent } from './inventory/assets-category/assest/assest.compo
     AssetsCategoryComponent,
     HeaderComponent,
     AssestComponent,
+    LaptopDetailsComponent,
+    SoftwareDetailsComponent,
+    AccessoriesDetailsComponent,
+    CommentsComponent,
   ],
   imports: [
     BrowserModule,
