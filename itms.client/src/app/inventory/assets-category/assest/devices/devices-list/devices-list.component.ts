@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-devices-list',
@@ -6,10 +6,14 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./devices-list.component.css']
 })
 export class DevicesListComponent {
-  @Input() Cygid: string = '';
+  @Input() device: any;
 
-  constructor() {
-    console.log(this.Cygid);
+  @Output() selectedDevice = new EventEmitter<string>();
+
+  onDeviceClick() {
+    this.selectedDevice.emit(this.device);
   }
+
+  
 
 }
