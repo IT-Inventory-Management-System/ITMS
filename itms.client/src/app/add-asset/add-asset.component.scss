@@ -31,10 +31,12 @@
 }
 .category_container {
   display: flex;
-  height: 657px;
+  height: 41.0625rem;
+  width:19.75rem;
   flex-direction: column;
   align-items: center;
   gap: 16px;
+  overflow-y:auto;
 }
 .add_device_container {
   display: flex;
@@ -99,6 +101,7 @@
   line-height: normal;
   flex: 1 0 0;
   opacity: 0.5;
+  border:none;
 }
 app-category-card {
   display: flex;

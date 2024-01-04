@@ -1,4 +1,4 @@
-app-category-name {
+/*app-category-name {
 
   display: flex;
   padding: 0.75rem;
@@ -8,7 +8,7 @@ app-category-name {
   border-radius: 0.25rem;
   border: 1px solid var(--Primary-Blue, #28519E);
   background: #F5F8FE;
- width:22.4rem;
+  width:100%;
   color: var(--Primary-Gray, #343435);
   text-align: center;
   font-family: Roboto;
@@ -17,8 +17,11 @@ app-category-name {
   font-weight: 600;
   line-height: normal;
   margin-bottom:0.5rem;
+}*/
+
+
+.category_container{
+    width:100%;
 }
-  app-category-name:active {
-    background: var(--Primary-Blue, #28519E);
-  }
+
 
