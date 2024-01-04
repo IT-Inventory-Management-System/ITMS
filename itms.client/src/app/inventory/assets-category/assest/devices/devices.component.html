@@ -5,6 +5,7 @@
       <input type="text" placeholder="Search Devices" class="select-bar-2" />
     </div>
   </div>
-  <app-devices-list *ngFor="let id of DeviceData" [Cygid]="id.cygid"></app-devices-list>
+  <app-devices-list *ngFor="let device of DeviceData" [device]="device" ></app-devices-list>
+  <app-specification [selectedDevice]="selectedDevice"></app-specification>
 </div>
 

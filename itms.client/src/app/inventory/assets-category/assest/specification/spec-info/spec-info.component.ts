@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-spec-info',
@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./spec-info.component.css']
 })
 export class SpecInfoComponent {
+  @Input() info: any;
+
+  info1(details: any) {
+    this.info = details;
+
+  }
 
 }
