@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { DataService } from '../../../../shared/services/data.service';
 
 @Component({
@@ -8,6 +8,8 @@ import { DataService } from '../../../../shared/services/data.service';
 })
 export class DevicesComponent {
   DeviceData: any[] = [];
+
+
 
   constructor(private dataService: DataService) {
     this.DeviceData = [];
@@ -29,5 +31,22 @@ export class DevicesComponent {
     )
   }
 
+  @Output() deviceClicked = new EventEmitter<string>();
+
+  onDeviceClick() {
+    this.deviceClicked.emit(this.DeviceData);
+  }
+
+  //loadDeviceData(deviceId: string) {
+  //  // Fetch and set data for the selected device
+  //  this.dataService.getDevicesInfo(deviceId).subscribe(
+  //    (data) => {
+  //      this.selectedDevice = data;
+  //    },
+  //    (error) => {
+  //      console.error('Error fetching device data:', error);
+  //    }
+  //  );
+  //}
 
 }

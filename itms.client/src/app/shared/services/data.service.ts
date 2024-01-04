@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class DataService {
-  private apiUrl = 'https://localhost:7283/api/'; 
+  private apiUrl = 'https://localhost:7283/api/';
   constructor(private http: HttpClient) { }
 
   getCategories(): Observable<any[]> {
@@ -16,4 +16,9 @@ export class DataService {
     return this.http.get<any[]>(this.apiUrl + 'DeviceLog/devices');
   }
 
+
+  getDevicesInfo(deviceId:string): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl+'devices/{deviceId}');
+
+  }
 }
