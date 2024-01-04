@@ -32,6 +32,10 @@ import { SpecificationComponent } from './inventory/assets-category/assest/speci
 import { SpecInfoComponent } from './inventory/assets-category/assest/specification/spec-info/spec-info.component';
 import { DevicesComponent } from './inventory/assets-category/assest/devices/devices.component';
 import { DevicesListComponent } from './inventory/assets-category/assest/devices/devices-list/devices-list.component';
+import { LaptopDetailsComponent } from './user-details/laptop-details/laptop-details.component';
+import { SoftwareDetailsComponent } from './user-details/software-details/software-details.component';
+import { AccessoriesDetailsComponent } from './user-details/accessories-details/accessories-details.component';
+import { CommentsComponent } from './shared/components/comments/comments.component';
 
 
 @NgModule({
@@ -58,6 +62,10 @@ import { DevicesListComponent } from './inventory/assets-category/assest/devices
     AssetsCategoryComponent,
     HeaderComponent,
     AssestComponent,
+    LaptopDetailsComponent,
+    SoftwareDetailsComponent,
+    AccessoriesDetailsComponent,
+    CommentsComponent,
     SpecificationComponent,
     SpecInfoComponent,
     DevicesComponent,
