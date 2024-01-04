@@ -1,11 +1,12 @@
-﻿//// Services/UserDeviceService.cs
-//using System;
 
-//public class UserDeviceService
-//{
-//    private readonly AppDbContext _dbContext;
+//using ITMS.Server.Models;
 
-//    public UserDeviceService(AppDbContext dbContext)
+//    private readonly ItinventorySystemContext _dbContext;
+
+//    public UserDeviceService(ItinventorySystemContext dbContext)
+
+
+
 //    {
 //        _dbContext = dbContext;
 //    }
