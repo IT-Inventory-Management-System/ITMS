@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
@@ -27,6 +26,7 @@ import { CategoryNameComponent } from './add-asset/category-name/category-name.c
 import { AssetsCategoryComponent } from './inventory/assets-category/assets-category.component';
 import { HeaderComponent } from './inventory/assets-category/header/header.component';
 import { AssestComponent } from './inventory/assets-category/assest/assest.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -59,7 +59,8 @@ import { AssestComponent } from './inventory/assets-category/assest/assest.compo
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    AvatarModule
+    AvatarModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

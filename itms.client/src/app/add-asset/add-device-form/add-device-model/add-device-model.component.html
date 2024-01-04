@@ -10,32 +10,32 @@
       Please Provide the model number of the laptop along with details about its processor configuration.
     </div>
   </div>
-  <form class="device-form">
+  <form class="device-form" [formGroup]="deviceForm" (ngSubmit)="onSubmit()">
     <div class="form-field">
       <label class="label" for="deviceName">Device Name <span class="required">*</span></label>
-      <input type="text" id="deviceName" class="input-field" placeholder="Enter device name" required>
+      <input type="text" id="deviceName" class="input-field" placeholder="Enter device name" formControlName="deviceName" required>
     </div>
     <div class="form-field-2">
       <div class="input-small">
         <label class="label" for="brand">Brand <span class="required">*</span></label>
-        <input type="text" id="brand" class="input-field" placeholder="Enter Brand Name" required>
+        <input type="text" id="brand" class="input-field" placeholder="Enter Brand Name" required formControlName="brand">
       </div>
       <div class="input-small">
         <label class="label" for="modelNo">Model No. <span class="required">*</span></label>
-        <input type="text" id="modelNo" class="input-field" placeholder="Enter Model No." required>
+        <input type="text" id="modelNo" class="input-field" placeholder="Enter Model No." required formControlName="modelNo" />
       </div>
     </div>
 
     <div class="form-field3">
       <label class="label" for="ramSelector">RAM (GB) <span class="required">*</span></label>
       <div class="ram-selector">
-        <button type="button" class="ram-button" value="16">16</button>
-        <button type="button" class="ram-button" value="32">32</button>
-        <button type="button" class="ram-button" value="64">64</button>
+        <button type="button" class="ram-button" value="16" (click)="selectRam(16)">16</button>
+        <button type="button" class="ram-button" value="32" (click)="selectRam(32)">32</button>
+        <button type="button" class="ram-button" value="64" (click)="selectRam(64)">64</button>
         <!-- Add more buttons if needed -->
         <div class="ram-other">
           <label for="otherRam">Other</label>
-          <input type="text" id="otherRam" class="ram-other-input-field" placeholder="Other" />
+          <input type="text" id="otherRam" class="ram-other-input-field" placeholder="Other" formControlName="otherRam"/>
         </div>
 
       </div>
@@ -43,18 +43,18 @@
 
     <div class="form-field">
       <label class="label" for="processor">Processor <span class="required">*</span></label>
-      <input type="text" id="processor" class="input-field" placeholder="Enter Processor " required>
+      <input type="text" id="processor" class="input-field" placeholder="Enter Processor " formControlName="processor" required>
     </div>
     <div class="form-field3">
       <label class="label" for="">Storage (GB) <span class="required">*</span></label>
       <div class="storage-selector">
-        <div class="storage-button" value="16">256</div>
-        <div class="storage-button" value="32">512</div>
-        <div class="storage-button" value="64">1024</div>
+        <button class="storage-button" value="256" (click)="selectStorage(256)">256</button>
+        <button class="storage-button" value="512" (click)="selectStorage(512)">512</button>
+        <button class="storage-button" value="1024" (click)="selectStorage(1024)">1024</button>
             <!-- Add more buttons if needed -->
         <div class="storage-other">
-          <label for="otherRam">Other</label>
-          <input type="text" id="otherRam" class="ram-other-input-field" placeholder="Other" />
+          <label for="otherStorage" >Other</label>
+          <input type="text" id="otherStorage" class="ram-other-input-field" placeholder="Other" formControlName="otherStorage" />
         </div>
 
       </div>

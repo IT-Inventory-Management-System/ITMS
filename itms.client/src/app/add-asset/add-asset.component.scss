@@ -88,6 +88,8 @@
   border: 1px solid var(--Secondary-Gray, #B2B2B3);
   background: #FFF;
 }
+
+
 .search_image {
   width: 1.5rem;
   height: 1.5rem;
@@ -101,6 +103,7 @@
   line-height: normal;
   flex: 1 0 0;
   opacity: 0.5;
+  border: none;
 }
 app-category-card {
   display: flex;
