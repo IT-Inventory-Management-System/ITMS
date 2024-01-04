@@ -33,16 +33,20 @@ export class AddDeviceFormComponent implements OnInit {
   //}
 
   counterValue: number = 0;
-    
-  increment() {
-      this.counterValue++;
-    }
 
-    decrement() {
-      if (this.counterValue > 0) {
-        this.counterValue--;
-      }
+  get counterValues(): number[] {
+    return Array.from({ length: this.counterValue }, (_, i) => i + 1);
+  }
+
+  increment() {
+    this.counterValue++;
+  }
+
+  decrement() {
+    if (this.counterValue > 0) {
+      this.counterValue--;
     }
+  }
 
   showDeviceDetailsForm = false;
 
