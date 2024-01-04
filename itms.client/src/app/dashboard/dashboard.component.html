@@ -1,13 +1,113 @@
-<h2>dashboard works!</h2>
-<!--<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-9 main">
-          <div class="row">
-
-          </div>
+<div class="container-fluid ">
+  <div class="row header">
+    <div class="col-8 dashboard-title ">
+      Dashboard
     </div>
-    <div class="col-md-3 mi">
+    <div class="col-4 ">
+      <div class="row">
+        <span class="last-update"> Last Updated: <span class="Time">12-12-2023, 09:30 AM</span></span>
+
+      </div>
+      <div class="GMT">
+        (GMT-06:00) Central Time (US & Canada)
+      </div>
 
     </div>
   </div>
-</div>-->
+
+
+  <div class="row  KPI-card  ">
+
+    <div class=" col-8 col1  ">
+      <div class="total-asset ">
+        <div class="row header ">
+          <div class="col-8  Total-asset-Title">
+            Total Assets
+          </div>
+          <div class="col-4 Filter">
+            <span class="filter-by"> Filter by</span>
+            <!-- Example single danger button -->
+            <div class="btn-group">
+              <button type="button" class="btn btn dropdown-toggle " data-bs-toggle="dropdown" aria-expanded="false">
+                Asset Age
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">Separated link</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="container-fluid Assets">
+          <div class="Section1 row">
+            <div class="col-6">
+              <app-dashboard-assets></app-dashboard-assets>
+            </div>
+            <div class="col-6">
+              <app-dashboard-assets></app-dashboard-assets>
+            </div>
+          </div>
+          <div class="Section2 row">
+            <div class="col-6">
+              <app-dashboard-assets></app-dashboard-assets>
+            </div>
+            <div class="col-6">
+              <app-dashboard-assets></app-dashboard-assets>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="row">
+          <div class="col-6 Assesories-Details">
+            <div class="Assesories-Heading">
+              <div class="Assesories-Text">Accessories</div>
+             
+                <img src="../../../assets/icons/dashboard/Chevron.svg" />
+             
+            </div>
+            <div class="Search-section">
+              <img src="../../../assets/icons/dashboard/search.svg" />
+              <input class="Search-text" placeholder="Search by accessories name" />
+            </div>
+            <div class="Software-Content">
+              <app-dashboard-assets></app-dashboard-assets>
+              <app-dashboard-assets></app-dashboard-assets>
+              <app-dashboard-assets></app-dashboard-assets>
+               <app-dashboard-assets></app-dashboard-assets>
+            </div>
+
+          </div>
+          <div class="col-6 Software">
+            software
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+    <div class="  Recent-Activity">
+      <div class="Recent-Activity-Heading">
+        <div class="Recent-Activity-Text">
+          Recent Activity
+          <img src="../../../assets/icons/dashboard/Chevron.svg" />
+        </div>
+        
+  </div>
+      <div class="Recent-Activity-Content">
+
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+
+
+
+
