@@ -17,6 +17,7 @@
   font-style: normal;
   font-weight: 600;
   line-height: normal;
+
 }
 .content-box {
   display: flex;
@@ -36,6 +37,7 @@
   align-items: center;
   gap: 16px;
   overflow-y:auto;
+  overflow-x:hidden;
 }
 .add_device_container {
   display: flex;
@@ -100,6 +102,10 @@
   line-height: normal;
   flex: 1 0 0;
   opacity: 0.5;
+  border:none;
+}
+.search_input:focus{
+    border:none;
 }
 app-category-card {
   display: flex;
@@ -107,6 +113,6 @@ app-category-card {
   justify-content: center;
   align-items: flex-start;
   gap: 0.5rem;
-  align-self: stretch;
+  align-self: stretch ;
   width:100%;
 }

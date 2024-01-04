@@ -1,4 +1,3 @@
-
 <div class="container-fluid add_asset_container">
   <div class="row header">
     Add Assets
@@ -10,16 +9,15 @@
         <input type="text" class="serach_input" placeholder="Search Device" />
       </div>
       <app-category-card *ngFor="let category of categoryData" [typeName]="category.typeName" [categories]="category.categories"></app-category-card>
-      </div>
+
+
+
+
+    </div>
     <div class="col-8 add_device_container">
-      <div class="row add_device_header">
-        kgiug
-      </div>
       <div class="row add_device_contents">
-
-      </div>
-      <div class="row add_device_footer">
-
+        <app-add-device-form></app-add-device-form>
+        <app-add-software-form></app-add-software-form>
       </div>
     </div>
   </div>

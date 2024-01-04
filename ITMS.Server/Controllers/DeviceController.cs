@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ITMS.Server.Controllers
 {
     // DeviceController.cs
-    [Route("api/devices")]
+    [Route("api/categories")]
     [ApiController]
     public class DeviceController : ControllerBase
     {

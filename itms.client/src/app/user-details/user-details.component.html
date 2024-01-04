@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Details</title>
+  
+</head>
+
+<body>
+  <div class="page-container">
+    <div class="row container">
+      <div class="col-md-6 name-header">
+        <div class="row">
+          <div class="col-md-1 avatar">
+            <ngx-avatars name="Marvin McKinney" [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true"></ngx-avatars>
+          </div>
+          <div class="col-md-4 user-details">
+            <div class="user-name" style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1.125rem; font-style: normal; font-weight: 600; line-height: normal;">Marvin McKinney</div>
+            <div class="user-info">CGI 098</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 assign-button">
+        <div class="button-container">
+          <img src="../../../../assets/icons/Add.svg">
+          <div class="button-text">Assign</div>
+        </div>
+      </div>
+    </div>
+
+      <div class="row page-change">
+        <div class="pages">
+          <button class="btn">Laptop</button>
+        </div>
+        <div class="pages">
+          <button class="btn">Software</button>
+        </div>
+        <div class="pages">
+          <button class="btn">Accessories</button>
+        </div>
+      </div>
+
+    <app-laptop-details></app-laptop-details>
+    
+  </div>
+</body>
+
+</html>
+
+
