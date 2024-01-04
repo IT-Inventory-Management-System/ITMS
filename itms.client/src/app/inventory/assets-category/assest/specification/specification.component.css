@@ -67,7 +67,6 @@ body {
   line-height: normal;
 }
 .button-container {
-  margin-top: 1rem; /* Add space between status and button */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -133,4 +132,10 @@ body {
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+}
+.spec-outer {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  align-self: stretch;
 }
