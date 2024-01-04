@@ -1,19 +1,19 @@
 
 <div class="sidebar" [ngClass]="{'collapsed': isCollapsed}">
 
-  <div class="content">
+  <div class="content" routerLink="/dashboard">
     <img class="sidebar-icon" src="../../assets/icons/Dashbord.svg" alt="Sidebar Image" />
     <span *ngIf="!isCollapsed">Dashboard</span>
   </div>
-  <div class="content">
+  <div class="content" routerLink="/inventory">
     <img src="../../assets/icons/Assets.svg" alt="Sidebar Image" />
     <span *ngIf="!isCollapsed">Assets</span>
   </div>
-  <div class="content">
+  <div class="content" routerLink="">
     <img src="../../assets/icons/Software.svg" alt="Sidebar Image" />
     <span *ngIf="!isCollapsed">Software</span>
   </div>
-  <div class="content">
+  <div class="content" routerLink="/employee">
     <img src="../../assets/icons/Users.svg" alt="Sidebar Image" />
     <span *ngIf="!isCollapsed">User</span>
   </div>

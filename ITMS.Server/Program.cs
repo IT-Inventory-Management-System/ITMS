@@ -12,13 +12,13 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ItinventorySystemContext>(options =>
 {
-    //the change occurs here.
-    //builder.cofiguration and not just configuration
 
-   // options.UseSqlServer(builder.Configuration.GetConnectionString("Server=.\\SQLExpress;Database=ITInventoryManagement;Trusted_Connection=True;"));
+
+    options.UseSqlServer("Server=.\\IN-HARLEEN-CHAD\\SQLExpress;Database=ITInventoryManagement;Trusted_Connection=True;");
+    
 });
 builder.Services.AddScoped<IDeviceService, AddDeviceService>();
-builder.Services.AddScoped<DeviceService>();
+//builder.Services.AddScoped<DeviceService>();
 builder.Services.AddScoped<DeviceLogService>();
 
 
@@ -30,8 +30,7 @@ builder.Services.AddCors(options =>
         builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
     });
 
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Server=.\\SQLExpress;Database=ITInventoryManagementSystem;Trusted_Connection=True;"));
-
+    
 });
 
 var app = builder.Build();
