@@ -27,6 +27,8 @@ import { CategoryNameComponent } from './add-asset/category-name/category-name.c
 import { AssetsCategoryComponent } from './inventory/assets-category/assets-category.component';
 import { HeaderComponent } from './inventory/assets-category/header/header.component';
 import { AssestComponent } from './inventory/assets-category/assest/assest.component';
+import { DashboardAssetsComponent } from './dashboard/dashboard-assets/dashboard-assets.component';
+
 
 
 @NgModule({
@@ -53,6 +55,7 @@ import { AssestComponent } from './inventory/assets-category/assest/assest.compo
     AssetsCategoryComponent,
     HeaderComponent,
     AssestComponent,
+    DashboardAssetsComponent,
 
   ],
   imports: [
