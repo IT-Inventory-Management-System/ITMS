@@ -10,6 +10,10 @@ export class DataService {
   constructor(private http: HttpClient) { }
 
   getCategories(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl + 'devices/categories');
+    return this.http.get<any[]>(this.apiUrl + 'categories/categories');
   }
+  getDevices(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + 'DeviceLog/devices');
+  }
+
 }

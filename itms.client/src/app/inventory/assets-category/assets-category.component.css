@@ -1,18 +1,18 @@
 .assetdiv {
-  width: Hug(1,176px);
-  height: Fixed (739px) ;
-  top: 72px;
-  left: 84px ;
-  gap: 16px;
-
+  width: 73.5rem;
+  display: inline-flex;
+  height: 46.1875rem;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-shrink: 0;
+  
+  
 }
 p {
-  width: 62px;
-  height: 23px;
+  color: var(--Primary-Gray, #343435);
   font-family: Roboto;
-  font-size: 20px;
+  font-size: 1.25rem;
+  font-style: normal;
   font-weight: 600;
-  line-height: 23px;
-  letter-spacing: 0em;
-  text-align: left;
+  line-height: normal;
 }
