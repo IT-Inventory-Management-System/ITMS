@@ -11,12 +11,12 @@ export class CategoryCardComponent {
   @Input() typeName: string = '';
   @Input() categories: any[] = [];
 
-  selectedCategory: any | null = null;
+  selectedCategory: string = '';
 
-  handleCategoryClick(category: any) {
+  handleCategoryClick(category: string) {
     if (this.selectedCategory === category) {
       // Deselect the category if it's already selected
-      this.selectedCategory = null;
+      this.selectedCategory = '';
     } else {
       // Select the clicked category
       this.selectedCategory = category;
