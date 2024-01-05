@@ -6,6 +6,7 @@ import { DataService } from '../../../../../shared/services/data.service';
   templateUrl: './spec-info.component.html',
   styleUrls: ['./spec-info.component.css']
 })
+
 export class SpecInfoComponent {
   
 
@@ -22,6 +23,7 @@ constructor(private dataService: DataService) { }
     return Object.keys(obj);
   }
  
+
 
 
 }
