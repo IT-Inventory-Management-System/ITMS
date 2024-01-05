@@ -119,6 +119,7 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 0.375rem;
+  margin-top: 1.25rem;
 }
 
 .ram-selector {
@@ -131,7 +132,7 @@
 .ram-button {
   display: flex;
   width: 5.08594rem;
-  padding: 0.75rem 1rem;
+  padding-top: 0.50rem;
   flex-direction: column;
   align-items: center;
   gap: 0.75rem;
@@ -139,16 +140,18 @@
   appearance: none;
   border-radius: 0.25rem;
   border: 1px solid #CACACA;
-  background: #FFF; 
+  background: #FFF;
+  height: 2.5rem;
 }
 
 
-.ram-button.selected {
-  background: var(--Secondary-Light-Blue, #B8DDE1);
-  opacity: 1;
-}
+  .ram-button.selected {
+    background: var(--Primary-Blue, #28519E);
+    color: white;
+  }
 
-.ram-other label {
+
+.ram-other label, .storage-other label{
   color: var(--Primary-Gray, #343435);
   font-family: Roboto;
   font-size: 0.8125rem;
@@ -157,7 +160,7 @@
   line-height: normal;
 }
 
-.ram-other {
+.ram-other, .storage-other {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -177,15 +180,15 @@
   background: #FFF;
 }
 
-  .ram-other-input-field::placeholder {
-    color: var(--Primary-Gray, #343435);
-    font-family: Roboto;
-    font-size: 0.875rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    opacity: 0.5;
-  }
+.ram-other-input-field::placeholder {
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  opacity: 0.5;
+}
 
 .add-button {
   display: flex;
@@ -193,6 +196,7 @@
   align-items: flex-end;
   gap: 0.625rem;
   align-self: stretch;
+  margin-top: 1.25rem;
 }
 
   .add-button button {
@@ -226,7 +230,7 @@
 .storage-button {
   display: flex;
   width: 5.08594rem;
-  padding: 0.75rem 1rem;
+  padding-top: 0.50rem;
   flex-direction: column;
   align-items: center;
   gap: 0.75rem;
@@ -235,3 +239,4 @@
   background: var(--Primary-White, #FFF);
   height: 2.5rem;
 }
+

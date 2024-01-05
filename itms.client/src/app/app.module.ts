@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
@@ -27,15 +26,26 @@ import { UserListComponent } from './user-list/user-list.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { LaptopComponent } from './user-detail/laptop/laptop.component';
 import { CategoryTypeComponent } from './add-asset/category-type/category-type.component';
-import { CategoryCardComponent } from './add-asset/category-card/category-card.component';
-import { CategoryNameComponent } from './add-asset/category-name/category-name.component';
 import { AssetsCategoryComponent } from './inventory/assets-category/assets-category.component';
 import { HeaderComponent } from './inventory/assets-category/header/header.component';
 import { AssestComponent } from './inventory/assets-category/assest/assest.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { DashboardAssetsComponent } from './dashboard/dashboard-assets/dashboard-assets.component';
+
 import { SpecificationComponent } from './inventory/assets-category/assest/specification/specification.component';
 import { SpecInfoComponent } from './inventory/assets-category/assest/specification/spec-info/spec-info.component';
 import { DevicesComponent } from './inventory/assets-category/assest/devices/devices.component';
 import { DevicesListComponent } from './inventory/assets-category/assest/devices/devices-list/devices-list.component';
+import { LaptopDetailsComponent } from './user-details/laptop-details/laptop-details.component';
+import { SoftwareDetailsComponent } from './user-details/software-details/software-details.component';
+import { AccessoriesDetailsComponent } from './user-details/accessories-details/accessories-details.component';
+import { CommentsComponent } from './shared/components/comments/comments.component';
+import { CategoryCardComponent } from './add-asset/category-card/category-card.component';
+import { CategoryNameComponent } from './add-asset/category-name/category-name.component';
+import { AssignAssetComponent } from './assign-asset/assign-asset.component';
+import { AssignLaptopComponent } from './assign-asset/assign-laptop/assign-laptop.component';
+import { AssignSoftwareComponent } from './assign-asset/assign-software/assign-software.component';
+import { AssignAccessoriesComponent } from './assign-asset/assign-accessories/assign-accessories.component';
 
 
 @NgModule({
@@ -59,9 +69,18 @@ import { DevicesListComponent } from './inventory/assets-category/assest/devices
     CategoryTypeComponent,
     CategoryCardComponent,
     CategoryNameComponent,
+    AssignAssetComponent,
+    AssignLaptopComponent,
+    AssignSoftwareComponent,
+    AssignAccessoriesComponent,
     AssetsCategoryComponent,
     HeaderComponent,
     AssestComponent,
+    DashboardAssetsComponent,
+    LaptopDetailsComponent,
+    SoftwareDetailsComponent,
+    AccessoriesDetailsComponent,
+    CommentsComponent,
     SpecificationComponent,
     SpecInfoComponent,
     DevicesComponent,
@@ -76,7 +95,8 @@ import { DevicesListComponent } from './inventory/assets-category/assest/devices
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    AvatarModule
+    AvatarModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
