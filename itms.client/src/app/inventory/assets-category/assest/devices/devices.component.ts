@@ -23,6 +23,7 @@ export class DevicesComponent {
     this.dataService.getDevices().subscribe(
       (data) => {
         this.DeviceData = data;
+        
         console.log(this.DeviceData);
       },
       (error) => {
@@ -31,9 +32,7 @@ export class DevicesComponent {
     )
   }
 
-   // Replace with the actual device ID
 
-  
 
   
 }

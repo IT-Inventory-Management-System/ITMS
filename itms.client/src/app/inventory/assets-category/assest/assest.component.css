@@ -1,6 +1,9 @@
 .assetcolumns {
-  width:73.5rem;
-  height:auto;
- display:flex;
+  
+  display: flex;
+  height: 40.25rem;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-shrink: 0;
+  
 }
-
