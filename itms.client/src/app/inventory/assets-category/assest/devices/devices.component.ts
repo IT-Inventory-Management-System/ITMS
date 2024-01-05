@@ -8,7 +8,7 @@ import { DataService } from '../../../../shared/services/data.service';
 })
 export class DevicesComponent {
   DeviceData: any[] = [];
-
+  Cygid = this.DeviceData;
 
 
   constructor(private dataService: DataService) {
@@ -31,16 +31,9 @@ export class DevicesComponent {
     )
   }
 
-  //loadDeviceData(deviceId: string) {
-  //  // Fetch and set data for the selected device
-  //  this.dataService.getDevicesInfo(deviceId).subscribe(
-  //    (data) => {
-  //      this.selectedDevice = data;
-  //    },
-  //    (error) => {
-  //      console.error('Error fetching device data:', error);
-  //    }
-  //  );
-  //}
+   // Replace with the actual device ID
 
+  
+
+  
 }
