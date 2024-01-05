@@ -63,6 +63,10 @@ namespace ITMS.Server.Services
             if (device == null)
                 return null;
 
+            _dbContext.Entry(device)
+    .Reference(d => d.DeviceModel)
+    .Load();
+
             var ageInYears = CalculateDeviceAge(device.PurchasedDate);
 
             var deviceDto = new DeviceDto
@@ -70,6 +74,8 @@ namespace ITMS.Server.Services
                 Id = device.Id,
                 SerialNumber = device.SerialNumber,
                 AgeInYears = ageInYears,
+                Cygid = device.Cygid,
+                DeviceModelId = device.DeviceModelId,
                 Status= new StatusDto
                 {
                     Id = device.StatusNavigation.Id,
@@ -99,7 +105,9 @@ namespace ITMS.Server.Services
             if (purchasedDate == null)
                 return 0;
 
-            return (DateTime.UtcNow - purchasedDate.GetValueOrDefault()).TotalDays / 365;
+            double totalYears =(DateTime.UtcNow - purchasedDate.GetValueOrDefault()).TotalDays / 365;
+            double roundedAge = Math.Round(totalYears, 2);
+            return roundedAge;
         }
     }
 }

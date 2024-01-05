@@ -7,16 +7,17 @@ body {
 }
 
 .spec {
-  width: 100%; /* Adjust width to 100% for responsiveness */
-  height: auto; /* Remove fixed height */
+  width: 23.125rem; /* Adjust width to 100% for responsiveness */
+  height: 40.02rem; /* Remove fixed height */
   padding: 1rem;
-  padding-bottom:1rem;
+  padding-bottom: 1rem;
   flex-direction: column;
   align-items: flex-start;
   gap: 1.5rem;
   border-radius: 0.5rem;
   background: #FFF;
   box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.15);
+  overflow-y: auto;
 }
 
 .specification {
@@ -139,4 +140,5 @@ body {
   align-items: flex-start;
   gap: 1rem;
   align-self: stretch;
+  
 }

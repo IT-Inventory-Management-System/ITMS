@@ -8,12 +8,10 @@ import { DataService } from '../../../../shared/services/data.service';
   styleUrls: ['./specification.component.css']
 })
 export class SpecificationComponent  {
-  @Input() selectedDevice: any[];
+ 
+constructor(private dataService: DataService) {}
 
-  selectDevice(deviceClicked: any[]) {
-    this.selectedDevice;
-  }
-  @Output()
- 
- 
+  get deviceDetails() {
+    return this.dataService.DeviceDetails;
+  } 
 }

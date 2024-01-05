@@ -38,6 +38,8 @@ namespace ITMS.Server.DTO
     }
     public class DeviceModelDto
     {
+
+        
         public string? Processor { get; set; }
 
         public string? DeviceName { get; set; }

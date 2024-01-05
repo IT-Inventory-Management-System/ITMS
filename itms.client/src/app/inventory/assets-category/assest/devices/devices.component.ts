@@ -23,6 +23,7 @@ export class DevicesComponent {
     this.dataService.getDevices().subscribe(
       (data) => {
         this.DeviceData = data;
+        
         console.log(this.DeviceData);
       },
       (error) => {
@@ -31,22 +32,9 @@ export class DevicesComponent {
     )
   }
 
-  @Output() deviceClicked = new EventEmitter<string>();
+  
 
-  onDeviceClick() {
-    this.deviceClicked.emit(this.DeviceData);
-  }
-
-  //loadDeviceData(deviceId: string) {
-  //  // Fetch and set data for the selected device
-  //  this.dataService.getDevicesInfo(deviceId).subscribe(
-  //    (data) => {
-  //      this.selectedDevice = data;
-  //    },
-  //    (error) => {
-  //      console.error('Error fetching device data:', error);
-  //    }
-  //  );
-  //}
+  
+  
 
 }

@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { DataService } from '../../../../../shared/services/data.service';
 
 @Component({
   selector: 'app-spec-info',
@@ -6,11 +7,21 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./spec-info.component.css']
 })
 export class SpecInfoComponent {
-  @Input() info: any;
+  
 
-  info1(details: any) {
-    this.info = details;
+  @Input() key: string;
 
+ 
+constructor(private dataService: DataService) { }
+
+  get deviceDetails() {
+    return this.dataService.DeviceDetails;
+  } 
+
+  getObjectKeys(obj: any): string[] {
+    return Object.keys(obj);
   }
+ 
+
 
 }
