@@ -7,11 +7,12 @@ import { DataService } from '../../../../shared/services/data.service';
   templateUrl: './specification.component.html',
   styleUrls: ['./specification.component.css']
 })
-export class SpecificationComponent  {
- 
+
+export class SpecificationComponent { 
 constructor(private dataService: DataService) {}
 
   get deviceDetails() {
     return this.dataService.DeviceDetails;
   } 
+
 }

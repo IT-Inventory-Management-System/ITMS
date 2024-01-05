@@ -1,5 +1,7 @@
+
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DataService } from '../../../../../shared/services/data.service';
+
 
 @Component({
   selector: 'app-devices-list',
@@ -7,6 +9,8 @@ import { DataService } from '../../../../../shared/services/data.service';
   styleUrls: ['./devices-list.component.css']
 })
 export class DevicesListComponent {
+
+
   @Input() device: any;
   DeviceData: any;
   DeviceInfo: any;
@@ -33,6 +37,7 @@ export class DevicesListComponent {
       }
     );
   }
+
 
 
 

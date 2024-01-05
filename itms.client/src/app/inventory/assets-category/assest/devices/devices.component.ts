@@ -8,7 +8,7 @@ import { DataService } from '../../../../shared/services/data.service';
 })
 export class DevicesComponent {
   DeviceData: any[] = [];
-
+  Cygid = this.DeviceData;
 
 
   constructor(private dataService: DataService) {
@@ -32,9 +32,7 @@ export class DevicesComponent {
     )
   }
 
-  
+
 
   
-  
-
 }
