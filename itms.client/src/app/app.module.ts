@@ -42,6 +42,8 @@ import { AssignAssetComponent } from './assign-asset/assign-asset.component';
 import { AssignLaptopComponent } from './assign-asset/assign-laptop/assign-laptop.component';
 import { AssignSoftwareComponent } from './assign-asset/assign-software/assign-software.component';
 import { AssignAccessoriesComponent } from './assign-asset/assign-accessories/assign-accessories.component';
+import { RecentActivityComponent } from './dashboard/recent-activity/recent-activity.component';
+import { SoftwareComponentComponent } from './dashboard/software-component/software-component.component';
 
 
 @NgModule({
@@ -81,6 +83,8 @@ import { AssignAccessoriesComponent } from './assign-asset/assign-accessories/as
     SpecInfoComponent,
     DevicesComponent,
     DevicesListComponent,
+    RecentActivityComponent,
+    SoftwareComponentComponent,
 
   ],
   imports: [
