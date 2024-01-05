@@ -76,6 +76,8 @@ namespace ITMS.Server.Services
                 AgeInYears = ageInYears,
                 Cygid = device.Cygid,
                 DeviceModelId = device.DeviceModelId,
+                PurchasedDate = device.PurchasedDate,
+                WarrantyDate= device.WarrantyDate,
                 Status= new StatusDto
                 {
                     Id = device.StatusNavigation.Id,

@@ -21,7 +21,9 @@ namespace ITMS.Server.DTO
 
         public Guid? AssignedTo { get; set; }
 
+        public DateTime? PurchasedDate { get; set; }
 
+        public DateTime? WarrantyDate { get; set; }
 
         public StatusDto Status { get; set; }
         public double AgeInYears { get; set; }
@@ -46,6 +48,8 @@ namespace ITMS.Server.DTO
         public string? Ram { get; set; }
 
         public string? Storage { get; set; }
+
+        
     }
 
 }
