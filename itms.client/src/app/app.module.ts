@@ -12,7 +12,6 @@ import { EmployeeComponent } from './employee/employee.component';
 import { LicenseComponent } from './license/license.component';
 import { HistoryComponent } from './history/history.component';
 import { AddAssetComponent } from './add-asset/add-asset.component';
-import { ProfileIconComponent } from './shared/components/profile-icon/profile-icon.component';
 import { NavbarComponent } from './shared/components/navbar/navbar.component'; 
 import { NewSidebarComponent } from './shared/components/new-sidebar/new-sidebar.component';
 
@@ -88,7 +87,6 @@ import { AssignAccessoriesComponent } from './assign-asset/assign-accessories/as
 
 
     NewSidebarComponent,
-    ProfileIconComponent,
 
   ],
   imports: [
