@@ -6,10 +6,10 @@
   </div>
   
   <div class="add-device-content overflow-auto">
-
     <div class="stepper-container">
       <div class="stepper-stepper">
         <div class="stepper-stepper1">
+
           <img *ngIf="currentStep === 1" src="../../../assets/icons/laptop-solid.svg" />
           <img *ngIf="currentStep === 2" src="../../../assets/icons/completed.svg" />
           <span class="stepper-text"><span>Laptop Details</span></span>
@@ -51,7 +51,7 @@
               </select>
             </div>
             <div class="quantity-select">
-              <label for="quantity">Quantity <span class="required">*</span></label>
+              <label for="quantity">Quantity</label>
               <div class="quantity-counter">
                 <div class="reduce-button" (click)="decrement()"><img src="../../../assets/icons/reduce-quantity.svg" /></div>
                 <span class="counter-value">{{ counterValue }}</span>
@@ -71,17 +71,24 @@
 
         <div class="row mb-3" id="deviceDetailsDiv">
           <div class="col-6">
-            <label for="purchaseDate">Date of Purchase</label>
+            <label for="purchaseDate" class="purchaseDate">Date of Purchase <span class="required">*</span></label>
             <input type="date" class="form-control" id="purchaseDate" name="purchaseDate">
           </div>
           <div class="col-6">
-            <label for="warrantyYear">Warranty Year</label>
-            <input type="number" class="form-control" id="warrantyYear" name="warrantyYear" min="1">
+            <div class="row warranty">
+              <label for="warrantyYear">Warranty Year <span class="required">*</span></label>
+              <div class="col-6 warranty-input">
+                <input type="text" class="form-control" id="warrantyYear" name="warrantyYear" min="1" placeholder="Month">
+                <input type="text" class="form-control" id="warrantyYear" name="warrantyYear" min="1" placeholder="Year">
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <div *ngIf="currentStep === 2" >
-        <app-id-input></app-id-input>
+      <div *ngIf="currentStep === 2" class="app-id-input container-fluid">
+        <div *ngFor="let i of counterValues" class="row">
+          <app-id-input></app-id-input>
+        </div>
       </div>
     </form>
   </div>

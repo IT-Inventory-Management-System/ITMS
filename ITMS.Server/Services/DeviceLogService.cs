@@ -1,4 +1,5 @@
-﻿// Services/DeviceLogService.cs
+
+
 using ITMS.Server.Models;
 using System;
 using System.Collections.Generic;
@@ -18,12 +19,14 @@ public class DeviceLogService
         var deviceHistory = _context.Devices.OrderBy(log => log.Cygid)
             .Select(log => new DevicelogDto
             {
+
                 Cygid = log.Cygid
             })
             .ToList();
 
         return deviceHistory;
     }
+
 
     public List<DevicelogDto> GetDevicesLogInfo()
     {
@@ -45,4 +48,7 @@ public class DeviceLogService
 
         return devicesLogInfo;
     }
+
 }
+    
+
