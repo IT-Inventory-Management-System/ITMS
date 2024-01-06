@@ -35,6 +35,10 @@ import { SpecificationComponent } from './inventory/assets-category/assest/speci
 import { SpecInfoComponent } from './inventory/assets-category/assest/specification/spec-info/spec-info.component';
 import { DevicesComponent } from './inventory/assets-category/assest/devices/devices.component';
 import { DevicesListComponent } from './inventory/assets-category/assest/devices/devices-list/devices-list.component';
+
+import { AssignHistoryComponent } from './inventory/assets-category/assest/assign-history/assign-history.component';
+import { CommentCardComponent } from './inventory/assets-category/assest/assign-history/comment-card/comment-card.component';
+
 import { LaptopDetailsComponent } from './user-details/laptop-details/laptop-details.component';
 import { SoftwareDetailsComponent } from './user-details/software-details/software-details.component';
 import { AccessoriesDetailsComponent } from './user-details/accessories-details/accessories-details.component';
@@ -45,6 +49,7 @@ import { AssignAssetComponent } from './assign-asset/assign-asset.component';
 import { AssignLaptopComponent } from './assign-asset/assign-laptop/assign-laptop.component';
 import { AssignSoftwareComponent } from './assign-asset/assign-software/assign-software.component';
 import { AssignAccessoriesComponent } from './assign-asset/assign-accessories/assign-accessories.component';
+
 
 
 @NgModule({
@@ -84,6 +89,8 @@ import { AssignAccessoriesComponent } from './assign-asset/assign-accessories/as
     SpecInfoComponent,
     DevicesComponent,
     DevicesListComponent,
+    AssignHistoryComponent,
+    CommentCardComponent
 
 
     NewSidebarComponent,

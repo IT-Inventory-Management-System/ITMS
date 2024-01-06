@@ -26,4 +26,21 @@ public class DeviceLogController : ControllerBase
             return StatusCode(500, "Internal Server Error");
         }
     }
+
+
+    [HttpGet("devicesloginfo")]
+    public IActionResult GetDevicesLogInfo()
+    {
+        try
+        {
+            var devicesLogInfo = _deviceLogService.GetDevicesLogInfo();
+            return Ok(devicesLogInfo);
+        }
+        catch (Exception ex)
+        {
+            // Log the exception or handle it appropriately
+            return StatusCode(500, "Internal Server Error");
+        }
+    }
 }
+
