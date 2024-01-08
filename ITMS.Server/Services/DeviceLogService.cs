@@ -33,30 +33,42 @@ public class DeviceLogService
     {
         try
         {
-            var deviceLogInfo = _context.DevicesLogs
-                .Include(log => log.Device)
-                .Include(log => log.Employee)
-                .Where(log => log.Device.Cygid == cygid)
-                .OrderBy(log => log.EmployeeId)
-                .FirstOrDefault();  // Use FirstOrDefault() instead of Select()
+            var devicesLogInfo = _context.DevicesLogs
+        .Include(log => log.Device)
+        .Include(log => log.Employee)
+        .Where(log => log.Device.Cygid == cygid)
+        .OrderBy(log => log.EmployeeId)
+        .FirstOrDefault();
 
-            if (deviceLogInfo != null)
+            if (devicesLogInfo != null)
             {
+                var assignedByEmployee = _context.Employees.FirstOrDefault(emp => emp.Id == devicesLogInfo.AssignedBy);
+                var recievedByEmployee = _context.Employees.FirstOrDefault(emp => emp.Id == devicesLogInfo.RecievedBy);
+
+                var assignedByFirstName = assignedByEmployee?.FirstName ?? "Unknown";
+                var assignedByLastName = assignedByEmployee?.LastName ?? "Unknown";
+
+                var recievedByFirstName = recievedByEmployee?.FirstName ?? "Unknown";
+                var recievedByLastName = recievedByEmployee?.LastName ?? "Unknown";
+
                 return new DevicelogDto
                 {
-                    Cygid = deviceLogInfo.Device.Cygid,
-                    Cgiid = deviceLogInfo.Employee.Cgiid,
-                    EmployeeName = $"{deviceLogInfo.Employee.FirstName} {deviceLogInfo.Employee.LastName}",
-                    AssignedBy = $"{deviceLogInfo.AssignedByNavigation.FirstName} {deviceLogInfo.AssignedByNavigation.LastName}",
-                    AssignedDate = deviceLogInfo.AssignedDate,
-                    RecievedBy = $"{deviceLogInfo.RecievedByNavigation.FirstName} {deviceLogInfo.RecievedByNavigation.LastName}",
-                    RecievedDate = deviceLogInfo.RecievedDate
+                    Cygid = devicesLogInfo.Device.Cygid,
+                    Cgiid = devicesLogInfo.Employee.Cgiid,
+                    EmployeeName = $"{devicesLogInfo.Employee.FirstName} {devicesLogInfo.Employee.LastName}",
+                    AssignedBy = $"{assignedByFirstName} {assignedByLastName}",
+                    AssignedDate = devicesLogInfo.AssignedDate,
+                    RecievedBy = $"{recievedByFirstName} {recievedByLastName}",
+                    RecievedDate = devicesLogInfo.RecievedDate
                 };
             }
-
-            // Handle the case where no matching record is found
-            return null;
+            else
+            {
+                // Handle the case where no matching record is found
+                return null;
+            }
         }
+
         catch (Exception ex)
         {
             // Log the exception or handle it appropriately

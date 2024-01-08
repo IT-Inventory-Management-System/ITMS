@@ -9,7 +9,7 @@
           {{devicelog.employeeName}}
         </span>
         <span class="cgy">
-          CGI 098
+          {{devicelog.cgiid}}
         </span>
 
       </div>
@@ -29,19 +29,19 @@
       <span>Assigned By</span>
       <div class="info-text col-3">
         <span>
-          John Doe
 
+         {{devicelog.assignedBy}}
         </span>
         <span>
-          10-1-24
+         {{devicelog.assignedDate}}
         </span>
       </div>
     </div>
     <div class="info inforight col-md-5 ">
-      <span>Assigned By</span>
+      <span>Recieved By</span>
       <div class="info-text ">
         <span class="inforight">
-          --
+          {{devicelog.recievedBy}}
 
         </span>
       </div>
