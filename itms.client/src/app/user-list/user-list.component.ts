@@ -1,3 +1,4 @@
+
 // Import necessary modules and services
 import { Component, OnInit } from '@angular/core';
 import { DisplayDetailsService } from '../shared/services/display-details.service';

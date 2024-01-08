@@ -43,8 +43,8 @@ public class DeviceService
 public DeviceDto GetDeviceStatusAndAge(string deviceId)
 {
     var device = GetDevice(deviceId);
-
-    if (device == null)
+      
+        if (device == null)
         return null;
 
     _context.Entry(device)
@@ -53,33 +53,37 @@ public DeviceDto GetDeviceStatusAndAge(string deviceId)
 
     var ageInYears = CalculateDeviceAge(device.PurchasedDate);
 
-    var deviceDto = new DeviceDto
-    {
-        Id = device.Id,
-        SerialNumber = device.SerialNumber,
-        AgeInYears = ageInYears,
-        Cygid = device.Cygid,
-        DeviceModelId = device.DeviceModelId,
-        PurchasedDate = device.PurchasedDate,
-        WarrantyDate = device.WarrantyDate,
-        Status = new StatusDto
+        var deviceDto = new DeviceDto
         {
-            Id = device.StatusNavigation.Id,
-            Type = device.StatusNavigation.Type
-        },
-        DeviceModel = new DeviceModelDto
-        {
-            DeviceName = device.DeviceModel?.DeviceName,
-            Processor = device.DeviceModel?.Processor,
-            Ram = device.DeviceModel?.Ram,
-            Storage = device.DeviceModel?.Storage,
-        }
+            Id = device.Id,
+            SerialNumber = device.SerialNumber,
+            AgeInYears = ageInYears,
+            Cygid = device.Cygid,
+            DeviceModelId = device.DeviceModelId,
+            PurchasedDate = device.PurchasedDate,
+            WarrantyDate = device.WarrantyDate,
+            Status = new StatusDto
+            {
+                Id = device.StatusNavigation.Id,
+                Type = device.StatusNavigation.Type
+            },
+            DeviceModel = new DeviceModelDto
+            {
+                DeviceName = device.DeviceModel?.DeviceName,
+                Processor = device.DeviceModel?.Processor,
+                Ram = device.DeviceModel?.Ram,
+                Storage = device.DeviceModel?.Storage,
+            },
+           
+            
+    
     };
 
     return deviceDto;
 }
 
-private Device GetDevice(string deviceId)
+  
+    private Device GetDevice(string deviceId)
 {
     return _context.Devices
         .Include(d => d.StatusNavigation).Include(d => d.DeviceModel)
