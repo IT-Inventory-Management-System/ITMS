@@ -1,4 +1,6 @@
+
 import { NgModule } from '@angular/core';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,15 +24,15 @@ import { UserListComponent } from './user-list/user-list.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { LaptopComponent } from './user-detail/laptop/laptop.component';
 import { CategoryTypeComponent } from './add-asset/category-type/category-type.component';
-import { CategoryCardComponent } from './add-asset/category-card/category-card.component';
-import { CategoryNameComponent } from './add-asset/category-name/category-name.component';
+
 import { UserNameListComponent } from './user-name-list/user-name-list.component';
 import { AssetsCategoryComponent } from './inventory/assets-category/assets-category.component';
 import { HeaderComponent } from './inventory/assets-category/header/header.component';
 import { AssestComponent } from './inventory/assets-category/assest/assest.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { DashboardAssetsComponent } from './dashboard/dashboard-assets/dashboard-assets.component';
 
+import { DashboardAssetsComponent } from './dashboard/dashboard-assets/dashboard-assets.component';
+ 
 import { SpecificationComponent } from './inventory/assets-category/assest/specification/specification.component';
 import { SpecInfoComponent } from './inventory/assets-category/assest/specification/spec-info/spec-info.component';
 import { DevicesComponent } from './inventory/assets-category/assest/devices/devices.component';
@@ -49,7 +51,21 @@ import { AssignAccessoriesComponent } from './assign-asset/assign-accessories/as
 
 @NgModule({
   declarations: [
+    DevicesComponent,
+    DevicesListComponent,
+    LaptopDetailsComponent,
+    SoftwareDetailsComponent,
+    AccessoriesDetailsComponent,
+    CommentsComponent,
+    SpecInfoComponent,
     AppComponent,
+    AssignAccessoriesComponent,
+    AssignSoftwareComponent,
+    AssignLaptopComponent,
+    AssignAssetComponent,
+
+    DashboardAssetsComponent,
+    SpecificationComponent,
     AssestComponent,
     UserNameListComponent,
     AssetsCategoryComponent,

@@ -8,6 +8,7 @@ import { DisplayDetailsService } from '../shared/services/display-details.servic
 })
 export class UserListComponent {
   displayingData: any[] = [];
+  filterInput: string = ''; 
 
   constructor(private DisplayingDetailsService: DisplayDetailsService) {
     this.displayingData = [];
