@@ -3,10 +3,11 @@
   justify-content: space-between;
   align-items: flex-end;
   align-self: stretch;
+  width:73.5rem;
   margin-bottom:1rem;
 }
 .dropdown {
-
+  width: auto;
   height: 2.52rem;  
   display: flex;
   padding: 0.625rem 1rem;
@@ -19,7 +20,7 @@
   font-style: normal;
   font-weight: 500;
   line-height: normal;
-  
+  position: relative;
  
 }
 .rightSide {
