@@ -99,6 +99,7 @@ import { SoftwareComponentComponent } from './dashboard/software-component/softw
     LaptopDetailsComponent,
     SoftwareDetailsComponent,
     AccessoriesDetailsComponent,
+    UserNameListComponent,
     CommentsComponent,
     
     SpecInfoComponent,
