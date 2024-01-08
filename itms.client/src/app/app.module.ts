@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { AvatarModule } from 'ngx-avatars';
 import { HttpClientModule } from '@angular/common/http';
@@ -44,12 +43,13 @@ import { AssignSoftwareComponent } from './assign-asset/assign-software/assign-s
 import { AssignAccessoriesComponent } from './assign-asset/assign-accessories/assign-accessories.component';
 import { RecentActivityComponent } from './dashboard/recent-activity/recent-activity.component';
 import { SoftwareComponentComponent } from './dashboard/software-component/software-component.component';
+import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    SidebarComponent,
     NavbarComponent,
     DashboardComponent,
     CategoryComponent,
@@ -85,6 +85,7 @@ import { SoftwareComponentComponent } from './dashboard/software-component/softw
     DevicesListComponent,
     RecentActivityComponent,
     SoftwareComponentComponent,
+    SidebarComponent
 
   ],
   imports: [
