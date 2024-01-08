@@ -1,0 +1,96 @@
+.Asset {
+  border-radius: 4px;
+  border: 1px solid var(--Secondary-Light-Gray, #E9ECEB);
+  background: var(--Primary-White, #FFF);
+  display: flex;
+height: 7.625rem;
+flex-direction: column;
+align-items: flex-start;
+gap: 0.5rem;
+flex: 1 0 0;
+}
+.Type {
+  display: flex;
+  padding: 8px;
+  align-items: center;
+  gap: 8px;
+  align-self: stretch;
+}
+
+.Heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex: 1 0 0;
+}
+
+.windows-text {
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.number {
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  
+}
+
+.stock-section {
+  padding-bottom: 8px;
+}
+
+
+
+.Assigned-text {
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.Assigned-number {
+  color: var(--Primary-Gray, #343435);
+  text-align: left;
+  font-family: Roboto;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+
+.Inventory-text {
+  color: var(--Primary-Gray, #343435);
+  text-align: right;
+  font-family: Roboto;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  float:right;
+  
+}
+
+.Inventory-number {
+  color: var(--Primary-Gray, #343435);
+  text-align: right;
+  font-family: Roboto;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+
+

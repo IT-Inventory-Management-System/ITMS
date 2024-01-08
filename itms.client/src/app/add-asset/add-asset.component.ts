@@ -26,8 +26,9 @@ export class AddAssetComponent {
       },
       (error) => {
         console.log(error);
-      }
+  }
+   
     )
   }
-
+ 
 }

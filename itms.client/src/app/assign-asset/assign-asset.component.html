@@ -1,0 +1,48 @@
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#assignAssetModal">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="assignAssetModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content assign-asset-modal-outer-box">
+      <div class="modal-header assign-asset-modal-header">
+        <h1 class="modal-title assign-asset-modal-title fs-5" id="assignAssetModal">Assign Assets</h1>
+        <button type="button" class="close-button" data-bs-dismiss="modal" aria-label="Close"><img src="../../../../assets/icons/Close.svg" /></button>
+      </div>
+
+
+      <div class="modal-body">
+        <div class="user-search">
+          <div class="search-box-subheading">User <span style="color:red">*</span></div>
+          <input class="search-box" required type="search" placeholder="Search User by Name, CGI ID and Email Address" aria-label="Search">
+        </div>
+        <div class="stepper">
+          <div class="step">
+            <img class="step-img" src="../../../../assets/icons/laptop-solid.svg" />
+            <div class="step-text">Laptop</div>
+          </div>
+          <img class="vector-img" src="../../../../assets/icons/Stroke.svg" />
+          <div class="step">
+            <img class="step-img" src="../../../../assets/icons/Software.svg" />
+            <div class="step-text">Software</div>
+          </div>
+          <img class="vector-img" src="../../../../assets/icons/Stroke.svg" />
+          <div class="step">
+            <img class="step-img" src="../../../../assets/icons/laptop-solid.svg" />
+            <div class="step-text">Accessories</div>
+          </div>
+        </div>
+        <app-assign-laptop></app-assign-laptop>
+        <!--<app-assign-Software></app-assign-software>
+        <app-assign-accessories></app-assign-accessories>-->
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+    </div>
+  </div>

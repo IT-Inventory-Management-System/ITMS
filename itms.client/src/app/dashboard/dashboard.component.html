@@ -1,10 +1,10 @@
 <div class="container-fluid ">
-  <div class="row header" >
+  <div class="row header">
     <div class="col-8 dashboard-title ">
       Dashboard
     </div>
-    <div class="col-4 st">
-      <div class="row" >
+    <div class="col-4 ">
+      <div class="row">
         <span class="last-update"> Last Updated: <span class="Time">12-12-2023, 09:30 AM</span></span>
 
       </div>
@@ -17,16 +17,162 @@
 
   <div class="container-fluid">
 
-    <div class="col-8">
-      fghj
+  <div class="row  KPI-card  ">
+
+    <div class=" col-8 col1   ">
+      <div class="total-asset  ">
+        <div class="row header ">
+      <div class="col-8  Total-asset-Title">
+        Total Assets
+      </div>
+      <div class="col-4 Filter">
+        <span class="filter-by"> Filter by</span>
+      <div class="btn-group">
+            <button type="button" class="btn btn dropdown-toggle " data-bs-toggle="dropdown" aria-expanded="false">
+              Asset Age
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Separated link</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+        <div class="container-fluid Assets   ">
+          <div class="container-fluid Section1 row  ">
+            <div class="col-6  ">
+              <app-dashboard-assets></app-dashboard-assets>
+            </div>
+            <div class="col-6 ">
+              <app-dashboard-assets></app-dashboard-assets>
+            </div>
+          </div>
+          <div class="container-fluid Section2 row ">
+            <div class="col-6 ">
+              <app-dashboard-assets></app-dashboard-assets>
+            </div>
+            <div class="col-6">
+              <app-dashboard-assets></app-dashboard-assets>
+            </div>
+
+          </div>
+
+        </div>
+      
+      </div>
+
+      <div class="row2 ">
+        <div class="row ms-0  me-0 ">
+          <div class="col-6 Assesories-Details ms-0  ">
+            <div class="Assesories-Heading">
+              <div class="Assesories-Text">Accessories</div>
+
+              <img src="../../../assets/icons/dashboard/Chevron.svg" />
+
+            </div>
+            <div class="Search-section">
+              <img src="../../../assets/icons/dashboard/search.svg" />
+              <input class="Search-text" placeholder="Search by accessories name" />
+            </div>
+            <div class="  Software-Content  ">
+              <app-dashboard-assets></app-dashboard-assets>
+              <app-dashboard-assets></app-dashboard-assets>
+              <app-dashboard-assets></app-dashboard-assets>
+              <app-dashboard-assets></app-dashboard-assets>
+            </div>
+
+          </div>
+          <div class="col-5 Software ms-3  ">
+            <div class="Software-Heading">
+              <div class="Software-Text ">Software</div>
+  <img src="../../../assets/icons/dashboard/Chevron.svg" />
+   </div>
+            <div class="software-search">
+              <img src="../../../assets/icons/dashboard/search.svg" />
+              <input class="Search-text" placeholder="Search by software name" />
+            </div>
+            <div class=" container-fluid ">
+              <app-software-component></app-software-component>
+              <app-software-component></app-software-component>
+
+              <app-software-component></app-software-component>
+
+            </div>
+          </div>
+        </div>
+     
+      </div>
+
+
     </div>
-    <div class="col-4">
-      gchj
+    <div class=" col-4 Recent-Activity ">
+      <div class="Recent-Activity-Heading ">
+        <div class="Recent-Activity-Text">
+          Recent Activity
+          <img src="../../../assets/icons/dashboard/Chevron.svg" />
+        </div>
+
+      </div>
+      <div class=" container-fluid Recent-Activity-Content ">
+        <div class="Frame   ">
+          <div class="Date">
+            <hr class="h-line">
+            <div class="Date-content">
+              <img src="../../../assets/icons/dashboard/CalendarBlank.svg" />
+              <span class="date-title">12-1-2024</span>
+            </div>
+            <hr class="h-line">
+
+          </div>
+          <div class="container-fluid">
+
+
+            <div class=" row   ">
+              <app-recent-activity></app-recent-activity>
+              <app-recent-activity></app-recent-activity>
+              <app-recent-activity></app-recent-activity>
+
+            </div>
+            <div class="Date">
+              <hr class="h-line">
+              <div class="Date-content">
+                <img src="../../../assets/icons/dashboard/CalendarBlank.svg" />
+                <span class="date-title">12-1-2024</span>
+              </div>
+              <hr class="h-line">
+
+            </div>
+            <div class=" row Section2   ">
+              <app-recent-activity></app-recent-activity>
+              <app-recent-activity></app-recent-activity>
+              <app-recent-activity></app-recent-activity>
+              <app-recent-activity></app-recent-activity>
+              <app-recent-activity></app-recent-activity>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
 
   </div>
 
-</div>
+
+ 
+
+
+
+
+  </div>
+
+  
+
+
+
 
 
 

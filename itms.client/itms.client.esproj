@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/0.5.128-alpha">
+﻿<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/0.5.128-alpha">
   <PropertyGroup>
     <StartupCommand>npm start</StartupCommand>
     <JavaScriptTestFramework>Jasmine</JavaScriptTestFramework>
@@ -7,4 +7,28 @@
     <!-- Folder where production build objects will be placed -->
     <PublishAssetsDirectory>$(MSBuildProjectDirectory)\dist\itms.client\</PublishAssetsDirectory>
   </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="src\app\shared\components\NewFolder\" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptConfiguration Remove="src\app\shared\components\sidebar-new\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="src\app\shared\components\sidebar-new\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="src\app\shared\components\sidebar-new\sidebar-new.component.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="src\app\shared\components\sidebar-new\sidebar-new.component.spec.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="src\app\shared\components\sidebar-new\sidebar-new.component.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="src\app\shared\components\sidebar-new\sidebar-new.component.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="src\app\shared\Pipes\" />
+  </ItemGroup>
 </Project>
