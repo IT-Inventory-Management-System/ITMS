@@ -111,9 +111,7 @@ import { SoftwareComponentComponent } from './dashboard/software-component/softw
     AssignHistoryComponent,
     CommentCardComponent,
 
-
-    NewSidebarComponent,
-
+    NewSidebarComponent
 
   ],
   imports: [
