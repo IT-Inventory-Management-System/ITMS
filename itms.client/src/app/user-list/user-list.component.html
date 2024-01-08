@@ -1,5 +1,17 @@
-<div class="row">
-  <div class="col-md-4">
-    <p>user-list works!</p>
+`<div class="search-user">
+
+  <div class="search-bar">
+    <div class="search-bar-within">
+      <img src="../assets/icons/Search.svg" alt="search-logo" class="image-icon"  />
+      <input type="text" placeholder="Select User" class="select-bar-2" />
+    </div>
   </div>
+  <div class=" user-name-list">
+    <user-name-list *ngFor="let userDetails of displayingData"
+                    [cgiid]="userDetails.cgiid"
+                    [firstName]="userDetails.firstName"
+                    [lastName]="userDetails.lastName"></user-name-list>
+  </div>
+  
+
 </div>
