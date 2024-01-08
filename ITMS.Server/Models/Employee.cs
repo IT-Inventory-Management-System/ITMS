@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ITMS.Server.Models;
+namespace ITMS.Server.Models; 
 
 public partial class Employee
 {

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/0.5.128-alpha">
+﻿<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/0.5.128-alpha">
   <PropertyGroup>
     <StartupCommand>npm start</StartupCommand>
     <JavaScriptTestFramework>Jasmine</JavaScriptTestFramework>
@@ -27,5 +27,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="src\app\shared\components\sidebar-new\sidebar-new.component.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="src\app\shared\Pipes\" />
   </ItemGroup>
 </Project>

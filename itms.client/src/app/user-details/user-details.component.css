@@ -1,31 +1,28 @@
 
-
 .page-container {
-  /*display: flex;*/
+  display: flex;
   gap: 1rem;
   flex: 1 0 0;
   height: 50.125rem;
   padding: 1.5rem;
-  /* flex-direction: column;
+   flex-direction: column;
   align-items: flex-start;
-  flex-shrink: 0;*/
+  flex-shrink: 0;
   border-radius: 0.5rem;
-  background: #FFF;
+  background: #fff;
   box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.15);
 }
 
 .user-details {
-  margin-left: 1%;
+  display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   align-items: flex-start;
-  display: inline-flex;
-  padding-left: 4%;
+  gap: 0.25rem;
 }
 
 .user-info {
-  color: var(--Adhoc-text-gray, #6D6D6D);
-  font-family: Roboto;
+  color: var(--adhoc-text-gray, #6d6d6d);
+  font-family: roboto;
   font-size: 0.875rem;
   font-style: normal;
   font-weight: 400;
@@ -51,7 +48,7 @@
   padding: 2%;
   background: white;
   border-radius: 4px;
-  border: 1px #28519E solid;
+  border: 1px #28519e solid;
   justify-content: flex-start;
   align-items: center;
   gap: 10px;
@@ -65,8 +62,8 @@
 }
 
 .user-name {
-  color: var(--Primary-Gray, #343435);
-  font-family: Roboto;
+  color: var(--primary-gray, #343435);
+  font-family: roboto;
   font-size: 1.125rem;
   font-style: normal;
   font-weight: 500;
@@ -81,7 +78,7 @@
   display: flex;
   align-items: flex-start;
   align-self: stretch;
-  border-bottom: 2px solid var(--Secondary-Light-Gray, #E9ECEB);
+  border-bottom: 2px solid var(--secondary-light-gray, #e9eceb);
 }
 
 .pages {
@@ -91,14 +88,14 @@
   justify-content: center;
   align-items: center;
   gap: 0.625rem;
-  border-bottom: 2px solid var(--Primary-Blue, #28519E);
-  background: #FFF;
+  border-bottom: 2px solid var(--primary-blue, #28519e);
+  background: #fff;
 }
 
 .button-text {
-  color: #28519E;
+  color: #28519e;
   font-size: 100%;
-  font-family: Roboto;
+  font-family: roboto;
   font-weight: 500;
   word-wrap: break-word;
 }
