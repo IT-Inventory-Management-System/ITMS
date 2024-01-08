@@ -7,7 +7,7 @@ import { Component, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./specification.component.css']
 })
 
- 
+export class SpecificationComponent { 
 constructor(private dataService: DataService) {}
 
   get deviceDetails() {

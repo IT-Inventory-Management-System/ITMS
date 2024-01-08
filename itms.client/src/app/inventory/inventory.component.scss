@@ -2,6 +2,7 @@ body {
   background: #B2B2B3;
 }
 
+
 .inventory {
   display: inline-flex;
   height: 46.1875rem;
@@ -9,5 +10,8 @@ body {
   align-items: flex-start;
   gap: 1rem;
   flex-shrink: 0;
- 
+
+p{
+    margin-top:56px;
+
 }

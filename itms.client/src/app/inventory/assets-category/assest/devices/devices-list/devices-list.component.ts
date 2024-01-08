@@ -1,5 +1,5 @@
 
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { DataService } from '../../../../../shared/services/data.service';
 
 
@@ -37,7 +37,12 @@ export class DevicesListComponent {
       }
     );
   }
+  @ViewChild('firstButton') firstButton: ElementRef;
 
+  ngAfterViewInit() {
+    // Trigger click event on the first button when the view is initialized
+    this.firstButton.nativeElement.click();
+  }
 
 
 

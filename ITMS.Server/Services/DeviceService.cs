@@ -1,4 +1,5 @@
-﻿//using ITMS.Server.Models;
+
+//using ITMS.Server.Models;
 //using Microsoft.EntityFrameworkCore;
 //using Org.BouncyCastle.Crypto.Prng.Drbg;
 //using System;
@@ -39,6 +40,11 @@
 //    }
 //}
 
+
+using ITMS.Server.Models;
+using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Crypto.Prng.Drbg;
+
 using System;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
@@ -76,6 +82,8 @@ namespace ITMS.Server.Services
                 AgeInYears = ageInYears,
                 Cygid = device.Cygid,
                 DeviceModelId = device.DeviceModelId,
+                PurchasedDate = device.PurchasedDate,
+                WarrantyDate= device.WarrantyDate,
                 Status= new StatusDto
                 {
                     Id = device.StatusNavigation.Id,

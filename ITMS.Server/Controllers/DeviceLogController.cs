@@ -27,6 +27,7 @@ public class DeviceLogController : ControllerBase
         }
     }
 
+
     [HttpGet("devicesloginfo")]
     public IActionResult GetDevicesLogInfo()
     {
@@ -42,3 +43,4 @@ public class DeviceLogController : ControllerBase
         }
     }
 }
+
