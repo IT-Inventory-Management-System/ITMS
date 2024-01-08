@@ -1,5 +1,4 @@
 <app-navbar></app-navbar>
-<app-sidebar></app-sidebar>
 
 
 <main>
@@ -15,3 +14,16 @@
 
   
 </main>
+<div style="display: flex;">
+  <app-new-sidebar></app-new-sidebar>
+ </div>
+  <main>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </div>
+  </main>
+

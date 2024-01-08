@@ -8,6 +8,7 @@
   border-radius: 0.25rem;
   border: 1px solid var(--Secondary-Light-Gray, #E9ECEB);
   background: var(--Primary-White, #FFF);
+  overflow-y:auto;
 }
 .rectangle {
   width: 1.25rem;

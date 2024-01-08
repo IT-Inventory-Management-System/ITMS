@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { DataService } from '../../../../shared/services/data.service';
 
 @Component({
@@ -8,6 +8,8 @@ import { DataService } from '../../../../shared/services/data.service';
 })
 export class DevicesComponent {
   DeviceData: any[] = [];
+  Cygid = this.DeviceData;
+
 
   constructor(private dataService: DataService) {
     this.DeviceData = [];
@@ -21,6 +23,7 @@ export class DevicesComponent {
     this.dataService.getDevices().subscribe(
       (data) => {
         this.DeviceData = data;
+        
         console.log(this.DeviceData);
       },
       (error) => {
@@ -30,4 +33,6 @@ export class DevicesComponent {
   }
 
 
+
+  
 }

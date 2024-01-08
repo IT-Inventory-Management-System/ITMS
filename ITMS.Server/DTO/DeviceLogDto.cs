@@ -1,31 +1,17 @@
 ﻿// DTOs/DeviceLogDto.cs
 using ITMS.Server.DTO;
+using ITMS.Server.Models;
 
-public class DeviceDto
-{
-    public Guid Id { get; set; }
-
-    public string? SerialNumber { get; set; }
-
-    public string? Cygid { get; set; }
-
-    public Guid? DeviceModelId { get; set; }
-
-    public Guid CreatedBy { get; set; }
-
-    public DateTime CreatedAtUtc { get; set; }
-
-    public Guid? UpdatedBy { get; set; }
-
-    public DateTime? UpdatedAtUtc { get; set; }
-
-    public Guid? AssignedTo { get; set; }
-
-}
 
 public class DevicelogDto
 {
     public string? Cygid { get; set; }
+    public string Cgiid { get; set; }
+    public string EmployeeName { get; set; }
+    public string AssignedBy { get; set; }
+    public DateTime? AssignedDate { get; set; }
+    public string RecievedBy { get; set; }
+    public DateTime? RecievedDate { get; set; }
 }
 
 
