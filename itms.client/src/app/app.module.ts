@@ -52,6 +52,7 @@ import { AssignAccessoriesComponent } from './assign-asset/assign-accessories/as
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,7 +64,7 @@ import { AssignAccessoriesComponent } from './assign-asset/assign-accessories/as
     LicenseComponent,
     HistoryComponent,
     AddAssetComponent,
-
+    SpecificationComponent,
     AddDeviceFormComponent,
     AddDeviceModelComponent,
     IdInputComponent,
@@ -85,12 +86,12 @@ import { AssignAccessoriesComponent } from './assign-asset/assign-accessories/as
     SoftwareDetailsComponent,
     AccessoriesDetailsComponent,
     CommentsComponent,
-    SpecificationComponent,
+    
     SpecInfoComponent,
     DevicesComponent,
     DevicesListComponent,
     AssignHistoryComponent,
-    CommentCardComponent
+    CommentCardComponent,
 
 
     NewSidebarComponent,
