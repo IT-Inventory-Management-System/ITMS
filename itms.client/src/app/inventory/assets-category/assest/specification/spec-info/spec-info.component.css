@@ -36,4 +36,10 @@
   width: 1rem;
   height: 1rem;
 }
+.value {
+  font-weight: 500;
+  border-radius: 0.25rem;
+  border: 1px solid var(--Secondary-Light-Gray, #E9ECEB);
+  background: var(--Primary-White, #FFF);
+}
 

@@ -5,7 +5,7 @@
     </span>
     
 
-    <p>Model</p>
+    <p class="heading">Model</p>
     <span class="values">{{deviceDetails.deviceModel.deviceName}} <img class="specimage" src="../../assets/icons/spec-info.svg" /></span>
    
   </div>
@@ -14,8 +14,8 @@
 
     </span>
 
-    <p>Serial No.</p>
-    <span >{{deviceDetails.serialNumber}}</span>
+    <p class="heading">Serial No.</p>
+    <span class="value">{{deviceDetails.serialNumber}}</span>
 
   </div>
 
@@ -28,8 +28,8 @@
   </span>
 
 
-  <p>Processor</p>
-  <span >{{deviceDetails.deviceModel.processor}}</span>
+  <p class="heading">Processor</p>
+  <span class="value" >{{deviceDetails.deviceModel.processor}}</span>
  
 </div>
 
@@ -40,8 +40,8 @@
     </span>
 
 
-    <p>RAM</p>
-    <span >{{deviceDetails.deviceModel.ram}}</span>
+    <p class="heading">RAM</p>
+    <span class="value">{{deviceDetails.deviceModel.ram}}</span>
   
   </div>
   <div class="specc col-md-5 mb-3 mx-2">
@@ -49,8 +49,8 @@
 
     </span>
 
-    <p>Storage</p>
-    <span >{{deviceDetails.deviceModel.storage}}</span>
+    <p class="heading">Storage</p>
+    <span class="value">{{deviceDetails.deviceModel.storage}}</span>
 
   </div>
 
@@ -64,17 +64,17 @@
     </span>
 
 
-    <p>Date of Purchase </p>
-    <span >{{deviceDetails.purchasedDate}}</span>
-    
+    <p class="heading">Date of Purchase</p>
+    <span class="value">{{ getFormattedPurchasedDate() }}</span>
+
   </div>
   <div class="specc col-md-5 mb-3 mx-2">
     <span class="rectangle ">
 
     </span>
 
-    <p>Warranty Year</p>
-    <span >{{deviceDetails.warrantyDate}}</span>
+    <p class="heading">Warranty Year</p>
+    <span class="value">{{deviceDetails.warrantyRemaining}}</span>
 
   </div>
 

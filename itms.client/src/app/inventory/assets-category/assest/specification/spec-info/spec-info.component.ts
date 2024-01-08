@@ -6,22 +6,16 @@ import { DataService } from '../../../../../shared/services/data.service';
   templateUrl: './spec-info.component.html',
   styleUrls: ['./spec-info.component.css']
 })
-
 export class SpecInfoComponent {
-  
-
   @Input() key: string;
 
- 
-constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService) { }
 
   get deviceDetails() {
     return this.dataService.DeviceDetails;
-  } 
+  }
 
- 
- 
-
-
-
+  getFormattedPurchasedDate(): string {
+    return this.deviceDetails?.formattedPurchasedDate ?? ''; // Replace with the actual property name
+  }
 }
