@@ -20,7 +20,7 @@ builder.Services.AddDbContext<ItinventorySystemContext>(options =>
 builder.Services.AddScoped<IDeviceService, AddDeviceService>();
 builder.Services.AddScoped<IUserListService, UserListService>();
 builder.Services.AddScoped<DeviceService>();
-builder.Services.AddScoped<Device>();
+builder.Services.AddScoped<DeviceLogService>();
 
 
 
