@@ -1,15 +1,29 @@
 <app-navbar></app-navbar>
-<app-sidebar></app-sidebar>
 
 
 <main>
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
-        <router-outlet></router-outlet>
+        <router-outlet>
+          <app-employee></app-employee>
+        </router-outlet>
       </div>
     </div>
   </div>
 
   
 </main>
+<div style="display: flex;">
+  <app-new-sidebar></app-new-sidebar>
+ </div>
+  <main>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </div>
+  </main>
+
