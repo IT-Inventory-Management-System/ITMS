@@ -92,9 +92,7 @@ import { AssignAccessoriesComponent } from './assign-asset/assign-accessories/as
     DevicesListComponent,
     AssignHistoryComponent,
     CommentCardComponent,
-
-
-    NewSidebarComponent,
+    NewSidebarComponent
 
   ],
   imports: [
