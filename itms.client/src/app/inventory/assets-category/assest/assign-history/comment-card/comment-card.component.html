@@ -1,15 +1,15 @@
-<div class="comment-card col-md-12">
+<div class="comment-card col-md-12" *ngFor="let device of devicelog" >
 
 
   <div class="user-details">
     <div class="user">
-      <ngx-avatars name={{devicelog.employeeName}} [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="33"></ngx-avatars>
+      <ngx-avatars name={{device.employeeName}} [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="33"></ngx-avatars>
       <div class="user-name">
         <span class="name">
-          {{devicelog.employeeName}}
+          {{device.employeeName}}
         </span>
         <span class="cgy">
-          {{devicelog.cgiid}}
+          {{device.cgiid}}
         </span>
 
       </div>
@@ -30,10 +30,10 @@
       <div class="info-text col-3">
         <span>
 
-         {{devicelog.assignedBy}}
+         {{device.assignedBy}}
         </span>
         <span>
-         {{devicelog.assignedDate}}
+         {{device.assignedDate}}
         </span>
       </div>
     </div>
@@ -41,7 +41,7 @@
       <span>Recieved By</span>
       <div class="info-text ">
         <span class="inforight">
-          {{devicelog.recievedBy}}
+          {{device.recievedBy}}
 
         </span>
       </div>

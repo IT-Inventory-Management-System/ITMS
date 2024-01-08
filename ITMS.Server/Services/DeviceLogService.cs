@@ -29,27 +29,27 @@ public class DeviceLogService
     }
 
 
-    public DevicelogDto GetDevicesLogInfo(string cygid)
+    public IEnumerable<DevicelogDto> GetDevicesLogInfo(string cygid)
     {
         try
         {
-            var devicesLogInfo = _context.DevicesLogs
-        .Include(log => log.Device)
-        .Include(log => log.Employee)
-        .Where(log => log.Device.Cygid == cygid)
-        .OrderBy(log => log.EmployeeId)
-        .FirstOrDefault();
+            var devicesLogInfoList = _context.DevicesLogs
+                .Include(log => log.Device)
+                .Include(log => log.Employee)
+                .Where(log => log.Device.Cygid == cygid)
+                .OrderBy(log => log.EmployeeId)
+                .ToList();
 
-            if (devicesLogInfo != null)
+            return devicesLogInfoList.Select(devicesLogInfo =>
             {
                 var assignedByEmployee = _context.Employees.FirstOrDefault(emp => emp.Id == devicesLogInfo.AssignedBy);
-                var recievedByEmployee = _context.Employees.FirstOrDefault(emp => emp.Id == devicesLogInfo.RecievedBy);
+                var receivedByEmployee = _context.Employees.FirstOrDefault(emp => emp.Id == devicesLogInfo.RecievedBy);
 
                 var assignedByFirstName = assignedByEmployee?.FirstName ?? "Unknown";
                 var assignedByLastName = assignedByEmployee?.LastName ?? "Unknown";
 
-                var recievedByFirstName = recievedByEmployee?.FirstName ?? "Unknown";
-                var recievedByLastName = recievedByEmployee?.LastName ?? "Unknown";
+                var receivedByFirstName = receivedByEmployee?.FirstName ?? "Unknown";
+                var receivedByLastName = receivedByEmployee?.LastName ?? "Unknown";
 
                 return new DevicelogDto
                 {
@@ -58,17 +58,11 @@ public class DeviceLogService
                     EmployeeName = $"{devicesLogInfo.Employee.FirstName} {devicesLogInfo.Employee.LastName}",
                     AssignedBy = $"{assignedByFirstName} {assignedByLastName}",
                     AssignedDate = devicesLogInfo.AssignedDate,
-                    RecievedBy = $"{recievedByFirstName} {recievedByLastName}",
+                    RecievedBy = $"{receivedByFirstName} {receivedByLastName}",
                     RecievedDate = devicesLogInfo.RecievedDate
                 };
-            }
-            else
-            {
-                // Handle the case where no matching record is found
-                return null;
-            }
+            });
         }
-
         catch (Exception ex)
         {
             // Log the exception or handle it appropriately
@@ -77,7 +71,11 @@ public class DeviceLogService
     }
 
 
-
 }
+
+
+
+
+
 
 
