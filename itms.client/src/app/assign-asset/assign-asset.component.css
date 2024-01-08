@@ -132,3 +132,8 @@ app-assign-software {
 app-assign-accessories{
   width: 100%;
 }
+
+.greyscale-icon {
+  filter: grayscale(100%);
+  opacity: 0.2;
+}
