@@ -31,7 +31,7 @@ import { UserNameListComponent } from './user-name-list/user-name-list.component
 import { AssetsCategoryComponent } from './inventory/assets-category/assets-category.component';
 import { HeaderComponent } from './inventory/assets-category/header/header.component';
 import { AssestComponent } from './inventory/assets-category/assest/assest.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { DashboardAssetsComponent } from './dashboard/dashboard-assets/dashboard-assets.component';
  
@@ -110,9 +110,7 @@ import { SoftwareComponentComponent } from './dashboard/software-component/softw
 
     AssignHistoryComponent,
     CommentCardComponent,
-
-
-    NewSidebarComponent,
+    NewSidebarComponent
 
 
   ],
@@ -122,6 +120,7 @@ import { SoftwareComponentComponent } from './dashboard/software-component/softw
     HttpClientModule,
     AvatarModule,
     ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
