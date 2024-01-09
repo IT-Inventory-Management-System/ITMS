@@ -111,9 +111,6 @@ import { FilterSearchListPipe } from './filter-search-list.pipe';
 
     AssignHistoryComponent,
     CommentCardComponent,
-    NewSidebarComponent
-
-
     NewSidebarComponent,
         FilterSearchListPipe,
 
