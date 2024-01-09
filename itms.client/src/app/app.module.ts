@@ -111,6 +111,7 @@ import { FilterSearchListPipe } from './filter-search-list.pipe';
 
     AssignHistoryComponent,
     CommentCardComponent,
+    NewSidebarComponent
 
 
     NewSidebarComponent,
@@ -125,6 +126,7 @@ import { FilterSearchListPipe } from './filter-search-list.pipe';
     HttpClientModule,
     AvatarModule,
     ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

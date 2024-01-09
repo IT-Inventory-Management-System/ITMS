@@ -17,11 +17,12 @@ export class DevicesListComponent {
   DeviceLog: any;
 
   constructor(private deviceService: DataService) {
-    this.DeviceData = [];
-    this.DeviceInfo = [];
-    this.DeviceLog = [];
+
   }
 
+
+  ngOnInit() {
+  }
 
   onDeviceClick(): void {
     console.log('Device Object:', this.device.cygid);
@@ -30,9 +31,8 @@ export class DevicesListComponent {
     this.deviceService.getDevicesInfo(this.device.cygid).subscribe(
       (data) => {
         this.DeviceInfo = data;
+        console.log(data);
         this.deviceService.DeviceDetails = this.DeviceInfo;
-        // Handle the API response here
-        console.log('Device Info:', this.DeviceInfo);
 
         // Call the second API to get device logs
         this.getDeviceLogs();
@@ -50,7 +50,7 @@ export class DevicesListComponent {
       (logs) => {
         // Handle the API response for device logs here
         this.deviceService.DeviceLog = logs;
-        console.log('Device Logs:', logs);
+        //console.log('Device Logs:', logs);
       },
       (error) => {
         // Handle errors for the second API here

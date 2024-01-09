@@ -1,5 +1,6 @@
 
 
+using ITMS.Server.DTO;
 using ITMS.Server.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -29,33 +30,44 @@ public class DeviceLogService
     }
 
 
-    public DevicelogDto GetDevicesLogInfo(string cygid)
+    public IEnumerable<DevicelogDto> GetDevicesLogInfo(string cygid)
     {
         try
         {
-            var deviceLogInfo = _context.DevicesLogs
+            var devicesLogInfoList = _context.DevicesLogs
                 .Include(log => log.Device)
                 .Include(log => log.Employee)
                 .Where(log => log.Device.Cygid == cygid)
                 .OrderBy(log => log.EmployeeId)
-                .FirstOrDefault();  // Use FirstOrDefault() instead of Select()
+                .ToList();
 
-            if (deviceLogInfo != null)
+            return devicesLogInfoList.Select(devicesLogInfo =>
             {
+                var assignedByEmployee = _context.Employees.FirstOrDefault(emp => emp.Id == devicesLogInfo.AssignedBy);
+                var receivedByEmployee = _context.Employees.FirstOrDefault(emp => emp.Id == devicesLogInfo.RecievedBy);
+
+                var assignedByFirstName = assignedByEmployee?.FirstName ?? "Unknown";
+                var assignedByLastName = assignedByEmployee?.LastName ?? "Unknown";
+
+                var receivedByFirstName = receivedByEmployee?.FirstName ?? "Unknown";
+                var receivedByLastName = receivedByEmployee?.LastName ?? "Unknown";
+               
                 return new DevicelogDto
                 {
-                    Cygid = deviceLogInfo.Device.Cygid,
-                    Cgiid = deviceLogInfo.Employee.Cgiid,
-                    EmployeeName = $"{deviceLogInfo.Employee.FirstName} {deviceLogInfo.Employee.LastName}",
-                    AssignedBy = $"{deviceLogInfo.AssignedByNavigation.FirstName} {deviceLogInfo.AssignedByNavigation.LastName}",
-                    AssignedDate = deviceLogInfo.AssignedDate,
-                    RecievedBy = $"{deviceLogInfo.RecievedByNavigation.FirstName} {deviceLogInfo.RecievedByNavigation.LastName}",
-                    RecievedDate = deviceLogInfo.RecievedDate
-                };
-            }
+                    Cygid = devicesLogInfo.Device.Cygid,
+                    Cgiid = devicesLogInfo.Employee.Cgiid,
+                    EmployeeName = $"{devicesLogInfo.Employee.FirstName} {devicesLogInfo.Employee.LastName}",
+                    AssignedBy = $"{assignedByFirstName} {assignedByLastName}",
+                    AssignedDate = devicesLogInfo.AssignedDate,
+                    RecievedBy = $"{receivedByFirstName} {receivedByLastName}",
+                    RecievedDate = devicesLogInfo.RecievedDate,
+                    FormattedAssignedDate = devicesLogInfo.AssignedDate?.ToString("MM-dd-yyyy") ?? "DefaultDate"
 
-            // Handle the case where no matching record is found
-            return null;
+                };
+               
+            });
+
+            
         }
         catch (Exception ex)
         {
@@ -65,7 +77,11 @@ public class DeviceLogService
     }
 
 
-
 }
+
+
+
+
+
 
 

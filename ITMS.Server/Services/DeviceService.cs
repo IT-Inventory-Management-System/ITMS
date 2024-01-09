@@ -4,6 +4,8 @@ using ITMS.Server.Models;
 using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Crypto.Prng.Drbg;
 using System;
+using System.Text;
+
 public class DeviceService
 {
     private readonly ItinventorySystemContext _context;
@@ -39,50 +41,87 @@ public class DeviceService
 
         return categoryTypesWithCategories;
     }
+    public DeviceDto GetDeviceStatusAndAge(string deviceId)
+    {
+        var device = GetDevice(deviceId);
 
-public DeviceDto GetDeviceStatusAndAge(string deviceId)
-{
-    var device = GetDevice(deviceId);
-      
         if (device == null)
-        return null;
+            return null;
 
-    _context.Entry(device)
-.Reference(d => d.DeviceModel)
-.Load();
+        _context.Entry(device)
+            .Reference(d => d.DeviceModel)
+            .Load();
 
-    var ageInYears = CalculateDeviceAge(device.PurchasedDate);
+        var ageInYears = CalculateDeviceAge(device.PurchasedDate);
+
+        // Calculate remaining warranty period
+        var warrantyDate = CalculateRemainingWarranty(device.WarrantyDate);
 
         var deviceDto = new DeviceDto
         {
             Id = device.Id,
             SerialNumber = device.SerialNumber,
-            AgeInYears = ageInYears,
             Cygid = device.Cygid,
             DeviceModelId = device.DeviceModelId,
+            CreatedBy = device.CreatedBy,
+            CreatedAtUtc = device.CreatedAtUtc,
+            UpdatedBy = device.UpdatedBy,
+            UpdatedAtUtc = device.UpdatedAtUtc,
+            AssignedTo = device.AssignedTo,
             PurchasedDate = device.PurchasedDate,
-            WarrantyDate = device.WarrantyDate,
+
+
+            // Assign the remaining warranty to WarrantyDate
+            WarrantyRemaining = warrantyDate,
+
             Status = new StatusDto
             {
                 Id = device.StatusNavigation.Id,
                 Type = device.StatusNavigation.Type
             },
+            AgeInYears = ageInYears,
             DeviceModel = new DeviceModelDto
             {
-                DeviceName = device.DeviceModel?.DeviceName,
                 Processor = device.DeviceModel?.Processor,
+                DeviceName = device.DeviceModel?.DeviceName,
                 Ram = device.DeviceModel?.Ram,
                 Storage = device.DeviceModel?.Storage,
             },
-           
-            
-    
-    };
+        };
 
-    return deviceDto;
-}
+        string formattedDate = deviceDto.FormattedPurchasedDate;
+        
 
-  
+        return deviceDto;
+    }
+
+
+    private string CalculateRemainingWarranty(DateTime? warrantyDate)
+    {
+        if (!warrantyDate.HasValue || warrantyDate.Value < DateTime.Now)
+            return "No warranty";
+
+        var remainingTimeSpan = warrantyDate.Value - DateTime.Now;
+
+        // Calculate remaining warranty in years and months
+        var remainingYears = remainingTimeSpan.Days / 365;
+        var remainingMonths = (remainingTimeSpan.Days % 365) / 30;
+
+        var remainingWarranty = new StringBuilder();
+
+        if (remainingYears > 0)
+            remainingWarranty.Append($"{remainingYears} {(remainingYears == 1 ? "year" : "years")} ");
+
+        if (remainingMonths > 0)
+            remainingWarranty.Append($"{remainingMonths} {(remainingMonths == 1 ? "month" : "months")}");
+
+        if (remainingWarranty.Length == 0)
+            return "Less than a month"; // or any other default value
+
+        return remainingWarranty.ToString();
+    }
+
+
     private Device GetDevice(string deviceId)
 {
     return _context.Devices
@@ -90,7 +129,14 @@ public DeviceDto GetDeviceStatusAndAge(string deviceId)
         .FirstOrDefault(d => d.Cygid == deviceId);
 }
 
-private double CalculateDeviceAge(DateTime? purchasedDate)
+    public async Task<int> GetModelCountAsync(string deviceModelName)
+    {
+        return await _context.Devices
+            .Include(d => d.DeviceModel)
+            .Where(d => d.DeviceModel.DeviceName == deviceModelName)
+            .CountAsync();
+    }
+    private double CalculateDeviceAge(DateTime? purchasedDate)
 {
     if (purchasedDate == null)
         return 0;
@@ -99,7 +145,24 @@ private double CalculateDeviceAge(DateTime? purchasedDate)
     double roundedAge = Math.Round(totalYears, 2);
     return roundedAge;
 }
+
+    public List<DevicelogDto> GetArchivedCygIds()
+    {
+        
+
+        var archivedCygIds = _context.Devices.OrderBy(log => log.Cygid).Where(log=>log.IsArchived==true)
+            .Select(log => new DevicelogDto
+            {
+
+                Cygid = log.Cygid
+            })
+            .ToList();
+
+       
+
+        return archivedCygIds;
     }
+}
 
 
 

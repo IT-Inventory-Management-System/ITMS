@@ -12,6 +12,7 @@ export class AssignHistoryComponent {
 
 
   get devicelogs() {
+  
     return this.dataService.DeviceLog;
   } 
 
