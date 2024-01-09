@@ -9,7 +9,9 @@ public class DevicelogDto
     public string Cgiid { get; set; }
     public string EmployeeName { get; set; }
     public string AssignedBy { get; set; }
+    public string FormattedAssignedDate { get; set; }
     public DateTime? AssignedDate { get; set; }
+    
     public string RecievedBy { get; set; }
     public DateTime? RecievedDate { get; set; }
 }

@@ -1,5 +1,6 @@
 
 
+using ITMS.Server.DTO;
 using ITMS.Server.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -50,7 +51,7 @@ public class DeviceLogService
 
                 var receivedByFirstName = receivedByEmployee?.FirstName ?? "Unknown";
                 var receivedByLastName = receivedByEmployee?.LastName ?? "Unknown";
-
+               
                 return new DevicelogDto
                 {
                     Cygid = devicesLogInfo.Device.Cygid,
@@ -59,9 +60,14 @@ public class DeviceLogService
                     AssignedBy = $"{assignedByFirstName} {assignedByLastName}",
                     AssignedDate = devicesLogInfo.AssignedDate,
                     RecievedBy = $"{receivedByFirstName} {receivedByLastName}",
-                    RecievedDate = devicesLogInfo.RecievedDate
+                    RecievedDate = devicesLogInfo.RecievedDate,
+                    FormattedAssignedDate = devicesLogInfo.AssignedDate?.ToString("MM-dd-yyyy") ?? "DefaultDate"
+
                 };
+               
             });
+
+            
         }
         catch (Exception ex)
         {
