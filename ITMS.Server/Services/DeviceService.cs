@@ -4,6 +4,7 @@ using ITMS.Server.Models;
 using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Crypto.Prng.Drbg;
 using System;
+
 public class DeviceService
 {
     private readonly ItinventorySystemContext _context;
@@ -99,6 +100,19 @@ private double CalculateDeviceAge(DateTime? purchasedDate)
     double roundedAge = Math.Round(totalYears, 2);
     return roundedAge;
 }
+    public async Task<IEnumerable<DeviceDto>> GetDevicesAsync(Guid cgiId)
+    {
+        var result = await (from d in _context.Devices
+                            where d.AssignedTo == cgiId
+                            select new DeviceDto
+                            {
+                                Id = d.Id,
+                                Cygid = d.Cygid,
+                                DeviceModelId = d.DeviceModelId,
+                                AssignedBy = d.AssignedBy
+                            }).ToListAsync();
+        return result;
+    }
     }
 
 
