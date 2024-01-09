@@ -63,7 +63,6 @@ import { SoftwareComponentComponent } from './dashboard/software-component/softw
   declarations: [
     DevicesComponent,
     DevicesListComponent,
-    LaptopDetailsComponent,
     SoftwareDetailsComponent,
     AccessoriesDetailsComponent,
     CommentsComponent,
@@ -95,12 +94,11 @@ import { SoftwareComponentComponent } from './dashboard/software-component/softw
     HeaderComponent,
     AssestComponent,
     DashboardAssetsComponent,
-    LaptopDetailsComponent,
     SoftwareDetailsComponent,
     AccessoriesDetailsComponent,
     UserNameListComponent,
     CommentsComponent,
-    
+    LaptopDetailsComponent,
     SpecInfoComponent,
     DevicesComponent,
     DevicesListComponent,
@@ -113,6 +111,7 @@ import { SoftwareComponentComponent } from './dashboard/software-component/softw
 
 
     NewSidebarComponent,
+    
 
 
   ],

@@ -1,25 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>User Details</title>
-  
-</head>
-
-<body>
   <div class="page-container">
     <div class="row container">
       <div class="col-md-6 name-header">
         <div class="row">
           <div class="col-md-1 avatar">
-            <ngx-avatars name="Marvin McKinney" [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true"></ngx-avatars>
+            <ngx-avatars name="{{userDetails.firstName }} {{userDetails.lastName }}" [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="33"></ngx-avatars>
           </div>
           <div class="col-md-4 user-details">
-            <div class="user-name" style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1.125rem; font-style: normal; font-weight: 600; line-height: normal;">Marvin McKinney</div>
-            <div class="user-info">CGI 098</div>
-          </div>
+            <div class="user-name" style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1.125rem; font-style: normal; font-weight: 600; line-height: normal;">{{ userDetails.firstName }} {{ userDetails.lastName }}</div>
+            <div class="user-info">
+              CGI ID: {{ userDetails.cgiid }}
+            </div>
+            <div>
+              {{ userDetails.id }}
+            </div>
         </div>
       </div>
       <div class="col-6 assign-button">
@@ -42,11 +36,8 @@
         </div>
       </div>
 
-    <app-laptop-details></app-laptop-details>
+    <app-laptop-details ></app-laptop-details>
     
   </div>
-</body>
-
-</html>
 
 
