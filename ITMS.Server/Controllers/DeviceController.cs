@@ -1,15 +1,13 @@
 
 using Microsoft.AspNetCore.Mvc;
 using ITMS.Server.Services;
-using ITMS.Server.DTO;
-
-
-
 
 using System.Threading.Tasks;
 using System.Collections.Generic;
+
 using ITMS.Server.Models;
-using Microsoft.AspNetCore.Http.HttpResults;
+using ITMS.Server.DTO;
+
 
 namespace itms.server.controllers
 {
@@ -43,7 +41,24 @@ namespace itms.server.controllers
             }
         }
       
-            [HttpGet("{deviceId}")]
+            
+
+        [HttpGet("modelCount/{deviceModelName}")]
+        public async Task<ActionResult<int>> GetModelCount(string deviceModelName)
+        {
+            try
+            {
+                var modelCount = await _deviceservice.GetModelCountAsync(deviceModelName);
+                return Ok(modelCount);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(500, "Internal server error");
+            }
+        }
+        [HttpGet("{deviceId}")]
+
             public ActionResult<DeviceDto> GetDeviceStatusAndAge(string deviceId)
             {
                 var deviceDto = _deviceservice.GetDeviceStatusAndAge(deviceId);
@@ -67,6 +82,7 @@ namespace itms.server.controllers
                 return StatusCode(500, "Internal Server Error");
             }
         }
+
     }
 
     
