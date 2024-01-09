@@ -128,7 +128,14 @@ public class DeviceService
         .FirstOrDefault(d => d.Cygid == deviceId);
 }
 
-private double CalculateDeviceAge(DateTime? purchasedDate)
+    public async Task<int> GetModelCountAsync(string deviceModelName)
+    {
+        return await _context.Devices
+            .Include(d => d.DeviceModel)
+            .Where(d => d.DeviceModel.DeviceName == deviceModelName)
+            .CountAsync();
+    }
+    private double CalculateDeviceAge(DateTime? purchasedDate)
 {
     if (purchasedDate == null)
         return 0;

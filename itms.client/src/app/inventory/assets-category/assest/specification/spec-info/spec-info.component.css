@@ -43,3 +43,11 @@
   background: var(--Primary-White, #FFF);
 }
 
+.model-count {
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 1000;
+  line-height: normal;
+}

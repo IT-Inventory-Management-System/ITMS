@@ -1,22 +1,31 @@
-﻿//using Microsoft.AspNetCore.Http;
-//using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using ITMS.Server.Services;
 
-//// Controllers/UserDevicesController.cs
-//[ApiController]
-//[Route("api/userdevices")]
-//public class UserDevicesController : ControllerBase
-//{
-//    private readonly UserDeviceService _userDeviceService;
+namespace ITMS.Server.Controllers
+{
+    [ApiController]
+    [Route("api/userdevices")]
+    public class UserDeviceController : ControllerBase
+    {
+        private readonly UserDeviceService _userDeviceService;
 
-//    public UserDevicesController(UserDeviceService userDeviceService)
-//    {
-//        _userDeviceService = userDeviceService;
-//    }
+        public UserDeviceController(UserDeviceService userDeviceService)
+        {
+            _userDeviceService = userDeviceService;
+        }
 
-//    [HttpGet("user/{userId}")]
-//    public ActionResult<IEnumerable<UserDeviceDto>> GetDevicesForUser(int userId)
-//    {
-//        List<UserDeviceDto> userDeviceDtos = _userDeviceService.GetDevicesForUser(userId);
-//        return Ok(userDeviceDtos);
-//    }
-//}
+        [HttpGet("{deviceId}")]
+        public async Task<IActionResult> GetUserDeviceById(Guid deviceId)
+        {
+            var userDeviceDto = await _userDeviceService.GetUserDeviceById(deviceId);
+
+            if (userDeviceDto == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(userDeviceDto);
+        }
+    }
+}
