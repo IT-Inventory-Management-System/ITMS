@@ -1,21 +1,18 @@
 
 using Microsoft.AspNetCore.Mvc;
 using ITMS.Server.Services;
-using ITMS.Server.DTO;
-using Microsoft.AspNetCore.Components;
-using System.Web.Http;
-using Prism.Services;
-using System.Web.Mvc;
-using ControllerBase = Microsoft.AspNetCore.Mvc.ControllerBase;
+
 using System.Threading.Tasks;
 using System.Collections.Generic;
+
 using ITMS.Server.Models;
-using Microsoft.AspNetCore.Http.HttpResults;
+using ITMS.Server.DTO;
+
 
 namespace itms.server.controllers
 {
     // devicecontroller.cs
-    [Microsoft.AspNetCore.Components.Route("api/devices")]
+    [Route("api/devices")]
     [ApiController]
     public class Devicecontroller : ControllerBase
     {
@@ -29,7 +26,7 @@ namespace itms.server.controllers
 
 
 
-        [Microsoft.AspNetCore.Mvc.HttpGet("api/devices/categories")]
+        [HttpGet("categories")]
         public async Task<ActionResult<IEnumerable<Category>>> getcategories()
         {
             try
@@ -44,7 +41,24 @@ namespace itms.server.controllers
             }
         }
       
-            [Microsoft.AspNetCore.Mvc.HttpGet("api/devices/{deviceId}")]
+            
+
+        [HttpGet("modelCount/{deviceModelName}")]
+        public async Task<ActionResult<int>> GetModelCount(string deviceModelName)
+        {
+            try
+            {
+                var modelCount = await _deviceservice.GetModelCountAsync(deviceModelName);
+                return Ok(modelCount);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                return StatusCode(500, "Internal server error");
+            }
+        }
+        [HttpGet("{deviceId}")]
+
             public ActionResult<DeviceDto> GetDeviceStatusAndAge(string deviceId)
             {
                 var deviceDto = _deviceservice.GetDeviceStatusAndAge(deviceId);
@@ -54,8 +68,25 @@ namespace itms.server.controllers
 
                 return Ok(deviceDto);
             }
+        [HttpGet("archived-cygids")]
+        public IActionResult GetDeviceHistory()
+        {
+            try
+            {
+                var deviceHistory = _deviceservice.GetArchivedCygIds();
+                return Ok(deviceHistory);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it appropriately
+                return StatusCode(500, "Internal Server Error");
+            }
         }
+
     }
+
+    
+}
 
 
 
