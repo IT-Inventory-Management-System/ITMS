@@ -108,14 +108,11 @@ import { FilterSearchListPipe } from './filter-search-list.pipe';
 
     RecentActivityComponent,
     SoftwareComponentComponent,
+    FilterSearchListPipe,
 
     AssignHistoryComponent,
     CommentCardComponent,
     NewSidebarComponent
-
-
-    NewSidebarComponent,
-        FilterSearchListPipe,
 
 
   ],
