@@ -59,6 +59,9 @@ namespace ITMS.Server.DTO
         public string? Storage { get; set; }
 
         
+        
     }
+ 
+
 
 }

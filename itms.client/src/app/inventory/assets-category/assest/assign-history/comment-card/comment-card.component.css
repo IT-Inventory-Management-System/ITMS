@@ -6,6 +6,7 @@
   border-radius: 0.25rem;
   border: 1px solid var(--Secondary-Light-Gray, #E9ECEB);
   background: #FFF;
+  margin-bottom:1rem;
  
 }
 .user-details {

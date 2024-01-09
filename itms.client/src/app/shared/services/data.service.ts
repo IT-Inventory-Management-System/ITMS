@@ -10,8 +10,8 @@ export class DataService {
 
   DeviceDetails: any;
   DeviceLog: any;
-  Archiveddevices :any;
-  showArchiveOnly: boolean = false;
+  Archiveddevices: any;
+  CommentDetails: any;
   constructor(private http: HttpClient) { }
 
   getCategories(): Observable<any[]> {
@@ -24,7 +24,7 @@ export class DataService {
 
 
   getArchivedDevices(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl +'devices/archived-cygids')
+    return this.http.get<any[]>(this.apiUrl + 'devices/archived-cygids')
   }
 
 
@@ -38,8 +38,15 @@ export class DataService {
   }
 
   getModelCount(deviceModelName: string): Observable<number> {
-    return this.http.get<number>(this.apiUrl+'devices/modelCount/'+deviceModelName);
-  
+    return this.http.get<number>(this.apiUrl + 'devices/modelCount/' + deviceModelName);
+
+  }
+  getComment(deviceId: any): Observable<any> {
+    return this.http.get<any>(this.apiUrl + 'userdevices/' + deviceId);
+
   }
 }
+
+
+
 

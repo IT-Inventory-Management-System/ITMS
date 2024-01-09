@@ -13,7 +13,6 @@ public class UserDeviceDto
     public string ModelName { get; set; }
 
     // New fields
-    public string CommentDescription { get; set; }
-    public string CreatedByFullName { get; set; }
-    public DateTime CommentCreatedAtUtc { get; set; }
+    
 }
+

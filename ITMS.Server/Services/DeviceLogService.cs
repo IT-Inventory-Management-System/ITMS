@@ -37,6 +37,7 @@ public class DeviceLogService
             var devicesLogInfoList = _context.DevicesLogs
                 .Include(log => log.Device)
                 .Include(log => log.Employee)
+                .Include(log=>log.Comment)
                 .Where(log => log.Device.Cygid == cygid)
                 .OrderBy(log => log.EmployeeId)
                 .ToList();
@@ -51,7 +52,7 @@ public class DeviceLogService
 
                 var receivedByFirstName = receivedByEmployee?.FirstName ?? "Unknown";
                 var receivedByLastName = receivedByEmployee?.LastName ?? "Unknown";
-               
+
                 return new DevicelogDto
                 {
                     Cygid = devicesLogInfo.Device.Cygid,
@@ -61,7 +62,13 @@ public class DeviceLogService
                     AssignedDate = devicesLogInfo.AssignedDate,
                     RecievedBy = $"{receivedByFirstName} {receivedByLastName}",
                     RecievedDate = devicesLogInfo.RecievedDate,
-                    FormattedAssignedDate = devicesLogInfo.AssignedDate?.ToString("MM-dd-yyyy") ?? "DefaultDate"
+                    FormattedAssignedDate = devicesLogInfo.AssignedDate?.ToString("MM-dd-yyyy") ?? "DefaultDate",
+                    Comments = new commentDto
+                    {
+                        CommentCreatedAtUtc = DateTime.UtcNow,
+                        CommentDescription = devicesLogInfo.Comment?.Description,
+                        CreatedByFullName = $"{assignedByFirstName} {assignedByLastName}"
+                    }
 
                 };
                
