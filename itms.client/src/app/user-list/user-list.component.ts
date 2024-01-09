@@ -1,4 +1,3 @@
-
 // Import necessary modules and services
 import { Component, OnInit } from '@angular/core';
 import { DisplayDetailsService } from '../shared/services/display-details.service';
@@ -10,9 +9,11 @@ import { DisplayDetailsService } from '../shared/services/display-details.servic
   // Add the DisplayDetailsService to the providers array
   providers: [DisplayDetailsService]
 })
+
 export class UserListComponent implements OnInit {
   displayingData: any[] = [];
-  filterInput: string = '';
+ /* filteredEmployees: UserListDTO[] = [];*/
+  filterName: string = '';
 
   constructor(private displayingDetailsService: DisplayDetailsService) {
     // Initialize your class properties here if needed
@@ -30,7 +31,7 @@ export class UserListComponent implements OnInit {
         console.log(this.displayingData);
       },
       (error) => {
-        console.log(error);
+        console.log(error)
       }
     );
   }
