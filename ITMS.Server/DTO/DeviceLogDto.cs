@@ -12,6 +12,8 @@ public class DevicelogDto
     public DateTime? AssignedDate { get; set; }
     public string RecievedBy { get; set; }
     public DateTime? RecievedDate { get; set; }
+
+    public bool ? IsArchived { get; set; }
 }
 
 

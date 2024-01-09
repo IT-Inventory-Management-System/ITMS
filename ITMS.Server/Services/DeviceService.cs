@@ -4,6 +4,9 @@ using ITMS.Server.Models;
 using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Crypto.Prng.Drbg;
 using System;
+using Xamarin.Forms;
+using Device = ITMS.Server.Models.Device;
+
 public class DeviceService
 {
     private readonly ItinventorySystemContext _context;
@@ -99,7 +102,24 @@ private double CalculateDeviceAge(DateTime? purchasedDate)
     double roundedAge = Math.Round(totalYears, 2);
     return roundedAge;
 }
+
+    public List<DevicelogDto> GetArchivedCygIds()
+    {
+        
+
+        var archivedCygIds = _context.Devices.OrderBy(log => log.Cygid).Where(log=>log.IsArchived==true)
+            .Select(log => new DevicelogDto
+            {
+
+                Cygid = log.Cygid
+            })
+            .ToList();
+
+       
+
+        return archivedCygIds;
     }
+}
 
 
 

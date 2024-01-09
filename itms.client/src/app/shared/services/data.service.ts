@@ -10,6 +10,8 @@ export class DataService {
 
   DeviceDetails: any;
   DeviceLog: any;
+  Archiveddevices :any;
+  showArchiveOnly: boolean = false;
   constructor(private http: HttpClient) { }
 
   getCategories(): Observable<any[]> {
@@ -17,6 +19,10 @@ export class DataService {
   }
   getDevices(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl + 'DeviceLog/devices');
+  }
+
+  getArchivedDevices(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl +'devices/archived-cygids')
   }
 
 
