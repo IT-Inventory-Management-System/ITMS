@@ -40,49 +40,6 @@ public class DeviceService
 
         return categoryTypesWithCategories;
     }
-
-    //public DeviceDto GetDeviceStatusAndAge(string deviceId)
-    //{
-    //    var device = GetDevice(deviceId);
-
-    //        if (device == null)
-    //        return null;
-
-    //    _context.Entry(device)
-    //.Reference(d => d.DeviceModel)
-    //.Load();
-
-    //    var ageInYears = CalculateDeviceAge(device.PurchasedDate);
-
-    //        var deviceDto = new DeviceDto
-    //        {
-    //            Id = device.Id,
-    //            SerialNumber = device.SerialNumber,
-    //            AgeInYears = ageInYears,
-    //            Cygid = device.Cygid,
-    //            DeviceModelId = device.DeviceModelId,
-    //            PurchasedDate = device.PurchasedDate,
-    //            WarrantyDate = device.WarrantyDate,
-    //            Status = new StatusDto
-    //            {
-    //                Id = device.StatusNavigation.Id,
-    //                Type = device.StatusNavigation.Type
-    //            },
-    //            DeviceModel = new DeviceModelDto
-    //            {
-    //                DeviceName = device.DeviceModel?.DeviceName,
-    //                Processor = device.DeviceModel?.Processor,
-    //                Ram = device.DeviceModel?.Ram,
-    //                Storage = device.DeviceModel?.Storage,
-    //            },
-
-
-
-    //    };
-
-    //    return deviceDto;
-    //}
-
     public DeviceDto GetDeviceStatusAndAge(string deviceId)
     {
         var device = GetDevice(deviceId);
@@ -132,10 +89,7 @@ public class DeviceService
         };
 
         string formattedDate = deviceDto.FormattedPurchasedDate;
-        // Log the values for debugging
-        Console.WriteLine($"WarrantyDate: {device.WarrantyDate}");
-        Console.WriteLine($"Calculated WarrantyDate: {warrantyDate}");
-        Console.WriteLine($"DeviceDto.WarrantyDate: {deviceDto.WarrantyDate}");
+        
 
         return deviceDto;
     }
@@ -174,7 +128,14 @@ public class DeviceService
         .FirstOrDefault(d => d.Cygid == deviceId);
 }
 
-private double CalculateDeviceAge(DateTime? purchasedDate)
+    public async Task<int> GetModelCountAsync(string deviceModelName)
+    {
+        return await _context.Devices
+            .Include(d => d.DeviceModel)
+            .Where(d => d.DeviceModel.DeviceName == deviceModelName)
+            .CountAsync();
+    }
+    private double CalculateDeviceAge(DateTime? purchasedDate)
 {
     if (purchasedDate == null)
         return 0;

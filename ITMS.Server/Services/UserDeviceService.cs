@@ -1,28 +1,54 @@
+// Services/UserDeviceService.cs
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+using ITMS.Server.Models;
+using Microsoft.EntityFrameworkCore;
 
-//using ITMS.Server.Models;
+// Services/UserDeviceService.cs
+public class UserDeviceService
+{
+    private readonly ItinventorySystemContext _dbContext;
 
-//    private readonly ItinventorySystemContext _dbContext;
+    public UserDeviceService(ItinventorySystemContext dbContext)
+    {
+        _dbContext = dbContext;
+    }
 
-//    public UserDeviceService(ItinventorySystemContext dbContext)
+    public async Task<UserDeviceDto> GetUserDeviceById(Guid deviceId)
+    {
+        var device = await _dbContext.Devices
+            .Include(d => d.DeviceModel)
+            .Include(d => d.StatusNavigation)
+            .Include(d => d.CreatedByNavigation)
+            .Include(d => d.Comments).ThenInclude(c => c.CreatedByNavigation)
+            .Where(d => d.Id == deviceId)
+            .FirstOrDefaultAsync();
 
+        if (device == null)
+        {
+            return null;
+        }
 
+        var userDeviceDto = new UserDeviceDto
+        {
+            Id = device.Id,
+           
+            StatusId = device.Status,
+            
+            CreatedByUserName = $"{device.CreatedByNavigation.FirstName} {device.CreatedByNavigation.LastName}",
+            CreatedAtUtc = device.CreatedAtUtc,
+            ModelName = device.DeviceModel.DeviceName,
+        };
 
-//    {
-//        _dbContext = dbContext;
-//    }
+        var latestComment = device.Comments.OrderByDescending(c => c.CreatedAtUtc).FirstOrDefault();
+        if (latestComment != null)
+        {
+            userDeviceDto.CommentDescription = latestComment.Description;
+            userDeviceDto.CreatedByFullName = $"{latestComment.CreatedByNavigation.FirstName} {latestComment.CreatedByNavigation.LastName}";
+            userDeviceDto.CommentCreatedAtUtc = latestComment.CreatedAtUtc;
+        }
 
-//    public List<UserDeviceDto> GetDevicesForUser(int userId)
-//    {
-//        List<UserDeviceDto> userDeviceDtos = _dbContext.Devices
-//            .Where(device => device.UserId == userId)
-//            .Select(device => new UserDeviceDto
-//            {
-//                DeviceId = device.DeviceId,
-//                DeviceName = device.DeviceName,
-//                // Map other device properties...
-//            })
-//            .ToList();
-
-//        return userDeviceDtos;
-//    }
-//}
+        return userDeviceDto;
+    }
+}
