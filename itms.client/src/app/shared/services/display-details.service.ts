@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 export class DisplayDetailsService {
 
   private apiUrl = 'https://localhost:7283/api/';
+  searchText: any;
   constructor(private http: HttpClient) { }
 
   getshowUserListData(): Observable<any[]> {
