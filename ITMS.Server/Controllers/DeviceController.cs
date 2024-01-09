@@ -53,26 +53,10 @@ namespace itms.server.controllers
 
 
 
-        //[HttpGet("GetDeviceByCGIId")]
-        //public async Task<IEnumerable<DeviceDto>> GetDeviceByCGIIdAsync(Guid cgiId) 
-        //{
-        //    return await _deviceservice.GetDevicesAsync(cgiId);
-        //}
-
-
-        [HttpGet("GetDevices/{id}")]
-        public IActionResult GetDevices(Guid id)
+        [HttpGet("GetDeviceByCGIId")]
+        public async Task<IEnumerable<DeviceDto>> GetDeviceByCGIIdAsync(Guid cgiId) 
         {
-            try
-            {
-                var devices = _deviceservice.GetDevices(id);
-                return Ok(devices);
-            }
-            catch (Exception ex)
-            {
-                // Log the exception or handle it appropriately
-                return StatusCode(500, "Internal Server Error");
-            }
+            return await _deviceservice.GetDevicesAsync(cgiId);
         }
     }
     }

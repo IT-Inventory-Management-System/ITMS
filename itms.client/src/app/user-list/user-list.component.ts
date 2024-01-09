@@ -1,6 +1,6 @@
 
 // Import necessary modules and services
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DisplayDetailsService } from '../shared/services/display-details.service';
 
 @Component({
@@ -13,13 +13,6 @@ import { DisplayDetailsService } from '../shared/services/display-details.servic
 export class UserListComponent implements OnInit {
   displayingData: any[] = [];
   filterInput: string = '';
-
-  @Output() userDetailsClicked: EventEmitter<any> = new EventEmitter<any>();
-
-  // Function to emit the clicked user details
-  showUserDetails(userDetails: any) {
-    this.userDetailsClicked.emit(userDetails);
-  }
 
   constructor(private displayingDetailsService: DisplayDetailsService) {
     // Initialize your class properties here if needed
@@ -40,10 +33,5 @@ export class UserListComponent implements OnInit {
         console.log(error);
       }
     );
-  }
-
-  GetUserDetails = (details: any) => {
-    console.log(details.id);
-    console.log("working");
   }
 }
