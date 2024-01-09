@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Crypto.Prng.Drbg;
 using System;
 using System.Text;
+
 public class DeviceService
 {
     private readonly ItinventorySystemContext _context;
@@ -144,7 +145,24 @@ public class DeviceService
     double roundedAge = Math.Round(totalYears, 2);
     return roundedAge;
 }
+
+    public List<DevicelogDto> GetArchivedCygIds()
+    {
+        
+
+        var archivedCygIds = _context.Devices.OrderBy(log => log.Cygid).Where(log=>log.IsArchived==true)
+            .Select(log => new DevicelogDto
+            {
+
+                Cygid = log.Cygid
+            })
+            .ToList();
+
+       
+
+        return archivedCygIds;
     }
+}
 
 
 

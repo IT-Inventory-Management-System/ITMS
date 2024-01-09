@@ -1,4 +1,6 @@
 ﻿
+using FSharp.Data.Runtime.StructuralTypes;
+
 namespace ITMS.Server.DTO
 {
     public class DeviceDto
@@ -33,6 +35,8 @@ namespace ITMS.Server.DTO
         public StatusDto Status { get; set; }
         public double AgeInYears { get; set; }
         public DeviceModelDto DeviceModel { get; set; }
+
+        public bool? IsArchived { get; set; }
 
     }
 
