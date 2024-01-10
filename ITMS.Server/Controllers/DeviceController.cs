@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace itms.server.controllers
 {
     // devicecontroller.cs
-   
+
     [ApiController]
     [Route("api/Device")]
     public class Devicecontroller : ControllerBase
@@ -44,8 +44,8 @@ namespace itms.server.controllers
                 return StatusCode(500, "internal server error");
             }
         }
-      
-            
+
+
 
         [HttpGet("modelCount/{deviceModelName}")]
         public async Task<ActionResult<int>> GetModelCount(string deviceModelName)
@@ -63,15 +63,15 @@ namespace itms.server.controllers
         }
         [HttpGet("{deviceId}")]
 
-            public ActionResult<DeviceDto> GetDeviceStatusAndAge(string deviceId)
-            {
-                var deviceDto = _deviceservice.GetDeviceStatusAndAge(deviceId);
+        public ActionResult<DeviceDto> GetDeviceStatusAndAge(string deviceId)
+        {
+            var deviceDto = _deviceservice.GetDeviceStatusAndAge(deviceId);
 
-                if (deviceDto == null)
-                    return NotFound();
+            if (deviceDto == null)
+                return NotFound();
 
-                return Ok(deviceDto);
-            }
+            return Ok(deviceDto);
+        }
 
 
 
@@ -96,8 +96,8 @@ namespace itms.server.controllers
                 return StatusCode(500, "Internal Server Error");
             }
         }
-    }
-    }
+
+
         [HttpGet("archived-cygids")]
         public IActionResult GetDeviceHistory()
         {
@@ -114,9 +114,9 @@ namespace itms.server.controllers
         }
 
     }
+}
 
     
-}
 
 
 

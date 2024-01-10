@@ -10,7 +10,7 @@
     </div>
   </div>
   <div class=" user-name-list"  >
-    <user-name-list (click)="showUserDetails(userDetails)" *ngFor="let userDetails of displayingData"
+    <user-name-list (click)="showUserDetails(userDetails)" *ngFor="let userDetails of displayingData | filterSearchList : filterName"
                     [cgiid]="userDetails.cgiid"
                     [firstName]="userDetails.firstName"
                     [lastName]="userDetails.lastName"></user-name-list>

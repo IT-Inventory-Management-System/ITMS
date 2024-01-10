@@ -203,6 +203,23 @@ public class DeviceService
             // Log the exception or handle it appropriately
             throw;
         }
+
+    }
+    public List<DevicelogDto> GetArchivedCygIds()
+    {
+
+
+        var archivedCygIds = _context.Devices.OrderBy(log => log.Cygid).Where(log => log.IsArchived == true)
+            .Select(log => new DevicelogDto
+            {
+
+                Cygid = log.Cygid
+            })
+            .ToList();
+
+
+
+        return archivedCygIds;
     }
 
 

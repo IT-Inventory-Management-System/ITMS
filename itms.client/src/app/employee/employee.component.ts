@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./employee.component.scss']
 })
 export class EmployeeComponent {
+  
   selectedUser: any; // Variable to store selected user details
 
   // Function to handle user details clicked event

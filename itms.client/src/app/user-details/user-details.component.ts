@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+
 import { DisplayDetailsService } from '../shared/services/display-details.service';
 import { Component, Input } from '@angular/core';
 
@@ -8,6 +8,8 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./user-details.component.css']
 })
 export class UserDetailsComponent {
+  @Input() userDetails: any;
+
   constructor(private displayingDetailsService: DisplayDetailsService) {
     // Initialize your class properties here if needed
   }
@@ -19,5 +21,4 @@ export class UserDetailsComponent {
 
   }
 }
-  @Input() userDetails: any;
-}
+  
