@@ -38,6 +38,8 @@ namespace ITMS.Server.DTO
 
         public bool? IsArchived { get; set; }
 
+        public int modelCount { get; set; }
+
     }
 
     public class StatusDto

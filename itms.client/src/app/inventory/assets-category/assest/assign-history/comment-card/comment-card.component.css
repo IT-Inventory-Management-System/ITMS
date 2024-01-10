@@ -85,10 +85,23 @@
   line-height: normal;
   
 }
-.inforight{
-    text-align:end;
+.inforight {
+  text-align: end;
+  font-family: Roboto;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 .info-text {
+  color: var(--Adhoc-Grey, #6D6D6D);
+  font-family: Roboto;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.vals {
   color: var(--Primary-Gray, #343435);
   font-family: Roboto;
   font-size: 0.875rem;

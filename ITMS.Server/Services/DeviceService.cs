@@ -1,10 +1,11 @@
-
 using ITMS.Server.DTO;
 using ITMS.Server.Models;
 using Microsoft.EntityFrameworkCore;
-using Org.BouncyCastle.Crypto.Prng.Drbg;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 public class DeviceService
 {
@@ -17,40 +18,39 @@ public class DeviceService
 
     public async Task<IEnumerable<CategoryTypeWithCategoriesDTO>> GetCategoriesAsync()
     {
-
-
         var categoryTypesWithCategories = await _context.CategoryTypes
-         .OrderBy(ct => ct.Priority)
-        .Include(ct => ct.Categories)
-        .Select(ct => new CategoryTypeWithCategoriesDTO
-        {
-            Id = ct.Id,
-            TypeName = ct.TypeName,
-            Categories = ct.Categories.OrderBy(c => c.Name).Select(c => new CategoryDTO
+            .OrderBy(ct => ct.Priority)
+            .Include(ct => ct.Categories)
+            .Select(ct => new CategoryTypeWithCategoriesDTO
             {
-
-                Id = c.Id,
-                Name = c.Name,
-                CategoryTypeName = c.CategoryType.TypeName,
-                CategoryTypeId = c.CategoryType.Id
-
-            }).ToList(),
-            Priority = ct.Priority
-        })
-        .ToListAsync();
+                Id = ct.Id,
+                TypeName = ct.TypeName,
+                Categories = ct.Categories.OrderBy(c => c.Name).Select(c => new CategoryDTO
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    CategoryTypeName = c.CategoryType.TypeName,
+                    CategoryTypeId = c.CategoryType.Id
+                }).ToList(),
+                Priority = ct.Priority
+            })
+            .ToListAsync();
 
         return categoryTypesWithCategories;
     }
-    public DeviceDto GetDeviceStatusAndAge(string deviceId)
+
+    public async Task<DeviceDto> GetDeviceStatusAndAgeAsync(string deviceId)
     {
-        var device = GetDevice(deviceId);
+        var device = await GetDeviceAsync(deviceId);
 
         if (device == null)
             return null;
 
-        _context.Entry(device)
+        await _context.Entry(device)
             .Reference(d => d.DeviceModel)
-            .Load();
+            .LoadAsync();
+        
+        var modelCount = await GetModelCountAsync(device.DeviceModel?.DeviceName);
 
         var ageInYears = CalculateDeviceAge(device.PurchasedDate);
 
@@ -70,7 +70,6 @@ public class DeviceService
             AssignedTo = device.AssignedTo,
             PurchasedDate = device.PurchasedDate,
 
-
             // Assign the remaining warranty to WarrantyDate
             WarrantyRemaining = warrantyDate,
 
@@ -87,14 +86,53 @@ public class DeviceService
                 Ram = device.DeviceModel?.Ram,
                 Storage = device.DeviceModel?.Storage,
             },
+            modelCount = modelCount,
         };
 
         string formattedDate = deviceDto.FormattedPurchasedDate;
-        
 
         return deviceDto;
     }
 
+    private async Task<Device> GetDeviceAsync(string deviceId)
+    {
+        return await _context.Devices
+            .Include(d => d.StatusNavigation)
+            .Include(d => d.DeviceModel)
+            .FirstOrDefaultAsync(d => d.Cygid == deviceId);
+    }
+
+    public async Task<int> GetModelCountAsync(string deviceModelName)
+    {
+        return await _context.Devices
+            .Include(d => d.DeviceModel)
+            .Where(d => d.DeviceModel.DeviceName == deviceModelName)
+            .CountAsync();
+    }
+
+    private double CalculateDeviceAge(DateTime? purchasedDate)
+    {
+        if (purchasedDate == null)
+            return 0;
+
+        double totalYears = (DateTime.UtcNow - purchasedDate.GetValueOrDefault()).TotalDays / 365;
+        double roundedAge = Math.Round(totalYears, 2);
+        return roundedAge;
+    }
+
+    public async Task<List<DevicelogDto>> GetArchivedCygIdsAsync()
+    {
+        var archivedCygIds = await _context.Devices
+            .OrderBy(log => log.Cygid)
+            .Where(log => log.IsArchived == true)
+            .Select(log => new DevicelogDto
+            {
+                Cygid = log.Cygid
+            })
+            .ToListAsync();
+
+        return archivedCygIds;
+    }
 
     private string CalculateRemainingWarranty(DateTime? warrantyDate)
     {
@@ -120,49 +158,4 @@ public class DeviceService
 
         return remainingWarranty.ToString();
     }
-
-
-    private Device GetDevice(string deviceId)
-{
-    return _context.Devices
-        .Include(d => d.StatusNavigation).Include(d => d.DeviceModel)
-        .FirstOrDefault(d => d.Cygid == deviceId);
 }
-
-    public async Task<int> GetModelCountAsync(string deviceModelName)
-    {
-        return await _context.Devices
-            .Include(d => d.DeviceModel)
-            .Where(d => d.DeviceModel.DeviceName == deviceModelName)
-            .CountAsync();
-    }
-    private double CalculateDeviceAge(DateTime? purchasedDate)
-{
-    if (purchasedDate == null)
-        return 0;
-
-    double totalYears = (DateTime.UtcNow - purchasedDate.GetValueOrDefault()).TotalDays / 365;
-    double roundedAge = Math.Round(totalYears, 2);
-    return roundedAge;
-}
-
-    public List<DevicelogDto> GetArchivedCygIds()
-    {
-        
-
-        var archivedCygIds = _context.Devices.OrderBy(log => log.Cygid).Where(log=>log.IsArchived==true)
-            .Select(log => new DevicelogDto
-            {
-
-                Cygid = log.Cygid
-            })
-            .ToList();
-
-       
-
-        return archivedCygIds;
-    }
-}
-
-
-

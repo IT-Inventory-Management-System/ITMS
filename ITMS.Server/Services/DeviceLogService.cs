@@ -1,11 +1,10 @@
-
-
 using ITMS.Server.DTO;
 using ITMS.Server.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 public class DeviceLogService
 {
@@ -16,31 +15,30 @@ public class DeviceLogService
         _context = context;
     }
 
-    public List<DevicelogDto> GetDevices()
+    public async Task<List<DevicelogDto>> GetDevicesAsync()
     {
-        var deviceHistory = _context.Devices.OrderBy(log => log.Cygid)
+        var deviceHistory = await _context.Devices.OrderBy(log => log.Cygid)
             .Select(log => new DevicelogDto
             {
 
                 Cygid = log.Cygid
             })
-            .ToList();
+            .ToListAsync();
 
         return deviceHistory;
     }
 
-
-    public IEnumerable<DevicelogDto> GetDevicesLogInfo(string cygid)
+    public async Task<IEnumerable<DevicelogDto>> GetDevicesLogInfoAsync(string cygid)
     {
         try
         {
-            var devicesLogInfoList = _context.DevicesLogs
+            var devicesLogInfoList = await _context.DevicesLogs
                 .Include(log => log.Device)
                 .Include(log => log.Employee)
-                .Include(log=>log.Comment)
+                .Include(log => log.Comment)
                 .Where(log => log.Device.Cygid == cygid)
                 .OrderBy(log => log.EmployeeId)
-                .ToList();
+                .ToListAsync();
 
             return devicesLogInfoList.Select(devicesLogInfo =>
             {
@@ -69,12 +67,8 @@ public class DeviceLogService
                         CommentDescription = devicesLogInfo.Comment?.Description,
                         CreatedByFullName = $"{assignedByFirstName} {assignedByLastName}"
                     }
-
                 };
-               
             });
-
-            
         }
         catch (Exception ex)
         {
@@ -82,13 +76,4 @@ public class DeviceLogService
             throw;
         }
     }
-
-
 }
-
-
-
-
-
-
-
