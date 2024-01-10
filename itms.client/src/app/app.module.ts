@@ -59,6 +59,7 @@ import { SoftwareComponentComponent } from './dashboard/software-component/softw
 
 
 
+
 @NgModule({
   declarations: [
     DevicesComponent,
