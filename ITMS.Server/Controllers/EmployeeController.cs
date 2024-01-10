@@ -22,6 +22,5 @@ namespace ITMS.Server.Controllers
         {
             return await _userListService.GetUserDevicesAsync();
         }
-
     }
 }

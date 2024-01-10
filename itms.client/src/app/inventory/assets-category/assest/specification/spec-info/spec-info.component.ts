@@ -19,7 +19,9 @@ constructor(private dataService: DataService) { }
     return this.dataService.DeviceDetails;
   } 
 
- 
+  getObjectKeys(obj: any): string[] {
+    return Object.keys(obj);
+  }
  
 
 

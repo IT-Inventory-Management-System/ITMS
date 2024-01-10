@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+
 import { AvatarModule } from 'ngx-avatars';
 import { HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -63,6 +64,7 @@ import { SoftwareComponentComponent } from './dashboard/software-component/softw
   declarations: [
     DevicesComponent,
     DevicesListComponent,
+    LaptopDetailsComponent,
     SoftwareDetailsComponent,
     AccessoriesDetailsComponent,
     CommentsComponent,
@@ -94,11 +96,12 @@ import { SoftwareComponentComponent } from './dashboard/software-component/softw
     HeaderComponent,
     AssestComponent,
     DashboardAssetsComponent,
+    LaptopDetailsComponent,
     SoftwareDetailsComponent,
     AccessoriesDetailsComponent,
     UserNameListComponent,
     CommentsComponent,
-    LaptopDetailsComponent,
+    
     SpecInfoComponent,
     DevicesComponent,
     DevicesListComponent,
@@ -111,7 +114,6 @@ import { SoftwareComponentComponent } from './dashboard/software-component/softw
 
 
     NewSidebarComponent,
-    
 
 
   ],
