@@ -4,7 +4,6 @@ using ITMS.Server.Models;
 using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Crypto.Prng.Drbg;
 using System;
-
 public class DeviceService
 {
     private readonly ItinventorySystemContext _context;
@@ -44,8 +43,8 @@ public class DeviceService
 public DeviceDto GetDeviceStatusAndAge(string deviceId)
 {
     var device = GetDevice(deviceId);
-      
-        if (device == null)
+
+    if (device == null)
         return null;
 
     _context.Entry(device)
@@ -80,8 +79,7 @@ public DeviceDto GetDeviceStatusAndAge(string deviceId)
     return deviceDto;
 }
 
-  
-    private Device GetDevice(string deviceId)
+private Device GetDevice(string deviceId)
 {
     return _context.Devices
         .Include(d => d.StatusNavigation).Include(d => d.DeviceModel)
@@ -97,70 +95,7 @@ private double CalculateDeviceAge(DateTime? purchasedDate)
     double roundedAge = Math.Round(totalYears, 2);
     return roundedAge;
 }
-    //public async Task<IEnumerable<DeviceDto>> GetDevicesAsync(Guid cgiId)
-    //{
-    //    var result = await (from d in _context.Devices
-    //                        where d.AssignedTo == cgiId
-    //                        select new DeviceDto
-    //                        {
-    //                            Id = d.Id,
-    //                            Cygid = d.Cygid,
-    //                            DeviceModelId = d.DeviceModelId,
-    //                            AssignedBy = d.AssignedBy
-    //                        }).ToListAsync();
-    //    return result;
-    //}
-
-
-    public IEnumerable<DevicelogDto> GetDevices(Guid id)
-    {
-        try
-        {
-            var getdevices = _context.Devices
-                .Where(log => log.AssignedTo == id)
-                .Include(d => d.DeviceModel)
-                .ToList();
-
-            var result = getdevices.Select(UserLogInfo =>
-
-            {
-                var assignedTo = _context.Employees.FirstOrDefault(emp => emp.Id ==id);
-                var assignedtoFirstName = assignedTo?.FirstName ?? "Unknown";
-                var assignedtoLastName = assignedTo?.LastName ?? "Unknown";
-                var assignedByEmployee = _context.Employees.FirstOrDefault(emp => emp.Id == UserLogInfo.AssignedBy);
-                var receivedByEmployee = _context.Employees.FirstOrDefault(emp => emp.Id == UserLogInfo.RecievedBy);
-
-                var assignedByFirstName = assignedByEmployee?.FirstName ?? "Unknown";
-                var assignedByLastName = assignedByEmployee?.LastName ?? "Unknown";
-
-                var receivedByFirstName = receivedByEmployee?.FirstName ?? "Unknown";
-                var receivedByLastName = receivedByEmployee?.LastName ?? "Unknown";
-                var modelNo = UserLogInfo.DeviceModel != null ? UserLogInfo.DeviceModel.ModelNo : "Unknown";
-
-
-                return new DevicelogDto
-                {
-                    Cygid = UserLogInfo.Cygid,
-                    Cgiid = UserLogInfo.AssignedToNavigation?.Cgiid,
-                    AssignedTo = $"{assignedtoFirstName} {assignedtoLastName}",
-                    AssignedBy = $"{assignedByFirstName} {assignedByLastName}",
-                    AssignedDate = UserLogInfo.AssignedDate,
-                    RecievedBy = $"{receivedByFirstName} {receivedByLastName}",
-                    Model = modelNo
-                };
-            });
-
-            return result.ToList(); // Returning a list of DevicelogDto objects
-
-        }
-        catch (Exception ex)
-        {
-            // Log the exception or handle it appropriately
-            throw;
-        }
     }
-
-}
 
 
 

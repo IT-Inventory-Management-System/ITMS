@@ -12,17 +12,13 @@ using ControllerBase = Microsoft.AspNetCore.Mvc.ControllerBase;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using ITMS.Server.Models;
-using ITMS.Server.Services;
-using ITMS.Server.DTO;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace itms.server.controllers
 {
     // devicecontroller.cs
-   
+    [Microsoft.AspNetCore.Components.Route("api/devices")]
     [ApiController]
-    [Route("api/Device")]
     public class Devicecontroller : ControllerBase
     {
         private readonly DeviceService _deviceservice;
@@ -35,7 +31,7 @@ namespace itms.server.controllers
 
 
 
-        [HttpGet("api/devices/categories")]
+        [Microsoft.AspNetCore.Mvc.HttpGet("api/devices/categories")]
         public async Task<ActionResult<IEnumerable<Category>>> getcategories()
         {
             try
@@ -50,7 +46,7 @@ namespace itms.server.controllers
             }
         }
       
-            [HttpGet("api/devices/{deviceId}")]
+            [Microsoft.AspNetCore.Mvc.HttpGet("api/devices/{deviceId}")]
             public ActionResult<DeviceDto> GetDeviceStatusAndAge(string deviceId)
             {
                 var deviceDto = _deviceservice.GetDeviceStatusAndAge(deviceId);
@@ -60,15 +56,7 @@ namespace itms.server.controllers
 
                 return Ok(deviceDto);
             }
-
-
-
-        [HttpGet("GetDeviceByCGIId")]
-        public async Task<IEnumerable<DeviceDto>> GetDeviceByCGIIdAsync(Guid cgiId) 
-        {
-            return await _deviceservice.GetDevicesAsync(cgiId);
         }
-    }
     }
 
 
