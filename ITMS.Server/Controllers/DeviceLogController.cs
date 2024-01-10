@@ -28,12 +28,12 @@ public class DeviceLogController : ControllerBase
     }
 
 
-    [HttpGet("devicesloginfo")]
-    public IActionResult GetDevicesLogInfo()
+    [HttpGet("devicesloginfo/{cygid}")]
+    public IActionResult GetDevicesLogInfo(string cygid)
     {
         try
         {
-            var devicesLogInfo = _deviceLogService.GetDevicesLogInfo();
+            var devicesLogInfo = _deviceLogService.GetDevicesLogInfo(cygid);
             return Ok(devicesLogInfo);
         }
         catch (Exception ex)

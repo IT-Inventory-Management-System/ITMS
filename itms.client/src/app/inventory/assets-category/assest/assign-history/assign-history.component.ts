@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DataService } from '../../../../shared/services/data.service';
 
 @Component({
   selector: 'app-assign-history',
@@ -6,5 +7,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./assign-history.component.css']
 })
 export class AssignHistoryComponent {
+ 
+  constructor(private dataService: DataService) { }
+
+
+  get devicelogs() {
+    return this.dataService.DeviceLog;
+  } 
+
+
 
 }

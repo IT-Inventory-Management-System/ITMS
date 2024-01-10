@@ -94,7 +94,7 @@
 }
 
 .version-text {
-  color: var(--Primary-Gray, #343435);
+  color: #343435;
   leading-trim: both;
   text-edge: cap;
   font-family: Roboto;

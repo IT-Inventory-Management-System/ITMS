@@ -12,6 +12,9 @@ public class DevicelogDto
     public DateTime? AssignedDate { get; set; }
     public string RecievedBy { get; set; }
     public DateTime? RecievedDate { get; set; }
+    public string  AssignedTo { get;  set; }
+
+    public string Model { get; set; }
 }
 
 
