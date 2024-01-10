@@ -1,4 +1,6 @@
 ﻿
+using FSharp.Data.Runtime.StructuralTypes;
+
 namespace ITMS.Server.DTO
 {
     public class DeviceDto
@@ -23,12 +25,19 @@ namespace ITMS.Server.DTO
         public Guid? AssignedBy { get; set; }
 
         public DateTime? PurchasedDate { get; set; }
+        public string FormattedPurchasedDate => PurchasedDate.HasValue ? PurchasedDate.Value.ToString("dd-MM-yyyy") : null;
+
+
+        public string WarrantyRemaining { get; set; }
 
         public DateTime? WarrantyDate { get; set; }
+
 
         public StatusDto Status { get; set; }
         public double AgeInYears { get; set; }
         public DeviceModelDto DeviceModel { get; set; }
+
+        public bool? IsArchived { get; set; }
 
     }
 

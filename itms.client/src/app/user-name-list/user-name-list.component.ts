@@ -9,5 +9,6 @@ export class UserNameListComponent {
   @Input() cgiid: string;
   @Input() firstName: string;
   @Input() lastName: string;
+  
 
 }

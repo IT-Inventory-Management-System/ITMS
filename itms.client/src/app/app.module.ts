@@ -1,6 +1,5 @@
 
 import { NgModule } from '@angular/core';
-
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -31,7 +30,7 @@ import { UserNameListComponent } from './user-name-list/user-name-list.component
 import { AssetsCategoryComponent } from './inventory/assets-category/assets-category.component';
 import { HeaderComponent } from './inventory/assets-category/header/header.component';
 import { AssestComponent } from './inventory/assets-category/assest/assest.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { DashboardAssetsComponent } from './dashboard/dashboard-assets/dashboard-assets.component';
  
@@ -55,6 +54,7 @@ import { AssignSoftwareComponent } from './assign-asset/assign-software/assign-s
 import { AssignAccessoriesComponent } from './assign-asset/assign-accessories/assign-accessories.component';
 import { RecentActivityComponent } from './dashboard/recent-activity/recent-activity.component';
 import { SoftwareComponentComponent } from './dashboard/software-component/software-component.component';
+import { FilterSearchListPipe } from './filter-search-list.pipe';
 
 
 
@@ -109,19 +109,20 @@ import { SoftwareComponentComponent } from './dashboard/software-component/softw
 
     AssignHistoryComponent,
     CommentCardComponent,
-
-
     NewSidebarComponent,
-    
+        FilterSearchListPipe,
+
 
 
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     HttpClientModule,
     AvatarModule,
     ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

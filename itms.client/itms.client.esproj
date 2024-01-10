@@ -28,7 +28,4 @@
   <ItemGroup>
     <None Remove="src\app\shared\components\sidebar-new\sidebar-new.component.css" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="src\app\shared\Pipes\" />
-  </ItemGroup>
 </Project>

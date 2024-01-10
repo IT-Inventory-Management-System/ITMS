@@ -2,8 +2,11 @@
 
   <div class="search-bar">
     <div class="search-bar-within">
-      <img src="../assets/icons/Search.svg" alt="search-logo" class="image-icon"  />
-      <input type="text" placeholder="Select User" class="select-bar-2" />
+      <img src="../assets/icons/Search.svg" alt="search-logo" class="image-icon" />
+      <input type="text" placeholder="Select User" class="select-bar-2" [(ngModel)]="filterName" />
+      
+
+     
     </div>
   </div>
   <div class=" user-name-list"  >
@@ -12,6 +15,5 @@
                     [firstName]="userDetails.firstName"
                     [lastName]="userDetails.lastName"></user-name-list>
   </div>
-  
 
 </div>

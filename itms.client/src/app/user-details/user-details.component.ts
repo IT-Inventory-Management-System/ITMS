@@ -1,3 +1,5 @@
+import { Component } from '@angular/core';
+import { DisplayDetailsService } from '../shared/services/display-details.service';
 import { Component, Input } from '@angular/core';
 
 @Component({
@@ -6,5 +8,16 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./user-details.component.css']
 })
 export class UserDetailsComponent {
+  constructor(private displayingDetailsService: DisplayDetailsService) {
+    // Initialize your class properties here if needed
+  }
+
+  ngOnInit(): void {
+    this.showUserDetails();
+  }
+  showUserDetails() {
+
+  }
+}
   @Input() userDetails: any;
 }
