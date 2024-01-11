@@ -28,7 +28,9 @@ export class UserListComponent implements OnInit {
     this.displayingDetailsService.getshowUserListData().subscribe(
       (data) => {
         this.displayingData = data;
+        this.displayingData = data.sort((a, b) => a.cgiid.localeCompare(b.cgiid));
         console.log(this.displayingData);
+
       },
       (error) => {
         console.log(error)
