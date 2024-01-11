@@ -7,19 +7,32 @@ import { DataService } from '../../services/data.service';
   styleUrls: ['./comments.component.css']
 })
 export class CommentsComponent {
+  commentDetails: any[];
   isCommentSectionCollapsed = false;
+  currentDeviceCygid: string;
 
-  toggleCommentSection() {
+  toggleCommentSection(cygid: string) {
+    console.log(cygid);
     this.isCommentSectionCollapsed = !this.isCommentSectionCollapsed;
+    this.currentDeviceCygid = cygid;
+    /*this.showcomment(cygid);*/
   }
- 
+
   constructor(private dataService: DataService) { }
 
+  get deviceDetails() {
+    return this.dataService.DeviceDetails;
+  }
 
   get devicelog() {
-    console.log(this.dataService.DeviceLog)
     return this.dataService.DeviceLog;
+  }
 
-  } 
-
+  //showcomment(cygid: string) {
+  //  this.dataService.getComment(cygid)
+  //    .subscribe(data => {
+  //      this.commentDetails = data;
+  //      console.log('comment' + this.commentDetails);
+  //    });
+  //}
 }

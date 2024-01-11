@@ -36,7 +36,7 @@ export class DataService {
   }
 
   getComment(deviceId: any): Observable<any> {
-    return this.http.get<any>(this.apiUrl + 'userdevices/' + deviceId);
+    return this.http.get<any>(this.apiUrl + 'userdevices/comments/' + deviceId);
 
   }
 }

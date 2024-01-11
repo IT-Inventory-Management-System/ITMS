@@ -11,8 +11,11 @@ public class UserDeviceDto
     public string CreatedByUserName { get; set; }
     public DateTime CreatedAtUtc { get; set; }
     public string ModelName { get; set; }
+    public string cgiid { get; set; }
 
-    // New fields
+   
     
 }
+
+
 

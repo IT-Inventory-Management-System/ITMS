@@ -61,7 +61,7 @@ public class DeviceLogService
                     RecievedBy = $"{receivedByFirstName} {receivedByLastName}",
                     RecievedDate = devicesLogInfo.RecievedDate,
                     FormattedAssignedDate = devicesLogInfo.AssignedDate?.ToString("MM-dd-yyyy") ?? "DefaultDate",
-                    Comments = new commentDto
+                    Comment = new CommentDto
                     {
                         CommentCreatedAtUtc = DateTime.UtcNow,
                         CommentDescription = devicesLogInfo.Comment?.Description,

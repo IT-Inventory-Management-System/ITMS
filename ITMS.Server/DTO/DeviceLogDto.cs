@@ -16,11 +16,19 @@ public class DevicelogDto
     public DateTime? RecievedDate { get; set; }
 
     public bool ? IsArchived { get; set; }
-    public commentDto Comments { get; set; }
+    public CommentDto Comment { get; set; }
+
 
 }
 
+public class CommentDto
+{
 
+    public string CommentDescription { get; set; }
+    public string CreatedByFullName { get; set; }
+    public DateTime CommentCreatedAtUtc { get; set; }
+
+}
 public class CategoryDTO
 {
     public Guid Id { get; set; }
@@ -49,12 +57,7 @@ public class CategoryTypeWithCategoriesDTO
     public int Priority { get; set; }
 }
 
-public class commentDto
-{
-    public string CommentDescription { get; set; }
-    public string CreatedByFullName { get; set; }
-    public DateTime CommentCreatedAtUtc { get; set; }
-}
+
 
 
 

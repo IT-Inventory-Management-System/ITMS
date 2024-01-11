@@ -1,6 +1,6 @@
 <div class="comment-container" >
   <div class="row" >
-    <div class="col-md-12 comment-header" (click)="toggleCommentSection()">
+    <div class="col-md-12 comment-header" (click)="toggleCommentSection(deviceDetails.cygid)">
       <div class="row">
         <div class="col-md-6">
           <span>
@@ -33,13 +33,13 @@
         </div>
         <div class="col-md-6 date-time-comment">
           <div>
-            <div>{{device.comments.commentCreatedAtUtc}}</div>
+            <div>{{device.comment.commentCreatedAtUtc}}</div>
           </div>
         </div>
       </div>
     </div>
     <div class="col-md-12">
-      <p class="comment-content">{{device.comments.commentDescription}}</p>
+      <p class="comment-content">{{device.comment.commentDescription}}</p>
     </div>
     <div class="col-md-12 comment-input">
       <input type="text" class="input" placeholder="Add Comment...">
