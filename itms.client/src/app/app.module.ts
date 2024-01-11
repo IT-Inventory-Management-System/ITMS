@@ -1,6 +1,5 @@
 
 import { NgModule } from '@angular/core';
-
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -55,6 +54,8 @@ import { AssignSoftwareComponent } from './assign-asset/assign-software/assign-s
 import { AssignAccessoriesComponent } from './assign-asset/assign-accessories/assign-accessories.component';
 import { RecentActivityComponent } from './dashboard/recent-activity/recent-activity.component';
 import { SoftwareComponentComponent } from './dashboard/software-component/software-component.component';
+import { FilterSearchListPipe } from './filter-search-list.pipe';
+
 
 
 
@@ -63,7 +64,6 @@ import { SoftwareComponentComponent } from './dashboard/software-component/softw
   declarations: [
     DevicesComponent,
     DevicesListComponent,
-    LaptopDetailsComponent,
     SoftwareDetailsComponent,
     AccessoriesDetailsComponent,
     CommentsComponent,
@@ -95,12 +95,11 @@ import { SoftwareComponentComponent } from './dashboard/software-component/softw
     HeaderComponent,
     AssestComponent,
     DashboardAssetsComponent,
-    LaptopDetailsComponent,
     SoftwareDetailsComponent,
     AccessoriesDetailsComponent,
     UserNameListComponent,
     CommentsComponent,
-    
+    LaptopDetailsComponent,
     SpecInfoComponent,
     DevicesComponent,
     DevicesListComponent,
@@ -110,12 +109,15 @@ import { SoftwareComponentComponent } from './dashboard/software-component/softw
 
     AssignHistoryComponent,
     CommentCardComponent,
-    NewSidebarComponent
+    NewSidebarComponent,
+        FilterSearchListPipe,
+
 
 
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     HttpClientModule,
     AvatarModule,

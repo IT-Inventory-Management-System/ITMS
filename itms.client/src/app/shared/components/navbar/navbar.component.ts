@@ -7,7 +7,6 @@ import { Component } from '@angular/core';
 })
 export class NavbarComponent {
   isOptionsVisible: boolean = false;
-
   handleOptionClick(option: string) {
     // Handle the click for each option
     if (option === 'add-assets') {
