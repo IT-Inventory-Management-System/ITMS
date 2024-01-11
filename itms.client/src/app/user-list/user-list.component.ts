@@ -28,6 +28,9 @@ export class UserListComponent implements OnInit {
 
   ngOnInit(): void {
     this.showUserListData();
+    if (this.displayingData.length > 0) {
+      this.showUserDetails(this.displayingData[0]);
+    }
   }
 
   showUserListData() {
@@ -36,6 +39,12 @@ export class UserListComponent implements OnInit {
       (data) => {
         this.displayingData = data;
         console.log(this.displayingData);
+
+        if (this.displayingData.length > 0) {
+          this.showUserDetails(this.displayingData[0]);
+        }
+
+
       },
       (error) => {
         console.log(error)
