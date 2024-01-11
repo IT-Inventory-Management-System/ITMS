@@ -64,7 +64,6 @@ import { FilterSearchListPipe } from './filter-search-list.pipe';
   declarations: [
     DevicesComponent,
     DevicesListComponent,
-    LaptopDetailsComponent,
     SoftwareDetailsComponent,
     AccessoriesDetailsComponent,
     CommentsComponent,
@@ -96,12 +95,11 @@ import { FilterSearchListPipe } from './filter-search-list.pipe';
     HeaderComponent,
     AssestComponent,
     DashboardAssetsComponent,
-    LaptopDetailsComponent,
     SoftwareDetailsComponent,
     AccessoriesDetailsComponent,
     UserNameListComponent,
     CommentsComponent,
-    
+    LaptopDetailsComponent,
     SpecInfoComponent,
     DevicesComponent,
     DevicesListComponent,
@@ -113,6 +111,7 @@ import { FilterSearchListPipe } from './filter-search-list.pipe';
     CommentCardComponent,
     NewSidebarComponent,
         FilterSearchListPipe,
+
 
 
   ],
