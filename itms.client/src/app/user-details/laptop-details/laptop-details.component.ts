@@ -1,34 +1,3 @@
-//import { Component, Input, OnInit } from '@angular/core';
-//import { EmployeeService } from '../../shared/services/Employee.service';
-
-//@Component({
-//  selector: 'app-laptop-details',
-//  templateUrl: './laptop-details.component.html',
-//  styleUrls: ['./laptop-details.component.css']
-//})
-//export class LaptopDetailsComponent implements OnInit {
-//  @Input() userId: any;
-//  laptopDetails: any; // Define a variable to store laptop details
-
-//  constructor(private employeeService: EmployeeService) { }
-
-//  ngOnInit(): void {
-//    this.getDevices(); // Assuming getDevices is the method in EmployeeService
-//  }
-
-//  getDevices(): void {
-//    this.employeeService.getDevices(this.userId)
-//      .subscribe((data) => {
-//        this.employeeService.laptopDetails = data;
-//        this.laptopDetails = this.employeeService.laptopDetails;
-//        console.log(this.employeeService.laptopDetails);// Assign the fetched data to the variable
-//        // Additional handling/logic for laptop details
-//      }, (error) => {
-//        console.error('Error fetching laptop details:', error);
-//        // Handle error as needed
-//      });
-//  }
-//}
 
 
 
