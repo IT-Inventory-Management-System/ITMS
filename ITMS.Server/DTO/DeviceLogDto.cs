@@ -22,7 +22,7 @@ public class DevicelogDto
     public bool ? IsArchived { get; set; }
 
 
-    public CommentDto Comments { get; set; }
+    public List<CommentDto> Comments { get; set; }
 }
 
 

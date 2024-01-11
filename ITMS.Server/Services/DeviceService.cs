@@ -172,7 +172,7 @@ public class DeviceService
 
                         CreatedAt = c.CreatedAtUtc
                     })
-                    .FirstOrDefault();
+                    .ToList();
 
                 var assignedTo = _context.Employees.FirstOrDefault(emp => emp.Id == id);
                 var assignedtoFirstName = assignedTo?.FirstName ?? "Unknown";
