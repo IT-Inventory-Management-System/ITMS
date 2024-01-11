@@ -22,29 +22,28 @@
         <div class="col-md-6">
           <div class="row avatar-supercomponent">
             <div class="col-md-1 avatar">
-              <ngx-avatars name="Ganesh Warner" [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="32"></ngx-avatars>
+              <ngx-avatars name="{{laptopDetails.comments.createdBy}}" [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="33"></ngx-avatars>
             </div>
             <div class="col-md-4 user-details">
-              <div style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 0.875rem; font-style: normal; font-weight: 600; line-height: normal;">Ganesh Warner</div>
+              <div style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 0.875rem; font-style: normal; font-weight: 600; line-height: normal;">{{laptopDetails.comments.createdBy}}</div>
             </div>
           </div>
         </div>
         <div class="col-md-6 date-time-comment">
           <div>
-            <div>12-12-2023, 09:30 AM</div>
+            <div>{{laptopDetails.comments.createdAt}}</div>
           </div>
         </div>
       </div>
     </div>
     <div class="col-md-12">
-      <p class="comment-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce suscipit felis at diam sagittis,
-      a cursus tortor laoreet. Phasellus nec augue ac tellus gravida gravida. Integer vel lectus tincidunt,
-      cursus nulla vitae, fermentum dui. Etiam vel tellus ut elit sagittis eleifend. Nulla facilisi. Suspendisse potenti.
-      Proin ac varius purus. Aliquam id interdum libero. Vestibulum at metus sit amet velit luctus condimentum.
-      Morbi vel fringilla turpis.</p>
+      <p class="comment-content"> {{laptopDetails.comments.description}} </p>
     </div>
     <div class="col-md-12 comment-input">
       <input type="text" class="input" placeholder="Add Comment...">
     </div>
   </div>
 </div>
+
+
+
