@@ -2,10 +2,10 @@
 <div class="row my-employee">
   <h3>User</h3>
   <div class="col-md-4">
-    <app-user-list></app-user-list>
+    <app-user-list (userDetailsClicked)="onUserDetailsClicked($event)"></app-user-list>
   </div>
   <div class="col-md-8">
     <!-- Change col-md-8 to col-md-12 -->
-    <app-user-details></app-user-details>
+    <app-user-details [userDetails]="selectedUser"></app-user-details>
   </div>
 </div>

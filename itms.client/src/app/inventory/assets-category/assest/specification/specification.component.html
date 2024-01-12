@@ -1,31 +1,46 @@
 <div class="spec">
-  <div class="specification">
+  <div class="mb-3 specification" *ngIf="!isArchived">
+    Device Summary
+  </div>
+
+  <div class="mb-3 specification" *ngIf="isArchived">
     Specification
   </div>
-  <div class="spec-card">
+
+
+  <div class="spec-card mb-3 ">
     <div class="status-container">
       <div class="status-info">
         <span class="status-label">Status</span>
-        <span class="status-value">Active</span>
+        <span class="status-value">{{deviceDetails?.status?.type}}</span>
       </div>
     </div>
     <div class="button-container">
-      <button class="custom-button">
+      <button class="custom-button" *ngIf="!isArchived">
         <img src="../../assets/icons/archive.svg" />
         Archive
       </button>
+      <button class="custom-button" *ngIf="isArchived">
+        <img src="../../assets/icons/archive.svg" />
+        Unarchive
+      </button>
     </div>
   </div>
-  <div class="age">
+  <div class="age mb-3">
     <span class="half-asset">
       <img class="asset-image" src="../../assets/icons/assetAge.svg" />
       <span class="asset-age">Asset Age</span>
     </span>
-    <span class="years">2.3 Years</span>
+
+    <span class="years">{{deviceDetails?.ageInYears}} Years </span>
+
   </div>
-  
-  <div class="spec-outer"><app-spec-info></app-spec-info>
-                          <app-spec-info></app-spec-info></div>
+
+
+  <div class="spec-outer">
+    <app-spec-info></app-spec-info>
+
+  </div>
 </div>
 
 

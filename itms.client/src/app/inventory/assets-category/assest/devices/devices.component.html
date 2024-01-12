@@ -1,10 +1,16 @@
-<div class="Category">
-  <div class="search-bar">
-    <div class="search-bar-within">
-      <img src="../assets/icons/Search.svg" alt="search-logo" class="image-icon" />
-      <input type="text" placeholder="Search Devices" class="select-bar-2" />
+<div class="col-md-12">
+  <div class="Category ">
+    <div class="search-bar">
+      <div class="search-bar-within">
+        <img src="../assets/icons/Search.svg" alt="search-logo" class="image-icon" />
+        <input type="text" placeholder="Search Devices" class="select-bar-2" />
+      </div>
     </div>
+
+    <app-devices-list *ngFor="let device of DeviceData" [device]="device"></app-devices-list>
+    
+    <!-- Template for showing all devices when showArchiveOnly is false -->
+    
   </div>
-  <app-devices-list *ngFor="let id of DeviceData" [Cygid]="id.cygid"></app-devices-list>
-</div>
+  </div>
 

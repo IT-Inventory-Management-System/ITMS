@@ -1,6 +1,7 @@
 using ITMS.Server.Models;
 using ITMS.Server.Services;
 using Microsoft.EntityFrameworkCore;
+using MiNET.Blocks;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,8 +18,10 @@ builder.Services.AddDbContext<ItinventorySystemContext>(options =>
     // options.UseSqlServer(builder.Configuration.GetConnectionString("Server=.\\SQLExpress;Database=ITInventoryManagement;Trusted_Connection=True;"));
 });
 builder.Services.AddScoped<IDeviceService, AddDeviceService>();
+builder.Services.AddScoped<IUserListService, UserListService>();
 builder.Services.AddScoped<DeviceService>();
 builder.Services.AddScoped<DeviceLogService>();
+builder.Services.AddScoped<UserDeviceService>();
 
 
 

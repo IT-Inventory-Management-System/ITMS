@@ -8,6 +8,7 @@
   border-radius: 0.25rem;
   border: 1px solid var(--Secondary-Light-Gray, #E9ECEB);
   background: var(--Primary-White, #FFF);
+  overflow-y:auto;
 }
 .rectangle {
   width: 1.25rem;
@@ -35,4 +36,18 @@
   width: 1rem;
   height: 1rem;
 }
+.value {
+  font-weight: 500;
+  border-radius: 0.25rem;
+  
+  background: var(--Primary-White, #FFF);
+}
 
+.model-count {
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 1000;
+  line-height: normal;
+}
