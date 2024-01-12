@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Guid } from 'guid-typescript'; // Import Guid if using a library to work with GUIDs
 
 @Injectable({
   providedIn: 'root'
