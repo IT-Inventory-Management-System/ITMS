@@ -124,7 +124,7 @@ public class DeviceService
     }
 
 
-    private Device GetDevice(string deviceId)
+    private ITMS.Server.Models.Device GetDevice(string deviceId)
 {
     return _context.Devices
         .Include(d => d.StatusNavigation).Include(d => d.DeviceModel)
