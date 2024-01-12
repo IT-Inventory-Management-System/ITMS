@@ -99,7 +99,6 @@ import { FilterSearchListPipe } from './filter-search-list.pipe';
     AccessoriesDetailsComponent,
     UserNameListComponent,
     CommentsComponent,
-    LaptopDetailsComponent,
     SpecInfoComponent,
     DevicesComponent,
     DevicesListComponent,
@@ -110,7 +109,8 @@ import { FilterSearchListPipe } from './filter-search-list.pipe';
     AssignHistoryComponent,
     CommentCardComponent,
     NewSidebarComponent,
-        FilterSearchListPipe,
+    FilterSearchListPipe,
+    LaptopDetailsComponent
 
 
 
