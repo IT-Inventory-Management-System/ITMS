@@ -55,6 +55,7 @@ import { AssignSoftwareComponent } from './assign-asset/assign-software/assign-s
 import { AssignAccessoriesComponent } from './assign-asset/assign-accessories/assign-accessories.component';
 import { RecentActivityComponent } from './dashboard/recent-activity/recent-activity.component';
 import { SoftwareComponentComponent } from './dashboard/software-component/software-component.component';
+import { CurrentDeviceComponent } from './shared/components/current-device/current-device.component';
 
 
 
@@ -110,7 +111,8 @@ import { SoftwareComponentComponent } from './dashboard/software-component/softw
 
     AssignHistoryComponent,
     CommentCardComponent,
-    NewSidebarComponent
+    NewSidebarComponent,
+    CurrentDeviceComponent
 
 
   ],

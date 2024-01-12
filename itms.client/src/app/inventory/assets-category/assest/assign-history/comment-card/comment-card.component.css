@@ -57,7 +57,8 @@
   padding: 0.375rem 0.625rem;
   justify-content: center;
   align-items: center;
- 
+ position:relative;
+ right:0px;
   border-radius: 0rem 0.25rem;
   background: var(--Primary-Yellow, #FFB81C);
   color: var(--Primary-Royal-Blue, #002C3F);

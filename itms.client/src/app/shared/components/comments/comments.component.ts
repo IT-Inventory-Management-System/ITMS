@@ -28,6 +28,8 @@ export class CommentsComponent {
     return this.dataService.DeviceLog;
   }
 
+
+
   //showcomment(cygid: string) {
   //  this.dataService.getComment(cygid)
   //    .subscribe(data => {
