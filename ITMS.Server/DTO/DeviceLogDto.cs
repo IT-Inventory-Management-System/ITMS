@@ -5,6 +5,7 @@ using ITMS.Server.Models;
 
 public class DevicelogDto
 {
+    public Guid Id { get; set; }
     public string? Cygid { get; set; }
     public string Cgiid { get; set; }
     public string EmployeeName { get; set; }
@@ -14,8 +15,14 @@ public class DevicelogDto
     
     public string RecievedBy { get; set; }
     public DateTime? RecievedDate { get; set; }
+    public string  AssignedTo { get;  set; }
+
+    public string Model { get; set; }
 
     public bool ? IsArchived { get; set; }
+
+
+    public List<CommentDto> Comments { get; set; }
 }
 
 
@@ -45,4 +52,10 @@ public class CategoryTypeWithCategoriesDTO
     public int Priority { get; set; }
 }
 
-
+public class CommentDto
+{
+    public Guid Id { get; set; }
+    public string Description { get; set; }
+    public string CreatedBy { get; set; }
+    public DateTime CreatedAt { get; set; }
+}
