@@ -1,9 +1,6 @@
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#assignAssetModal">
+<!--<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#assignAssetModal">
   Launch demo modal
-</button>
-
-<!-- Modal -->
+</button>-->
 <div class="modal fade" id="assignAssetModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content assign-asset-modal-outer-box">
@@ -12,37 +9,66 @@
         <button type="button" class="close-button" data-bs-dismiss="modal" aria-label="Close"><img src="../../../../assets/icons/Close.svg" /></button>
       </div>
 
-
       <div class="modal-body">
         <div class="user-search">
           <div class="search-box-subheading">User <span style="color:red">*</span></div>
           <input class="search-box" required type="search" placeholder="Search User by Name, CGI ID and Email Address" aria-label="Search">
         </div>
         <div class="stepper">
-          <div class="step">
-            <img class="step-img" src="../../../../assets/icons/laptop-solid.svg" />
-            <div class="step-text">Laptop</div>
-          </div>
-          <img class="vector-img" src="../../../../assets/icons/Stroke.svg" />
-          <div class="step">
-            <img class="step-img" src="../../../../assets/icons/Software.svg" />
-            <div class="step-text">Software</div>
-          </div>
-          <img class="vector-img" src="../../../../assets/icons/Stroke.svg" />
-          <div class="step">
-            <img class="step-img" src="../../../../assets/icons/laptop-solid.svg" />
-            <div class="step-text">Accessories</div>
+          <div *ngFor="let step of [1, 2, 3]; let i = index" class="step">
+            <img class="step-img"
+                 [src]="getStepIcon(i + 1)"
+                 alt="Step {{ i + 1 }}"
+                 [ngClass]="{
+                 'completed' : currentStep> i + 1,
+            'current': currentStep === i + 1,
+            'greyscale-icon': currentStep < i + 1
+            }"
+            />
+            <div class="step-text"
+                 [ngClass]="{
+                 'completed' : currentStep>
+              i + 1,
+              'current': currentStep === i + 1,
+              'greyscale-step': currentStep < i + 1
+              }"
+              >
+              {{ getStepText(i + 1) }}
+            </div>
+
+            
+              <ng-container *ngIf="i !== 2">
+                <!-- Skip the separator after the last step -->
+                <img class="vector-img" src="../../../../assets/icons/Stroke.svg" />
+              </ng-container>
+            
+            
           </div>
         </div>
-        <app-assign-laptop></app-assign-laptop>
-        <!--<app-assign-Software></app-assign-software>
-        <app-assign-accessories></app-assign-accessories>-->
-      </div>
 
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+
+        <!-- Step 1: Assign Laptop -->
+        <app-assign-laptop *ngIf="currentStep === 1"></app-assign-laptop>
+
+        <!-- Step 2: Assign Software -->
+        <app-assign-software *ngIf="currentStep === 2"></app-assign-software>
+
+        <!-- Step 3: Assign Accessories -->
+        <app-assign-accessories *ngIf="currentStep === 3"></app-assign-accessories>
+
+        <!-- Progress Bar -->
+        <div class="progress mt-3">
+          <div class="progress-bar" role="progressbar" [style.width]="getProgressBarWidth()" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
       </div>
-    </div>
+      <div class="modal-footer">
+        <div class="button-container">
+          <button type="button" class="btn btn-secondary" *ngIf="currentStep !== 1" (click)="previousStep()">Previous</button>
+          <button type="button" class="btn btn-secondary" *ngIf="currentStep === 3" (click)="saveChanges()">Save</button>
+          <button type="button" class="btn btn-secondary" *ngIf="currentStep !== 3" (click)="skipStep()">Skip</button>
+          <button type="button" class="btn btn-primary" (click)="nextStep()">{{ getButtonText() }}</button>
+        </div>
+      </div>
     </div>
   </div>
+</div>
