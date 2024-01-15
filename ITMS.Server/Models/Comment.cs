@@ -25,7 +25,7 @@ public partial class Comment
 
     public virtual ICollection<DevicesLog> DevicesLogs { get; } = new List<DevicesLog>();
 
-    public virtual SoftwareAllocation? SoftwareAllocation { get; set; }
+    public virtual SoftwareAllocation? SoftwareAllocation { get; set; } //new
 
     public virtual DevicesLog? DeviceLog { get; set; } // New navigation property
 
