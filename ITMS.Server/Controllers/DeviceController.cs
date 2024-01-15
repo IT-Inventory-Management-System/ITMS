@@ -60,10 +60,14 @@ namespace itms.server.controllers
                 if (deviceDto == null)
                     return NotFound();
 
-            return Ok(deviceDto);
+                return Ok(deviceDto);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it appropriately
+                return StatusCode(500, "Internal Server Error");
+            }
         }
-
-
 
         //[HttpGet("GetDeviceByCGIId")]
         //public async Task<IEnumerable<DeviceDto>> GetDeviceByCGIIdAsync(Guid cgiId) 
@@ -77,7 +81,7 @@ namespace itms.server.controllers
         {
             try
             {
-                var devices = _deviceservice.GetDevices(id);
+                var devices = _deviceService.GetDevices(id);
                 return Ok(devices);
             }
             catch (Exception ex)

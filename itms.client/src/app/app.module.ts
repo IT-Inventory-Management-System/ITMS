@@ -111,8 +111,6 @@ import { FilterSearchListPipe } from './filter-search-list.pipe';
     CommentCardComponent,
     NewSidebarComponent,
 
-    CurrentDeviceComponent,
-
     FilterSearchListPipe,
     LaptopDetailsComponent,
    
