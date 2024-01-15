@@ -64,7 +64,7 @@ namespace itms.server.controllers
 
                 var deviceDto = await _deviceService.GetDeviceStatusAndAgeAsync(deviceId);
 
-                var modelCount = await _deviceservice.GetModelCountAsync(deviceModelName);
+                var modelCount = await _deviceService.GetModelCountAsync(deviceModelName);
                 return Ok(modelCount);
             }
             catch (Exception ex)

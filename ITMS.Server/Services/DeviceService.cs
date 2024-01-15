@@ -1,16 +1,11 @@
 using ITMS.Server.DTO;
 using ITMS.Server.Models;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using System.Threading.Tasks;
-
-using Xamarin.Forms;
-
 
 public class DeviceService
 {
@@ -54,6 +49,7 @@ public class DeviceService
         await _context.Entry(device)
             .Reference(d => d.DeviceModel)
             .LoadAsync();
+
         var modelCount = await GetModelCountAsync(device.DeviceModel?.DeviceName);
 
         var ageInYears = CalculateDeviceAge(device.PurchasedDate);
@@ -162,123 +158,4 @@ public class DeviceService
 
         return remainingWarranty.ToString();
     }
-
-
-    private ITMS.Server.Models.Device GetDevice(string deviceId)
-    {
-        return _context.Devices
-            .Include(d => d.StatusNavigation).Include(d => d.DeviceModel)
-            .FirstOrDefault(d => d.Cygid == deviceId);
-    }
-
-    public async Task<int> GetModelCountAsync(string deviceModelName)
-    {
-        return await _context.Devices
-            .Include(d => d.DeviceModel)
-            .Where(d => d.DeviceModel.DeviceName == deviceModelName)
-            .CountAsync();
-    }
-    private double CalculateDeviceAge(DateTime? purchasedDate)
-    {
-        if (purchasedDate == null)
-            return 0;
-
-        double totalYears = (DateTime.UtcNow - purchasedDate.GetValueOrDefault()).TotalDays / 365;
-        double roundedAge = Math.Round(totalYears, 2);
-        return roundedAge;
-    }
-    //public async Task<IEnumerable<DeviceDto>> GetDevicesAsync(Guid cgiId)
-    //{
-    //    var result = await (from d in _context.Devices
-    //                        where d.AssignedTo == cgiId
-    //                        select new DeviceDto
-    //                        {
-    //                            Id = d.Id,
-    //                            Cygid = d.Cygid,
-    //                            DeviceModelId = d.DeviceModelId,
-    //                            AssignedBy = d.AssignedBy
-    //                        }).ToListAsync();
-    //    return result;
-    //}
-
-
-    public DevicelogDto GetDevices(Guid id)
-    {
-        try
-        {
-            var device = _context.Devices
-                .Where(log => log.AssignedTo == id)
-                .Include(d => d.DeviceModel)
-                .FirstOrDefault(); // Retrieve the first matching device
-
-            if (device != null)
-            {
-                var comments = _context.Comments
-                    .Where(comment => comment.DeviceId == device.Id)
-                    .Select(c => new CommentDto
-                    {
-                        Id = c.Id,
-                        Description = c.Description,
-                        CreatedBy = _context.Employees
-                        .Where(employee => employee.Id == c.CreatedBy)
-.Select(employee => $"{employee.FirstName} {employee.LastName}")
-                        .FirstOrDefault(),
-
-                        CreatedAt = c.CreatedAtUtc
-                    })
-                    .ToList();
-
-                var assignedTo = _context.Employees.FirstOrDefault(emp => emp.Id == id);
-                var assignedtoFirstName = assignedTo?.FirstName ?? "Unknown";
-                var assignedtoLastName = assignedTo?.LastName ?? "Unknown";
-                var assignedByEmployee = _context.Employees.FirstOrDefault(emp => emp.Id == device.AssignedBy);
-                var receivedByEmployee = _context.Employees.FirstOrDefault(emp => emp.Id == device.RecievedBy);
-
-                var assignedByFirstName = assignedByEmployee?.FirstName ?? "Unknown";
-                var assignedByLastName = assignedByEmployee?.LastName ?? "Unknown";
-
-                var receivedByFirstName = receivedByEmployee?.FirstName ?? "Unknown";
-                var receivedByLastName = receivedByEmployee?.LastName ?? "Unknown";
-                var modelNo = device.DeviceModel != null ? device.DeviceModel.ModelNo : "Unknown";
-
-                return new DevicelogDto
-                {
-                    Id = device.Id,
-                    Cygid = device.Cygid,
-                    Cgiid = device.AssignedToNavigation?.Cgiid,
-                    AssignedTo = $"{assignedtoFirstName} {assignedtoLastName}",
-                    AssignedBy = $"{assignedByFirstName} {assignedByLastName}",
-                    AssignedDate = device.AssignedDate,
-                    RecievedBy = $"{receivedByFirstName} {receivedByLastName}",
-                    Model = modelNo,
-                    Comments = comments // Set Comments property after other properties
-                };
-            }
-
-            return null; // Return null if no device is found with the given ID
-        }
-        catch (Exception ex)
-        {
-            // Log the exception or handle it appropriately
-            throw;
-        }
-
-    }
-    public List<DevicelogDto> GetArchivedCygIds()
-    {
-
-
-        var archivedCygIds = _context.Devices.OrderBy(log => log.Cygid).Where(log => log.IsArchived == true)
-            .Select(log => new DevicelogDto
-            {
-
-                Cygid = log.Cygid
-            })
-            .ToList();
-
-
-        return archivedCygIds;
-    }
-
-
 }
