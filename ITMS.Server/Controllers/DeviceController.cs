@@ -73,19 +73,7 @@ namespace itms.server.controllers
                 return StatusCode(500, "Internal server error");
             }
         }
-        [HttpGet("{deviceId}")]
-
-        public ActionResult<DeviceDto> GetDeviceStatusAndAge(string deviceId)
-        {
-            var deviceDto = _deviceservice.GetDeviceStatusAndAge(deviceId);
-
-            if (deviceDto == null)
-                return NotFound();
-
-            return Ok(deviceDto);
-        }
-
-
+      
 
      
 

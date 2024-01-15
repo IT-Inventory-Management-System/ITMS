@@ -54,7 +54,6 @@ public class DeviceService
         await _context.Entry(device)
             .Reference(d => d.DeviceModel)
             .LoadAsync();
-        
         var modelCount = await GetModelCountAsync(device.DeviceModel?.DeviceName);
 
         var ageInYears = CalculateDeviceAge(device.PurchasedDate);
@@ -166,11 +165,11 @@ public class DeviceService
 
 
     private ITMS.Server.Models.Device GetDevice(string deviceId)
-{
-    return _context.Devices
-        .Include(d => d.StatusNavigation).Include(d => d.DeviceModel)
-        .FirstOrDefault(d => d.Cygid == deviceId);
-}
+    {
+        return _context.Devices
+            .Include(d => d.StatusNavigation).Include(d => d.DeviceModel)
+            .FirstOrDefault(d => d.Cygid == deviceId);
+    }
 
     public async Task<int> GetModelCountAsync(string deviceModelName)
     {
@@ -180,14 +179,14 @@ public class DeviceService
             .CountAsync();
     }
     private double CalculateDeviceAge(DateTime? purchasedDate)
-{
-    if (purchasedDate == null)
-        return 0;
+    {
+        if (purchasedDate == null)
+            return 0;
 
-    double totalYears = (DateTime.UtcNow - purchasedDate.GetValueOrDefault()).TotalDays / 365;
-    double roundedAge = Math.Round(totalYears, 2);
-    return roundedAge;
-}
+        double totalYears = (DateTime.UtcNow - purchasedDate.GetValueOrDefault()).TotalDays / 365;
+        double roundedAge = Math.Round(totalYears, 2);
+        return roundedAge;
+    }
     //public async Task<IEnumerable<DeviceDto>> GetDevicesAsync(Guid cgiId)
     //{
     //    var result = await (from d in _context.Devices
@@ -244,7 +243,7 @@ public class DeviceService
 
                 return new DevicelogDto
                 {
-                    Id= device.Id,
+                    Id = device.Id,
                     Cygid = device.Cygid,
                     Cgiid = device.AssignedToNavigation?.Cgiid,
                     AssignedTo = $"{assignedtoFirstName} {assignedtoLastName}",
@@ -278,10 +277,8 @@ public class DeviceService
             .ToList();
 
 
-
         return archivedCygIds;
     }
-
 
 
 }
