@@ -1,41 +1,31 @@
-
 using Microsoft.AspNetCore.Mvc;
 using ITMS.Server.Services;
-
+using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-
 using ITMS.Server.Models;
-using ITMS.Server.Services;
 using ITMS.Server.DTO;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-
 
 namespace itms.server.controllers
 {
     // devicecontroller.cs
-
-    [ApiController]
     [Route("api/Device")]
-    public class Devicecontroller : ControllerBase
+    [ApiController]
+    public class DeviceController : ControllerBase
     {
-        private readonly DeviceService _deviceservice;
+        private readonly DeviceService _deviceService;
 
-        public Devicecontroller(DeviceService deviceservice)
+        public DeviceController(DeviceService deviceService)
         {
-            _deviceservice = deviceservice;
+            _deviceService = deviceService;
         }
 
-
-
-
         [HttpGet("categories")]
-        public async Task<ActionResult<IEnumerable<Category>>> getcategories()
+        public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
         {
             try
             {
-                var categories = await _deviceservice.GetCategoriesAsync();
+                var categories = await _deviceService.GetCategoriesAsync();
                 return Ok(categories);
             }
             catch (Exception ex)
@@ -45,17 +35,30 @@ namespace itms.server.controllers
             }
         }
 
+        //[HttpGet("modelCount/{deviceModelName}")]
+        //public async Task<ActionResult<int>> GetModelCount(string deviceModelName)
+        //{
+        //    try
+        //    {
+        //        var modelCount = await _deviceService.GetModelCountAsync(deviceModelName);
+        //        return Ok(modelCount);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // Log the exception
+        //        return StatusCode(500, "Internal server error");
+        //    }
+        //}
 
-
-       
         [HttpGet("{deviceId}")]
-
-        public ActionResult<DeviceDto> GetDeviceStatusAndAge(string deviceId)
+        public async Task<ActionResult<DeviceDto>> GetDeviceStatusAndAge(string deviceId)
         {
-            var deviceDto = _deviceservice.GetDeviceStatusAndAgeAsync(deviceId);
+            try
+            {
+                var deviceDto = await _deviceService.GetDeviceStatusAndAgeAsync(deviceId);
 
-            if (deviceDto == null)
-                return NotFound();
+                if (deviceDto == null)
+                    return NotFound();
 
             return Ok(deviceDto);
         }
@@ -84,13 +87,12 @@ namespace itms.server.controllers
             }
         }
 
-
         [HttpGet("archived-cygids")]
-        public IActionResult GetDeviceHistory()
+        public async Task<IActionResult> GetDeviceHistory()
         {
             try
             {
-                var deviceHistory = _deviceservice.GetArchivedCygIds();
+                var deviceHistory = await _deviceService.GetArchivedCygIdsAsync();
                 return Ok(deviceHistory);
             }
             catch (Exception ex)
