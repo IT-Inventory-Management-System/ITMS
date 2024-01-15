@@ -17,7 +17,7 @@ public class DeviceLogService
 
     public async Task<List<DevicelogDto>> GetDevicesAsync()
     {
-        var deviceHistory = await _context.Devices
+        var deviceHistory = await _context.Devices.OrderBy(log => log.Cygid)
             .Select(log => new DevicelogDto
             {
 
@@ -35,7 +35,7 @@ public class DeviceLogService
             var devicesLogInfoList = await _context.DevicesLogs
                 .Include(log => log.Device)
                 .Include(log => log.Employee)
-                .Include(log => log.Comments)
+                .Include(log => log.Comment)
                 .Where(log => log.Device.Cygid == cygid)
                 .OrderBy(log => log.EmployeeId)
                 .ToListAsync();
@@ -64,7 +64,7 @@ public class DeviceLogService
                     Comment = new CommentDto
                     {
                         CommentCreatedAtUtc = DateTime.UtcNow,
-                        //CommentDescription = devicesLogInfo.Comments.,
+                        CommentDescription = devicesLogInfo.Comment?.Description,
                         CreatedByFullName = $"{assignedByFirstName} {assignedByLastName}"
                     }
                 };
