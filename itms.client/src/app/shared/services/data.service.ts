@@ -10,24 +10,24 @@ export class DataService {
 
   DeviceDetails: any;
   DeviceLog: any;
-  Archiveddevices: any;
-  CommentDetails: any;
+  Archiveddevices :any;
+  showArchiveOnly: boolean = false;
   constructor(private http: HttpClient) { }
 
   getCategories(): Observable<any[]> {
-
     return this.http.get<any[]>(this.apiUrl + 'Device/categories');
-
   }
 
   getDevices(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl + 'DeviceLog/device');
+    return this.http.get<any[]>(this.apiUrl + 'DeviceLog/devices');
   }
 
 
   getArchivedDevices(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl + 'Device/archived-cygids')
+    return this.http.get<any[]>(this.apiUrl +'Device/archived-cygids')
   }
+
+
 
   getDevicesInfo(deviceId: string): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl + 'Device/' + deviceId);
@@ -37,12 +37,8 @@ export class DataService {
     return this.http.get<any[]>(this.apiUrl + 'DeviceLog/devicesloginfo/' + deviceId);
   }
 
-  getComment(deviceId: any): Observable<any> {
-    return this.http.get<any>(this.apiUrl + 'userdevices/comments/' + deviceId);
-
-  }
+ 
+  
+  
 }
-
-
-
 

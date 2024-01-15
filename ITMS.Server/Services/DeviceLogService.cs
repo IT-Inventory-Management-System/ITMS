@@ -1,10 +1,11 @@
+
+
 using ITMS.Server.DTO;
 using ITMS.Server.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 public class DeviceLogService
 {
@@ -15,30 +16,30 @@ public class DeviceLogService
         _context = context;
     }
 
-    public async Task<List<DevicelogDto>> GetDevicesAsync()
+    public List<DevicelogDto> GetDevices()
     {
-        var deviceHistory = await _context.Devices
+        var deviceHistory = _context.Devices.OrderBy(log => log.Cygid)
             .Select(log => new DevicelogDto
             {
 
                 Cygid = log.Cygid
             })
-            .ToListAsync();
+            .ToList();
 
         return deviceHistory;
     }
 
-    public async Task<IEnumerable<DevicelogDto>> GetDevicesLogInfoAsync(string cygid)
+
+    public IEnumerable<DevicelogDto> GetDevicesLogInfo(string cygid)
     {
         try
         {
-            var devicesLogInfoList = await _context.DevicesLogs
+            var devicesLogInfoList = _context.DevicesLogs
                 .Include(log => log.Device)
                 .Include(log => log.Employee)
-                .Include(log => log.Comment)
                 .Where(log => log.Device.Cygid == cygid)
                 .OrderBy(log => log.EmployeeId)
-                .ToListAsync();
+                .ToList();
 
             return devicesLogInfoList.Select(devicesLogInfo =>
             {
@@ -50,7 +51,7 @@ public class DeviceLogService
 
                 var receivedByFirstName = receivedByEmployee?.FirstName ?? "Unknown";
                 var receivedByLastName = receivedByEmployee?.LastName ?? "Unknown";
-
+               
                 return new DevicelogDto
                 {
                     Cygid = devicesLogInfo.Device.Cygid,
@@ -60,15 +61,13 @@ public class DeviceLogService
                     AssignedDate = devicesLogInfo.AssignedDate,
                     RecievedBy = $"{receivedByFirstName} {receivedByLastName}",
                     RecievedDate = devicesLogInfo.RecievedDate,
-                    FormattedAssignedDate = devicesLogInfo.AssignedDate?.ToString("MM-dd-yyyy") ?? "DefaultDate",
-                    Comment = new CommentDto
-                    {
-                        CommentCreatedAtUtc = DateTime.UtcNow,
-                        CommentDescription = devicesLogInfo.Comment?.Description,
-                        CreatedByFullName = $"{assignedByFirstName} {assignedByLastName}"
-                    }
+                    FormattedAssignedDate = devicesLogInfo.AssignedDate?.ToString("MM-dd-yyyy") ?? "DefaultDate"
+
                 };
+               
             });
+
+            
         }
         catch (Exception ex)
         {
@@ -76,4 +75,13 @@ public class DeviceLogService
             throw;
         }
     }
+
+
 }
+
+
+
+
+
+
+

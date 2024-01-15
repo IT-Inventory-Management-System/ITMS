@@ -1,7 +1,5 @@
 // Controllers/DeviceLogController.cs
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Threading.Tasks;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -14,12 +12,12 @@ public class DeviceLogController : ControllerBase
         _deviceLogService = deviceLogService;
     }
 
-    [HttpGet("device")]
-    public async Task<IActionResult> GetDeviceHistory()
+    [HttpGet("devices")]
+    public IActionResult GetDeviceHistory()
     {
         try
         {
-            var deviceHistory = await _deviceLogService.GetDevicesAsync();
+            var deviceHistory = _deviceLogService.GetDevices();
             return Ok(deviceHistory);
         }
         catch (Exception ex)
@@ -29,12 +27,13 @@ public class DeviceLogController : ControllerBase
         }
     }
 
+
     [HttpGet("devicesloginfo/{cygid}")]
-    public async Task<IActionResult> GetDevicesLogInfo(string cygid)
+    public IActionResult GetDevicesLogInfo(string cygid)
     {
         try
         {
-            var devicesLogInfo = await _deviceLogService.GetDevicesLogInfoAsync(cygid);
+            var devicesLogInfo = _deviceLogService.GetDevicesLogInfo(cygid);
             return Ok(devicesLogInfo);
         }
         catch (Exception ex)
@@ -44,3 +43,4 @@ public class DeviceLogController : ControllerBase
         }
     }
 }
+

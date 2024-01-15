@@ -1,25 +1,27 @@
-import { Component, Input, OnInit, ElementRef, Renderer2, ViewChildren, QueryList } from '@angular/core';
+
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { DataService } from '../../../../../shared/services/data.service';
+
 
 @Component({
   selector: 'app-devices-list',
   templateUrl: './devices-list.component.html',
   styleUrls: ['./devices-list.component.css']
 })
-export class DevicesListComponent implements OnInit {
+export class DevicesListComponent {
+
+
   @Input() device: any;
+  DeviceData: any;
   DeviceInfo: any;
   DeviceLog: any;
-  isSelected: boolean = false;
 
-  // Use ViewChildren to query all buttons
-  @ViewChildren('deviceButton') deviceButtons: QueryList<ElementRef>;
+  constructor(private deviceService: DataService) {
 
-  constructor(private deviceService: DataService, private renderer: Renderer2) { }
+  }
+
 
   ngOnInit() {
-    // Fetch the data when the component is initialized
-    this.onDeviceClick();
   }
 
   onDeviceClick(): void {
@@ -34,11 +36,6 @@ export class DevicesListComponent implements OnInit {
 
         // Call the second API to get device logs
         this.getDeviceLogs();
-
-        // Set autofocus on the first button after data is fetched
-        //setTimeout(() => {
-        //  this.setAutofocus();
-        //});
       },
       (error) => {
         // Handle errors for the first API here
@@ -53,7 +50,7 @@ export class DevicesListComponent implements OnInit {
       (logs) => {
         // Handle the API response for device logs here
         this.deviceService.DeviceLog = logs;
-        this.isSelected = true; // Set the flag to indicate that the button is selected
+        //console.log('Device Logs:', logs);
       },
       (error) => {
         // Handle errors for the second API here
@@ -62,12 +59,13 @@ export class DevicesListComponent implements OnInit {
     );
   }
 
-  // Function to set autofocus dynamically on the first button
-  //setAutofocus() {
-  //  const firstButton = this.deviceButtons.first;
-  //  if (firstButton) {
-  //    this.renderer.setAttribute(firstButton.nativeElement, 'autofocus', 'true');
-  //    console.log('First ElementRef:', firstButton);
-  //  }
-  //}
+  @ViewChild('firstButton') firstButton: ElementRef;
+
+  ngAfterViewInit() {
+    // Trigger click event on the first button when the view is initialized
+    this.firstButton.nativeElement.click();
+  }
+
+
+
 }
