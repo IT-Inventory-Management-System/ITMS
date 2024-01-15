@@ -21,6 +21,7 @@ namespace ITMS.Server.Controllers
         public async Task<IEnumerable<GetEmployeeDTO>> getEmployeeBasicDetails()
         {
           return await _addAssetService.getEmployeeBasicDetails();
+
         }
     }
 }
