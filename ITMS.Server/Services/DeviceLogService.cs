@@ -35,7 +35,7 @@ public class DeviceLogService
             var devicesLogInfoList = await _context.DevicesLogs
                 .Include(log => log.Device)
                 .Include(log => log.Employee)
-                .Include(log => log.Comment)
+                .Include(log => log.Comments)
                 .Where(log => log.Device.Cygid == cygid)
                 .OrderBy(log => log.EmployeeId)
                 .ToListAsync();
@@ -64,7 +64,7 @@ public class DeviceLogService
                     Comment = new CommentDto
                     {
                         CommentCreatedAtUtc = DateTime.UtcNow,
-                        CommentDescription = devicesLogInfo.Comment?.Description,
+                        //CommentDescription = devicesLogInfo.Comments.,
                         CreatedByFullName = $"{assignedByFirstName} {assignedByLastName}"
                     }
                 };

@@ -115,7 +115,7 @@ public partial class ItinventorySystemContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Comment__DeviceI__7B5B524B");
 
-            //entity.HasOne(d => d.DevicesLogs).WithMany(p => p.Comments)
+            //entity.HasOne(d => d.DevicesLog).WithMany(p => p.Comments)
             //   .HasForeignKey(d => d.DeviceLogId)
             //   .OnDelete(DeleteBehavior.ClientSetNull)
             //   .HasConstraintName("FK_Comment_DevicesLog");

@@ -15,20 +15,20 @@ export class DataService {
   constructor(private http: HttpClient) { }
 
   getCategories(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl + 'devices/categories');
+    return this.http.get<any[]>(this.apiUrl + 'Device/categories');
   }
 
   getDevices(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl + 'DeviceLog/devices');
+    return this.http.get<any[]>(this.apiUrl + 'DeviceLog/device');
   }
 
 
   getArchivedDevices(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl + 'devices/archived-cygids')
+    return this.http.get<any[]>(this.apiUrl + 'Device/archived-cygids')
   }
 
   getDevicesInfo(deviceId: string): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl + 'devices/' + deviceId);
+    return this.http.get<any[]>(this.apiUrl + 'Device/' + deviceId);
   }
 
   getUserInfo(deviceId: string): Observable<any[]> {

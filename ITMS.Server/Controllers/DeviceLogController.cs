@@ -14,7 +14,7 @@ public class DeviceLogController : ControllerBase
         _deviceLogService = deviceLogService;
     }
 
-    [HttpGet("devices")]
+    [HttpGet("device")]
     public async Task<IActionResult> GetDeviceHistory()
     {
         try

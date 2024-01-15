@@ -9,7 +9,7 @@ using ITMS.Server.DTO;
 namespace itms.server.controllers
 {
     // devicecontroller.cs
-    [Route("api/devices")]
+    [Route("api/[controller]")]
     [ApiController]
     public class DeviceController : ControllerBase
     {

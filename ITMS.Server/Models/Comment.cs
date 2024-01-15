@@ -24,6 +24,7 @@ public partial class Comment
     public virtual Device Device { get; set; } = null!;
     public virtual ICollection<DevicesLog> DevicesLogs { get; set; } = new List<DevicesLog>();
 
+    //public virtual DevicesLog? DevicesLog { get; set; }
 
     public virtual SoftwareAllocation? SoftwareAllocation { get; set; }
 }
