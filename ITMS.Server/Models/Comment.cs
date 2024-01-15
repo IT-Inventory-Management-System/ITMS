@@ -27,6 +27,9 @@ public partial class Comment
 
     public virtual SoftwareAllocation? SoftwareAllocation { get; set; } //new
 
+
+    //new property in comment table added
+
     public virtual DevicesLog? DeviceLog { get; set; } // New navigation property
 
 
