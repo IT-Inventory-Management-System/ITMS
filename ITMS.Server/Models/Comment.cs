@@ -25,7 +25,7 @@ public partial class Comment
 
     public virtual ICollection<DevicesLog> DevicesLogs { get; } = new List<DevicesLog>();
 
-    public virtual SoftwareAllocation? SoftwareAllocation { get; set; } //new
+    public virtual SoftwareAllocation? SoftwareAllocation { get; set; } 
 
 
     //new property in comment table added
