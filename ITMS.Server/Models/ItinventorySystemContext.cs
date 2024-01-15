@@ -115,6 +115,11 @@ public partial class ItinventorySystemContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Comment__DeviceI__7B5B524B");
 
+            //entity.HasOne(d => d.DevicesLogs).WithMany(p => p.Comments)
+            //   .HasForeignKey(d => d.DeviceLogId)
+            //   .OnDelete(DeleteBehavior.ClientSetNull)
+            //   .HasConstraintName("FK_Comment_DevicesLog");
+
             entity.HasOne(d => d.SoftwareAllocation).WithMany(p => p.Comments)
                 .HasForeignKey(d => d.SoftwareAllocationId)
                 .HasConstraintName("FK__Comment__Softwar__7C4F7684");
@@ -251,9 +256,9 @@ public partial class ItinventorySystemContext : DbContext
                 .HasForeignKey(d => d.AssignedBy)
                 .HasConstraintName("FK__DevicesLo__Assig__06CD04F7");
 
-            entity.HasOne(d => d.Comment).WithMany(p => p.DevicesLogs)
-                .HasForeignKey(d => d.CommentId)
-                .HasConstraintName("FK__DevicesLo__Comme__05D8E0BE");
+            //entity.HasOne(d => d.Comment).WithMany(p => p.DevicesLogs)
+            //    .HasForeignKey(d => d.CommentId)
+            //    .HasConstraintName("FK__DevicesLo__Comme__05D8E0BE");
 
             entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.DevicesLogCreatedByNavigations)
                 .HasForeignKey(d => d.CreatedBy)
