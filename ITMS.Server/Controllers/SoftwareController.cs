@@ -13,15 +13,22 @@ namespace ITMS.Server.Controllers
     {
         private readonly ItinventorySystemContext _context;
         private readonly IGetSoftwareService _addSoftwareService;
-        public SoftwareController(ItinventorySystemContext context, IGetSoftwareService addSoftwareService)
+        private readonly IGetSoftwareVersionService _addSoftwareVersionService;
+        public SoftwareController(ItinventorySystemContext context, IGetSoftwareService addSoftwareService, IGetSoftwareVersionService addSoftwareVersionService)
         {
             _context = context;
             _addSoftwareService = addSoftwareService;
+            _addSoftwareVersionService = addSoftwareVersionService;
         }
         [HttpGet("getSoftware")]
         public async Task<IEnumerable<GetSoftwareDTO>> listSoftware()
         {
             return await _addSoftwareService.listSoftware();
+        }
+        [HttpGet("getSoftwareVersion")]
+        public async Task<IEnumerable<GetSoftwareVersionDTO>> listSoftwareVersions(String SoftwareName)
+        {
+            return await _addSoftwareVersionService.listSoftwareVersions(SoftwareName);
         }
     }
 }

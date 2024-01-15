@@ -22,6 +22,7 @@ builder.Services.AddScoped<IDeviceService, AddDeviceService>();
 builder.Services.AddScoped<IUserListService, UserListService>();
 builder.Services.AddScoped<IAddAssetService, AddAssetService>();
 builder.Services.AddScoped<IGetSoftwareService, GetSoftwareService>();
+builder.Services.AddScoped<IGetSoftwareVersionService, GetSoftwareVersionService>();
 builder.Services.AddScoped<DeviceService>();
 builder.Services.AddScoped<DeviceLogService>();
 
