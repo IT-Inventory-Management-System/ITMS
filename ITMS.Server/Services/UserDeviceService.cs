@@ -1,54 +1,70 @@
-// Services/UserDeviceService.cs
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-using ITMS.Server.Models;
-using Microsoft.EntityFrameworkCore;
+//// Services/UserDeviceService.cs
+//using System;
+//using System.Linq;
+//using System.Threading.Tasks;
+//using ITMS.Server.Models;
+//using Microsoft.EntityFrameworkCore;
 
-// Services/UserDeviceService.cs
-public class UserDeviceService
-{
-    private readonly ItinventorySystemContext _dbContext;
+//// Services/UserDeviceService.cs
+//public class UserDeviceService
+//{
+//    private readonly ItinventorySystemContext _dbContext;
 
-    public UserDeviceService(ItinventorySystemContext dbContext)
-    {
-        _dbContext = dbContext;
-    }
+//    public UserDeviceService(ItinventorySystemContext dbContext)
+//    {
+//        _dbContext = dbContext;
+//    }
 
-    public async Task<UserDeviceDto> GetUserDeviceById(Guid deviceId)
-    {
-        var device = await _dbContext.Devices
-            .Include(d => d.DeviceModel)
-            .Include(d => d.StatusNavigation)
-            .Include(d => d.CreatedByNavigation)
-            .Include(d => d.Comments).ThenInclude(c => c.CreatedByNavigation)
-            .Where(d => d.Id == deviceId)
-            .FirstOrDefaultAsync();
 
-        if (device == null)
-        {
-            return null;
-        }
+    // ... other methods ...
 
-        var userDeviceDto = new UserDeviceDto
-        {
-            Id = device.Id,
-           
-            StatusId = device.Status,
-            
-            CreatedByUserName = $"{device.CreatedByNavigation.FirstName} {device.CreatedByNavigation.LastName}",
-            CreatedAtUtc = device.CreatedAtUtc,
-            ModelName = device.DeviceModel.DeviceName,
-        };
+    //public async Task<CommentDto[]> GetCommentsForUserDevices(string userId)
+    //{
+    //    var comments = await _dbContext.Comments
+    //        .Include(c => c.Device)
+    //            .ThenInclude(d => d.AssignedToNavigation)
+    //        .Where(c => c.Device.Cygid == userId)
+    //        .ToListAsync();
 
-        var latestComment = device.Comments.OrderByDescending(c => c.CreatedAtUtc).FirstOrDefault();
-        if (latestComment != null)
-        {
-            userDeviceDto.CommentDescription = latestComment.Description;
-            userDeviceDto.CreatedByFullName = $"{latestComment.CreatedByNavigation.FirstName} {latestComment.CreatedByNavigation.LastName}";
-            userDeviceDto.CommentCreatedAtUtc = latestComment.CreatedAtUtc;
-        }
+    //    if (comments == null || !comments.Any())
+    //    {
+    //        return new CommentDto[0]; // Return an empty array
+    //    }
 
-        return userDeviceDto;
-    }
-}
+    //    Map Comment entities to CommentDto objects
+    //  var commentDtos = comments.Select(comment => MapToCommentDto(comment)).ToArray(); // Convert to array
+
+    //    return commentDtos;
+    //}
+
+    //private CommentDto MapToCommentDto(Comment comment)
+    //{
+    //    Basic example of mapping logic
+    //   var commentDto = new CommentDto
+    //   {
+    //       CommentDescription = comment?.Description,
+    //       CommentCreatedAtUtc = (comment.CreatedAtUtc),
+    //       CreatedByFullName = $"{comment?.CreatedByNavigation.FirstName}{comment?.CreatedByNavigation.LastName}"
+
+    //   };
+
+    //    return commentDto;
+
+
+        //var latestComment = device.Comments.OrderByDescending(c => c.CreatedAtUtc).FirstOrDefault();
+
+        //var userDeviceDto = new UserDeviceDto
+        //{
+
+        //    cgiid = device.AssignedToNavigation.Cgiid,
+        //    Comment = latestComment != null ? new CommentDto
+        //    {
+        //        CommentDescription = latestComment.Description,
+        //        CreatedByFullName = $"{latestComment.CreatedByNavigation.FirstName} {latestComment.CreatedByNavigation.LastName}",
+        //        CommentCreatedAtUtc = latestComment.CreatedAtUtc
+        //    } : null
+        //};
+
+        //return userDeviceDto;
+    
+

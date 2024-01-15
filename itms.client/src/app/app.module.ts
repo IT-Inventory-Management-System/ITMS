@@ -54,7 +54,11 @@ import { AssignSoftwareComponent } from './assign-asset/assign-software/assign-s
 import { AssignAccessoriesComponent } from './assign-asset/assign-accessories/assign-accessories.component';
 import { RecentActivityComponent } from './dashboard/recent-activity/recent-activity.component';
 import { SoftwareComponentComponent } from './dashboard/software-component/software-component.component';
+
+import { CurrentDeviceComponent } from './shared/components/current-device/current-device.component';
+
 import { FilterSearchListPipe } from './filter-search-list.pipe';
+
 
 
 
@@ -99,6 +103,9 @@ import { FilterSearchListPipe } from './filter-search-list.pipe';
     AccessoriesDetailsComponent,
     UserNameListComponent,
     CommentsComponent,
+
+    AddAssetComponent,
+
     SpecInfoComponent,
     DevicesComponent,
     DevicesListComponent,
@@ -110,6 +117,9 @@ import { FilterSearchListPipe } from './filter-search-list.pipe';
     AssignHistoryComponent,
     CommentCardComponent,
     NewSidebarComponent,
+
+    CurrentDeviceComponent
+
     FilterSearchListPipe,
     LaptopDetailsComponent
 

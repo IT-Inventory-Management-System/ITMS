@@ -12,9 +12,10 @@ export class CommentCardComponent {
 
 
   get devicelog() {
+    console.log(this.dataService.DeviceLog);
     return this.dataService.DeviceLog;
     
   } 
-
-
+ 
+ 
 }

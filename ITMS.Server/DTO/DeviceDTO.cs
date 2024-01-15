@@ -39,6 +39,8 @@ namespace ITMS.Server.DTO
 
         public bool? IsArchived { get; set; }
 
+        public int modelCount { get; set; }
+
     }
 
     public class StatusDto
@@ -60,6 +62,9 @@ namespace ITMS.Server.DTO
         public string? Storage { get; set; }
 
         
+        
     }
+ 
+
 
 }

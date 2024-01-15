@@ -1,55 +1,38 @@
-<div class="comment-card col-md-12" *ngFor="let device of devicelog" >
+<div class="col-md-12">
+  <!-- Loop through the devicelog array -->
+  <div class="comment-card" *ngFor="let device of devicelog; let i = index">
+    
 
-
-  <div class="user-details">
-    <div class="user">
-      <ngx-avatars name={{device.employeeName}} [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="33"></ngx-avatars>
-      <div class="user-name">
-        <span class="name">
-          {{device.employeeName}}
-        </span>
-        <span class="cgy">
-          {{device.cgiid}}
-        </span>
-
+    <div class="user-details">
+      <div class="user">
+        <ngx-avatars name={{device.employeeName}} [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="33"></ngx-avatars>
+        <div class="user-name">
+          <span class="name">{{device.employeeName}}</span>
+          <span class="cgy">{{device.cgiid}}</span>
+        </div>
+      </div>
+      <div class="status col-md-4 justify-content-end" *ngIf="i === 0">
+        <!-- Display app-current-device only for the first iteration -->
+        <app-current-device></app-current-device>
       </div>
     </div>
 
-    <div class="status">
-      Current Device
+    <div class="inner-info col-md-12 d-flex">
+      <div class="info col-md-7">
+        <span>Assigned By</span>
+        <div class="info-text col-6">
+          <div class="vals">{{device.assignedBy}}</div>
+          <div class="vals">{{device.formattedAssignedDate}}</div>
+        </div>
+      </div>
+      <div class="info inforight col-md-5">
+        <span>Received By</span>
+        <div class="info-text">
+          <span class="inforight vals">{{device.receivedBy}}</span>
+        </div>
+      </div>
     </div>
+
+    <app-comments></app-comments>
   </div>
-
-
-
-
-
-  <div class="inner-info col-md-12 d-flex">
-    <div class="info col-md-7">
-      <span>Assigned By</span>
-      <div class="info-text col-3">
-        <span>
-
-         {{device.assignedBy}}
-        </span>
-        <span>
-          {{device.formattedAssignedDate}}
-        </span>
-      </div>
-    </div>
-    <div class="info inforight col-md-5 ">
-      <span>Recieved By</span>
-      <div class="info-text ">
-        <span class="inforight">
-          {{device.recievedBy}}
-
-        </span>
-      </div>
-    </div>
-  </div>
-  <app-comments></app-comments>
 </div>
-
-
-
-

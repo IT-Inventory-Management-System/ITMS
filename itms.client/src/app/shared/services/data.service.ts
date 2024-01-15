@@ -10,36 +10,39 @@ export class DataService {
 
   DeviceDetails: any;
   DeviceLog: any;
-  Archiveddevices :any;
-  showArchiveOnly: boolean = false;
+  Archiveddevices: any;
+  CommentDetails: any;
   constructor(private http: HttpClient) { }
 
   getCategories(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl + 'device/categories');
+
+    return this.http.get<any[]>(this.apiUrl + 'Device/categories');
+
   }
 
   getDevices(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl + 'DeviceLog/devices');
+    return this.http.get<any[]>(this.apiUrl + 'DeviceLog/device');
   }
 
 
   getArchivedDevices(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl +'devices/archived-cygids')
+    return this.http.get<any[]>(this.apiUrl + 'Device/archived-cygids')
   }
 
-
-
   getDevicesInfo(deviceId: string): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl + 'devices/' + deviceId);
+    return this.http.get<any[]>(this.apiUrl + 'Device/' + deviceId);
   }
 
   getUserInfo(deviceId: string): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl + 'DeviceLog/devicesloginfo/' + deviceId);
   }
 
-  getModelCount(deviceModelName: string): Observable<number> {
-    return this.http.get<number>(this.apiUrl+'devices/modelCount/'+deviceModelName);
-  
+  getComment(deviceId: any): Observable<any> {
+    return this.http.get<any>(this.apiUrl + 'userdevices/comments/' + deviceId);
+
   }
 }
+
+
+
 

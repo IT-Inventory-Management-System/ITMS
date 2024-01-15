@@ -1,31 +1,32 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using ITMS.Server.Services;
+﻿//using Microsoft.AspNetCore.Http;
+//using Microsoft.AspNetCore.Mvc;
+//using ITMS.Server.Services;
+//using System.Linq;
 
-namespace ITMS.Server.Controllers
-{
-    [ApiController]
-    [Route("api/userdevices")]
-    public class UserDeviceController : ControllerBase
-    {
-        private readonly UserDeviceService _userDeviceService;
+//namespace ITMS.Server.Controllers
+//{
+//    [ApiController]
+//    [Route("api/userdevices")]
+//    public class UserDeviceController : ControllerBase
+//    {
+//        private readonly UserDeviceService _userDeviceService;
 
-        public UserDeviceController(UserDeviceService userDeviceService)
-        {
-            _userDeviceService = userDeviceService;
-        }
+//        public UserDeviceController(UserDeviceService userDeviceService)
+//        {
+//            _userDeviceService = userDeviceService;
+//        }
+//        //    [HttpGet("comments/{userId}")]
+//        //    public async Task<ActionResult<IEnumerable<CommentDto>>> GetCommentsForUserDevices(string userId)
+//        //    {
+//        //        var comments = await _userDeviceService.GetCommentsForUserDevices(userId);
 
-        [HttpGet("{deviceId}")]
-        public async Task<IActionResult> GetUserDeviceById(Guid deviceId)
-        {
-            var userDeviceDto = await _userDeviceService.GetUserDeviceById(deviceId);
+//        //        if (comments == null || !comments.Any())
+//        //        {
+//        //            return NotFound();
+//        //        }
 
-            if (userDeviceDto == null)
-            {
-                return NotFound();
-            }
+//        //        return Ok(comments);
+//        //    }
+//    }
+//}
 
-            return Ok(userDeviceDto);
-        }
-    }
-}
