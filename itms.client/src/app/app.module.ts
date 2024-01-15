@@ -101,7 +101,7 @@ import { CurrentDeviceComponent } from './shared/components/current-device/curre
     AccessoriesDetailsComponent,
     UserNameListComponent,
     CommentsComponent,
-    
+    AddAssetComponent,
     SpecInfoComponent,
     DevicesComponent,
     DevicesListComponent,

@@ -36,9 +36,9 @@ export class DevicesListComponent implements OnInit {
         this.getDeviceLogs();
 
         // Set autofocus on the first button after data is fetched
-        setTimeout(() => {
-          this.setAutofocus();
-        });
+        //setTimeout(() => {
+        //  this.setAutofocus();
+        //});
       },
       (error) => {
         // Handle errors for the first API here
@@ -63,11 +63,11 @@ export class DevicesListComponent implements OnInit {
   }
 
   // Function to set autofocus dynamically on the first button
-  setAutofocus() {
-    const firstButton = this.deviceButtons.first;
-    if (firstButton) {
-      this.renderer.setAttribute(firstButton.nativeElement, 'autofocus', 'true');
-      console.log('First ElementRef:', firstButton);
-    }
-  }
+  //setAutofocus() {
+  //  const firstButton = this.deviceButtons.first;
+  //  if (firstButton) {
+  //    this.renderer.setAttribute(firstButton.nativeElement, 'autofocus', 'true');
+  //    console.log('First ElementRef:', firstButton);
+  //  }
+  //}
 }

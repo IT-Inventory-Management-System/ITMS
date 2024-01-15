@@ -17,7 +17,7 @@ public class DeviceLogService
 
     public async Task<List<DevicelogDto>> GetDevicesAsync()
     {
-        var deviceHistory = await _context.Devices.OrderBy(log => log.Cygid)
+        var deviceHistory = await _context.Devices
             .Select(log => new DevicelogDto
             {
 

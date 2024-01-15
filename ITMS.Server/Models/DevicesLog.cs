@@ -37,7 +37,7 @@ public partial class DevicesLog
 
     public virtual Employee? AssignedByNavigation { get; set; }
 
-    public virtual ICollection<Comment> Comments { get; } = new List<Comment>();
+    public virtual Comment? Comment { get; set; }
 
     public virtual Employee CreatedByNavigation { get; set; } = null!;
 
@@ -48,7 +48,4 @@ public partial class DevicesLog
     public virtual Employee? RecievedByNavigation { get; set; }
 
     public virtual Employee? UpdatedByNavigation { get; set; }
-    
-    public virtual ICollection<Device> Devices { get; } = new List<Device>();
-    
 }
