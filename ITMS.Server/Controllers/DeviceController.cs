@@ -4,19 +4,14 @@ using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using ITMS.Server.Models;
-using ITMS.Server.Services;
 using ITMS.Server.DTO;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 
 namespace itms.server.controllers
 {
     // devicecontroller.cs
-
+    [Route("api/devices")]
     [ApiController]
-    [Route("api/Device")]
-    public class Devicecontroller : ControllerBase
-
+    public class DeviceController : ControllerBase
     {
         private readonly DeviceService _deviceService;
 
@@ -40,7 +35,6 @@ namespace itms.server.controllers
             }
         }
 
-
         //[HttpGet("modelCount/{deviceModelName}")]
         //public async Task<ActionResult<int>> GetModelCount(string deviceModelName)
         //{
@@ -61,30 +55,12 @@ namespace itms.server.controllers
         {
             try
             {
-
                 var deviceDto = await _deviceService.GetDeviceStatusAndAgeAsync(deviceId);
 
-                var modelCount = await _deviceService.GetModelCountAsync(deviceModelName);
-                return Ok(modelCount);
-            }
-            catch (Exception ex)
-            {
-                // Log the exception
-                return StatusCode(500, "Internal server error");
-            }
-        }
-      
+                if (deviceDto == null)
+                    return NotFound();
 
-     
-
-
-        [HttpGet("GetDevices/{id}")]
-        public IActionResult GetDevices(Guid id)
-        {
-            try
-            {
-                var devices = _deviceservice.GetDevices(id);
-                return Ok(devices);
+                return Ok(deviceDto);
             }
             catch (Exception ex)
             {

@@ -1,5 +1,5 @@
 
-import { Component } from '@angular/core';
+
 import { DataService } from '../../services/data.service';
 
 import { Component, Input } from '@angular/core';
@@ -14,12 +14,12 @@ export class CommentsComponent {
 
   @Input() laptopDetails: any;
 
-  toggleCommentSection(cygid: string) {
-    console.log(cygid);
-    this.isCommentSectionCollapsed = !this.isCommentSectionCollapsed;
-    this.currentDeviceCygid = cygid;
-    /*this.showcomment(cygid);*/
-  }
+  //toggleCommentSection(cygid: string) {
+  //  console.log(cygid);
+  //  this.isCommentSectionCollapsed = !this.isCommentSectionCollapsed;
+  //  this.currentDeviceCygid = cygid;
+  //  /*this.showcomment(cygid);*/
+  //}
 
   constructor(private dataService: DataService) { }
 
