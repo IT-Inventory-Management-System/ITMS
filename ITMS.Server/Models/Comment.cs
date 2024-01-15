@@ -17,6 +17,8 @@ public partial class Comment
 
     public Guid? SoftwareAllocationId { get; set; }
 
+    public Guid? DeviceLogId { get; set; } // New property
+
     public virtual Employee CreatedByNavigation { get; set; } = null!;
 
     public virtual Device Device { get; set; } = null!;
@@ -24,4 +26,8 @@ public partial class Comment
     public virtual ICollection<DevicesLog> DevicesLogs { get; } = new List<DevicesLog>();
 
     public virtual SoftwareAllocation? SoftwareAllocation { get; set; }
+
+    public virtual DevicesLog? DeviceLog { get; set; } // New navigation property
+
+
 }

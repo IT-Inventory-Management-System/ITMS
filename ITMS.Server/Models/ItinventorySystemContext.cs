@@ -118,6 +118,10 @@ public partial class ItinventorySystemContext : DbContext
             entity.HasOne(d => d.SoftwareAllocation).WithMany(p => p.Comments)
                 .HasForeignKey(d => d.SoftwareAllocationId)
                 .HasConstraintName("FK__Comment__Softwar__7C4F7684");
+
+            entity.HasOne(d => d.DeviceLog).WithMany(p => p.Comments) // New relationship mapping
+                .HasForeignKey(d => d.DeviceLogId)
+                .HasConstraintName("FK__Comment__DeviceLo__NEW_CONSTRAINT_NAME");
         });
 
         modelBuilder.Entity<Device>(entity =>
