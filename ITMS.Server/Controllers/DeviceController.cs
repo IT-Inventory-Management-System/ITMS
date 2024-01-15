@@ -52,7 +52,14 @@ namespace itms.server.controllers
         {
             try
             {
+<<<<<<< Updated upstream
                 var modelCount = await _deviceservice.GetModelCountAsync(deviceModelName);
+=======
+
+                var deviceDto = await _deviceService.GetDeviceStatusAndAgeAsync(deviceId);
+
+                var modelCount = await _deviceService.GetModelCountAsync(deviceModelName);
+>>>>>>> Stashed changes
                 return Ok(modelCount);
             }
             catch (Exception ex)
