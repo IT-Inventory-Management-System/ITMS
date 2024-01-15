@@ -8,10 +8,14 @@ import { DataService } from '../../../../shared/services/data.service';
   styleUrls: ['./specification.component.css']
 })
 
-export class SpecificationComponent { 
-constructor(private dataService: DataService) {}
+export class SpecificationComponent {
+  @Input() isArchived: any;
+
+  constructor(private dataService: DataService) { }
+
 
   get deviceDetails() {
+    console.log(this.isArchived);
     return this.dataService.DeviceDetails;
   } 
 

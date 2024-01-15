@@ -12,8 +12,8 @@ export class CommentCardComponent {
 
 
   get devicelog() {
-   
     return this.dataService.DeviceLog;
+    
   } 
 
 

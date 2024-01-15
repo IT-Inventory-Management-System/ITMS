@@ -5,16 +5,13 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class DisplayDetailsService {
+export class EmployeeService {
 
+  laptopDetails: any;
   private apiUrl = 'https://localhost:7283/api/';
-  searchText: any;
+
   constructor(private http: HttpClient) { }
-
-  getshowUserListData(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl + 'employee/basicdetails');
+  getDevices(id: any): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + 'Device/GetDevices/'+id);
   }
-
-
-  
 }
