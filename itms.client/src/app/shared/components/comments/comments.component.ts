@@ -1,5 +1,9 @@
+
 import { Component } from '@angular/core';
 import { DataService } from '../../services/data.service';
+
+import { Component, Input } from '@angular/core';
+
 
 @Component({
   selector: 'app-comments',
@@ -7,9 +11,8 @@ import { DataService } from '../../services/data.service';
   styleUrls: ['./comments.component.css']
 })
 export class CommentsComponent {
-  commentDetails: any[];
-  isCommentSectionCollapsed = false;
-  currentDeviceCygid: string;
+
+  @Input() laptopDetails: any;
 
   toggleCommentSection(cygid: string) {
     console.log(cygid);

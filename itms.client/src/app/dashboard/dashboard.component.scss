@@ -1,4 +1,6 @@
-
+.my-dashboard {
+  margin-top: 3.5rem;
+}
 .dashboard-title {
   color: var(--Primary-Gray, #343435);
   font-family: Roboto;
@@ -6,7 +8,7 @@
   font-style: normal;
   font-weight: 600;
   line-height: normal;
-  text-align:left;
+  text-align: left;
 }
 .header{
     text-align:right;

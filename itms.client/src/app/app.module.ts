@@ -1,6 +1,5 @@
 
 import { NgModule } from '@angular/core';
-
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -55,7 +54,12 @@ import { AssignSoftwareComponent } from './assign-asset/assign-software/assign-s
 import { AssignAccessoriesComponent } from './assign-asset/assign-accessories/assign-accessories.component';
 import { RecentActivityComponent } from './dashboard/recent-activity/recent-activity.component';
 import { SoftwareComponentComponent } from './dashboard/software-component/software-component.component';
+
 import { CurrentDeviceComponent } from './shared/components/current-device/current-device.component';
+
+import { FilterSearchListPipe } from './filter-search-list.pipe';
+
+
 
 
 
@@ -64,7 +68,6 @@ import { CurrentDeviceComponent } from './shared/components/current-device/curre
   declarations: [
     DevicesComponent,
     DevicesListComponent,
-    LaptopDetailsComponent,
     SoftwareDetailsComponent,
     AccessoriesDetailsComponent,
     CommentsComponent,
@@ -96,28 +99,36 @@ import { CurrentDeviceComponent } from './shared/components/current-device/curre
     HeaderComponent,
     AssestComponent,
     DashboardAssetsComponent,
-    LaptopDetailsComponent,
     SoftwareDetailsComponent,
     AccessoriesDetailsComponent,
     UserNameListComponent,
     CommentsComponent,
+
     AddAssetComponent,
+
     SpecInfoComponent,
     DevicesComponent,
     DevicesListComponent,
 
     RecentActivityComponent,
     SoftwareComponentComponent,
+    FilterSearchListPipe,
 
     AssignHistoryComponent,
     CommentCardComponent,
     NewSidebarComponent,
+
     CurrentDeviceComponent
+
+    FilterSearchListPipe,
+    LaptopDetailsComponent
+
 
 
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     HttpClientModule,
     AvatarModule,

@@ -22,6 +22,7 @@ namespace ITMS.Server.DTO
         public DateTime? UpdatedAtUtc { get; set; }
 
         public Guid? AssignedTo { get; set; }
+        public Guid? AssignedBy { get; set; }
 
         public DateTime? PurchasedDate { get; set; }
         public string FormattedPurchasedDate => PurchasedDate.HasValue ? PurchasedDate.Value.ToString("dd-MM-yyyy") : null;
