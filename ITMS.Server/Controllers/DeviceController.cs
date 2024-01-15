@@ -47,32 +47,12 @@ namespace itms.server.controllers
 
 
 
-        [HttpGet("modelCount/{deviceModelName}")]
-        public async Task<ActionResult<int>> GetModelCount(string deviceModelName)
-        {
-            try
-            {
-<<<<<<< Updated upstream
-                var modelCount = await _deviceservice.GetModelCountAsync(deviceModelName);
-=======
-
-                var deviceDto = await _deviceService.GetDeviceStatusAndAgeAsync(deviceId);
-
-                var modelCount = await _deviceService.GetModelCountAsync(deviceModelName);
->>>>>>> Stashed changes
-                return Ok(modelCount);
-            }
-            catch (Exception ex)
-            {
-                // Log the exception
-                return StatusCode(500, "Internal server error");
-            }
-        }
+       
         [HttpGet("{deviceId}")]
 
         public ActionResult<DeviceDto> GetDeviceStatusAndAge(string deviceId)
         {
-            var deviceDto = _deviceservice.GetDeviceStatusAndAge(deviceId);
+            var deviceDto = _deviceservice.GetDeviceStatusAndAgeAsync(deviceId);
 
             if (deviceDto == null)
                 return NotFound();

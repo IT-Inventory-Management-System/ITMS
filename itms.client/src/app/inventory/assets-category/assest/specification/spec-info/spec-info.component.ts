@@ -17,13 +17,8 @@ export class SpecInfoComponent implements OnInit {
     // Assuming you have a property in your dataService to store the device model name
     const deviceModelName = this.dataService.DeviceDetails?.deviceModel?.deviceName;
 
-    if (deviceModelName) {
-      this.dataService.getModelCount(deviceModelName).subscribe(count => {
-        console.log('Count retrieved:', count);
-        this.modelCount = count;
-        this.cdr.detectChanges(); // Manually trigger change detection
-      });
-    }
+   
+    
   }
 
   get deviceDetails() {

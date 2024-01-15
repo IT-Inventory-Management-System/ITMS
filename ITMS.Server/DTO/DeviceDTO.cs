@@ -1,5 +1,6 @@
 ﻿
 using FSharp.Data.Runtime.StructuralTypes;
+using Org.BouncyCastle.Utilities;
 
 namespace ITMS.Server.DTO
 {
@@ -38,6 +39,8 @@ namespace ITMS.Server.DTO
         public DeviceModelDto DeviceModel { get; set; }
 
         public bool? IsArchived { get; set; }
+
+        public int modelCount { get; set; }
 
     }
 

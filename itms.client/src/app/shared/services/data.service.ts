@@ -15,7 +15,7 @@ export class DataService {
   constructor(private http: HttpClient) { }
 
   getCategories(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl + 'device/categories');
+    return this.http.get<any[]>(this.apiUrl + 'Device/categories');
   }
 
   getDevices(): Observable<any[]> {
@@ -24,22 +24,21 @@ export class DataService {
 
 
   getArchivedDevices(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl +'devices/archived-cygids')
+    return this.http.get<any[]>(this.apiUrl +'Device/archived-cygids')
   }
 
 
 
   getDevicesInfo(deviceId: string): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl + 'devices/' + deviceId);
+    return this.http.get<any[]>(this.apiUrl + 'Device/' + deviceId);
   }
 
   getUserInfo(deviceId: string): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl + 'DeviceLog/devicesloginfo/' + deviceId);
   }
 
-  getModelCount(deviceModelName: string): Observable<number> {
-    return this.http.get<number>(this.apiUrl+'devices/modelCount/'+deviceModelName);
+ 
   
-  }
+  
 }
 
