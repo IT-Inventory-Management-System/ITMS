@@ -25,6 +25,12 @@ namespace ITMS.Server.Controllers
         }
 
 
+        [HttpGet("softwares")]
+        public ActionResult<IEnumerable<Accessories>> GetSoftware()
+        {
+            var software = _dashboardService.GetSoftwares();
+            return Ok(software);
+        }
 
 
 

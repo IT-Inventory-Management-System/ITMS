@@ -32,5 +32,17 @@ namespace ITMS.Server.DTO
         public int Total { get; set; }
         public int Assigned { get; set; }
     }
+
+
+    public class Softwares
+    {
+        public string Name { get; set; }
+        public string Version { get; set; }
+        public string Type { get; set; }
+
+        public int Inventory { get; set; }
+        public int Assigned { get; set; }
+
+    }
 }
 

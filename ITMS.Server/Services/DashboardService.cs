@@ -39,6 +39,22 @@ namespace ITMS.Server.Services
             return allaccessories;
         }
 
+        public List<Softwares> GetSoftwares()
+        {
+            var allSoftware = _context.SoftwareAllocations
+                .Include(sa => sa.Software)
+                    .ThenInclude(s => s.SoftwareType)
+                .Select(sa => new Softwares
+                {
+                    Name = sa.Software.SoftwareName,
+                    Version = sa.SoftwareVersion,
+                    Type = sa.Software.SoftwareType.TypeName,
+                    // Add other properties as needed
+                })
+                .ToList();
+
+            return allSoftware;
+        }
 
 
     }
