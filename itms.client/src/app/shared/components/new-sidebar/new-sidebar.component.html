@@ -1,31 +1,40 @@
 
 <div class="sidebar" [ngClass]="{'collapsed': isCollapsed}">
 
-  <div class="content" routerLink="/dashboard">
+  <div class="content" routerLink="/dashboard" (click)="highlightIcon('dashboard')" [ngClass]="{'selected': isIconSelected('dashboard')}">
     <img class="sidebar-icon" src="../../assets/icons/Dashbord.svg" alt="Sidebar Image" />
     <span *ngIf="!isCollapsed">Dashboard</span>
   </div>
-  <div class="content" routerLink="/inventory">
-    <img src="../../assets/icons/Assets.svg" alt="Sidebar Image" />
+
+  <div class="content" routerLink="/inventory" (click)="highlightIcon('Inventory')" [ngClass]="{'selected': isIconSelected('Inventory')}">
+    <img class="sidebar-icon" src="../../assets/icons/Assets.svg" alt="Sidebar Image" />
     <span *ngIf="!isCollapsed">Assets</span>
   </div>
-  <div class="content" routerLink="">
-    <img src="../../assets/icons/Software.svg" alt="Sidebar Image" />
+
+  <!--<div class="content" routerLink="/inventory" (click)="highlightIcon('dashboard')" [ngClass]="{'selected': isIconSelected('dashboard')}">
+    <img class="sidebar-icon" src="../../assets/icons/Assets.svg" alt="Sidebar Image" />
+    <span *ngIf="!isCollapsed">Assets</span>
+  </div>-->
+
+  <div class="content" routerLink="" (click)="highlightIcon('Software')" [ngClass]="{'selected': isIconSelected('Software')}">
+    <img class="sidebar-icon" src="../../assets/icons/Software.svg" alt="Sidebar Image" />
     <span *ngIf="!isCollapsed">Software</span>
   </div>
-  <div class="content" routerLink="/employee">
-    <img src="../../assets/icons/Users.svg" alt="Sidebar Image" />
+  <div class="content" routerLink="/employee" (click)="highlightIcon('Users')" [ngClass]="{'selected': isIconSelected('Users')}">
+    <img class="sidebar-icon" src="../../assets/icons/Users.svg" alt="Sidebar Image" />
     <span *ngIf="!isCollapsed">User</span>
   </div>
-  <div class="content">
-    <img src="../../assets/icons/Logs.svg" alt="Sidebar Image" />
+  <div class="content" routerLink="" (click)="highlightIcon('Logs')" [ngClass]="{'selected': isIconSelected('Logs')}">
+    <img class="sidebar-icon" src="../../assets/icons/Logs.svg" alt="Sidebar Image" />
     <span *ngIf="!isCollapsed">Activity Logs</span>
   </div>
+
   <div class="content-collapse" (click)="toggleCollapse()">
     <img class="collapse-expand" src="../../assets/icons/collapse.svg" alt="Expanded Icon" *ngIf="!isCollapsed" />
     <img class="collapse-expand" src="../../assets/icons/expand.svg" alt="Collapsed Icon" *ngIf="isCollapsed" />
     <span *ngIf="!isCollapsed">Collapse</span>
   </div>
+
 </div>
 
 

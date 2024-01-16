@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-new-sidebar',
@@ -47,9 +47,21 @@ export class NewSidebarComponent {
   //    this.isSidebarCollapsed = !this.isSidebarCollapsed;
   //  }
   isCollapsed = true;
+  selectedIcon: string = ''; 
 
   toggleCollapse() {
     this.isCollapsed = !this.isCollapsed;
-
   }
+
+  constructor(private cdr: ChangeDetectorRef) { }
+
+  highlightIcon(icon: string) {
+    this.selectedIcon = icon;
+    this.cdr.detectChanges();
+  }
+
+  isIconSelected(icon: string): boolean {
+    return this.selectedIcon === icon;
+  }
+
 }
