@@ -23,7 +23,6 @@ import { IdInputComponent } from './add-asset/add-device-form/id-input/id-input.
 import { AddSoftwareFormComponent } from './add-asset/add-software-form/add-software-form.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
-import { LaptopComponent } from './user-detail/laptop/laptop.component';
 import { CategoryTypeComponent } from './add-asset/category-type/category-type.component';
 
 import { UserNameListComponent } from './user-name-list/user-name-list.component';
