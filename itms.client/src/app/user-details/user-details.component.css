@@ -236,3 +236,6 @@
   border-bottom: 2px #28519E solid;
 }
 
+.buttons button.selected {
+  border-bottom: 2px #28519E solid;
+}

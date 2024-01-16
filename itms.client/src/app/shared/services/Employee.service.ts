@@ -8,10 +8,15 @@ import { Observable } from 'rxjs';
 export class EmployeeService {
 
   laptopDetails: any;
-  private apiUrl = 'https://localhost:44384/api/';
+  softwareDetails: any;
+  private apiUrl = 'https://localhost:7283/api/';
 
   constructor(private http: HttpClient) { }
   getDevices(id: any): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl + 'Device/GetDevices/'+id);
+  }
+
+  getSoftware(id: any): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + 'Software/GetUserSoftware/'+id);
   }
 }

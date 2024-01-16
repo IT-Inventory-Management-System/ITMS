@@ -1,37 +1,55 @@
-﻿//using ITMS.Server.DTO;
-//using ITMS.Server.Services;
-//using Microsoft.AspNetCore.Http;
-//using Microsoft.AspNetCore.Mvc;
+﻿using ITMS.Server.DTO;
+using ITMS.Server.Services;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
-//namespace ITMS.Server.Controllers
-//{
-   
+namespace ITMS.Server.Controllers
+{
 
-//    // SoftwareController.cs
-//    [ApiController]
-//    [Route("api/[controller]")]
-//    public class SoftwareController : ControllerBase
-//    {
-//        private readonly SoftwareService _softwareService;
 
-//        public SoftwareController(SoftwareService softwareService)
-//        {
-//            _softwareService = softwareService;
-//        }
+    // SoftwareController.cs
+    [ApiController]
+    [Route("api/[controller]")]
+    public class SoftwareController : ControllerBase
+    {
+        private readonly SoftwareService _softwareService;
 
-//        [HttpGet]
-//        public ActionResult<List<SoftwareDTO>> GetAllSoftware()
-//        {
-//            var softwareList = _softwareService.GetAllSoftware();
-//            return Ok(softwareList);
-//        }
+        public SoftwareController(SoftwareService softwareService)
+        {
+            _softwareService = softwareService;
+        }
 
-//        [HttpPost]
-//        public ActionResult InsertSoftware([FromBody] SoftwareDTO softwareDTO)
-//        {
-//            _softwareService.InsertSoftware(softwareDTO);
-//            return Ok();
-//        }
-//    }
+        [HttpGet]
+        public ActionResult<List<SoftwareDTO>> GetAllSoftware()
+        {
+            var softwareList = _softwareService.GetAllSoftware();
+            return Ok(softwareList);
+        }
 
-//}
+        [HttpPost]
+        public ActionResult InsertSoftware([FromBody] SoftwareDTO softwareDTO)
+        {
+            _softwareService.InsertSoftware(softwareDTO);
+            return Ok();
+        }
+
+        [HttpGet("GetUserSoftware/{id}")]
+        public IActionResult GetUserSoftware(Guid id)
+        {
+            try
+            {
+                var softwareList = _softwareService.GetUserSoftware(id);
+                return Ok(softwareList);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+           
+        }
+
+    }
+
+}
+
+
