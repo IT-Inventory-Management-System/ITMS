@@ -42,7 +42,6 @@ import { DevicesListComponent } from './inventory/assets-category/assest/devices
 import { AssignHistoryComponent } from './inventory/assets-category/assest/assign-history/assign-history.component';
 import { CommentCardComponent } from './inventory/assets-category/assest/assign-history/comment-card/comment-card.component';
 
-import { LaptopDetailsComponent } from './user-details/laptop-details/laptop-details.component';
 import { SoftwareDetailsComponent } from './user-details/software-details/software-details.component';
 import { AccessoriesDetailsComponent } from './user-details/accessories-details/accessories-details.component';
 import { CommentsComponent } from './shared/components/comments/comments.component';
@@ -111,7 +110,6 @@ import { FilterSearchListPipe } from './filter-search-list.pipe';
     CommentCardComponent,
     NewSidebarComponent,
     FilterSearchListPipe,
-    LaptopDetailsComponent
 
 
 

@@ -2,9 +2,8 @@
 .page-container {
   display: flex;
   gap: 1rem;
-  flex: 1 0 0;
   height: 43.125rem;
-  width:51.3125rem;
+  width: 100%;
   padding: 1.5rem;
   flex-direction: column;
   align-items: flex-start;
@@ -30,18 +29,9 @@
   line-height: normal;
 }
 
-.name-container{
-    height: 10%;
+.name-container {
+  height: 10%;
 }
-.assign-button {
-  height: 20%;
-  justify-content: flex-end;
-  align-items: flex-start;
-  gap: 0.625rem;
-  display: flex;
-  align-items: center;
-}
-
 
 
 
@@ -100,6 +90,7 @@
   font-weight: 500;
   word-wrap: break-word;
 }
+
 --------------------------------------
 .user-headers {
   display: flex;
@@ -114,18 +105,18 @@
   justify-content: space-between;
   align-items: flex-start;
   align-self: stretch;
-  flex-direction:row;
+  flex-direction: row;
   width: auto;
 }
 
 .logo {
-  height:2.5rem;
-  width:2.5rem;
+  height: 2.5rem;
+  width: 2.5rem;
   align-items: center;
   gap: 0.55556rem;
-  padding-top:-.75rem;
-  position:relative;
-  overflow:hidden;
+  padding-top: -.75rem;
+  position: relative;
+  overflow: hidden;
 }
 
 
@@ -143,7 +134,7 @@
 .user-name {
   color: var(--Primary-Gray, #343435);
   font-family: Roboto;
-  height:1.3125rem;
+  height: 1.3125rem;
   font-size: 1.125rem;
   font-style: normal;
   font-weight: 500;
@@ -153,7 +144,7 @@
 
 .user-id {
   color: var(--Adhoc-text-gray, #6D6D6D);
-  height:1rem;
+  height: 1rem;
   width: 3.125rem;
   font-family: Roboto;
   font-size: 0.875rem;
@@ -175,14 +166,22 @@
   padding: 0.625rem;
   align-items: center;
   border-radius: 0.25rem;
-  border: 1px solid var(--Primary-Blue, #28519E);
+  border: 1.5px solid #28519E;
   background: var(--Primary-White, #FFF);
 }
 
-.first{
-    display:flex;
-    flex-direction:row;
+.ass {
+  color: #28519E;
+  font-family: Roboto;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
 
+.first {
+  display: flex;
+  flex-direction: row;
 }
 
 
@@ -197,7 +196,7 @@
   justify-content: center;
   align-items: center;
   gap: 0.625rem;
-  border:none;
+  border: none;
   border-bottom: 2px solid #E9ECEB;
   background: #FFF;
   height: 2.5625rem;
@@ -227,12 +226,11 @@
   gap: 1.5rem;
   flex-shrink: 0;
   align-self: stretch;
-  width:49.3125rem;
-  margin-top:1rem;
-  margin-bottom:1.5rem;
+  width: 49.3125rem;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .item1:focus, .item2:focus, .item3:focus {
   border-bottom: 2px #28519E solid;
 }
-

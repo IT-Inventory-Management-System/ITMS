@@ -1,3 +1,4 @@
+
 .inner-laptop-container {
   width: 100%;
   padding: 0.75rem;
@@ -6,14 +7,15 @@
   border: 1px solid var(--Secondary-Light-Gray, #E9ECEB);
   display: flex;
   flex-direction: column;
-  gap:.25rem; 
+  gap: .25rem;
   height: auto;
-  position:relative;}
+  position: relative;
+}
 
 .device-tag {
   display: flex;
   padding: 0.375rem 0.625rem;
-  top:0;
+  top: 0;
   justify-content: center;
   align-items: center;
   gap: 0.625rem;
@@ -32,18 +34,17 @@
   line-height: normal;
   text-transform: uppercase;
 }
+
 .common-gap-style {
   gap: 0.25rem;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
-  
 }
 
-.aa{
-    display:flex;
-    flex-direction:row;
-    width:45.8125rem;
-
+.aa {
+  display: flex;
+  flex-direction: row;
+  width: 45.8125rem;
 }
 
 .user-detail {
@@ -54,14 +55,14 @@
   align-self: stretch;
   height: auto;
   width: 100%;
-  margin:auto;
+  margin: auto;
 }
 
-.user-data{
-    display:flex;
-    width:100%;
-
+.user-data {
+  display: flex;
+  width: 100%;
 }
+
 .hi {
   height: 19.8125rem;
   width: auto;
@@ -81,7 +82,7 @@
   align-items: center;
   gap: 1.5rem;
   align-self: stretch;
-  height:auto;
+  height: auto;
   width: 100%;
 }
 
