@@ -11,37 +11,86 @@
 
       <div class="modal-body">
         <app-search-box class="sbox" [label]="'User'" [placeholder]="'Search User by Name, CGI ID and Email Address'"></app-search-box>
-        <div class="stepper">
-          <div *ngFor="let step of [1, 2, 3]; let i = index" class="step">
-            <img class="step-img"
-                 [src]="getStepIcon(i + 1)"
-                 alt="Step {{ i + 1 }}"
-                 [ngClass]="{
-                 'completed' : currentStep> i + 1,
-            'current': currentStep === i + 1,
-            'greyscale-icon': currentStep < i + 1
-            }"
-            />
-            <div class="step-text"
-                 [ngClass]="{
-                 'completed' : currentStep>
-              i + 1,
-              'current': currentStep === i + 1,
-              'greyscale-step': currentStep < i + 1
-              }"
-              >
-              {{ getStepText(i + 1) }}
+        <!--<div class="stepper">
+  <div *ngFor="let step of [1, 2, 3]; let i = index" class="step">
+    <img class="step-img"
+         [src]="getStepIcon(i + 1)"
+         alt="Step {{ i + 1 }}"
+         [ngClass]="{
+         'completed' : currentStep> i + 1,
+    'current': currentStep === i + 1,
+    'greyscale-icon': currentStep < i + 1
+    }"
+    />
+    <div class="step-text"
+         [ngClass]="{
+         'completed' : currentStep>
+      i + 1,
+      'current': currentStep === i + 1,
+      'greyscale-step': currentStep < i + 1
+      }"
+      >
+      {{ getStepText(i + 1) }}
+    </div>
+
+
+    <ng-container *ngIf="i !== 2">-->
+        <!-- Skip the separator after the last step -->
+        <!--<img class="vector-img" src="../../../../assets/icons/Stroke.svg" />
+  </ng-container>-->
+        <!--<div class="stepper-container">
+    <div class="stepper-stepper">
+      <div class="stepper-stepper1">
+
+        <img *ngIf="currentStep === 1" src="../../../assets/icons/laptop-solid.svg" />
+        <img *ngIf="currentStep === 2" src="../../../assets/icons/completed.svg" />
+        <span class="stepper-text"><span>Laptop</span></span>
+      </div>
+      <img src="../../../assets/icons/Vector 16 (Stroke).svg" />
+      <div class="stepper-stepper2">
+        <img *ngIf="currentStep === 1" src="../../../assets/icons/serial Number.svg" />
+        <img *ngIf="currentStep === 2" src="../../../assets/icons/laptop-solid-2.svg" />
+        <span class="stepper-text2"><span>Software</span></span>
+      </div>
+
+      <img src="../../../assets/icons/Vector 16 (Stroke).svg" />
+      <div class="stepper-stepper3">
+
+        <img *ngIf="currentStep === 1" src="../../../assets/icons/laptop-solid.svg" />
+        <img *ngIf="currentStep === 2" src="../../../assets/icons/completed.svg" />
+        <span class="stepper-text"><span>Accessories</span></span>
+      </div>
+    </div>
+  </div>-->
+
+
+        <div class="stepper-container">
+          <div class="stepper-stepper">
+            <div class="stepper-stepper1">
+              <img *ngIf="currentStep === 1" src="../../../assets/icons/laptop-solid.svg" />
+              <img *ngIf="currentStep > 1" src="../../../assets/icons/completed.svg" />
+              <span class="stepper-text"><span>Laptop</span></span>
+            </div>
+            <img class="vector-img" src="../../../assets/icons/Vector 16 (Stroke).svg" />
+            <div class="stepper-stepper2">
+              <img *ngIf="currentStep === 1" src="../../../../assets/icons/Software-light.svg" />
+              <img *ngIf="currentStep === 2" src="../../../../assets/icons/Software.svg" />
+              <img *ngIf="currentStep > 2" src="../../../assets/icons/completed.svg" />
+              <span class="stepper-text2"><span>Software</span></span>
             </div>
 
-
-            <ng-container *ngIf="i !== 2">
-              <!-- Skip the separator after the last step -->
-              <img class="vector-img" src="../../../../assets/icons/Stroke.svg" />
-            </ng-container>
-
-
+            <img class="vector-img" src="../../../assets/icons/Vector 16 (Stroke).svg" />
+            <div class="stepper-stepper1">
+              <img *ngIf="currentStep === 1" src="../../../../assets/icons/placeholder.svg" />
+              <img *ngIf="currentStep === 2" src="../../../../assets/icons/placeholder.svg" />
+              <img *ngIf="currentStep === 3" src="../../../../assets/icons/placeholder.svg" />
+              <img *ngIf="currentStep > 3" src="../../../assets/icons/completed.svg" />
+              <span class="stepper-text"><span>Accessories</span></span>
+            </div>
           </div>
         </div>
+
+
 
 
         <!-- Step 1: Assign Laptop -->
