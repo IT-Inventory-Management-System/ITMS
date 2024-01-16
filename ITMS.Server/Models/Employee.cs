@@ -76,4 +76,9 @@ public partial class Employee
     public virtual ICollection<Software> SoftwareUpdatedByNavigations { get; } = new List<Software>();
 
     public virtual Employee? UpdatedByNavigation { get; set; }
+
+    public static implicit operator Employee(string v)
+    {
+        throw new NotImplementedException();
+    }
 }
