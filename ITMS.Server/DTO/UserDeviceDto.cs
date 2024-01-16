@@ -12,8 +12,16 @@ public class UserDeviceDto
     public DateTime CreatedAtUtc { get; set; }
     public string ModelName { get; set; }
 
-    // New fields
-    public string CommentDescription { get; set; }
-    public string CreatedByFullName { get; set; }
-    public DateTime CommentCreatedAtUtc { get; set; }
+    //// New fields
+    //public string CommentDescription { get; set; }
+    //public string CreatedByFullName { get; set; }
+    //public DateTime CommentCreatedAtUtc { get; set; }
+    public CommentDto Comments { get; set; }
+}
+public class CommentDto
+{
+    public Guid Id { get; set; }
+    public string Description { get; set; }
+    public string CreatedBy { get; set; }
+    public DateTime CreatedAt { get; set; }
 }

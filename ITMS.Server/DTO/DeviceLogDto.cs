@@ -22,7 +22,7 @@ public class DevicelogDto
     public bool ? IsArchived { get; set; }
 
 
-    public List<CommentDto> Comments { get; set; }
+
 }
 
 
@@ -53,11 +53,5 @@ public class CategoryTypeWithCategoriesDTO
 }
 
 
-public class CommentDto
-{
-    public Guid Id { get; set; }
-    public string Description { get; set; }
-    public string CreatedBy { get; set; }
-    public DateTime CreatedAt { get; set; }
-}
+
 

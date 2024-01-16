@@ -27,5 +27,25 @@ namespace ITMS.Server.Controllers
 
             return Ok(userDeviceDto);
         }
+        [HttpGet("{deviceLogId}/comments")]
+        public ActionResult<List<CommentDto>> GetCommentsById(Guid deviceLogId)
+        {
+            try
+            {
+                List<CommentDto> comments = _userDeviceService.GetCommentsById(deviceLogId);
+
+                if (comments == null)
+                {
+                    return NotFound($"Device log with ID {deviceLogId} not found.");
+                }
+
+                return Ok(comments);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception and return a 500 Internal Server Error
+                return StatusCode(500, $"Internal Server Error: {ex.Message}");
+            }
+        }
     }
 }

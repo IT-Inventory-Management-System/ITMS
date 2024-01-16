@@ -15,6 +15,7 @@ export class DevicesListComponent {
   DeviceData: any;
   DeviceInfo: any;
   DeviceLog: any;
+  CommentDetails: any;
 
   constructor(private deviceService: DataService) {
 
@@ -26,7 +27,7 @@ export class DevicesListComponent {
 
   onDeviceClick(): void {
     console.log('Device Object:', this.device.cygid);
-
+    
     // Call the first API to get device information
     this.deviceService.getDevicesInfo(this.device.cygid).subscribe(
       (data) => {
@@ -36,6 +37,7 @@ export class DevicesListComponent {
 
         // Call the second API to get device logs
         this.getDeviceLogs();
+        this.getComments();
       },
       (error) => {
         // Handle errors for the first API here
@@ -57,6 +59,17 @@ export class DevicesListComponent {
         console.error('Error fetching device logs:', error);
       }
     );
+
+
+  }
+
+  getComments() {
+    console.log( this.deviceService.DeviceLog.id)
+    this.deviceService.getCommentById(this.deviceService.DeviceLog.id).subscribe(
+      (data) => {
+        this.deviceService.CommentDetails = data;
+        console.log(data)
+      });
   }
 
   @ViewChild('firstButton') firstButton: ElementRef;

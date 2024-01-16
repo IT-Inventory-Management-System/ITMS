@@ -21,7 +21,7 @@ public class DeviceLogService
         var deviceHistory = _context.Devices.OrderBy(log => log.Cygid)
             .Select(log => new DevicelogDto
             {
-
+                Id = log.Id,
                 Cygid = log.Cygid
             })
             .ToList();
@@ -54,6 +54,7 @@ public class DeviceLogService
                
                 return new DevicelogDto
                 {
+                   Id = devicesLogInfo.Id,
                     Cygid = devicesLogInfo.Device.Cygid,
                     Cgiid = devicesLogInfo.Employee.Cgiid,
                     EmployeeName = $"{devicesLogInfo.Employee.FirstName} {devicesLogInfo.Employee.LastName}",

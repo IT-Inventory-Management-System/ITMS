@@ -24,22 +24,22 @@
             <div class="col-md-6">
               <div class="row avatar-supercomponent">
                 <div class="col-md-1 avatar">
-                  <ngx-avatars name={{device.assignedBy}} [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="32"></ngx-avatars>
+                  <ngx-avatars name={{commentDetails.createdBy}} [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="32"></ngx-avatars>
                 </div>
                 <div class="col-md-4 user-details">
-                  <div style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 0.875rem; font-style: normal; font-weight: 600; line-height: normal;">{{device.assignedBy}}</div>
+                  <div style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 0.875rem; font-style: normal; font-weight: 600; line-height: normal;">{{commentDetails.createdBy}}</div>
                 </div>
               </div>
             </div>
             <div class="col-md-6 date-time-comment">
               <div>
-                <div>{{device.comment.commentCreatedAtUtc}}</div>
+                <div>{{commentDetails.createdAt}}</div>
               </div>
             </div>
           </div>
         </div>
         <div class="col-md-12">
-          <p class="comment-content">{{device.comment.Description}}</p>
+          <p class="comment-content">{{commentDetails.description}}}</p>
         </div>
         <div class="col-md-12 comment-input">
           <input type="text" class="input" placeholder="Add Comment...">

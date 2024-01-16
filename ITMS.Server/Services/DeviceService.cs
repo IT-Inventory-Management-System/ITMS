@@ -169,6 +169,7 @@ public class DeviceService
             .Include(d => d.StatusNavigation)
 
             .Include(d => d.DeviceModel)
+           
 
             .FirstOrDefaultAsync(d => d.Cygid == deviceId);
 
@@ -389,7 +390,7 @@ public class DeviceService
 
                     Model = modelNo,
 
-                    Comments = comments // Set Comments property after other properties
+                   
 
                 };
 

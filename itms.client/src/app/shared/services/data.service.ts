@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+type Guid = string;
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,8 @@ export class DataService {
   DeviceLog: any;
   Archiveddevices :any;
   showArchiveOnly: boolean = false;
+  CommentDetails: any;
+
   constructor(private http: HttpClient) { }
 
   getCategories(): Observable<any[]> {
@@ -36,8 +39,12 @@ export class DataService {
   getUserInfo(deviceId: string): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl + 'DeviceLog/devicesloginfo/' + deviceId);
   }
-
  
+
+  getCommentById(deviceLogId: Guid): Observable<any[]> {
+    
+    return this.http.get<any[]>(this.apiUrl + 'userdevices/' + deviceLogId + '/comments');
+  }
   
   
 }

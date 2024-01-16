@@ -6,7 +6,12 @@ using ITMS.Server.Models;
 using Microsoft.EntityFrameworkCore;
 
 // Services/UserDeviceService.cs
-public class UserDeviceService
+public interface IUserDeviceService
+{
+    List<CommentDto> GetCommentsById(Guid deviceLogId);
+}
+
+public class UserDeviceService : IUserDeviceService
 {
     private readonly ItinventorySystemContext _dbContext;
 
@@ -41,14 +46,25 @@ public class UserDeviceService
             ModelName = device.DeviceModel.DeviceName,
         };
 
-        var latestComment = device.Comments.OrderByDescending(c => c.CreatedAtUtc).FirstOrDefault();
-        if (latestComment != null)
-        {
-            userDeviceDto.CommentDescription = latestComment.Description;
-            userDeviceDto.CreatedByFullName = $"{latestComment.CreatedByNavigation.FirstName} {latestComment.CreatedByNavigation.LastName}";
-            userDeviceDto.CommentCreatedAtUtc = latestComment.CreatedAtUtc;
-        }
 
         return userDeviceDto;
     }
+    public List<CommentDto> GetCommentsById(Guid deviceLogId)
+    {
+        var comments = _dbContext.Comments
+            .Include(comment => comment.CreatedByNavigation)
+            .Where(comment => comment.DeviceLogId == deviceLogId)
+            .Select(comment => new CommentDto
+            {
+                Id = comment.Id,
+                Description = comment.Description,
+                CreatedBy = comment.CreatedByNavigation.FirstName??"Unkown",
+                CreatedAt = comment.CreatedAtUtc
+            })
+            .ToList();
+
+        return comments;
+    }
+
+
 }
