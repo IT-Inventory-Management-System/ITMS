@@ -10,7 +10,7 @@
       </div>
 
       <div class="modal-body">
-        <app-search-box class="sbox" [label]="'User'" [placeholder]="'Search User by Name, CGI ID and Email Address'"></app-search-box>
+        <app-search-box class="sbox" [label]="'User'" [placeholder]="'Search User by Name, CGI ID and Email Address'" [options]="users" (optionSelected)="onUserSelected($event)"></app-search-box>
         <div class="stepper">
           <div *ngFor="let step of [1, 2, 3]; let i = index" class="step">
             <img class="step-img"

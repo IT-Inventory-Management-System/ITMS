@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DeviceAssignService } from '../shared/services/device-assign.service';
 
 
 
@@ -55,11 +56,6 @@ export class AssignAssetComponent {
     }
   }
 
-  saveChanges() {
-    // Implement your logic to handle saving changes
-    console.log('Changes saved!');
-  }
-
   getProgressBarWidth(): string {
     const progress = (this.currentStep - 1) * 50; // Assuming 50% width per step
     return `${progress}%`;
@@ -72,6 +68,32 @@ export class AssignAssetComponent {
       return 'Next';
     }
   }
+  users: any[] = [];
+  selectedUser: any;
+
+  constructor(private deviceAssignService: DeviceAssignService) { }
+
+  ngOnInit() {
+    this.getUsers();
+  }
+
+  getUsers(): void {
+    this.deviceAssignService.getEmployeeBasicDetails().subscribe(
+      (data: any[]) => {
+        console.log('Fetched Users:', data);
+        this.users = data;
+      },
+      (error: any) => {
+        console.error('Error fetching user details:', error);
+      }
+    );
+  }
+
+  onUserSelected(user: any): void {
+    this.selectedUser = user;
+  }
+
+  saveChanges(): void {
+    console.log('Selected User:', this.selectedUser);
+  }
 }
-
-

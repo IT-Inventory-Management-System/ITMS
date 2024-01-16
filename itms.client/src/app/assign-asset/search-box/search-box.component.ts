@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-search-box',
@@ -8,4 +8,30 @@ import { Component, Input } from '@angular/core';
 export class SearchBoxComponent {
   @Input() label: string;
   @Input() placeholder: string;
+  @Input() options: any[] = [];
+  @Output() optionSelected: EventEmitter<any> = new EventEmitter();
+
+  searchText: string = '';
+  filteredOptions: any[] = [];
+
+  onInputChange(event: any): void {
+    this.searchText = event.target.value;
+    this.filterOptions();
+  }
+
+
+  filterOptions(): void {
+    console.log('Search Text:', this.searchText);
+    console.log('All Options:', this.options);
+    this.filteredOptions = this.options.filter(option =>
+      option.cgiid.toLowerCase().includes(this.searchText.toLowerCase()) ||
+      option.firstName.toLowerCase().includes(this.searchText.toLowerCase()) ||
+      option.lastName.toLowerCase().includes(this.searchText.toLowerCase())
+    );
+    console.log('Filtered Options:', this.filteredOptions);
+  }
+
+  selectOption(option: any): void {
+    this.optionSelected.emit(option);
+  }
 }
