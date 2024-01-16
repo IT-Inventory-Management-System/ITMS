@@ -25,7 +25,7 @@ builder.Services.AddScoped<IGetSoftwareService, GetSoftwareService>();
 builder.Services.AddScoped<IGetSoftwareVersionService, GetSoftwareVersionService>();
 builder.Services.AddScoped<DeviceService>();
 builder.Services.AddScoped<DeviceLogService>();
-
+builder.Services.AddScoped<UserDeviceService>();
 
 builder.Services.AddCors(options =>
 {

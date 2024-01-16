@@ -1,52 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>User Details</title>
-  
-</head>
-
-<body>
+<app-assign-asset></app-assign-asset>
   <div class="page-container">
-    <div class="row container">
-      <div class="col-md-6 name-header">
-        <div class="row">
-          <div class="col-md-1 avatar">
-            <ngx-avatars name="Marvin McKinney" [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true"></ngx-avatars>
-          </div>
-          <div class="col-md-4 user-details">
-            <div class="user-name" style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1.125rem; font-style: normal; font-weight: 600; line-height: normal;">Marvin McKinney</div>
-            <div class="user-info">CGI 098</div>
-          </div>
-        </div>
-      </div>
-      <div class="col-6 assign-button">
-        <div class="button-container">
-          <img src="../../../../assets/icons/Add.svg">
-          <div class="button-text">Assign</div>
-        </div>
-      </div>
-    </div>
+    <div class="row-container">
+      <div class="user-headers">
+        <div class="user-header">
+          <div class="first">
+            <ngx-avatars name="{{userDetails.firstName }} {{userDetails.lastName }}" [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="33"></ngx-avatars>
 
-      <div class="row page-change">
-        <div class="pages">
-          <button class="btn">Laptop</button>
-        </div>
-        <div class="pages">
-          <button class="btn">Software</button>
-        </div>
-        <div class="pages">
-          <button class="btn">Accessories</button>
+            <div class="user-name-id">
+              <div class="user-name">{{userDetails.firstName }} </div>
+              <div class="user-id">{{ userDetails.cgiid }} </div>
+            </div>
+          </div>
+
+          <div class="assign" routerLink="/assign-asset" data-bs-toggle="modal" data-bs-target="#assignAssetModal"><button class="assign-button"><img src ="../../assets/icons/Add.svg" /><div class="ass"></div>Assign</button></div>
         </div>
       </div>
-
-    <app-laptop-details></app-laptop-details>
     
-  </div>
-</body>
+ 
 
-</html>
+     
+      <div class="assigned">
+        <div class="buttons">
+          <button class="item1">
+            <div class="laptop">Laptop</div>
+          </button>
+          <button class="item2">
+            <div class="software">Software</div>
+          </button>
+          <button class="item3">
+            <div class="accessories">Accessories</div>
+          </button>
+        </div>
+      
+        <app-laptop-details [userId]="userDetails.id"></app-laptop-details>
+      </div>
+
+    
+ </div>
+
+
 
 

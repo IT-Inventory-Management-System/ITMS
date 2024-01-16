@@ -1,10 +1,7 @@
 <div class="Device">
   <div class="Device-Section">
     <div class="Device-Frame">
-      <div class="device-search">
-        <div class="search-box-subheading">CYG ID <span style="color:red">*</span></div>
-        <input class="search-box" required type="search" placeholder="Select CYG ID" aria-label="Search">
-      </div>
+      <app-search-box class="sbox" [label]="'CYG ID'" [placeholder]="'Select CYG ID'"></app-search-box>
       <div class="alert-box">
         <div class="alert-image-frame">
           <img id="alert-image" src="../../../../assets/icons/Vector.svg" />
@@ -34,10 +31,7 @@
         </div>
       </div>
     </div>
-    <div class="Comment">
-      <div class="comment-subheading">Comment</div>
-      <input class="comment-input-box" required type="comment" placeholder="Add Comment" aria-label="Comment">
-    </div>
+    <app-comment-box class="Cbox"></app-comment-box>
   </div>
   <div class="Add-new">
     <img class="add-img" src="../../../../assets/icons/Add.svg" />

@@ -66,7 +66,7 @@ body {
   font-family: Roboto;
   font-size: 0.875rem;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 1000;
   line-height: normal;
 }
 .button-container {
@@ -105,7 +105,7 @@ body {
   font-family: Roboto;
   font-size: 0.875rem;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 1000;
   line-height: normal;
 }
 .asset-image {
@@ -133,7 +133,7 @@ body {
   font-family: Roboto;
   font-size: 1.125rem;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 1000;
   line-height: normal;
 }
 
