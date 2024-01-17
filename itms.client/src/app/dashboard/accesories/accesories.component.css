@@ -3,12 +3,13 @@
   border: 1px solid var(--Secondary-Light-Gray, #E9ECEB);
   background: var(--Primary-White, #FFF);
   display: flex;
-height: 7.625rem;
-flex-direction: column;
-align-items: flex-start;
-gap: 0.5rem;
-flex: 1 0 0;
+  height: 7.625rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  flex: 1 0 0;
 }
+
 .Type {
   display: flex;
   padding: 8px;
@@ -41,7 +42,6 @@ flex: 1 0 0;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
-  
 }
 
 .stock-section {
@@ -78,8 +78,7 @@ flex: 1 0 0;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  float:right;
-  
+  float: right;
 }
 
 .Inventory-number {
