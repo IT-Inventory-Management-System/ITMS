@@ -17,90 +17,83 @@
 
   <div class="container-fluid">
 
-  <div class="row  KPI-card  ">
+  <div class="row  KPI-card st ">
 
-    <div class=" col-8 col1   ">
+    <div class=" col-md-8 col1  ">
       <div class="total-asset  ">
         <div class="row header ">
-      <div class="col-8  Total-asset-Title">
-        Total Assets
-      </div>
-      <div class="col-4 Filter">
-        <span class="filter-by"> Filter by</span>
-      <div class="btn-group">
-            <button type="button" class="btn btn dropdown-toggle " data-bs-toggle="dropdown" aria-expanded="false">
-              Asset Age
-            </button>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Separated link</a></li>
-            </ul>
+          <div class="col-8  Total-asset-Title ">
+            Total Assets
           </div>
-        </div>
-      </div>
-        <div class="container-fluid Assets   ">
-          <div class="container-fluid Section1 row  ">
-            <div class="col-6  ">
-              <app-dashboard-assets></app-dashboard-assets>
-            </div>
-            <div class="col-6 ">
-              <app-dashboard-assets></app-dashboard-assets>
-            </div>
-          </div>
-          <div class="container-fluid Section2 row ">
-            <div class="col-6 ">
-              <app-dashboard-assets></app-dashboard-assets>
-            </div>
-            <div class="col-6">
-              <app-dashboard-assets></app-dashboard-assets>
-            </div>
-
-          </div>
-
-        </div>
-      
-      </div>
-
-      <div class="row2 ">
-        <div class="row ms-0  me-0 ">
-          <div class="col-6 Assesories-Details ms-0  ">
-            <div class="Assesories-Heading">
-              <div class="Assesories-Text">Accessories</div>
-
-              <img src="../../../assets/icons/dashboard/Chevron.svg" />
-
-            </div>
-            <div class="Search-section">
-              <img src="../../../assets/icons/dashboard/search.svg" />
-              <input class="Search-text" placeholder="Search by accessories name" />
-            </div>
-            <div class="  Software-Content  ">
-              <app-accesories *ngFor="let accessory of accessoriesData" [accessoriesData]="accessory"></app-accesories>
-
-            </div>
-
-          </div>
-          <div class="col-5 Software ms-3  ">
-            <div class="Software-Heading">
-              <div class="Software-Text ">Software</div>
-  <img src="../../../assets/icons/dashboard/Chevron.svg" />
-   </div>
-            <div class="software-search">
-              <img src="../../../assets/icons/dashboard/search.svg" />
-              <input class="Search-text" placeholder="Search by software name" />
-            </div>
-            <div class=" container-fluid ">
-              <app-software-component *ngFor="let software of softwaresData" [softwareData]="software"></app-software-component>
-             
-
+          <div class="col-4 Filter">
+            <span class="filter-by"> Filter by</span>
+            <div class="btn-group">
+              <button type="button" class="btn btn dropdown-toggle " data-bs-toggle="dropdown" aria-expanded="false">
+                Asset Age
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">Separated link</a></li>
+              </ul>
             </div>
           </div>
         </div>
-     
+        <div class="container-fluid Assets st p-0 ms-0  ">
+          <div class="container-fluid Section1 row ms-0 p-0">
+            <div class="col-6 ms-0 p-0  ">
+              <app-dashboard-assets></app-dashboard-assets>
+            </div>
+            <div class="col-6  ms-0 p-0">
+              <app-dashboard-assets></app-dashboard-assets>
+            </div>
+          </div>
+          <div class="container-fluid Section2 row ms-0 p-0">
+            <div class="col-6  ms-0 p-0">
+              <app-dashboard-assets></app-dashboard-assets>
+            </div>
+            <div class="col-6  ms-0 p-0">
+              <app-dashboard-assets></app-dashboard-assets>
+            </div>
+
+          </div>
+
+        </div>
+
       </div>
+
+      <div class="row2 st d-flex ">
+        <div class=" Assesories-Details ms-0 st">
+          <div class="Assesories-Heading">
+            <div class="Assesories-Text">Accessories</div>
+            <img src="../../../assets/icons/dashboard/Chevron.svg" />
+          </div>
+          <div class="Search-section">
+            <img src="../../../assets/icons/dashboard/search.svg" />
+            <input class="Search-text" placeholder="Search by accessories name" />
+          </div>
+          <div class="Software-Content">
+            <app-accesories *ngFor="let accessory of accessoriesData" [accessoriesData]="accessory"></app-accesories>
+          </div>
+        </div>
+        <div class="col-md-6 Software  st">
+          <div class="Software-Heading">
+            <div class="Software-Text">Software</div>
+            <img src="../../../assets/icons/dashboard/Chevron.svg" />
+          </div>
+          <div class="software-search">
+            <img src="../../../assets/icons/dashboard/search.svg" />
+            <input class="Search-text" placeholder="Search by software name" />
+          </div>
+          <div class="container-fluid">
+            <app-software-component *ngFor="let software of softwaresData" [softwareData]="software"></app-software-component>
+          </div>
+        </div>
+      </div>
+
+
 
 
     </div>

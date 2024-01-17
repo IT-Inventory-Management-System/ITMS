@@ -158,8 +158,9 @@
   background: #FFF;
   /* Shadow */
   box-shadow: 0px 4px 20px 0px rgba(40, 52, 73, 0.15);
-  height:30.375rem;
-  margin-right:1rem;
+  height: 30.375rem;
+  margin-right: 1rem;
+  width: 23.8125rem;
 }
 
 .Software {
@@ -176,6 +177,7 @@
   gap: 1rem;
   align-self: stretch;
   overflow-y:scroll;
+  margin-right:0;
 }
 
 
