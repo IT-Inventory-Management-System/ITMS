@@ -116,15 +116,16 @@ namespace ITMS.Server.Services
             {
 
                 UpdatedBy = _context.Employees
-    .Where(e => e.Id == dl.AssignedBy)
+    .Where(e => e.Id == dl.AssignedBy && dl.AssignedBy != null)
     .Select(e => e.FirstName+e.LastName)
     .FirstOrDefault(),
 
                 CYGID = dl.Device.Cygid,
 
                 Category = dl.Device.DeviceModel.Category.Name,
+
                 SubmittedTo = _context.Employees
-    .Where(e => e.Id == dl.RecievedBy)
+    .Where(e => e.Id == dl.RecievedBy && dl.RecievedBy != null)
     .Select(e => e.FirstName + e.LastName)
     .FirstOrDefault(),
 
