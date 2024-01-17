@@ -28,7 +28,7 @@ namespace ITMS.Server.Services
                                     {
                                         Id = sa.Id,
                                         SoftwareName = s.SoftwareName,
-                                        SoftwareVersion = sa.SoftwareVersion
+                                       // SoftwareVersion = sa.SoftwareVersion
                                     }
                                  ).ToListAsync();
 

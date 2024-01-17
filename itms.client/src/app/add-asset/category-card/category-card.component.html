@@ -1,4 +1,5 @@
 <div class="category_container">
   <app-category-type [type]="typeName"></app-category-type>
+  
   <app-category-name *ngFor="let cat of categories" [name]="cat.name" [isSelected]="selectedCategory === cat.name" (clickEvent)="handleCategoryClick(cat.name)"></app-category-name>
 </div>

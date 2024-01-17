@@ -1,0 +1,58 @@
+<div >
+  <div class="header_add_new_software">Add New Software</div>
+  <form>
+    <div class="row">
+      <div class="col-6" >
+        <label for="name" class="form-label required-field">Software Name</label>
+        <input type="text" class="form-control " placeholder="Enter Software Name" required>
+      </div>
+      <div class="col-6">
+        <label for="name" class="form-label required-field">Software Version</label>
+        <input type="text" class="form-control " placeholder="Enter Software Version" required>
+      </div>
+    </div>
+  
+
+    <br>
+
+    <div >
+      <label for="thumbnail" class="form-label">Software Thumbnail</label>
+      <div class="row">
+        
+        <div class="picture " style="border:1px solid black">
+          <img src="../../../assets/icons/add_photo_alternate_outlined 1.svg" class="thumbnail-image"
+               alt="Software thumbnail">
+        </div>
+
+        <div class="thumbnail-text" >
+          <div class="size_text">Size: 36*36 Pixels</div>
+          
+          <div>File Support: jpg, .jpeg, .png</div>
+          <button type="submit" class="thumbnail-submit-button">
+            <img src="../../../assets/icons/upload.svg" class="upload-icon" alt="upload icon">Upload Image
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+    <br>
+
+    <div class="checkboxes">
+      <label for="type" class="form-label required-field">Software Type</label>
+      <div class="software-checkbox-container">
+        <input type="radio" (change)="onRadioButtonSelected('Perpetual')" id="Perpetual" name="softwareType" />
+        <label for="Perpetual">Perpetual</label>
+
+        <input type="radio" (change)="onRadioButtonSelected('Validity')" id="Validity" name="softwareType" />
+        <label for="Validity">Validity</label>
+
+        <input type="radio" (change)="onRadioButtonSelected('Subscription')" id="Subscription" name="softwareType" />
+        <label for="Subscription">Subscription</label>
+      </div>
+    </div>
+    <button type="submit" class="software-form-add-button">Add</button>
+  </form>
+  <br>
+</div>

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { DataService } from '../shared/services/data.service';
-
 @Component({
   selector: 'app-add-asset',
   templateUrl: './add-asset.component.html',
@@ -9,7 +8,7 @@ import { DataService } from '../shared/services/data.service';
 export class AddAssetComponent {
 
   categoryData: any[] = [];
-
+  searchtext: string='';
   constructor(private dataService: DataService) {
     this.categoryData = [];
   }
