@@ -15,12 +15,12 @@
     </div>
   </div>
 
-  <div class="container-fluid">
+  <div class="container-fluid ">
 
-  <div class="row  KPI-card st ">
+  <div class="row  KPI-card  ">
 
-    <div class=" col-md-8 col1  ">
-      <div class="total-asset  ">
+    <div class=" col-md-8 col1 ms-0  ">
+      <div class="total-asset ">
         <div class="row header ">
       <div class="col-8  Total-asset-Title">
         Total Assets
@@ -42,19 +42,19 @@
         </div>
       </div>
         <div class="container-fluid Assets ms-0 p-0  ">
-          <div class="container-fluid Section1 row ms-0 p-0 ">
-            <div class="col-6 ms-0 p-0 ">
+          <div class="container-fluid Section1 row ms-0 p-0 me-0  ">
+            <div class="col-6 ms-0 p-0 me-0 ">
               <app-dashboard-assets  [primaryData]="primaryData[0]"></app-dashboard-assets>
             </div>
-            <div class="col-6 ms-0 p-0 ">
+            <div class="col-6  p-0 me-0 d-flex justify-content-end">
               <app-dashboard-assets  [primaryData]="primaryData[1]"></app-dashboard-assets>
             </div>
           </div>
-          <div class="container-fluid Section2 row ms-0 p-0 ">
-            <div class="col-6 ms-0 p-0">
+          <div class="container-fluid Section2 row ms-0 p-0 me-0">
+            <div class="col-6 ms-0 p-0 me-0">
               <app-dashboard-assets  [primaryData]="primaryData[2]"></app-dashboard-assets>
             </div>
-            <div class="col-6 ms-0 p-0">
+            <div class="col-6 ms-0 p-0 d-flex justify-content-end">
               <app-dashboard-assets  [primaryData]="primaryData[3]"></app-dashboard-assets>
             </div>
 
@@ -64,8 +64,8 @@
 
       </div>
 
-      <div class="row2 st d-flex ">
-        <div class=" Assesories-Details ms-0 st">
+      <div class="row2  d-flex ">
+        <div class=" Assesories-Details ms-0 ">
           <div class="Assesories-Heading">
             <div class="Assesories-Text">Accessories</div>
             <img src="../../../assets/icons/dashboard/Chevron.svg" />
@@ -78,7 +78,7 @@
             <app-accesories *ngFor="let accessory of accessoriesData" [accessoriesData]="accessory"></app-accesories>
           </div>
         </div>
-        <div class="col-md-6 Software  st">
+        <div class="col-md-6 Software  ">
           <div class="Software-Heading">
             <div class="Software-Text">Software</div>
             <img src="../../../assets/icons/dashboard/Chevron.svg" />
@@ -135,8 +135,6 @@
 
             </div>
             <div class=" row Section2   ">
-              <app-recent-activity></app-recent-activity>
-              <app-recent-activity></app-recent-activity>
               <app-recent-activity></app-recent-activity>
               <app-recent-activity></app-recent-activity>
               <app-recent-activity></app-recent-activity>
