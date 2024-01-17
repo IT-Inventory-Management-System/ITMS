@@ -1,15 +1,25 @@
+.laptop-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-shrink: 0;
+  align-self: stretch;
+  max-height: 33.4375rem; 
+  overflow-y: auto; 
+  position: relative; 
+}
 
 .inner-laptop-container {
   width: 100%;
   padding: 0.75rem;
-  align-self: stretch;
   border-radius: 0.25rem;
   border: 1px solid var(--Secondary-Light-Gray, #E9ECEB);
   display: flex;
   flex-direction: column;
-  gap: .25rem;
-  height: auto;
-  position: relative;
+  gap: 0.25rem;
+  z-index: 1;
+
 }
 
 .device-tag {
@@ -20,10 +30,13 @@
   align-items: center;
   gap: 0.625rem;
   position: absolute;
-  right: 0rem;
+  right: 0;
   border-radius: 0rem 0.25rem;
   background: var(--primary-yellow, #ffb81c);
+  z-index: 2; 
 }
+
+
 
 .device-tag-info {
   color: var(--primary-royal-blue, #002c3f);
@@ -84,14 +97,4 @@
   align-self: stretch;
   height: auto;
   width: 100%;
-}
-
-.laptop-details {
-  display: flex;
-  height: 33.4375rem;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1rem;
-  flex-shrink: 0;
-  align-self: stretch;
 }
