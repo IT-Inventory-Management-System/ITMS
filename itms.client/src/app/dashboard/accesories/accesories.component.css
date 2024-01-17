@@ -21,7 +21,6 @@
 .Heading {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 8px;
   flex: 1 0 0;
 }
@@ -72,13 +71,24 @@
 
 .Inventory-text {
   color: var(--Primary-Gray, #343435);
-  text-align: right;
   font-family: Roboto;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  float: right;
+  text-align: right;
+}
+
+
+.round {
+  width: 2.25rem;
+  height: 2.25rem;
+  flex-shrink: 0;
+  border-radius: 0.42856rem;
+  background: #F5F7FA;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .Inventory-number {
