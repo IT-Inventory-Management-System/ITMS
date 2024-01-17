@@ -1,4 +1,4 @@
-<div class="container-fluid my-dashboard ">
+<div class="container-fluid my-dashboard  ">
   <div class="row header">
     <div class="col-8 dashboard-title ">
       Dashboard
@@ -15,12 +15,12 @@
     </div>
   </div>
 
-  <div class="container-fluid">
+  <div class="container-fluid ">
 
   <div class="row  KPI-card  ">
 
-    <div class=" col-8 col1   ">
-      <div class="total-asset  ">
+    <div class=" col-md-8 col1 ms-0  ">
+      <div class="total-asset ">
         <div class="row header ">
       <div class="col-8  Total-asset-Title">
         Total Assets
@@ -41,66 +41,59 @@
           </div>
         </div>
       </div>
-        <div class="container-fluid Assets   ">
-          <div class="container-fluid Section1 row  ">
-            <div class="col-6  ">
+        <div class="container-fluid Assets ms-0 p-0  ">
+          <div class="container-fluid Section1 row ms-0 p-0 me-0  ">
+            <div class="col-6 ms-0 p-0 me-0 ">
               <app-dashboard-assets  [primaryData]="primaryData[0]"></app-dashboard-assets>
             </div>
-            <div class="col-6 ">
+            <div class="col-6  p-0 me-0 d-flex justify-content-end">
               <app-dashboard-assets  [primaryData]="primaryData[1]"></app-dashboard-assets>
             </div>
           </div>
-          <div class="container-fluid Section2 row ">
-            <div class="col-6 ">
+          <div class="container-fluid Section2 row ms-0 p-0 me-0">
+            <div class="col-6 ms-0 p-0 me-0">
               <app-dashboard-assets  [primaryData]="primaryData[2]"></app-dashboard-assets>
             </div>
-            <div class="col-6">
+            <div class="col-6 ms-0 p-0 d-flex justify-content-end">
               <app-dashboard-assets  [primaryData]="primaryData[3]"></app-dashboard-assets>
             </div>
 
           </div>
 
         </div>
-      
+
       </div>
 
-      <div class="row2 ">
-        <div class="row ms-0  me-0 ">
-          <div class="col-6 Assesories-Details ms-0  ">
-            <div class="Assesories-Heading">
-              <div class="Assesories-Text">Accessories</div>
-
-              <img src="../../../assets/icons/dashboard/Chevron.svg" />
-
-            </div>
-            <div class="Search-section">
-              <img src="../../../assets/icons/dashboard/search.svg" />
-              <input class="Search-text" placeholder="Search by accessories name" />
-            </div>
-            <div class="  Software-Content  ">
-              <app-accesories *ngFor="let accessory of accessoriesData" [accessoriesData]="accessory"></app-accesories>
-
-            </div>
-
+      <div class="row2  d-flex ">
+        <div class=" Assesories-Details ms-0 ">
+          <div class="Assesories-Heading">
+            <div class="Assesories-Text">Accessories</div>
+            <img src="../../../assets/icons/dashboard/Chevron.svg" />
           </div>
-          <div class="col-5 Software ms-3  ">
-            <div class="Software-Heading">
-              <div class="Software-Text ">Software</div>
-  <img src="../../../assets/icons/dashboard/Chevron.svg" />
-   </div>
-            <div class="software-search">
-              <img src="../../../assets/icons/dashboard/search.svg" />
-              <input class="Search-text" placeholder="Search by software name" />
-            </div>
-            <div class=" container-fluid ">
-              <app-software-component *ngFor="let software of softwaresData" [softwareData]="software"></app-software-component>
-             
-
-            </div>
+          <div class="Search-section">
+            <img src="../../../assets/icons/dashboard/search.svg" />
+            <input class="Search-text" placeholder="Search by accessories name" />
+          </div>
+          <div class="Software-Content">
+            <app-accesories *ngFor="let accessory of accessoriesData" [accessoriesData]="accessory"></app-accesories>
           </div>
         </div>
-     
+        <div class="col-md-6 Software  ">
+          <div class="Software-Heading">
+            <div class="Software-Text">Software</div>
+            <img src="../../../assets/icons/dashboard/Chevron.svg" />
+          </div>
+          <div class="Search-section">
+            <img src="../../../assets/icons/dashboard/search.svg" />
+            <input class="Search-text" placeholder="Search by software name" />
+          </div>
+          <div class="container-fluid">
+            <app-software-component *ngFor="let software of softwaresData" [softwareData]="software"></app-software-component>
+          </div>
+        </div>
       </div>
+
+
 
 
     </div>
@@ -114,37 +107,39 @@
       </div>
       <div class=" container-fluid Recent-Activity-Content ">
         <div class="Frame   ">
-          <!--<div class="Date">
+          <div class="Date">
             <hr class="h-line">
             <div class="Date-content">
               <img src="../../../assets/icons/dashboard/CalendarBlank.svg" />
-              <span class="date-title">{{logsData[0].updatedon}}</span>
+              <span class="date-title">12-1-2024</span>
             </div>
             <hr class="h-line">
 
-          </div>-->
+          </div>
           <div class="container-fluid">
 
 
             <div class=" row   ">
-              <app-recent-activity *ngFor="let logs of logsData" [logsData]="logs"></app-recent-activity>
-              
+              <app-recent-activity></app-recent-activity>
+              <app-recent-activity></app-recent-activity>
+              <app-recent-activity></app-recent-activity>
 
             </div>
-            <!--<div class="Date">
+            <div class="Date">
               <hr class="h-line">
-              <div class="Date-content" *ngIf="softwareData[0].updatedon !== softwareData[1].updatedon">
+              <div class="Date-content">
                 <img src="../../../assets/icons/dashboard/CalendarBlank.svg" />
                 <span class="date-title">12-1-2024</span>
               </div>
               <hr class="h-line">
 
-            </div>-->
-            <!--<div class=" row Section2   ">
+            </div>
+            <div class=" row Section2 ">
               <app-recent-activity></app-recent-activity>
-              
+              <app-recent-activity></app-recent-activity>
+              <app-recent-activity></app-recent-activity>
 
-            </div>-->
+            </div>
           </div>
         </div>
       </div>
