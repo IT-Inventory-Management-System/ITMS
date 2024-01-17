@@ -6,9 +6,9 @@
     <div class="col-4 category_container">
       <div class="search_box">
         <img src="../../assets/icons/Search.svg" class="search_image" />
-        <input type="text" class="serach_input" placeholder="Search Device" />
+        <input type="text" class="serach_input" [(ngModel)]="searchtext" placeholder="Search Device" />
       </div>
-      <app-category-card *ngFor="let category of categoryData" [typeName]="category.typeName" [categories]="category.categories"></app-category-card>
+      <app-category-card *ngFor="let category of categoryData|filter:searchtext" [typeName]="category.typeName" [categories]="category.categories"></app-category-card>
 
 
 
@@ -18,6 +18,8 @@
       <div class="row add_device_contents">
         <div class="col-12">
           <app-add-device-form></app-add-device-form>
+
+
         </div>
         <!--<app-add-software-form></app-add-software-form>-->
       </div>

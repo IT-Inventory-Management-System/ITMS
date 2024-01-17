@@ -129,7 +129,6 @@ public class AddDeviceService : IDeviceService
                 SoftwareAllocation softwareAllocationForDb = new SoftwareAllocation();
                 softwareAllocationForDb.SoftwareId = sofwareAllocation.SoftwareId;
                 softwareAllocationForDb.ActivationKey = sofwareAllocation.ActivationKey;
-                softwareAllocationForDb.SoftwareVersion = sofwareAllocation.SoftwareVersion;
                 softwareAllocationForDb.PurchasedDate = sofwareAllocation.PurchasedDate;
                 softwareAllocationForDb.ExpiryDate = sofwareAllocation.ExpiryDate;
                 softwareAllocationForDb.AssignedTo = sofwareAllocation.AssignedTo;

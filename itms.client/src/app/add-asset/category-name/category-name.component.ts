@@ -9,12 +9,11 @@ export class CategoryNameComponent {
 
   @Input() name: string = '';
   @Input() isSelected: boolean = false; 
-  @Output() clickEvent = new EventEmitter<void>();
+  @Output() clickEvent = new EventEmitter<string>(); // Emit the category name on click
 
   handleClick() {
-    this.clickEvent.emit();
+    this.clickEvent.emit(this.name); // Emit the category name when clicked
   }
-  
 
   getSrcLink(name:string) {
     switch (this.name) {
@@ -33,7 +32,5 @@ export class CategoryNameComponent {
       default:
         return '../../assets/icons/placeholder.svg';
     }
-
-    
   }
 }
