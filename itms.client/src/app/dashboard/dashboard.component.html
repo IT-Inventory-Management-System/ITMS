@@ -107,7 +107,7 @@
       </div>
       <div class=" container-fluid Recent-Activity-Content ">
         <div class="Frame   ">
-          <div class="Date">
+          <!--<div class="Date">
             <hr class="h-line">
             <div class="Date-content">
               <img src="../../../assets/icons/dashboard/CalendarBlank.svg" />
@@ -115,17 +115,16 @@
             </div>
             <hr class="h-line">
 
-          </div>
+          </div>-->
           <div class="container-fluid">
 
 
-            <div class=" row   ">
-              <app-recent-activity></app-recent-activity>
-              <app-recent-activity></app-recent-activity>
-              <app-recent-activity></app-recent-activity>
+            <div class=" row ">
+              <app-recent-activity  *ngFor="let logs of logsData" [logsData]="logs"></app-recent-activity>
+             
 
             </div>
-            <div class="Date">
+            <!--<div class="Date">
               <hr class="h-line">
               <div class="Date-content">
                 <img src="../../../assets/icons/dashboard/CalendarBlank.svg" />
@@ -133,13 +132,12 @@
               </div>
               <hr class="h-line">
 
-            </div>
-            <div class=" row Section2 ">
+            </div>-->
+            <!--<div class=" row Section2 ">
               <app-recent-activity></app-recent-activity>
-              <app-recent-activity></app-recent-activity>
-              <app-recent-activity></app-recent-activity>
+             
 
-            </div>
+            </div>-->
           </div>
         </div>
       </div>

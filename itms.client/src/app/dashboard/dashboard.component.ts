@@ -59,7 +59,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getLogsData(): void {
-    this.dashboardService.GetPrimary().subscribe(
+    this.dashboardService.GetLogs().subscribe(
       data => {
         console.log(data)
         this.logsData = data;
