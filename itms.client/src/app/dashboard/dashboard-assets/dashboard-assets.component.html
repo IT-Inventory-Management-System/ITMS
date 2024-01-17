@@ -1,30 +1,28 @@
-<div class=" container-fluid Asset ms-0  me-0  p-0 st ">
+<div class="container-fluid Asset ms-0 me-0 p-0 st">
   <div class="Type row">
     <div class="Heading">
-      <div>
-        <img src="../../../assets/icons/dashboard/windows.svg" />
-        <span class="windows-text"> {{primaryData.name}}</span>
+      <div class="Heading">
+        <div class="round">
+           <img src="../../../assets/icons/dashboard/windows.svg" />
+        </div>
+       
+        <span class="windows-text">{{primaryData.name}}</span>
       </div>
-      <span class="number"> {{primaryData.total}}</span>
+      <span class="number">{{primaryData.total}}</span>
     </div>
     <div class="container-fluid">
-    <div class="stock-section row">
-      <div class="col-8 Assigned">
-        <img src="../../../assets/icons/dashboard/icon.svg" />
-        <span class="Assigned-text">Assigned</span>
-        
-        <div class="Assigned-number">{{primaryData.assigned}}</div>
-      </div>
-      <div class=" col-4 inventory">
-        <span class="Inventory-text">
+      <div class="stock-section row">
+        <div class="col-8 Assigned">
+          <img src="../../../assets/icons/dashboard/icon.svg" />
+          <span class="Assigned-text">Assigned</span>
+          <div class="Assigned-number">{{primaryData.assigned}}</div>
+        </div>
+        <div class="col-4 inventory">
           <img src="../../../assets/icons/dashboard/Check mark.svg" />
-
-          Inventory
-        </span>
-        <div class="Inventory-number">{{primaryData.total-primaryData.assigned}}</div>
+          <span class="Inventory-text"> Inventory</span>
+          <div class="Inventory-number">{{primaryData.total - primaryData.assigned}}</div>
+        </div>
       </div>
-
     </div>
-      </div>
   </div>
 </div>
