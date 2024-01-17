@@ -120,7 +120,6 @@ public class DeviceService
 
             PurchasedDate = device.PurchasedDate,
 
-            // Assign the remaining warranty to WarrantyDate
 
             WarrantyRemaining = warrantyDate,
 
@@ -257,7 +256,7 @@ public class DeviceService
 
         if (remainingWarranty.Length == 0)
 
-            return "Less than a month"; // or any other default value
+            return "Less than a month"; 
 
         return remainingWarranty.ToString();
 
@@ -276,33 +275,6 @@ public class DeviceService
 
     }
 
-  
-    //public async Task<IEnumerable<DeviceDto>> GetDevicesAsync(Guid cgiId)
-
-    //{
-
-    //    var result = await (from d in _context.Devices
-
-    //                        where d.AssignedTo == cgiId
-
-    //                        select new DeviceDto
-
-    //                        {
-
-    //                            Id = d.Id,
-
-    //                            Cygid = d.Cygid,
-
-    //                            DeviceModelId = d.DeviceModelId,
-
-    //                            AssignedBy = d.AssignedBy
-
-    //                        }).ToListAsync();
-
-    //    return result;
-
-    //}
-
 
     public DevicelogDto GetDevices(Guid id)
 
@@ -318,7 +290,7 @@ public class DeviceService
 
                 .Include(d => d.DeviceModel)
 
-                .FirstOrDefault(); // Retrieve the first matching device
+                .FirstOrDefault(); 
 
             if (device != null)
 
@@ -396,7 +368,7 @@ public class DeviceService
 
             }
 
-            return null; // Return null if no device is found with the given ID
+            return null; 
 
         }
 
@@ -404,7 +376,7 @@ public class DeviceService
 
         {
 
-            // Log the exception or handle it appropriately
+           
 
             throw;
 

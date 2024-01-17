@@ -27,24 +27,6 @@ namespace ITMS.Server.Controllers
 
             return Ok(userDeviceDto);
         }
-        [HttpGet("{deviceLogId}/comments")]
-        public async Task<ActionResult<List<CommentDto>>> GetCommentsById(Guid deviceLogId)
-        {
-            try
-            {
-                List<CommentDto> comments = await _userDeviceService.GetCommentsById(deviceLogId);
-
-                if (comments == null)
-                {
-                    return NotFound($"Device log with ID {deviceLogId} not found.");
-                }
-
-                return Ok(comments);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal Server Error: {ex.Message}");
-            }
-        }
+       
     }
 }

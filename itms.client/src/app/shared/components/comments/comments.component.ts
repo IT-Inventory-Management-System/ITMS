@@ -11,6 +11,8 @@ export class CommentsComponent {
   isCommentSectionCollapsed = false;
   currentDeviceCygid: string;
   @Input() laptopDetails: any;
+  DeviceLogInfo: any;
+  LengthComments: number 
 
   toggleCommentSection() {
     
@@ -26,6 +28,8 @@ export class CommentsComponent {
   }
 
   get devicelog() {
+    this.DeviceLogInfo = this.dataService.DeviceLog;
+    this.LengthComments = this.DeviceLogInfo.cooments.length
     return this.dataService.DeviceLog;
   }
   

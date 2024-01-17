@@ -30,26 +30,13 @@ namespace itms.server.controllers
             }
             catch (Exception ex)
             {
-                // log the exception
+              
                 return StatusCode(500, "internal server error");
             }
         }
 
-        //[HttpGet("modelCount/{deviceModelName}")]
-        //public async Task<ActionResult<int>> GetModelCount(string deviceModelName)
-        //{
-        //    try
-        //    {
-        //        var modelCount = await _deviceService.GetModelCountAsync(deviceModelName);
-        //        return Ok(modelCount);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // Log the exception
-        //        return StatusCode(500, "Internal server error");
-        //    }
-        //}
-
+    
+  
         [HttpGet("{deviceId}")]
         public async Task<ActionResult<DeviceDto>> GetDeviceStatusAndAge(string deviceId)
         {
@@ -64,16 +51,10 @@ namespace itms.server.controllers
             }
             catch (Exception ex)
             {
-                // Log the exception or handle it appropriately
+                
                 return StatusCode(500, "Internal Server Error");
             }
         }
-
-        //[HttpGet("GetDeviceByCGIId")]
-        //public async Task<IEnumerable<DeviceDto>> GetDeviceByCGIIdAsync(Guid cgiId) 
-        //{
-        //    return await _deviceservice.GetDevicesAsync(cgiId);
-        //}
 
 
         [HttpGet("GetDevices/{id}")]
@@ -86,7 +67,7 @@ namespace itms.server.controllers
             }
             catch (Exception ex)
             {
-                // Log the exception or handle it appropriately
+                
                 return StatusCode(500, "Internal Server Error");
             }
         }
@@ -101,7 +82,7 @@ namespace itms.server.controllers
             }
             catch (Exception ex)
             {
-                // Log the exception or handle it appropriately
+               
                 return StatusCode(500, "Internal Server Error");
             }
         }

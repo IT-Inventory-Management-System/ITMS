@@ -9,10 +9,6 @@
   margin-top:1rem;
 
 }
-.selected {
-  background-color: black; /* Add your selected styles here */
-}
-
 .devices-list-container-items {
   display: flex;
   padding: 0.5rem 0.75rem;

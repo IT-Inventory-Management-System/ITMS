@@ -45,22 +45,7 @@ public class UserDeviceService
 
         return userDeviceDto;
     }
-    public async Task<List<CommentDto>> GetCommentsById(Guid deviceLogId)
-    {
-        var comments = await _dbContext.Comments
-            .Include(comment => comment.CreatedByNavigation)
-            .Where(comment => comment.DeviceLogId == deviceLogId)
-            .Select(comment => new CommentDto
-            {
-                Id = comment.Id,
-                Description = comment.Description,
-                CreatedBy = comment.CreatedByNavigation.FirstName ?? "Unknown",
-                CreatedAt = comment.CreatedAtUtc
-            })
-            .ToListAsync(); 
-
-        return comments;
-    }
+    
 
 
 }
