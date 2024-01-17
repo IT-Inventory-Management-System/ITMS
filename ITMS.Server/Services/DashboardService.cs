@@ -98,6 +98,45 @@ namespace ITMS.Server.Services
             return allprimary;
         }
 
-        
+
+
+        public List<Logs> GetLogs()
+        {
+            var deviceLogs = _context.DevicesLogs
+     .Include(dl => dl.Device)
+         .ThenInclude(d => d.DeviceModel)
+             .ThenInclude(dm => dm.Category)
+     .Include(dl => dl.Employee) 
+     .Include(dl => dl.Action) 
+     .OrderByDescending(dl => dl.UpdatedAtUtc)
+     .Take(10)
+     .ToList();
+
+            var logsList = deviceLogs.Select(dl => new Logs
+            {
+
+                UpdatedBy = _context.Employees
+    .Where(e => e.Id == dl.AssignedBy)
+    .Select(e => e.FirstName+e.LastName)
+    .FirstOrDefault(),
+
+                CYGID = dl.Device.Cygid,
+
+                Category = dl.Device.DeviceModel.Category.Name,
+                SubmittedTo = _context.Employees
+    .Where(e => e.Id == dl.RecievedBy)
+    .Select(e => e.FirstName + e.LastName)
+    .FirstOrDefault(),
+
+                AssignedTo = _context.Employees
+    .Where(e => e.Id == dl.EmployeeId)
+    .Select(e => e.FirstName + e.LastName)
+    .FirstOrDefault(),
+
+                Action = dl.Action.ActionName
+            }).ToList();
+
+            return logsList;
+        }
     }
 }

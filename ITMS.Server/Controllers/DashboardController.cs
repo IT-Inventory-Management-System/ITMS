@@ -54,5 +54,12 @@ namespace ITMS.Server.Controllers
             return Ok(os);
         }
 
+        [HttpGet("logs")]
+        public ActionResult<IEnumerable<Logs>> GetLogs()
+        {
+            var history = _dashboardService.GetLogs();
+            return Ok(history);
+        }
+
     }
 }
