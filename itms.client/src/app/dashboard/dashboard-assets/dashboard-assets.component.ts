@@ -6,6 +6,5 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./dashboard-assets.component.css']
 })
 export class DashboardAssetsComponent {
-  @Input() accessoriesData: any;
-  @Input() primaryData: any;
+
 }

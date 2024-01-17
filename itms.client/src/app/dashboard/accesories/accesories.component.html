@@ -3,17 +3,17 @@
     <div class="Heading">
       <div>
         <img src="../../../assets/icons/dashboard/windows.svg" />
-        <span class="windows-text"> windows</span>
+        <span class="windows-text">{{accessoriesData.name}}</span>
       </div>
-        <span class="number"> 100</span>
+      <span class="number"> {{accessoriesData.total}}</span>
     </div>
     <div class="container-fluid">
     <div class="stock-section row">
       <div class="col-8 Assigned">
         <img src="../../../assets/icons/dashboard/icon.svg" />
         <span class="Assigned-text">Assigned</span>
-        
-        <div class="Assigned-number">92</div>
+
+        <div class="Assigned-number">{{accessoriesData.assigned}}</div>
       </div>
       <div class=" col-4 inventory">
         <span class="Inventory-text">
@@ -21,7 +21,7 @@
 
           Inventory
         </span>
-        <div class="Inventory-number">08</div>
+        <div class="Inventory-number">{{accessoriesData.total-accessoriesData.assigned}}</div>
       </div>
 
     </div>
