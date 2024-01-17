@@ -25,11 +25,26 @@ namespace ITMS.Server.Controllers
         }
 
 
+        //[HttpGet("softwares")]
+        //public ActionResult<IEnumerable<Accessories>> GetSoftwares()
+        //{
+        //    var software = _dashboardService.GetSoftwares();
+        //    return Ok(software);
+        //}
+
+
         [HttpGet("softwares")]
-        public ActionResult<IEnumerable<Accessories>> GetSoftware()
+        public ActionResult<IEnumerable<Softwares>> GetSoftwares()
         {
-            var software = _dashboardService.GetSoftwares();
-            return Ok(software);
+            try
+            {
+                var software = _dashboardService.GetSoftwares();
+                return Ok(software);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error: {ex.Message}");
+            }
         }
 
         [HttpGet("primary")]

@@ -13,7 +13,7 @@ public partial class Software
 
     public Guid CategoryId { get; set; }
 
-    public string? SoftwareThumbnail { get; set; }
+    public byte[] SoftwareThumbnail { get; set; }
 
     public Guid CreatedBy { get; set; }
 
@@ -22,6 +22,8 @@ public partial class Software
     public Guid? UpdatedBy { get; set; }
 
     public DateTime? UpdatedAtUtc { get; set; }
+
+    public string? version { get; set; }
 
     public virtual Category Category { get; set; } = null!;
 

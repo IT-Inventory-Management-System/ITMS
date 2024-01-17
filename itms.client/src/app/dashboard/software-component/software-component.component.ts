@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-software-component',
@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./software-component.component.css']
 })
 export class SoftwareComponentComponent {
-
+  @Input() softwareData: any;
 }

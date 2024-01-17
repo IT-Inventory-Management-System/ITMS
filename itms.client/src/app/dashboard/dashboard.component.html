@@ -95,10 +95,8 @@
               <input class="Search-text" placeholder="Search by software name" />
             </div>
             <div class=" container-fluid ">
-              <app-software-component></app-software-component>
-              <app-software-component></app-software-component>
-
-              <app-software-component></app-software-component>
+              <app-software-component *ngFor="let software of softwaresData" [softwareData]="software"></app-software-component>
+             
 
             </div>
           </div>
