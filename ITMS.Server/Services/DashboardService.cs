@@ -187,7 +187,9 @@ namespace ITMS.Server.Services
     .Select(e => e.FirstName + e.LastName)
     .FirstOrDefault(),
 
-                Action = dl.Action.ActionName
+                Action = dl.Action.ActionName,
+
+                UpdatedOn = (DateTime)dl.DeviceLog.UpdatedAtUtc
             }).ToList();
 
             return logsList;

@@ -11,6 +11,7 @@ export class DashboardComponent implements OnInit {
   accessoriesData: any[];
   softwaresData: any[];
   primaryData: any[];
+  logsData: any[];
 
   constructor(private dashboardService: DashboardService) { }
 
@@ -18,6 +19,7 @@ export class DashboardComponent implements OnInit {
     this.getAccessoriesData();
     this.getSoftwaresData();
     this.getPrimaryData();
+    this.getLogsData();
   }
 
   getAccessoriesData(): void {
@@ -49,6 +51,18 @@ export class DashboardComponent implements OnInit {
       data => {
         console.log(data)
         this.primaryData = data;
+      },
+      error => {
+        console.error('Error fetching accessories data', error);
+      }
+    );
+  }
+
+  getLogsData(): void {
+    this.dashboardService.GetPrimary().subscribe(
+      data => {
+        console.log(data)
+        this.logsData = data;
       },
       error => {
         console.error('Error fetching accessories data', error);

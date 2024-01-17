@@ -22,4 +22,8 @@ export class DashboardService {
   GetPrimary(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl + 'Dashboard/primary');
   }
+
+  GetLogs(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + 'Dashboard/logs');
+  }
 }

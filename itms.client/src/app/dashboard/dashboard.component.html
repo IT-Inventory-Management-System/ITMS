@@ -114,41 +114,37 @@
       </div>
       <div class=" container-fluid Recent-Activity-Content ">
         <div class="Frame   ">
-          <div class="Date">
+          <!--<div class="Date">
             <hr class="h-line">
             <div class="Date-content">
               <img src="../../../assets/icons/dashboard/CalendarBlank.svg" />
-              <span class="date-title">12-1-2024</span>
+              <span class="date-title">{{logsData[0].updatedon}}</span>
             </div>
             <hr class="h-line">
 
-          </div>
+          </div>-->
           <div class="container-fluid">
 
 
             <div class=" row   ">
-              <app-recent-activity></app-recent-activity>
-              <app-recent-activity></app-recent-activity>
-              <app-recent-activity></app-recent-activity>
+              <app-recent-activity *ngFor="let logs of logsData" [logsData]="logs"></app-recent-activity>
+              
 
             </div>
-            <div class="Date">
+            <!--<div class="Date">
               <hr class="h-line">
-              <div class="Date-content">
+              <div class="Date-content" *ngIf="softwareData[0].updatedon !== softwareData[1].updatedon">
                 <img src="../../../assets/icons/dashboard/CalendarBlank.svg" />
                 <span class="date-title">12-1-2024</span>
               </div>
               <hr class="h-line">
 
-            </div>
-            <div class=" row Section2   ">
+            </div>-->
+            <!--<div class=" row Section2   ">
               <app-recent-activity></app-recent-activity>
-              <app-recent-activity></app-recent-activity>
-              <app-recent-activity></app-recent-activity>
-              <app-recent-activity></app-recent-activity>
-              <app-recent-activity></app-recent-activity>
+              
 
-            </div>
+            </div>-->
           </div>
         </div>
       </div>

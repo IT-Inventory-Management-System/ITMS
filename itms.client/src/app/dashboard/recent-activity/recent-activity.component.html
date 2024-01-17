@@ -1,15 +1,24 @@
+<div class="Date">
+  <hr class="h-line">
+  <div class="Date-content">
+    <img src="../../../assets/icons/dashboard/CalendarBlank.svg" />
+    <span class="date-title">{{logsData.updatedon}}</span>
+  </div>
+  <hr class="h-line">
 
+</div>
 <div class="recent  ">
- 
+
   <div class="user">
-    <ngx-avatars name="CG" [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="33"></ngx-avatars>
-    <p class=" avatar-name">Cody Filter</p>
+    <ngx-avatars name={{logsData.updatedby}} [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="33"></ngx-avatars>
+    <p class=" avatar-name">{{logsData.updatedby}}</p>
     <p class=" Time">08:10 pm</p>
   </div>
   <div class="Device-text">
 
-    Device <span class="cyg">CYG234</span> Laptop has been assigned to <span class="user-name">John Doe</span>
+    Device <span class="cyg">{{logsData.cygid}}</span> {{logsData.category}} has been {{logsData.action}} to <span class="user-name">{{logsData.assignedto}}</span>
 
   </div>
 </div>
 
+ <!--*ngIf="softwareData[0].updatedon !== softwareData[1].updatedon"-->
