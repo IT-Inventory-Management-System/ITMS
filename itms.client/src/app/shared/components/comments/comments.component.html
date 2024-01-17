@@ -6,7 +6,7 @@
             <img src="../../../../assets/icons/Comment.svg" style="width: 1.25rem; height: 1.25rem;">
           </span>
           <span style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal;">
-            Comment  ({{ laptopDetails.comments.length }})
+            Comment ({{ laptopDetails.comments ? laptopDetails.comments.length : 0 }})
           </span>
         </div>
         <div class="col-md-6 chevron">
@@ -16,12 +16,12 @@
         </div>
       </div>
     </div>
-    <div class="col-md-12" *ngFor="let comment of laptopDetails.comments">
+    <div class="col-md-12" *ngFor="let comment of laptopDetails.comments || []">
       <div class="row comment-avatar">
         <div class="col-md-6">
           <div class="row avatar-supercomponent">
             <div class="col-md-1 avatar">
-              <ngx-avatars name="{{comment.createdBy}}" [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="33"></ngx-avatars>
+              <ngx-avatars [name]="comment.createdBy" [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="33"></ngx-avatars>
             </div>
             <div class="col-md-4 user-details">
               <div style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 0.875rem; font-style: normal; font-weight: 600; line-height: normal;">{{comment.createdBy}}</div>
@@ -41,7 +41,7 @@
 
 
     </div>
-    <div class=" comment-input">
+    <div class="comment-input">
       <input type="text" class="comment-box" placeholder="Add Comment...">
       <button class="bb">Save</button>
     </div>

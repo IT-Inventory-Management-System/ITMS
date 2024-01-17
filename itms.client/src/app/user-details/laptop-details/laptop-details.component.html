@@ -1,13 +1,16 @@
-<div class=" laptop-details" *ngFor="let laptop of laptopDetails" >
-  <div class="col-md-12 windows-laptop" >
-    <span>
-      <img src="../../../../assets/icons/windows.svg">
-    </span>
-    <span style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1.125rem; font-style: normal; font-weight: 600; line-height: normal;">
-      Windows Laptop
-    </span>
-  </div>
-  <div class="col-md-12 inner-laptop-container">
+<span>
+  <img src="../../../../assets/icons/windows.svg">
+</span>
+
+  <span style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1.125rem; font-style: normal; font-weight: 600; line-height: normal;">
+    Windows Laptop
+  </span>
+
+
+<div class="laptop-details">
+  <div class="inner-laptop-container" *ngFor="let laptop of laptopDetails">
+
+  <div class="col-md-12">
     <div class="device-tag"><div class="device-tag-info">CURRENT DEVICE</div></div>
     <div class="row user-detail">
       <div class="aa">
@@ -19,28 +22,30 @@
 
         <div class="col-md-6 common-gap-style">
           <div style="color: var(--Adhoc-Grey, #6D6D6D); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 400; line-height: normal;">Model</div>
-          <div style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal;">{{laptop.Model}}</div>
+          <div style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal;">{{laptop.model}}</div>
         </div>
       </div>
 
       <div class="aa">
         <div class="col-md-6 common-gap-style">
           <div style="color: var(--Adhoc-Grey, #6D6D6D); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 400; line-height: normal;">Assign By</div>
-          <div style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal;">{{laptop.AssignBy}}</div>
-          <div style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal;">{{laptop.AssignedDate}}</div>
+          <div style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal;">{{laptop.assignBy}}</div>
+          <div style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal;">{{laptop.assignedDate}}</div>
         </div>
 
         <div class="col-md-6 common-gap-style">
           <div style="color: var(--Adhoc-Grey, #6D6D6D); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 400; line-height: normal;">Submitted By</div>
-          <div style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal;">{{laptop.SubmitedBy}}</div>
-          <div style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal;">{{laptopDetails.SubmitedByDate}}</div>
+          <div style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal;">{{laptop.submitedBy}}</div>
+          <div style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal;">{{laptopDetails.submitedByDate}}</div>
         </div>
       </div>
     </div>
-    <div class="col-md-12 hi">
-      <app-comments  [laptopDetails]="laptopDetails"></app-comments>
+
+      <div class="col-md-12 hi">
+        <app-comments [laptopDetails]="laptop"></app-comments>
+      </div>
+
     </div>
-    
   </div>
 </div>
 
