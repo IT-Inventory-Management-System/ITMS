@@ -1,1 +1,52 @@
-<p>software-details works!</p>
+<span>
+  <img src="../../../../assets/icons/Software.svg">
+</span>
+<span style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1.125rem; font-style: normal; font-weight: 600; line-height: normal;">
+  Software
+</span>
+<div class="software-details" *ngFor="let software of softwareDetails">
+  <div class="col-md-12 software">
+    
+    
+  </div>
+
+  <div class="col-md-12 inner-software-container">
+    <div class="software-tag" *ngIf="isMostRecent(softwareDetails[0])">
+      <div class="software-tag-info">CURRENT SOFTWARE</div>
+    </div>
+
+    <div class="row user-detail">
+      <div class="user-software">
+
+        <div class="col-md-6 common-gap-style">
+          <div style="color: var(--Adhoc-Grey, #6D6D6D); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 400; line-height: normal;">TypeName</div>
+          <div style="color: var(--Primary-Blue, #28519E); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 600; line-height: normal;">{{software.typeName}}</div>
+        </div>
+
+        <div class="col-md-6 common-gap-style">
+          <div style="color: var(--Adhoc-Grey, #6D6D6D); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 400; line-height: normal;">SoftwareName</div>
+          <div style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal;">{{software.softwareName}}</div>
+        </div>
+
+      </div>
+
+      <div class="user-software">
+
+        <div class="col-md-6 common-gap-style">
+          <div style="color: var(--Adhoc-Grey, #6D6D6D); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 400; line-height: normal;">Assigned By: </div>
+          <div style="color: var(--Primary-Blue, #28519E); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 600; line-height: normal;">{{software.assignBy}}</div>
+          <div style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal;">{{software.assignedDate}}</div>
+        </div>
+
+        <div class="col-md-6 common-gap-style">
+          <div style="color: var(--Adhoc-Grey, #6D6D6D); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 400; line-height: normal;">Assigned To: </div>
+          <div style="color: var(--Primary-Blue, #28519E); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 600; line-height: normal;">{{software.assignedTo}}</div>
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </div>
+</div>
