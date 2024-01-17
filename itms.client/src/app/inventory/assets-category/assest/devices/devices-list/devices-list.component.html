@@ -1,6 +1,6 @@
 <div class="devices-list-container">
 
-  <button #firstButton class="devices-list-container-items" (click)="onDeviceClick() ">
+  <button #firstButton class="devices-list-container-items"  [ngClass]="{'selected': selectedDevice && selectedDevice.cygid === DeviceData[0]?.cygid}" (click)="onDeviceClick(device.cygid) " >
    <img src="../assets/icons/laptop-solid.svg" />
     <div class="devices-detail">
       <p class="devices-name">{{device.cygid}}</p>

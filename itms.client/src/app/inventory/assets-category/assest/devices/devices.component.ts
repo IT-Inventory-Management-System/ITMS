@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DataService } from '../../../../shared/services/data.service';
-
+import { FilterSearchListPipe } from '../../../../filter-search-list.pipe';
 @Component({
   selector: 'app-devices',
   templateUrl: './devices.component.html',
@@ -11,6 +11,7 @@ export class DevicesComponent {
   Cygid = this.DeviceData;
   showArchiveOnly: boolean = false;
   ArchivedData: any[] = [];
+  searchtext: any;
   constructor(private dataService: DataService) {
   }
 
@@ -23,7 +24,7 @@ export class DevicesComponent {
     this.dataService.getDevices().subscribe(
       (data) => {
         this.DeviceData = data;
-        console.log(data)
+        console.log(this.DeviceData);
       });
   }
 
@@ -34,6 +35,8 @@ export class DevicesComponent {
         console.log(data);
       });
   }
+ 
 
+ 
 
 }

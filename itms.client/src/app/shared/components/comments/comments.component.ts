@@ -12,10 +12,10 @@ export class CommentsComponent {
   currentDeviceCygid: string;
   @Input() laptopDetails: any;
 
-  toggleCommentSection(cygid: string) {
-    console.log(cygid);
+  toggleCommentSection() {
+    
     this.isCommentSectionCollapsed = !this.isCommentSectionCollapsed;
-    this.currentDeviceCygid = cygid;
+    
     /*this.showcomment(cygid);*/
   }
 

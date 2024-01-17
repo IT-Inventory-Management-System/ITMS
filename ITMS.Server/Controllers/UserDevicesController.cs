@@ -28,11 +28,11 @@ namespace ITMS.Server.Controllers
             return Ok(userDeviceDto);
         }
         [HttpGet("{deviceLogId}/comments")]
-        public ActionResult<List<CommentDto>> GetCommentsById(Guid deviceLogId)
+        public async Task<ActionResult<List<CommentDto>>> GetCommentsById(Guid deviceLogId)
         {
             try
             {
-                List<CommentDto> comments = _userDeviceService.GetCommentsById(deviceLogId);
+                List<CommentDto> comments = await _userDeviceService.GetCommentsById(deviceLogId);
 
                 if (comments == null)
                 {
@@ -43,7 +43,6 @@ namespace ITMS.Server.Controllers
             }
             catch (Exception ex)
             {
-                // Log the exception and return a 500 Internal Server Error
                 return StatusCode(500, $"Internal Server Error: {ex.Message}");
             }
         }

@@ -6,12 +6,8 @@ using ITMS.Server.Models;
 using Microsoft.EntityFrameworkCore;
 
 // Services/UserDeviceService.cs
-public interface IUserDeviceService
-{
-    List<CommentDto> GetCommentsById(Guid deviceLogId);
-}
 
-public class UserDeviceService : IUserDeviceService
+public class UserDeviceService 
 {
     private readonly ItinventorySystemContext _dbContext;
 
@@ -49,19 +45,19 @@ public class UserDeviceService : IUserDeviceService
 
         return userDeviceDto;
     }
-    public List<CommentDto> GetCommentsById(Guid deviceLogId)
+    public async Task<List<CommentDto>> GetCommentsById(Guid deviceLogId)
     {
-        var comments = _dbContext.Comments
+        var comments = await _dbContext.Comments
             .Include(comment => comment.CreatedByNavigation)
             .Where(comment => comment.DeviceLogId == deviceLogId)
             .Select(comment => new CommentDto
             {
                 Id = comment.Id,
                 Description = comment.Description,
-                CreatedBy = comment.CreatedByNavigation.FirstName??"Unkown",
+                CreatedBy = comment.CreatedByNavigation.FirstName ?? "Unknown",
                 CreatedAt = comment.CreatedAtUtc
             })
-            .ToList();
+            .ToListAsync(); 
 
         return comments;
     }
