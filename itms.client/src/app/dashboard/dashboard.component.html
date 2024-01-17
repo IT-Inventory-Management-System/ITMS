@@ -78,10 +78,8 @@
               <input class="Search-text" placeholder="Search by accessories name" />
             </div>
             <div class="  Software-Content  ">
-              <app-dashboard-assets></app-dashboard-assets>
-              <app-dashboard-assets></app-dashboard-assets>
-              <app-dashboard-assets></app-dashboard-assets>
-              <app-dashboard-assets></app-dashboard-assets>
+              <app-dashboard-assets *ngFor="let accessory of accessoriesData" [accessoriesData]="accessory"></app-dashboard-assets>
+
             </div>
 
           </div>

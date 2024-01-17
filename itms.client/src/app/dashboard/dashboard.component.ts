@@ -8,15 +8,27 @@ import { DashboardService } from '../shared/services/Dashboard.service';
 })
 export class DashboardComponent implements OnInit {
 
+  accessoriesData: any[];
   softwaresData: any[];
 
   constructor(private dashboardService: DashboardService) { }
 
   ngOnInit(): void {
+    this.getAccessoriesData();
     this.getSoftwaresData();
   }
 
- 
+  getAccessoriesData(): void {
+    this.dashboardService.GetAccessories().subscribe(
+      data => {
+        console.log(data)
+        this.accessoriesData = data;
+      },
+      error => {
+        console.error('Error fetching accessories data', error);
+      }
+    );
+  }
 
   getSoftwaresData(): void {
     this.dashboardService.GetSoftwares().subscribe(

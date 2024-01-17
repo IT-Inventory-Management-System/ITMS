@@ -11,11 +11,11 @@ export class DashboardService {
 
   constructor(private http: HttpClient) { }
   GetAccessories(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl + 'Dashboard/GetAccessories/');
+    return this.http.get<any[]>(this.apiUrl + 'Dashboard/accessories');
   }
 
 
   GetSoftwares(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl + 'Dashboard/softwares/');
+    return this.http.get<any[]>(this.apiUrl + 'Dashboard/softwares');
   }
 }

@@ -41,21 +41,21 @@ namespace ITMS.Server.Services
 
         public List<Softwares> GetSoftwares()
         {
-            var allSoftware = _context.SoftwareAllocations
-                .Include(sa => sa.Software)
-                    .ThenInclude(s => s.SoftwareType)
-                .Select(sa => new Softwares
+            var allSoftware = _context.SoftwareTypes
+                .Include(st => st.Softwares)
+                    .ThenInclude(s => s.SoftwareAllocations)
+                .SelectMany(st => st.Softwares.Select(s => new Softwares
                 {
-                    Name = sa.Software.SoftwareName,
-                    Version = sa.SoftwareVersion,
-                    Type = sa.Software.SoftwareType.TypeName,
+                    Name = s.SoftwareName,
+                    Version = s.version,
+                    Type = st.TypeName,
+
                     // Add other properties as needed
-                })
+                }))
                 .ToList();
 
             return allSoftware;
         }
-
         public List<Primary> GetPrimary()
         {
             var primary = _context.Ostypes.Include(o => o.DeviceModels).ThenInclude(d => d.Devices);

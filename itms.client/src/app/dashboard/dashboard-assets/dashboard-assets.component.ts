@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-dashboard-assets',
@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./dashboard-assets.component.css']
 })
 export class DashboardAssetsComponent {
+  @Input() accessoriesData: any;
 
 }
