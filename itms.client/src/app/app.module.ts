@@ -55,6 +55,8 @@ import { AssignAccessoriesComponent } from './assign-asset/assign-accessories/as
 import { RecentActivityComponent } from './dashboard/recent-activity/recent-activity.component';
 import { SoftwareComponentComponent } from './dashboard/software-component/software-component.component';
 import { FilterSearchListPipe } from './filter-search-list.pipe';
+import { SearchBoxComponent } from './assign-asset/search-box/search-box.component';
+import { CommentBoxComponent } from './assign-asset/comment-box/comment-box.component';
 import { FilterPipe } from './filter.pipe';
 import { AddSoftwareModelComponent } from './add-asset/add-software-form/add-software-model/add-software-model.component';
 
@@ -111,6 +113,11 @@ import { AddSoftwareModelComponent } from './add-asset/add-software-form/add-sof
     CommentCardComponent,
     NewSidebarComponent,
     FilterSearchListPipe,
+    LaptopDetailsComponent,
+    SearchBoxComponent,
+    CommentBoxComponent,
+
+
     LaptopDetailsComponent,
     FilterPipe,
     AddSoftwareModelComponent
