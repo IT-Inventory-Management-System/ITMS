@@ -18,4 +18,8 @@ export class DashboardService {
   GetSoftwares(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl + 'Dashboard/softwares');
   }
+
+  GetPrimary(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + 'Dashboard/primary');
+  }
 }

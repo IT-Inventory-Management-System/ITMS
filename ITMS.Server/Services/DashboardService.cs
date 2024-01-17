@@ -76,30 +76,67 @@ namespace ITMS.Server.Services
                 allprimary.Add(prime);
             }
 
-            return allprimary;
-        }
-
-        public List<Primary> GetNextPrimary()
-        {
             var allCategories = _context.Categories
-   .Where(c => c.Name == "Moniter" && c.Name == "Mobile").Include(dm => dm.DeviceModels).ThenInclude(d => d.Devices)
-   .ToList();
+        .Where(c => c.Name == "Monitor" || c.Name == "Mobile")
+        .Include(dm => dm.DeviceModels)
+        .ThenInclude(d => d.Devices)
+        .ToList();
 
-            List<Primary> allprime = new List<Primary>();
             foreach (var category in allCategories)
             {
                 Primary prime = new Primary();
                 prime.Name = category.Name;
                 prime.Total = category.DeviceModels
-                        .SelectMany(dm => dm.Devices)
-                        .Count();
+                    .SelectMany(dm => dm.Devices)
+                    .Count();
                 prime.Assigned = category.DeviceModels
-            .SelectMany(dm => dm.Devices)
-            .Count(device => device.AssignedTo != null);
-                allprime.Add(prime);
+                    .SelectMany(dm => dm.Devices)
+                    .Count(device => device.AssignedTo != null);
+                allprimary.Add(prime);
             }
 
-            return allprime;
+            return allprimary;
+        }
+
+
+
+        public List<Logs> GetLogs()
+        {
+            var deviceLogs = _context.DevicesLogs
+     .Include(dl => dl.Device)
+         .ThenInclude(d => d.DeviceModel)
+             .ThenInclude(dm => dm.Category)
+     .Include(dl => dl.Employee) 
+     .Include(dl => dl.Action) 
+     .OrderByDescending(dl => dl.UpdatedAtUtc)
+     .Take(10)
+     .ToList();
+
+            var logsList = deviceLogs.Select(dl => new Logs
+            {
+
+                UpdatedBy = _context.Employees
+    .Where(e => e.Id == dl.AssignedBy)
+    .Select(e => e.FirstName+e.LastName)
+    .FirstOrDefault(),
+
+                CYGID = dl.Device.Cygid,
+
+                Category = dl.Device.DeviceModel.Category.Name,
+                SubmittedTo = _context.Employees
+    .Where(e => e.Id == dl.RecievedBy)
+    .Select(e => e.FirstName + e.LastName)
+    .FirstOrDefault(),
+
+                AssignedTo = _context.Employees
+    .Where(e => e.Id == dl.EmployeeId)
+    .Select(e => e.FirstName + e.LastName)
+    .FirstOrDefault(),
+
+                Action = dl.Action.ActionName
+            }).ToList();
+
+            return logsList;
         }
     }
 }

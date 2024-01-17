@@ -10,12 +10,14 @@ export class DashboardComponent implements OnInit {
 
   accessoriesData: any[];
   softwaresData: any[];
+  primaryData: any[];
 
   constructor(private dashboardService: DashboardService) { }
 
   ngOnInit(): void {
     this.getAccessoriesData();
     this.getSoftwaresData();
+    this.getPrimaryData();
   }
 
   getAccessoriesData(): void {
@@ -33,10 +35,23 @@ export class DashboardComponent implements OnInit {
   getSoftwaresData(): void {
     this.dashboardService.GetSoftwares().subscribe(
       data => {
+        console.log(data)
         this.softwaresData = data;
       },
       error => {
         console.error('Error fetching software data', error);
+      }
+    );
+  }
+
+  getPrimaryData(): void {
+    this.dashboardService.GetPrimary().subscribe(
+      data => {
+        console.log(data)
+        this.primaryData = data;
+      },
+      error => {
+        console.error('Error fetching accessories data', error);
       }
     );
   }

@@ -51,11 +51,14 @@ namespace ITMS.Server.Controllers
         public ActionResult<IEnumerable<Accessories>> GetPrimary()
         {
             List<Primary> os = _dashboardService.GetPrimary();
-            List<Primary> primary = _dashboardService.GetNextPrimary();
-            List<Primary> combinedList = os.Concat(primary).ToList();
+            return Ok(os);
+        }
 
-
-            return Ok(combinedList);
+        [HttpGet("logs")]
+        public ActionResult<IEnumerable<Logs>> GetLogs()
+        {
+            var history = _dashboardService.GetLogs();
+            return Ok(history);
         }
 
     }
