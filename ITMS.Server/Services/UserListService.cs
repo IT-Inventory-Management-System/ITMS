@@ -12,6 +12,7 @@ public interface IUserListService
 public class UserListService : IUserListService
 {
 
+
     private readonly ItinventorySystemContext _context;
 
     public UserListService(ItinventorySystemContext context)
