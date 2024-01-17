@@ -33,6 +33,13 @@ namespace ITMS.Server.DTO
         public int Assigned { get; set; }
     }
 
+    public class Primary
+    {
+        public string Name { get; set; }
+        public int Total { get; set; }
+        public int Assigned { get; set; }
+    }
+
 
     public class Softwares
     {

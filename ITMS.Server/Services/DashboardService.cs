@@ -35,7 +35,7 @@ namespace ITMS.Server.Services
                 allaccessories.Add(accessories);
             }
 
-       
+
             return allaccessories;
         }
 
@@ -56,6 +56,50 @@ namespace ITMS.Server.Services
             return allSoftware;
         }
 
+        public List<Primary> GetPrimary()
+        {
+            var primary = _context.Ostypes.Include(o => o.DeviceModels).ThenInclude(d => d.Devices);
+            //DeviceModel.Where(dm=>dm.Os!=null).Include(d => d.Devices);
+            List<Primary> allprimary = new List<Primary>();
+            //return primary;
 
+            foreach (var p in primary)
+            {
+                Primary prime = new Primary();
+                prime.Name = p.Osname;
+                prime.Total = p.DeviceModels
+                        .SelectMany(dm => dm.Devices)
+                        .Count();
+                prime.Assigned = p.DeviceModels
+            .SelectMany(dm => dm.Devices)
+            .Count(device => device.AssignedTo != null);
+                allprimary.Add(prime);
+            }
+
+            return allprimary;
+        }
+
+        public List<Primary> GetNextPrimary()
+        {
+            var allCategories = _context.Categories
+   .Where(c => c.Name == "Moniter" && c.Name == "Mobile").Include(dm => dm.DeviceModels).ThenInclude(d => d.Devices)
+   .ToList();
+
+            List<Primary> allprime = new List<Primary>();
+            foreach (var category in allCategories)
+            {
+                Primary prime = new Primary();
+                prime.Name = category.Name;
+                prime.Total = category.DeviceModels
+                        .SelectMany(dm => dm.Devices)
+                        .Count();
+                prime.Assigned = category.DeviceModels
+            .SelectMany(dm => dm.Devices)
+            .Count(device => device.AssignedTo != null);
+                allprime.Add(prime);
+            }
+
+            return allprime;
+        }
     }
 }

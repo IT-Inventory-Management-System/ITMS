@@ -32,7 +32,16 @@ namespace ITMS.Server.Controllers
             return Ok(software);
         }
 
+        [HttpGet("primary")]
+        public ActionResult<IEnumerable<Accessories>> GetPrimary()
+        {
+            List<Primary> os = _dashboardService.GetPrimary();
+            List<Primary> primary = _dashboardService.GetNextPrimary();
+            List<Primary> combinedList = os.Concat(primary).ToList();
 
+
+            return Ok(combinedList);
+        }
 
     }
 }
