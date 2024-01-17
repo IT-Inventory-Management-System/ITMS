@@ -8,7 +8,7 @@
 
         public Guid CategoryId { get; set; }
 
-        public string? SoftwareThumbnail { get; set; }
+        public byte[] SoftwareThumbnail { get; set; }
 
         public Guid CreatedBy { get; set; }
 

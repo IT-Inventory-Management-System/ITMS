@@ -14,7 +14,7 @@
         public required string SoftwareName { get; set; }
         public Guid SoftwareTypeId { get; set; }
         public Guid CategoryId { get; set; }
-        public required string SoftwareThumbnail { get; set; }
+        public required byte[] SoftwareThumbnail { get; set; }
         public Guid CreatedBy { get; set; }
         public DateTime CreatedAtUTC { get; set; }
         public Guid UpdatedBy { get; set; }
