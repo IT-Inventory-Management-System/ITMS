@@ -7,5 +7,5 @@ import { Component, Input } from '@angular/core';
 })
 export class DashboardAssetsComponent {
   @Input() accessoriesData: any;
-
+  @Input() primaryData: any;
 }

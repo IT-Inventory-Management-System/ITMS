@@ -51,11 +51,7 @@ namespace ITMS.Server.Controllers
         public ActionResult<IEnumerable<Accessories>> GetPrimary()
         {
             List<Primary> os = _dashboardService.GetPrimary();
-            List<Primary> primary = _dashboardService.GetNextPrimary();
-            List<Primary> combinedList = os.Concat(primary).ToList();
-
-
-            return Ok(combinedList);
+            return Ok(os);
         }
 
     }

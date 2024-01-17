@@ -76,30 +76,28 @@ namespace ITMS.Server.Services
                 allprimary.Add(prime);
             }
 
-            return allprimary;
-        }
-
-        public List<Primary> GetNextPrimary()
-        {
             var allCategories = _context.Categories
-   .Where(c => c.Name == "Moniter" && c.Name == "Mobile").Include(dm => dm.DeviceModels).ThenInclude(d => d.Devices)
-   .ToList();
+        .Where(c => c.Name == "Monitor" || c.Name == "Mobile")
+        .Include(dm => dm.DeviceModels)
+        .ThenInclude(d => d.Devices)
+        .ToList();
 
-            List<Primary> allprime = new List<Primary>();
             foreach (var category in allCategories)
             {
                 Primary prime = new Primary();
                 prime.Name = category.Name;
                 prime.Total = category.DeviceModels
-                        .SelectMany(dm => dm.Devices)
-                        .Count();
+                    .SelectMany(dm => dm.Devices)
+                    .Count();
                 prime.Assigned = category.DeviceModels
-            .SelectMany(dm => dm.Devices)
-            .Count(device => device.AssignedTo != null);
-                allprime.Add(prime);
+                    .SelectMany(dm => dm.Devices)
+                    .Count(device => device.AssignedTo != null);
+                allprimary.Add(prime);
             }
 
-            return allprime;
+            return allprimary;
         }
+
+        
     }
 }
