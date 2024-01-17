@@ -45,7 +45,7 @@ namespace ITMS.Server.DTO
         public string UpdatedBy { get; set; }
         public string CYGID { get; set; }
         public string Category { get; set; }
-        public string SubmittedTo { get; set; }
+        public string? SubmittedTo { get; set; }
         public string AssignedTo { get; set; }
         public string Action { get; set; }
     }
