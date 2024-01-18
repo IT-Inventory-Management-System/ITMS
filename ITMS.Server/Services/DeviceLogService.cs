@@ -69,8 +69,8 @@ public class DeviceLogService
                             CreatedAtUtc = comment.CreatedAt
                         });
                     }
-
-                var deviceLogInfo = devicesLogInfoList.FirstOrDefault(log => log.Id == devicelogId);
+           
+                    var deviceLogInfo = devicesLogInfoList.FirstOrDefault(log => log.Id == devicelogId);
                 deviceLogInfo.Comments = commentDtos;
             
             }
@@ -114,8 +114,10 @@ public class DeviceLogService
             RecievedBy = $"{receivedByFirstName} {receivedByLastName}",
             RecievedDate = devicesLogInfo.RecievedDate,
             FormattedAssignedDate = devicesLogInfo.AssignedDate?.ToString("MM-dd-yyyy") ?? "DefaultDate",
-            Comments = devicesLogInfo.Comments
-        };
+           
+        Comments = devicesLogInfo.Comments
+         
+    };
     }
 
     public async Task<List<CommentDto>> GetCommentsByDeviceLogIdAsync(Guid devicelogId)
@@ -130,9 +132,10 @@ public class DeviceLogService
                     DeviceLogId = comment.DeviceLogId,
                     Description = comment.Description,
                     CreatedBy = comment.CreatedByNavigation.FirstName,
-                    CreatedAt = comment.CreatedAtUtc
+                    CreatedAt = comment.CreatedAtUtc,
                 })
          .ToListAsync();
+            // Assuming you have a CommentDto instance called 'commentDto'
             
 
             return comments;
@@ -183,5 +186,7 @@ public class DeviceLogService
             
             throw;
         }
+    }
+    
     }
 }

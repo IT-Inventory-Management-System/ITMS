@@ -316,7 +316,7 @@ public class DeviceService
 
                         .FirstOrDefault(),
 
-                        CreatedAt = c.CreatedAtUtc
+                        CreatedAt= c.CreatedAtUtc
 
                     })
 

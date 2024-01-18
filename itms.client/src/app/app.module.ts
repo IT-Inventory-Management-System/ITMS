@@ -56,6 +56,7 @@ import { RecentActivityComponent } from './dashboard/recent-activity/recent-acti
 import { SoftwareComponentComponent } from './dashboard/software-component/software-component.component';
 import { FilterSearchListPipe } from './filter-search-list.pipe';
 import { FilterPipe } from './filter.pipe';
+import { CurrentdeviceComponent } from './shared/components/currentdevice/currentdevice.component';
 
 
 
@@ -67,6 +68,7 @@ import { FilterPipe } from './filter.pipe';
     DevicesListComponent,
     SoftwareDetailsComponent,
     AccessoriesDetailsComponent,
+    LaptopDetailsComponent,
     CommentsComponent,
     SpecInfoComponent,
     AppComponent,
@@ -103,7 +105,7 @@ import { FilterPipe } from './filter.pipe';
     SpecInfoComponent,
     DevicesComponent,
     DevicesListComponent,
-
+    LaptopComponent,
     RecentActivityComponent,
     SoftwareComponentComponent,
     FilterSearchListPipe,
@@ -111,12 +113,13 @@ import { FilterPipe } from './filter.pipe';
     AssignHistoryComponent,
     CommentCardComponent,
     NewSidebarComponent,
-
+    AddAssetComponent,
     FilterSearchListPipe,
-    LaptopDetailsComponent,
+ 
    
     AddAssetComponent,
-         FilterPipe
+         FilterPipe,
+         CurrentdeviceComponent
 
 
   ],
