@@ -51,6 +51,10 @@ namespace ITMS.Server.Services
                     Type = st.TypeName,
                     Inventory = s.SoftwareAllocations.Count,
                     Assigned = s.SoftwareAllocations.Count(sa => sa.AssignedTo != null),
+                    ExpiryDate = s.SoftwareAllocations
+                .Where(sa => sa.ExpiryDate.HasValue)
+                .Select(sa => sa.ExpiryDate.Value)
+                .FirstOrDefault(),
 
                 }))
                 .ToList();
