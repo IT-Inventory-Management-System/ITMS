@@ -54,11 +54,11 @@ import { FilterSearchListPipe } from './filter-search-list.pipe';
 import { CurrentdeviceComponent } from './shared/components/currentdevice/currentdevice.component';
 import { SearchBoxComponent } from './assign-asset/search-box/search-box.component';
 import { CommentBoxComponent } from './assign-asset/comment-box/comment-box.component';
-import { FilterPipe } from './filter.pipe';
 import { AddSoftwareModelComponent } from './add-asset/add-software-form/add-software-model/add-software-model.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { EmployeeComponent } from './employee/employee.component';
+import { AssetfilterdevicePipe } from './assetfilterdevice.pipe';
 
 
 
@@ -114,12 +114,13 @@ import { EmployeeComponent } from './employee/employee.component';
     SearchBoxComponent,
     CommentBoxComponent,
     LaptopDetailsComponent,
-    FilterPipe,
+    AddAssetComponent,
     AddSoftwareModelComponent,
     UserDetailsComponent,
     UserListComponent,
     EmployeeComponent,
-   CurrentdeviceComponent
+   CurrentdeviceComponent,
+   AssetfilterdevicePipe
 
 
   ],
