@@ -30,5 +30,18 @@ namespace ITMS.Server.Controllers
         {
             return await _addSoftwareVersionService.listSoftwareVersions(SoftwareName);
         }
+        [HttpGet ("getsoftwareType")]
+        public ActionResult<IEnumerable<SoftwareType>> GetSoftwareTypes()
+        {
+            var softwareTypes = _context.SoftwareTypes
+        .Select(st => new SoftwareTypeDTO
+        {
+            Id = st.Id,
+            TypeName = st.TypeName
+        })
+        .ToList();
+
+            return Ok(softwareTypes);
+        }
     }
 }

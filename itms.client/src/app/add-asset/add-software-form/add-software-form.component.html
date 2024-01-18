@@ -1,9 +1,10 @@
 <div class="heading_Add_software">Add Software</div>
+<form [formGroup]="SoftwareForm" (ngSubmit)="onSubmit()">
 <div class="main_content">
   <div class="top_field">
     <label for="inlineFormSelectPref" placeholder="Enter Software Name" class="required-field software_name">Software Name </label>
-    <select class="form-select select_input" id="inlineFormSelectPref" [(ngModel)]="selectedTypeName" >
-      <option *ngFor="let value of dropdownValues" [value]="value.typeName">
+    <select class="form-select select_input" id="inlineFormSelectPref" (change)="dynamicChanges($event)" >
+      <option *ngFor="let value of dropdownValues" [value]="value.typeName + '@' + value.id" >
         {{ value.softwareName }}
       </option>
     </select>
@@ -23,7 +24,7 @@
 
 
 
-
+   
   <div class="alert" role="alert" [style.display]="isFormOpen ? 'none' : 'block'">
     <img src="../../../assets/icons/Vector.svg" class="alert-icon" alt="alert icon">&nbsp; This software type is perpetual
   </div>
@@ -33,15 +34,15 @@
 
       <div class="row date_container">
         <div class="col-6">
-          <label for="date" class="form-label required-field">Date of purchase</label>
+          <label for="VPdate" class="form-label required-field">Date of purchase</label>
 
-          <input type="date" class="form-control" id="date" placeholder="12-15-2023" />
+          <input type="date" class="form-control" id="VPdate" placeholder="12-15-2023" formControlName="purchasedDate" />
 
         </div>
         <div class="col-6">
-          <label for="date" class="form-label required-field">Expiry Date</label>
+          <label for="VEdate" class="form-label required-field">Expiry Date</label>
 
-          <input type="date" class="form-control" id="date" placeholder="12-15-2023" />
+          <input type="date" class="form-control" id="VEdate" placeholder="12-15-2023" formControlName="expiryDate" />
 
         </div>
       </div>
@@ -63,7 +64,7 @@
         <label class="form-label">Activation Key</label>
 
         <div class="input-group activation_key_container">
-          <input [type]=" showPassword ? 'text': 'password' " class="form-control" placeholder="Enter Activation Key">
+          <input [type]=" showPassword ? 'text': 'password' " class="form-control" placeholder="Enter Activation Key" formControlName="activationKey">
           <div class="input-group-append">
 
             <div class="toggle_hide_password">
@@ -79,15 +80,15 @@
 
       <div class="row date_container">
         <div class="col-6">
-          <label for="date" class="form-label required-field">Date of purchase</label>
+          <label for="Pdate" class="form-label required-field">Date of purchase</label>
 
-          <input type="date" class="form-control" id="date" placeholder="12-15-2023" />
+          <input type="date" class="form-control" id="Pdate" placeholder="12-15-2023" formControlName="purchasedDate" />
 
         </div>
         <div class="col-6">
-          <label for="date" class="form-label required-field">Expiry Date</label>
+          <label for="Edate" class="form-label required-field">Expiry Date</label>
 
-          <input type="date" class="form-control" id="date" placeholder="12-15-2023" />
+          <input type="date" class="form-control" id="Edate" placeholder="12-15-2023" formControlName="expiryDate"/>
 
         </div>
       </div>
@@ -104,9 +105,9 @@
 
         <div class="row date_container">
           <div class="col-6">
-            <label for="date" class="form-label required-field">Date of purchase</label>
+            <label for="PPdate" class="form-label required-field">Date of purchase</label>
 
-            <input type="date" class="form-control" id="date" placeholder="12-15-2023" />
+            <input type="date" class="form-control" id="PPdate" placeholder="12-15-2023"formControlName="purchasedDate" />
 
           </div>
           <div class="col-6">
@@ -127,7 +128,7 @@
           <label class="form-label">Activation Key</label>
 
           <div class="input-group activation_key_container">
-            <input [type]=" showPassword ? 'text': 'password' " class="form-control" placeholder="Enter Activation Key">
+            <input [type]=" showPassword ? 'text': 'password' " class="form-control" placeholder="Enter Activation Key"formControlName="activationKey">
             <div class="input-group-append">
 
               <div class="toggle_hide_password">
@@ -142,6 +143,7 @@
     </div>
 
 <div  class="button_class">
-  <button class="footer-button">cancel</button>
-  <button class="footer-button">save</button>
+  <button type="reset"class="footer-button">cancel</button>
+  <button type="submit" class="footer-button">save</button>
 </div>
+ </form>

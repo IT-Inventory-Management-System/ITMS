@@ -53,7 +53,10 @@ export class DataService {
   getSoftwares(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl + 'addDevices/software-models');
   }
-  
-  
+  postSoftwaredata(formData: any): Observable<any> {
+    return this.http.post(this.apiUrl + 'addDevices/add-software-allocation', formData);
+  }
+
+
 }
 
