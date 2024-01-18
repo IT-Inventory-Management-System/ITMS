@@ -48,4 +48,6 @@ public partial class DevicesLog
     public virtual Employee? RecievedByNavigation { get; set; }
 
     public virtual Employee? UpdatedByNavigation { get; set; }
+    public virtual List<Comment> Comments { get; set; } = new List<Comment>();
+    
 }
