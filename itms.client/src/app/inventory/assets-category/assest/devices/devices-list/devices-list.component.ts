@@ -1,6 +1,6 @@
-
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { DataService } from '../../../../../shared/services/data.service';
+import { forkJoin, lastValueFrom, map } from 'rxjs';
 
 
 @Component({
@@ -8,64 +8,59 @@ import { DataService } from '../../../../../shared/services/data.service';
   templateUrl: './devices-list.component.html',
   styleUrls: ['./devices-list.component.css']
 })
-export class DevicesListComponent {
-
+export class DevicesListComponent implements OnInit {
 
   @Input() device: any;
   DeviceData: any;
   DeviceInfo: any;
   DeviceLog: any;
-
-  constructor(private deviceService: DataService) {
-
-  }
-
+  CommentDetails: any;
+  AllDevices: any;
+  selectedDevice: any;
+ 
+  constructor(private deviceService: DataService) { } 
 
   ngOnInit() {
+
+    console.log('hi' + this.device.id);
+    console.log(this.device.length);
+    this.showDevices();
+    this.selectedDevice = this.DeviceData.length > 0 ? this.DeviceData[0] : null;
   }
 
-  onDeviceClick(): void {
-    console.log('Device Object:', this.device.cygid);
+  async showDevices() {
+    this.AllDevices = await lastValueFrom(this.deviceService.getDevices())
+    this.onDeviceClick(this.AllDevices[0].cygid)
+  }
 
-    // Call the first API to get device information
-    this.deviceService.getDevicesInfo(this.device.cygid).subscribe(
+  onDeviceClick(cygid: any): void {
+    console.log('Device Object:', this.device.cygid);
+    this.deviceService.getDevicesInfo(cygid).subscribe(
       (data) => {
         this.DeviceInfo = data;
         console.log(data);
         this.deviceService.DeviceDetails = this.DeviceInfo;
-
-        // Call the second API to get device logs
-        this.getDeviceLogs();
+        this.getDeviceLogs(this.deviceService.DeviceDetails.cygid);
       },
       (error) => {
-        // Handle errors for the first API here
+        
         console.error('Error fetching device info:', error);
       }
     );
   }
 
-  getDeviceLogs(): void {
-    // Call the second API to get device logs
-    this.deviceService.getUserInfo(this.device.cygid).subscribe(
+  getDeviceLogs(Cygid: any): void {
+   
+    this.deviceService.getUserInfo(Cygid).subscribe(
       (logs) => {
-        // Handle the API response for device logs here
+       
         this.deviceService.DeviceLog = logs;
-        //console.log('Device Logs:', logs);
+        console.log('Device Logs:', logs);
       },
       (error) => {
-        // Handle errors for the second API here
+       
         console.error('Error fetching device logs:', error);
       }
     );
   }
-
-  @ViewChild('firstButton') firstButton: ElementRef;
-
-  ngAfterViewInit() {
-    // Trigger click event on the first button when the view is initialized
-    this.firstButton.nativeElement.click();
-  }
-
-
-
 }

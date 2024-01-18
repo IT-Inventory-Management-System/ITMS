@@ -2,9 +2,8 @@
 <div class="main_content">
   <div class="top_field">
     <label for="inlineFormSelectPref" placeholder="Enter Software Name" class="required-field software_name">Software Name </label>
-    <select class="form-select select_input" id="inlineFormSelectPref">
-      <option selected>Choose...</option>
-      <option *ngFor="let value of dropdownValues" [value]="value.id">
+    <select class="form-select select_input" id="inlineFormSelectPref" [(ngModel)]="selectedTypeName" >
+      <option *ngFor="let value of dropdownValues" [value]="value.typeName">
         {{ value.softwareName }}
       </option>
     </select>
@@ -19,7 +18,7 @@
 
 
   <div class=" software-form-container" *ngIf="isFormOpen">
-    <app-add-software-model (radioSelection)="handleRadioSelection($event)"></app-add-software-model>
+    <app-add-software-model ></app-add-software-model>
   </div>
 
 
@@ -30,115 +29,117 @@
   </div>
 
 
- <div *ngIf="selectedRadioButton === 'Validity'">
+    <div *ngIf="selectedTypeName === 'Validity'">
 
-  <div class="row date_container">
-    <div class="col-6">
-      <label for="date" class="form-label required-field">Date of purchase</label>
+      <div class="row date_container">
+        <div class="col-6">
+          <label for="date" class="form-label required-field">Date of purchase</label>
 
-      <input type="date" class="form-control" id="date" placeholder="12-15-2023" />
+          <input type="date" class="form-control" id="date" placeholder="12-15-2023" />
 
-    </div>
-    <div class="col-6">
-      <label for="date" class="form-label required-field">Expiry Date</label>
-
-      <input type="date" class="form-control" id="date" placeholder="12-15-2023" />
-
-    </div>
-  </div>
-
-
-
-
-  <div>
-    <label class="form-label">Quantity</label>
-    <div class="quantity-counter">
-      <div class="reduce-button" (click)="decrement()"><img src="../../../assets/icons/reduce-quantity.svg" /></div>
-      <span class="counter-value">{{ counterValue }}</span>
-      <div class="add-button" (click)="increment()"><img src="../../../assets/icons/add-quantity.svg" /></div>
-    </div>
-  </div>
-
-
-  <div >
-    <label class="form-label">Activation Key</label>
-
-    <div class="input-group activation_key_container">
-      <input [type]=" showPassword ? 'text': 'password' " class="form-control" placeholder="Enter Activation Key">
-      <div class="input-group-append">
-
-        <div class="toggle_hide_password">
-          <img src="../../../assets/icons/Eye.svg" class="eye-icon" alt="eye icon" (click)="togglePassword()" *ngIf="!showPassword">
-          <i (click)="togglePassword()" class="fa-solid fa-eye-slash" *ngIf="showPassword" style="font-size:0.875rem; opacity:0.5;"></i>
         </div>
+        <div class="col-6">
+          <label for="date" class="form-label required-field">Expiry Date</label>
 
+          <input type="date" class="form-control" id="date" placeholder="12-15-2023" />
+
+        </div>
+      </div>
+
+
+
+
+      <div>
+        <label class="form-label">Quantity</label>
+        <div class="quantity-counter">
+          <div class="reduce-button" (click)="decrement()"><img src="../../../assets/icons/reduce-quantity.svg" /></div>
+          <span class="counter-value">{{ counterValue }}</span>
+          <div class="add-button" (click)="increment()"><img src="../../../assets/icons/add-quantity.svg" /></div>
+        </div>
+      </div>
+
+
+      <div>
+        <label class="form-label">Activation Key</label>
+
+        <div class="input-group activation_key_container">
+          <input [type]=" showPassword ? 'text': 'password' " class="form-control" placeholder="Enter Activation Key">
+          <div class="input-group-append">
+
+            <div class="toggle_hide_password">
+              <img src="../../../assets/icons/Eye.svg" class="eye-icon" alt="eye icon" (click)="togglePassword()" *ngIf="!showPassword">
+              <i (click)="togglePassword()" class="fa-solid fa-eye-slash" *ngIf="showPassword" style="font-size:0.875rem; opacity:0.5;"></i>
+            </div>
+
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-   </div>
- <div *ngIf="selectedRadioButton === 'Subscription'">
-   <div class="row date_container">
-     <div class="col-6">
-       <label for="date" class="form-label required-field">Date of purchase</label>
+    <div *ngIf="selectedTypeName === 'Subscription'">
 
-       <input type="date" class="form-control" id="date" placeholder="12-15-2023" />
+      <div class="row date_container">
+        <div class="col-6">
+          <label for="date" class="form-label required-field">Date of purchase</label>
 
-     </div>
-     <div class="col-6">
-       <label for="date" class="form-label required-field">Expiry Date</label>
+          <input type="date" class="form-control" id="date" placeholder="12-15-2023" />
 
-       <input type="date" class="form-control" id="date" placeholder="12-15-2023" />
+        </div>
+        <div class="col-6">
+          <label for="date" class="form-label required-field">Expiry Date</label>
 
-     </div>
-   </div>
-   <div>
-     <label class="form-label">Quantity</label>
-     <div class="quantity-counter">
-       <div class="reduce-button" (click)="decrement2()"><img src="../../../assets/icons/reduce-quantity.svg" /></div>
-       <span class="counter-value">{{ counterValue2 }}</span>
-       <div class="add-button" (click)="increment2()"><img src="../../../assets/icons/add-quantity.svg" /></div>
-     </div>
-   </div>
- </div>
- <div *ngIf="selectedRadioButton === 'Perpetual'">
-   <div class="row date_container">
-     <div class="col-6">
-       <label for="date" class="form-label required-field">Date of purchase</label>
+          <input type="date" class="form-control" id="date" placeholder="12-15-2023" />
 
-       <input type="date" class="form-control" id="date" placeholder="12-15-2023" />
+        </div>
+      </div>
+      <div>
+        <label class="form-label">Quantity</label>
+        <div class="quantity-counter">
+          <div class="reduce-button" (click)="decrement2()"><img src="../../../assets/icons/reduce-quantity.svg" /></div>
+          <span class="counter-value">{{ counterValue2 }}</span>
+          <div class="add-button" (click)="increment2()"><img src="../../../assets/icons/add-quantity.svg" /></div>
+        </div>
+      </div>
+    </div>
+      <div *ngIf="selectedTypeName === 'Perpetual'">
 
-     </div>
-     <div class="col-6">
+        <div class="row date_container">
+          <div class="col-6">
+            <label for="date" class="form-label required-field">Date of purchase</label>
 
-       <div>
-         <label class="form-label">Quantity</label>
-         <div class="quantity-counter" style="margin-bottom:0%;">
-           <div class="reduce-button" (click)="decrement3()"><img src="../../../assets/icons/reduce-quantity.svg" /></div>
-           <span class="counter-value">{{ counterValue3 }}</span>
-           <div class="add-button" (click)="increment3()"><img src="../../../assets/icons/add-quantity.svg" /></div>
-         </div>
-       </div>
+            <input type="date" class="form-control" id="date" placeholder="12-15-2023" />
 
-     </div>
+          </div>
+          <div class="col-6">
 
-   </div>
-   <div>
-     <label class="form-label">Activation Key</label>
+            <div>
+              <label class="form-label">Quantity</label>
+              <div class="quantity-counter" style="margin-bottom:0%;">
+                <div class="reduce-button" (click)="decrement3()"><img src="../../../assets/icons/reduce-quantity.svg" /></div>
+                <span class="counter-value">{{ counterValue3 }}</span>
+                <div class="add-button" (click)="increment3()"><img src="../../../assets/icons/add-quantity.svg" /></div>
+              </div>
+            </div>
 
-     <div class="input-group activation_key_container">
-       <input [type]=" showPassword ? 'text': 'password' " class="form-control" placeholder="Enter Activation Key">
-       <div class="input-group-append">
+          </div>
 
-         <div class="toggle_hide_password">
-           <img src="../../../assets/icons/Eye.svg" class="eye-icon" alt="eye icon" (click)="togglePassword()" *ngIf="!showPassword">
-           <i (click)="togglePassword()" class="fa-solid fa-eye-slash" *ngIf="showPassword" style="font-size:0.875rem; opacity:0.5;"></i>
-         </div>
+        </div>
+        <div>
+          <label class="form-label">Activation Key</label>
 
-       </div>
-     </div>
-   </div>
- </div>
-</div>
+          <div class="input-group activation_key_container">
+            <input [type]=" showPassword ? 'text': 'password' " class="form-control" placeholder="Enter Activation Key">
+            <div class="input-group-append">
+
+              <div class="toggle_hide_password">
+                <img src="../../../assets/icons/Eye.svg" class="eye-icon" alt="eye icon" (click)="togglePassword()" *ngIf="!showPassword">
+                <i (click)="togglePassword()" class="fa-solid fa-eye-slash" *ngIf="showPassword" style="font-size:0.875rem; opacity:0.5;"></i>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
 <div  class="button_class">
   <button class="footer-button">cancel</button>
