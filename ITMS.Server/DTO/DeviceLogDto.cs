@@ -1,4 +1,4 @@
-﻿// DTOs/DeviceLogDto.cs
+﻿
 using ITMS.Server.DTO;
 using ITMS.Server.Models;
 
@@ -21,10 +21,18 @@ public class DevicelogDto
 
     public bool ? IsArchived { get; set; }
 
-
-    public List<CommentDto> Comments { get; set; }
+    public List<Comment> Comments { get; set; } = new List<Comment>();
+     
+  
 }
-
+public class CommentDto
+{
+    public Guid Id { get; set; }
+    public Guid DeviceLogId { get; set; }
+    public string Description { get; set; }
+    public string CreatedBy { get; set; }
+    public DateTime CreatedAt { get; set; }
+}
 
 public class CategoryDTO
 {
@@ -52,10 +60,6 @@ public class CategoryTypeWithCategoriesDTO
     public int Priority { get; set; }
 }
 
-public class CommentDto
-{
-    public Guid Id { get; set; }
-    public string Description { get; set; }
-    public string CreatedBy { get; set; }
-    public DateTime CreatedAt { get; set; }
-}
+
+
+
