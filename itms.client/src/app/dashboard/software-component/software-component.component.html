@@ -11,7 +11,7 @@
           {{ softwareData.name }}
         </div>
         <div class="frame">
-          <div class="tag1">
+          <div class="tag1" *ngIf="softwareData.version !== null" >
             <div class="version">
               <span class="version-text">{{ softwareData.version }}</span>
             </div>
