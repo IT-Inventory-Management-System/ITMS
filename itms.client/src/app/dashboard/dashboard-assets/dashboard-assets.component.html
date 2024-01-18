@@ -12,15 +12,23 @@
     </div>
     <div class="container-fluid">
       <div class="stock-section row">
-        <div class="col-8 Assigned">
+        <div class="col-6 Assigned">
           <img src="../../../assets/icons/dashboard/icon.svg" />
           <span class="Assigned-text">Assigned</span>
           <div class="Assigned-number">{{primaryData.assigned}}</div>
         </div>
-        <div class="col-4 inventory">
+        <div class="col-6 inventory">
           <img src="../../../assets/icons/dashboard/Check mark.svg" />
           <span class="Inventory-text"> Inventory</span>
-          <div class="Inventory-number">{{primaryData.total - primaryData.assigned}}</div>
+          <!--<div class="Inventory-number">{{primaryData.total - primaryData.assigned}}</div>-->
+          <div class="lowstock-container me-0">
+            <div class="lowstock  ms-auto" *ngIf="(primaryData.total - primaryData.assigned) < 1">
+              <div class="lowstocktext ">Low in Stock</div>
+            </div>
+            <div class="Inventory-number ms-auto p-0">
+              {{primaryData.total - primaryData.assigned}}
+            </div>
+          </div>
         </div>
       </div>
     </div>

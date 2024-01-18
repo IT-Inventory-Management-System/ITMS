@@ -71,39 +71,39 @@
 
         </div>
 
-        <div class="row2  d-flex ">
-          <div class=" Assesories-Details ms-0 ">
-            <div class="Assesories-Heading">
-              <div class="Assesories-Text">Accessories</div>
-              <img src="../../../assets/icons/dashboard/Chevron.svg" />
-            </div>
-            <div class="Search-section">
-              <img src="../../../assets/icons/dashboard/search.svg" />
-              <input class="Search-text"
-                     placeholder="Search by accessories name"
-                     [(ngModel)]="filterValue"
-                     (input)="applyAccessoryFilter($event)" />
-            </div>
-            <div class="Software-Content">
-              <app-accesories *ngFor="let accessory of filteredAccessories ? filteredAccessories : accessoriesData"
-                              [accessoriesData]="accessory"></app-accesories>
-            </div>
+      <div class="row2  d-flex ">
+        <div class=" Assesories-Details ms-0 ">
+          <div class="Assesories-Heading">
+            <div class="Assesories-Text">Accessories</div>
+            <img src="../../../assets/icons/dashboard/Chevron.svg" />
           </div>
-          <div class="col-md-6 Software  ">
-            <div class="Software-Heading">
-              <div class="Software-Text">Software</div>
-              <img src="../../../assets/icons/dashboard/Chevron.svg" />
-            </div>
-            <div class="Search-section">
-              <img src="../../../assets/icons/dashboard/search.svg" />
-              <input class="Search-text" placeholder="Search by software name" [(ngModel)]="filterValues"
-                     (input)="applySoftwareFilter($event)" />
-            </div>
-            <div class="container-fluid">
-              <app-software-component *ngFor="let software of filteredSoftware? filteredSoftware : softwaresData " [softwareData]="software"></app-software-component>
-            </div>
+          <div class="Search-section">
+            <img src="../../../assets/icons/dashboard/search.svg" />
+            <input class="Search-text"
+                   placeholder="Search by accessories name"
+                   [(ngModel)]="filterValue"
+                   (input)="applyAccessoryFilter($event)" />
+          </div>
+          <div class="Software-Content">
+            <app-accesories *ngFor="let accessory of filteredAccessories ? filteredAccessories : accessoriesData"
+                            [accessoriesData]="accessory"></app-accesories>
           </div>
         </div>
+        <div class="col-md-6 Software  ">
+          <div class="Software-Heading">
+            <div class="Software-Text">Software</div>
+            <img src="../../../assets/icons/dashboard/Chevron.svg" />
+          </div>
+          <div class="Software-Search-section">
+            <img src="../../../assets/icons/dashboard/search.svg" />
+            <input class="Search-text" placeholder="Search by software name"   [(ngModel)]="filterValues"
+  (input)="applySoftwareFilter($event)" />
+          </div>
+          <div class="container-fluid">
+            <app-software-component *ngFor="let software of filteredSoftware? filteredSoftware : softwaresData " [softwareData]="software"></app-software-component>
+          </div>
+        </div>
+      </div>
 
 
 

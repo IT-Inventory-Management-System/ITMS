@@ -61,6 +61,8 @@ namespace ITMS.Server.DTO
         public int Inventory { get; set; }
         public int Assigned { get; set; }
 
+        public DateTime? ExpiryDate { get; set; }
+
     }
 }
 
