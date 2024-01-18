@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { DataService } from '../../shared/services/data.service';
 @Component({
   selector: 'app-add-software-form',
@@ -85,12 +85,10 @@ export class AddSoftwareFormComponent {
   toggleSoftwareForm() {
     this.isFormOpen = !this.isFormOpen;
   }
-  selectedRadioButton: string = 'Perpetual';
+ 
+  selectedTypeName: string = 'Perpetual';
 
-  handleRadioSelection(option: string) {
-    this.selectedRadioButton = option;
-    console.log(`Selected option: ${option}`);
-  }
+ 
 
 
 }
