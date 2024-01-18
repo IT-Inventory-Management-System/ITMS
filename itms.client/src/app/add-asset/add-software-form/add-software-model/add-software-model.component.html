@@ -20,15 +20,17 @@
       <div class="row">
         
         <div class="picture " style="border:1px solid black">
-          <img src="../../../assets/icons/add_photo_alternate_outlined 1.svg" class="thumbnail-image"
+          <img [src]="ProfileDP" class="thumbnail-image"
                alt="Software thumbnail">
         </div>
 
-        <div class="thumbnail-text" >
+        <div class="thumbnail-text">
           <div class="size_text">Size: 36*36 Pixels</div>
-          
+
           <div>File Support: jpg, .jpeg, .png</div>
-          <button type="submit" class="thumbnail-submit-button">
+          <input hidden type="file" #profileUpload (change)="ImageUpload($event)"accept=".jpeg, .jpg, .png" />
+
+          <button type="submit" class="thumbnail-submit-button" (click)="profileUpload.click()">
             <img src="../../../assets/icons/upload.svg" class="upload-icon" alt="upload icon">Upload Image
           </button>
         </div>
@@ -42,13 +44,13 @@
     <div class="checkboxes">
       <label for="type" class="form-label required-field">Software Type</label>
       <div class="software-checkbox-container">
-        <input type="radio" (change)="onRadioButtonSelected('Perpetual')" id="Perpetual" name="softwareType" />
+        <input type="radio"  id="Perpetual" name="softwareType" />
         <label for="Perpetual">Perpetual</label>
 
-        <input type="radio" (change)="onRadioButtonSelected('Validity')" id="Validity" name="softwareType" />
+        <input type="radio"  id="Validity" name="softwareType" />
         <label for="Validity">Validity</label>
 
-        <input type="radio" (change)="onRadioButtonSelected('Subscription')" id="Subscription" name="softwareType" />
+        <input type="radio"  id="Subscription" name="softwareType" />
         <label for="Subscription">Subscription</label>
       </div>
     </div>
