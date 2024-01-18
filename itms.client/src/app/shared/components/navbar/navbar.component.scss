@@ -207,7 +207,6 @@ input[type=radio]:checked + .off-label + .selected {
   flex-shrink: 0;
   background: var(--White, #FFF);
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.15);
-  margin-bottom: 3.5rem;
 }
 
 .btn-check:checked + .btn {

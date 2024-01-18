@@ -91,20 +91,27 @@ public class AddDeviceService : IDeviceService
                 .ToListAsync();
             return uniqueLaptopModels;
         }
-        public async Task<List<SoftwareModelDTO>> GetSoftwareModelsAsync()
-        {
-            var uniqueSoftwareModels = await _context.Software
-                .Select(s => new SoftwareModelDTO
+    public async Task<List<SoftwareModelDTO>> GetSoftwareModelsAsync()
+    {
+        var softwareModels = await _context.Software
+            .Join(
+                _context.SoftwareTypes,
+                software => software.SoftwareTypeId,
+                softwareType => softwareType.Id,
+                (software, softwareType) => new SoftwareModelDTO
                 {
-                    Id = s.Id,
-                    SoftwareName = s.SoftwareName,
-                    SoftwareTypeId = s.SoftwareTypeId
-                })
-                .Distinct()
-                .ToListAsync();
-            return uniqueSoftwareModels;
-        }
-        public void AddSoftware(PutSoftware software)
+                    Id = software.Id,
+                    SoftwareName = software.SoftwareName,
+                    SoftwareTypeId = software.SoftwareTypeId,
+                    TypeName = softwareType.TypeName // Include TypeName from SoftwareType
+                }
+            )
+            .Distinct()
+            .ToListAsync();
+
+        return softwareModels;
+    }
+    public void AddSoftware(PutSoftware software)
         {
         Software softwareForDb = new Software
         {
@@ -132,7 +139,6 @@ public class AddDeviceService : IDeviceService
                 SoftwareAllocation softwareAllocationForDb = new SoftwareAllocation();
                 softwareAllocationForDb.SoftwareId = sofwareAllocation.SoftwareId;
                 softwareAllocationForDb.ActivationKey = sofwareAllocation.ActivationKey;
-                //softwareAllocationForDb.SoftwareVersion = sofwareAllocation.SoftwareVersion;
                 softwareAllocationForDb.PurchasedDate = sofwareAllocation.PurchasedDate;
                 softwareAllocationForDb.ExpiryDate = sofwareAllocation.ExpiryDate;
                 softwareAllocationForDb.AssignedTo = sofwareAllocation.AssignedTo;

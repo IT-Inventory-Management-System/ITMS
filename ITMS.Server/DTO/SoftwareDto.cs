@@ -1,4 +1,6 @@
-﻿namespace ITMS.Server.DTO
+﻿using System.Runtime.InteropServices;
+
+namespace ITMS.Server.DTO
 {
     // SoftwareTypeDTO.cs
     public class SoftwareTypeDTO

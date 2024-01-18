@@ -236,6 +236,7 @@
   border-radius: 0.25rem;
   border: 1px solid var(--Primary-Blue, #28519E);
   background: #FFF;
+  height: 2.5rem;
 }
 
 .reduce-button img{

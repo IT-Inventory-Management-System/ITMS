@@ -50,6 +50,9 @@ export class DataService {
   }
 
  
+  getSoftwares(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + 'addDevices/software-models');
+  }
   
   
 }

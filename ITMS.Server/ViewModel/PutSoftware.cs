@@ -1,4 +1,6 @@
-﻿namespace ITMS.Server.ViewModel
+﻿using System.Runtime.InteropServices;
+
+namespace ITMS.Server.ViewModel
 {
     public class PutSoftware
     {
@@ -9,6 +11,8 @@
         public Guid CategoryId { get; set; }
 
         public byte[] SoftwareThumbnail { get; set; }
+       
+        public string? Version { get; set; }
 
         public Guid CreatedBy { get; set; }
 
@@ -17,7 +21,5 @@
         public Guid? UpdatedBy { get; set; }
 
         public DateTime? UpdatedAtUtc { get; set; }
-        public string? Version { get; set; }
-
     }
 }

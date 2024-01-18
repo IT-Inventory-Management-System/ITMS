@@ -11,7 +11,7 @@ export class CategoryNameComponent {
 
   @Input() name: string = '';
   @Input() isSelected: boolean = false; 
-  @Output() clickEvent = new EventEmitter<void>();
+  @Output() clickEvent = new EventEmitter<string>(); // Emit the category name on click
 
   ngOnInit() {
     // Check if the current category name matches the selected category in localStorage
@@ -64,7 +64,5 @@ export class CategoryNameComponent {
       default:
         return '../../assets/icons/placeholder.svg';
     }
-
-    
   }
 }
