@@ -72,10 +72,13 @@
           </div>
           <div class="Search-section">
             <img src="../../../assets/icons/dashboard/search.svg" />
-            <input class="Search-text" placeholder="Search by accessories name" />
+            <input class="Search-text"
+                   placeholder="Search by accessories name"
+                   (input)="applyFilter($event.target.value)" />
           </div>
           <div class="Software-Content">
-            <app-accesories *ngFor="let accessory of accessoriesData" [accessoriesData]="accessory"></app-accesories>
+            <app-accesories *ngFor="let accessory of filteredAccessories" [accessoriesData]="accessory"></app-accesories>
+
           </div>
         </div>
         <div class="col-md-6 Software  ">

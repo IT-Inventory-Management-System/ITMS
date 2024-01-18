@@ -12,6 +12,13 @@ export class DashboardComponent implements OnInit {
   softwaresData: any[];
   primaryData: any[];
   logsData: any[];
+  filteredAccessories: any[] = [];
+
+  applyFilter(filterValue: string) {
+    this.filteredAccessories = this.accessoriesData.filter((accessory) =>
+      accessory.name.toLowerCase().includes(filterValue.toLowerCase())
+    );
+  }
 
   constructor(private dashboardService: DashboardService) { }
 
