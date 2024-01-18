@@ -113,15 +113,15 @@ import { AssetfilterdevicePipe } from './assetfilterdevice.pipe';
     LaptopDetailsComponent,
     SearchBoxComponent,
     CommentBoxComponent,
-    LaptopDetailsComponent,
-    AddAssetComponent,
+    LaptopDetailsComponent, 
     AddSoftwareModelComponent,
     UserDetailsComponent,
     UserListComponent,
     EmployeeComponent,
    CurrentdeviceComponent,
     AssetfilterdevicePipe,
-   CategoryCardComponent
+    CategoryCardComponent,
+    AddAssetComponent
   ],
   imports: [
     BrowserModule,
