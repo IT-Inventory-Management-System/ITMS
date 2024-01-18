@@ -49,7 +49,9 @@ namespace ITMS.Server.Services
                     Name = s.SoftwareName,
                     Version = s.version,
                     Type = st.TypeName,
-                    Inventory = st.Softwares.SelectMany(sa=>sa.SoftwareAllocations).Count(),
+                    Inventory = st.Softwares
+                    .SelectMany(sa=>sa.SoftwareAllocations)
+                    .Count(),
                     Assigned = st.Softwares.SelectMany(sa => sa.SoftwareAllocations).Count(sa => sa.AssignedTo != null),
                     ExpiryDate = s.SoftwareAllocations
                 .Where(sa => sa.ExpiryDate.HasValue)

@@ -94,7 +94,7 @@ export class DashboardComponent implements OnInit {
   getAccessoriesData(): void {
     this.dashboardService.GetAccessories().subscribe(
       data => {
-        console.log(data)
+        //console.log(data)
         this.accessoriesData = data;
       },
       error => {
@@ -106,7 +106,7 @@ export class DashboardComponent implements OnInit {
   getSoftwaresData(): void {
     this.dashboardService.GetSoftwares().subscribe(
       data => {
-        console.log(data)
+        //console.log(data)
         this.softwaresData = data;
       },
       error => {
@@ -118,7 +118,7 @@ export class DashboardComponent implements OnInit {
   getPrimaryData(): void {
     this.dashboardService.GetPrimary().subscribe(
       data => {
-        console.log(data)
+        //console.log(data)
         this.primaryData = data;
       },
       error => {
