@@ -37,7 +37,22 @@ export class DataService {
     return this.http.get<any[]>(this.apiUrl + 'DeviceLog/devicesloginfo/' + deviceId);
   }
 
+  postDeviceModel(formData: any): Observable<any> {
+    return this.http.post(this.apiUrl + 'addDevices/update', formData);
+  }
+
+  postDevice(formData: any): Observable<any> {
+    return this.http.post(this.apiUrl + 'addDevices', formData);
+  }
+
+  getDeviceModel(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + 'addDevices/device-models');
+  }
+
  
+  getSoftwares(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + 'addDevices/software-models');
+  }
   
   
 }

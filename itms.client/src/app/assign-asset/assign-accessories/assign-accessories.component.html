@@ -1,13 +1,7 @@
 <div class="Accessories-Section">
   <div class="form-fields">
-    <div class="accessories-search">
-      <div class="search-box-subheading">Software <span style="color:red">*</span></div>
-      <input class="search-box" required type="search" placeholder="Select Software" aria-label="Search">
-    </div>
-    <div class="Comment">
-      <div class="comment-subheading">Comment</div>
-      <input class="comment-input-box" required type="comment" placeholder="Add Comment" aria-label="Comment">
-    </div>
+    <app-search-box class="sbox" [label]="'Accessories'" [placeholder]="'Select Accessories'"></app-search-box>
+    <app-comment-box class="Cbox"></app-comment-box>
   </div>
   <div class="Add-new">
     <img class="add-img" src="../../../../assets/icons/Add.svg" />

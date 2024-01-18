@@ -29,6 +29,7 @@ public partial class PutLaptop
 
     public DateTime CreatedAtUtc { get; set; }
 
+    public Guid LocationId { get; set; }
 
     public Guid? AssignedTo { get; set; }
 
