@@ -11,7 +11,7 @@ export class DevicesComponent {
   Cygid = this.DeviceData;
   showArchiveOnly: boolean = false;
   ArchivedData: any[] = [];
-  searchtext: any;
+  searchdevice: any;
   constructor(private dataService: DataService) {
   }
 

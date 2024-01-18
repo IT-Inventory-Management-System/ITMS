@@ -8,7 +8,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CategoryComponent } from './category/category.component';
 import { InventoryComponent } from './inventory/inventory.component';
-import { EmployeeComponent } from './employee/employee.component';
 import { LicenseComponent } from './license/license.component';
 import { HistoryComponent } from './history/history.component';
 import { AddAssetComponent } from './add-asset/add-asset.component';
@@ -21,11 +20,8 @@ import { AddDeviceFormComponent } from './add-asset/add-device-form/add-device-f
 import { AddDeviceModelComponent } from './add-asset/add-device-form/add-device-model/add-device-model.component';
 import { IdInputComponent } from './add-asset/add-device-form/id-input/id-input.component';
 import { AddSoftwareFormComponent } from './add-asset/add-software-form/add-software-form.component';
-import { UserListComponent } from './user-list/user-list.component';
-import { UserDetailsComponent } from './user-details/user-details.component';
 import { LaptopComponent } from './user-detail/laptop/laptop.component';
 import { CategoryTypeComponent } from './add-asset/category-type/category-type.component';
-
 import { UserNameListComponent } from './user-name-list/user-name-list.component';
 import { AssetsCategoryComponent } from './inventory/assets-category/assets-category.component';
 import { HeaderComponent } from './inventory/assets-category/header/header.component';
@@ -55,10 +51,14 @@ import { AssignAccessoriesComponent } from './assign-asset/assign-accessories/as
 import { RecentActivityComponent } from './dashboard/recent-activity/recent-activity.component';
 import { SoftwareComponentComponent } from './dashboard/software-component/software-component.component';
 import { FilterSearchListPipe } from './filter-search-list.pipe';
-import { FilterPipe } from './filter.pipe';
 import { CurrentdeviceComponent } from './shared/components/currentdevice/currentdevice.component';
-
-
+import { SearchBoxComponent } from './assign-asset/search-box/search-box.component';
+import { CommentBoxComponent } from './assign-asset/comment-box/comment-box.component';
+import { AddSoftwareModelComponent } from './add-asset/add-software-form/add-software-model/add-software-model.component';
+import { UserDetailsComponent } from './user-details/user-details.component';
+import { UserListComponent } from './user-list/user-list.component';
+import { EmployeeComponent } from './employee/employee.component';
+import { AssetfilterdevicePipe } from './assetfilterdevice.pipe';
 
 
 
@@ -76,7 +76,6 @@ import { CurrentdeviceComponent } from './shared/components/currentdevice/curren
     DashboardComponent,
     CategoryComponent,
     InventoryComponent,
-    EmployeeComponent,
     LicenseComponent,
     HistoryComponent,
     AddAssetComponent,
@@ -85,8 +84,6 @@ import { CurrentdeviceComponent } from './shared/components/currentdevice/curren
     AddDeviceModelComponent,
     IdInputComponent,
     AddSoftwareFormComponent,
-    UserListComponent,
-    UserDetailsComponent,
     CategoryTypeComponent,
     CategoryCardComponent,
     CategoryNameComponent,
@@ -109,19 +106,22 @@ import { CurrentdeviceComponent } from './shared/components/currentdevice/curren
     RecentActivityComponent,
     SoftwareComponentComponent,
     FilterSearchListPipe,
-
     AssignHistoryComponent,
     CommentCardComponent,
     NewSidebarComponent,
-    AddAssetComponent,
     FilterSearchListPipe,
- 
-   
+    LaptopDetailsComponent,
+    SearchBoxComponent,
+    CommentBoxComponent,
+    LaptopDetailsComponent,
     AddAssetComponent,
-         FilterPipe,
-         CurrentdeviceComponent
-
-
+    AddSoftwareModelComponent,
+    UserDetailsComponent,
+    UserListComponent,
+    EmployeeComponent,
+   CurrentdeviceComponent,
+    AssetfilterdevicePipe,
+   CategoryCardComponent
   ],
   imports: [
     BrowserModule,

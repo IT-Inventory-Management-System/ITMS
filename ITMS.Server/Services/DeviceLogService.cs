@@ -187,6 +187,22 @@ public class DeviceLogService
             throw;
         }
     }
-    
+
+    public void AddComment(DeviceAddComment commentDto)
+    {
+        Comment commentEntity = new Comment
+        {
+            Description = commentDto.Description,
+            CreatedBy = commentDto.CreatedBy,
+            CreatedAtUtc = DateTime.UtcNow,
+            DeviceId = commentDto.DeviceId,
+            DeviceLogId= commentDto.DeviceLogId
+        };
+
+        _context.Comments.Add(commentEntity);
+        _context.SaveChanges();
     }
+
 }
+
+
