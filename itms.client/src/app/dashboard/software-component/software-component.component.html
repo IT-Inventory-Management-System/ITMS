@@ -43,7 +43,7 @@
           <div class="lowstock"*ngIf="softwareData.inventory < 1">
             <div class="lowstocktext">Low in Stock</div>
           </div>
-          <div class="inventorynumber">
+          <div class="inventorynumber"[ngClass]="{'inventorylowstocktext': softwareData.inventory < 1}" >
             {{ softwareData.inventory }}
           </div>
         </div>
