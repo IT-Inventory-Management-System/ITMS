@@ -9,4 +9,5 @@ public class SoftwareModelDTO
     public Guid Id { get; set; }
     public string SoftwareName { get; set; }
     public Guid SoftwareTypeId { get; set; }
+    public string TypeName {  get; set; }
 }
