@@ -1,13 +1,24 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DashboardService } from '../shared/services/Dashboard.service';
 
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  //data: Array<Object> = [
+  //  { text: "ListItem 1", value: "ListItem 1" },
+  //  { text: "ListItem 2", value: "ListItem 2" },
+  //  { text: "ListItem 3", value: "ListItem 3" },
+  //  { text: "ListItem 4", value: "ListItem 4" },
+  //  { text: "ListItem 5", value: "ListItem 5" }
+  //];
+  //fieldsvalues: Object = { dataSource: this.data, text: "text", value: "value" };
 
+
+  
   selectedAssetAge: any = '';
   accessoriesData: any[];
   softwaresData: any[];
@@ -39,6 +50,9 @@ export class DashboardComponent implements OnInit {
     this.filteredAccessories = this.accessoriesData;
     this.filteredSoftware = this.softwaresData;
 
+    
+   
+
   }
 
 
@@ -53,6 +67,7 @@ export class DashboardComponent implements OnInit {
     this.getPrimaryData();
     this.getLogsData();
   }
+
 
   // utils.ts
 

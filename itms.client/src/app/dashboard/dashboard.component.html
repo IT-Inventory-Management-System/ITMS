@@ -27,24 +27,24 @@
             </div>
             <div class="col-4 Filter">
               <span class="filter-by"> Filter by</span>
-              <div class="btn-group">
-                <select [(ngModel)]="selectedAssetAge" class="dropdown-toggle" aria-expanded="false" (change)="handleCheckboxChange()">
-                  <option value="0" selected class="placeholder">Asset Age</option>
-                  <option value="1">0-1 years</option>
-                  <option value="2">1-2 years</option>
-                  <option value="3">2-3 years</option>
-                  <option value="4">3-4 years</option>
+              <div class="">
+                <select [(ngModel)]="selectedAssetAge" class="asset-age" aria-expanded="false" (change)="handleCheckboxChange()">
+                  <option value="0" selected class="placeholder drop-options">Asset Age</option>
+                  <option value="1" class="drop-options">0-1 years</option>
+                  <option value="2" class="drop-options">1-2 years</option>
+                  <option value="3" class="drop-options">2-3 years</option>
+                  <option value="4" class="drop-options">3-4 years</option>
                 </select>
                 <!--<button type="button" class="btn btn dropdown-toggle " data-bs-toggle="dropdown" aria-expanded="false">
-                  Asset Age
-                </button>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><a class="dropdown-item" href="#">Something else here</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Separated link</a></li>
-                </ul>-->
+      Asset Age
+    </button>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="#">Action</a></li>
+      <li><a class="dropdown-item" href="#">Another action</a></li>
+      <li><a class="dropdown-item" href="#">Something else here</a></li>
+      <li><hr class="dropdown-divider"></li>
+      <li><a class="dropdown-item" href="#">Separated link</a></li>
+    </ul>-->
               </div>
             </div>
           </div>
