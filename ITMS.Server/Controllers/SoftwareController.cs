@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.Elfie.Serialization;
 using static ITMS.Server.Services.GetSoftwareService;
+using System.Runtime.InteropServices;
 namespace ITMS.Server.Controllers
 {
     [ApiController]
@@ -29,6 +30,20 @@ namespace ITMS.Server.Controllers
         public async Task<IEnumerable<GetSoftwareVersionDTO>> listSoftwareVersions(String SoftwareName)
         {
             return await _addSoftwareVersionService.listSoftwareVersions(SoftwareName);
+        }
+
+     
+        [HttpGet("getsoftwareType")]
+
+        public ActionResult<IEnumerable<SoftwareType>> GetSoftwareTypes(){
+            var softwareTypes = _context.SoftwareTypes
+                .Select(st => new SoftwareTypeDTO{
+                    Id = st.Id,
+                    TypeName = st.TypeName
+                }).ToList();
+
+            return Ok(softwareTypes);
+
         }
     }
 }

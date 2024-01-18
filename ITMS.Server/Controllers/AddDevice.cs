@@ -68,7 +68,7 @@ namespace ITMS.Server.Controllers
             try
             {
                 _deviceService.AddSoftware(software);
-                return Ok("Created");
+                return Ok();
             }
             catch (Exception e)
             {

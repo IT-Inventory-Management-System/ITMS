@@ -60,6 +60,13 @@ export class DataService {
     return this.http.get<any[]>(this.apiUrl + 'addDevices/software-models');
   }
   
+  getSoftwareTypes(): Observable < any[] > {
+    return this.http.get<any[]>(this.apiUrl + 'software/getsoftwareType');
+  }
+
+  postNewSoftwareData(formData: any): Observable<any> {
+    return this.http.post(this.apiUrl + 'addDevices/add-software', formData);
+  }
   
 
   getCommentById(deviceLogId: Guid): Observable<any[]> {
