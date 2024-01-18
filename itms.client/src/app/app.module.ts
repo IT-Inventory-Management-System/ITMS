@@ -120,9 +120,8 @@ import { AssetfilterdevicePipe } from './assetfilterdevice.pipe';
     UserListComponent,
     EmployeeComponent,
    CurrentdeviceComponent,
-   AssetfilterdevicePipe
-
-
+    AssetfilterdevicePipe,
+   CategoryCardComponent
   ],
   imports: [
     BrowserModule,
