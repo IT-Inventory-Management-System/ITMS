@@ -34,12 +34,14 @@ public class AddDeviceService : IDeviceService
                 Device inventoriesItem = new Device();
                 inventoriesItem.SerialNumber = device.SerialNumberList[i].ToString();
                 inventoriesItem.Cygid = device.CYGIdsList[i];
+                inventoriesItem.DeviceModelId = device.DeviceModelId; 
                 //inventoriesItem.os = inventariesItem.os;
                 inventoriesItem.PurchasedDate = device.PurchasedOn;
                 inventoriesItem.Status = device.Status;
                 inventoriesItem.CreatedBy = device.CreatedBy;
                 inventoriesItem.CreatedAtUtc = device.CreatedAtUtc;
                 inventoriesItem.IsArchived = device.IsArchived;
+                inventoriesItem.LocationId = device.LocationId;
                 _context.Devices.Add(inventoriesItem);
             }
             //_context.Devices.Add(device);
@@ -104,14 +106,15 @@ public class AddDeviceService : IDeviceService
         }
         public void AddSoftware(PutSoftware software)
         {
-            Software softwareForDb = new Software
-            {
+        Software softwareForDb = new Software
+        {
 
 
                 SoftwareName = software.SoftwareName,
                 SoftwareTypeId = software.SoftwareTypeId,
                 CategoryId = software.CategoryId,
                 SoftwareThumbnail = software.SoftwareThumbnail,
+                Version = software.Version,
                 CreatedBy = software.CreatedBy,
                 CreatedAtUtc = software.CreatedAtUtc,
                 UpdatedBy = software.UpdatedBy,
@@ -129,7 +132,7 @@ public class AddDeviceService : IDeviceService
                 SoftwareAllocation softwareAllocationForDb = new SoftwareAllocation();
                 softwareAllocationForDb.SoftwareId = sofwareAllocation.SoftwareId;
                 softwareAllocationForDb.ActivationKey = sofwareAllocation.ActivationKey;
-                softwareAllocationForDb.SoftwareVersion = sofwareAllocation.SoftwareVersion;
+                //softwareAllocationForDb.SoftwareVersion = sofwareAllocation.SoftwareVersion;
                 softwareAllocationForDb.PurchasedDate = sofwareAllocation.PurchasedDate;
                 softwareAllocationForDb.ExpiryDate = sofwareAllocation.ExpiryDate;
                 softwareAllocationForDb.AssignedTo = sofwareAllocation.AssignedTo;

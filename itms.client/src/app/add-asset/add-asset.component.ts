@@ -9,13 +9,30 @@ import { DataService } from '../shared/services/data.service';
 export class AddAssetComponent {
 
   categoryData: any[] = [];
+  selectedCategory: string | null;
+  localStorageListener: any;
 
   constructor(private dataService: DataService) {
     this.categoryData = [];
+    this.selectedCategory = localStorage.getItem('selectedCategory');
+    this.localStorageListener = this.handleStorageChange.bind(this);
+    window.addEventListener('storage', this.localStorageListener);
+
   }
 
   ngOnInit(): void {
     this.showCategories();
+  }
+
+  ngOnDestroy(): void {
+    window.removeEventListener('storage', this.localStorageListener);
+  }
+
+  handleStorageChange(event: StorageEvent): void {
+    alert(event.newValue);
+    if (event.key === 'selectedCategory') {
+      this.selectedCategory = event.newValue;
+    }
   }
 
   showCategories() {
