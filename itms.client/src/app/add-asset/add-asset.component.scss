@@ -48,7 +48,6 @@
   flex: 1 0 0;
   align-self: stretch;
 
-
 }
 .add_device_header {
   color: var(--Primary-Gray, #343435);
@@ -107,9 +106,10 @@
   opacity: 0.5;
   border:none;
 }
-.search_input:focus{
-    border:none;
+.serach_input:focus {
+  outline-color: transparent !important;
 }
+
 app-category-card {
   display: flex;
   flex-direction: column;
@@ -119,3 +119,4 @@ app-category-card {
   align-self: stretch ;
   width:100%;
 }
+

@@ -27,5 +27,6 @@ namespace ITMS.Server.Controllers
 
             return Ok(userDeviceDto);
         }
+       
     }
 }

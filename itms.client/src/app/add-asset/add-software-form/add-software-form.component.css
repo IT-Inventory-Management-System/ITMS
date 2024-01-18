@@ -3,7 +3,52 @@
   left: -25px;
   cursor: pointer;
 }
-
+.software_name {
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 0.8125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.select_input {
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  opacity: 0.5;
+  padding:0.5rem;
+  margin-bottom:0.5rem;
+}
+.heading_Add_software {
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  align-self: stretch
+}
+.main_content {
+  height: 34.75rem;
+ margin-top:1rem;
+  overflow-y:scroll;
+  overflow-x:hidden;
+  margin-bottom:1rem;
+}
+.top_field {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.375rem;
+  align-self: stretch;
+  margin-bottom:2rem;
+  width:33.875rem;
+  height:5.8125rem;
+  margin-bottom:1rem;
+}
 #passwordID {
   background-color: white;
   border: white;
@@ -26,66 +71,56 @@
 
 .alert {
   display: flex;
-  width: 630px;
-  padding: 8px 12px;
+  width: 33.875rem;
+  padding: 0.5rem 0.75rem;
   align-items: flex-start;
-  gap: 8px;
-  border-radius: 4px;
+  gap: 0.5rem;
+  border-radius: 0.25rem;
+  height:2.25rem;
   background: #BFE6FB;
+  font-size: 0.78rem;
 }
 
 .eye-icon {
   width: 24px;
   height: 24px;
 }
-
-.picture {
-  width: 90px;
-  height: 90px;
-  flex-shrink: 0;
-  border-radius: 4px;
-  background: var(--Primary-White, #FFF);
-  border: 1px solid var(--Primary-Gray, #343435);
-  margin-left: 10px;
+.form-label {
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 0.8125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
-.thumbnail-image {
-  width: 70%;
-  height: 60%;
-  margin-top: 25%;
-  margin-left: 15%;
-  align-items: center;
-  justify-content: center;
-  object-fit: cover;
-  border-radius: 4px;
+.date_container{
+    width:35.5rem;
+    margin-bottom:1.25rem;
 }
-
-.thumbnail-text {
+.form-control {
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  opacity:0.5;
+  height:2.25rem;
+}
+.quantity-counter {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  flex: 1 0 0;
-}
-
-  .thumbnail-text p {
-    color: var(--Primary-Gray, #343435);
-    font-size: 14px;
-    margin-top: 0;
-  }
-
-.thumbnail-submit-button {
-  display: flex;
-  padding: 6px 10px;
+  width: 8.625rem;
+  justify-content: space-between;
   align-items: center;
-  gap: 10px;
-  border-radius: 4px;
+  border-radius: 0.25rem;
   border: 1px solid var(--Primary-Blue, #28519E);
-  background: var(--Primary-Blue, #28519E);
-  color: #FFF;
-  margin-bottom: 12px;
-  font-size: 14px;
+  background: #FFF;
+  height:2.5rem ;
+  margin-bottom:1.25rem;
 }
+
+
 
 .alert-icon {
   width: 12px;
@@ -100,19 +135,28 @@
 
 .checkbox-container {
   display: flex;
+ 
   align-items: center;
 }
 
 input[type="checkbox"] {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   margin-right: 8px;
-  border: 2px solid blue;
+  border: 1px solid blue;
 }
 
+
+
+   
+
 .toggle-label {
-  color: rgb(20, 20, 167);
-  font-weight: 600;
+  color: var(--Primary-Blue, #28519E);
+  font-family: Roboto;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 }
 
 .software-form-container {
@@ -125,6 +169,9 @@ input[type="checkbox"] {
   border-radius: 4px;
   border: 1px solid var(--Secondary-Light-Blue, #B8DDE1);
   background: #F5F8FE;
+  width: 33.875rem;
+  height: 24.28951rem;
+  margin-bottom:1.25rem;
 }
 
 .software-checkbox-container {
@@ -174,3 +221,32 @@ input[type="checkbox"] {
   color: #FFF;
   margin-left: 170%;
 }
+.activation_key_container{
+    width:35.875rem;
+    height:2.25rem;
+}
+.button_class {
+  display: flex;
+  padding: 1rem 0rem;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 1rem;
+  align-self: stretch;
+  border-top: 1px solid var(--Secondary-Light-Gray, #E9ECEB);
+}
+.footer-button {
+  display: flex;
+  width: 5.75rem;
+  height: 2.5rem;
+  padding: 0.75rem 0.5rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  background-color:white;
+  border-radius: 0.25rem;
+  border: 1px solid #28519E;
+}
+  .footer-button:active, .footer-button:focus {
+    background-color: var(--Primary-Blue, #28519E);
+    color: white;
+  }

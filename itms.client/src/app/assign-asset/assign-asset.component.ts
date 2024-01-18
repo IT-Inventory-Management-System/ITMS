@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { DeviceAssignService } from '../shared/services/device-assign.service';
+import { Inject } from '@angular/core';
 
 @Component({
   selector: 'app-assign-asset',
@@ -77,7 +78,7 @@ export class AssignAssetComponent {
   accessories: any[] = [];
   selectedAccessory: any;
 
-  constructor(private deviceAssignService: DeviceAssignService) { }
+  constructor(@Inject(DeviceAssignService) private deviceAssignService: DeviceAssignService) { }
 
   ngOnInit() {
     this.getUsers();

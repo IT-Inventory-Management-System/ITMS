@@ -24,11 +24,11 @@ namespace ITMS.Server.Services
                 var result = await (from s in _context.Software
                                     select new GetSoftwareDTO
                                     {
-                                        Id=s.Id,
-                                        SoftwareName=s.SoftwareName,
-                                        SoftwareTypeId=s.SoftwareTypeId,
+                                    Id = s.Id,
+                                    SoftwareName = s.SoftwareName,
+                                    SoftwareTypeId = s.SoftwareTypeId,
                                         SoftwareThumbnail= s.SoftwareThumbnail,
-                                        CategoryId=s.CategoryId
+                                    CategoryId = s.CategoryId
                                     }
                                  ).ToListAsync();
                 return result;
