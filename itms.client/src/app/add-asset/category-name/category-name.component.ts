@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ElementRef, Renderer2 } from '@angular/core';
 
 @Component({
   selector: 'app-category-name',
@@ -7,16 +7,48 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 })
 export class CategoryNameComponent {
 
+  constructor(private el: ElementRef, private renderer: Renderer2) { }
+
   @Input() name: string = '';
   @Input() isSelected: boolean = false; 
   @Output() clickEvent = new EventEmitter<string>(); // Emit the category name on click
 
-  handleClick() {
-    this.clickEvent.emit(this.name); // Emit the category name when clicked
+  ngOnInit() {
+    // Check if the current category name matches the selected category in localStorage
+    if (this.name === localStorage.getItem('selectedCategory')) {
+      this.isSelected = true;
+      this.updateStyles();
+    }
   }
 
+  handleClick() {
+    //this.clickEvent.emit();
+    this.resetStyles();
+    localStorage.setItem('selectedCategory', this.name);
+    this.isSelected = true;
+    this.updateStyles();
+    location.reload();
+  }
+
+  updateStyles() {
+    // Apply styles to the clicked card
+    const outerCard = this.el.nativeElement.querySelector('.outer-card-name');
+    this.renderer.setStyle(outerCard, 'background-color', '#28519E');
+    this.renderer.setStyle(outerCard, 'color', 'white');
+  }
+
+  resetStyles() {
+    // Reset styles for all cards
+    const allCards = document.querySelectorAll('.outer-card-name');
+    allCards.forEach(card => {
+      this.renderer.removeStyle(card, 'background-color');
+      this.renderer.removeStyle(card, 'color');
+    });
+  }
+
+
   getSrcLink(name:string) {
-    switch (this.name) {
+    switch (name) {
       case 'Laptop':
         return this.isSelected ? '../../assets/icons/laptop-white.svg':'../../assets/icons/laptop-blue.svg';
       case 'Monitor':

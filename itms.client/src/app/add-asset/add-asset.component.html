@@ -16,12 +16,13 @@
     </div>
     <div class="col-8 add_device_container">
       <div class="row add_device_contents">
-        <div class="col-12">
-          <!--<app-add-device-form></app-add-device-form>-->
-          <app-add-software-form></app-add-software-form>
-
-
+        <div class="col-12" *ngIf="selectedCategory == 'Laptop'">
+          <app-add-device-form></app-add-device-form>     
         </div>
+        <div class="col-12" *ngIf="selectedCategory == 'Software'">
+          <app-add-software-form></app-add-software-form>
+        </div>
+        <!--<app-add-software-form></app-add-software-form>-->
       </div>
     </div>
   </div>

@@ -31,7 +31,7 @@ namespace ITMS.Server.Controllers
             try
             {
                 _deviceService.AddDevice(pLaptop);
-                return Ok("Success");
+                return Ok();
             }
             catch (Exception e)
             {
@@ -46,7 +46,7 @@ namespace ITMS.Server.Controllers
             try
             {
                 _deviceService.AddDeviceModel(model);
-                return Ok("Created");
+                return Ok();
             }
             catch (Exception e)
             {
