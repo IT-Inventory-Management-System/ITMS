@@ -78,3 +78,10 @@ export class DataService {
     this.buttonClickedSource.next();
   }
 }
+  postSoftwaredata(formData: any): Observable<any> {
+    return this.http.post(this.apiUrl + 'addDevices/add-software-allocation', formData);
+  }
+
+
+}
+
