@@ -98,7 +98,6 @@ import { AssetfilterdevicePipe } from './assetfilterdevice.pipe';
     SoftwareDetailsComponent,
     AccessoriesDetailsComponent,
     UserNameListComponent,
-    CommentsComponent,
     SpecInfoComponent,
     DevicesComponent,
     DevicesListComponent,
@@ -121,6 +120,7 @@ import { AssetfilterdevicePipe } from './assetfilterdevice.pipe';
     EmployeeComponent,
    CurrentdeviceComponent,
     AssetfilterdevicePipe,
+    CommentsComponent,
    CategoryCardComponent
   ],
   imports: [

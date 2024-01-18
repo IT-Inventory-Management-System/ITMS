@@ -7,13 +7,6 @@ import { DataService } from '../../services/data.service';
   styleUrls: ['./comments.component.css']
 })
 
-export class DeviceAddComment {
-  description: string;
-  createdBy: string;
-  createdAtUtc: string;
-  deviceId: string;
-  deviceLogId: string;
-}
 export class CommentsComponent {
 
   isCommentSectionCollapsed = false;
