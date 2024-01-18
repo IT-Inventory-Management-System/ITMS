@@ -28,10 +28,11 @@
 
 .Time {
   color: var(--Primary-Gray, #343435);
+  text-align: right;
   font-family: Roboto;
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 600;
   line-height: normal;
 }
 
