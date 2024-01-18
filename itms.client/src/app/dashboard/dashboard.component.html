@@ -74,11 +74,12 @@
             <img src="../../../assets/icons/dashboard/search.svg" />
             <input class="Search-text"
                    placeholder="Search by accessories name"
-                   (input)="applyFilter($event.target.value)" />
+                   [(ngModel)]="filterValue"
+                   (input)="applyAccessoryFilter($event)" />
           </div>
           <div class="Software-Content">
-            <app-accesories *ngFor="let accessory of filteredAccessories" [accessoriesData]="accessory"></app-accesories>
-
+            <app-accesories *ngFor="let accessory of filteredAccessories ? filteredAccessories : accessoriesData"
+                            [accessoriesData]="accessory"></app-accesories>
           </div>
         </div>
         <div class="col-md-6 Software  ">
@@ -88,10 +89,11 @@
           </div>
           <div class="Search-section">
             <img src="../../../assets/icons/dashboard/search.svg" />
-            <input class="Search-text" placeholder="Search by software name" />
+            <input class="Search-text" placeholder="Search by software name"   [(ngModel)]="filterValues"
+  (input)="applySoftwareFilter($event)" />
           </div>
           <div class="container-fluid">
-            <app-software-component *ngFor="let software of softwaresData" [softwareData]="software"></app-software-component>
+            <app-software-component *ngFor="let software of filteredSoftware? filteredSoftware : softwaresData " [softwareData]="software"></app-software-component>
           </div>
         </div>
       </div>

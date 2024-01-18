@@ -12,15 +12,33 @@ export class DashboardComponent implements OnInit {
   softwaresData: any[];
   primaryData: any[];
   logsData: any[];
-  filteredAccessories: any[] = [];
+  filteredAccessories: any[]  // Remove the duplicated declaration
+  filterValue: string = '';
 
-  applyFilter(filterValue: string) {
-    this.filteredAccessories = this.accessoriesData.filter((accessory) =>
-      accessory.name.toLowerCase().includes(filterValue.toLowerCase())
+  filteredSoftware: any[]
+  filterValues: string = '';
+
+  applySoftwareFilter(event: Event) {
+    this.filterValues = (event.target as HTMLInputElement).value;
+    this.filteredSoftware = this.softwaresData.filter((software) =>
+      software.name.toLowerCase().includes(this.filterValues.toLowerCase())
     );
   }
 
-  constructor(private dashboardService: DashboardService) { }
+  applyAccessoryFilter(event: Event) {
+    this.filterValue = (event.target as HTMLInputElement).value;
+    this.filteredAccessories = this.accessoriesData.filter((accessory) =>
+      accessory.name.toLowerCase().includes(this.filterValue.toLowerCase())
+    );
+  }
+
+  constructor(private dashboardService: DashboardService) {
+
+    
+    this.filteredAccessories = this.accessoriesData;
+    this.filteredSoftware = this.softwaresData;
+    
+  }
 
  
 
