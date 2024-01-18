@@ -31,8 +31,21 @@ public class CommentDto
     public Guid DeviceLogId { get; set; }
     public string Description { get; set; }
     public string CreatedBy { get; set; }
+
+   
     public DateTime CreatedAt { get; set; }
+    public Guid DeviceId { get; set; }
 }
+
+public class DeviceAddComment
+{
+    public Guid DeviceLogId { get; set; }
+    public string Description { get; set; }
+    public Guid CreatedBy { get; set; }
+    public DateTime CreatedAt { get; set; }
+    public Guid DeviceId { get; set; }
+}
+
 
 public class CategoryDTO
 {
