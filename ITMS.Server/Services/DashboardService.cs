@@ -57,24 +57,46 @@ namespace ITMS.Server.Services
 
             return allSoftware;
         }
-        public List<Primary> GetPrimary()
+        public List<List<Primary>> GetPrimary()
         {
             var primary = _context.Ostypes.Include(o => o.DeviceModels).ThenInclude(d => d.Devices);
             //DeviceModel.Where(dm=>dm.Os!=null).Include(d => d.Devices);
-            List<Primary> allprimary = new List<Primary>();
+            List<List<Primary>> allprimary = new List<List<Primary>>();
             //return primary;
 
             foreach (var p in primary)
             {
-                Primary prime = new Primary();
-                prime.Name = p.Osname;
-                prime.Total = p.DeviceModels
-                        .SelectMany(dm => dm.Devices)
-                        .Count();
-                prime.Assigned = p.DeviceModels
-            .SelectMany(dm => dm.Devices)
-            .Count(device => device.AssignedTo != null);
-                allprimary.Add(prime);
+                List<Primary> listOfYearsPrimary = new List<Primary>();
+                for (var i = -1; i < 4; i++)
+                {
+                    Primary prime = new Primary();
+                    prime.Name = p.Osname;
+
+                    if (i == -1)
+                    {
+                        prime.Total = p.DeviceModels
+                                .SelectMany(dm => dm.Devices)
+                                .Count();
+
+                        prime.Assigned = p.DeviceModels
+                                .SelectMany(dm => dm.Devices)
+                                .Count(device => device.AssignedTo != null);
+                    }
+                    else
+                    {
+                        prime.Total = p.DeviceModels
+                            .SelectMany(dm => dm.Devices)
+                            .Count(device => device.CreatedAtUtc >= DateTime.UtcNow.AddYears(-i-1) && device.CreatedAtUtc < DateTime.UtcNow.AddYears(-i));
+
+                        prime.Assigned = p.DeviceModels
+                            .SelectMany(dm => dm.Devices)
+                            .Count(device => device.CreatedAtUtc >= DateTime.UtcNow.AddYears(-i-1) && device.CreatedAtUtc < DateTime.UtcNow.AddYears(-i) && device.AssignedTo != null);
+
+                    }
+
+                    listOfYearsPrimary.Add(prime);
+                }
+                allprimary.Add(listOfYearsPrimary);
             }
 
             var allCategories = _context.Categories
@@ -85,16 +107,38 @@ namespace ITMS.Server.Services
 
             foreach (var category in allCategories)
             {
-                Primary prime = new Primary();
-                prime.Name = category.Name;
-                prime.Total = category.DeviceModels
-                    .SelectMany(dm => dm.Devices)
-                    .Count();
-                prime.Assigned = category.DeviceModels
-                    .SelectMany(dm => dm.Devices)
-                    .Count(device => device.AssignedTo != null);
-                allprimary.Add(prime);
+                List<Primary> listOfYearsPrimary = new List<Primary>();
+                for (var i = -1; i < 4; i++)
+                {
+                    Primary prime = new Primary();
+                    prime.Name = category.Name;
+
+                    if (i == -1)
+                    {
+                        prime.Total = category.DeviceModels
+                            .SelectMany(dm => dm.Devices)
+                            .Count();
+
+                        prime.Assigned = category.DeviceModels
+                            .SelectMany(dm => dm.Devices)
+                            .Count(device => device.AssignedTo != null);
+                    }
+                    else
+                    {
+                        prime.Total = category.DeviceModels
+                            .SelectMany(dm => dm.Devices)
+                            .Count(device => device.CreatedAtUtc >= DateTime.UtcNow.AddYears(-i-1) && device.CreatedAtUtc < DateTime.UtcNow.AddYears(-i));
+
+                        prime.Assigned = category.DeviceModels
+                            .SelectMany(dm => dm.Devices)
+                            .Count(device => device.CreatedAtUtc >= DateTime.UtcNow.AddYears(-i-1) && device.CreatedAtUtc < DateTime.UtcNow.AddYears(-i) && device.AssignedTo != null);
+                    }
+
+                    listOfYearsPrimary.Add(prime);
+                }
+                allprimary.Add(listOfYearsPrimary);
             }
+
 
             return allprimary;
         }
