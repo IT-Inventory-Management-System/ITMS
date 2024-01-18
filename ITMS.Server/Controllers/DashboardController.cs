@@ -50,7 +50,7 @@ namespace ITMS.Server.Controllers
         [HttpGet("primary")]
         public ActionResult<IEnumerable<Accessories>> GetPrimary()
         {
-            List<Primary> os = _dashboardService.GetPrimary();
+            List<List<Primary>> os = _dashboardService.GetPrimary();
             return Ok(os);
         }
 

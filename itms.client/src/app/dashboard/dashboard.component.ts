@@ -1,13 +1,25 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DashboardService } from '../shared/services/Dashboard.service';
 
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  //data: Array<Object> = [
+  //  { text: "ListItem 1", value: "ListItem 1" },
+  //  { text: "ListItem 2", value: "ListItem 2" },
+  //  { text: "ListItem 3", value: "ListItem 3" },
+  //  { text: "ListItem 4", value: "ListItem 4" },
+  //  { text: "ListItem 5", value: "ListItem 5" }
+  //];
+  //fieldsvalues: Object = { dataSource: this.data, text: "text", value: "value" };
 
+
+  
+  selectedAssetAge: any = '';
   accessoriesData: any[];
   softwaresData: any[];
   primaryData: any[];
@@ -34,14 +46,19 @@ export class DashboardComponent implements OnInit {
 
   constructor(private dashboardService: DashboardService) {
 
-    
+
     this.filteredAccessories = this.accessoriesData;
     this.filteredSoftware = this.softwaresData;
+
     
+   
+
   }
 
- 
 
+  handleCheckboxChange() {
+    console.log('Selected Asset Age:', this.selectedAssetAge);
+  }
 
 
   ngOnInit(): void {
@@ -51,21 +68,22 @@ export class DashboardComponent implements OnInit {
     this.getLogsData();
   }
 
+
   // utils.ts
 
   extractDate(dateTime: string): string {
-  const dateObj = new Date(dateTime);
-  const year = dateObj.getFullYear();
-  const month = ('0' + (dateObj.getMonth() + 1)).slice(-2);
-  const day = ('0' + dateObj.getDate()).slice(-2);
+    const dateObj = new Date(dateTime);
+    const year = dateObj.getFullYear();
+    const month = ('0' + (dateObj.getMonth() + 1)).slice(-2);
+    const day = ('0' + dateObj.getDate()).slice(-2);
 
-  return `${year}-${month}-${day}`;
-}
+    return `${year}-${month}-${day}`;
+  }
 
 
   isDateDifferent(currentIndex: number): boolean {
     if (currentIndex === 0) {
-      return true; 
+      return true;
     }
     const currentDate = this.extractDate(this.logsData[currentIndex].updatedOn);
     const previousDate = this.extractDate(this.logsData[currentIndex - 1].updatedOn);
