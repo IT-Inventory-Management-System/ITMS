@@ -78,7 +78,7 @@ namespace ITMS.Server.Services
             }
 
             var allCategories = _context.Categories
-        .Where(c => c.Name == "Monitor" || c.Name == "Mobile")
+        .Where(c => c.Name == "Monitor" || c.Name == "Mobile Devices")
         .Include(dm => dm.DeviceModels)
         .ThenInclude(d => d.Devices)
         .ToList();

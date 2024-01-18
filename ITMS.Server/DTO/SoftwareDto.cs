@@ -19,6 +19,8 @@
         public DateTime CreatedAtUTC { get; set; }
         public Guid UpdatedBy { get; set; }
         public DateTime UpdatedAtUTC { get; set; }
+
+        public string Version { get; set; }
     }
 
     // SoftwareAllocationDTO.cs
@@ -27,7 +29,6 @@
         public Guid Id { get; set; }
         public Guid SoftwareId { get; set; }
         public required string ActivationKey { get; set; }
-        public required string SoftwareVersion { get; set; }
         public DateTime PurchasedDate { get; set; }
         public DateTime ExpiryDate { get; set; }
         public Guid AssignedTo { get; set; }

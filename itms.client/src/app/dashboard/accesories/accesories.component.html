@@ -1,30 +1,31 @@
 <div class=" container-fluid Asset st ">
   <div class="Type row">
     <div class="Heading">
-      <div>
-        <img src="../../../assets/icons/dashboard/windows.svg" />
-        <span class="windows-text">{{accessoriesData.name}}</span>
+      <div class="round">
+        <img [src]="getIconPath(accessoriesData.name)" />
       </div>
-      <span class="number"> {{accessoriesData.total}}</span>
+
+      <span class="windows-text">{{accessoriesData.name}}</span>
     </div>
     <div class="container-fluid">
-    <div class="stock-section row">
-      <div class="col-8 Assigned">
-        <img src="../../../assets/icons/dashboard/icon.svg" />
-        <span class="Assigned-text">Assigned</span>
+      <div class="stock-section row">
+        <div class="col-6 Assigned">
+          <img src="../../../assets/icons/dashboard/icon.svg" />
+          <span class="Assigned-text">Assigned</span>
 
-        <div class="Assigned-number">{{accessoriesData.assigned}}</div>
-      </div>
-      <div class=" col-4 inventory">
-        <span class="Inventory-text">
+          <div class="Assigned-number">{{accessoriesData.assigned}}</div>
+        </div>
+        <div class=" col-5 inventory">
           <img src="../../../assets/icons/dashboard/Check mark.svg" />
+          <span class="Inventory-text">
 
-          Inventory
-        </span>
-        <div class="Inventory-number">{{accessoriesData.total-accessoriesData.assigned}}</div>
+
+            Inventory
+          </span>
+          <div class="Inventory-number">{{accessoriesData.total-accessoriesData.assigned}}</div>
+        </div>
+
       </div>
-
     </div>
-      </div>
   </div>
 </div>

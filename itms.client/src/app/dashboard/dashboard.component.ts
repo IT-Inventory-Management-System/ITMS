@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { DashboardService } from '../shared/services/Dashboard.service';
 
 @Component({
@@ -14,6 +14,10 @@ export class DashboardComponent implements OnInit {
   logsData: any[];
 
   constructor(private dashboardService: DashboardService) { }
+
+ 
+
+
 
   ngOnInit(): void {
     this.getAccessoriesData();
