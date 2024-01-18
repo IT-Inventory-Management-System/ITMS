@@ -100,7 +100,7 @@
   font-family: Roboto;
   font-size: 0.75rem;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 600;
   line-height: normal;
 }
 
@@ -198,9 +198,22 @@
 .lowstocktext {
   color: #CC1A07;
   text-align: right;
+  leading-trim: both;
+  text-edge: cap;
   font-family: Roboto;
   font-size: 0.875rem;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 600;
+  line-height: normal;
+}
+
+
+.inventorylowstocktext {
+  color: #CC1A07;
+  text-align: right;
+  font-family: Roboto;
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 600;
   line-height: normal;
 }

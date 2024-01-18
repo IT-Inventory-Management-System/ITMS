@@ -27,7 +27,7 @@
             <div class="lowstock  ms-auto" *ngIf="(accessoriesData.total-accessoriesData.assigned) < 1">
               <div class="lowstocktext ">Low in Stock</div>
             </div>
-            <div class="Inventory-number ms-auto p-0">
+            <div class="Inventory-number ms-auto p-0" [ngClass]="{'inventorylowstocktext': (accessoriesData.total - accessoriesData.assigned) < 1}">
               {{accessoriesData.total-accessoriesData.assigned}}
             </div>
           </div>

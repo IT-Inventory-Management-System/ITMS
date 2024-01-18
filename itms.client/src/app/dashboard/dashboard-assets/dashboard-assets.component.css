@@ -127,11 +127,22 @@ width:20.84375rem;
   font-family: Roboto;
   font-size: 0.875rem;
   font-style: normal;
-  font-weight: 500 !important;
+  font-weight: 600;
   line-height: normal;
   
 }
 
 .inventory{
     text-align:right;
+}
+
+
+.inventorylowstocktext {
+  color: #CC1A07;
+  text-align: right;
+  font-family: Roboto;
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
 }
