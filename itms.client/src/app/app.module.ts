@@ -59,6 +59,7 @@ import { UserListComponent } from './user-list/user-list.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { AssetfilterdevicePipe } from './assetfilterdevice.pipe';
 import { AddSoftwareFormComponent } from './add-asset/add-software-form/add-software-form.component';
+import { FilterPipe } from './filter.pipe';
 
 
 
@@ -121,7 +122,8 @@ import { AddSoftwareFormComponent } from './add-asset/add-software-form/add-soft
     EmployeeComponent,
    CurrentdeviceComponent,
     AssetfilterdevicePipe,
-   CategoryCardComponent
+    CategoryCardComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,
