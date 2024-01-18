@@ -59,6 +59,10 @@ import { UserDetailsComponent } from './user-details/user-details.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { AssetfilterdevicePipe } from './assetfilterdevice.pipe';
+import { LaptopSearchBoxComponent } from './assign-asset/laptop-search-box/laptop-search-box.component';
+import { SoftwareSearchBoxComponent } from './assign-asset/software-search-box/software-search-box.component';
+import { SoftwareVersionSearchBoxComponent } from './assign-asset/software-version-search-box/software-version-search-box.component';
+import { AccessoriesSearchBoxComponent } from './assign-asset/accessories-search-box/accessories-search-box.component';
 
 
 
@@ -121,7 +125,14 @@ import { AssetfilterdevicePipe } from './assetfilterdevice.pipe';
     EmployeeComponent,
    CurrentdeviceComponent,
     AssetfilterdevicePipe,
-   CategoryCardComponent
+   CategoryCardComponent,
+    LaptopSearchBoxComponent,
+    SoftwareSearchBoxComponent,
+    SoftwareVersionSearchBoxComponent,
+    AccessoriesSearchBoxComponent,
+
+
+
   ],
   imports: [
     BrowserModule,
