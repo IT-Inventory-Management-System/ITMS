@@ -51,6 +51,10 @@ export class DataService {
     return this.http.post(this.apiUrl + 'addDevices', formData);
   }
 
+  postComment(formData: any): Observable<any> {
+    return this.http.post(this.apiUrl + 'DeviceLog/Comment', formData);
+  }
+
   getDeviceModel(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl + 'addDevices/device-models');
   }

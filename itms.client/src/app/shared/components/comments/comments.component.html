@@ -45,9 +45,9 @@
 
         </div>
         <div class="input-comment">
-          <input class="input-comment" placeholder="Add Comment..." />
+          <input type="text" class="input-comment" [(ngModel)]="newComment" placeholder="Add Comment...">
+          <button class="bb" (click)="saveComment()">Save</button>
         </div>
-        <button class="save">Save</button>
       </div>
     </div>
   </div>

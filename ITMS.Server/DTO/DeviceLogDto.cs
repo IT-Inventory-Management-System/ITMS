@@ -7,6 +7,9 @@ public class DevicelogDto
 {
     public Guid Id { get; set; }
     public string? Cygid { get; set; }
+
+    public Guid DeviceLogId { get; set; }
+    public Guid UserId { get; set; }
     public string Cgiid { get; set; }
     public string EmployeeName { get; set; }
     public string AssignedBy { get; set; }

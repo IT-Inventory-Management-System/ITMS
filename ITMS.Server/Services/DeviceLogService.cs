@@ -107,7 +107,9 @@ public class DeviceLogService
         {
             Id = devicesLogInfo.Id,
             Cygid = devicesLogInfo.Device.Cygid,
+            DeviceLogId=devicesLogInfo.Device.Id,
             Cgiid = devicesLogInfo.Employee.Cgiid,
+            UserId=devicesLogInfo.Employee.Id,
             EmployeeName = $"{devicesLogInfo.Employee.FirstName} {devicesLogInfo.Employee.LastName}",
             AssignedBy = $"{assignedByFirstName} {assignedByLastName}",
             AssignedDate = devicesLogInfo.AssignedDate,
