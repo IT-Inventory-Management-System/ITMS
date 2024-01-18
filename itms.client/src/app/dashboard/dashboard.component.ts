@@ -22,6 +22,28 @@ export class DashboardComponent implements OnInit {
     this.getLogsData();
   }
 
+  // utils.ts
+
+  extractDate(dateTime: string): string {
+  const dateObj = new Date(dateTime);
+  const year = dateObj.getFullYear();
+  const month = ('0' + (dateObj.getMonth() + 1)).slice(-2);
+  const day = ('0' + dateObj.getDate()).slice(-2);
+
+  return `${year}-${month}-${day}`;
+}
+
+
+  isDateDifferent(currentIndex: number): boolean {
+    if (currentIndex === 0) {
+      return true; 
+    }
+    const currentDate = this.extractDate(this.logsData[currentIndex].updatedOn);
+    const previousDate = this.extractDate(this.logsData[currentIndex - 1].updatedOn);
+
+    return currentDate !== previousDate;
+  }
+
   getAccessoriesData(): void {
     this.dashboardService.GetAccessories().subscribe(
       data => {

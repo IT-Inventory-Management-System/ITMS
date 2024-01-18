@@ -49,8 +49,9 @@ namespace ITMS.Server.Services
                     Name = s.SoftwareName,
                     Version = s.version,
                     Type = st.TypeName,
+                    Inventory = s.SoftwareAllocations.Count,
+                    Assigned = s.SoftwareAllocations.Count(sa => sa.AssignedTo != null),
 
-                    // Add other properties as needed
                 }))
                 .ToList();
 

@@ -119,9 +119,18 @@
           <div class="container-fluid">
 
 
-            <div class=" row ">
-              <app-recent-activity  *ngFor="let logs of logsData" [logsData]="logs"></app-recent-activity>
-             
+            <div class="row" *ngFor="let logs of logsData; let i = index">
+              <div class="Date" *ngIf="isDateDifferent(i)">
+                <hr class="h-line">
+                <div class="Date-content">
+                  <img src="../../../assets/icons/dashboard/CalendarBlank.svg" />
+                  <span class="date-title">{{logs.updatedOn | date:'shortDate'}}</span>
+                </div>
+                <hr class="h-line">
+
+              </div>
+              <app-recent-activity [logsData]="logs"></app-recent-activity>
+
 
             </div>
             <!--<div class="Date">
