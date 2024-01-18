@@ -19,7 +19,6 @@ import { NewSidebarComponent } from './shared/components/new-sidebar/new-sidebar
 import { AddDeviceFormComponent } from './add-asset/add-device-form/add-device-form.component';
 import { AddDeviceModelComponent } from './add-asset/add-device-form/add-device-model/add-device-model.component';
 import { IdInputComponent } from './add-asset/add-device-form/id-input/id-input.component';
-import { AddSoftwareFormComponent } from './add-asset/add-software-form/add-software-form.component';
 import { LaptopComponent } from './user-detail/laptop/laptop.component';
 import { CategoryTypeComponent } from './add-asset/category-type/category-type.component';
 import { UserNameListComponent } from './user-name-list/user-name-list.component';
@@ -58,6 +57,7 @@ import { AddSoftwareModelComponent } from './add-asset/add-software-form/add-sof
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { EmployeeComponent } from './employee/employee.component';
+import { AddSoftwareFormComponent } from './add-asset/add-software-form/add-software-form.component';
 
 
 
