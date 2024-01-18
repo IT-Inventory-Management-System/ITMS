@@ -51,7 +51,6 @@ import { AssignAccessoriesComponent } from './assign-asset/assign-accessories/as
 import { RecentActivityComponent } from './dashboard/recent-activity/recent-activity.component';
 import { SoftwareComponentComponent } from './dashboard/software-component/software-component.component';
 import { FilterSearchListPipe } from './filter-search-list.pipe';
-import { FilterPipe } from './filter.pipe';
 import { CurrentdeviceComponent } from './shared/components/currentdevice/currentdevice.component';
 import { SearchBoxComponent } from './assign-asset/search-box/search-box.component';
 import { CommentBoxComponent } from './assign-asset/comment-box/comment-box.component';
@@ -119,12 +118,8 @@ import { EmployeeComponent } from './employee/employee.component';
     AddSoftwareModelComponent,
     UserDetailsComponent,
     UserListComponent,
-    EmployeeComponent
- 
-   
-    AddAssetComponent,
-         FilterPipe,
-         CurrentdeviceComponent
+    EmployeeComponent,
+   CurrentdeviceComponent
 
 
   ],

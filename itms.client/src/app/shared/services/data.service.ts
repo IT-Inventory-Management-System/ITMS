@@ -61,11 +61,11 @@ export class DataService {
   }
   
   
-}
+
   getCommentById(deviceLogId: Guid): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl + 'userdevices/' + deviceLogId + '/comments');
   }
-
+  
   // New method to trigger button click
   triggerButtonClick() {
     this.buttonClickedSource.next();
