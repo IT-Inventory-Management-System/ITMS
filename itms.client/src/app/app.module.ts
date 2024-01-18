@@ -57,6 +57,10 @@ import { SoftwareComponentComponent } from './dashboard/software-component/softw
 import { FilterSearchListPipe } from './filter-search-list.pipe';
 import { SearchBoxComponent } from './assign-asset/search-box/search-box.component';
 import { CommentBoxComponent } from './assign-asset/comment-box/comment-box.component';
+import { LaptopSearchBoxComponent } from './assign-asset/laptop-search-box/laptop-search-box.component';
+import { SoftwareSearchBoxComponent } from './assign-asset/software-search-box/software-search-box.component';
+import { SoftwareVersionSearchBoxComponent } from './assign-asset/software-version-search-box/software-version-search-box.component';
+import { AccessoriesSearchBoxComponent } from './assign-asset/accessories-search-box/accessories-search-box.component';
 
 
 
@@ -114,7 +118,10 @@ import { CommentBoxComponent } from './assign-asset/comment-box/comment-box.comp
     LaptopDetailsComponent,
     SearchBoxComponent,
     CommentBoxComponent,
-
+    LaptopSearchBoxComponent,
+    SoftwareSearchBoxComponent,
+    SoftwareVersionSearchBoxComponent,
+    AccessoriesSearchBoxComponent,
 
 
 
