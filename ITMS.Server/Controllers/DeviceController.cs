@@ -14,12 +14,19 @@ namespace itms.server.controllers
     public class DeviceController : ControllerBase
     {
         private readonly DeviceService _deviceService;
+        private readonly IGetDeviceService _getDeviceService;
 
-        public DeviceController(DeviceService deviceService)
+        public DeviceController(DeviceService deviceService, IGetDeviceService getDeviceService)
         {
             _deviceService = deviceService;
+            _getDeviceService = getDeviceService;
         }
 
+        [HttpGet("getDevices")]
+        public async Task<IEnumerable<GetDeviceDTO>> listDevices()
+        {
+            return await _getDeviceService.listDevices();
+        }
         [HttpGet("categories")]
         public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
         {
@@ -85,6 +92,19 @@ namespace itms.server.controllers
                
                 return StatusCode(500, "Internal Server Error");
             }
+        }
+
+        [HttpGet("get-ostype")]
+        public ActionResult<IEnumerable<Ostype>> GetOstypes()
+        {
+            var getos = _deviceService.GetOstypes();
+            return Ok(getos);
+        }
+        [HttpGet("get-location")]
+        public ActionResult<IEnumerable<Location>> Getlocation()
+        {
+            var getLocation = _deviceService.Getlocation();
+            return Ok(getLocation);
         }
 
     }
