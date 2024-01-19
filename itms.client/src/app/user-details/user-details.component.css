@@ -3,14 +3,15 @@
   display: flex;
   gap: 1rem;
   height: 43.125rem;
-  width: 100%;
-  padding: 1.5rem;
+  width: auto;
+  /*padding: 1.5rem;*/
   flex-direction: column;
-  align-items: flex-start;
+  /*align-items: flex-start;*/
   flex-shrink: 0;
   border-radius: 0.5rem;
   background: #fff;
   box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.15);
+  background-color:pink;
 }
 
 .user-details {
@@ -104,9 +105,9 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  align-self: stretch;
+
   flex-direction: row;
-  width: auto;
+  background-color:green;
 }
 
 .logo {

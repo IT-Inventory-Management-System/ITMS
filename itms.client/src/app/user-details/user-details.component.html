@@ -3,11 +3,11 @@
     <div class="user-headers">
       <div class="user-header">
         <div class="first">
-          <ngx-avatars name="{{userDetails.firstName }} {{userDetails.lastName }}" [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="33"></ngx-avatars>
+          <ngx-avatars name="{{userDetails?.firstName }} {{userDetails?.lastName }}" [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="33"></ngx-avatars>
 
           <div class="user-name-id">
-            <div class="user-name">{{userDetails.firstName }} </div>
-            <div class="user-id">{{ userDetails.cgiid }} </div>
+            <div class="user-name">{{userDetails?.firstName }} </div>
+            <div class="user-id">{{ userDetails?.cgiid }} </div>
           </div>
         </div>
 
