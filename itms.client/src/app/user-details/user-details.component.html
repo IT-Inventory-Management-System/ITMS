@@ -19,17 +19,26 @@
 
 
     <div class="assigned">
-      <div class="buttons">
-        <button class="item1">
-          <div class="laptop">Laptop</div>
-        </button>
-        <button class="item2">
-          <div class="software">Software</div>
-        </button>
-        <button class="item3">
-          <div class="accessories">Accessories</div>
-        </button>
-      </div>
+      <app-laptop-details *ngIf="selectedItem === 'laptop'" [userId]="userDetails.id"></app-laptop-details>
+      <app-software-details *ngIf="selectedItem === 'software'" [userId]="userDetails.id"></app-software-details>
+      <app-accessories-details *ngIf="selectedItem === 'accessories'"  [userId]="userDetails.id"></app-accessories-details>
+    </div>
+
+
+    <!--<div class="assigned">
+    <div class="buttons">
+    <button class="item1">
+    <div class="laptop">Laptop</div>
+    </button>
+    <button class="item2">
+    <div class="software">Software
+
+            </div>
+    </button>
+    <button class="item3">
+    <div class="accessories">Accessories</div>
+    </button>
+    </div>
 
       <!--<app-laptop-details [userId]="userDetails.id"></app-laptop-details>-->
     </div>

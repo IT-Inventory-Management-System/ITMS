@@ -1,11 +1,13 @@
 .software-details {
   display: flex;
-  overflow-y: scroll;
   flex-direction: column;
   align-items: flex-start;
   gap: 1rem;
   flex-shrink: 0;
   align-self: stretch;
+  max-height: 33.4375rem;
+  overflow-y: auto;
+  position: relative;
 }
 .software {
   display: flex;
@@ -19,14 +21,12 @@
 .inner-software-container {
   width: 100%;
   padding: 0.75rem;
-  align-self: stretch;
   border-radius: 0.25rem;
   border: 1px solid var(--Secondary-Light-Gray, #E9ECEB);
   display: flex;
   flex-direction: column;
-  
-  height: auto;
-  position: relative;
+  gap: 0.25rem;
+  z-index: 1;
 }
 
 .software-tag {
@@ -37,9 +37,10 @@
   align-items: center;
   gap: 0.625rem;
   position: absolute;
-  right: 0rem;
+  right: 0;
   border-radius: 0rem 0.25rem;
   background: var(--primary-yellow, #ffb81c);
+  z-index:2;
 }
 
 .software-tag-info {
@@ -80,4 +81,15 @@
   margin-bottom: 0.5rem;
 }
 
-
+.hi {
+  height: 19.8125rem;
+  width: auto;
+  display: flex;
+  padding: 1rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  align-self: stretch;
+  border-radius: 0.25rem;
+  background: #EAEEF6;
+}

@@ -79,7 +79,20 @@ namespace ITMS.Server.Services
                         AssignedTo = _dbContext.Employees
                             .Where(employee => employee.Id == sa.AssignedTo)
                             .Select(employee => $"{employee.FirstName} {employee.LastName}")
-                            .FirstOrDefault()
+                            .FirstOrDefault(),
+                        Comments = _dbContext.Comments
+                            .Where(comment => comment.SoftwareAllocationId == sa.Id) 
+                            .Select(c => new CommentDto
+                            {
+                                Id = c.Id,
+                                Description = c.Description,
+                                CreatedBy = _dbContext.Employees
+                                    .Where(employee => employee.Id == c.CreatedBy)
+                                    .Select(employee => $"{employee.FirstName} {employee.LastName}")
+                                    .FirstOrDefault(),
+                                CreatedAt = c.CreatedAtUtc
+                            })
+                            .ToList(),
                         //SubmitedByDate = sa.AssignedDate 
                     })
                     .ToList();

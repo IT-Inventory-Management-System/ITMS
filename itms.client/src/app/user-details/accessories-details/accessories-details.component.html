@@ -1,1 +1,57 @@
-<p>accessories-details works!</p>
+<span>
+  <img src="../../../../assets/icons/Software.svg">
+</span>
+<span style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1.125rem; font-style: normal; font-weight: 600; line-height: normal;">
+  Accessories
+</span>
+<div class="accessories-details">
+  <div class="inner-accessories-container" *ngFor="let accessory of accessoriesDetails">
+    <div class="col-md-12">
+
+      <div class="accessories-tag" *ngIf="isMostRecent(accessory)">
+        <div class="accessories-tag-info">CURRENT ACCESSORY</div>
+      </div>
+
+      <div class="row user-detail">
+        <div class="user-accessory">
+
+          <div class="col-md-6 common-gap-style">
+            <div style="color: var(--Adhoc-Grey, #6D6D6D); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 400; line-height: normal;">Category Assigned: </div>
+            <div style="color: var(--Primary-Blue, #28519E); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 600; line-height: normal;">{{accessory.categoryName}}</div>
+
+            <div style="color: var(--Adhoc-Grey, #6D6D6D); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 400; line-height: normal;">Device Name Assigned: </div>
+            <div style="color: var(--Primary-Blue, #28519E); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 600; line-height: normal;">{{accessory.deviceName}}</div>
+          </div>
+
+          <div class="col-md-6 common-gap-style">
+            <div style="color: var(--Adhoc-Grey, #6D6D6D); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 400; line-height: normal;">Category Type:</div>
+            <div style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal;">{{accessory.categoryType}}</div>
+
+            <div style="color: var(--Adhoc-Grey, #6D6D6D); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 400; line-height: normal;">Model Assigned: </div>
+            <div style="color: var(--Primary-Blue, #28519E); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 600; line-height: normal;">{{accessory.modelNo}}</div>
+          </div>
+
+        </div>
+
+        <div class="user-accessory">
+
+          <div class="col-md-6 common-gap-style">
+            <div style="color: var(--Adhoc-Grey, #6D6D6D); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 400; line-height: normal;">Assigned By: </div>
+            <div style="color: var(--Primary-Blue, #28519E); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 600; line-height: normal;">{{accessory.assignBy}}</div>
+            <div style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal;">{{accessory.assignedDate}}</div>
+          </div>
+
+          <div class="col-md-6 common-gap-style">
+            <div style="color: var(--Adhoc-Grey, #6D6D6D); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 400; line-height: normal;">Assigned To: </div>
+            <div style="color: var(--Primary-Blue, #28519E); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 600; line-height: normal;">{{accessory.assignedTo}}</div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
