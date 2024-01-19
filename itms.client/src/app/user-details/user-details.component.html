@@ -1,56 +1,107 @@
+
+<app-assign-asset></app-assign-asset>
+
 <div class="page-container">
+
   <div class="row-container">
+
     <div class="user-headers">
+
       <div class="user-header">
+
         <div class="first">
+
           <ngx-avatars name="{{userDetails.firstName }} {{userDetails.lastName }}" [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="33"></ngx-avatars>
 
           <div class="user-name-id">
+
             <div class="user-name">{{userDetails.firstName }} </div>
+
             <div class="user-id">{{ userDetails.cgiid }} </div>
+
           </div>
+
         </div>
 
-        <div class="assign"><button class="assign-button"><img src="../../assets/icons/Add.svg" /><div class="ass">Assign</div></button></div>
+        <div class="assign" routerLink="/assign-asset" data-bs-toggle="modal" data-bs-target="#assignAssetModal"><button class="assign-button"><img src="../../assets/icons/Add.svg" /><div class="ass"></div>Assign</button></div>
+
       </div>
+
     </div>
 
 
 
+    <div class="buttons">
 
+      <button class="item1" (click)="selectItem('laptop')" [ngClass]="{'selected': selectedItem === 'laptop'}">
 
+        <div class="laptop">Laptop</div>
+
+      </button>
+
+      <button class="item2" (click)="selectItem('software')" [ngClass]="{'selected': selectedItem === 'software'}">
+
+        <div class="software">Software</div>
+
+      </button>
+
+      <button class="item3" (click)="selectItem('accessories')" [ngClass]="{'selected': selectedItem === 'accessories'}">
+
+        <div class="accessories">Accessories</div>
+
+      </button>
+
+    </div>
 
     <div class="assigned">
-      <div class="buttons">
-        <button class="item1">
-          <div class="laptop">Laptop</div>
-        </button>
-        <button class="item2">
-          <div class="software">
-            Software
 
-          </div>
-        </button>
-        <button class="item3">
-          <div class="accessories">Accessories</div>
-        </button>
-      </div>
+      <app-laptop-details *ngIf="selectedItem === 'laptop'" [userId]="userDetails.id"></app-laptop-details>
 
+      <app-software-details *ngIf="selectedItem === 'software'" [userId]="userDetails.id"></app-software-details>
 
-      <div class="assigned">
-        <app-laptop-details *ngIf="selectedItem === 'laptop'" [userId]="userDetails.id"></app-laptop-details>
-        <app-software-details *ngIf="selectedItem === 'software'" [userId]="userDetails.id"></app-software-details>
-        <app-accessories-details *ngIf="selectedItem === 'accessories'" [userId]="userDetails.id"></app-accessories-details>
-      </div>
+      <app-accessories-details *ngIf="selectedItem === 'accessories'" [userId]="userDetails.id"></app-accessories-details>
 
-      <!--<app-laptop-details [userId]="userDetails.id"></app-laptop-details>-->
     </div>
 
 
+    <!--<div class="assigned">
+
+    <div class="buttons">
+
+    <button class="item1">
+
+    <div class="laptop">Laptop</div>
+
+    </button>
+
+    <button class="item2">
+
+    <div class="software">Software
+
+            </div>
+
+    </button>
+
+    <button class="item3">
+
+    <div class="accessories">Accessories</div>
+
+    </button>
+
+    </div>
+
+        <app-laptop-details [userId]="userDetails.id"></app-laptop-details>
+
+    <app-software-details></app-software-details>
+
+    <app-accessories-details></app-accessories-details>
+
+      </div>-->
+
+
   </div>
-  </div>
 
 
-
+</div>
 
 

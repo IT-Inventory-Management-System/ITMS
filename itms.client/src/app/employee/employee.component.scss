@@ -7,11 +7,13 @@
 .user {
   display: inline-flex;
   flex-direction: column;
+  min-width:1056px;
   align-items: flex-start;
   gap: 1rem;
+  width:100vw;
+  margin-left:auto;
   box-sizing: border-box;
   padding: 2.5rem 1.25rem 1.94rem 5.25rem;
-  width:100vw;
 }
 
 .page-heading {
@@ -26,6 +28,8 @@
   font-weight: 600;
   line-height: normal;
 }
+
+
 
 .user-section {
   display: flex;
@@ -53,7 +57,7 @@
 .user-data {
   display: flex;
   width: 100%;
-  min-width:60%;
+  min-width:40%;
   height: 43.125rem;
   flex-direction: column;
   align-items: flex-start;

@@ -1,35 +1,12 @@
-<!--<div class="user">
+<div class="user">
   <div class="page-heading">User</div>
   <div class="user-section">
     <div class="user-list">
       <app-user-list (userDetailsClicked)="onUserDetailsClicked($event)"></app-user-list>
     </div>
-    <div class="user-data">-->
-        <!-- Change col-md-8 to col-md-12 -->
-        <!--<app-user-details [userDetails]="selectedUser"></app-user-details>
-
-    </div>
-  </div>
-</div>-->
-
-<div class="container">
-  <div class="row">
-    <div class="col-md-6 col-lg-4 col-xl-3 user-list">
-        <app-user-list (userDetailsClicked)="onUserDetailsClicked($event)"></app-user-list>
-      
-    </div>
-    <div class="col-md-6 col-lg-4 col-xl-3">
-      <div class="user-data">
-       
-          <!-- Change col-md-8 to col-md-12 -->
-          <app-user-details [userDetails]="selectedUser"></app-user-details>
-        </div>
-      </div>
-    <div class="col-md-6 col-lg-4 col-xl-3">
-      <!-- Your content goes here -->
-    </div>
-    <div class="col-md-6 col-lg-4 col-xl-3">
-      <!-- Your content goes here -->
+    <div class="user-data">
+      <!-- Change col-md-8 to col-md-12 -->
+      <app-user-details [userDetails]="selectedUser"></app-user-details>
     </div>
   </div>
 </div>
