@@ -79,7 +79,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     SpecInfoComponent,
     AppComponent,
     NavbarComponent,
-    DashboardComponent,
     CategoryComponent,
     InventoryComponent,
     LicenseComponent,
@@ -132,10 +131,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     SoftwareSearchBoxComponent,
     SoftwareVersionSearchBoxComponent,
     AccessoriesSearchBoxComponent,
-    AccesoriesComponent
-
-
-
+    AccesoriesComponent,
+    DashboardComponent,
     CategoryCardComponent,
     FilterPipe
   ],
