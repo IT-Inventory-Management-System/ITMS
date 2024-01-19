@@ -131,6 +131,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     SoftwareSearchBoxComponent,
     SoftwareVersionSearchBoxComponent,
     AccessoriesSearchBoxComponent,
+    AccesoriesComponent
 
 
 
