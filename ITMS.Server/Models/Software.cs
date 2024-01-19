@@ -13,7 +13,7 @@ public partial class Software
 
     public Guid CategoryId { get; set; }
 
-    public byte[] SoftwareThumbnail { get; set; }
+    public byte[]? SoftwareThumbnail { get; set; }
 
     public Guid CreatedBy { get; set; }
 
