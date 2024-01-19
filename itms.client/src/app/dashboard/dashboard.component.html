@@ -1,29 +1,30 @@
-<div class="container-fluid my-dashboard   ">
-  <div class="row header">
-    <div class="col-8 dashboard-title ">
-      Dashboard
-    </div>
-    <div class="col-4 ">
-      <div class="row">
-        <span class="last-update">
-          Last Updated:
-          <span class="Time" *ngIf="logsData">
-            {{ logsData[0].updatedOn | date: 'MM-dd-yyyy, h:mm a' }}
+<div class="container d-flex justify-content-center align-items-center  ">
+  <div class="container-fluid my-dashboard   ">
+    <div class="row header">
+      <div class="col-8 dashboard-title ">
+        Dashboard
+      </div>
+      <div class="col-4 ">
+        <div class="row">
+          <span class="last-update">
+            Last Updated:
+            <span class="Time" *ngIf="logsData">
+              {{ logsData[0].updatedOn | date: 'MM-dd-yyyy, h:mm a' }}
+            </span>
+            <span class="Time" *ngIf="logsData.length==0">00-00-0000, 00:00 AM</span>
           </span>
-          <span class="Time" *ngIf="logsData.length==0">00-00-0000, 00:00 AM</span>
-        </span>
+
+        </div>
+        <div class="GMT">
+          (GMT-06:00) Central Time (US & Canada)
+        </div>
 
       </div>
-      <div class="GMT">
-        (GMT-06:00) Central Time (US & Canada)
-      </div>
-
     </div>
-  </div>
 
-  <div class="container-fluid ">
+    <div class="container-fluid ">
 
-    <div class="row  KPI-card  ">
+      <div class="row  KPI-card  ">
 
       <div class=" col-md-8 col1 ms-0  ">
         <div class="total-asset ">
@@ -94,61 +95,61 @@
                 <app-dashboard-assets [primaryData]="primaryData[3][+selectedAssetAge]"></app-dashboard-assets>
               </div>
 
+              </div>
+
             </div>
 
           </div>
 
-        </div>
-
-      <div class="row2  d-flex ">
-        <div class=" Assesories-Details ms-0 ">
-          <div class="Assesories-Heading">
-            <div class="Assesories-Text">Accessories</div>
-            <img src="../../../assets/icons/dashboard/Chevron.svg" />
+          <div class="row2  d-flex ">
+            <div class=" Assesories-Details ms-0 ">
+              <div class="Assesories-Heading">
+                <div class="Assesories-Text">Accessories</div>
+                <img src="../../../assets/icons/dashboard/Chevron.svg" />
+              </div>
+              <div class="Search-section">
+                <img src="../../../assets/icons/dashboard/search.svg" />
+                <input class="Search-text"
+                       placeholder="Search by accessories name"
+                       [(ngModel)]="filterValue"
+                       (input)="applyAccessoryFilter($event)" />
+              </div>
+              <div class="Software-Content">
+                <app-accesories *ngFor="let accessory of filteredAccessories ? filteredAccessories : accessoriesData"
+                                [accessoriesData]="accessory"></app-accesories>
+              </div>
+            </div>
+            <div class="col-md-6 Software  ">
+              <div class="Software-Heading">
+                <div class="Software-Text">Software</div>
+                <img src="../../../assets/icons/dashboard/Chevron.svg" />
+              </div>
+              <div class="Software-Search-section">
+                <img src="../../../assets/icons/dashboard/search.svg" />
+                <input class="Search-text" placeholder="Search by software name" [(ngModel)]="filterValues"
+                       (input)="applySoftwareFilter($event)" />
+              </div>
+              <div class="container-fluid">
+                <app-software-component *ngFor="let software of filteredSoftware? filteredSoftware : softwaresData " [softwareData]="software"></app-software-component>
+              </div>
+            </div>
           </div>
-          <div class="Search-section">
-            <img src="../../../assets/icons/dashboard/search.svg" />
-            <input class="Search-text"
-                   placeholder="Search by accessories name"
-                   [(ngModel)]="filterValue"
-                   (input)="applyAccessoryFilter($event)" />
-          </div>
-          <div class="Software-Content">
-            <app-accesories *ngFor="let accessory of filteredAccessories ? filteredAccessories : accessoriesData"
-                            [accessoriesData]="accessory"></app-accesories>
-          </div>
-        </div>
-        <div class="col-md-6 Software  ">
-          <div class="Software-Heading">
-            <div class="Software-Text">Software</div>
-            <img src="../../../assets/icons/dashboard/Chevron.svg" />
-          </div>
-          <div class="Software-Search-section">
-            <img src="../../../assets/icons/dashboard/search.svg" />
-            <input class="Search-text" placeholder="Search by software name"   [(ngModel)]="filterValues"
-  (input)="applySoftwareFilter($event)" />
-          </div>
-          <div class="container-fluid">
-            <app-software-component *ngFor="let software of filteredSoftware? filteredSoftware : softwaresData " [softwareData]="software"></app-software-component>
-          </div>
-        </div>
-      </div>
 
 
 
-
-      </div>
-      <div class=" col-4 Recent-Activity ">
-        <div class="Recent-Activity-Heading ">
-          <div class="Recent-Activity-Text">
-            Recent Activity
-            <img src="../../../assets/icons/dashboard/Chevron.svg" />
-          </div>
 
         </div>
-        <div class=" container-fluid Recent-Activity-Content ">
-          <div class="Frame   ">
-            <!--<div class="Date">
+        <div class=" col-4 Recent-Activity ">
+          <div class="Recent-Activity-Heading ">
+            <div class="Recent-Activity-Text">
+              Recent Activity
+              <img src="../../../assets/icons/dashboard/Chevron.svg" />
+            </div>
+
+          </div>
+          <div class=" container-fluid Recent-Activity-Content ">
+            <div class="Frame   ">
+              <!--<div class="Date">
               <hr class="h-line">
               <div class="Date-content">
                 <img src="../../../assets/icons/dashboard/CalendarBlank.svg" />
@@ -157,24 +158,24 @@
               <hr class="h-line">
 
             </div>-->
-            <div class="container-fluid">
+              <div class="container-fluid">
 
 
-              <div class="row" *ngFor="let logs of logsData; let i = index">
-                <div class="Date" *ngIf="isDateDifferent(i)">
-                  <hr class="h-line">
-                  <div class="Date-content">
-                    <img src="../../../assets/icons/dashboard/CalendarBlank.svg" />
-                    <span class="date-title">{{logs.updatedOn | date:'shortDate'}}</span>
+                <div class="row" *ngFor="let logs of logsData; let i = index">
+                  <div class="Date" *ngIf="isDateDifferent(i)">
+                    <hr class="h-line">
+                    <div class="Date-content">
+                      <img src="../../../assets/icons/dashboard/CalendarBlank.svg" />
+                      <span class="date-title">{{logs.updatedOn | date:'shortDate'}}</span>
+                    </div>
+                    <hr class="h-line">
+
                   </div>
-                  <hr class="h-line">
+                  <app-recent-activity [logsData]="logs"></app-recent-activity>
+
 
                 </div>
-                <app-recent-activity [logsData]="logs"></app-recent-activity>
-
-
-              </div>
-              <!--<div class="Date">
+                <!--<div class="Date">
                 <hr class="h-line">
                 <div class="Date-content">
                   <img src="../../../assets/icons/dashboard/CalendarBlank.svg" />
@@ -183,23 +184,25 @@
                 <hr class="h-line">
 
               </div>-->
-              <!--<div class=" row Section2 ">
+                <!--<div class=" row Section2 ">
                 <app-recent-activity></app-recent-activity>
 
 
               </div>-->
+              </div>
             </div>
           </div>
+
         </div>
 
       </div>
 
+
+
+
+
+
+
     </div>
-
-
-
-
-
-
-
   </div>
+</div>

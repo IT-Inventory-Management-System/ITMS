@@ -12,6 +12,8 @@ import { AssignAssetComponent } from './assign-asset/assign-asset.component';
 
 
 const routes: Routes = [
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' }, // Redirect empty path to 'dashboard'
+
   { path: 'dashboard', component: DashboardComponent },
   { path: 'category', component: CategoryComponent },
   { path: 'inventory', component: InventoryComponent },
