@@ -1,4 +1,6 @@
-﻿namespace ITMS.Server.DTO
+﻿using System.Runtime.InteropServices;
+
+namespace ITMS.Server.DTO
 {
     // SoftwareTypeDTO.cs
     public class SoftwareTypeDTO
@@ -15,12 +17,11 @@
         public Guid SoftwareTypeId { get; set; }
         public Guid CategoryId { get; set; }
         public required byte[] SoftwareThumbnail { get; set; }
+        public string Version { get; set; }
         public Guid CreatedBy { get; set; }
         public DateTime CreatedAtUTC { get; set; }
         public Guid UpdatedBy { get; set; }
         public DateTime UpdatedAtUTC { get; set; }
-
-        public string Version { get; set; }
     }
 
     // SoftwareAllocationDTO.cs

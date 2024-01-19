@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-
-
+import { DeviceAssignService } from '../shared/services/device-assign.service';
+import { Inject } from '@angular/core';
 
 @Component({
   selector: 'app-assign-asset',
@@ -55,11 +55,6 @@ export class AssignAssetComponent {
     }
   }
 
-  saveChanges() {
-    // Implement your logic to handle saving changes
-    console.log('Changes saved!');
-  }
-
   getProgressBarWidth(): string {
     const progress = (this.currentStep - 1) * 50; // Assuming 50% width per step
     return `${progress}%`;
@@ -72,6 +67,108 @@ export class AssignAssetComponent {
       return 'Next';
     }
   }
+  users: any[] = [];
+  selectedUser: any;
+  softwares: any[] = [];
+  selectedSoftware: any;
+  softwareVersions: any[] = [];
+  selectedSoftwareVersion: any;
+  laptops: any[] = [];
+  selectedLaptop: any;
+  accessories: any[] = [];
+  selectedAccessory: any;
+
+  constructor(@Inject(DeviceAssignService) private deviceAssignService: DeviceAssignService) { }
+
+  ngOnInit() {
+    this.getUsers();
+    this.getSoftwares();
+    this.getLaptops();
+    this.getAccessories();
+  }
+
+  getUsers(): void {
+    this.deviceAssignService.getEmployeeBasicDetails().subscribe(
+      (data: any[]) => {
+        console.log('Fetched Users:', data);
+        this.users = data;
+      },
+      (error: any) => {
+        console.error('Error fetching user details:', error);
+      }
+    );
+  }
+  getLaptops(): void {
+    this.deviceAssignService.getLaptop().subscribe(
+      (data: any[]) => {
+        console.log('Fetched Laptops:', data);
+        this.laptops = data;
+      },
+      (error: any) => {
+        console.error('Error fetching software details:', error);
+      }
+    );
+  }
+  getSoftwares(): void {
+    this.deviceAssignService.getSoftware().subscribe(
+      (data: any[]) => {
+        console.log('Fetched Softwares:', data);
+        this.softwares = data;
+      },
+      (error: any) => {
+        console.error('Error fetching software details:', error);
+      }
+    );
+  }
+
+  getSoftwareVersion(SoftwareName: string): void {
+    console.log("SoftwareName for version", SoftwareName);
+    this.deviceAssignService.getSoftwareVersion(SoftwareName).subscribe(
+      (data: any[]) => {
+        console.log('Fetched SoftwaresVersion:', data);
+        this.softwareVersions = data;
+      },
+      (error: any) => {
+        console.error('Error fetching software version details:', error);
+      }
+    );
+  }
+  getAccessories(): void {
+    this.deviceAssignService.getEmployeeBasicDetails().subscribe(
+      (data: any[]) => {
+        console.log('Fetched Accessories:', data);
+        this.accessories = data;
+      },
+      (error: any) => {
+        console.error('Error fetching software details:', error);
+      }
+    );
+  }
+
+  onUserSelected(user: any): void {
+    this.selectedUser = user;
+    console.log("assign user", user);
+  }
+  onLaptopSelected(laptop: any): void {
+    this.selectedLaptop = laptop;
+    console.log("assign laptop", laptop);
+  }
+  onSoftwareSelected(software: any): void {
+    this.selectedSoftware = software;
+    console.log("assign software", software);
+    this.getSoftwareVersion(software.softwareName);
+  }
+
+  onSoftwareVersionSelected(softwareVersion: any): void {
+    this.selectedSoftwareVersion = softwareVersion;
+    console.log("assign software version", softwareVersion);
+  }
+  onAccessoriesSelected(accessories: any): void {
+    this.selectedAccessory = accessories;
+    console.log("assign accessory", accessories);
+  }
+
+  saveChanges(): void {
+    console.log('Selected User:', this.selectedUser);
+  }
 }
-
-

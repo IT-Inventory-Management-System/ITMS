@@ -2,6 +2,7 @@ using ITMS.Server.Models;
 using ITMS.Server.Services;
 using Microsoft.EntityFrameworkCore;
 using MiNET.Blocks;
+using static ITMS.Server.Services.GetSoftwareService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,12 +24,13 @@ builder.Services.AddControllersWithViews()
 );
 builder.Services.AddScoped<IDeviceService, AddDeviceService>();
 builder.Services.AddScoped<IUserListService, UserListService>();
+builder.Services.AddScoped<IAddAssetService, AddAssetService>();
+builder.Services.AddScoped<IGetSoftwareService, GetSoftwareService>();
+builder.Services.AddScoped<IGetSoftwareVersionService, GetSoftwareVersionService>();
 builder.Services.AddScoped<DeviceService>();
 builder.Services.AddScoped<DashboardService>();
 builder.Services.AddScoped<DeviceLogService>();
 builder.Services.AddScoped<UserDeviceService>();
-
-
 
 builder.Services.AddCors(options =>
 {

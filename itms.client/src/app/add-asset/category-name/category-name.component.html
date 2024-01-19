@@ -1,4 +1,4 @@
-<div class="outer-card-name" [class.selected]="isSelected" (click)="handleClick()">
+<div class="outer-card-name" (click)="handleClick()" [attr.data-name]="name">
   <img [src]="getSrcLink(name)">
   <span class="card-name">{{ name }}</span>
 </div>

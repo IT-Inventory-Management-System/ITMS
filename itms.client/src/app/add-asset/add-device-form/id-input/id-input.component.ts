@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-id-input',
@@ -7,6 +8,6 @@ import { Component } from '@angular/core';
 })
 export class IdInputComponent {
 
-
+  @Input() parentForm: FormGroup;
 
 }

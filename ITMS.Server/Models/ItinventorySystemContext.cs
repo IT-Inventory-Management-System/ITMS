@@ -118,6 +118,10 @@ public partial class ItinventorySystemContext : DbContext
             entity.HasOne(d => d.SoftwareAllocation).WithMany(p => p.Comments)
                 .HasForeignKey(d => d.SoftwareAllocationId)
                 .HasConstraintName("FK__Comment__Softwar__7C4F7684");
+            entity.HasOne(d => d.DevicesLog).WithMany(p => p.Comments)
+                .HasForeignKey(d => d.DeviceLogId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Comment_DevicesLog");
         });
 
         modelBuilder.Entity<Device>(entity =>
@@ -375,7 +379,7 @@ public partial class ItinventorySystemContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("CreatedAtUTC");
             entity.Property(e => e.SoftwareName).HasMaxLength(255);
-            entity.Property(e => e.version).HasMaxLength(255);
+            entity.Property(e => e.Version).HasMaxLength(255);
             entity.Property(e => e.SoftwareThumbnail)
                .HasColumnType("VARBINARY(255)");
             entity.Property(e => e.UpdatedAtUtc)
