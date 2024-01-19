@@ -82,20 +82,7 @@ namespace itms.server.controllers
         //}
 
 
-        [HttpGet("GetDevices/{id}")]
-        public IActionResult GetDevices(Guid id)
-        {
-            try
-            {
-                var devices = _deviceservice.GetDevices(id);
-                return Ok(devices);
-            }
-            catch (Exception ex)
-            {
-                // Log the exception or handle it appropriately
-                return StatusCode(500, "Internal Server Error");
-            }
-        }
+       
 
 
         [HttpGet("archived-cygids")]

@@ -34,7 +34,7 @@
     <div class="assigned">
       <app-laptop-details *ngIf="selectedItem === 'laptop'" [userId]="userDetails.id"></app-laptop-details>
       <app-software-details *ngIf="selectedItem === 'software'" [userId]="userDetails.id"></app-software-details>
-      <app-accessories-details *ngIf="selectedItem === 'accessories'"></app-accessories-details>
+      <app-accessories-details *ngIf="selectedItem === 'accessories'"  [userId]="userDetails.id"></app-accessories-details>
     </div>
 
 
