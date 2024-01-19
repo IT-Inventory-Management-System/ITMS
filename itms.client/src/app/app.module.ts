@@ -69,6 +69,8 @@ import { SoftwareVersionSearchBoxComponent } from './assign-asset/software-versi
 import { AccessoriesSearchBoxComponent } from './assign-asset/accessories-search-box/accessories-search-box.component';
 import { AccesoriesComponent } from './dashboard/accesories/accesories.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { CommentsComponent } from './shared/components/comments/comments.component';
+
 
 
 
@@ -137,7 +139,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     AccesoriesComponent,
     CategoryCardComponent,
     FilterPipe,
-    DashboardComponent
+    DashboardComponent,
+    CommentsComponent
 
   ],
   imports: [

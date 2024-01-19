@@ -18,7 +18,7 @@ export class EmployeeService {
   }
 
   getSoftware(id: any): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl + 'Software/GetUserSoftware/'+id);
+    return this.http.get<any[]>(this.apiUrl + 'software/GetUserSoftware/'+id);
   }
 
   getAccessories(id: any): Observable<any[]> {
