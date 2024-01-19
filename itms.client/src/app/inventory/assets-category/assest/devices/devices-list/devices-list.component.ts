@@ -17,7 +17,7 @@ export class DevicesListComponent implements OnInit {
   CommentDetails: any;
   AllDevices: any;
   isselectedDevice: boolean = false;
-  private resetStylesFlag: boolean = true;
+  selectedDeviceId: any;
  
   constructor(private deviceService: DataService, private el: ElementRef, private renderer: Renderer2) { } 
 
@@ -27,26 +27,29 @@ export class DevicesListComponent implements OnInit {
    
     this.showDevices();
     if (this.device.cygid == localStorage.getItem('selectedDevice')) {
+      this.selectedDeviceId = localStorage.getItem('selectedDevice'); 
       this.isselectedDevice = true;
       this.updateStyles();
     }
-   
+    
   }
 
   async showDevices() {
     this.AllDevices = await lastValueFrom(this.deviceService.getDevices())
     localStorage.setItem('selectedDevice', this.AllDevices[0].cygid);
     this.onDeviceClick(this.AllDevices[0].cygid)
+   
 
   }
 
 
   onDeviceClick(cygid: any): void {
 
-    setTimeout(() => {
-      this.resetStyles();
-    }, 3000); // Adjust the duration as needed
-  
+
+    this.resetStyles();
+    localStorage.setItem('selectedDevice', cygid);
+    this.isselectedDevice = true;
+    this.updateStyles();
     console.log('Device Object:', this.device.cygid);
    
     this.deviceService.getDevicesInfo(cygid).subscribe(
@@ -70,19 +73,23 @@ export class DevicesListComponent implements OnInit {
   
     // Apply styles to the clicked card
     const outerCard = this.el.nativeElement.querySelector('.devices-list-container-items');
-    this.renderer.setStyle(outerCard, 'background-color', '#E3F3FC');
-    this.renderer.setStyle(outerCard, 'color', 'white');
-
+    if (this.device.cygid === this.selectedDeviceId) {
+      this.renderer.setStyle(outerCard, 'background-color', '#E3F3FC');
+      this.renderer.setStyle(outerCard, 'color', 'white');
+    }
   
   }
 
   resetStyles() {
-    // Reset styles for all cards
-    const allCards = document.querySelectorAll('.devices-list-container-items');
-    allCards.forEach(card => {
-      this.renderer.removeStyle(card, 'background-color');
-      this.renderer.removeStyle(card, 'color');
-    });
+    if (this.isselectedDevice) {
+  
+      // Reset styles for all cards
+      const allCards = document.querySelectorAll('.devices-list-container-items');
+      allCards.forEach(card => {
+        this.renderer.removeStyle(card, 'background-color');
+        this.renderer.removeStyle(card, 'color');
+      });
+    }
   }
 
   getDeviceLogs(Cygid: any): void {
