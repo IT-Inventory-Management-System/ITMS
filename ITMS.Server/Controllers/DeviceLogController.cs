@@ -43,4 +43,21 @@ public class DeviceLogController : ControllerBase
             return StatusCode(500, "Internal Server Error");
         }
     }
+
+
+    [HttpPost("Comment")]
+    public IActionResult AddComment([FromBody] DeviceAddComment commentDto)
+    {
+        try
+        {
+            _deviceLogService.AddComment(commentDto);
+            return Ok(new { Message = "Comment added successfully" });
+        }
+        catch (Exception ex)
+        {
+            // Log the exception or handle it accordingly
+            return StatusCode(500, new { Message = "Internal Server Error" });
+        }
+    }
+
 }

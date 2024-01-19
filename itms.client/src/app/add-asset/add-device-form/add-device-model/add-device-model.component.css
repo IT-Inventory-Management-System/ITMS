@@ -240,3 +240,12 @@
   height: 2.5rem;
 }
 
+.ram-button.selected {
+  background-color: #28519E; 
+  color: #ffffff;
+}
+
+.storage-button.selected {
+  background-color: #28519E; 
+  color: #ffffff;
+}

@@ -107,7 +107,9 @@ public class DeviceLogService
         {
             Id = devicesLogInfo.Id,
             Cygid = devicesLogInfo.Device.Cygid,
+            DeviceLogId=devicesLogInfo.Device.Id,
             Cgiid = devicesLogInfo.Employee.Cgiid,
+            UserId=devicesLogInfo.Employee.Id,
             EmployeeName = $"{devicesLogInfo.Employee.FirstName} {devicesLogInfo.Employee.LastName}",
             AssignedBy = $"{assignedByFirstName} {assignedByLastName}",
             AssignedDate = devicesLogInfo.AssignedDate,
@@ -187,6 +189,22 @@ public class DeviceLogService
             throw;
         }
     }
-    
+
+    public void AddComment(DeviceAddComment commentDto)
+    {
+        Comment commentEntity = new Comment
+        {
+            Description = commentDto.Description,
+            CreatedBy = commentDto.CreatedBy,
+            CreatedAtUtc = DateTime.UtcNow,
+            DeviceId = commentDto.DeviceId,
+            DeviceLogId= commentDto.DeviceLogId
+        };
+
+        _context.Comments.Add(commentEntity);
+        _context.SaveChanges();
     }
+
+}
+
 
