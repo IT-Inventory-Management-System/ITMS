@@ -47,18 +47,17 @@
   line-height: normal;
   text-transform: uppercase;
 }
+
 .common-gap-style {
   gap: 0.25rem;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
-  
 }
 
-.aa{
-    display:flex;
-    flex-direction:row;
-    width:45.8125rem;
-
+.aa {
+  display: flex;
+  flex-direction: row;
+  width: 45.8125rem;
 }
 
 .user-detail {
@@ -69,13 +68,12 @@
   align-self: stretch;
   height: auto;
   width: 100%;
-  margin:auto;
+  margin: auto;
 }
 
-.user-data{
-    display:flex;
-    width:100%;
-
+.user-data {
+  display: flex;
+  width: 100%;
 }
 
 
@@ -84,6 +82,6 @@
   align-items: center;
   gap: 1.5rem;
   align-self: stretch;
-  height:auto;
+  height: auto;
   width: 100%;
 }

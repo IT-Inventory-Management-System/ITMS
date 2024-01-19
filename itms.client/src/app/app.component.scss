@@ -1,3 +1,11 @@
+
+main {
+  background: #FBFBFB;
+  margin-top: 1rem;
+  transition: 0.3s ease;
+  width: auto;
+}
+
 app-new-sidebar {
   position: fixed;
   left: 0rem;
@@ -8,11 +16,7 @@ app-new-sidebar {
   width: 60px;
 }
 
-main {
-  margin-left: 4rem;
-  margin-top: 1rem;
-  transition: 0.3s ease;
-}
+
 
 app-sidebar:hover + main {
   margin-left: 14rem;
@@ -22,4 +26,3 @@ app-sidebar:hover {
   width: 200px;
   transition: 0.4s ease;
 }
-

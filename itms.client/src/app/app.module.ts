@@ -23,7 +23,6 @@ import { IdInputComponent } from './add-asset/add-device-form/id-input/id-input.
 import { AddSoftwareFormComponent } from './add-asset/add-software-form/add-software-form.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
-import { LaptopComponent } from './user-detail/laptop/laptop.component';
 import { CategoryTypeComponent } from './add-asset/category-type/category-type.component';
 
 import { UserNameListComponent } from './user-name-list/user-name-list.component';
@@ -42,7 +41,6 @@ import { DevicesListComponent } from './inventory/assets-category/assest/devices
 import { AssignHistoryComponent } from './inventory/assets-category/assest/assign-history/assign-history.component';
 import { CommentCardComponent } from './inventory/assets-category/assest/assign-history/comment-card/comment-card.component';
 
-import { LaptopDetailsComponent } from './user-details/laptop-details/laptop-details.component';
 import { SoftwareDetailsComponent } from './user-details/software-details/software-details.component';
 import { AccessoriesDetailsComponent } from './user-details/accessories-details/accessories-details.component';
 import { CommentsComponent } from './user-details/comments/comments.component';
@@ -55,6 +53,7 @@ import { AssignAccessoriesComponent } from './assign-asset/assign-accessories/as
 import { RecentActivityComponent } from './dashboard/recent-activity/recent-activity.component';
 import { SoftwareComponentComponent } from './dashboard/software-component/software-component.component';
 import { FilterSearchListPipe } from './filter-search-list.pipe';
+import { LaptopDetailsComponent } from './user-details/laptop-details/laptop-details.component';
 
 
 
@@ -110,7 +109,7 @@ import { FilterSearchListPipe } from './filter-search-list.pipe';
     CommentCardComponent,
     NewSidebarComponent,
     FilterSearchListPipe,
-    LaptopDetailsComponent
+    LaptopDetailsComponent,
 
 
 
