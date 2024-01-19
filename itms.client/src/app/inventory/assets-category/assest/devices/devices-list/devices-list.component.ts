@@ -45,7 +45,7 @@ export class DevicesListComponent implements OnInit {
 
     setTimeout(() => {
       this.resetStyles();
-    }, 5000); // Adjust the duration as needed
+    }, 3000); // Adjust the duration as needed
   
     console.log('Device Object:', this.device.cygid);
    
