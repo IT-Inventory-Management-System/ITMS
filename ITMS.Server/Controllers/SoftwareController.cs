@@ -14,6 +14,7 @@ namespace ITMS.Server.Controllers
     public class SoftwareController : ControllerBase
     {
         private readonly ItinventorySystemContext _context;
+        private readonly SoftwareService _softwareService;
         private readonly IGetSoftwareService _addSoftwareService;
         private readonly IGetSoftwareVersionService _addSoftwareVersionService;
         public SoftwareController(ItinventorySystemContext context, IGetSoftwareService addSoftwareService, IGetSoftwareVersionService addSoftwareVersionService)
