@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AvatarModule } from 'ngx-avatars';
 import { HttpClientModule } from '@angular/common/http';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { CategoryComponent } from './category/category.component';
 import { InventoryComponent } from './inventory/inventory.component';
 import { LicenseComponent } from './license/license.component';
@@ -64,6 +63,7 @@ import { SoftwareSearchBoxComponent } from './assign-asset/software-search-box/s
 import { SoftwareVersionSearchBoxComponent } from './assign-asset/software-version-search-box/software-version-search-box.component';
 import { AccessoriesSearchBoxComponent } from './assign-asset/accessories-search-box/accessories-search-box.component';
 import { AccesoriesComponent } from './dashboard/accesories/accesories.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 

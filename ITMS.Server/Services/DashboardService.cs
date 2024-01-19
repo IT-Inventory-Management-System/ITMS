@@ -47,7 +47,7 @@ namespace ITMS.Server.Services
                 .SelectMany(st => st.Softwares.Select(s => new Softwares
                 {
                     Name = s.SoftwareName,
-                    Version = s.version,
+                    Version = s.Version,
                     Type = st.TypeName,
                     Inventory = st.Softwares
                     .SelectMany(sa=>sa.SoftwareAllocations)
