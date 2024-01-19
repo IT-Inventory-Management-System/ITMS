@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component,  ElementRef,  Input, OnInit, Renderer2 } from '@angular/core';
 import { DataService } from '../../../../../shared/services/data.service';
 import { forkJoin, lastValueFrom, map } from 'rxjs';
 
@@ -16,25 +16,39 @@ export class DevicesListComponent implements OnInit {
   DeviceLog: any;
   CommentDetails: any;
   AllDevices: any;
-  selectedDevice: any;
+  isselectedDevice: boolean = false;
+  private resetStylesFlag: boolean = true;
  
-  constructor(private deviceService: DataService) { } 
+  constructor(private deviceService: DataService, private el: ElementRef, private renderer: Renderer2) { } 
 
   ngOnInit() {
 
-    console.log('hi' + this.device.id);
-    console.log(this.device.length);
+    
+   
     this.showDevices();
-    this.selectedDevice = this.DeviceData.length > 0 ? this.DeviceData[0] : null;
+    if (this.device.cygid == localStorage.getItem('selectedDevice')) {
+      this.isselectedDevice = true;
+      this.updateStyles();
+    }
+   
   }
 
   async showDevices() {
     this.AllDevices = await lastValueFrom(this.deviceService.getDevices())
+    localStorage.setItem('selectedDevice', this.AllDevices[0].cygid);
     this.onDeviceClick(this.AllDevices[0].cygid)
+
   }
 
+
   onDeviceClick(cygid: any): void {
+
+    setTimeout(() => {
+      this.resetStyles();
+    }, 5000); // Adjust the duration as needed
+  
     console.log('Device Object:', this.device.cygid);
+   
     this.deviceService.getDevicesInfo(cygid).subscribe(
       (data) => {
         this.DeviceInfo = data;
@@ -49,6 +63,28 @@ export class DevicesListComponent implements OnInit {
     );
   }
 
+
+
+  updateStyles() {
+
+  
+    // Apply styles to the clicked card
+    const outerCard = this.el.nativeElement.querySelector('.devices-list-container-items');
+    this.renderer.setStyle(outerCard, 'background-color', '#E3F3FC');
+    this.renderer.setStyle(outerCard, 'color', 'white');
+
+  
+  }
+
+  resetStyles() {
+    // Reset styles for all cards
+    const allCards = document.querySelectorAll('.devices-list-container-items');
+    allCards.forEach(card => {
+      this.renderer.removeStyle(card, 'background-color');
+      this.renderer.removeStyle(card, 'color');
+    });
+  }
+
   getDeviceLogs(Cygid: any): void {
    
     this.deviceService.getUserInfo(Cygid).subscribe(
@@ -56,6 +92,7 @@ export class DevicesListComponent implements OnInit {
        
         this.deviceService.DeviceLog = logs;
         console.log('Device Logs:', logs);
+        console.log(this.deviceService.DeviceLog.id);
       },
       (error) => {
        
