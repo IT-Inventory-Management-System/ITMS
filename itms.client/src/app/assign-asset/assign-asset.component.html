@@ -10,7 +10,7 @@
       </div>
 
       <div class="modal-body">
-        <app-search-box class="sbox" [label]="'User'" [placeholder]="'Search User by Name, CGI ID and Email Address'"></app-search-box>
+        <app-search-box class="sbox" [label]="'User'" [placeholder]="'Search User by Name, CGI ID and Email Address'" [options]="users" (optionSelected)="onUserSelected($event)"></app-search-box>
         <div class="stepper">
           <div *ngFor="let step of [1, 2, 3]; let i = index" class="step">
             <img class="step-img"
@@ -45,13 +45,13 @@
 
 
         <!-- Step 1: Assign Laptop -->
-        <app-assign-laptop *ngIf="currentStep === 1"></app-assign-laptop>
+        <app-assign-laptop *ngIf="currentStep === 1" [LaptopOptions]="laptops" (LaptopOptionSelected)="onLaptopSelected($event)"></app-assign-laptop>
 
         <!-- Step 2: Assign Software -->
-        <app-assign-software *ngIf="currentStep === 2"></app-assign-software>
+        <app-assign-software *ngIf="currentStep === 2"  [SoftwareOptions]="softwares" [SoftwareVersionOptions]="softwareVersions" (SoftwareOptionSelected)="onSoftwareSelected($event)" (SoftwareVersionOptionSelected)="onSoftwareVersionSelected($event)"></app-assign-software>
 
         <!-- Step 3: Assign Accessories -->
-        <app-assign-accessories *ngIf="currentStep === 3"></app-assign-accessories>
+        <app-assign-accessories *ngIf="currentStep === 3" [AccessoryOptions]="accessories" (AccessoryOptionSelected)="onAccessoriesSelected($event)"></app-assign-accessories>
 
         <!-- Progress Bar -->
         <div class="progress mt-3">

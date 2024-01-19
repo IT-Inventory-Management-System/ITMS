@@ -30,3 +30,23 @@
     line-height: normal;
     opacity: 0.5;
   }
+
+.options-list {
+  z-index: 2;
+  list-style: none;
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 0 0 5px 5px;
+  max-height:200px;
+  overflow-y:scroll;
+  padding:0;
+  min-height:150px;
+}
+.list-items {
+  padding: 10px 5px;
+  border: 1px solid #B2B2B3;
+}
+
+.list-items:hover {
+  background-color: #dddddd;
+}

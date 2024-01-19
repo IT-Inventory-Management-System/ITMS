@@ -1,182 +1,185 @@
-<div class="container-fluid my-dashboard ">
-  <div class="row header">
-    <div class="col-8 dashboard-title ">
-      Dashboard
+<div class="container d-flex justify-content-center align-items-center">
+  <div class="container-fluid my-dashboard   ">
+    <div class="row header  ">
+      <div class="col-8 dashboard-title ">
+        Dashboard
+      </div>
+      <div class="col-4 ">
+        <div class="row">
+          <span class="last-update">
+            Last Updated:
+            <span class="Time" *ngIf="logsData">
+              {{ logsData[0].updatedOn | date: 'MM-dd-yyyy, h:mm a' }}
+            </span>
+            <span class="Time" *ngIf="logsData.length==0">00-00-0000, 00:00 AM</span>
+          </span>
+
+        </div>
+        <div class="GMT">
+          (GMT-06:00) Central Time (US & Canada)
+        </div>
+
+      </div>
     </div>
-    <div class="col-4 ">
-      <div class="row">
-        <span class="last-update"> Last Updated: <span class="Time">12-12-2023, 09:30 AM</span></span>
 
-      </div>
-      <div class="GMT">
-        (GMT-06:00) Central Time (US & Canada)
-      </div>
+    <div class="container d-flex justify-content-center align-items-center">
 
-    </div>
-  </div>
+      <div class="row  KPI-card  ">
 
-  <div class="container-fluid">
-
-  <div class="row  KPI-card  ">
-
-    <div class=" col-8 col1   ">
-      <div class="total-asset  ">
-        <div class="row header ">
-      <div class="col-8  Total-asset-Title">
-        Total Assets
-      </div>
-      <div class="col-4 Filter">
-        <span class="filter-by"> Filter by</span>
-      <div class="btn-group">
-            <button type="button" class="btn btn dropdown-toggle " data-bs-toggle="dropdown" aria-expanded="false">
-              Asset Age
-            </button>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Separated link</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-        <div class="container-fluid Assets   ">
-          <div class="container-fluid Section1 row  ">
-            <div class="col-6  ">
-              <app-dashboard-assets></app-dashboard-assets>
-            </div>
-            <div class="col-6 ">
-              <app-dashboard-assets></app-dashboard-assets>
-            </div>
-          </div>
-          <div class="container-fluid Section2 row ">
-            <div class="col-6 ">
-              <app-dashboard-assets></app-dashboard-assets>
-            </div>
-            <div class="col-6">
-              <app-dashboard-assets></app-dashboard-assets>
-            </div>
-
-          </div>
-
-        </div>
-      
-      </div>
-
-      <div class="row2 ">
-        <div class="row ms-0  me-0 ">
-          <div class="col-6 Assesories-Details ms-0  ">
-            <div class="Assesories-Heading">
-              <div class="Assesories-Text">Accessories</div>
-
-              <img src="../../../assets/icons/dashboard/Chevron.svg" />
-
-            </div>
-            <div class="Search-section">
-              <img src="../../../assets/icons/dashboard/search.svg" />
-              <input class="Search-text" placeholder="Search by accessories name" />
-            </div>
-            <div class="  Software-Content  ">
-              <app-dashboard-assets></app-dashboard-assets>
-              <app-dashboard-assets></app-dashboard-assets>
-              <app-dashboard-assets></app-dashboard-assets>
-              <app-dashboard-assets></app-dashboard-assets>
-            </div>
-
-          </div>
-          <div class="col-5 Software ms-3  ">
-            <div class="Software-Heading">
-              <div class="Software-Text ">Software</div>
-  <img src="../../../assets/icons/dashboard/Chevron.svg" />
-   </div>
-            <div class="software-search">
-              <img src="../../../assets/icons/dashboard/search.svg" />
-              <input class="Search-text" placeholder="Search by software name" />
-            </div>
-            <div class=" container-fluid ">
-              <app-software-component></app-software-component>
-              <app-software-component></app-software-component>
-
-              <app-software-component></app-software-component>
-
-            </div>
-          </div>
-        </div>
-     
-      </div>
-
-
-    </div>
-    <div class=" col-4 Recent-Activity ">
-      <div class="Recent-Activity-Heading ">
-        <div class="Recent-Activity-Text">
-          Recent Activity
-          <img src="../../../assets/icons/dashboard/Chevron.svg" />
-        </div>
-
-      </div>
-      <div class=" container-fluid Recent-Activity-Content ">
-        <div class="Frame   ">
-          <div class="Date">
-            <hr class="h-line">
-            <div class="Date-content">
-              <img src="../../../assets/icons/dashboard/CalendarBlank.svg" />
-              <span class="date-title">12-1-2024</span>
-            </div>
-            <hr class="h-line">
-
-          </div>
-          <div class="container-fluid">
-
-
-            <div class=" row   ">
-              <app-recent-activity></app-recent-activity>
-              <app-recent-activity></app-recent-activity>
-              <app-recent-activity></app-recent-activity>
-
-            </div>
-            <div class="Date">
-              <hr class="h-line">
-              <div class="Date-content">
-                <img src="../../../assets/icons/dashboard/CalendarBlank.svg" />
-                <span class="date-title">12-1-2024</span>
+        <div class=" col-md-8 col1 ms-0  ">
+          <div class="total-asset ">
+            <div class="row header ">
+              <div class="col-8  Total-asset-Title">
+                Total Assets
               </div>
-              <hr class="h-line">
+              <div class="col-4 Filter">
+                <span class="filter-by"> Filter by</span>
+                <div class="">
+                  <select [(ngModel)]="selectedAssetAge" class="asset-age" aria-expanded="false" (change)="handleCheckboxChange()">
+                    <option value="0" selected class="placeholder drop-options">Asset Age</option>
+                    <option value="1" class="drop-options">0-1 years</option>
+                    <option value="2" class="drop-options">1-2 years</option>
+                    <option value="3" class="drop-options">2-3 years</option>
+                    <option value="4" class="drop-options">3-4 years</option>
+                  </select>
+                  <!--<button type="button" class="btn btn dropdown-toggle " data-bs-toggle="dropdown" aria-expanded="false">
+                    Asset Age
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">Separated link</a></li>
+                  </ul>-->
+                </div>
+              </div>
+            </div>
+            <div class="container-fluid Assets ms-0 p-0  ">
+              <div class="container-fluid Section1 row ms-0 p-0 me-0  ">
+                <div class="col-6 ms-0 p-0 me-0 " *ngIf="primaryData[0]">
+                  <app-dashboard-assets [primaryData]="primaryData[0][+selectedAssetAge]"></app-dashboard-assets>
+                </div>
+                <div class="col-6  p-0 me-0 d-flex justify-content-end" *ngIf="primaryData[1]">
+                  <app-dashboard-assets [primaryData]="primaryData[1][+selectedAssetAge]"></app-dashboard-assets>
+                </div>
+              </div>
+              <div class="container-fluid Section2 row ms-0 p-0 me-0" *ngIf="primaryData[2]">
+                <div class="col-6 ms-0 p-0 me-0">
+                  <app-dashboard-assets [primaryData]="primaryData[2][+selectedAssetAge]"></app-dashboard-assets>
+                </div>
+                <div class="col-6 ms-0 p-0 d-flex justify-content-end" *ngIf="primaryData[3]">
+                  <app-dashboard-assets [primaryData]="primaryData[3][+selectedAssetAge]"></app-dashboard-assets>
+                </div>
+
+              </div>
 
             </div>
-            <div class=" row Section2   ">
-              <app-recent-activity></app-recent-activity>
-              <app-recent-activity></app-recent-activity>
-              <app-recent-activity></app-recent-activity>
-              <app-recent-activity></app-recent-activity>
-              <app-recent-activity></app-recent-activity>
 
+          </div>
+
+          <div class="row2  d-flex ">
+            <div class=" Assesories-Details ms-0 ">
+              <div class="Assesories-Heading">
+                <div class="Assesories-Text">Accessories</div>
+                <img src="../../../assets/icons/dashboard/Chevron.svg" />
+              </div>
+              <div class="Search-section">
+                <img src="../../../assets/icons/dashboard/search.svg" />
+                <input class="Search-text"
+                       placeholder="Search by accessories name"
+                       [(ngModel)]="filterValue"
+                       (input)="applyAccessoryFilter($event)" />
+              </div>
+              <div class="Software-Content">
+                <app-accesories *ngFor="let accessory of filteredAccessories ? filteredAccessories : accessoriesData"
+                                [accessoriesData]="accessory"></app-accesories>
+              </div>
+            </div>
+            <div class="col-md-6 Software  ">
+              <div class="Software-Heading">
+                <div class="Software-Text">Software</div>
+                <img src="../../../assets/icons/dashboard/Chevron.svg" />
+              </div>
+              <div class="Software-Search-section">
+                <img src="../../../assets/icons/dashboard/search.svg" />
+                <input class="Search-text" placeholder="Search by software name" [(ngModel)]="filterValues"
+                       (input)="applySoftwareFilter($event)" />
+              </div>
+              <div class="container-fluid">
+                <app-software-component *ngFor="let software of filteredSoftware? filteredSoftware : softwaresData " [softwareData]="software"></app-software-component>
+              </div>
             </div>
           </div>
+
+
+
+
         </div>
+        <div class=" col-4 Recent-Activity ">
+          <div class="Recent-Activity-Heading ">
+            <div class="Recent-Activity-Text">
+              Recent Activity
+              <img src="../../../assets/icons/dashboard/Chevron.svg" />
+            </div>
+
+          </div>
+          <div class=" container-fluid Recent-Activity-Content ">
+            <div class="Frame   ">
+              <!--<div class="Date">
+                <hr class="h-line">
+                <div class="Date-content">
+                  <img src="../../../assets/icons/dashboard/CalendarBlank.svg" />
+                  <span class="date-title">12-1-2024</span>
+                </div>
+                <hr class="h-line">
+
+              </div>-->
+              <div class="container-fluid">
+
+
+                <div class="row" *ngFor="let logs of logsData; let i = index">
+                  <div class="Date" *ngIf="isDateDifferent(i)">
+                    <hr class="h-line">
+                    <div class="Date-content">
+                      <img src="../../../assets/icons/dashboard/CalendarBlank.svg" />
+                      <span class="date-title">{{logs.updatedOn | date:'shortDate'}}</span>
+                    </div>
+                    <hr class="h-line">
+
+                  </div>
+                  <app-recent-activity [logsData]="logs"></app-recent-activity>
+
+
+                </div>
+                <!--<div class="Date">
+                  <hr class="h-line">
+                  <div class="Date-content">
+                    <img src="../../../assets/icons/dashboard/CalendarBlank.svg" />
+                    <span class="date-title">12-1-2024</span>
+                  </div>
+                  <hr class="h-line">
+
+                </div>-->
+                <!--<div class=" row Section2 ">
+                  <app-recent-activity></app-recent-activity>
+
+
+                </div>-->
+              </div>
+            </div>
+          </div>
+
+        </div>
+
       </div>
 
+
+
+
+
+
+
     </div>
-
   </div>
-
-
- 
-
-
-
-
-  </div>
-
-  
-
-
-
-
-
-
-
-
-
-
+</div>

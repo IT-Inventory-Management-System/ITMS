@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AvatarModule } from 'ngx-avatars';
 import { HttpClientModule } from '@angular/common/http';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { CategoryComponent } from './category/category.component';
 import { InventoryComponent } from './inventory/inventory.component';
 import { LicenseComponent } from './license/license.component';
@@ -60,6 +59,12 @@ import { EmployeeComponent } from './employee/employee.component';
 import { AssetfilterdevicePipe } from './assetfilterdevice.pipe';
 import { AddSoftwareFormComponent } from './add-asset/add-software-form/add-software-form.component';
 import { FilterPipe } from './filter.pipe';
+import { LaptopSearchBoxComponent } from './assign-asset/laptop-search-box/laptop-search-box.component';
+import { SoftwareSearchBoxComponent } from './assign-asset/software-search-box/software-search-box.component';
+import { SoftwareVersionSearchBoxComponent } from './assign-asset/software-version-search-box/software-version-search-box.component';
+import { AccessoriesSearchBoxComponent } from './assign-asset/accessories-search-box/accessories-search-box.component';
+import { AccesoriesComponent } from './dashboard/accesories/accesories.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 
@@ -122,6 +127,15 @@ import { FilterPipe } from './filter.pipe';
     EmployeeComponent,
    CurrentdeviceComponent,
     AssetfilterdevicePipe,
+   CategoryCardComponent,
+    LaptopSearchBoxComponent,
+    SoftwareSearchBoxComponent,
+    SoftwareVersionSearchBoxComponent,
+    AccessoriesSearchBoxComponent,
+    AccesoriesComponent
+
+
+
     CategoryCardComponent,
     FilterPipe
   ],

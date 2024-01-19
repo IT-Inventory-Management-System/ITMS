@@ -1,0 +1,39 @@
+<div class=" container-fluid Asset st ">
+  <div class="Type row">
+    <div class="Heading">
+      <div class="round">
+        <img [src]="getIconPath(accessoriesData.name)" />
+      </div>
+
+      <span class="windows-text">{{accessoriesData.name}}</span>
+    </div>
+    <div class="container-fluid">
+      <div class="stock-section row">
+        <div class="col-6 Assigned">
+          <img src="../../../assets/icons/dashboard/icon.svg" />
+          <span class="Assigned-text">Assigned</span>
+
+          <div class="Assigned-number">{{accessoriesData.assigned}}</div>
+        </div>
+        <div class=" col-6 inventory">
+          <img src="../../../assets/icons/dashboard/Check mark.svg" />
+          <span class="Inventory-text">
+
+
+            Inventory
+          </span>
+
+          <div class="lowstock-container me-0">
+            <div class="lowstock  ms-auto" *ngIf="(accessoriesData.total-accessoriesData.assigned) < 1">
+              <div class="lowstocktext ">Low in Stock</div>
+            </div>
+            <div class="Inventory-number ms-auto p-0" [ngClass]="{'inventorylowstocktext': (accessoriesData.total - accessoriesData.assigned) < 1}">
+              {{accessoriesData.total-accessoriesData.assigned}}
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
