@@ -116,7 +116,6 @@ public class AddDeviceService : IDeviceService
         Software softwareForDb = new Software
         {
 
-
                 SoftwareName = software.SoftwareName,
                 SoftwareTypeId = software.SoftwareTypeId,
                 CategoryId = software.CategoryId,

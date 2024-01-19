@@ -1,7 +1,8 @@
 <div class="Device">
   <div class="Device-Section">
     <div class="Device-Frame">
-      <app-search-box class="sbox" [label]="'CYG ID'" [placeholder]="'Select CYG ID'"></app-search-box>
+      <app-laptop-search-box class="sbox" [label]="'CYG ID'" [placeholder]="'Select CYG ID'" [LaptopOptions]="LaptopOptions" (LaptopOptionSelected)="LaptopSearchBoxOptionSelected($event)"></app-laptop-search-box>
+
       <div class="alert-box">
         <div class="alert-image-frame">
           <img id="alert-image" src="../../../../assets/icons/Vector.svg" />
@@ -24,9 +25,19 @@
             <div class="details-icon"></div>
             <div class="details-text">12th Gen Intel(R) Core(TM) i7-1270P   2.20 GHz</div>
           </div>
-          <div class="device-model">
-            <div class="details-icon"></div>
-            <div class="details-text">16GB RAM</div>
+          <div class="device-model-same-row">
+            <div class="same-row-detail">
+              <div class="details-icon"></div>
+              <div class="details-text">16GB RAM</div>
+            </div>
+            <div class="same-row-detail">
+              <div class="details-icon"></div>
+              <div class="details-text">512GB ROM</div>
+            </div>
+            <div class="same-row-detail">
+              <div class="details-icon"></div>
+              <div class="details-text">2.5 Years Old</div>
+            </div>
           </div>
         </div>
       </div>

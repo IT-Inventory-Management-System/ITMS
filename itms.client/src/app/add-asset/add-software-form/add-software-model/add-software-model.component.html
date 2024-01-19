@@ -1,14 +1,14 @@
 <div >
   <div class="header_add_new_software">Add New Software</div>
-  <form>
+  <form [formGroup]="newSoftwareForm" (ngSubmit)="onSubmit()">
     <div class="row">
       <div class="col-6" >
         <label for="name" class="form-label required-field">Software Name</label>
-        <input type="text" class="form-control " placeholder="Enter Software Name" required>
+        <input type="text" class="form-control " placeholder="Enter Software Name" formControlName="softwareName" required>
       </div>
       <div class="col-6">
         <label for="name" class="form-label required-field">Software Version</label>
-        <input type="text" class="form-control " placeholder="Enter Software Version" required>
+        <input type="text" class="form-control " placeholder="Enter Software Version" formControlName="version" required>
       </div>
     </div>
   
@@ -30,7 +30,7 @@
           <div>File Support: jpg, .jpeg, .png</div>
           <input hidden type="file" #profileUpload (change)="ImageUpload($event)"accept=".jpeg, .jpg, .png" />
 
-          <button type="submit" class="thumbnail-submit-button" (click)="profileUpload.click()">
+          <button type="button" class="thumbnail-submit-button" (click)="profileUpload.click()">
             <img src="../../../assets/icons/upload.svg" class="upload-icon" alt="upload icon">Upload Image
           </button>
         </div>
@@ -44,13 +44,13 @@
     <div class="checkboxes">
       <label for="type" class="form-label required-field">Software Type</label>
       <div class="software-checkbox-container">
-        <input type="radio"  id="Perpetual" name="softwareType" />
+        <input type="radio"  id="Perpetual" name="softwareType" value="Perpetual" (input)="changeSoftwareType($event)"/>
         <label for="Perpetual">Perpetual</label>
 
-        <input type="radio"  id="Validity" name="softwareType" />
+        <input type="radio"  id="Validity" value="Validity" name="softwareType" (input)="changeSoftwareType($event)" />
         <label for="Validity">Validity</label>
 
-        <input type="radio"  id="Subscription" name="softwareType" />
+        <input type="radio"  id="Subscription" value="Subscription" name="softwareType" (input)="changeSoftwareType($event)" />
         <label for="Subscription">Subscription</label>
       </div>
     </div>
