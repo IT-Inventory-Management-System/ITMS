@@ -14,6 +14,7 @@ public partial class Comment
     public DateTime CreatedAtUtc { get; set; }
 
     public Guid DeviceId { get; set; }
+    public Guid DeviceLogId { get; set; }
 
     public Guid? SoftwareAllocationId { get; set; }
 
@@ -24,4 +25,7 @@ public partial class Comment
     public virtual ICollection<DevicesLog> DevicesLogs { get; } = new List<DevicesLog>();
 
     public virtual SoftwareAllocation? SoftwareAllocation { get; set; }
+    public virtual DevicesLog? DevicesLog { get; set; }
+
+
 }

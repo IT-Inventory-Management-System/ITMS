@@ -6,8 +6,6 @@
 
         public string? ActivationKey { get; set; }
 
-        public string? SoftwareVersion { get; set; }
-
         public DateTime? PurchasedDate { get; set; }
 
         public DateTime? ExpiryDate { get; set; }

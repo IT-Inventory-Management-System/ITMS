@@ -10,10 +10,7 @@
       </div>
 
       <div class="modal-body">
-        <div class="user-search">
-          <div class="search-box-subheading">User <span style="color:red">*</span></div>
-          <input class="search-box" required type="search" placeholder="Search User by Name, CGI ID and Email Address" aria-label="Search">
-        </div>
+        <app-search-box class="sbox" [label]="'User'" [placeholder]="'Search User by Name, CGI ID and Email Address'" [options]="users" (optionSelected)="onUserSelected($event)"></app-search-box>
         <div class="stepper">
           <div *ngFor="let step of [1, 2, 3]; let i = index" class="step">
             <img class="step-img"
@@ -36,25 +33,25 @@
               {{ getStepText(i + 1) }}
             </div>
 
-            
-              <ng-container *ngIf="i !== 2">
-                <!-- Skip the separator after the last step -->
-                <img class="vector-img" src="../../../../assets/icons/Stroke.svg" />
-              </ng-container>
-            
-            
+
+            <ng-container *ngIf="i !== 2">
+              <!-- Skip the separator after the last step -->
+              <img class="vector-img" src="../../../../assets/icons/Stroke.svg" />
+            </ng-container>
+
+
           </div>
         </div>
 
 
         <!-- Step 1: Assign Laptop -->
-        <app-assign-laptop *ngIf="currentStep === 1"></app-assign-laptop>
+        <app-assign-laptop *ngIf="currentStep === 1" [LaptopOptions]="laptops" (LaptopOptionSelected)="onLaptopSelected($event)"></app-assign-laptop>
 
         <!-- Step 2: Assign Software -->
-        <app-assign-software *ngIf="currentStep === 2"></app-assign-software>
+        <app-assign-software *ngIf="currentStep === 2"  [SoftwareOptions]="softwares" [SoftwareVersionOptions]="softwareVersions" (SoftwareOptionSelected)="onSoftwareSelected($event)" (SoftwareVersionOptionSelected)="onSoftwareVersionSelected($event)"></app-assign-software>
 
         <!-- Step 3: Assign Accessories -->
-        <app-assign-accessories *ngIf="currentStep === 3"></app-assign-accessories>
+        <app-assign-accessories *ngIf="currentStep === 3" [AccessoryOptions]="accessories" (AccessoryOptionSelected)="onAccessoriesSelected($event)"></app-assign-accessories>
 
         <!-- Progress Bar -->
         <div class="progress mt-3">

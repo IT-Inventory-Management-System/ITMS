@@ -30,7 +30,6 @@ namespace ITMS.Server.Services
                     SoftwareThumbnail = s.SoftwareThumbnail,
                     CreatedBy = s.CreatedBy,
                     CreatedAtUTC = s.CreatedAtUtc,
-                   
                 })
                 .ToList();
 
