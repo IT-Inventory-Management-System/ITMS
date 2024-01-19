@@ -8,6 +8,8 @@ flex-direction: column;
 align-items: flex-start;
 gap: 0.5rem;
 flex: 1 0 0;
+width:20.84375rem;
+
 }
 .Type {
   display: flex;
@@ -20,7 +22,6 @@ flex: 1 0 0;
 .Heading {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 8px;
   flex: 1 0 0;
 }
@@ -72,14 +73,24 @@ flex: 1 0 0;
 
 .Inventory-text {
   color: var(--Primary-Gray, #343435);
-  text-align: right;
   font-family: Roboto;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  float:right;
-  
+  text-align:right;
+}
+
+
+.round {
+    width: 2.25rem;
+  height: 2.25rem;
+  flex-shrink: 0;
+  border-radius: 0.42856rem;
+  background: #F5F7FA;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .Inventory-number {
@@ -90,7 +101,48 @@ flex: 1 0 0;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
+ 
 }
 
 
+.lowstock-container {
+  display: flex;
+  align-items: center; /* Align items vertically in the middle */
+}
 
+.lowstock {
+  display: flex;
+  height: 1.75rem;
+  padding: 0.4375rem 0.625rem;
+  align-items: flex-start;
+  gap: 0.625rem;
+  border-radius: 0.125rem;
+  background: #FFE8E8;
+  
+}
+
+.lowstocktext {
+  color: #CC1A07;
+  text-align: right;
+  font-family: Roboto;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  
+}
+
+.inventory{
+    text-align:right;
+}
+
+
+.inventorylowstocktext {
+  color: #CC1A07;
+  text-align: right;
+  font-family: Roboto;
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}

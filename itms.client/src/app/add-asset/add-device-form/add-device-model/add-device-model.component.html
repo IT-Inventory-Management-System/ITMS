@@ -29,13 +29,13 @@
     <div class="form-field3">
       <label class="label" for="Ram">RAM (GB) <span class="required">*</span></label>
       <div class="ram-selector">
-        <button type="button" class="ram-button" value="16" (click)="selectRam('16')">16</button>
-        <button type="button" class="ram-button" value="32" (click)="selectRam('32')">32</button>
-        <button type="button" class="ram-button" value="64" (click)="selectRam('64')">64</button>
+        <button type="button" class="ram-button" [ngClass]="{ 'selected': selectedRam === '16' }" (click)="selectRam('16')">16</button>
+        <button type="button" class="ram-button" [ngClass]="{ 'selected': selectedRam === '32' }" (click)="selectRam('32')">32</button>
+        <button type="button" class="ram-button" [ngClass]="{ 'selected': selectedRam === '64' }" (click)="selectRam('64')">64</button>
         <!-- Add more buttons if needed -->
         <div class="ram-other">
           <label for="otherRam">Other</label>
-          <input type="text" id="otherRam" class="ram-other-input-field" placeholder="Other" />
+          <input type="text" id="otherRam" class="ram-other-input-field" placeholder="Other" (input)="selectOtherRam($event)"/>
         </div>
 
       </div>
@@ -48,13 +48,13 @@
     <div class="form-field3">
       <label class="label" for="">Storage (GB) <span class="required">*</span></label>
       <div class="storage-selector">
-        <button class="storage-button" value="256" (click)="selectStorage('256')">256</button>
-        <button class="storage-button" value="512" (click)="selectStorage('512')">512</button>
-        <button class="storage-button" value="1024" (click)="selectStorage('1024')">1024</button>
+        <button type="button" class="storage-button" [ngClass]="{ 'selected': selectedStorage === '256' }" (click)="selectStorage('256')">256</button>
+        <button type="button" class="storage-button" [ngClass]="{ 'selected': selectedStorage === '512' }" (click)="selectStorage('512')">512</button>
+        <button type="button" class="storage-button" [ngClass]="{ 'selected': selectedStorage === '1024' }" (click)="selectStorage('1024')">1024</button>
             <!-- Add more buttons if needed -->
         <div class="storage-other">
           <label for="otherStorage" >Other</label>
-          <input type="text" id="otherStorage" class="ram-other-input-field" placeholder="Other" />
+          <input type="text" id="otherStorage" class="ram-other-input-field" placeholder="Other" (input)="selectOtherStorage($event)"/>
         </div>
 
       </div>

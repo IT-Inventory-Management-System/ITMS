@@ -1,21 +1,38 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { DataService } from '../../shared/services/data.service';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-add-software-form',
   templateUrl: './add-software-form.component.html',
   styleUrls: ['./add-software-form.component.css']
 })
 export class AddSoftwareFormComponent {
+  SoftwareForm: FormGroup;
 
   dropdownValues: any[] = [];
-
+  constructor(private dataService: DataService, private fb: FormBuilder) {
+    this.dropdownValues = [];
+  }
 
   ngOnInit(): void {
     this.loadDropdownValues();
+    this.createForm();
+
   }
-  constructor(private dataService: DataService) {
-    this.dropdownValues = [];
+  createForm() {
+    this.SoftwareForm = this.fb.group({
+      softwareId: ['', Validators.required],
+      activationKey: ['', Validators.required],
+      purchasedDate: ['', Validators.required],
+      expiryDate: [null, Validators.required],
+      qty: [0, Validators.required],
+      assignedTo: [null],
+      assignedBy: [null],
+      assigndate: [null],
+      locationId: ['32ACEEE5-0664-4E21-B6A7-C5447336F5B2'],
+    });
   }
+
   loadDropdownValues() {
     this.dataService.getSoftwares().subscribe(
       (data) => {
@@ -27,7 +44,7 @@ export class AddSoftwareFormComponent {
       }
     );
   }
- 
+
   title = 'ITApp';
   isFormOpen: boolean = false;
   showPassword = false;
@@ -41,11 +58,17 @@ export class AddSoftwareFormComponent {
 
   increment() {
     this.counterValue++;
+    this.SoftwareForm.patchValue({
+      qty: this.counterValue
+    });
   }
 
   decrement() {
     if (this.counterValue > 0) {
       this.counterValue--;
+      this.SoftwareForm.patchValue({
+        qty: this.counterValue
+      });
     }
   }
   counterValue2: number = 0;
@@ -56,11 +79,17 @@ export class AddSoftwareFormComponent {
 
   increment2() {
     this.counterValue2++;
+    this.SoftwareForm.patchValue({
+      qty: this.counterValue2
+    });
   }
 
   decrement2() {
     if (this.counterValue2 > 0) {
       this.counterValue2--;
+      this.SoftwareForm.patchValue({
+        qty: this.counterValue2
+      });
     }
   }
   counterValue3: number = 0;
@@ -71,11 +100,17 @@ export class AddSoftwareFormComponent {
 
   increment3() {
     this.counterValue3++;
+    this.SoftwareForm.patchValue({
+      qty: this.counterValue3
+    });
   }
 
   decrement3() {
     if (this.counterValue3 > 0) {
       this.counterValue3--;
+      this.SoftwareForm.patchValue({
+        qty: this.counterValue3
+      });
     }
   }
   togglePassword() {
@@ -85,10 +120,33 @@ export class AddSoftwareFormComponent {
   toggleSoftwareForm() {
     this.isFormOpen = !this.isFormOpen;
   }
- 
+
   selectedTypeName: string = 'Perpetual';
+  onSubmit() {
 
+
+
+    console.log(this.SoftwareForm.value);
+    this.SoftwareForm.get("locationId")?.setValue('32ACEEE5-0664-4E21-B6A7-C5447336F5B2');
+
+    this.dataService.postSoftwaredata(this.SoftwareForm.value).subscribe(
+      response => {
+        console.log('Post successful', response);
+        this.SoftwareForm.reset();
+      },
+      error => {
+        console.error('Error posting data', error);
+      }
+    );
+
+  }
  
-
+  dynamicChanges(event: any): void {
+    const selectedValue = event.target.value;
+    const [typeName, softwareId] = selectedValue.split('@');
+    this.selectedTypeName = typeName;
+    // Now you have the typeName and softwareId, and you can use them as needed
+    this.SoftwareForm.get('softwareId')?.setValue(softwareId);
+  }
 
 }

@@ -1,6 +1,6 @@
 <div class="Accessories-Section">
   <div class="form-fields">
-    <app-search-box class="sbox" [label]="'Accessories'" [placeholder]="'Select Accessories'"></app-search-box>
+    <app-accessories-search-box class="sbox" [label]="'Accessories'" [placeholder]="'Select Accessories'" [AccessoryOptions]="AccessoryOptions" (AccessoryOptionSelected)="AccessorySearchBoxOptionSelected($event)"></app-accessories-search-box>
     <app-comment-box class="Cbox"></app-comment-box>
   </div>
   <div class="Add-new">
