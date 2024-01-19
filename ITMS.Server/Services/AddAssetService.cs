@@ -8,7 +8,7 @@ namespace ITMS.Server.Services
         public interface IAddAssetService
         {
             Task<IEnumerable<GetEmployeeDTO>> getAllEmployeeBasicDetails();
-        Task<IEnumerable<GetEmployeeDTO>> getEmployeeBasicDetails(String SerchName);
+        Task<IEnumerable<GetAccessories>> getAccessories();
     }
     public class AddAssetService : IAddAssetService
     {
@@ -31,17 +31,13 @@ namespace ITMS.Server.Services
                                 }).ToListAsync();
             return result;
         }
-        public async Task<IEnumerable<GetEmployeeDTO>> getEmployeeBasicDetails(String SerchName)
+        public async Task<IEnumerable<GetAccessories>> getAccessories()
         {
-
-            var result = await (from e in _context.Employees
-                                where e.Cgiid == SerchName || e.FirstName == SerchName
-                                select new GetEmployeeDTO
-                                {
-                                    Id = e.Id,
-                                    Cgiid = e.Cgiid,
-                                    Name = e.FirstName + " " + e.LastName,
-                                    Email = e.Email
+            var result = await (from c in _context.Categories
+                                select new GetAccessories
+                                { 
+                                Id= c.Id,
+                                Name = c.Name
                                 }).ToListAsync();
             return result;
         }
