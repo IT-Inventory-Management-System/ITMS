@@ -6,7 +6,6 @@ namespace ITMS.Server.Services
 {
     public interface IGetSoftwareVersionService
     {
-        Task<IEnumerable<GetSoftwareVersionDTO>> listAllSoftwareVersions();
         Task<IEnumerable<GetSoftwareVersionDTO>> listSoftwareVersions(String SoftwareName);
 
     }
@@ -33,18 +32,6 @@ namespace ITMS.Server.Services
 
                 return result;
         }
-        public async Task<IEnumerable<GetSoftwareVersionDTO>> listAllSoftwareVersions()
-        {
-            var result = await (from sa in _context.Software
-                                select new GetSoftwareVersionDTO
-                                {
-                                    Id = sa.Id,
-                                    SoftwareName = sa.SoftwareName,
-                                    SoftwareVersion = sa.Version
-                                }
-                                 ).ToListAsync();
-
-            return result;
-        }
+        
     }
 }
