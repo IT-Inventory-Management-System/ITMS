@@ -1,6 +1,6 @@
-<div class="container d-flex justify-content-center align-items-center">
+<div class="container d-flex justify-content-center align-items-center  ">
   <div class="container-fluid my-dashboard   ">
-    <div class="row header  ">
+    <div class="row header">
       <div class="col-8 dashboard-title ">
         Dashboard
       </div>
@@ -26,51 +26,74 @@
 
       <div class="row  KPI-card  ">
 
-        <div class=" col-md-8 col1 ms-0  ">
-          <div class="total-asset ">
-            <div class="row header ">
-              <div class="col-8  Total-asset-Title">
-                Total Assets
-              </div>
-              <div class="col-4 Filter">
-                <span class="filter-by"> Filter by</span>
-                <div class="">
-                  <select [(ngModel)]="selectedAssetAge" class="asset-age" aria-expanded="false" (change)="handleCheckboxChange()">
-                    <option value="0" selected class="placeholder drop-options">Asset Age</option>
-                    <option value="1" class="drop-options">0-1 years</option>
-                    <option value="2" class="drop-options">1-2 years</option>
-                    <option value="3" class="drop-options">2-3 years</option>
-                    <option value="4" class="drop-options">3-4 years</option>
-                  </select>
-                  <!--<button type="button" class="btn btn dropdown-toggle " data-bs-toggle="dropdown" aria-expanded="false">
-                    Asset Age
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Separated link</a></li>
-                  </ul>-->
+      <div class=" col-md-8 col1 ms-0  ">
+        <div class="total-asset ">
+          <div class="row header ">
+            <div class="col-8  Total-asset-Title">
+              Total Assets
+            </div>
+            <div class="col-4 Filter">
+              <span class="filter-by"> Filter by</span>
+              
+              <div class="">
+
+                <div class="newasset-dropdown">
+                  <div class="dropdown-button">
+                    {{ getAssetAgeLabel(selectedAssetAge) }}
+                    <img src="../../../../assets/icons/dashboard/Vector.svg" />
+                  </div>
+                  <div class="content" (change)="handleCheckboxChange()">
+                    <label>
+                      <input type="radio" [(ngModel)]="selectedAssetAge" [value]="1" name="assetAge" class="hide"/>
+                      <img src="../../../../assets/icons/dashboard/laptop-solid 2.svg" />
+                      0-1 years
+                    </label>
+                    <label>
+                      <input type="radio" [(ngModel)]="selectedAssetAge" [value]="2" name="assetAge" class="hide"/>
+                      <img src="../../../../assets/icons/dashboard/laptop-solid 2.svg" />
+                      1-2 years
+                    </label>
+                    <label>
+                      <input type="radio" [(ngModel)]="selectedAssetAge" [value]="3" name="assetAge" class="hide"/>
+                      <img src="../../../../assets/icons/dashboard/laptop-solid 2.svg" />
+                      2-3 years
+                    </label>
+                    <label>
+                      <input type="radio" [(ngModel)]="selectedAssetAge" [value]="4" name="assetAge" class="hide"/>
+                      <img src="../../../../assets/icons/dashboard/laptop-solid 2.svg" />
+                      3-4 years
+                    </label>
+                  </div>
                 </div>
+
+                <!--<select [(ngModel)]="selectedAssetAge" class="asset-age" aria-expanded="false" (change)="handleCheckboxChange()">
+    <option value="0" selected class="placeholder drop-options">Asset Age</option>
+    <option value="1" class="drop-options">0-1 years</option>
+    <option value="2" class="drop-options">1-2 years</option>
+    <option value="3" class="drop-options">2-3 years</option>
+    <option value="4" class="drop-options">3-4 years</option>
+  </select>-->
+
+
               </div>
             </div>
-            <div class="container-fluid Assets ms-0 p-0  ">
-              <div class="container-fluid Section1 row ms-0 p-0 me-0  ">
-                <div class="col-6 ms-0 p-0 me-0 " *ngIf="primaryData[0]">
-                  <app-dashboard-assets [primaryData]="primaryData[0][+selectedAssetAge]"></app-dashboard-assets>
-                </div>
-                <div class="col-6  p-0 me-0 d-flex justify-content-end" *ngIf="primaryData[1]">
-                  <app-dashboard-assets [primaryData]="primaryData[1][+selectedAssetAge]"></app-dashboard-assets>
-                </div>
+          </div>
+          <div class="container-fluid Assets ms-0 p-0  ">
+            <div class="container-fluid Section1 row ms-0 p-0 me-0  ">
+              <div class="col-6 ms-0 p-0 me-0 " *ngIf="primaryData[0]">
+                <app-dashboard-assets [primaryData]="primaryData[0][+selectedAssetAge]"></app-dashboard-assets>
               </div>
-              <div class="container-fluid Section2 row ms-0 p-0 me-0" *ngIf="primaryData[2]">
-                <div class="col-6 ms-0 p-0 me-0">
-                  <app-dashboard-assets [primaryData]="primaryData[2][+selectedAssetAge]"></app-dashboard-assets>
-                </div>
-                <div class="col-6 ms-0 p-0 d-flex justify-content-end" *ngIf="primaryData[3]">
-                  <app-dashboard-assets [primaryData]="primaryData[3][+selectedAssetAge]"></app-dashboard-assets>
-                </div>
+              <div class="col-6  p-0 me-0 d-flex justify-content-end" *ngIf="primaryData[1]">
+                <app-dashboard-assets [primaryData]="primaryData[1][+selectedAssetAge]"></app-dashboard-assets>
+              </div>
+            </div>
+            <div class="container-fluid Section2 row ms-0 p-0 me-0" *ngIf="primaryData[2]">
+              <div class="col-6 ms-0 p-0 me-0">
+                <app-dashboard-assets [primaryData]="primaryData[2][+selectedAssetAge]"></app-dashboard-assets>
+              </div>
+              <div class="col-6 ms-0 p-0 d-flex justify-content-end" *ngIf="primaryData[3]">
+                <app-dashboard-assets [primaryData]="primaryData[3][+selectedAssetAge]"></app-dashboard-assets>
+              </div>
 
               </div>
 

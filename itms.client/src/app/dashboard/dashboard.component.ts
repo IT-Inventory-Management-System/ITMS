@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DashboardService } from '../shared/services/Dashboard.service';
+import { FormGroup } from '@angular/forms';
+
 
 
 @Component({
@@ -16,8 +18,6 @@ export class DashboardComponent implements OnInit {
   //  { text: "ListItem 5", value: "ListItem 5" }
   //];
   //fieldsvalues: Object = { dataSource: this.data, text: "text", value: "value" };
-
-
   
   selectedAssetAge: any = '';
   accessoriesData: any[];
@@ -46,15 +46,21 @@ export class DashboardComponent implements OnInit {
 
   constructor(private dashboardService: DashboardService) {
 
-
     this.filteredAccessories = this.accessoriesData;
     this.filteredSoftware = this.softwaresData;
 
-    
-   
 
   }
 
+  getAssetAgeLabel(selectedValue: any): string {
+    switch (selectedValue) {
+      case 1: return '0-1 years';
+      case 2: return '1-2 years';
+      case 3: return '2-3 years';
+      case 4: return '3-4 years';
+      default: return 'Asset Age';
+    }
+  }
 
   handleCheckboxChange() {
     console.log('Selected Asset Age:', this.selectedAssetAge);
