@@ -55,6 +55,9 @@ export class DataService {
     return this.http.get<any[]>(this.apiUrl + 'addDevices/device-models');
   }
 
+  getOs(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + 'Device/get-ostype');
+  }
  
   getSoftwares(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl + 'addDevices/software-models');
@@ -81,6 +84,8 @@ export class DataService {
   postSoftwaredata(formData: any): Observable<any> {
     return this.http.post(this.apiUrl + 'addDevices/add-software-allocation', formData);
   }
+
+
 
 
 }

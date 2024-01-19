@@ -409,5 +409,38 @@ public class DeviceService
 
     }
 
+    public List<OsTypeDto> GetOstypes()
+    {
+        var ostypes = _context.Ostypes.ToList();
+        List<OsTypeDto> oslist = new List<OsTypeDto>();
+        foreach (var ostype in ostypes)
+        {
+            OsTypeDto ostable = new OsTypeDto();
+            ostable.Type = ostype.Osname;
+            ostable.Id = ostype.Id;
+            oslist.Add(ostable);
+        }
+        return oslist;
+
+
+
+    }
+    public List<locationDto> Getlocation()
+    {
+        var locationtypes = _context.Locations.ToList();
+        List<locationDto> locationlist = new List<locationDto>();
+
+        foreach (var location in locationtypes)
+        {
+            locationDto singlelocation = new locationDto();
+            singlelocation.Type = location.Location1;
+            singlelocation.Id = location.Id;
+            locationlist.Add(singlelocation);
+        }
+        return locationlist;
+
+
+    }
+
 
 }

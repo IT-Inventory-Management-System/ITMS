@@ -1,22 +1,22 @@
 <div class="container-fluid add_asset_container">
-  <div class="row header">
+  <div class="header">
     Add Assets
   </div>
-  <div class="row content-box">
-    <div class="col-4 category_container">
+  <div class="content-box">
+    <div class="category_container">
       <div class="search_box">
         <img src="../../assets/icons/Search.svg" class="search_image" />
         <input type="text" class="serach_input" [(ngModel)]="searchtext" placeholder="Search Device" />
       </div>
       <app-category-card *ngFor="let category of categoryData|filter:searchtext" [typeName]="category.typeName" [categories]="category.categories"></app-category-card>
-
-
-
     </div>
-    <div class="col-8 add_device_container">
+    <div class="vertical-stroke">
+      <img src="../../assets/icons/add asset vertical stroke.svg" />
+    </div>
+    <div class="add_device_container">
       <div class="row add_device_contents">
         <div class="col-12" *ngIf="selectedCategory == 'Laptop'">
-          <app-add-device-form></app-add-device-form>     
+          <app-add-device-form></app-add-device-form>
         </div>
         <div class="col-12" *ngIf="selectedCategory == 'Software'">
           <app-add-software-form></app-add-software-form>

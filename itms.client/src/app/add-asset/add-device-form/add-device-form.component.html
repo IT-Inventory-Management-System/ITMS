@@ -64,7 +64,7 @@
             <label class="form-check-label" for="addDetailsCheckbox">Add New Device Details</label>
           </div>
           <div class="mb-3" *ngIf="showDeviceDetailsForm">
-            <app-add-device-model></app-add-device-model>
+            <app-add-device-model [selectedOS]="selectedOS"></app-add-device-model>
           </div>
         </div>
 
@@ -105,14 +105,13 @@
     </form>
   </div>
 
-  <div class="add-device-footer">
-    <div class="previous-button">
-      <button *ngIf="currentStep === 2" class="button-layout" (click)="previous()"><span>Previous</span></button>
-    </div>
+  <div [ngClass]="{'add-device-footer1': currentStep === 1, 'add-device-footer2': currentStep === 2}">
+    <button *ngIf="currentStep === 2" class="previous-btn" (click)="previous()"><span>Previous</span></button>
+    
     <div class="save-device-button">
-      <button class="button-layout cancel-button" type="reset"><span>Cancel</span></button>
-      <button *ngIf="currentStep === 1" type="button" class="button-layout next-button" (click)="next()"><span>Next</span></button>
-      <button *ngIf="currentStep === 2" class="button-layout" type="submit"  (click)="onSubmit()"><span>Submit</span></button>
+      <button class="cancel-button" type="reset"><span>Cancel</span></button>
+      <button *ngIf="currentStep === 1" type="button" class="next-button" (click)="next()"><span>Next</span></button>
+      <button *ngIf="currentStep === 2" class="submit-button-layout" type="submit"  (click)="onSubmit()"><span>Submit</span></button>
     </div>
   </div>
 </div>

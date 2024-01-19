@@ -24,12 +24,12 @@ export class AddSoftwareFormComponent {
       softwareId: ['', Validators.required],
       activationKey: ['', Validators.required],
       purchasedDate: ['', Validators.required],
-      expiryDate: ['', Validators.required],
+      expiryDate: [null, Validators.required],
       qty: [0, Validators.required],
       assignedTo: [null],
       assignedBy: [null],
       assigndate: [null],
-      locationId: ['5BA1C78A-BE30-4256-85DA-85BCCE0108B6'],
+      locationId: ['32ACEEE5-0664-4E21-B6A7-C5447336F5B2'],
     });
   }
 
@@ -127,10 +127,12 @@ export class AddSoftwareFormComponent {
 
 
     console.log(this.SoftwareForm.value);
+    this.SoftwareForm.get("locationId")?.setValue('32ACEEE5-0664-4E21-B6A7-C5447336F5B2');
 
     this.dataService.postSoftwaredata(this.SoftwareForm.value).subscribe(
       response => {
         console.log('Post successful', response);
+        this.SoftwareForm.reset();
       },
       error => {
         console.error('Error posting data', error);
