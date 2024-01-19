@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter, ElementRef, HostListener } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-laptop-search-box',
@@ -10,6 +11,8 @@ export class LaptopSearchBoxComponent {
   @Input() placeholder: string;
   @Input() LaptopOptions: any[] = [];
   @Output() LaptopOptionSelected: EventEmitter<any> = new EventEmitter();
+  @Input() ControlNameSelectedLaptop: FormGroup;
+
 
   searchText: string = '';
   filteredOptions: any[] = [];
@@ -19,24 +22,28 @@ export class LaptopSearchBoxComponent {
   constructor(private elementRef: ElementRef) { }
 
   onInputChange(event: any): void {
-    console.log(event.target.value);
+    //console.log(event.target.value);
     this.searchText = event.target.value;
     this.filterOptions();
   }
 
 
   filterOptions(): void {
-    console.log('Search Text:', this.searchText);
-    console.log('All Options:', this.LaptopOptions);
+    //console.log('Search Text:', this.searchText);
+    //console.log('All Options:', this.LaptopOptions);
     this.filteredOptions = this.LaptopOptions.filter(LaptopOption =>
       LaptopOption.cygid.toLowerCase().includes(this.searchText.toLowerCase()));
-    console.log('Filtered Options:', this.filteredOptions);
+    //console.log('Filtered Options:', this.filteredOptions);
   }
 
   selectOption(option: any): void {
     this.LaptopOptionSelected.emit(option);
     this.searchText = `${option.softwareName}`;
     this.selectedOption = this.searchText;
+    const selectedLaptopControl = this.ControlNameSelectedLaptop.get('selectedLaptop');
+    if (selectedLaptopControl) {
+      selectedLaptopControl.setValue(option);
+    }
     this.filteredOptions = [];
   }
 
@@ -50,8 +57,8 @@ export class LaptopSearchBoxComponent {
       } else if (!this.selectedOption && this.searchText) {
         this.searchText = "";
       }
-      console.log('Search Text:', this.searchText);
-      console.log('Selected Option:', this.selectedOption);
+      //console.log('Search Text:', this.searchText);
+      //console.log('Selected Option:', this.selectedOption);
       this.filteredOptions = [];
     }
   }

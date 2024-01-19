@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { DeviceAssignService } from '../shared/services/device-assign.service';
 import { Inject } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 
 @Component({
   selector: 'app-assign-asset',
@@ -77,8 +79,24 @@ export class AssignAssetComponent {
   selectedLaptop: any;
   accessories: any[] = [];
   selectedAccessory: any;
+  laptopComment: any;
+  softwareComment: any;
+  accessoryComment: any;
 
-  constructor(@Inject(DeviceAssignService) private deviceAssignService: DeviceAssignService) { }
+  assignAssetForm: FormGroup;
+
+  constructor(private formBuilder: FormBuilder, @Inject(DeviceAssignService) private deviceAssignService: DeviceAssignService) {
+    this.assignAssetForm = this.formBuilder.group({
+      selectedUser: [null, Validators.required],
+      selectedLaptop: [null, Validators.required],
+      selectedSoftware: [null, Validators.required],
+      selectedSoftwareVersion: [null, Validators.required],
+      selectedAccessory: [null, Validators.required],
+      laptopComment: null,
+      softwareComment: null,
+      accessoryComment: null,
+  })
+}
 
   ngOnInit() {
     this.getUsers();
@@ -168,7 +186,20 @@ export class AssignAssetComponent {
     console.log("assign accessory", accessories);
   }
 
+  onLaptopComment(comment: any): void {
+    this.laptopComment = comment;
+    console.log("laptop comment", comment);
+  }
+  onSoftwareComment(comment: any): void {
+    this.softwareComment = comment;
+    console.log("software comment", comment);
+  }
+  onAccessoryComment(comment: any): void {
+    this.accessoryComment = comment;
+    console.log("accessory comment", comment);
+  }
+
   saveChanges(): void {
-    console.log('Selected User:', this.selectedUser);
+    console.log('Form Values:', this.assignAssetForm.value);
   }
 }

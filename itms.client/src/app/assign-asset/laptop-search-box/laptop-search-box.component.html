@@ -1,7 +1,12 @@
 <!-- app-search-box.component.html -->
 
 <div class="search-box-subheading">{{ label }} <span style="color:red">*</span></div>
-<input class="search-box" required type="search" [placeholder]="placeholder" [(ngModel)]="selectedOption" aria-label="Search" (input)="onInputChange($event)">
+<input class="search-box" required
+       type="search"
+       [placeholder]="placeholder"
+       [(ngModel)]="selectedOption"
+       aria-label="Search"
+       (input)="onInputChange($event)">
 <!-- Display filtered options -->
 <ul *ngIf="filteredOptions.length > 0" class="options-list">
   <li class="list-items" *ngFor="let option of filteredOptions" (click)="selectOption(option)">

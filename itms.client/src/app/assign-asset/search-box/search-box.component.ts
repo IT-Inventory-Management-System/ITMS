@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter, ElementRef, HostListener } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-search-box',
@@ -9,6 +10,7 @@ export class SearchBoxComponent {
   @Input() label: string;
   @Input() placeholder: string;
   @Input() options: any[] = [];
+  @Input() ControlNameSelectedUser: FormGroup; 
   @Output() optionSelected: EventEmitter<any> = new EventEmitter();
 
   searchText: string = '';
@@ -24,17 +26,6 @@ export class SearchBoxComponent {
     this.filterOptions();
   }
 
-
-  //filterOptions(): void {
-  //  //console.log('Search Text:', this.searchText);
-  //  //console.log('All Options:', this.options);
-  //  this.filteredOptions = this.options.filter(option =>
-  //    option.cgiid.toLowerCase().includes(this.searchText.toLowerCase()) ||
-  //    option.firstName.toLowerCase().includes(this.searchText.toLowerCase()) ||
-  //    option.lastName.toLowerCase().includes(this.searchText.toLowerCase())
-  //  );
-  //  //console.log('Filtered Options:', this.filteredOptions);
-  //}
   filterOptions(): void {
       this.filteredOptions = this.options.filter(option =>
         (option.cgiid && option.cgiid.toLowerCase().includes(this.searchText.toLowerCase())) ||
@@ -49,6 +40,10 @@ export class SearchBoxComponent {
     this.optionSelected.emit(option);
     this.searchText = `${option.cgiid} - ${option.firstName} ${option.lastName}`;
     this.selectedOption = this.searchText;
+    const selectedUserControl = this.ControlNameSelectedUser.get('selectedUser');
+    if (selectedUserControl) {
+      selectedUserControl.setValue(option);
+    }
     this.filteredOptions = [];
   }
 
@@ -66,27 +61,5 @@ export class SearchBoxComponent {
       //console.log('Selected Option:', this.selectedOption);
       this.filteredOptions = [];
     }
-    //if (!clickedInside) {
-    //  if (!this.selectedOption) {
-    //    this.searchText = ''; // Clear searchText if no option was selected
-    //  }
-    //  this.filteredOptions = [];
-    //}
-  //ngAfterViewInit() {
-  //  this.documentClickListener = this.renderer.listen('document', 'click', (event: MouseEvent) => {
-  //    const clickedInside = this.elementRef.nativeElement.contains(event.target);
-  //    if (!clickedInside) {
-  //      if (!this.selectedOption) {
-  //        this.searchText = '';
-  //      }
-  //      this.filteredOptions = [];
-  //    }
-  //  });
-  //}
-  //  ngOnDestroy() {
-  //    if (this.documentClickListener) {
-  //      this.documentClickListener();
-  //    }
-  //  }
   }
 }

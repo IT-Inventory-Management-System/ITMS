@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter, ElementRef, HostListener } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-accessories-search-box',
@@ -10,6 +11,7 @@ export class AccessoriesSearchBoxComponent {
   @Input() placeholder: string;
   @Input() AccessoryOptions: any[] = [];
   @Output() AccessoryOptionSelected: EventEmitter<any> = new EventEmitter();
+  @Input() ControlNameSelectedAccessory: FormGroup;
 
   searchText: string = '';
   filteredOptions: any[] = [];
@@ -37,6 +39,10 @@ export class AccessoriesSearchBoxComponent {
     this.AccessoryOptionSelected.emit(option);
     this.searchText = `${option.softwareName}`;
     this.selectedOption = this.searchText;
+    const selectedAccessoryControl = this.ControlNameSelectedAccessory.get('selectedAccessory');
+    if (selectedAccessoryControl) {
+      selectedAccessoryControl.setValue(option);
+    }
     this.filteredOptions = [];
   }
 

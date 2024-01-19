@@ -10,6 +10,7 @@ export class AssignSoftwareComponent {
   @Output() SoftwareOptionSelected: EventEmitter<any> = new EventEmitter();
   @Input() SoftwareVersionOptions: any[] = [];
   @Output() SoftwareVersionOptionSelected: EventEmitter<any> = new EventEmitter();
+  @Output() SoftwareComment: EventEmitter<any> = new EventEmitter();
 
   SelectedSoftware: any;
   SelectedSoftwareVersion: any;
@@ -23,5 +24,8 @@ export class AssignSoftwareComponent {
     this.SelectedSoftwareVersion = event;
     this.SoftwareVersionOptionSelected.emit(event); // Propagate the event to parent
   }
-
+  CommentBox(event: any): void {
+    console.log('SoftwareCommentBox', event);
+    this.SoftwareComment.emit(event);
+  }
 }

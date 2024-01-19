@@ -1,7 +1,13 @@
 <div class="Device">
   <div class="Device-Section">
     <div class="Device-Frame">
-      <app-laptop-search-box class="sbox" [label]="'CYG ID'" [placeholder]="'Select CYG ID'" [LaptopOptions]="LaptopOptions" (LaptopOptionSelected)="LaptopSearchBoxOptionSelected($event)"></app-laptop-search-box>
+      <app-laptop-search-box class="sbox"
+                             [label]="'CYG ID'"
+                             [placeholder]="'Select CYG ID'"
+                             [LaptopOptions]="LaptopOptions"
+                             (LaptopOptionSelected)="LaptopSearchBoxOptionSelected($event)"
+                             [ControlNameSelectedLaptop]="ControlNameSelectedLaptop">
+      </app-laptop-search-box>
 
       <div class="alert-box">
         <div class="alert-image-frame">
@@ -42,7 +48,7 @@
         </div>
       </div>
     </div>
-    <app-comment-box class="Cbox"></app-comment-box>
+    <app-comment-box class="Cbox" (CommentBox)="CommentBox($event)"></app-comment-box>
   </div>
   <div class="Add-new">
     <img class="add-img" src="../../../../assets/icons/Add.svg" />

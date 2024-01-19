@@ -1,7 +1,13 @@
 <div class="Accessories-Section">
   <div class="form-fields">
-    <app-accessories-search-box class="sbox" [label]="'Accessories'" [placeholder]="'Select Accessories'" [AccessoryOptions]="AccessoryOptions" (AccessoryOptionSelected)="AccessorySearchBoxOptionSelected($event)"></app-accessories-search-box>
-    <app-comment-box class="Cbox"></app-comment-box>
+    <app-accessories-search-box class="sbox"
+                                [label]="'Accessories'"
+                                [placeholder]="'Select Accessories'"
+                                [AccessoryOptions]="AccessoryOptions"
+                                (AccessoryOptionSelected)="AccessorySearchBoxOptionSelected($event)"
+                                [ControlNameSelectedAccessory]="ControlNameSelectedAccessory">
+    </app-accessories-search-box>
+    <app-comment-box class="Cbox" (CommentBox)="CommentBox($event)"></app-comment-box>
   </div>
   <div class="Add-new">
     <img class="add-img" src="../../../../assets/icons/Add.svg" />
