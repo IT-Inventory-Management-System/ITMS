@@ -43,7 +43,7 @@ import { CommentCardComponent } from './inventory/assets-category/assest/assign-
 
 import { SoftwareDetailsComponent } from './user-details/software-details/software-details.component';
 import { AccessoriesDetailsComponent } from './user-details/accessories-details/accessories-details.component';
-import { CommentsComponent } from './user-details/comments/comments.component';
+
 import { CategoryCardComponent } from './add-asset/category-card/category-card.component';
 import { CategoryNameComponent } from './add-asset/category-name/category-name.component';
 import { AssignAssetComponent } from './assign-asset/assign-asset.component';
@@ -54,6 +54,7 @@ import { RecentActivityComponent } from './dashboard/recent-activity/recent-acti
 import { SoftwareComponentComponent } from './dashboard/software-component/software-component.component';
 import { FilterSearchListPipe } from './filter-search-list.pipe';
 import { LaptopDetailsComponent } from './user-details/laptop-details/laptop-details.component';
+import { UserCommentsComponent } from './user-details/user-comments/user-comments.component';
 
 
 
@@ -63,7 +64,6 @@ import { LaptopDetailsComponent } from './user-details/laptop-details/laptop-det
   declarations: [
     DevicesComponent,
     DevicesListComponent,
-    CommentsComponent,
     SoftwareDetailsComponent,
     AccessoriesDetailsComponent,
     SpecInfoComponent,
@@ -110,6 +110,7 @@ import { LaptopDetailsComponent } from './user-details/laptop-details/laptop-det
     NewSidebarComponent,
     FilterSearchListPipe,
     LaptopDetailsComponent,
+    UserCommentsComponent
 
 
 
