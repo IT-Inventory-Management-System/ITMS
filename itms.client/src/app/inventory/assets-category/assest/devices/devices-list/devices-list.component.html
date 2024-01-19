@@ -1,6 +1,6 @@
 <div class="devices-list-container">
 
-  <button #firstButton class="devices-list-container-items"  (click)="onDeviceClick(device.cygid) " >
+  <button #firstButton class="devices-list-container-items"  (click)="onDeviceClick(device.cygid) "  [attr.data-name]="device.cygid" >
    <img src="../assets/icons/laptop-solid.svg" />
     <div class="devices-detail">
       <p class="devices-name">{{device.cygid}}</p>
