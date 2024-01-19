@@ -3,6 +3,7 @@ using ITMS.Server.Services;
 using ITMS.Server.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 namespace ITMS.Server.Controllers
 {
     [ApiController]
@@ -60,6 +61,7 @@ namespace ITMS.Server.Controllers
             var uniqueSoftwareModels = await _deviceService.GetSoftwareModelsAsync();
             return Ok(uniqueSoftwareModels);
         }
+      
 
 
         [HttpPost("add-software")]
@@ -68,7 +70,7 @@ namespace ITMS.Server.Controllers
             try
             {
                 _deviceService.AddSoftware(software);
-                return Ok("Created");
+                return Ok();
             }
             catch (Exception e)
             {
@@ -82,7 +84,7 @@ namespace ITMS.Server.Controllers
             try
             {
                 _deviceService.AddSoftwareAllocation(softwareAllocation);
-                return Ok("Success");
+                return Ok();
             }
             catch (Exception e)
             {

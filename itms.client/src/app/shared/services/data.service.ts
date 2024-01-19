@@ -59,11 +59,21 @@ export class DataService {
     return this.http.get<any[]>(this.apiUrl + 'addDevices/device-models');
   }
 
+  getOs(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + 'Device/get-ostype');
+  }
  
   getSoftwares(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl + 'addDevices/software-models');
   }
   
+  getSoftwareTypes(): Observable < any[] > {
+    return this.http.get<any[]>(this.apiUrl + 'software/getsoftwareType');
+  }
+
+  postNewSoftwareData(formData: any): Observable<any> {
+    return this.http.post(this.apiUrl + 'addDevices/add-software', formData);
+  }
   
 
   getCommentById(deviceLogId: Guid): Observable<any[]> {
@@ -74,4 +84,13 @@ export class DataService {
   triggerButtonClick() {
     this.buttonClickedSource.next();
   }
+
+  postSoftwaredata(formData: any): Observable<any> {
+    return this.http.post(this.apiUrl + 'addDevices/add-software-allocation', formData);
+  }
+
+
+
+
 }
+
