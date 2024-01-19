@@ -103,7 +103,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     SoftwareDetailsComponent,
     AccessoriesDetailsComponent,
     UserNameListComponent,
-    CommentsComponent,
     SpecInfoComponent,
     DevicesComponent,
     DevicesListComponent,
@@ -126,6 +125,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     EmployeeComponent,
    CurrentdeviceComponent,
     AssetfilterdevicePipe,
+
    CategoryCardComponent,
     LaptopSearchBoxComponent,
     SoftwareSearchBoxComponent,
@@ -135,6 +135,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     DashboardComponent,
     CategoryCardComponent,
     FilterPipe
+
   ],
   imports: [
     BrowserModule,
