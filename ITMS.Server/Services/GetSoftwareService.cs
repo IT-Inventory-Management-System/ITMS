@@ -18,21 +18,24 @@ namespace ITMS.Server.Services
             {
                 _context = context;
             }
+        public async Task<IEnumerable<GetSoftwareDTO>> listSoftware()
+        {
+            var result = await (from s in _context.Software
+                                join st in _context.SoftwareTypes
+                                on s.SoftwareTypeId equals st.Id
+                                join sa in _context.SoftwareAllocations
+                                on s.Id equals sa.SoftwareId
 
-            public async Task<IEnumerable<GetSoftwareDTO>> listSoftware()
-            {
-                var result = await (from s in _context.Software
-                                    select new GetSoftwareDTO
-                                    {
-                                        Id=s.Id,
-                                        SoftwareName=s.SoftwareName,
-                                        SoftwareTypeId=s.SoftwareTypeId,
-                                        SoftwareThumbnail= s.SoftwareThumbnail,
-                                        CategoryId=s.CategoryId
-                                    }
-                                 ).ToListAsync();
-                return result;
-            }
+                                select new GetSoftwareDTO
+                                {
+                                    Id = s.Id,
+                                    SoftwareName = s.SoftwareName,
+                                    SoftwareType = st.TypeName,
+                                    ExpiryDate = sa.ExpiryDate
+                                }
+                             ).ToListAsync();
+            return result;
         }
+    }
 
     }

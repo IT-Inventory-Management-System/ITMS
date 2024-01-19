@@ -1,50 +1,54 @@
-  <div class="row comment-container" >
-    <div class="col-md-12 comment-header">
+<div class="comment-container" >
+  <div class="row">
+    <div class="col-md-12 comment-header" (click)="toggleCommentSection()">
       <div class="row">
         <div class="col-md-6">
           <span>
             <img src="../../../../assets/icons/Comment.svg" style="width: 1.25rem; height: 1.25rem;">
           </span>
           <span style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal;">
-            Comment  ({{ laptopDetails.comments.length }})
+            Comment ({{commentLength}})
           </span>
         </div>
         <div class="col-md-6 chevron">
           <div>
-            <img src="../../../../assets/icons/Chevron.svg" style="width: 1.25rem; height: 1.25rem; margin-right: -10%;">
+            <img src="../../../../assets/icons/Chevron.svg" style="width: 1.25rem; height: 1.25rem; margin-right: -10%;" [class.collapsed]="isCommentSectionCollapsed">
           </div>
         </div>
       </div>
     </div>
-    <div class="col-md-12" *ngFor="let comment of laptopDetails.comments">
-      <div class="row comment-avatar">
-        <div class="col-md-6">
-          <div class="row avatar-supercomponent">
-            <div class="col-md-1 avatar">
-              <ngx-avatars name="{{comment.createdBy}}" [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="33"></ngx-avatars>
+    <div *ngIf="isCommentSectionCollapsed">
+      <div class="insideComment" *ngFor="let device of devicelog">
+        <div class="col-md-12" *ngFor="let comment of device.comments">
+          <div *ngIf="comment.deviceLogId === device.id">
+            <div class="row comment-avatar">
+              <div class="col-md-6">
+                <div class="row avatar-supercomponent">
+                  <div class="col-md-1 avatar">
+                    <ngx-avatars name={{comment.createdByNavigation.firstName}} [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="32"></ngx-avatars>
+                  </div>
+                  <div class="col-md-4 user-details">
+                    <div style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 0.875rem; font-style: normal; font-weight: 600; line-height: normal;">{{comment.createdByNavigation.firstName}}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 date-time-comment">
+                <div>
+                  <div>{{comment.createdAtUtc}}</div>
+                </div>
+              </div>
             </div>
-            <div class="col-md-4 user-details">
-              <div style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 0.875rem; font-style: normal; font-weight: 600; line-height: normal;">{{comment.createdBy}}</div>
+            <div class="col-md-12">
+              <p class="comment-content">{{comment.description}}</p>
             </div>
           </div>
+
         </div>
-        <div class="col-md-6 date-time-comment">
-          <div>
-            <div>{{comment.createdAt}}</div>
-          </div>
-        </div>
-        <div class="col-md-12">
-          <p class="comment-content"> {{comment.description}} </p>
+        <div class="input-comment">
+          <input type="text" class="input-comment" [(ngModel)]="newComment" placeholder="Add Comment...">
+          <button class="bb" (click)="saveComment()">Save</button>
         </div>
       </div>
-
-
-
     </div>
-    <div class=" comment-input">
-      <input type="text" class="comment-box" placeholder="Add Comment...">
-      <button class="bb">Save</button>
-    </div>
-
   </div>
-
+</div>

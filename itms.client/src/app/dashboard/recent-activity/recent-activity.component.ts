@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-recent-activity',
@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./recent-activity.component.css']
 })
 export class RecentActivityComponent {
-
+  @Input() logsData: any;
 }

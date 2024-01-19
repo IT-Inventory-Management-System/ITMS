@@ -18,14 +18,20 @@ builder.Services.AddDbContext<ItinventorySystemContext>(options =>
     //builder.cofiguration and not just configuration
     // options.UseSqlServer(builder.Configuration.GetConnectionString("Server=.\\SQLExpress;Database=ITInventoryManagement;Trusted_Connection=True;"));
 });
+builder.Services.AddControllersWithViews()
+    .AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
 builder.Services.AddScoped<IDeviceService, AddDeviceService>();
 builder.Services.AddScoped<IUserListService, UserListService>();
 builder.Services.AddScoped<IAddAssetService, AddAssetService>();
 builder.Services.AddScoped<IGetSoftwareService, GetSoftwareService>();
 builder.Services.AddScoped<IGetSoftwareVersionService, GetSoftwareVersionService>();
 builder.Services.AddScoped<DeviceService>();
+builder.Services.AddScoped<DashboardService>();
 builder.Services.AddScoped<DeviceLogService>();
 builder.Services.AddScoped<UserDeviceService>();
+builder.Services.AddScoped<IGetDeviceService, GetDeviceService>();
 
 builder.Services.AddCors(options =>
 {
