@@ -108,16 +108,31 @@
   opacity:0.5;
   height:2.25rem;
 }
+
 .quantity-counter {
   display: flex;
   width: 8.625rem;
   justify-content: space-between;
   align-items: center;
   border-radius: 0.25rem;
-  border: 1px solid var(--Primary-Blue, #28519E);
+  border-top: 1px solid var(--Primary-Blue, #28519E);
+  border-bottom: 1px solid var(--Primary-Blue, #28519E);
   background: #FFF;
-  height:2.5rem ;
-  margin-bottom:1.25rem;
+  height: 2.47rem;
+}
+
+.reduce-button img {
+  height: 2.54rem;
+  fill: var(--Primary-White, #FFF);
+  stroke-width: 1px;
+  stroke: var(--Primary-Blue, #28519E);
+}
+
+.add-button img {
+  height: 2.54rem;
+  fill: var(--Primary-White, #FFF);
+  stroke-width: 1px;
+  stroke: var(--Primary-Blue, #28519E);
 }
 
 
@@ -136,7 +151,7 @@
 .checkbox-container {
   display: flex;
  
-  align-items: center;
+  align-items: flex-end;
 }
 
 input[type="checkbox"] {
@@ -242,11 +257,47 @@ input[type="checkbox"] {
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
-  background-color:white;
   border-radius: 0.25rem;
   border: 1px solid #28519E;
+  background-color: white;
 }
-  .footer-button:active, .footer-button:focus {
-    background-color: var(--Primary-Blue, #28519E);
-    color: white;
+.footer-button:active{
+  border-style: none;
+}
+
+  .footer-button span {
+    color: var(--Primary-Blue, #28519E);
+    font-family: Roboto;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+
+  .footer-save-button {
+    display: flex;
+    width: 5.75rem;
+    height: 2.5rem;
+    padding: 0.75rem 0.5rem;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 0.25rem;
+    background: var(--Primary-Blue, #28519E);
+    border: none;
+  }
+
+  .footer-save-button:active {
+    border-style: none;
+
+
+  }
+
+.footer-save-button span {
+    color: #FFF;
+    font-family: Roboto;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
   }

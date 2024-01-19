@@ -65,4 +65,16 @@ namespace ITMS.Server.DTO
         
     }
 
+    public class OsTypeDto
+    {
+        public Guid Id { get; set; }
+        public string Type { get; set; }
+    }
+
+    public class locationDto
+    {
+        public Guid Id { get; set; }
+        public string Type { get; set; }
+    }
+
 }
