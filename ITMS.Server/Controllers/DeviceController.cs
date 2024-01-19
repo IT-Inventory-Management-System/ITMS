@@ -14,12 +14,19 @@ namespace itms.server.controllers
     public class DeviceController : ControllerBase
     {
         private readonly DeviceService _deviceService;
+        private readonly IGetDeviceService _getDeviceService;
 
-        public DeviceController(DeviceService deviceService)
+        public DeviceController(DeviceService deviceService, IGetDeviceService getDeviceService)
         {
             _deviceService = deviceService;
+            _getDeviceService = getDeviceService;
         }
 
+        [HttpGet("getDevices")]
+        public async Task<IEnumerable<GetDeviceDTO>> listDevices()
+        {
+            return await _getDeviceService.listDevices();
+        }
         [HttpGet("categories")]
         public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
         {
