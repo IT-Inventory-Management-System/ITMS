@@ -50,7 +50,7 @@ namespace ITMS.Server.Services
                     Version = s.Version,
                     Type = st.TypeName,
                     Inventory = st.Softwares
-                    .SelectMany(sa=>sa.SoftwareAllocations)
+                    .SelectMany(sa => sa.SoftwareAllocations)
                     .Count(),
                     Assigned = st.Softwares.SelectMany(sa => sa.SoftwareAllocations).Count(sa => sa.AssignedTo != null),
                     ExpiryDate = s.SoftwareAllocations
@@ -92,11 +92,11 @@ namespace ITMS.Server.Services
                     {
                         prime.Total = p.DeviceModels
                             .SelectMany(dm => dm.Devices)
-                            .Count(device => device.CreatedAtUtc >= DateTime.UtcNow.AddYears(-i-1) && device.CreatedAtUtc < DateTime.UtcNow.AddYears(-i));
+                            .Count(device => device.CreatedAtUtc >= DateTime.UtcNow.AddYears(-i - 1) && device.CreatedAtUtc < DateTime.UtcNow.AddYears(-i));
 
                         prime.Assigned = p.DeviceModels
                             .SelectMany(dm => dm.Devices)
-                            .Count(device => device.CreatedAtUtc >= DateTime.UtcNow.AddYears(-i-1) && device.CreatedAtUtc < DateTime.UtcNow.AddYears(-i) && device.AssignedTo != null);
+                            .Count(device => device.CreatedAtUtc >= DateTime.UtcNow.AddYears(-i - 1) && device.CreatedAtUtc < DateTime.UtcNow.AddYears(-i) && device.AssignedTo != null);
 
                     }
 
@@ -133,11 +133,11 @@ namespace ITMS.Server.Services
                     {
                         prime.Total = category.DeviceModels
                             .SelectMany(dm => dm.Devices)
-                            .Count(device => device.CreatedAtUtc >= DateTime.UtcNow.AddYears(-i-1) && device.CreatedAtUtc < DateTime.UtcNow.AddYears(-i));
+                            .Count(device => device.CreatedAtUtc >= DateTime.UtcNow.AddYears(-i - 1) && device.CreatedAtUtc < DateTime.UtcNow.AddYears(-i));
 
                         prime.Assigned = category.DeviceModels
                             .SelectMany(dm => dm.Devices)
-                            .Count(device => device.CreatedAtUtc >= DateTime.UtcNow.AddYears(-i-1) && device.CreatedAtUtc < DateTime.UtcNow.AddYears(-i) && device.AssignedTo != null);
+                            .Count(device => device.CreatedAtUtc >= DateTime.UtcNow.AddYears(-i - 1) && device.CreatedAtUtc < DateTime.UtcNow.AddYears(-i) && device.AssignedTo != null);
                     }
 
                     listOfYearsPrimary.Add(prime);
@@ -198,47 +198,57 @@ namespace ITMS.Server.Services
 
 
             var deviceLogs = (from dl in _context.DevicesLogs
-                              join d in _context.Devices on dl.DeviceId equals d.Id
-                              join dm in _context.DeviceModel on d.DeviceModelId equals dm.Id
-                              join c in _context.Categories on dm.CategoryId equals c.Id
-                              join e in _context.Employees on dl.EmployeeId equals e.Id
-                              join a in _context.ActionTables on dl.ActionId equals a.Id
+                              join d in _context.Devices on dl.DeviceId equals d.Id into deviceGroup
+                              from device in deviceGroup.DefaultIfEmpty()
+
+                              join dm in _context.DeviceModel on device.DeviceModelId equals dm.Id into deviceModelGroup
+                              from deviceModel in deviceModelGroup.DefaultIfEmpty()
+
+                              join c in _context.Categories on deviceModel.CategoryId equals c.Id into categoryGroup
+                              from category in categoryGroup.DefaultIfEmpty()
+
+                              join e in _context.Employees on dl.EmployeeId equals e.Id into employeeGroup
+                              from employee in employeeGroup.DefaultIfEmpty()
+
+                              join a in _context.ActionTables on dl.ActionId equals a.Id into actionGroup
+                              from action in actionGroup.DefaultIfEmpty()
+
                               orderby dl.UpdatedAtUtc descending
                               select new
                               {
                                   DeviceLog = dl,
-                                  Device = d,
-                                  DeviceModel = dm,
-                                  Category = c,
-                                  Employee = e,
-                                  Action = a
+                                  Device = device,
+                                  DeviceModel = deviceModel,
+                                  Category = category,
+                                  Employee = employee,
+                                  Action = action
                               })
-                  .Take(10)
-                  .ToList();
+                    .Take(10)
+                    .ToList();
+
 
             var logsList = deviceLogs.Select(dl => new Logs
             {
-
                 UpdatedBy = _context.Employees
-    .Where(e => e.Id == dl.DeviceLog.AssignedBy && dl.DeviceLog.AssignedBy != null)
-    .Select(e => e.FirstName+e.LastName)
-    .FirstOrDefault(),
+               .Where(e => e.Id == dl.DeviceLog.AssignedBy && dl.DeviceLog.AssignedBy != null)
+               .Select(e => e.FirstName + e.LastName)
+               .FirstOrDefault(),
 
-                CYGID = dl.Device.Cygid,
+                CYGID = dl.Device?.Cygid,
 
-                Category = dl.Device.DeviceModel.Category.Name,
+                Category = dl.Device?.DeviceModel?.Category?.Name,
 
                 SubmittedTo = _context.Employees
-    .Where(e => e.Id == dl.DeviceLog.RecievedBy && dl.DeviceLog.RecievedBy != null)
-    .Select(e => e.FirstName + e.LastName)
-    .FirstOrDefault(),
+               .Where(e => e.Id == dl.DeviceLog.RecievedBy && dl.DeviceLog.RecievedBy != null)
+               .Select(e => e.FirstName + e.LastName)
+               .FirstOrDefault(),
 
                 AssignedTo = _context.Employees
-    .Where(e => e.Id == dl.DeviceLog.EmployeeId)
-    .Select(e => e.FirstName + e.LastName)
-    .FirstOrDefault(),
+               .Where(e => e.Id == dl.DeviceLog.EmployeeId)
+               .Select(e => e.FirstName + e.LastName)
+               .FirstOrDefault(),
 
-                Action = dl.Action.ActionName,
+                Action = dl.Action?.ActionName,
 
                 UpdatedOn = (DateTime)dl.DeviceLog.UpdatedAtUtc
             }).ToList();
