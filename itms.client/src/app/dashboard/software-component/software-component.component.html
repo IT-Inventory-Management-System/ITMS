@@ -1,29 +1,29 @@
-<div class="software">
+<div  class="software">
   <div class="software-details">
-    <div class="expiring-tag">
+    <div *ngIf="softwareData.type !== 'perpetual'" class="expiring-tag">
       
         <img src="../../../assets/icons/dashboard/Warning.svg" />
-        <span class="warning-text">3 Expiring in 15 days</span>
+        <span class="warning-text">{{ expiringSoftwareCount }} Expiring in 15 days</span>
     </div>
     <div class="section1">
       <div class="software-name">
         <div class="title">
-          Visual Studio Code
+          {{ softwareData.name }}
         </div>
         <div class="frame">
-          <div class="tag1">
+          <div class="tag1" *ngIf="softwareData.version !== null" >
             <div class="version">
-              <span class="version-text">Version 2.0.0</span>
+              <span class="version-text">{{ softwareData.version }}</span>
             </div>
           </div>
           <div class="tag2">
             <div class="version">
-              <span class="version-text">Validity</span>
+              <span class="version-text">{{ softwareData.type }}</span>
             </div>
           </div>
         </div>
       </div>
-      <img src="../../../assets/icons/dashboard/image 154.png" />
+      <img [src]="getIconPath(softwareData.name)" />
     </div>
     <div class="section2">
       <div class="assigned">
@@ -31,7 +31,7 @@
           <img src="../../../assets/icons/dashboard/icon.svg" />
           <span class="assignedtext">Assigned</span>
         </div>
-        <div class="assignednumber">88</div>
+        <div class="assignednumber">{{ softwareData.assigned }}</div>
 
       </div>
       <div class="inventory">
@@ -39,7 +39,16 @@
           <img src="../../../assets/icons/dashboard/Check mark.svg" />
           <span class="inventory-text">Inventory</span>
         </div>
-        <div class="inventorynumber">88</div>
+        <div class="lowstock-container">
+          <div class="lowstock"*ngIf="softwareData.inventory < 1">
+            <div class="lowstocktext">Low in Stock</div>
+          </div>
+          <div class="inventorynumber"[ngClass]="{'inventorylowstocktext': softwareData.inventory < 1}" >
+            {{ softwareData.inventory }}
+          </div>
+        </div>
+       
+     
 
       </div>
     </div>

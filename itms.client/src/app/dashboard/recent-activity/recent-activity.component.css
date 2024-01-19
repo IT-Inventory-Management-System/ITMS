@@ -93,4 +93,37 @@
   border: 1px solid black;
 }
 
+.Date {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.75rem;
+  align-self: stretch;
+}
 
+.h-line {
+  background: var(--Secondary-Light-Gray, #E9ECEB);
+  height: 0.125rem;
+  flex: 1 0 0;
+}
+
+.Date-content {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 0.25rem;
+}
+
+.date-title {
+  color: var(--Primary-Gray, #343435);
+  text-align: right;
+  font-family: Roboto;
+  font-size: 0.8125rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.st {
+  border: 1px solid black;
+}
