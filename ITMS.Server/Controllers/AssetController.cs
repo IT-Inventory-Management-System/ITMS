@@ -18,10 +18,17 @@ namespace ITMS.Server.Controllers
             _addAssetService = addAssetService;
         }
         [HttpGet("getEmployee")]
-        public async Task<IEnumerable<GetEmployeeDTO>> getEmployeeBasicDetails()
+        public async Task<IEnumerable<GetEmployeeDTO>> getAllEmployeeBasicDetails()
         {
-          return await _addAssetService.getEmployeeBasicDetails();
+          return await _addAssetService.getAllEmployeeBasicDetails();
 
         }
+        [HttpGet("getAccessories")]
+        public async Task<IEnumerable<GetAccessories>> getAccessories()
+        {
+            return await _addAssetService.getAccessories();
+
+        }
+
     }
 }

@@ -6,7 +6,6 @@ namespace ITMS.Server.Services
 {
     public interface IGetSoftwareVersionService
     {
-
         Task<IEnumerable<GetSoftwareVersionDTO>> listSoftwareVersions(String SoftwareName);
 
     }
@@ -21,18 +20,18 @@ namespace ITMS.Server.Services
 
         public async Task<IEnumerable<GetSoftwareVersionDTO>> listSoftwareVersions(String SoftwareName)
         {
-            var result = await (from sa in _context.SoftwareAllocations
-                                    join s in _context.Software on sa.SoftwareId equals s.Id
-                                    where s.SoftwareName == SoftwareName
+            var result = await (from sa in _context.Software
+                                    where sa.SoftwareName == SoftwareName
                                     select new GetSoftwareVersionDTO
                                     {
                                         Id = sa.Id,
-                                        SoftwareName = s.SoftwareName,
-                                       // SoftwareVersion = sa.SoftwareVersion
+                                        SoftwareName = sa.SoftwareName,
+                                        SoftwareVersion = sa.Version
                                     }
                                  ).ToListAsync();
 
                 return result;
         }
+        
     }
 }

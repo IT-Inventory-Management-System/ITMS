@@ -2,10 +2,9 @@
 {
     public class GetSoftwareDTO
     {
-            public Guid Id { get; set; }
-            public required string SoftwareName { get; set; }
-            public Guid SoftwareTypeId { get; set; }
-            public Guid CategoryId { get; set; }
-            public required byte[] SoftwareThumbnail { get; set; }
+        public Guid Id { get; set; }
+        public required string SoftwareName { get; set; }
+        public string SoftwareType { get; set; }
+        public DateTime? ExpiryDate { get; set; }
     }
 }

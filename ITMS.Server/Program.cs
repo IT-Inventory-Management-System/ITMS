@@ -35,6 +35,7 @@ builder.Services.AddScoped<DeviceService>();
 builder.Services.AddScoped<DashboardService>();
 builder.Services.AddScoped<DeviceLogService>();
 builder.Services.AddScoped<UserDeviceService>();
+builder.Services.AddScoped<IGetDeviceService, GetDeviceService>();
 builder.Services.AddScoped<SoftwareService>();
 builder.Services.AddScoped<AccessoriesService>();
 builder.Services.AddScoped<ICommentService, AddCommentService>();

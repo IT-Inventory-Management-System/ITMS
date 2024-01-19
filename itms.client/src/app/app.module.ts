@@ -75,6 +75,7 @@ import { CommentsComponent } from './shared/components/comments/comments.compone
 
 
 
+
 @NgModule({
   declarations: [
     DevicesComponent,
