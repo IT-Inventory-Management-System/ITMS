@@ -7,7 +7,7 @@
             <img src="../../../../assets/icons/Comment.svg" style="width: 1.25rem; height: 1.25rem;">
           </span>
           <span style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal;">
-            Comment (1)
+            Comment ({{commentLength}})
           </span>
         </div>
         <div class="col-md-6 chevron">
@@ -45,9 +45,9 @@
 
         </div>
         <div class="input-comment">
-          <input class="input-comment" placeholder="Add Comment..." />
+          <input type="text" class="input-comment" [(ngModel)]="newComment" placeholder="Add Comment...">
+          <button class="bb" (click)="saveComment()">Save</button>
         </div>
-        <button class="save">Save</button>
       </div>
     </div>
   </div>

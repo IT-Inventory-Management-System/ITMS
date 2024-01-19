@@ -94,6 +94,19 @@ namespace itms.server.controllers
             }
         }
 
+        [HttpGet("get-ostype")]
+        public ActionResult<IEnumerable<Ostype>> GetOstypes()
+        {
+            var getos = _deviceService.GetOstypes();
+            return Ok(getos);
+        }
+        [HttpGet("get-location")]
+        public ActionResult<IEnumerable<Location>> Getlocation()
+        {
+            var getLocation = _deviceService.Getlocation();
+            return Ok(getLocation);
+        }
+
     }
 }
 
