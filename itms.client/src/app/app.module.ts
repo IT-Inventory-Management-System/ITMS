@@ -133,7 +133,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     AccesoriesComponent,
     DashboardComponent,
     
-    FilterPipe
+    FilterPipe,
 
    
     AddAssetComponent
