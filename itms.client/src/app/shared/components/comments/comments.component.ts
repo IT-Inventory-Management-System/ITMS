@@ -11,7 +11,10 @@ export class CommentsComponent {
 
   isCommentSectionCollapsed = false;
   currentDeviceCygid: string;
-  @Input() laptopDetails: any;
+  @Input() deviceId: any;
+  @Input() userId: any;
+  @Input() deviceLogId: any;
+  @Input() commentLength: any;
   DeviceLogInfo: any;
   newComment: string = '';
   
@@ -37,10 +40,10 @@ export class CommentsComponent {
     if (this.newComment) {
       const commentDto = {
         description: this.newComment,
-        createdBy: this.devicelog.userId,
+        createdBy: this.userId,
         createdAtUtc: new Date().toISOString(),
-        deviceId: this.devicelog.deviceId,
-        deviceLogId: this.devicelog.deviceLogId
+        deviceId: this.deviceId,
+        deviceLogId: this.deviceLogId
       };
 
       console.log('Comment DTO:', commentDto);
