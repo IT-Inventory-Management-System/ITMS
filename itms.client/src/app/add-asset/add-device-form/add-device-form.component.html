@@ -28,26 +28,26 @@
         <div class="os-radio-button">
           <label class="os-label">Operating System <span class="required">*</span></label>
           <div class="os-input">
-            <div class="window-input">
-              <input type="radio" name="osType" id="windowsRadio" value="Windows">
+            <!--<div class="window-input">-->
+              <input type="radio" name="osType" id="windowsRadio" value="Windows"  [(ngModel)]="selectedOS" (change)="loadDropdownValues()">
               <label for="windowsRadio">Windows</label>
-            </div>
-            <div class="mac-input">
-              <input type="radio" name="osType" id="macRadio" value="Mac">
+            <!--</div>
+            <div class="mac-input">-->
+              <input type="radio" name="osType" id="macRadio" value="Mac"  [(ngModel)]="selectedOS" (change)="loadDropdownValues()">
               <label for="macRadio">Mac</label>
-            </div>
+            <!--</div>-->
           </div>
         </div>
 
-        <div class="device-model-input">
+        <div class="device-model-input" [formGroup]="addDeviceForm">
           <div class="device-model-select">
             <div class="select-device-dropdown">
               <label for="deviceName">Device Name <span class="required">*</span></label>
-              <select>
+              <select formControlName="deviceModelId">
                 <option value="" selected class="placeholder">Select Device Name</option>
-                <!--<option *ngFor="let value of dropdownValues" [value]="value.id">
-                  {{ value.name }}
-                </option>-->
+                <option *ngFor="let value of dropdownValues" [value]="value.id" >
+                  {{ value.deviceName }}
+                </option>
               </select>
             </div>
             <div class="quantity-select">
@@ -64,43 +64,54 @@
             <label class="form-check-label" for="addDetailsCheckbox">Add New Device Details</label>
           </div>
           <div class="mb-3" *ngIf="showDeviceDetailsForm">
-            <app-add-device-model></app-add-device-model>
+            <app-add-device-model [selectedOS]="selectedOS"></app-add-device-model>
           </div>
         </div>
 
 
-        <div class="row mb-3" id="deviceDetailsDiv">
+        <div class="row mb-3" id="deviceDetailsDiv" [formGroup]="addDeviceForm">
           <div class="col-6">
             <label for="purchaseDate" class="purchaseDate">Date of Purchase <span class="required">*</span></label>
-            <input type="date" class="form-control" id="purchaseDate" name="purchaseDate">
+            <input type="date" class="form-control" id="purchaseDate" name="purchaseDate" formControlName="purchasedOn">
           </div>
           <div class="col-6">
             <div class="row warranty">
-              <label for="warrantyYear">Warranty Year <span class="required">*</span></label>
+              <label>Warranty Year <span class="required">*</span></label>
               <div class="col-6 warranty-input">
-                <input type="text" class="form-control" id="warrantyYear" name="warrantyYear" min="1" placeholder="Month">
-                <input type="text" class="form-control" id="warrantyYear" name="warrantyYear" min="1" placeholder="Year">
+                <input type="number" class="form-control" id="warrantyMonth" name="warrantyYear" placeholder="Month" (change)="setWarrantyMonth($event)">
+                <input type="number" class="form-control" id="warrantyYear" name="warrantyYear" placeholder="Year" (change)="setWarrantyYear($event)">
               </div>
             </div>
           </div>
         </div>
       </div>
       <div *ngIf="currentStep === 2" class="app-id-input container-fluid">
-        <div *ngFor="let i of counterValues" class="row">
-          <app-id-input></app-id-input>
+        <div *ngFor="let ele of counterValues; let i = index" class="row">
+
+          <div class="outer-input row">
+            <div class="serial-number-input col-6">
+              <label for="serialNumber">Serial Number<span class="required">*</span></label>
+              <input type="text" id="serialNumber" name="serialNumber" (input)="updateSerialNumber(i, $event)"/>
+            </div>
+            <div class="cyg-id-input col-6">
+              <label for="cygId">CYG ID.<span class="required">*</span></label>
+              <input type="text" id="cygId" name="cygId" (input)="updateCygId(i, $event)"/>
+            </div>
+          </div>
+
+
         </div>
       </div>
     </form>
   </div>
 
-  <div class="add-device-footer">
-    <div class="previous-button">
-      <button *ngIf="currentStep === 2" class="button-layout" (click)="previous()"><span>Previous</span></button>
-    </div>
+  <div [ngClass]="{'add-device-footer1': currentStep === 1, 'add-device-footer2': currentStep === 2}">
+    <button *ngIf="currentStep === 2" class="previous-btn" (click)="previous()"><span>Previous</span></button>
+    
     <div class="save-device-button">
-      <button class="button-layout cancel-button"><span>Cancel</span></button>
-      <button *ngIf="currentStep === 1" class="button-layout next-button" (click)="next()"><span>Next</span></button>
-      <button *ngIf="currentStep === 2" class="button-layout"><span>Submit</span></button>
+      <button class="cancel-button" type="reset"><span>Cancel</span></button>
+      <button *ngIf="currentStep === 1" type="button" class="next-button" (click)="next()"><span>Next</span></button>
+      <button *ngIf="currentStep === 2" class="submit-button-layout" type="submit"  (click)="onSubmit()"><span>Submit</span></button>
     </div>
   </div>
 </div>

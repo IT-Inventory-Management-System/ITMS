@@ -1,5 +1,4 @@
-<div class="comment-card col-md-12" *ngFor="let device of devicelog" >
-
+<div class="comment-card col-md-12" *ngFor="let device of devicelog ; let i = index">
 
   <div class="user-details">
     <div class="user">
@@ -15,26 +14,22 @@
       </div>
     </div>
 
-    <div class="status">
-      Current Device
+    <div class="status col-md-4 justify-content-end" *ngIf="i === 0">
+      <app-currentdevice></app-currentdevice>
     </div>
   </div>
 
-
-
-
-
   <div class="inner-info col-md-12 d-flex">
     <div class="info col-md-7">
-      <span>Assigned By</span>
-      <div class="info-text col-3">
+      <span >Assigned By</span>
+      <div class="info-text col-5 ">
         <span>
 
-         {{device.assignedBy}}
+          {{device.assignedBy}}
         </span>
-        <span>
+        <div>
           {{device.formattedAssignedDate}}
-        </span>
+        </div>
       </div>
     </div>
     <div class="info inforight col-md-5 ">
@@ -47,7 +42,7 @@
       </div>
     </div>
   </div>
-  <app-comments></app-comments>
+  <app-comments [userId]="device.userId" [deviceId]="device.deviceId" [deviceLogId]="device.id" [commentLength]="device.comments.length"></app-comments>
 </div>
 
 
