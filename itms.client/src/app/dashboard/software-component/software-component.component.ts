@@ -30,12 +30,13 @@ export class SoftwareComponentComponent {
   }
 
   getIconPath(name: string): string {
+    const lowerCaseName = name.toLowerCase();
     // Customize this logic based on your requirements
-    if (name === 'Figma') {
+    if (lowerCaseName === 'figma') {
       return '../../../assets/icons/dashboard/image 156.png';
-    } else if (name === 'Microsofts Windows NT operating system software license') {
+    } else if (lowerCaseName === 'microsofts windows nt operating system software license') {
       return '../../../assets/icons/dashboard/Microsoft.svg';
-    } else if (name === 'Visual Studio Code') {
+    } else if (lowerCaseName === 'visual studio code') {
       return '../../../assets/icons/dashboard/image 154.png';
     } 
     
