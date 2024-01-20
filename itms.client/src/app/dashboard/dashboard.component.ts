@@ -3,7 +3,6 @@ import { DashboardService } from '../shared/services/Dashboard.service';
 import { FormGroup } from '@angular/forms';
 
 
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -18,7 +17,6 @@ export class DashboardComponent implements OnInit {
   //  { text: "ListItem 5", value: "ListItem 5" }
   //];
   //fieldsvalues: Object = { dataSource: this.data, text: "text", value: "value" };
-  
   selectedAssetAge: any = '';
   accessoriesData: any[];
   softwaresData: any[];
