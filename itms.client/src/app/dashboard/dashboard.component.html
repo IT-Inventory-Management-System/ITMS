@@ -3,6 +3,10 @@
     <span class="sr-only">Loading...</span>
   </div>
 </div>
+
+
+
+
 <ng-template #content>
   <div class="container d-flex justify-content-center align-items-center  ">
     <div class="container-fluid my-dashboard me-0 p-0  " *ngIf="!loading && logsData">
@@ -50,22 +54,22 @@
                       </div>
                       <div class="content" (change)="handleCheckboxChange()">
                         <label>
-                          <input *ngIf="selectedAssetAge !== undefined" type="radio" [(ngModel)]="selectedAssetAge" [value]="1" name="assetAge" class="hide" />
+                          <input type="radio" [(ngModel)]="selectedAssetAge" [value]="1" name="assetAge" class="hide" />
                           <img src="../../../../assets/icons/dashboard/laptop-solid 2.svg" />
                           0-1 years
                         </label>
                         <label>
-                          <input *ngIf="selectedAssetAge !== undefined" type="radio" [(ngModel)]="selectedAssetAge" [value]="2" name="assetAge" class="hide" />
+                          <input type="radio" [(ngModel)]="selectedAssetAge" [value]="2" name="assetAge" class="hide" />
                           <img src="../../../../assets/icons/dashboard/laptop-solid 2.svg" />
                           1-2 years
                         </label>
                         <label>
-                          <input *ngIf="selectedAssetAge !== undefined" type="radio" [(ngModel)]="selectedAssetAge" [value]="3" name="assetAge" class="hide" />
+                          <input type="radio" [(ngModel)]="selectedAssetAge" [value]="3" name="assetAge" class="hide" />
                           <img src="../../../../assets/icons/dashboard/laptop-solid 2.svg" />
                           2-3 years
                         </label>
                         <label>
-                          <input *ngIf="selectedAssetAge !== undefined" type="radio" [(ngModel)]="selectedAssetAge" [value]="4" name="assetAge" class="hide" />
+                          <input type="radio" [(ngModel)]="selectedAssetAge" [value]="4" name="assetAge" class="hide" />
                           <img src="../../../../assets/icons/dashboard/laptop-solid 2.svg" />
                           3-4 years
                         </label>
@@ -84,7 +88,7 @@
                   </div>
                 </div>
               </div>
-              <div *ngIf="primaryData && selectedAssetAge !== undefined" class="container-fluid Assets ms-0 p-0  ">
+              <div class="container-fluid Assets ms-0 p-0  ">
                 <div class="container-fluid Section1 row ms-0 p-0 me-0  ">
                   <div class="col-6 ms-0 p-0 me-0 " *ngIf="primaryData[0]">
                     <app-dashboard-assets [primaryData]="primaryData[0][+selectedAssetAge]"></app-dashboard-assets>
@@ -100,34 +104,6 @@
                   <div class="col-6 ms-0 p-0 d-flex justify-content-end" *ngIf="primaryData[3]">
                     <app-dashboard-assets [primaryData]="primaryData[3][+selectedAssetAge]"></app-dashboard-assets>
                   </div>
-                    Asset Age
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Separated link</a></li>
-                  </ul>-->
-                </div>
-              </div>
-            </div>
-            <div class="container-fluid Assets ms-0 p-0  ">
-              <div class="container-fluid Section1 row ms-0 p-0 me-0  ">
-                <div class="col-6 ms-0 p-0 me-0 " *ngIf="primaryData[0]">
-                  <app-dashboard-assets [primaryData]="primaryData[0][+selectedAssetAge]"></app-dashboard-assets>
-                </div>
-                <div class="col-6  p-0 me-0 d-flex justify-content-end" *ngIf="primaryData[1]">
-                  <app-dashboard-assets [primaryData]="primaryData[1][+selectedAssetAge]"></app-dashboard-assets>
-                </div>
-              </div>
-              <div class="container-fluid Section2 row ms-0 p-0 me-0" *ngIf="primaryData[2]">
-                <div class="col-6 ms-0 p-0 me-0">
-                  <app-dashboard-assets [primaryData]="primaryData[2][+selectedAssetAge]"></app-dashboard-assets>
-                </div>
-                <div class="col-6 ms-0 p-0 d-flex justify-content-end" *ngIf="primaryData[3]">
-                  <app-dashboard-assets [primaryData]="primaryData[3][+selectedAssetAge]"></app-dashboard-assets>
-                </div>
 
                 </div>
 
@@ -135,8 +111,7 @@
 
             </div>
 
-
-            <div *ngIf="accessoriesData" class="row2  d-flex ">
+            <div class="row2  d-flex ">
               <div class=" Assesories-Details ms-0 ">
                 <div class="Assesories-Heading">
                   <div class="Assesories-Text">Accessories</div>
@@ -173,9 +148,8 @@
 
 
 
-
           </div>
-          <div *ngIf="logsData" class=" col-4 Recent-Activity ">
+          <div class=" col-4 Recent-Activity ">
             <div class="Recent-Activity-Heading ">
               <div class="Recent-Activity-Text">
                 Recent Activity
@@ -183,7 +157,7 @@
               </div>
 
             </div>
-            <div class=" container-fluid Recent-Activity-Content p-0">
+            <div class=" container-fluid Recent-Activity-Content ">
               <div class="Frame   ">
                 <!--<div class="Date">
                   <hr class="h-line">
@@ -194,10 +168,10 @@
                   <hr class="h-line">
 
                 </div>-->
-                <div class="container-fluid p-0">
+                <div class="container-fluid">
 
 
-                  <div class="row  p-0" *ngFor="let logs of logsData; let i = index">
+                  <div class="row" *ngFor="let logs of logsData; let i = index">
                     <div class="Date" *ngIf="isDateDifferent(i)">
                       <hr class="h-line">
                       <div class="Date-content">

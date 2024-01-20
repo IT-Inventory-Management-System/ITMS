@@ -24,7 +24,7 @@ export class DashboardComponent implements OnInit {
   softwaresData: any[];
   primaryData: any[];
   logsData: any[];
-  filteredAccessories: any[]  // Remove the duplicated declaration
+  filteredAccessories: any[]  
   filterValue: string = '';
 
   filteredSoftware: any[]
