@@ -231,7 +231,7 @@ namespace ITMS.Server.Services
             {
                 UpdatedBy = _context.Employees
                .Where(e => e.Id == dl.DeviceLog.AssignedBy && dl.DeviceLog.AssignedBy != null)
-               .Select(e => e.FirstName + e.LastName)
+               .Select(e => e.FirstName +" " + e.LastName)
                .FirstOrDefault(),
 
                 CYGID = dl.Device?.Cygid,
@@ -245,7 +245,7 @@ namespace ITMS.Server.Services
 
                 AssignedTo = _context.Employees
                .Where(e => e.Id == dl.DeviceLog.EmployeeId)
-               .Select(e => e.FirstName + e.LastName)
+               .Select(e => e.FirstName +" " + e.LastName)
                .FirstOrDefault(),
 
                 Action = dl.Action?.ActionName,
