@@ -1,126 +1,149 @@
-<div class="container-fluid">
-  <br>
-  <div class="col-md-6">
-    <label for="inlineFormSelectPref" placeholder="Enter Software Name" class="form-label required-field">Software Name </label>
-    <select class="form-select col-6 mx-auto" id="inlineFormSelectPref">
-      <option selected>Choose...</option>
-      <option value="1">One</option>
-      <option value="2">Two</option>
-      <option value="3">Three</option>
+<div class="heading_Add_software">Add Software</div>
+<form [formGroup]="SoftwareForm" (ngSubmit)="onSubmit()">
+<div class="main_content">
+  <div class="top_field">
+    <label for="inlineFormSelectPref" placeholder="Enter Software Name" class="required-field software_name">Software Name </label>
+    <select class="form-select select_input" id="inlineFormSelectPref" (change)="dynamicChanges($event)" >
+      <option *ngFor="let value of dropdownValues" [value]="value.typeName + '@' + value.id" >
+        {{ value.softwareName }}
+      </option>
     </select>
+   
+    <div class="checkbox-container">
+      <input type="checkbox" class="form-check-input" id="toggleAccordion" (change)="toggleSoftwareForm()">
+      <label for="toggleAccordion" class="toggle-label">Add New Software</label>
+    </div>
   </div>
 
-  <br>
 
-  <div class="checkbox-container">
-    <input type="checkbox" id="toggleAccordion" (change)="toggleSoftwareForm()">
-    <label for="toggleAccordion" class="toggle-label">Add New Software</label>
+
+
+  <div class=" software-form-container" *ngIf="isFormOpen">
+    <app-add-software-model ></app-add-software-model>
   </div>
 
-  <div *ngIf="isFormOpen" class="col-md-6 software-form-container">
-    <h6>Add New Software</h6>
-    <form>
-      <div>
-        <label for="name" class="form-label required-field">Software Name</label>
-        <input type="text" class="form-control" placeholder="Enter Software Name">
-      </div>
 
-      <br>
 
-      <div class="mb-6">
-        <label for="thumbnail" class="form-label">Software Thumbnail</label>
-        <div class="row">
-
-          <div class="picture">
-            <img src="../../../assets/icons/add_photo_alternate_outlined 1.svg" class="thumbnail-image"
-                 alt="Software thumbnail">
-          </div>
-
-          <div class="thumbnail-text">
-            <p>Size: 36*36 Pixels</p>
-            <p>File Support: jpg, .jpeg, .png</p>
-            <button type="submit" class="thumbnail-submit-button">
-              <img src="../../../assets/icons/upload.svg" class="upload-icon" alt="upload icon">Upload Image
-            </button>
-          </div>
-
-        </div>
-
-      </div>
-
-      <br>
-
-      <div>
-        <label for="type" class="form-label required-field">Software Type</label>
-        <div class="software-checkbox-container">
-          <input type="radio" id="Perpetual" name="softwareType">
-          <label for="Perpetual">Perpetual</label>
-
-          <input type="radio" id="Validity" name="softwareType">
-          <label for="Validity">Validity</label>
-
-          <input type="radio" id="Subscription" name="softwareType">
-          <label for="Subscription">Subscription</label>
-        </div>
-      </div>
-      <br>
-      <button type="submit" class="software-form-add-button">Add</button>
-    </form>
-    <br>
-  </div>
-
-  <br>
-
+   
   <div class="alert" role="alert" [style.display]="isFormOpen ? 'none' : 'block'">
-    <img src="../../../assets/icons/Vector.svg" class="alert-icon" alt="alert icon">This software type is perpetual
+    <img src="../../../assets/icons/Vector.svg" class="alert-icon" alt="alert icon">&nbsp; This software type is {{selectedTypeName}}
   </div>
 
-  <div class="col-md-6">
-    <label for="inputEmail4" class="form-label required-field">Software Version</label>
-    <input type="email" class="form-control" id="inputEmail4" placeholder="Enter software version">
-  </div>
 
-  <br>
+    <div *ngIf="selectedTypeName === 'Validity'">
 
-  <div class="row">
-    <div class="col-md-4">
-      <label for="date" class="form-label required-field">Date of purchase</label>
-      <div class="input-group date">
-        <input type="date" class="form-control" id="date" placeholder="12-15-2023" />
-      </div>
-    </div>
+      <div class="row date_container">
+        <div class="col-6">
+          <label for="VPdate" class="form-label required-field">Date of purchase</label>
 
-    <div class="col-md-2">
-      <label for="date" class="form-label">Date</label>
-      <div class="input-group date" id="datepicker">
-        <input type="text" class="form-control" id="date" />
-        <span class="input-group-append">
-          <span class="input-group-text bg-light d-block">
-            <i class="fa fa-calendar"></i>
-          </span>
-        </span>
-      </div>
-    </div>
+          <input type="date" class="form-control" id="VPdate" placeholder="12-15-2023" formControlName="purchasedDate" />
 
-  </div>
-
-  <br>
-
-  <div class="col-md-6">
-    <label class="form-label">Activation Key</label>
-
-    <div class="input-group">
-      <input [type]=" showPassword ? 'text': 'password' " class="form-control" placeholder="Enter Activation Key">
-      <div class="input-group-append">
-
-        <div class="toggle_hide_password">
-          <img src="../../../assets/icons/Eye.svg" class="eye-icon" alt="eye icon" (click)="togglePassword()" *ngIf="!showPassword">
-          <i (click)="togglePassword()" class="fa-solid fa-eye-slash" *ngIf="showPassword"></i>
         </div>
+        <div class="col-6">
+          <label for="VEdate" class="form-label required-field">Expiry Date</label>
 
+          <input type="date" class="form-control" id="VEdate" placeholder="12-15-2023" formControlName="expiryDate" />
+
+        </div>
+      </div>
+
+
+
+
+      <div>
+        <label class="form-label">Quantity</label>
+        <div class="quantity-counter">
+          <div class="reduce-button" (click)="decrement()"><img src="../../../assets/icons/reduce-quantity.svg" /></div>
+          <span class="counter-value">{{ counterValue }}</span>
+          <div class="add-button" (click)="increment()"><img src="../../../assets/icons/add-quantity.svg" /></div>
+        </div>
+      </div>
+
+
+      <div>
+        <label class="form-label">Activation Key</label>
+
+        <div class="input-group activation_key_container">
+          <input [type]=" showPassword ? 'text': 'password' " class="form-control" placeholder="Enter Activation Key" formControlName="activationKey">
+          <div class="input-group-append">
+
+            <div class="toggle_hide_password">
+              <img src="../../../assets/icons/Eye.svg" class="eye-icon" alt="eye icon" (click)="togglePassword()" *ngIf="!showPassword">
+              <i (click)="togglePassword()" class="fa-solid fa-eye-slash" *ngIf="showPassword" style="font-size:0.875rem; opacity:0.5;"></i>
+            </div>
+
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+    <div *ngIf="selectedTypeName === 'Subscription'">
 
+      <div class="row date_container">
+        <div class="col-6">
+          <label for="Pdate" class="form-label required-field">Date of purchase</label>
+
+          <input type="date" class="form-control" id="Pdate" placeholder="12-15-2023" formControlName="purchasedDate" />
+
+        </div>
+        <div class="col-6">
+          <label for="Edate" class="form-label required-field">Expiry Date</label>
+
+          <input type="date" class="form-control" id="Edate" placeholder="12-15-2023" formControlName="expiryDate"/>
+
+        </div>
+      </div>
+      <div>
+        <label class="form-label">Quantity</label>
+        <div class="quantity-counter">
+          <div class="reduce-button" (click)="decrement2()"><img src="../../../assets/icons/reduce-quantity.svg" /></div>
+          <span class="counter-value">{{ counterValue2 }}</span>
+          <div class="add-button" (click)="increment2()"><img src="../../../assets/icons/add-quantity.svg" /></div>
+        </div>
+      </div>
+    </div>
+      <div *ngIf="selectedTypeName === 'Perpetual'">
+
+        <div class="row date_container">
+          <div class="col-6">
+            <label for="PPdate" class="form-label required-field">Date of purchase</label>
+
+            <input type="date" class="form-control" id="PPdate" placeholder="12-15-2023"formControlName="purchasedDate" />
+
+          </div>
+          <div class="col-6">
+
+            <div>
+              <label class="form-label">Quantity</label>
+              <div class="quantity-counter" style="margin-bottom:0%;">
+                <div class="reduce-button" (click)="decrement3()"><img src="../../../assets/icons/reduce-quantity.svg" /></div>
+                <span class="counter-value">{{ counterValue3 }}</span>
+                <div class="add-button" (click)="increment3()"><img src="../../../assets/icons/add-quantity.svg" /></div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+        <div>
+          <label class="form-label">Activation Key</label>
+
+          <div class="input-group activation_key_container">
+            <input [type]=" showPassword ? 'text': 'password' " class="form-control" placeholder="Enter Activation Key"formControlName="activationKey">
+            <div class="input-group-append">
+
+              <div class="toggle_hide_password">
+                <img src="../../../assets/icons/Eye.svg" class="eye-icon" alt="eye icon" (click)="togglePassword()" *ngIf="!showPassword">
+                <i (click)="togglePassword()" class="fa-solid fa-eye-slash" *ngIf="showPassword" style="font-size:0.875rem; opacity:0.5;"></i>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<div  class="button_class">
+  <button type="reset"class="footer-button"><span>Cancel</span></button>
+  <button type="submit" class="footer-save-button"><span>Save</span></button>
 </div>
-
+ </form>

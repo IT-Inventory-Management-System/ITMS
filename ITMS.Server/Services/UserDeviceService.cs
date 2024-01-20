@@ -7,7 +7,8 @@ using ITMS.Server.Models;
 using Microsoft.EntityFrameworkCore;
 
 // Services/UserDeviceService.cs
-public class UserDeviceService
+
+public class UserDeviceService 
 {
     private readonly ItinventorySystemContext _dbContext;
 
@@ -42,13 +43,6 @@ public class UserDeviceService
             ModelName = device.DeviceModel.DeviceName,
         };
 
-        var latestComment = device.Comments.OrderByDescending(c => c.CreatedAtUtc).FirstOrDefault();
-        if (latestComment != null)
-        {
-            userDeviceDto.CommentDescription = latestComment.Description;
-            userDeviceDto.CreatedByFullName = $"{latestComment.CreatedByNavigation.FirstName} {latestComment.CreatedByNavigation.LastName}";
-            userDeviceDto.CommentCreatedAtUtc = latestComment.CreatedAtUtc;
-        }
 
         return userDeviceDto;
     }

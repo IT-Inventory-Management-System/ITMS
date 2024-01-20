@@ -1,103 +1,110 @@
-
 using Microsoft.AspNetCore.Mvc;
 using ITMS.Server.Services;
-
+using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-
 using ITMS.Server.Models;
-using ITMS.Server.Services;
 using ITMS.Server.DTO;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-
 
 namespace itms.server.controllers
 {
     // devicecontroller.cs
-
-    [ApiController]
     [Route("api/Device")]
-    public class Devicecontroller : ControllerBase
+    [ApiController]
+    public class DeviceController : ControllerBase
     {
-        private readonly DeviceService _deviceservice;
+        private readonly DeviceService _deviceService;
+        private readonly IGetDeviceService _getDeviceService;
 
-        public Devicecontroller(DeviceService deviceservice)
+        public DeviceController(DeviceService deviceService, IGetDeviceService getDeviceService)
         {
-            _deviceservice = deviceservice;
+            _deviceService = deviceService;
+            _getDeviceService = getDeviceService;
         }
 
-
-
-
+        [HttpGet("getDevices")]
+        public async Task<IEnumerable<GetDeviceDTO>> listDevices()
+        {
+            return await _getDeviceService.listDevices();
+        }
         [HttpGet("categories")]
-        public async Task<ActionResult<IEnumerable<Category>>> getcategories()
+        public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
         {
             try
             {
-                var categories = await _deviceservice.GetCategoriesAsync();
+                var categories = await _deviceService.GetCategoriesAsync();
                 return Ok(categories);
             }
             catch (Exception ex)
             {
-                // log the exception
+              
                 return StatusCode(500, "internal server error");
             }
         }
 
-
-
-        [HttpGet("modelCount/{deviceModelName}")]
-        public async Task<ActionResult<int>> GetModelCount(string deviceModelName)
+    
+  
+        [HttpGet("{deviceId}")]
+        public async Task<ActionResult<DeviceDto>> GetDeviceStatusAndAge(string deviceId)
         {
             try
             {
-                var modelCount = await _deviceservice.GetModelCountAsync(deviceModelName);
-                return Ok(modelCount);
+                var deviceDto = await _deviceService.GetDeviceStatusAndAgeAsync(deviceId);
+
+                if (deviceDto == null)
+                    return NotFound();
+
+                return Ok(deviceDto);
             }
             catch (Exception ex)
             {
-                // Log the exception
-                return StatusCode(500, "Internal server error");
+                
+                return StatusCode(500, "Internal Server Error");
             }
         }
-        [HttpGet("{deviceId}")]
-
-        public ActionResult<DeviceDto> GetDeviceStatusAndAge(string deviceId)
-        {
-            var deviceDto = _deviceservice.GetDeviceStatusAndAge(deviceId);
-
-            if (deviceDto == null)
-                return NotFound();
-
-            return Ok(deviceDto);
-        }
 
 
-
-        //[HttpGet("GetDeviceByCGIId")]
-        //public async Task<IEnumerable<DeviceDto>> GetDeviceByCGIIdAsync(Guid cgiId) 
-        //{
-        //    return await _deviceservice.GetDevicesAsync(cgiId);
-        //}
-
-
-       
-
-
-        [HttpGet("archived-cygids")]
-        public IActionResult GetDeviceHistory()
+        [HttpGet("GetDevices/{id}")]
+        public IActionResult GetDevices(Guid id)
         {
             try
             {
-                var deviceHistory = _deviceservice.GetArchivedCygIds();
+                var devices = _deviceService.GetDevices(id);
+                return Ok(devices);
+            }
+            catch (Exception ex)
+            {
+                
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        [HttpGet("archived-cygids")]
+        public async Task<IActionResult> GetDeviceHistory()
+        {
+            try
+            {
+                var deviceHistory = await _deviceService.GetArchivedCygIdsAsync();
                 return Ok(deviceHistory);
             }
             catch (Exception ex)
             {
-                // Log the exception or handle it appropriately
+               
                 return StatusCode(500, "Internal Server Error");
             }
+        }
+
+        [HttpGet("get-ostype")]
+        public ActionResult<IEnumerable<Ostype>> GetOstypes()
+        {
+            var getos = _deviceService.GetOstypes();
+            return Ok(getos);
+        }
+        [HttpGet("get-location")]
+        public ActionResult<IEnumerable<Location>> Getlocation()
+        {
+            var getLocation = _deviceService.Getlocation();
+            return Ok(getLocation);
         }
 
     }

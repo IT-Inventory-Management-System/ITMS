@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CommentsComponent } from './comments.component';
+import { SearchBoxComponent } from './search-box.component';
 
-describe('CommentsComponent', () => {
-  let component: CommentsComponent;
-  let fixture: ComponentFixture<CommentsComponent>;
+describe('SearchBoxComponent', () => {
+  let component: SearchBoxComponent;
+  let fixture: ComponentFixture<SearchBoxComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [CommentsComponent]
+      declarations: [SearchBoxComponent]
     });
-    fixture = TestBed.createComponent(CommentsComponent);
+    fixture = TestBed.createComponent(SearchBoxComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
