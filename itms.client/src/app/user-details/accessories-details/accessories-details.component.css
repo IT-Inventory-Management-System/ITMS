@@ -73,7 +73,7 @@
 .user-accessory {
   display: flex;
   flex-direction: row;
-  width: 45.8125rem;
+  width: 100%;
 }
 
 .common-gap-style {
@@ -93,4 +93,8 @@
   align-self: stretch;
   border-radius: 0.25rem;
   background: #EAEEF6;
+}
+
+.pp{
+    padding-top:1rem;
 }

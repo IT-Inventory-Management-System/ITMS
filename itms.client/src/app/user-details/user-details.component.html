@@ -23,7 +23,7 @@
 
         </div>
 
-        <div class="assign" routerLink="/assign-asset" data-bs-toggle="modal" data-bs-target="#assignAssetModal"><button class="assign-button"><img src="../../assets/icons/Add.svg" /><div class="ass"></div>Assign</button></div>
+        <div class="assign" routerLink="/assign-asset" data-bs-toggle="modal" data-bs-target="#assignAssetModal"><button class="assign-button"><img src="../../assets/icons/Add.svg" /><div class="ass">Assign</div></button></div>
 
       </div>
 
@@ -55,11 +55,11 @@
 
     <div class="assigned">
 
-      <app-laptop-details *ngIf="selectedItem === 'laptop'" [userId]="userDetails.id"></app-laptop-details>
+      <app-laptop-details *ngIf="selectedItem === 'laptop'" [userId]="userDetails.id" class="asd"></app-laptop-details>
 
-      <app-software-details *ngIf="selectedItem === 'software'" [userId]="userDetails.id"></app-software-details>
+      <app-software-details *ngIf="selectedItem === 'software'" [userId]="userDetails.id" class="asd"></app-software-details>
 
-      <app-accessories-details *ngIf="selectedItem === 'accessories'" [userId]="userDetails.id"></app-accessories-details>
+      <app-accessories-details *ngIf="selectedItem === 'accessories'" [userId]="userDetails.id" class="asd"></app-accessories-details>
 
     </div>
 
