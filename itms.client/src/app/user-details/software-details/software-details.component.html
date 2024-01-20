@@ -9,7 +9,7 @@
 
 <div class="software-details">
   <div class="inner-software-container" *ngFor="let software of softwareDetails">
-    <div class="col-md-12">
+    <div class="bb">
       <div class="software-tag" *ngIf="isMostRecent(software)">
         <div class="software-tag-info">CURRENT SOFTWARE</div>
       </div>
@@ -17,7 +17,7 @@
       <div class="row user-detail">
         <div class="user-software">
 
-          <div class="col-md-6 common-gap-style">
+          <div class=" col-md-6 common-gap-style">
             <div style="color: var(--Adhoc-Grey, #6D6D6D); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 400; line-height: normal;">TypeName</div>
             <div style="color: var(--Primary-Blue, #28519E); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 600; line-height: normal;">{{software.typeName}}</div>
           </div>
@@ -47,11 +47,7 @@
       </div>
     </div>
 
-    <!--<div class="col-md-12 hi">
-      <app-comments [softwareDetails]="software"></app-comments>
-    </div>-->
-
-
+ 
   </div>
 
   <div class="no-software-message" *ngIf="!softwareDetails || softwareDetails.length === 0">

@@ -1,6 +1,6 @@
 .hi {
   height: 19.8125rem;
-  width: auto;
+  min-width:400px;
   display: flex;
   padding: 1rem;
   flex-direction: column;
@@ -157,5 +157,5 @@
   font-style: normal;
   font-weight: 400;
   line-height: 1.5rem;
-  width: 38.625rem;
+  width: auto;
 }

@@ -7,14 +7,20 @@
 .user {
   display: inline-flex;
   flex-direction: column;
-  min-width:1056px;
+  min-width: 1056px;
   align-items: flex-start;
   gap: 1rem;
-  width:100vw;
-  margin-left:auto;
   box-sizing: border-box;
-  padding: 2.5rem 1.25rem 1.94rem 5.25rem;
+  padding: 2.5rem 1.25rem 1.94rem 4.5rem;
+  overflow-x: hidden;
+  justify-content: center;
+
+  @media (min-width: 1600px) {
+    width: 100%;
+    align-items: center;
+  }
 }
+
 
 .page-heading {
   display: flex;
@@ -34,9 +40,14 @@
 .user-section {
   display: flex;
   width: 100%;
-  background-color:lightcyan;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: center;
   gap: 1rem;
+
+  @media (min-width: 1600px) {
+    width: 100%;
+    align-items: center;
+  }
 }
 
 .user-list {
@@ -57,13 +68,13 @@
 .user-data {
   display: flex;
   width: 100%;
-  min-width:40%;
   height: 43.125rem;
   flex-direction: column;
   align-items: flex-start;
   gap: 1rem;
-  flex: 1 0 0;
   border-radius: 0.5rem;
+  max-width:1200px;
+  justify-content:center;
   background: #FFF;
   /* Shadow */
   box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.15);
