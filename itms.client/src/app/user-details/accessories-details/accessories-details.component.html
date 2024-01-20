@@ -50,4 +50,39 @@
 
   </div>
 
+  <div class="no-accessory-message" *ngIf="!accessoriesDetails || accessoriesDetails.length === 0">
+    <p>No accessory allocated to this user.</p>
+    <div class="inner-accessories-container">
+      <div class="col-md-12">
+        <div class="row user-detail">
+
+          <div class="user-accessory">
+
+            <div class="col-md-6 common-gap-style">
+              <div style="color: var(--Adhoc-Grey, #6D6D6D); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 400; line-height: normal;">Category Assigned: </div>
+            </div>
+
+            <div class="col-md-6 common-gap-style">
+              <div style="color: var(--Adhoc-Grey, #6D6D6D); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 400; line-height: normal;">Category Type:</div>
+            </div>
+
+          </div>
+
+          <div class="user-accessory">
+            <div class="col-md-6 common-gap-style">
+              <div style="color: var(--Adhoc-Grey, #6D6D6D); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 400; line-height: normal;">Assigned By: </div>
+            </div>
+
+            <div class="col-md-6 common-gap-style">
+              <div style="color: var(--Adhoc-Grey, #6D6D6D); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 400; line-height: normal;">Assigned To: </div>
+            </div>
+          </div>
+
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
 </div>

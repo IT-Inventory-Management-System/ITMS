@@ -27,7 +27,8 @@ namespace ITMS.Server.Services
                 Description = commentDto.Description,
                 CreatedBy = commentDto.CreatedBy,
                 CreatedAtUtc = DateTime.UtcNow,
-                DeviceId = commentDto.DeviceId
+                DeviceId = commentDto.DeviceId,
+                DeviceLogId = commentDto.DeviceLogId // Assign the new property
             };
 
             _context.Comments.Add(commentEntity);

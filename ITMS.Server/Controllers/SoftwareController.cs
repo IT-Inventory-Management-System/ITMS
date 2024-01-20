@@ -17,11 +17,12 @@ namespace ITMS.Server.Controllers
         private readonly SoftwareService _softwareService;
         private readonly IGetSoftwareService _addSoftwareService;
         private readonly IGetSoftwareVersionService _addSoftwareVersionService;
-        public SoftwareController(ItinventorySystemContext context, IGetSoftwareService addSoftwareService, IGetSoftwareVersionService addSoftwareVersionService)
+        public SoftwareController(ItinventorySystemContext context, IGetSoftwareService addSoftwareService, IGetSoftwareVersionService addSoftwareVersionService, SoftwareService softwareService)
         {
             _context = context;
             _addSoftwareService = addSoftwareService;
             _addSoftwareVersionService = addSoftwareVersionService;
+            _softwareService = softwareService;
         }
         [HttpGet("getSoftware")]
         public async Task<IEnumerable<GetSoftwareDTO>> listSoftware()

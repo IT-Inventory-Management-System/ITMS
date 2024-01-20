@@ -1,6 +1,15 @@
 import { Component, Input, SimpleChanges } from '@angular/core';
 import { EmployeeService } from '../../shared/services/Employee.service';
 
+export class UserCommentHistory {
+  description: string;
+  createdBy: string;
+  createdAtUtc: string;
+  deviceId: string;
+  deviceLogId: string; // New property
+}
+
+
 @Component({
   selector: 'app-user-comments',
   templateUrl: './user-comments.component.html',
@@ -35,7 +44,8 @@ export class UserCommentsComponent {
         description: this.newComment,
         createdBy: this.userId,
         createdAtUtc: new Date().toISOString(),
-        deviceId: this.laptopDetails.deviceId
+        deviceId: this.laptopDetails.deviceId,
+        deviceLogId: this.laptopDetails.deviceLogId // Use deviceLogId from laptopDe
       };
 
       console.log('Comment DTO:', commentDto);

@@ -59,6 +59,7 @@ public class UserDeviceService
                 .Select(log => new UserDeviceHistory
                 {
                     cygid = log.Device.Cygid,
+                    DeviceLogId = log.Id,
                     Model = log.Device.DeviceModel.ModelNo,
                     DeviceId = log.DeviceId, //one change
                     AssignBy = _dbContext.Employees

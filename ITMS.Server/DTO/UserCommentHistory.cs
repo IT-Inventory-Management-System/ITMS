@@ -6,5 +6,6 @@
         public Guid CreatedBy { get; set; }
         public DateTime CreatedAtUtc { get; set; } // Add this property
         public Guid DeviceId { get; set; }
+        public Guid DeviceLogId { get; set; } //new property
     }
 }

@@ -9,48 +9,87 @@
   </div>
 
 
-<div class="laptop-details">
+  <div class="laptop-details">
 
-  <div class="inner-laptop-container" *ngFor="let laptop of laptopDetails">
+    <div class="inner-laptop-container" *ngFor="let laptop of laptopDetails">
 
-    <div class="col-md-12">
-      <div class="device-tag"><div class="device-tag-info">CURRENT DEVICE</div></div>
-      <div class="row user-detail">
-        <div class="aa">
+      <div class="col-md-12">
+        <div class="device-tag"><div class="device-tag-info">CURRENT DEVICE</div></div>
+        <div class="row user-detail">
+          <div class="aa">
 
-          <div class="col-md-6 common-gap-style">
-            <div style="color: var(--Adhoc-Grey, #6D6D6D); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 400; line-height: normal;">CYG ID</div>
-            <div style="color: var(--Primary-Blue, #28519E); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 600; line-height: normal;">{{laptop.cygid}}</div>
+            <div class="col-md-6 common-gap-style">
+              <div style="color: var(--Adhoc-Grey, #6D6D6D); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 400; line-height: normal;">CYG ID</div>
+              <div style="color: var(--Primary-Blue, #28519E); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 600; line-height: normal;">{{laptop.cygid}}</div>
+              <div style="color: var(--Primary-Blue, #28519E); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 600; line-height: normal;">{{laptop.deviceLogId}}</div>
 
 
+            </div>
+
+            <div class="col-md-6 common-gap-style">
+              <div style="color: var(--Adhoc-Grey, #6D6D6D); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 400; line-height: normal;">Model</div>
+              <div style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal;">{{laptop.model}}</div>
+            </div>
           </div>
 
-          <div class="col-md-6 common-gap-style">
-            <div style="color: var(--Adhoc-Grey, #6D6D6D); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 400; line-height: normal;">Model</div>
-            <div style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal;">{{laptop.model}}</div>
+          <div class="aa">
+            <div class="col-md-6 common-gap-style">
+              <div style="color: var(--Adhoc-Grey, #6D6D6D); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 400; line-height: normal;">Assign By</div>
+              <div style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal;">{{laptop.assignBy}}</div>
+              <div style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal;">{{laptop.assignedDate}}</div>
+            </div>
+
+            <div class="col-md-6 common-gap-style">
+              <div style="color: var(--Adhoc-Grey, #6D6D6D); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 400; line-height: normal;">Submitted By</div>
+              <div style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal;">{{laptop.submitedBy}}</div>
+              <div style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal;">{{laptopDetails.submitedByDate}}</div>
+            </div>
           </div>
         </div>
 
-        <div class="aa">
-          <div class="col-md-6 common-gap-style">
-            <div style="color: var(--Adhoc-Grey, #6D6D6D); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 400; line-height: normal;">Assign By</div>
-            <div style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal;">{{laptop.assignBy}}</div>
-            <div style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal;">{{laptop.assignedDate}}</div>
-          </div>
 
-          <div class="col-md-6 common-gap-style">
-            <div style="color: var(--Adhoc-Grey, #6D6D6D); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 400; line-height: normal;">Submitted By</div>
-            <div style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal;">{{laptop.submitedBy}}</div>
-            <div style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal;">{{laptopDetails.submitedByDate}}</div>
+        <app-user-comments [laptopDetails]="laptop" [userId]="userId"></app-user-comments>
+
+
+      </div>
+    </div>
+
+    <div  class="no-software-message"  *ngIf="!laptopDetails || laptopDetails.length === 0">
+      <p>No laptop allocated to this user.</p>
+      <div class="inner-laptop-container">
+        <div class="col-md-12">
+          <div class="row user-detail">
+
+            <div class="aa">
+
+              <div class="col-md-6 common-gap-style">
+                <div style="color: var(--Adhoc-Grey, #6D6D6D); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 400; line-height: normal;">CYG ID</div>
+              
+              </div>
+
+              <div class="col-md-6 common-gap-style">
+                <div style="color: var(--Adhoc-Grey, #6D6D6D); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 400; line-height: normal;">Model</div>
+                
+              </div>
+            </div>
+
+            <div class="aa">
+              <div class="col-md-6 common-gap-style">
+                <div style="color: var(--Adhoc-Grey, #6D6D6D); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 400; line-height: normal;">Assign By</div>
+           
+              </div>
+
+              <div class="col-md-6 common-gap-style">
+                <div style="color: var(--Adhoc-Grey, #6D6D6D); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 400; line-height: normal;">Submitted By</div>
+                
+              </div>
+            </div>
+
           </div>
+          
+
         </div>
       </div>
-
-      
-      <app-user-comments [laptopDetails]="laptop" [userId]="userId"></app-user-comments>
-   
-
     </div>
   </div>
-</div>
 
