@@ -2,6 +2,7 @@
 using ITMS.Server.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 
 
 namespace ITMS.Server.Services
@@ -42,24 +43,36 @@ namespace ITMS.Server.Services
         public List<Softwares> GetSoftwares()
         {
             var allSoftware = _context.SoftwareTypes
-                .Include(st => st.Softwares)
-                    .ThenInclude(s => s.SoftwareAllocations)
-                .SelectMany(st => st.Softwares.Select(s => new Softwares
-                {
-                    Name = s.SoftwareName,
-                    Version = s.Version,
-                    Type = st.TypeName,
-                    Inventory = st.Softwares
-                    .SelectMany(sa => sa.SoftwareAllocations)
-                    .Count(),
-                    Assigned = st.Softwares.SelectMany(sa => sa.SoftwareAllocations).Count(sa => sa.AssignedTo != null),
-                    ExpiryDate = s.SoftwareAllocations
-                .Where(sa => sa.ExpiryDate.HasValue)
-                .Select(sa => sa.ExpiryDate.Value)
-                .FirstOrDefault(),
+     .Include(st => st.Softwares)
+         .ThenInclude(s => s.SoftwareAllocations)
+     .SelectMany(st => st.Softwares.Select(s => new Softwares
+     {
+         Name = s.SoftwareName,
+         Version = s.Version,
+         Type = st.TypeName,
+         Inventory = s.SoftwareAllocations
+             .Count(),  
 
-                }))
-                .ToList();
+         Assigned = s.SoftwareAllocations
+             .Count(sa => sa.AssignedTo != null),  
+
+         ExpiryDateCount = s.SoftwareAllocations
+            .Where(sa => sa.ExpiryDate.HasValue)
+            .OrderByDescending(sa => sa.ExpiryDate)
+            .AsEnumerable()
+            .GroupBy(sa => sa.ExpiryDate.Value)
+            .Select(group => group.Count())
+            .FirstOrDefault(),
+
+         ExpDate = s.SoftwareAllocations
+            .Where(sa => sa.ExpiryDate.HasValue)
+            .OrderByDescending(sa => sa.ExpiryDate)
+            .Select(sa => sa.ExpiryDate.Value)
+            .FirstOrDefault(),
+
+     }))
+     .ToList();
+
 
             return allSoftware;
         }

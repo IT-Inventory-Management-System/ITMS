@@ -7,26 +7,39 @@ import { Component, Input } from '@angular/core';
 })
 export class SoftwareComponentComponent {
   @Input() softwareData: any;
-  expiringSoftwareCount: number = 0;
+  //expiringSoftwareCount: number = 0;
 
   constructor() {
-    this.calculateExpiringCount();
+    //this.calculateExpiringCount();
   }
 
-  calculateExpiringCount() {
-    if (this.softwareData && this.softwareData.length > 0) {
-      const currentDate = new Date();
-      const fifteenDaysFromNow = new Date();
-      fifteenDaysFromNow.setDate(fifteenDaysFromNow.getDate() + 15);
+  //calculateExpiringCount() {
+  //  if (this.softwareData && this.softwareData.length > 0) {
+  //    const currentDate = new Date();
+  //    const fifteenDaysFromNow = new Date();
+  //    fifteenDaysFromNow.setDate(fifteenDaysFromNow.getDate() + 15);
 
-      this.expiringSoftwareCount = this.softwareData.filter((software: any) => {
-        // Assuming 'expiryDate' is the property in softwareData that holds the expiry date
-        const expiryDate = new Date(software.expiryDate);
+  //    this.expiringSoftwareCount = this.softwareData.filter((software: any) => {
+  //      // Assuming 'expiryDate' is the property in softwareData that holds the expiry date
+  //      const expiryDate = new Date(software.expiryDate);
 
-        // Check if the expiry date is within the next 15 days
-        return expiryDate > currentDate && expiryDate <= fifteenDaysFromNow;
-      }).length;
-    }
+  //      // Check if the expiry date is within the next 15 days
+  //      return expiryDate > currentDate && expiryDate <= fifteenDaysFromNow;
+  //    }).length;
+  //  }
+  //}
+
+  getRemainingDays(expDate: Date): number {
+    const today = new Date();
+    const expirationDate = new Date(expDate);
+
+    // Calculate the difference in milliseconds
+    const timeDifference = expirationDate.getTime() - today.getTime();
+
+    // Convert the difference to days
+    const remainingDays = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+
+    return remainingDays;
   }
 
   getIconPath(name: string): string {
