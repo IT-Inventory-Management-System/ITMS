@@ -20,5 +20,12 @@ export class UserDetailsComponent {
   showUserDetails() {
 
   }
+
+  //CHANGES
+  selectedItem: string = 'laptop'; // Default to 'laptop'
+
+  selectItem(item: string) {
+    this.selectedItem = item;
+  }
 }
   

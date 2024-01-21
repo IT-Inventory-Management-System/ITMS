@@ -1,30 +1,50 @@
-.inner-laptop-container {
-  width: 100%;
-  padding: 0.75rem;
-  align-self: stretch;
-  border-radius: 0.25rem;
-  border: 1px solid var(--Secondary-Light-Gray, #E9ECEB);
+.laptop-details {
   display: flex;
   flex-direction: column;
-  gap:.25rem; 
-  height: auto;
-  position:relative;}
+  align-items: flex-start;
+  gap: 1rem;
+  flex-shrink: 0;
+  align-self: stretch;
+  max-height: 33.4375rem; 
+  overflow-y: auto; 
+  position: relative; 
+}
+
+.inner-laptop-container {
+    
+  padding: 0.75rem;
+  width: 100%;
+  border-radius: 0.25rem;
+  border: 1px solid #E9ECEB;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  z-index: 1;
+
+}
 
 .device-tag {
   display: flex;
   padding: 0.375rem 0.625rem;
-  top:0;
+  top: 0;
   justify-content: center;
   align-items: center;
   gap: 0.625rem;
   position: absolute;
-  right: 0rem;
+  right: 0;
   border-radius: 0rem 0.25rem;
-  background: var(--primary-yellow, #ffb81c);
+  background: #ffb81c;
+  z-index: 2; 
 }
 
+.pp{
+    padding-top:1rem;
+}
+
+
+
 .device-tag-info {
-  color: var(--primary-royal-blue, #002c3f);
+  color: #002c3f;
   font-family: roboto;
   font-size: 0.875rem;
   font-style: normal;
@@ -32,18 +52,17 @@
   line-height: normal;
   text-transform: uppercase;
 }
+
 .common-gap-style {
   gap: 0.25rem;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
-  
 }
 
-.aa{
-    display:flex;
-    flex-direction:row;
-    width:45.8125rem;
-
+.aa {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
 }
 
 .user-detail {
@@ -53,26 +72,14 @@
   gap: 1rem;
   align-self: stretch;
   height: auto;
+  min-width:400px;
   width: 100%;
-  margin:auto;
+  margin: auto;
 }
 
-.user-data{
-    display:flex;
-    width:100%;
-
-}
-.hi {
-  height: 19.8125rem;
-  width: auto;
+.user-data {
   display: flex;
-  padding: 1rem;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1rem;
-  align-self: stretch;
-  border-radius: 0.25rem;
-  background: #EAEEF6;
+  width: 100%;
 }
 
 
@@ -81,16 +88,6 @@
   align-items: center;
   gap: 1.5rem;
   align-self: stretch;
-  height:auto;
+  height: auto;
   width: 100%;
-}
-
-.laptop-details {
-  display: flex;
-  height: 33.4375rem;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1rem;
-  flex-shrink: 0;
-  align-self: stretch;
 }

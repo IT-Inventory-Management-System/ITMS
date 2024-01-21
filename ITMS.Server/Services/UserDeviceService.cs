@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using ITMS.Server.DTO;
 using ITMS.Server.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -45,7 +46,49 @@ public class UserDeviceService
 
         return userDeviceDto;
     }
-    
 
+    public List<UserDeviceHistory> GetDevices(Guid id)
+    {
+        try
+        {
+            var devicesWithComments = _dbContext.DevicesLogs
+                .Where(log => log.EmployeeId == id)
+                .Include(e => e.Employee)
+                .Include(d => d.Device)
+                    .ThenInclude(dm => dm.DeviceModel)
+                .Select(log => new UserDeviceHistory
+                {
+                    cygid = log.Device.Cygid,
+                    DeviceLogId = log.Id,
+                    Model = log.Device.DeviceModel.ModelNo,
+                    DeviceId = log.DeviceId, //one change
+                    AssignBy = _dbContext.Employees
+                        .Where(employee => employee.Id == log.Device.AssignedBy)
+                        .Select(employee => $"{employee.FirstName} {employee.LastName}")
+                        .FirstOrDefault(),
+                    AssignedDate = (DateTime)log.Device.AssignedDate,
+                    Comments = _dbContext.Comments
+                        .Where(comment => comment.DeviceId == log.Device.Id)
+                        .Select(c => new CommentDto
+                        {
+                            Id = c.Id,
+                            Description = c.Description,
+                            CreatedBy = _dbContext.Employees
+                                .Where(employee => employee.Id == c.CreatedBy)
+                                .Select(employee => $"{employee.FirstName} {employee.LastName}")
+                                .FirstOrDefault(),
+                            CreatedAt = c.CreatedAtUtc
+                        })
+                        .ToList(),
+                })
+                .ToList();
 
+            return devicesWithComments;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            return null;
+        }
+    }
 }
