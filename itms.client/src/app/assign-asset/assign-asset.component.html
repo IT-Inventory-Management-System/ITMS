@@ -1,6 +1,3 @@
-<!--<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#assignAssetModal">
-  Launch demo modal
-</button>-->
 <div class="modal fade" id="assignAssetModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content assign-asset-modal-outer-box">
@@ -8,76 +5,55 @@
         <h1 class="modal-title assign-asset-modal-title fs-5" id="assignAssetModal">Assign Assets</h1>
         <button type="button" class="close-button" data-bs-dismiss="modal" aria-label="Close"><img src="../../../../assets/icons/Close.svg" /></button>
       </div>
-      <form [formGroup]="assignAssetForm">
         <div class="modal-body">
           <app-search-box class="sbox"
                           [label]="'User'"
                           [placeholder]="'Search User by Name, CGI ID and Email Address'"
                           [options]="users"
-                          (optionSelected)="onUserSelected($event)"
-                          [ControlNameSelectedUser]="selectedUser">
+                          [assignAssetForm]="assignAssetForm">
           </app-search-box>
-          <div class="stepper">
-            <div *ngFor="let step of [1, 2, 3]; let i = index" class="step">
-              <img class="step-img"
-                   [src]="getStepIcon(i + 1)"
-                   alt="Step {{ i + 1 }}"
-                   [ngClass]="{
-                   'completed' : currentStep> i + 1,
-              'current': currentStep === i + 1,
-              'greyscale-icon': currentStep < i + 1
-              }"
-              />
-              <div class="step-text"
-                   [ngClass]="{
-                   'completed' : currentStep>
-                i + 1,
-                'current': currentStep === i + 1,
-                'greyscale-step': currentStep < i + 1
-                }"
-                >
-                {{ getStepText(i + 1) }}
+          <div class="stepper-container">
+            <div class="stepper-stepper">
+              <div class="stepper-stepper1">
+                <img *ngIf="currentStep === 1" src="../../../assets/icons/laptop-solid.svg" />
+                <img *ngIf="currentStep > 1" src="../../../assets/icons/completed.svg" />
+                <span class="stepper-text"><span>Laptop</span></span>
               </div>
-              <ng-container *ngIf="i !== 2">
-                <!-- Skip the separator after the last step -->
-                <img class="vector-img" src="../../../../assets/icons/Stroke.svg" />
-              </ng-container>
+              <img class="vector-img" src="../../../assets/icons/Vector 16 (Stroke).svg" />
+              <div class="stepper-stepper2">
+                <img *ngIf="currentStep === 1" src="../../../../assets/icons/Software-light.svg" />
+                <img *ngIf="currentStep === 2" src="../../../../assets/icons/Software.svg" />
+                <img *ngIf="currentStep > 2" src="../../../assets/icons/completed.svg" />
+                <span class="stepper-text2"><span>Software</span></span>
+              </div>
+              <img class="vector-img" src="../../../assets/icons/Vector 16 (Stroke).svg" />
+              <div class="stepper-stepper1">
+                <img *ngIf="currentStep === 1" src="../../../../assets/icons/placeholder.svg" />
+                <img *ngIf="currentStep === 2" src="../../../../assets/icons/placeholder.svg" />
+                <img *ngIf="currentStep === 3" src="../../../../assets/icons/placeholder.svg" />
+                <img *ngIf="currentStep > 3" src="../../../assets/icons/completed.svg" />
+                <span class="stepper-text"><span>Accessories</span></span>
+              </div>
             </div>
           </div>
-          <!-- Step 1: Assign Laptop -->
           <app-assign-laptop *ngIf="currentStep === 1"
                              [LaptopOptions]="laptops"
-                             (LaptopOptionSelected)="onLaptopSelected($event)"
-                             (LaptopComment)="onLaptopComment($event)"
-                             [(ngModel)]="assignAssetForm.controls['selectedLaptop']"
-                             [ControlNameSelectedLaptop]="selectedLaptop">
+                             [assignAssetForm]="assignAssetForm">
           </app-assign-laptop>
-
-          <!-- Step 2: Assign Software -->
           <app-assign-software *ngIf="currentStep === 2"
                                [SoftwareOptions]="softwares"
                                [SoftwareVersionOptions]="softwareVersions"
                                (SoftwareOptionSelected)="onSoftwareSelected($event)"
-                               (SoftwareVersionOptionSelected)="onSoftwareVersionSelected($event)"
-                               (SoftwareComment)="onSoftwareComment($event)"
-                               [(ngModel)]="assignAssetForm.controls['selectedSoftware']">
+                               [assignAssetForm]="assignAssetForm">
           </app-assign-software>
-
-          <!-- Step 3: Assign Accessories -->
           <app-assign-accessories *ngIf="currentStep === 3"
                                   [AccessoryOptions]="accessories"
-                                  (AccessoryOptionSelected)="onAccessoriesSelected($event)"
-                                  (AccessoryComment)="onAccessoryComment($event)"
-                                  [(ngModel)]="assignAssetForm.controls['selectedAccessory']"
-                                  [ControlNameSelectedAccessory]="selectedAccessory">
+                                  [assignAssetForm]="assignAssetForm">
           </app-assign-accessories>
-          <!-- Progress Bar -->
           <div class="progress mt-3">
             <div class="progress-bar" role="progressbar" [style.width]="getProgressBarWidth()" aria-valuemin="0" aria-valuemax="100"></div>
           </div>
         </div>
-      </form>
-
       <div class="modal-footer">
         <div class="button-container">
           <button type="button" class="btn btn-secondary" *ngIf="currentStep !== 1" (click)="previousStep()">Previous</button>

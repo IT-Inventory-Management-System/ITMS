@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, HostListener, ElementRef } from '@angular/core';
+import { Component, EventEmitter, Output, HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-comment-box',
@@ -7,8 +7,6 @@ import { Component, EventEmitter, Output, HostListener, ElementRef } from '@angu
 })
 export class CommentBoxComponent {
   @Output() CommentBox: EventEmitter<any> = new EventEmitter();
-
-  constructor(private elementRef: ElementRef) { }
 
   inputText: string = '';
 

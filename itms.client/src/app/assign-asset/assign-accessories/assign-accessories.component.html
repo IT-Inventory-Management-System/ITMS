@@ -4,10 +4,16 @@
                                 [label]="'Accessories'"
                                 [placeholder]="'Select Accessories'"
                                 [AccessoryOptions]="AccessoryOptions"
-                                (AccessoryOptionSelected)="AccessorySearchBoxOptionSelected($event)"
-                                [ControlNameSelectedAccessory]="ControlNameSelectedAccessory">
+                                [assignAssetForm]="assignAssetForm"
+                                (AccessoryOptionSelected)="AccessorySearchBoxOptionSelected($event)">
     </app-accessories-search-box>
-    <app-comment-box class="Cbox" (CommentBox)="CommentBox($event)"></app-comment-box>
+    <div class="comment-subheading">Comment</div>
+    <input class="comment-input-box"
+           required
+           [value]="assignAssetForm.get('accessoryComment')!.value ? assignAssetForm.get('accessoryComment')!.value : ''"
+           placeholder="Add Comment"
+           aria-label="Comment"
+           (input)="onInputChangeCommentBox($event)">
   </div>
   <div class="Add-new">
     <img class="add-img" src="../../../../assets/icons/Add.svg" />

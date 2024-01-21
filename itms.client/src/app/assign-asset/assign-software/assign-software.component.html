@@ -1,7 +1,19 @@
 <div class="Software-Section">
   <div class="form-fields">
-    <app-software-search-box class="sbox" [label]="'Software'" [placeholder]="'Select Software'"  [SoftwareOptions]="SoftwareOptions" (SoftwareOptionSelected)="SoftwareSearchBoxOptionSelected($event)"></app-software-search-box>
-    <app-software-version-search-box class="sbox" [label]="'Software Version'" [placeholder]="'Select Software Version'" [SoftwareVersionOptions]="SoftwareVersionOptions" (SoftwareVersionOptionSelected)="SoftwareSearchBoxVersionOptionSelected($event)"></app-software-version-search-box>
+    <app-software-search-box class="sbox"
+                             [label]="'Software'"
+                             [placeholder]="'Select Software'"
+                             [SoftwareOptions]="SoftwareOptions"
+                             (SoftwareOptionSelected)="SoftwareSearchBoxOptionSelected($event)"
+                             [assignAssetForm]="assignAssetForm">
+    </app-software-search-box> 
+    <app-software-version-search-box class="sbox"
+                                     [label]="'Software Version'"
+                                     [placeholder]="'Select Software Version'"
+                                     [SoftwareVersionOptions]="SoftwareVersionOptions"
+                                     (SoftwareVersionOptionSelected)=" SoftwareVersionSearchBoxOptionSelected($event)"
+                                     [assignAssetForm]="assignAssetForm">
+    </app-software-version-search-box>
     <div *ngIf="SelectedSoftware" class="software-details">
       <div class="details-subheading">
         Selected Software Details:
@@ -10,16 +22,22 @@
         <div class="details">
           <div class="detail">
             <div class="detail-paramter">Software Type:</div>
-            <div class="detail-value">{{SelectedSoftware.softwareTypeId}}</div>
+            <div class="detail-value">{{SelectedSoftware.softwareType}}</div>
           </div>
           <div *ngIf="SelectedSoftwareVersion" class="detail">
             <div class="detail-paramter">Expiry:</div>
-            <div class="detail-value">10-12-2024</div>
+            <div class="detail-value">{{ formatExpiryDate(SelectedSoftware.expiryDate) }}</div>
           </div>
         </div>
       </div>
     </div>
-    <app-comment-box class="Cbox" (CommentBox)="CommentBox($event)"></app-comment-box>
+    <div class="comment-subheading">Comment</div>
+    <input class="comment-input-box"
+           required
+           [value]="assignAssetForm.get('softwareComment')!.value ? assignAssetForm.get('softwareComment')!.value : ''"
+           placeholder="Add Comment"
+           aria-label="Comment"
+           (input)="onInputChangeCommentBox($event)">
   </div>
   <div class="Add-new">
     <img class="add-img" src="../../../../assets/icons/Add.svg" />

@@ -8,18 +8,13 @@ import { FormGroup } from '@angular/forms';
 })
 export class AssignAccessoriesComponent {
   @Input() AccessoryOptions: any[] = [];
-  @Output() AccessoryOptionSelected: EventEmitter<any> = new EventEmitter();
-  @Output() AccessoryComment: EventEmitter<any> = new EventEmitter();
-  @Input() ControlNameSelectedAccessory: FormGroup;
-
+  @Input() assignAssetForm: FormGroup;
   SelectedAccessories: any;
+
   AccessorySearchBoxOptionSelected(event: any): void {
-    //console.log('LaptopSearchBoxOptionSelected', event);
     this.SelectedAccessories = event;
-    this.AccessoryOptionSelected.emit(event);
   }
-  CommentBox(event: any): void {
-    console.log('AccessoryCommentBox', event);
-    this.AccessoryComment.emit(event);
+  onInputChangeCommentBox(event: any): void {
+    this.assignAssetForm.get('accessoryComment')?.setValue(event.target.value);
   }
 }
