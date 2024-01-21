@@ -53,7 +53,6 @@ import { RecentActivityComponent } from './dashboard/recent-activity/recent-acti
 import { SoftwareComponentComponent } from './dashboard/software-component/software-component.component';
 import { FilterSearchListPipe } from './filter-search-list.pipe';
 import { LaptopDetailsComponent } from './user-details/laptop-details/laptop-details.component';
-import { UserCommentsComponent } from './user-details/user-comments/user-comments.component';
 import { CurrentdeviceComponent } from './shared/components/currentdevice/currentdevice.component';
 import { SearchBoxComponent } from './assign-asset/search-box/search-box.component';
 import { CommentBoxComponent } from './assign-asset/comment-box/comment-box.component';
@@ -70,7 +69,7 @@ import { AccessoriesSearchBoxComponent } from './assign-asset/accessories-search
 import { AccesoriesComponent } from './dashboard/accesories/accesories.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CommentsComponent } from './shared/components/comments/comments.component';
-
+import { UserCommentsComponent } from './user-details/user-comments/user-comments.component';
 
 
 

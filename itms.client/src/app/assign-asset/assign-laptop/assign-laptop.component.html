@@ -49,16 +49,13 @@
       </div>
     </div>
     <div class="comment-subheading">Comment</div>
-    <textarea class="comment-input-box"
+    <input class="comment-input-box"
               required
               [value]="assignAssetForm.get('laptopComment')!.value ? assignAssetForm.get('laptopComment')!.value : ''"
               placeholder="Add Comment"
               aria-label="Comment"
               (input)="onInputChangeCommentBox($event)"
-              rows="5"
-              cols="40"
-              style="resize: none"
-></textarea>
+              style="resize: none">
   </div>
   <div class="Add-new">
     <img class="add-img" src="../../../../assets/icons/Add.svg" />
