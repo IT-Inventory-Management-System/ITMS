@@ -77,7 +77,9 @@ public class UserDeviceService
                                 .Where(employee => employee.Id == c.CreatedBy)
                                 .Select(employee => $"{employee.FirstName} {employee.LastName}")
                                 .FirstOrDefault(),
-                            CreatedAt = c.CreatedAtUtc
+                            CreatedAt = c.CreatedAtUtc,
+                            DeviceId = c.DeviceId,
+                            DeviceLogId = c.DeviceLogId
                         })
                         .ToList(),
                 })
