@@ -9,6 +9,8 @@ namespace ITMS.Server.Services
 
             Task<IEnumerable<GetSoftwareDTO>> listSoftware();
             Task<IEnumerable<GetSoftwareDTO>> getSoftwareId(string softwareName, string softwareVersion);
+            Task<IEnumerable<CheckSoftwareAllocationDTO>> listAllSoftware(string softwareID);
+
 
     }
         public class GetSoftwareService : IGetSoftwareService
@@ -51,6 +53,17 @@ namespace ITMS.Server.Services
             return result;
 
         }
+        public async Task<IEnumerable<CheckSoftwareAllocationDTO>> listAllSoftware(string softwareID)
+        {
+            var result = await (from sa in _context.SoftwareAllocations
+                                where sa.SoftwareId.ToString() == softwareID
+                                select new CheckSoftwareAllocationDTO
+                                {
+                                    Id = sa.Id
+                                }
+                             ).ToListAsync();
+            return result;
+        }
     }
+}
 
-    }

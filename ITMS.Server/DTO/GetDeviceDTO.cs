@@ -1,8 +1,10 @@
-﻿namespace ITMS.Server.DTO
+﻿using System.Security.Policy;
+
+namespace ITMS.Server.DTO
 {
     public class GetDeviceDTO
     {
-
+        public Guid Id { get; set; }
         public string? Cygid { get; set; }
 
         public Guid? AssignedTo { get; set; }

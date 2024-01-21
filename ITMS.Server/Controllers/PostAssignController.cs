@@ -11,11 +11,15 @@ namespace ITMS.Server.Controllers
     public class PostAssignController : ControllerBase
     {
         private readonly ItinventorySystemContext _context;
+        private readonly IGetDeviceService _deviceService;
         private readonly IPostAssignAsset _postAssignAsset;
-        public PostAssignController(ItinventorySystemContext context, IPostAssignAsset postAssignAsset)
+        private readonly IGetSoftwareService _getSoftwareService;
+        public PostAssignController(ItinventorySystemContext context, IPostAssignAsset postAssignAsset, IGetDeviceService deviceService, IGetSoftwareService getSoftwareService)
         {
             _context = context;
             _postAssignAsset = postAssignAsset;
+            _deviceService = deviceService;
+            _getSoftwareService = getSoftwareService;
         }
 
         [HttpPost("assignAsset")]
@@ -32,16 +36,54 @@ namespace ITMS.Server.Controllers
                 {
                     await _postAssignAsset.UpdateDeviceAsync(postAssignAssetDTO.CYGID, postAssignAssetDTO);
                     await _postAssignAsset.UpdateSoftwareAsync(postAssignAssetDTO.SoftwareId, postAssignAssetDTO);
+
+                    var Device = await _deviceService.CheckDeviceStatus(postAssignAssetDTO.CYGID);
+                    var softwareAllocation = await _getSoftwareService.listAllSoftware(postAssignAssetDTO.SoftwareId);
+
+                    var deviceID = Device.FirstOrDefault().Id;
+                    var softwareAllocationID = softwareAllocation.FirstOrDefault().Id;
+
+                    PostCommentDTO postCommentDTO = new PostCommentDTO();
+                    postCommentDTO.Description = postAssignAssetDTO.Comments;
+                    postCommentDTO.CreatedBy = postAssignAssetDTO.AssignedBy;
+                    postCommentDTO.DeviceId = deviceID;
+                    postCommentDTO.SoftwareAllocationId = softwareAllocationID;
+
+                    await _postAssignAsset.UpdateComment(postCommentDTO);
                     return Results.Ok("Device and Software allocated successfully");
                 }
                 else if (!string.IsNullOrEmpty(postAssignAssetDTO.CYGID))
                 {
                     await _postAssignAsset.UpdateDeviceAsync(postAssignAssetDTO.CYGID, postAssignAssetDTO);
+
+                    var Device = await _deviceService.CheckDeviceStatus(postAssignAssetDTO.CYGID);
+                    var softwareAllocation = await _getSoftwareService.listAllSoftware(postAssignAssetDTO.SoftwareId);
+
+                    var deviceID = Device.FirstOrDefault().Id;
+
+                    PostCommentDTO postCommentDTO = new PostCommentDTO();
+                    postCommentDTO.Description = postAssignAssetDTO.Comments;
+                    postCommentDTO.CreatedBy = postAssignAssetDTO.AssignedBy;
+                    postCommentDTO.DeviceId = deviceID;
+
+                    await _postAssignAsset.UpdateComment(postCommentDTO);
                     return Results.Ok("Device allocated successfully");
                 }
                 else if (!string.IsNullOrEmpty(postAssignAssetDTO.SoftwareId))
                 {
                     await _postAssignAsset.UpdateSoftwareAsync(postAssignAssetDTO.SoftwareId, postAssignAssetDTO);
+
+                    var Device = await _deviceService.CheckDeviceStatus(postAssignAssetDTO.CYGID);
+                    var softwareAllocation = await _getSoftwareService.listAllSoftware(postAssignAssetDTO.SoftwareId);
+
+                    var softwareAllocationID = softwareAllocation.FirstOrDefault().Id;
+
+                    PostCommentDTO postCommentDTO = new PostCommentDTO();
+                    postCommentDTO.Description = postAssignAssetDTO.Comments;
+                    postCommentDTO.CreatedBy = postAssignAssetDTO.AssignedBy;
+                    postCommentDTO.SoftwareAllocationId = softwareAllocationID;
+
+                    await _postAssignAsset.UpdateComment(postCommentDTO);
                     return Results.Ok("Software allocated successfully");
                 }
                 else

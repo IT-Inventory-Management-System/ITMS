@@ -8,7 +8,8 @@ namespace ITMS.Server.Services
     {
         Task UpdateDeviceAsync(string CYGID, PostAssignAssetDTO device);
         Task UpdateSoftwareAsync(string SoftwareID, PostAssignAssetDTO software);
- 
+        Task<PostCommentDTO> UpdateComment(PostCommentDTO commentDto);
+
     }
     public class PostAssignAsset : IPostAssignAsset
     {
@@ -45,6 +46,19 @@ namespace ITMS.Server.Services
  
             _context.SoftwareAllocations.Update(entityToUpdate);
             await _context.SaveChangesAsync();
+        }
+        public async Task<PostCommentDTO> UpdateComment(PostCommentDTO commentDto)
+        {
+            Comment comment = new Comment();
+            comment.Description = commentDto.Description;
+            comment.CreatedBy = commentDto.CreatedBy;
+            comment.CreatedAtUtc = DateTime.UtcNow;
+            comment.DeviceId = commentDto.DeviceId;
+            comment.SoftwareAllocationId = commentDto.SoftwareAllocationId;
+
+            _context.Comments.Update(comment);
+            await _context.SaveChangesAsync();
+            return commentDto;
         }
     }
 }

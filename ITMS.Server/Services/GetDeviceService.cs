@@ -50,7 +50,9 @@ namespace ITMS.Server.Services
                                 where d.Cygid == CYGID
                                 select new GetDeviceDTO
                                 {
+                                    Id=d.Id,
                                     AssignedTo = d.AssignedTo
+
                                 }).ToListAsync();
             return result;
         }
