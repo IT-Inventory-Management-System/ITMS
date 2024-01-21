@@ -55,7 +55,6 @@ import { FilterSearchListPipe } from './filter-search-list.pipe';
 import { LaptopDetailsComponent } from './user-details/laptop-details/laptop-details.component';
 import { CurrentdeviceComponent } from './shared/components/currentdevice/currentdevice.component';
 import { SearchBoxComponent } from './assign-asset/search-box/search-box.component';
-import { CommentBoxComponent } from './assign-asset/comment-box/comment-box.component';
 import { AddSoftwareModelComponent } from './add-asset/add-software-form/add-software-model/add-software-model.component';
 
 import { EmployeeComponent } from './employee/employee.component';
@@ -121,7 +120,6 @@ import { UserCommentsComponent } from './user-details/user-comments/user-comment
     FilterSearchListPipe,
     LaptopDetailsComponent,
     SearchBoxComponent,
-    CommentBoxComponent,
  
     AddAssetComponent,
     AddSoftwareModelComponent,
