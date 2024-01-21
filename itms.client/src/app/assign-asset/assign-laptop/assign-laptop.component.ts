@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-assign-laptop',
@@ -7,11 +8,13 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 })
 export class AssignLaptopComponent {
   @Input() LaptopOptions: any[] = [];
-  @Output() LaptopOptionSelected: EventEmitter<any> = new EventEmitter();
-  SelectedLaptopVersion: any;
+  @Input() assignAssetForm: FormGroup;
+  SelectedLaptop: any;
+
   LaptopSearchBoxOptionSelected(event: any): void {
-    //console.log('LaptopSearchBoxOptionSelected', event);
-    this.SelectedLaptopVersion = event;
-    this.LaptopOptionSelected.emit(event); 
+    this.SelectedLaptop = event;
+  }
+  onInputChangeCommentBox(event: any): void {
+    this.assignAssetForm.get('laptopComment')?.setValue(event.target.value);
   }
 }

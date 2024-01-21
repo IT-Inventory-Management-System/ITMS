@@ -20,16 +20,16 @@
   background: #FFF;
 }
 
-  .search-box::placeholder {
-    flex: 1 0 0;
-    color: var(--Primary-Gray, #343435);
-    font-family: Roboto;
-    font-size: 0.875rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    opacity: 0.5;
-  }
+.search-box::placeholder {
+  flex: 1 0 0;
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  opacity: 0.5;
+}
 
 .options-list {
   z-index: 2;
@@ -48,6 +48,6 @@
   border: 1px solid #B2B2B3;
 }
 
-  .list-items:hover {
-    background-color: #dddddd;
-  }
+.list-items:hover {
+  background-color: #dddddd;
+}
