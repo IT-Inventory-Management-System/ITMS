@@ -6,9 +6,8 @@ namespace ITMS.Server.Services
 {
     public interface IGetDeviceService
     {
-
         Task<IEnumerable<GetDeviceDTO>> listDevices();
-
+        Task<IEnumerable<GetDeviceDTO>> CheckDeviceStatus(String CYGID);
     }
 
     public class GetDeviceService: IGetDeviceService
@@ -39,11 +38,22 @@ namespace ITMS.Server.Services
                                     Os=os.Osname,
                                     Ram=dm.Ram,
                                     Storage=dm.Storage,        
-                                    
-                                    
+                                   
                                 }
                              ).ToListAsync();
             return result;
         }
+
+        public async Task<IEnumerable<GetDeviceDTO>> CheckDeviceStatus(String CYGID)
+        {
+            var result = await (from d in _context.Devices
+                                where d.Cygid == CYGID
+                                select new GetDeviceDTO
+                                {
+                                    AssignedTo = d.AssignedTo
+                                }).ToListAsync();
+            return result;
+        }
     }
 }
+

@@ -32,6 +32,7 @@ builder.Services.AddScoped<DashboardService>();
 builder.Services.AddScoped<DeviceLogService>();
 builder.Services.AddScoped<UserDeviceService>();
 builder.Services.AddScoped<IGetDeviceService, GetDeviceService>();
+builder.Services.AddScoped<IPostAssignAsset, PostAssignAsset>();
 
 builder.Services.AddCors(options =>
 {
