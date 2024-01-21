@@ -3,7 +3,7 @@
   box-shadow: 4px 0px 4px 0px rgba(0, 0, 0, 0.15);
   color: black;
   margin-top: 2rem;
-  transition: width 0.3s ease;
+  transition: width 0.05s ease;
   display: flex;
   height: 100vh;
   padding: 1.25rem 0.5rem;
@@ -11,15 +11,13 @@
   align-items: flex-start;
   gap: 0.25rem;
   width: 16rem;
-  transition: width 0.3s ease;
 }
 
 .collapsed {
   width: 4rem;
-  margin-top: 2rem;
 }
 
-.icon ,.collapse-btn{
+.icon, .collapse-btn {
   cursor: pointer;
   padding: 10px;
   text-align: center;
@@ -30,11 +28,14 @@
   align-items: center;
   padding: 10px;
 }
+
 .content-collapse {
   display: flex;
   align-items: center;
   padding: 10px;
+  cursor: pointer;
 }
+
 .content img {
   margin-right: 10px;
 }
@@ -43,15 +44,34 @@
   margin-left: 5px;
   margin-right: 10px;
 }
+
 .content:hover {
   border-radius: 0.25rem;
   background: var(--Primary-Blue, #28519E);
   box-shadow: 0px 1px 7px 0px rgba(40, 81, 158, 0.20);
-  cursor:pointer;
-  width:100%;
-  color:white;
+  cursor: pointer;
+  width: 100%;
+  color: white;
 }
 
-.sidebar-icon:hover{
-    fill:white;
+  .content:hover img {
+    filter: brightness(0) invert(1);
+  }
+
+
+/*CSS FOR SELECTING ICONS*/
+.content.selected {
+  background: var(--Primary-Blue, #28519E);
+  color: white;
+  border-radius: 0.25rem;
+  width: 100%;
+  cursor: pointer;
+}
+
+  .content.selected img {
+    filter: brightness(0) invert(1);
+  }
+
+.sidebar-icon:hover {
+  fill: white;
 }
