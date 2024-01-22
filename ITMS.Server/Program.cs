@@ -9,6 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddScoped<AddDeviceService>();
 builder.Services.AddControllers();
+builder.Services.AddControllersWithViews()
+    .AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -31,6 +35,12 @@ builder.Services.AddScoped<DeviceService>();
 builder.Services.AddScoped<DashboardService>();
 builder.Services.AddScoped<DeviceLogService>();
 builder.Services.AddScoped<UserDeviceService>();
+builder.Services.AddScoped<IGetDeviceService, GetDeviceService>();
+builder.Services.AddScoped<SoftwareService>();
+builder.Services.AddScoped<AccessoriesService>();
+builder.Services.AddScoped<ICommentService, AddCommentService>();
+
+builder.Services.AddScoped<IPostAssignAsset, PostAssignAsset>();
 
 builder.Services.AddCors(options =>
 {

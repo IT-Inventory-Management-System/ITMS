@@ -7,7 +7,7 @@
 
         public string SoftwareName { get; set; } = null!;
 
-        public string? SoftwareVersion { get; set; }
+        public string SoftwareVersion { get; set; }
 
 
     }

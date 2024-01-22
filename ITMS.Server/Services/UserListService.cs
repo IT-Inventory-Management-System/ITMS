@@ -8,6 +8,8 @@ namespace ITMS.Server.Services;
 public interface IUserListService
 {
     Task<IEnumerable<UserListDTO>> GetUserDevicesAsync();
+
+    Task<UserListDTO> GetFirstUserAsync();
 }
 public class UserListService : IUserListService
 {
@@ -31,6 +33,21 @@ public class UserListService : IUserListService
                             }).ToListAsync();
         
         return result;
+    }
+
+    public async Task<UserListDTO> GetFirstUserAsync()
+    {
+        var user = await _context.Employees
+            .Select(u => new UserListDTO
+            {
+                Id = u.Id,
+                Cgiid = u.Cgiid,
+                FirstName = u.FirstName,
+                LastName = u.LastName
+            })
+            .FirstOrDefaultAsync();
+
+        return user;
     }
 
 }

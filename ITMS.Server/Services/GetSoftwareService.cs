@@ -8,8 +8,9 @@ namespace ITMS.Server.Services
         {
 
             Task<IEnumerable<GetSoftwareDTO>> listSoftware();
+            Task<IEnumerable<GetSoftwareDTO>> getSoftwareId(string softwareName, string softwareVersion);
 
-        }
+    }
         public class GetSoftwareService : IGetSoftwareService
         {
             private readonly ItinventorySystemContext _context;
@@ -18,21 +19,38 @@ namespace ITMS.Server.Services
             {
                 _context = context;
             }
+        public async Task<IEnumerable<GetSoftwareDTO>> listSoftware()
+        {
+            var result = await (from s in _context.Software
+                                join st in _context.SoftwareTypes
+                                on s.SoftwareTypeId equals st.Id
+                                join sa in _context.SoftwareAllocations
+                                on s.Id equals sa.SoftwareId
 
-            public async Task<IEnumerable<GetSoftwareDTO>> listSoftware()
-            {
-                var result = await (from s in _context.Software
-                                    select new GetSoftwareDTO
-                                    {
+                                select new GetSoftwareDTO
+                                {
                                     Id = s.Id,
                                     SoftwareName = s.SoftwareName,
-                                    SoftwareTypeId = s.SoftwareTypeId,
-                                        SoftwareThumbnail= s.SoftwareThumbnail,
-                                    CategoryId = s.CategoryId
-                                    }
-                                 ).ToListAsync();
-                return result;
-            }
+                                    SoftwareType = st.TypeName,
+                                    ExpiryDate = sa.ExpiryDate,
+                                    Version=s.Version
+                                }
+                             ).ToListAsync();
+            return result;
         }
+        public async Task<IEnumerable<GetSoftwareDTO>> getSoftwareId(string softwareName, string softwareVersion)
+        {
+            var result = await (from s in _context.Software
+                                where s.SoftwareName == softwareName && s.Version == softwareVersion
+
+                                select new GetSoftwareDTO
+                                {
+                                    Id = s.Id
+                                }
+                             ).ToListAsync();
+            return result;
+
+        }
+    }
 
     }

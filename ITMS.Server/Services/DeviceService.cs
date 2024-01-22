@@ -442,5 +442,24 @@ public class DeviceService
 
     }
 
+    public List<StatusDto> GetStatus()
+    {
+        var statusTypes = _context.Statuses.ToList();
+        List<StatusDto> statusList = new List<StatusDto>();
+
+        foreach (var status in statusTypes)
+        {
+            StatusDto s = new StatusDto();
+            s.Type = status.Type;
+            s.Id = status.Id;
+            statusList.Add(s);
+        }
+        return statusList;
+
+
+    }
+
+
+
 
 }

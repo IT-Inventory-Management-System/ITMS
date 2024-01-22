@@ -28,7 +28,14 @@ namespace ITMS.Server.Services
                 return null;
             }
 
+//public class EmployeeService
+//{
+//    private readonly ItinventorySystemContext _context;
 
+//    public EmployeeService(ItinventorySystemContext context)
+//    {
+//        _context = context;
+//    }
 
             //.Where(log => log.AssignedTo == id)
             //.Include(d => d.DeviceModel)
@@ -46,6 +53,31 @@ namespace ITMS.Server.Services
             //                        .Where(employee => employee.Id == c.CreatedBy)
             //.Select(employee => $"{employee.FirstName} {employee.LastName}")
             //                        .FirstOrDefault(),
+//                    AssignedDate = (DateTime)log.Device.AssignedDate,
+//                    Comments = _context.Comments
+//                        .Where(comment => comment.DeviceId == log.Device.Id)
+//                        .Select(c => new CommentDto
+//                        {
+//                            Id = c.Id,
+//                            Description = c.Description,
+//                            CreatedBy = _context.Employees
+//                                .Where(employee => employee.Id == c.CreatedBy)
+//                                .Select(employee => $"{employee.FirstName} {employee.LastName}")
+//                                .FirstOrDefault(),
+//                            CreatedAt = c.CreatedAtUtc
+//                        })
+//                        .ToList(),
+//                })
+//                .ToList();
+
+//            return devicesWithComments;
+//        }
+//        catch (Exception ex)
+//        {
+//            Console.WriteLine(ex.Message);
+//            return null;
+//        }
+//    }
 
             //                        CreatedAt = c.CreatedAtUtc
             //                    })

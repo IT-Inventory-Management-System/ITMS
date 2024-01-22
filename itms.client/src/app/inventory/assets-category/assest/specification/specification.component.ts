@@ -15,7 +15,7 @@ export class SpecificationComponent {
 
 
   get deviceDetails() {
-    console.log(this.isArchived);
+    //console.log(this.isArchived);
     return this.dataService.DeviceDetails;
   } 
 

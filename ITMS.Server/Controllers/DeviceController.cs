@@ -14,13 +14,35 @@ namespace itms.server.controllers
     public class DeviceController : ControllerBase
     {
         private readonly DeviceService _deviceService;
+        private readonly IGetDeviceService _getDeviceService;
 
-        public DeviceController(DeviceService deviceService)
+        public DeviceController(DeviceService deviceService, IGetDeviceService getDeviceService)
         {
             _deviceService = deviceService;
+            _getDeviceService = getDeviceService;
         }
 
-        [HttpGet("categories")]
+        [HttpGet("getDevices")]
+        public async Task<IEnumerable<GetDeviceDTO>> listDevices()
+        {
+            return await _getDeviceService.listDevices();
+        }
+
+        [HttpGet("checkDeviceStatus")]
+        public async Task<IActionResult> checkDeviceStatus(string CYGID)
+        {
+            var result = await _getDeviceService.CheckDeviceStatus(CYGID);
+            if (result.FirstOrDefault().AssignedTo == null)
+            {
+                return Ok(CYGID + " Not Assigned");
+            }
+            else
+            {
+                return BadRequest(CYGID + " Already Assigned");
+            }
+
+        }
+            [HttpGet("categories")]
         public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
         {
             try
@@ -100,6 +122,12 @@ namespace itms.server.controllers
             return Ok(getLocation);
         }
 
+        [HttpGet("get-status")]
+        public ActionResult<IEnumerable<Location>> GetStatus()
+        {
+            var statusList = _deviceService.GetStatus();
+            return Ok(statusList);
+        }
     }
 }
 
