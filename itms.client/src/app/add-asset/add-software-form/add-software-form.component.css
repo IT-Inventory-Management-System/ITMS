@@ -301,3 +301,17 @@ input[type="checkbox"] {
     font-weight: 500;
     line-height: normal;
   }
+.alert-box {
+  margin-top: 10px;
+  float:left;
+}
+
+.alert-box-msg {
+  color: var(--Adhoc-Red, #CC1A07);
+  font-family: Roboto;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1rem; /* 133.333% */
+}
+
