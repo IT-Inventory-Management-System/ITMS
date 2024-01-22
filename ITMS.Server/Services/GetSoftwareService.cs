@@ -8,8 +8,9 @@ namespace ITMS.Server.Services
         {
 
             Task<IEnumerable<GetSoftwareDTO>> listSoftware();
+            Task<IEnumerable<GetSoftwareDTO>> getSoftwareId(string softwareName, string softwareVersion);
 
-        }
+    }
         public class GetSoftwareService : IGetSoftwareService
         {
             private readonly ItinventorySystemContext _context;
@@ -31,10 +32,24 @@ namespace ITMS.Server.Services
                                     Id = s.Id,
                                     SoftwareName = s.SoftwareName,
                                     SoftwareType = st.TypeName,
-                                    ExpiryDate = sa.ExpiryDate
+                                    ExpiryDate = sa.ExpiryDate,
+                                    Version=s.Version
                                 }
                              ).ToListAsync();
             return result;
+        }
+        public async Task<IEnumerable<GetSoftwareDTO>> getSoftwareId(string softwareName, string softwareVersion)
+        {
+            var result = await (from s in _context.Software
+                                where s.SoftwareName == softwareName && s.Version == softwareVersion
+
+                                select new GetSoftwareDTO
+                                {
+                                    Id = s.Id
+                                }
+                             ).ToListAsync();
+            return result;
+
         }
     }
 

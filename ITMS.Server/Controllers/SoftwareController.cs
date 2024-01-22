@@ -34,6 +34,11 @@ namespace ITMS.Server.Controllers
         {
             return await _addSoftwareVersionService.listSoftwareVersions(SoftwareName);
         }
+        [HttpGet("getSoftwareId")]
+        public async Task<IEnumerable<GetSoftwareDTO>> listSoftwareId(String SoftwareName, String Version)
+        {
+            return await _addSoftwareService.getSoftwareId(SoftwareName, Version);
+        }
         [HttpGet ("getsoftwareType")]
         public ActionResult<IEnumerable<SoftwareType>> GetSoftwareTypes()
         {

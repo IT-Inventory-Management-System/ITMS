@@ -27,7 +27,22 @@ namespace itms.server.controllers
         {
             return await _getDeviceService.listDevices();
         }
-        [HttpGet("categories")]
+
+        [HttpGet("checkDeviceStatus")]
+        public async Task<IActionResult> checkDeviceStatus(string CYGID)
+        {
+            var result = await _getDeviceService.CheckDeviceStatus(CYGID);
+            if (result.FirstOrDefault().AssignedTo == null)
+            {
+                return Ok(CYGID + " Not Assigned");
+            }
+            else
+            {
+                return BadRequest(CYGID + " Already Assigned");
+            }
+
+        }
+            [HttpGet("categories")]
         public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
         {
             try
