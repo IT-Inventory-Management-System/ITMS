@@ -10,11 +10,11 @@
     <div class="comment-subheading">Comment</div>
     <input class="comment-input-box"
            required
-           [value]="assignAssetForm.get('accessoryComment')!.value ? assignAssetForm.get('accessoryComment')!.value : ''"
            placeholder="Add Comment"
            aria-label="Comment"
            (input)="onInputChangeCommentBox($event)">
   </div>
+  <!--[value]="assignAssetForm.get('accessoryComment')!.value ? assignAssetForm.get('accessoryComment')!.value : ''"-->
   <div class="Add-new">
     <img class="add-img" src="../../../../assets/icons/Add.svg" />
     <div class="add-new-text">Add Another Accessories</div>

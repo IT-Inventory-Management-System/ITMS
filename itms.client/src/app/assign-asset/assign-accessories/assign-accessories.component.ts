@@ -15,6 +15,6 @@ export class AssignAccessoriesComponent {
     this.SelectedAccessories = event;
   }
   onInputChangeCommentBox(event: any): void {
-    this.assignAssetForm.get('accessoryComment')?.setValue(event.target.value);
+  //  this.assignAssetForm.get('accessoryComment')?.setValue(event.target.value);
   }
 }

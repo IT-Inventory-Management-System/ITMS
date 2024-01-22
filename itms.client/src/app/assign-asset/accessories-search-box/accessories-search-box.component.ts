@@ -33,7 +33,7 @@ export class AccessoriesSearchBoxComponent {
     this.AccessoryOptionSelected.emit(option);
     this.selectedOption = `${option.name}`;
     this.filteredOptions = [];
-    this.assignAssetForm.get('selectedAccessory')?.setValue(option.id);
+  //  this.assignAssetForm.get('selectedAccessory')?.setValue(option.id);
   }
 
   @HostListener('document:click', ['$event'])
