@@ -4,7 +4,7 @@
   <div class="add-device-header">
     <span>Add Laptop</span>
   </div>
-  
+
   <div class="add-device-content overflow-auto">
     <div class="stepper-container">
       <div class="stepper-stepper">
@@ -30,12 +30,12 @@
           <label class="os-label">Operating System <span class="required">*</span></label>
           <div class="os-input">
             <!--<div class="window-input">-->
-              <input type="radio" name="osType" id="windowsRadio" value="Windows"  [(ngModel)]="selectedOS" (change)="loadDropdownValues()">
-              <label for="windowsRadio">Windows</label>
+            <input type="radio" name="osType" id="windowsRadio" value="Windows" [(ngModel)]="selectedOS" (change)="loadDropdownValues()">
+            <label for="windowsRadio">Windows</label>
             <!--</div>
             <div class="mac-input">-->
-              <input type="radio" name="osType" id="macRadio" value="Mac"  [(ngModel)]="selectedOS" (change)="loadDropdownValues()">
-              <label for="macRadio">Mac</label>
+            <input type="radio" name="osType" id="macRadio" value="Mac" [(ngModel)]="selectedOS" (change)="loadDropdownValues()">
+            <label for="macRadio">Mac</label>
             <!--</div>-->
           </div>
         </div>
@@ -46,7 +46,7 @@
               <label for="deviceName">Device Name <span class="required">*</span></label>
               <select formControlName="deviceModelId">
                 <option value="" selected class="placeholder">Select Device Name</option>
-                <option *ngFor="let value of dropdownValues" [value]="value.id" >
+                <option *ngFor="let value of dropdownValues" [value]="value.id">
                   {{ value.deviceName }}
                 </option>
               </select>
@@ -79,8 +79,8 @@
             <div class="row warranty">
               <label>Warranty Year <span class="required">*</span></label>
               <div class="col-6 warranty-input">
-                <input type="number" class="form-control" id="warrantyMonth" name="warrantyYear" placeholder="Month" (change)="setWarrantyMonth($event)">
-                <input type="number" class="form-control" id="warrantyYear" name="warrantyYear" placeholder="Year" (change)="setWarrantyYear($event)">
+                <input type="number" class="form-control" id="warrantyMonth" name="warrantyYear" placeholder="Month" (blur)="setWarrantyMonth($event)">
+                <input type="number" class="form-control" id="warrantyYear" name="warrantyYear" placeholder="Year" (blur)="setWarrantyYear($event)">
               </div>
             </div>
           </div>
@@ -92,11 +92,11 @@
           <div class="outer-input row">
             <div class="serial-number-input col-6">
               <label for="serialNumber">Serial Number<span class="required">*</span></label>
-              <input type="text" id="serialNumber" name="serialNumber" (input)="updateSerialNumber(i, $event)"/>
+              <input type="text" id="serialNumber" name="serialNumber" (input)="updateSerialNumber(i, $event)" />
             </div>
             <div class="cyg-id-input col-6">
               <label for="cygId">CYG ID.<span class="required">*</span></label>
-              <input type="text" id="cygId" name="cygId" (input)="updateCygId(i, $event)"/>
+              <input type="text" id="cygId" name="cygId" (input)="updateCygId(i, $event)" />
             </div>
           </div>
 
@@ -104,15 +104,31 @@
         </div>
       </div>
     </form>
+
+
   </div>
 
-  <div [ngClass]="{'add-device-footer1': currentStep === 1, 'add-device-footer2': currentStep === 2}">
-    <button *ngIf="currentStep === 2" class="previous-btn" (click)="previous()"><span>Previous</span></button>
-    
+  <div *ngIf="currentStep === 1" class="add-device-footer1" [ngClass]="{ 'flex-row': showErrorMessage }">
+    <div *ngIf="showErrorMessage" class="alert-box">
+      <div class="alert-box-msg">
+        {{errorMessage}}
+      </div>
+    </div>
     <div class="save-device-button">
       <button class="cancel-button" type="reset"><span>Cancel</span></button>
-      <button *ngIf="currentStep === 1" type="button" class="next-button" (click)="next()"><span>Next</span></button>
-      <button *ngIf="currentStep === 2" class="submit-button-layout" type="submit"  (click)="onSubmit()"><span>Submit</span></button>
+      <button type="button" class="next-button" (click)="next()"><span>Next</span></button>
+    </div>
+  </div>
+  <div *ngIf="currentStep === 2" class="add-device-footer2">
+    <button class="previous-btn" (click)="previous()"><span>Previous</span></button>
+    <div *ngIf="showErrorMessage" class="alert-box">
+      <div class="alert-box-msg">
+        {{errorMessage}}
+      </div>
+    </div>
+    <div class="save-device-button">
+      <button class="cancel-button" type="reset"><span>Cancel</span></button>
+      <button class="submit-button-layout" type="submit" (click)="onSubmit()"><span>Submit</span></button>
     </div>
   </div>
 </div>

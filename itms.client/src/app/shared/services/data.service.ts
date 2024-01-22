@@ -89,8 +89,17 @@ export class DataService {
     return this.http.post(this.apiUrl + 'addDevices/add-software-allocation', formData);
   }
 
+  getFirstUser(): Observable<any> {
+    return this.http.get<any>(this.apiUrl + 'employee/GetFirstUser');
+  }
 
+  getLocation(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + 'Device/get-location');
+  }
 
+  getStatus(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + 'Device/get-status');
+  }
 
 }
 

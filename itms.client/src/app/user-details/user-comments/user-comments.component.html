@@ -1,0 +1,105 @@
+<div class="col-md-12 hi" [ngClass]="{ 'collapsed': isCommentCollapsed }">
+  <div class="row comment-container">
+    <div class="col-md-12 comment-header">
+      <div class="row">
+        <div class="col-md-6">
+          <span>
+            <img src="../../../../assets/icons/Comment.svg" style="width: 1.25rem; height: 1.25rem;">
+          </span>
+          <span style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal;">
+            Comment ({{ laptopDetails.comments ? laptopDetails.comments.length : 0 }})
+          </span>
+        </div>
+        <div class="col-md-6 chevron" (click)="toggleComment()">
+          <div>
+            <img *ngIf="isCommentCollapsed" src="../../../../assets/icons/Chevron down.svg" class="chevron-down" />
+            <img *ngIf="!isCommentCollapsed" src="../../../../assets/icons/Chevron.svg" style="width: 1.25rem; height: 1.25rem; margin-right: -10%;">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-container *ngIf="!isCommentCollapsed">
+      <div class="col-md-12" *ngFor="let comment of laptopDetails.comments || []">
+        <div class="row comment-avatar">
+          <div class="col-md-6">
+            <div class="row avatar-supercomponent">
+              <div class="col-md-1 avatar">
+                <ngx-avatars [name]="comment.createdBy" [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="33"></ngx-avatars>
+              </div>
+              <div class="col-md-4 user-details">
+                <div style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 0.875rem; font-style: normal; font-weight: 600; line-height: normal;">{{comment.createdBy}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 date-time-comment">
+            <div>
+              <div>{{comment.createdAt}}</div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <p class="comment-content"> {{comment.description}} </p>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+
+    <div class="comment-input" *ngIf="!isCommentCollapsed">
+      <input type="text" class="comment-box" [(ngModel)]="newComment" placeholder="Add Comment...">
+      <button class="bb" (click)="saveCommentAndFetchComments()">Save</button>
+    </div>
+
+  </div>
+</div>
+
+
+<!--<div class="row comment-container">
+  <div class="col-md-12 comment-header">
+    <div class="row">
+      <div class="col-md-6">
+        <span>
+          <img src="../../../../assets/icons/Comment.svg" style="width: 1.25rem; height: 1.25rem;">
+        </span>
+        <span style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal;">
+          Comment ({{ softwareDetails.comments ? softwareDetails.comments.length : 0 }})
+        </span>
+      </div>
+      <div class="col-md-6 chevron">
+        <div>
+          <img src="../../../../assets/icons/Chevron.svg" style="width: 1.25rem; height: 1.25rem; margin-right: -10%;">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12" *ngFor="let comment of softwareDetails.comments || []">
+    <div class="row comment-avatar">
+      <div class="col-md-6">
+        <div class="row avatar-supercomponent">
+          <div class="col-md-1 avatar">
+            <ngx-avatars [name]="comment.createdBy" [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="33"></ngx-avatars>
+          </div>
+          <div class="col-md-4 user-details">
+            <div style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 0.875rem; font-style: normal; font-weight: 600; line-height: normal;">{{comment.createdBy}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 date-time-comment">
+        <div>
+          <div>{{comment.createdAt}}</div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <p class="comment-content"> {{comment.description}} </p>
+      </div>
+    </div>
+
+
+
+  </div>
+  <div class="comment-input">
+    <input type="text" class="comment-box" placeholder="Add Comment...">
+    <button class="bb">Save</button>
+  </div>
+
+</div>-->

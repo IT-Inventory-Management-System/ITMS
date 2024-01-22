@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-assign-software',
@@ -6,22 +7,34 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./assign-software.component.css']
 })
 export class AssignSoftwareComponent {
+
   @Input() SoftwareOptions: any[] = [];
-  @Output() SoftwareOptionSelected: EventEmitter<any> = new EventEmitter();
   @Input() SoftwareVersionOptions: any[] = [];
-  @Output() SoftwareVersionOptionSelected: EventEmitter<any> = new EventEmitter();
+  @Input() assignAssetForm: FormGroup;
+  @Output() SoftwareOptionSelected: EventEmitter<any> = new EventEmitter();
 
   SelectedSoftware: any;
   SelectedSoftwareVersion: any;
+
   SoftwareSearchBoxOptionSelected(event: any): void {
-    //console.log('SoftwareSearchBoxOptionSelected', event);
     this.SelectedSoftware = event;
-    this.SoftwareOptionSelected.emit(event); // Propagate the event to parent
+    this.SoftwareOptionSelected.emit(event);
   }
-  SoftwareSearchBoxVersionOptionSelected(event: any): void {
-    //console.log('SoftwareSearchBoxVersionOptionSelected', event);
+  SoftwareVersionSearchBoxOptionSelected(event: any): void {
     this.SelectedSoftwareVersion = event;
-    this.SoftwareVersionOptionSelected.emit(event); // Propagate the event to parent
+  }
+  onInputChangeCommentBox(event: any): void {
+    this.assignAssetForm.get('softwareComment')?.setValue(event.target.value);
+  }
+  formatExpiryDate(expiryDate: string): string {
+    if (!expiryDate) {
+      return '';
+    }
+    const date = new Date(expiryDate);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${day}-${month}-${year}`;
   }
 
 }

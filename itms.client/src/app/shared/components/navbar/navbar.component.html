@@ -12,9 +12,9 @@
         <div class="center">
           <div class="inputs">
             <div class="inputf">
-              <input type="radio" name="q1" id="q11" checked />
+              <input type="radio" name="q1" id="q11" value="India" (change)="onRadioChange($event)" checked />
               <label class="radio-txt" for="q11">INDIA</label>
-              <input type="radio" name="q1" id="q12" />
+              <input type="radio" name="q1" id="q12" value="USA" (change)="onRadioChange($event)" />
               <label class="radio-txt" for="q12">USA</label>
 
               <span class="slider"></span>

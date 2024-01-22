@@ -7,6 +7,7 @@ import { DataService } from '../shared/services/data.service';
 })
 export class AddAssetComponent {
 
+  loading: boolean = true;
   categoryData: any[] = [];
   searchtext: string='';
   selectedCategory: string | null;
@@ -36,10 +37,12 @@ export class AddAssetComponent {
   }
 
   showCategories() {
+    this.loading = true;
     this.dataService.getCategories().subscribe(
       (data) => {
         this.categoryData = data;
         console.log(this.categoryData);
+        this.loading = false; 
       },
       (error) => {
         console.log(error);
