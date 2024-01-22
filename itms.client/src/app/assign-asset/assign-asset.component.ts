@@ -37,6 +37,7 @@ export class AssignAssetComponent {
     }
   }
 
+
   nextStep() {
     if (this.currentStep < 3) {
       this.currentStep++;
@@ -62,7 +63,7 @@ export class AssignAssetComponent {
 
   getButtonText(): string {
     if (this.currentStep === 3) {
-      return 'Save Changes';
+      return 'Save';
     } else {
       return 'Next';
     }
@@ -166,6 +167,7 @@ export class AssignAssetComponent {
       this.deviceAssignService.saveAssignment(assignmentData).subscribe(
         (response) => {
           console.log('Assignment saved successfully:', response);
+          this.assignAssetForm.reset();
         },
         (error) => {
           console.error('Error saving assignment:', error);
