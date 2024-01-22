@@ -20,4 +20,11 @@ export class NavbarComponent {
     // Close the options div after handling the click
     this.isOptionsVisible = false;
   }
+
+  onRadioChange(event: any) {
+    const selectedCountry = event.target.value;
+
+    // Store the selected country in local storage
+    localStorage.setItem('selectedCountry', selectedCountry);
+  }
 }

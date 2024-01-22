@@ -8,7 +8,14 @@
         <img src="../../assets/icons/Search.svg" class="search_image" />
         <input type="text" class="serach_input" [(ngModel)]="searchtext" placeholder="Search Device" />
       </div>
-      <app-category-card *ngFor="let category of categoryData|filter:searchtext" [typeName]="category.typeName" [categories]="category.categories"></app-category-card>
+      <div *ngIf="loading; else content">
+        <div class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+      <ng-template #content>
+        <app-category-card *ngFor="let category of categoryData|filter:searchtext" [typeName]="category.typeName" [categories]="category.categories"></app-category-card>
+      </ng-template>
     </div>
     <div class="vertical-stroke">
       <img src="../../assets/icons/add asset vertical stroke.svg" />

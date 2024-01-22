@@ -17,6 +17,7 @@ export class AddSoftwareFormComponent {
   ngOnInit(): void {
     this.loadDropdownValues();
     this.createForm();
+    this.setlocationId();
 
   }
   createForm() {
@@ -31,6 +32,22 @@ export class AddSoftwareFormComponent {
       assigndate: [null],
       locationId: ['32ACEEE5-0664-4E21-B6A7-C5447336F5B2'],
     });
+  }
+
+  setlocationId() {
+    this.dataService.getLocation().subscribe(
+      (data) => {
+        for (var i = 0; i < data.length; i++) {
+          if (data[i].type == localStorage.getItem('selectedCountry')) {
+            this.SoftwareForm.get('locationId')?.setValue(data[i].id);
+            break;
+          }
+        }
+
+      },
+      (error) => {
+        console.log("User not found");
+      });
   }
 
   loadDropdownValues() {

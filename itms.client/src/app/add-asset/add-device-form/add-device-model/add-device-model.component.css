@@ -192,33 +192,52 @@
 
 .add-button {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  flex-direction: row-reverse;
+  justify-content: space-between;
   gap: 0.625rem;
   align-self: stretch;
   margin-top: 1.25rem;
 }
 
-  .add-button button {
-    display: flex;
-    width: 5.75rem;
-    height: 2.5rem;
-    padding: 0.75rem 0.5rem;
-    justify-content: center;
-    align-items: center;
-    gap: 0.5rem;
-    border-radius: 0.25rem;
-    background: var(--Primary-Blue, #28519E);
-  }
+.flex-row {
+  flex-direction: row;
+}
 
-    .add-button button span {
-      color: #FFF;
-      font-family: Roboto;
-      font-size: 1rem;
-      font-style: normal;
-      font-weight: 500;
-      line-height: normal;
-    }
+.add-button button {
+  display: flex;
+  width: 5.75rem;
+  height: 2.5rem;
+  padding: 0.75rem 0.5rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 0.25rem;
+  background: var(--Primary-Blue, #28519E);
+  border: none;
+}
+
+.add-button button span {
+  color: #FFF;
+  font-family: Roboto;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.alert-box {
+  margin-top: 10px;
+}
+
+.alert-box-msg {
+  flex: 1 0 0;
+  color: var(--Adhoc-Red, #CC1A07);
+  font-family: Roboto;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1rem; /* 133.333% */
+}
 
 .storage-selector {
   display: flex;
