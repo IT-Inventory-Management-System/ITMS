@@ -107,6 +107,8 @@ export class AddSoftwareModelComponent {
           this.hideErrorMessage();
           this.ProfileDP = '../../../assets/icons/add_photo_alternate_outlined 1.svg';
           this.newSoftwareForm.reset();
+          this.setCategoryId();
+          this.setCreatedBy();
 
 
         },
