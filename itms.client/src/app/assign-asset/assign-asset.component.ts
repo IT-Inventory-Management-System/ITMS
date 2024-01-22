@@ -62,7 +62,7 @@ export class AssignAssetComponent {
 
   getButtonText(): string {
     if (this.currentStep === 3) {
-      return 'Save Changes';
+      return 'Save';
     } else {
       return 'Next';
     }
