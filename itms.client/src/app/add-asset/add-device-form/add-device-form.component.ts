@@ -18,6 +18,7 @@ export class AddDeviceFormComponent implements OnInit {
   selectedOS: string = '';
   warrantyMonth: number;
   warrantyYear: number;
+ 
   constructor(private dataService: DataService, private fb: FormBuilder) {
     this.dropdownValues = [];
   }
@@ -269,5 +270,15 @@ export class AddDeviceFormComponent implements OnInit {
   hideErrorMessage() {
     this.showErrorMessage = false;
   }
+  resetform() {
 
+    this.addDeviceForm.reset();
+   
+    this.setCreatedBy();
+    this.setlocationId();
+    this.setStatus();
+      this.counterValue = 0;
+     
+    
+  }
  }

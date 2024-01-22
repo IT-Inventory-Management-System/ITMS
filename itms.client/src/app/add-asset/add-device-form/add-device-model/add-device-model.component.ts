@@ -144,5 +144,9 @@ export class AddDeviceModelComponent implements OnInit {
   hideErrorMessage() {
     this.showErrorMessage = false;
   }
+  resetform() {
+    this.deviceForm.reset();
 
+    
+  }
 }

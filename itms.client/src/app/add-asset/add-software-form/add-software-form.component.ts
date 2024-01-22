@@ -154,8 +154,8 @@ export class AddSoftwareFormComponent {
         response => {
           console.log('Post successful', response);
           this.hideErrorMessage();
+          this.resetform();
 
-          this.SoftwareForm.reset();
         },
         error => {
           console.error('Error posting data', error);
@@ -181,5 +181,13 @@ export class AddSoftwareFormComponent {
   }
   hideErrorMessage() {
     this.showErrorMessage = false;
+  }
+  resetform() {
+    this.SoftwareForm.reset();
+    this.setlocationId();
+
+    this.counterValue = 0;
+    this.counterValue2 = 0;
+    this.counterValue3 = 0;
   }
 }
