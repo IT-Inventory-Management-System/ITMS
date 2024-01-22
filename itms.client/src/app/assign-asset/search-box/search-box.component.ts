@@ -34,7 +34,7 @@ export class SearchBoxComponent {
   selectOption(option: any): void {
     this.selectedOption = `${option.cgiid} - ${option.firstName} ${option.lastName}`;
     this.filteredOptions = [];
-    this.assignAssetForm.get('selectedUser')?.setValue(option.id);
+    this.assignAssetForm.get('assignedTo')?.setValue(option.id);
   }
 
   @HostListener('document:click', ['$event'])

@@ -6,7 +6,7 @@
                              [SoftwareOptions]="SoftwareOptions"
                              (SoftwareOptionSelected)="SoftwareSearchBoxOptionSelected($event)"
                              [assignAssetForm]="assignAssetForm">
-    </app-software-search-box> 
+    </app-software-search-box>
     <app-software-version-search-box class="sbox"
                                      [label]="'Software Version'"
                                      [placeholder]="'Select Software Version'"
@@ -34,11 +34,11 @@
     <div class="comment-subheading">Comment</div>
     <input class="comment-input-box"
            required
-           [value]="assignAssetForm.get('softwareComment')!.value ? assignAssetForm.get('softwareComment')!.value : ''"
            placeholder="Add Comment"
            aria-label="Comment"
            (input)="onInputChangeCommentBox($event)">
   </div>
+  <!--[value]="assignAssetForm.get('softwareComment')!.value ? assignAssetForm.get('softwareComment')!.value : ''"-->
   <div class="Add-new">
     <img class="add-img" src="../../../../assets/icons/Add.svg" />
     <div class="add-new-text">Add Another Software</div>

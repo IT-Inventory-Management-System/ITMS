@@ -33,7 +33,7 @@ export class LaptopSearchBoxComponent {
     `${option.cgiid} - ${option.firstName} ${option.lastName}`;
     this.LaptopOptionSelected.emit(option);
     this.filteredOptions = [];
-    this.assignAssetForm.get('selectedLaptop')?.setValue(option.cygid);
+    this.assignAssetForm.get('cygid')?.setValue(option.cygid); 
   }
 
   @HostListener('document:click', ['$event'])

@@ -26,6 +26,6 @@ export class DeviceAssignService {
     return this.http.get<any[]>(this.apiUrl + `asset/getAccessories`);
   }
   saveAssignment(assignmentData: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/assignments`, assignmentData);
+    return this.http.post<any>(`${this.apiUrl}/add/assignAsset`, assignmentData);
   }
 }
