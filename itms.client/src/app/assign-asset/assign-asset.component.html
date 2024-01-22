@@ -5,61 +5,63 @@
         <h1 class="modal-title assign-asset-modal-title fs-5" id="assignAssetModal">Assign Assets</h1>
         <button type="button" class="close-button" data-bs-dismiss="modal" aria-label="Close"><img src="../../../../assets/icons/Close.svg" /></button>
       </div>
-        <div class="modal-body">
-          <app-search-box class="sbox"
-                          [label]="'User'"
-                          [placeholder]="'Search User by Name, CGI ID and Email Address'"
-                          [options]="users"
-                          [assignAssetForm]="assignAssetForm">
-          </app-search-box>
-          <div class="stepper-container">
-            <div class="stepper-stepper">
-              <div class="stepper-stepper1">
-                <img *ngIf="currentStep === 1" src="../../../assets/icons/laptop-solid.svg" />
-                <img *ngIf="currentStep > 1" src="../../../assets/icons/completed.svg" />
-                <span class="stepper-text"><span>Laptop</span></span>
-              </div>
-              <img class="vector-img" src="../../../assets/icons/Vector 16 (Stroke).svg" />
-              <div class="stepper-stepper2">
-                <img *ngIf="currentStep === 1" src="../../../../assets/icons/Software-light.svg" />
-                <img *ngIf="currentStep === 2" src="../../../../assets/icons/Software.svg" />
-                <img *ngIf="currentStep > 2" src="../../../assets/icons/completed.svg" />
-                <span class="stepper-text2"><span>Software</span></span>
-              </div>
-              <img class="vector-img" src="../../../assets/icons/Vector 16 (Stroke).svg" />
-              <div class="stepper-stepper1">
-                <img *ngIf="currentStep === 1" src="../../../../assets/icons/placeholder.svg" />
-                <img *ngIf="currentStep === 2" src="../../../../assets/icons/placeholder.svg" />
-                <img *ngIf="currentStep === 3" src="../../../../assets/icons/placeholder.svg" />
-                <img *ngIf="currentStep > 3" src="../../../assets/icons/completed.svg" />
-                <span class="stepper-text"><span>Accessories</span></span>
-              </div>
+      <div class="modal-body">
+        <app-search-box class="sbox"
+                        [label]="'User'"
+                        [placeholder]="'Search User by Name, CGI ID and Email Address'"
+                        [options]="users"
+                        [assignAssetForm]="assignAssetForm">
+        </app-search-box>
+        <div class="stepper-container">
+          <div class="stepper-stepper">
+            <div class="stepper-stepper1">
+              <img *ngIf="currentStep === 1" src="../../../assets/icons/laptop-solid.svg" />
+              <img *ngIf="currentStep > 1" src="../../../assets/icons/completed.svg" />
+              <span class="stepper-text"><span>Laptop</span></span>
+            </div>
+            <img class="vector-img" src="../../../assets/icons/Vector 16 (Stroke).svg" />
+            <div class="stepper-stepper2">
+              <img *ngIf="currentStep === 1" src="../../../../assets/icons/Software-light.svg" />
+              <img *ngIf="currentStep === 2" src="../../../../assets/icons/Software.svg" />
+              <img *ngIf="currentStep > 2" src="../../../assets/icons/completed.svg" />
+              <span class="stepper-text2"><span>Software</span></span>
+            </div>
+            <img class="vector-img" src="../../../assets/icons/Vector 16 (Stroke).svg" />
+            <div class="stepper-stepper1">
+              <img *ngIf="currentStep === 1" src="../../../../assets/icons/placeholder.svg" />
+              <img *ngIf="currentStep === 2" src="../../../../assets/icons/placeholder.svg" />
+              <img *ngIf="currentStep === 3" src="../../../../assets/icons/placeholder.svg" />
+              <img *ngIf="currentStep > 3" src="../../../assets/icons/completed.svg" />
+              <span class="stepper-text"><span>Accessories</span></span>
             </div>
           </div>
-          <app-assign-laptop *ngIf="currentStep === 1"
-                             [LaptopOptions]="laptops"
-                             [assignAssetForm]="assignAssetForm">
-          </app-assign-laptop>
-          <app-assign-software *ngIf="currentStep === 2"
-                               [SoftwareOptions]="softwares"
-                               [SoftwareVersionOptions]="softwareVersions"
-                               (SoftwareOptionSelected)="onSoftwareSelected($event)"
-                               [assignAssetForm]="assignAssetForm">
-          </app-assign-software>
-          <app-assign-accessories *ngIf="currentStep === 3"
-                                  [AccessoryOptions]="accessories"
-                                  [assignAssetForm]="assignAssetForm">
-          </app-assign-accessories>
-          <div class="progress mt-3">
-            <div class="progress-bar" role="progressbar" [style.width]="getProgressBarWidth()" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
         </div>
-      <div class="modal-footer">
-        <div class="button-container">
-          <button type="button" class="btn btn-secondary" *ngIf="currentStep !== 1" (click)="previousStep()">Previous</button>
-          <button type="button" class="btn btn-secondary" *ngIf="currentStep === 3" (click)="saveChanges()">Save</button>
-          <button type="button" class="btn btn-secondary" *ngIf="currentStep !== 3" (click)="skipStep()">Skip</button>
-          <button type="button" class="btn btn-primary" (click)="nextStep()">{{ getButtonText() }}</button>
+        <app-assign-laptop *ngIf="currentStep === 1"
+                           [LaptopOptions]="laptops"
+                           [assignAssetForm]="assignAssetForm">
+        </app-assign-laptop>
+        <app-assign-software *ngIf="currentStep === 2"
+                             [SoftwareOptions]="softwares"
+                             [SoftwareVersionOptions]="softwareVersions"
+                             (SoftwareOptionSelected)="onSoftwareSelected($event)"
+                             [assignAssetForm]="assignAssetForm">
+        </app-assign-software>
+        <app-assign-accessories *ngIf="currentStep === 3"
+                                [AccessoryOptions]="accessories"
+                                [assignAssetForm]="assignAssetForm">
+        </app-assign-accessories>
+        <div class="progress mt-3">
+          <div class="progress-bar" role="progressbar" [style.width]="getProgressBarWidth()" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <button type="button" class="btn btn-previous" *ngIf="currentStep !== 1" (click)="previousStep()">Previous</button>
+        <div class="modal-footer">
+          <div class="button-container">
+            <button type="button" class="btn-skip" *ngIf="currentStep !== 3" (click)="skipStep()">Skip</button>
+            <button type="button" class="btn-save" (click)="nextStep()">{{ getButtonText() }}</button>
+          </div>
         </div>
       </div>
     </div>
