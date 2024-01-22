@@ -26,4 +26,6 @@ public partial class Comment
 
     public virtual SoftwareAllocation? SoftwareAllocation { get; set; }
     public virtual DevicesLog? DevicesLog { get; set; }
+
+
 }

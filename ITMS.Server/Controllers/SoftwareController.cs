@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.Elfie.Serialization;
 using static ITMS.Server.Services.GetSoftwareService;
 using System.Runtime.InteropServices;
+using System;
 namespace ITMS.Server.Controllers
 {
     [ApiController]
@@ -13,13 +14,15 @@ namespace ITMS.Server.Controllers
     public class SoftwareController : ControllerBase
     {
         private readonly ItinventorySystemContext _context;
+        private readonly SoftwareService _softwareService;
         private readonly IGetSoftwareService _addSoftwareService;
         private readonly IGetSoftwareVersionService _addSoftwareVersionService;
-        public SoftwareController(ItinventorySystemContext context, IGetSoftwareService addSoftwareService, IGetSoftwareVersionService addSoftwareVersionService)
+        public SoftwareController(ItinventorySystemContext context, IGetSoftwareService addSoftwareService, IGetSoftwareVersionService addSoftwareVersionService, SoftwareService softwareService)
         {
             _context = context;
             _addSoftwareService = addSoftwareService;
             _addSoftwareVersionService = addSoftwareVersionService;
+            _softwareService = softwareService;
         }
         [HttpGet("getSoftware")]
         public async Task<IEnumerable<GetSoftwareDTO>> listSoftware()
@@ -43,6 +46,22 @@ namespace ITMS.Server.Controllers
         .ToList();
 
             return Ok(softwareTypes);
+        }
+
+
+        [HttpGet("GetUserSoftware/{id}")]
+        public IActionResult GetUserSoftware(Guid id)
+        {
+            try
+            {
+                var softwareList = _softwareService.GetUserSoftware(id);
+                return Ok(softwareList);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
     }
 }

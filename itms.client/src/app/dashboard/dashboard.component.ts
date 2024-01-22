@@ -1,5 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { DashboardService } from '../shared/services/Dashboard.service';
+import { FormGroup } from '@angular/forms';
+
 
 
 @Component({
@@ -16,15 +18,13 @@ export class DashboardComponent implements OnInit {
   //  { text: "ListItem 5", value: "ListItem 5" }
   //];
   //fieldsvalues: Object = { dataSource: this.data, text: "text", value: "value" };
-
-
-  
+  loading: boolean = true;
   selectedAssetAge: any = '';
   accessoriesData: any[];
   softwaresData: any[];
   primaryData: any[];
   logsData: any[];
-  filteredAccessories: any[]  // Remove the duplicated declaration
+  filteredAccessories: any[]  
   filterValue: string = '';
 
   filteredSoftware: any[]
@@ -44,17 +44,22 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  constructor(private dashboardService: DashboardService) {
-
-
+  constructor(private dashboardService: DashboardService, private cdr: ChangeDetectorRef) {
     this.filteredAccessories = this.accessoriesData;
     this.filteredSoftware = this.softwaresData;
 
-    
-   
 
   }
 
+  getAssetAgeLabel(selectedValue: any): string {
+    switch (selectedValue) {
+      case 1: return '0-1 years';
+      case 2: return '1-2 years';
+      case 3: return '2-3 years';
+      case 4: return '3-4 years';
+      default: return 'Asset Age';
+    }
+  }
 
   handleCheckboxChange() {
     console.log('Selected Asset Age:', this.selectedAssetAge);
@@ -92,10 +97,14 @@ export class DashboardComponent implements OnInit {
   }
 
   getAccessoriesData(): void {
+    this.loading = true;
+
     this.dashboardService.GetAccessories().subscribe(
       data => {
         //console.log(data)
         this.accessoriesData = data;
+        this.loading = false;
+        this.cdr.detectChanges();
       },
       error => {
         console.error('Error fetching accessories data', error);

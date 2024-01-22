@@ -27,6 +27,20 @@ namespace ITMS.Server.Controllers
 
             return Ok(userDeviceDto);
         }
-       
+
+        [HttpGet("GetDevices/{id}")]
+        public IActionResult GetDevices(Guid id)
+        {
+            try
+            {
+                var devices = _userDeviceService.GetDevices(id);
+                return Ok(devices);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it appropriately
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
     }
 }
