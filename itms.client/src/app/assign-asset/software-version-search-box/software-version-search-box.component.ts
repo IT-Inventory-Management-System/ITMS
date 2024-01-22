@@ -34,7 +34,7 @@ export class SoftwareVersionSearchBoxComponent {
     this.SoftwareVersionOptionSelected.emit(option);
     this.selectedOption = `${option.softwareVersion}`;
     this.filteredOptions = [];
-    this.assignAssetForm.get('selectedSoftwareVersion')?.setValue(option.id);
+  //  this.assignAssetForm.get('selectedSoftwareVersion')?.setValue(option.id);
   }
 
   @HostListener('document:click', ['$event'])

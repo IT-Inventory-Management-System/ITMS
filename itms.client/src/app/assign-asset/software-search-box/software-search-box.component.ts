@@ -33,7 +33,7 @@ export class SoftwareSearchBoxComponent {
     this.selectedOption = option.softwareName;
     this.SoftwareOptionSelected.emit(option);
     this.filteredOptions = [];
-    this.assignAssetForm.get('selectedSoftware')?.setValue(option.id);
+    this.assignAssetForm.get('softwareId')?.setValue(option.id);
   }
 
   @HostListener('document:click', ['$event'])

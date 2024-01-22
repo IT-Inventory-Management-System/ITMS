@@ -81,14 +81,16 @@ export class AssignAssetComponent {
     private formBuilder: FormBuilder,
     @Inject(DeviceAssignService) private deviceAssignService: DeviceAssignService) {
     this.assignAssetForm = this.formBuilder.group({
-      selectedUser: [null, Validators.required],
-      selectedLaptop: [null, Validators.required],
-      selectedSoftware: [null, Validators.required],
-      selectedSoftwareVersion: [null, Validators.required],
-      selectedAccessory: [null, Validators.required],
-      laptopComment: null,
-      softwareComment: null,
-      accessoryComment: null,
+      assignedTo: [null, Validators.required],
+      cygid: [null, Validators.required],
+      softwareId: [null, Validators.required],
+      //selectedSoftwareVersion: [null, Validators.required],
+      //assignedBy:,
+      //assignedDate: ["assignedDate: [new Date().toISOString(), Validators.required],-ec89-4520-8502-0ecd9005f27c", Validators.required],
+      //selectedAccessory: [null, Validators.required],
+      //laptopComment: null,
+      //softwareComment: null,
+      //accessoryComment: null,
   })
 }
 

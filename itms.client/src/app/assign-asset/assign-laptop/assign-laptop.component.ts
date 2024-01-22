@@ -15,6 +15,6 @@ export class AssignLaptopComponent {
     this.SelectedLaptop = event;
   }
   onInputChangeCommentBox(event: any): void {
-    this.assignAssetForm.get('laptopComment')?.setValue(event.target.value);
+  //  this.assignAssetForm.get('laptopComment')?.setValue(event.target.value);
   }
 }
