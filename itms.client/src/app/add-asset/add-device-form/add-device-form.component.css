@@ -290,6 +290,9 @@
   border-top: 1px solid var(--Secondary-Light-Gray, #E9ECEB);
   
 }
+.flex-row {
+  flex-direction: row;
+}
 
 .add-device-footer1 {
   display: flex;
@@ -522,4 +525,18 @@ form{
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+}
+
+.alert-box {
+  margin-top: 10px;
+}
+
+.alert-box-msg {
+  flex: 1 0 0;
+  color: var(--Adhoc-Red, #CC1A07);
+  font-family: Roboto;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1rem; /* 133.333% */
 }

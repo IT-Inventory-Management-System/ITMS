@@ -107,6 +107,12 @@ namespace itms.server.controllers
             return Ok(getLocation);
         }
 
+        [HttpGet("get-status")]
+        public ActionResult<IEnumerable<Location>> GetStatus()
+        {
+            var statusList = _deviceService.GetStatus();
+            return Ok(statusList);
+        }
     }
 }
 

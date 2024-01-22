@@ -11,7 +11,7 @@ import { AddAssetComponent } from './add-asset/add-asset.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' }, // Redirect empty path to 'dashboard'
+  { path: 'dashboard', redirectTo: '/dashboard', pathMatch: 'full' }, // Redirect empty path to 'dashboard'
 
   { path: 'dashboard', component: DashboardComponent },
   { path: 'category', component: CategoryComponent },

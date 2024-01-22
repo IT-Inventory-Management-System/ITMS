@@ -15,7 +15,7 @@ import { Component, ChangeDetectorRef } from '@angular/core';
 export class NewSidebarComponent {
   
   isCollapsed = true;
-  selectedIcon: string = '';
+  selectedIcon: string = 'dashboard';
 
   toggleCollapse() {
     this.isCollapsed = !this.isCollapsed;
