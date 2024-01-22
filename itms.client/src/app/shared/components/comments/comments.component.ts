@@ -4,7 +4,7 @@ import { DataService } from '../../services/data.service';
 @Component({
   selector: 'app-comments',
   templateUrl: './comments.component.html',
-  /*styleUrls: ['./comments.component.css']*/
+  styleUrls: ['./comments.component.css']
 })
 
 export class CommentsComponent {
