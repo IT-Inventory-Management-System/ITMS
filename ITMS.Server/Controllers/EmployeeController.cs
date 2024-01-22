@@ -23,5 +23,11 @@ namespace ITMS.Server.Controllers
             return await _userListService.GetUserDevicesAsync();
         }
 
+        [HttpGet("GetFirstUser")]
+        public async Task<UserListDTO> GetFirstUserAsync()
+        {
+            return await _userListService.GetFirstUserAsync();
+        }
+
     }
 }

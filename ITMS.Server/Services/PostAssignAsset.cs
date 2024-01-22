@@ -5,9 +5,13 @@ using Org.BouncyCastle.Asn1.Ocsp;
 namespace ITMS.Server.Services
 {
         public interface IPostAssignAsset
-    {
+        {
         Task UpdateDeviceAsync(string CYGID, PostAssignAssetDTO device);
         Task UpdateSoftwareAsync(string SoftwareID, PostAssignAssetDTO software);
+
+        //Task UpdateAccessoriesAsync(string Id, PostAssignAssetDTO accessories);
+ 
+        }
         Task<PostCommentDTO> UpdateComment(PostCommentDTO commentDto);
 
     }
@@ -26,7 +30,7 @@ namespace ITMS.Server.Services
             {
                 throw new KeyNotFoundException($"Device with CYGId {CYGID} not found.");
             }
-            entityToUpdate.AssignedBy = device.AssignedBy;
+            entityToUpdate.AssignedBy = _context.Employees.FirstOrDefault().Id;
             entityToUpdate.AssignedTo = device.AssignedTo;
             entityToUpdate.AssignedDate = DateTime.UtcNow;
  
@@ -38,9 +42,9 @@ namespace ITMS.Server.Services
             var entityToUpdate = _context.SoftwareAllocations.Where(sa => sa.SoftwareId.ToString() == SoftwareID).FirstOrDefault();
             if (entityToUpdate == null)
             {
-                throw new KeyNotFoundException($"Device with CYGId {SoftwareID} not found.");
+                throw new KeyNotFoundException($"Software with CYGId {SoftwareID} not found.");
             }
-            entityToUpdate.AssignedBy = software.AssignedBy;
+            entityToUpdate.AssignedBy = _context.Employees.FirstOrDefault().Id;
             entityToUpdate.AssignedTo = software.AssignedTo;
             entityToUpdate.AssignedDate = DateTime.UtcNow;
  
@@ -60,5 +64,21 @@ namespace ITMS.Server.Services
             await _context.SaveChangesAsync();
             return commentDto;
         }
+        //public async Task UpdateAccessoriesAsync(string ID, PostAssignAssetDTO accessories)
+        //{
+        //    var entityToUpdate = _context.Categories.Where(c => c.Id.ToString()== ID).FirstOrDefault();
+        //    if (entityToUpdate == null)
+        //    {
+        //        throw new KeyNotFoundException($"Accessory with CYGId {ID} not found.");
+        //    }
+        //    entityToUpdate.AssignedBy = accessories.AssignedBy;
+        //    entityToUpdate.AssignedTo = accessories.AssignedTo;
+        //    entityToUpdate.AssignedDate = DateTime.UtcNow;
+
+        //    _context.SoftwareAllocations.Update(entityToUpdate);
+        //    await _context.SaveChangesAsync();
+
+        //}
+
     }
 }

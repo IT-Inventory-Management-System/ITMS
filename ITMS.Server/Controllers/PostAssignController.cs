@@ -27,7 +27,7 @@ namespace ITMS.Server.Controllers
         {
             try
             {
-                if (postAssignAssetDTO == null)//if dto is not provided by frontend, tehn it will give errors
+                if (postAssignAssetDTO == null)
                 {
                     return Results.BadRequest("Invalid allocation request");
                 }

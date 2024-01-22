@@ -1,9 +1,15 @@
 <div class="Device">
   <div class="Device-Section">
     <div class="Device-Frame">
-      <app-laptop-search-box class="sbox" [label]="'CYG ID'" [placeholder]="'Select CYG ID'" [LaptopOptions]="LaptopOptions" (LaptopOptionSelected)="LaptopSearchBoxOptionSelected($event)"></app-laptop-search-box>
+      <app-laptop-search-box class="sbox"
+                             [label]="'CYG ID'"
+                             [placeholder]="'Select CYG ID'"
+                             [LaptopOptions]="LaptopOptions"
+                             (LaptopOptionSelected)="LaptopSearchBoxOptionSelected($event)"
+                             [assignAssetForm]="assignAssetForm">
+      </app-laptop-search-box>
 
-      <div class="alert-box">
+      <div *ngIf="SelectedLaptop?.assignedTo" class="alert-box">
         <div class="alert-image-frame">
           <img id="alert-image" src="../../../../assets/icons/Vector.svg" />
         </div>
@@ -12,27 +18,27 @@
           Please select another device from the list.
         </div>
       </div>
-      <div class="device-details">
+      <div *ngIf="!SelectedLaptop?.assignedTo && SelectedLaptop" class="device-details">
         <div class="details-subheading">
           Selected Device Configuration:
         </div>
         <div class="details">
           <div class="device-model">
             <div class="details-icon"></div>
-            <div class="details-text">Dell Precision 3470</div>
+            <div class="details-text">{{SelectedLaptop?.modelNo}}</div>
           </div>
           <div class="device-model">
             <div class="details-icon"></div>
-            <div class="details-text">12th Gen Intel(R) Core(TM) i7-1270P   2.20 GHz</div>
+            <div class="details-text">{{SelectedLaptop?.processor}}</div>
           </div>
           <div class="device-model-same-row">
             <div class="same-row-detail">
               <div class="details-icon"></div>
-              <div class="details-text">16GB RAM</div>
+              <div class="details-text">{{SelectedLaptop?.ram}}</div>
             </div>
             <div class="same-row-detail">
               <div class="details-icon"></div>
-              <div class="details-text">512GB ROM</div>
+              <div class="details-text">{{SelectedLaptop?.storage}}</div>
             </div>
             <div class="same-row-detail">
               <div class="details-icon"></div>
@@ -42,8 +48,15 @@
         </div>
       </div>
     </div>
-    <app-comment-box class="Cbox"></app-comment-box>
+    <div class="comment-subheading">Comment</div>
+    <input class="comment-input-box"
+           required
+           placeholder="Add Comment"
+           aria-label="Comment"
+           (input)="onInputChangeCommentBox($event)"
+           style="resize: none">
   </div>
+  <!--[value]="assignAssetForm.get('laptopComment')!.value ? assignAssetForm.get('laptopComment')!.value : ''"-->
   <div class="Add-new">
     <img class="add-img" src="../../../../assets/icons/Add.svg" />
     <div class="add-new-text">Add Another Device</div>

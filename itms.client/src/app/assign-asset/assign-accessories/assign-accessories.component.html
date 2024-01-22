@@ -1,8 +1,20 @@
 <div class="Accessories-Section">
   <div class="form-fields">
-    <app-accessories-search-box class="sbox" [label]="'Accessories'" [placeholder]="'Select Accessories'" [AccessoryOptions]="AccessoryOptions" (AccessoryOptionSelected)="AccessorySearchBoxOptionSelected($event)"></app-accessories-search-box>
-    <app-comment-box class="Cbox"></app-comment-box>
+    <app-accessories-search-box class="sbox"
+                                [label]="'Accessories'"
+                                [placeholder]="'Select Accessories'"
+                                [AccessoryOptions]="AccessoryOptions"
+                                [assignAssetForm]="assignAssetForm"
+                                (AccessoryOptionSelected)="AccessorySearchBoxOptionSelected($event)">
+    </app-accessories-search-box>
+    <div class="comment-subheading">Comment</div>
+    <input class="comment-input-box"
+           required
+           placeholder="Add Comment"
+           aria-label="Comment"
+           (input)="onInputChangeCommentBox($event)">
   </div>
+  <!--[value]="assignAssetForm.get('accessoryComment')!.value ? assignAssetForm.get('accessoryComment')!.value : ''"-->
   <div class="Add-new">
     <img class="add-img" src="../../../../assets/icons/Add.svg" />
     <div class="add-new-text">Add Another Accessories</div>

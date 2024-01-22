@@ -12,11 +12,13 @@ export class AddDeviceFormComponent implements OnInit {
 
   addDeviceForm: FormGroup;
   // cygIds: FormArray;
-
+  errorMessage: string;
+  showErrorMessage = false;
   dropdownValues: any[] = [];
   selectedOS: string = '';
   warrantyMonth: number;
   warrantyYear: number;
+ 
   constructor(private dataService: DataService, private fb: FormBuilder) {
     this.dropdownValues = [];
   }
@@ -26,6 +28,9 @@ export class AddDeviceFormComponent implements OnInit {
   ngOnInit(): void {
     this.loadDropdownValues();
     this.createForm();
+    this.setCreatedBy();
+    this.setlocationId();
+    this.setStatus();
   }
 
   createForm() {
@@ -37,11 +42,11 @@ export class AddDeviceFormComponent implements OnInit {
       warrantyDate: [null, Validators.required],
       serialNumberList: this.fb.array([]),
       cygIdsList: this.fb.array([]),
-      createdBy: ['B294E91E-37D6-4E55-8A14-6EA0D4D8DD0E'],
+      createdBy: [''],
       createdAtUtc: [''],
       isArchived: [false],
-      locationId: ['32ACEEE5-0664-4E21-B6A7-C5447336F5B2'],
-      status: ['F408D1DA-E5B0-4644-9554-802E7666F075']
+      locationId: [''],
+      status: ['']
     });
   }
 
@@ -54,13 +59,57 @@ export class AddDeviceFormComponent implements OnInit {
   }
 
   updateSerialNumber(index: number, event: Event) {
+    this.hideErrorMessage();
     const value = (event.target as HTMLInputElement).value;
     this.serialNumbers.at(index).setValue(value);
   }
 
   updateCygId(index: number, event: Event) {
+    this.hideErrorMessage();
     const value = (event.target as HTMLInputElement).value;
     this.cygIds.at(index).setValue(value);
+  }
+
+  setCreatedBy() {
+    this.dataService.getFirstUser().subscribe(
+      (data) => { 
+        this.addDeviceForm.get('createdBy')?.setValue(data.id);
+      },
+      (error) => {
+        console.log("User not found");
+      });
+  }
+
+  setlocationId() {
+    this.dataService.getLocation().subscribe(
+      (data) => {
+        for (var i = 0; i < data.length; i++) {
+          if (data[i].type == localStorage.getItem('selectedCountry')){
+            this.addDeviceForm.get('locationId')?.setValue(data[i].id);
+            break;
+          }
+        }
+        
+      },
+      (error) => {
+        console.log("User not found");
+      });
+  }
+
+  setStatus() {
+    this.dataService.getStatus().subscribe(
+      (data) => {
+        for (var i = 0; i < data.length; i++) {
+          if (data[i].type == 'Not Assigned') {
+            this.addDeviceForm.get('status')?.setValue(data[i].id);
+            break;
+          }
+        }
+
+      },
+      (error) => {
+        console.log("User not found");
+      });
   }
 
 
@@ -88,27 +137,44 @@ export class AddDeviceFormComponent implements OnInit {
     if (month !== null && year !== null) {
       const formattedMonth = month < 10 ? `0${month}` : `${month}`;
       const warrantyDate = new Date(year, month, 1);
-      this.addDeviceForm.get('warrantyDate')?.setValue(warrantyDate);
+      this.addDeviceForm.get('warrantyDate')?.setValue(warrantyDate.toISOString());
     }
   }
 
+  checkSerialNumber(): boolean {
+    const serialNumbersArray = this.serialNumbers.controls.map((control) => control.value);
+    const isValid = serialNumbersArray.every((serialNumber) => serialNumber.trim() !== '');
+
+    return isValid;
+  }
+
+  checkCygIds(): boolean {
+    const cygIdsArray = this.cygIds.controls.map((control) => control.value);
+    const isValid = cygIdsArray.every((cygId) => cygId.trim() !== '');
+
+    return isValid;
+  }
 
   onSubmit() {
 
     this.addDeviceForm.get('createdAtUtc')?.setValue(new Date().toISOString());
-    //this.addDeviceForm.get('updatedAtUtc')?.setValue(new Date().toISOString());
-    this.updateWarrantyDate();
 
-    console.log(this.addDeviceForm.value);
+    if (this.checkSerialNumber() && this.checkCygIds()) {
+      console.log(this.addDeviceForm.value);
 
-    this.dataService.postDevice(this.addDeviceForm.value).subscribe(
-      response => {
-        console.log('Data Posted successfully', response);
-      },
-      error => {
-        console.error('Error posting data', error);
-      }
-    );
+      this.dataService.postDevice(this.addDeviceForm.value).subscribe(
+        response => {
+          console.log('Data Posted successfully', response);
+        },
+        error => {
+          console.error('Error posting data', error);
+        }
+      );
+    }
+    else {
+      this.showErrorMessage = true;
+      this.errorMessage = 'All Fields are Required';
+    }
 
   }
 
@@ -142,20 +208,58 @@ export class AddDeviceFormComponent implements OnInit {
 
 
   setWarrantyMonth(event: any): void {
-    this.warrantyMonth = event.target.value;
+    const selectedMonth = parseInt(event.target.value, 10);
+
+    if (selectedMonth > 0 && selectedMonth < 13) {
+      this.warrantyMonth = selectedMonth;
+    } else {
+      this.showErrorMessage = true;
+      this.errorMessage = 'Invalid warranty month';
+    }
   }
 
   setWarrantyYear(event: any): void {
-    this.warrantyYear = event.target.value;
+    
+    const selectedYear = parseInt(event.target.value, 10);
+    const currentYear = new Date().getFullYear();
+    if (selectedYear >= currentYear) {
+      this.warrantyYear = selectedYear;
+    } else {
+      this.showErrorMessage = true;
+      this.errorMessage = 'Invalid warranty year';
+    }
+  }
+
+  nextValidation(): boolean {
+    var isDeviceId = this.addDeviceForm.get('deviceModelId')?.value != '';
+    var isQuantity = this.counterValue > 0;
+    var isPurchasedOn = this.addDeviceForm.get('purchasedOn')?.value != '';
+    var isWarrantyDate = this.addDeviceForm.get('warrantyDate')?.value != '';
+
+    return isDeviceId && isQuantity && isPurchasedOn && isWarrantyDate;
   }
 
 
   next() {
-    //console.log(this.currentStep);
-    this.currentStep++;
-    for (let i = 0; i < this.counterValues.length; i++) {
-      this.serialNumbers.push(this.fb.control('', Validators.required));
-      this.cygIds.push(this.fb.control('', Validators.required));
+    if (this.warrantyMonth && this.warrantyYear) {
+      this.updateWarrantyDate();
+    }
+
+    if (this.nextValidation() == true) {
+      this.hideErrorMessage();
+      this.currentStep++;
+      if (this.serialNumbers.length == 0) {
+        for (let i = 0; i < this.counterValues.length; i++) {
+          this.serialNumbers.push(this.fb.control('', Validators.required));
+          this.cygIds.push(this.fb.control('', Validators.required));
+        }
+      }
+    }
+    else {
+      this.showErrorMessage = true;
+      this.errorMessage = 'All Fields are Required';
+      //console.log(this.addDeviceForm.valid);
+      //console.log(this.addDeviceForm);
     }
   }
 
@@ -163,4 +267,18 @@ export class AddDeviceFormComponent implements OnInit {
     this.currentStep--;
   }
 
+  hideErrorMessage() {
+    this.showErrorMessage = false;
+  }
+  resetform() {
+
+    this.addDeviceForm.reset();
+   
+    this.setCreatedBy();
+    this.setlocationId();
+    this.setStatus();
+      this.counterValue = 0;
+     
+    
+  }
  }

@@ -1,33 +1,33 @@
 <div class="heading_Add_software">Add Software</div>
 <form [formGroup]="SoftwareForm" (ngSubmit)="onSubmit()">
-<div class="main_content">
-  <div class="top_field">
-    <label for="inlineFormSelectPref" placeholder="Enter Software Name" class="required-field software_name">Software Name </label>
-    <select class="form-select select_input" id="inlineFormSelectPref" (change)="dynamicChanges($event)" >
-      <option *ngFor="let value of dropdownValues" [value]="value.typeName + '@' + value.id" >
-        {{ value.softwareName }}
-      </option>
-    </select>
-   
-    <div class="checkbox-container">
-      <input type="checkbox" class="form-check-input" id="toggleAccordion" (change)="toggleSoftwareForm()">
-      <label for="toggleAccordion" class="toggle-label">Add New Software</label>
+  <div class="main_content">
+    <div class="top_field">
+      <label for="inlineFormSelectPref" placeholder="Enter Software Name" class="required-field software_name">Software Name </label>
+      <select class="form-select select_input" id="inlineFormSelectPref" (change)="dynamicChanges($event)" (focus)="hideErrorMessage()">
+        <option *ngFor="let value of dropdownValues" [value]="value.typeName + '@' + value.id">
+          {{ value.softwareName }}
+        </option>
+      </select>
+
+      <div class="checkbox-container">
+        <input type="checkbox" class="form-check-input" id="toggleAccordion" (change)="toggleSoftwareForm()">
+        <label for="toggleAccordion" class="toggle-label">Add New Software</label>
+      </div>
     </div>
-  </div>
 
 
 
 
-  <div class=" software-form-container" *ngIf="isFormOpen">
-    <app-add-software-model ></app-add-software-model>
-  </div>
+    <div class=" software-form-container" *ngIf="isFormOpen">
+      <app-add-software-model></app-add-software-model>
+    </div>
 
 
 
-   
-  <div class="alert" role="alert" [style.display]="isFormOpen ? 'none' : 'block'">
-    <img src="../../../assets/icons/Vector.svg" class="alert-icon" alt="alert icon">&nbsp; This software type is {{selectedTypeName}}
-  </div>
+
+    <div class="alert" role="alert" [style.display]="isFormOpen ? 'none' : 'block'">
+      <img src="../../../assets/icons/Vector.svg" class="alert-icon" alt="alert icon">&nbsp; This software type is {{selectedTypeName}}
+    </div>
 
 
     <div *ngIf="selectedTypeName === 'Validity'">
@@ -36,13 +36,13 @@
         <div class="col-6">
           <label for="VPdate" class="form-label required-field">Date of purchase</label>
 
-          <input type="date" class="form-control" id="VPdate" placeholder="12-15-2023" formControlName="purchasedDate" />
+          <input type="date" class="form-control" id="VPdate" placeholder="12-15-2023" formControlName="purchasedDate" (focus)="hideErrorMessage()" />
 
         </div>
         <div class="col-6">
           <label for="VEdate" class="form-label required-field">Expiry Date</label>
 
-          <input type="date" class="form-control" id="VEdate" placeholder="12-15-2023" formControlName="expiryDate" />
+          <input type="date" class="form-control" id="VEdate" placeholder="12-15-2023" formControlName="expiryDate" (focus)="hideErrorMessage()"/>
 
         </div>
       </div>
@@ -53,18 +53,18 @@
       <div>
         <label class="form-label">Quantity</label>
         <div class="quantity-counter">
-          <div class="reduce-button" (click)="decrement()"><img src="../../../assets/icons/reduce-quantity.svg" /></div>
+          <div class="reduce-button" (click)="decrement();hideErrorMessage()"><img src="../../../assets/icons/reduce-quantity.svg" /></div>
           <span class="counter-value">{{ counterValue }}</span>
-          <div class="add-button" (click)="increment()"><img src="../../../assets/icons/add-quantity.svg" /></div>
+          <div class="add-button" (click)="increment();hideErrorMessage()"><img src="../../../assets/icons/add-quantity.svg" /></div>
         </div>
       </div>
 
 
-      <div>
+      <div style="margin-top:1.25rem;">
         <label class="form-label">Activation Key</label>
 
         <div class="input-group activation_key_container">
-          <input [type]=" showPassword ? 'text': 'password' " class="form-control" placeholder="Enter Activation Key" formControlName="activationKey">
+          <input [type]=" showPassword ? 'text': 'password' " class="form-control" placeholder="Enter Activation Key" formControlName="activationKey"(focus)="hideErrorMessage()">
           <div class="input-group-append">
 
             <div class="toggle_hide_password">
@@ -82,68 +82,75 @@
         <div class="col-6">
           <label for="Pdate" class="form-label required-field">Date of purchase</label>
 
-          <input type="date" class="form-control" id="Pdate" placeholder="12-15-2023" formControlName="purchasedDate" />
+          <input type="date" class="form-control" id="Pdate" placeholder="12-15-2023" formControlName="purchasedDate" (focus)="hideErrorMessage()" />
 
         </div>
         <div class="col-6">
           <label for="Edate" class="form-label required-field">Expiry Date</label>
 
-          <input type="date" class="form-control" id="Edate" placeholder="12-15-2023" formControlName="expiryDate"/>
+          <input type="date" class="form-control" id="Edate" placeholder="12-15-2023" formControlName="expiryDate"(focus)="hideErrorMessage()" />
 
         </div>
       </div>
       <div>
         <label class="form-label">Quantity</label>
         <div class="quantity-counter">
-          <div class="reduce-button" (click)="decrement2()"><img src="../../../assets/icons/reduce-quantity.svg" /></div>
+          <div class="reduce-button" (click)="decrement2();hideErrorMessage()"><img src="../../../assets/icons/reduce-quantity.svg" /></div>
           <span class="counter-value">{{ counterValue2 }}</span>
-          <div class="add-button" (click)="increment2()"><img src="../../../assets/icons/add-quantity.svg" /></div>
+          <div class="add-button" (click)="increment2();hideErrorMessage()"><img src="../../../assets/icons/add-quantity.svg" /></div>
         </div>
       </div>
     </div>
-      <div *ngIf="selectedTypeName === 'Perpetual'">
+    <div *ngIf="selectedTypeName === 'Perpetual'">
 
-        <div class="row date_container">
-          <div class="col-6">
-            <label for="PPdate" class="form-label required-field">Date of purchase</label>
+      <div class="row date_container">
+        <div class="col-6">
+          <label for="PPdate" class="form-label required-field">Date of purchase</label>
 
-            <input type="date" class="form-control" id="PPdate" placeholder="12-15-2023"formControlName="purchasedDate" />
+          <input type="date" class="form-control" id="PPdate" placeholder="12-15-2023" formControlName="purchasedDate" (focus)="hideErrorMessage()"/>
 
-          </div>
-          <div class="col-6">
+        </div>
+        <div class="col-6">
 
-            <div>
-              <label class="form-label">Quantity</label>
-              <div class="quantity-counter" style="margin-bottom:0%;">
-                <div class="reduce-button" (click)="decrement3()"><img src="../../../assets/icons/reduce-quantity.svg" /></div>
-                <span class="counter-value">{{ counterValue3 }}</span>
-                <div class="add-button" (click)="increment3()"><img src="../../../assets/icons/add-quantity.svg" /></div>
-              </div>
+          <div>
+            <label class="form-label">Quantity</label>
+            <div class="quantity-counter" style="margin-bottom:0%;">
+              <div class="reduce-button" (click)="decrement3();hideErrorMessage()"><img src="../../../assets/icons/reduce-quantity.svg" /></div>
+              <span class="counter-value">{{ counterValue3 }}</span>
+              <div class="add-button" (click)="increment3();hideErrorMessage()"><img src="../../../assets/icons/add-quantity.svg" /></div>
             </div>
-
           </div>
 
         </div>
-        <div>
-          <label class="form-label">Activation Key</label>
 
-          <div class="input-group activation_key_container">
-            <input [type]=" showPassword ? 'text': 'password' " class="form-control" placeholder="Enter Activation Key"formControlName="activationKey">
-            <div class="input-group-append">
+      </div>
+      <div>
+        <label class="form-label">Activation Key</label>
 
-              <div class="toggle_hide_password">
-                <img src="../../../assets/icons/Eye.svg" class="eye-icon" alt="eye icon" (click)="togglePassword()" *ngIf="!showPassword">
-                <i (click)="togglePassword()" class="fa-solid fa-eye-slash" *ngIf="showPassword" style="font-size:0.875rem; opacity:0.5;"></i>
-              </div>
+        <div class="input-group activation_key_container">
+          <input [type]=" showPassword ? 'text': 'password' " class="form-control" placeholder="Enter Activation Key" formControlName="activationKey"(focus)="hideErrorMessage()">
+          <div class="input-group-append">
 
+            <div class="toggle_hide_password">
+              <img src="../../../assets/icons/Eye.svg" class="eye-icon" alt="eye icon" (click)="togglePassword()" *ngIf="!showPassword">
+              <i (click)="togglePassword()" class="fa-solid fa-eye-slash" *ngIf="showPassword" style="font-size:0.875rem; opacity:0.5;"></i>
             </div>
+
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-<div  class="button_class">
-  <button type="reset"class="footer-button"><span>Cancel</span></button>
-  <button type="submit" class="footer-save-button"><span>Save</span></button>
-</div>
- </form>
+   
+    <div class="button_class">
+      <div *ngIf="showErrorMessage" class="alert-box">
+        <div class="alert-box-msg">
+          All Fields are Required.
+        </div>
+      </div>
+      <button  type="button"class="footer-button" (click)="resetform()"><span>Cancel</span></button>
+      <button type="submit" class="footer-save-button"><span>Save</span></button>
+    
+  </div>
+</form>

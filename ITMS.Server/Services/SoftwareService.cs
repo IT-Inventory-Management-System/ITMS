@@ -56,6 +56,56 @@ namespace ITMS.Server.Services
             _dbContext.Software.Add(softwareEntity);
             _dbContext.SaveChanges();
         }
+
+      
+        public List<UserSoftwareHistory> GetUserSoftware(Guid id)
+        {
+            try
+            {
+                var softwareList = _dbContext.SoftwareAllocations
+                    .Where(sa => sa.AssignedTo == id)
+                    .Include(sa => sa.Software)
+                        .ThenInclude(s => s.SoftwareType)
+                    .Select(sa => new UserSoftwareHistory
+                    {
+                        TypeName = sa.Software.SoftwareType.TypeName,
+                        SoftwareName = sa.Software.SoftwareName,
+                        AssignBy = _dbContext.Employees
+                            .Where(employee => employee.Id == sa.AssignedBy)
+                            .Select(employee => $"{employee.FirstName} {employee.LastName}")
+                            .FirstOrDefault(),
+                        AssignedDate = sa.AssignedDate,
+                        AssignedTo = _dbContext.Employees
+                            .Where(employee => employee.Id == sa.AssignedTo)
+                            .Select(employee => $"{employee.FirstName} {employee.LastName}")
+                            .FirstOrDefault(),
+                        Comments = _dbContext.Comments
+                            .Where(comment => comment.SoftwareAllocationId == sa.Id) 
+                            .Select(c => new CommentDto
+                            {
+                                Id = c.Id,
+                                Description = c.Description,
+                                CreatedBy = _dbContext.Employees
+                                    .Where(employee => employee.Id == c.CreatedBy)
+                                    .Select(employee => $"{employee.FirstName} {employee.LastName}")
+                                    .FirstOrDefault(),
+                                CreatedAt = c.CreatedAtUtc
+                            })
+                            .ToList(),
+                        //SubmitedByDate = sa.AssignedDate 
+                    })
+                    .ToList();
+
+                return softwareList;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+        }
+
+
     }
 
 }

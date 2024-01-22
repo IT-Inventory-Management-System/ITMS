@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { DeviceAssignService } from '../shared/services/device-assign.service';
 import { Inject } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-assign-asset',
@@ -11,7 +12,6 @@ export class AssignAssetComponent {
   currentStep = 1;
 
   getStepIcon(step: number): string {
-    // Change the icons dynamically based on the current step
     switch (step) {
       case 1:
         return this.currentStep > 1 ? '../../../../../../../../assets/icons/completed.svg' : 'assets/icons/laptop-solid.svg';
@@ -37,6 +37,7 @@ export class AssignAssetComponent {
     }
   }
 
+
   nextStep() {
     if (this.currentStep < 3) {
       this.currentStep++;
@@ -51,34 +52,48 @@ export class AssignAssetComponent {
 
   skipStep() {
     if (this.currentStep < 3) {
-      this.currentStep += 1; // Skip to the next step directly
+      this.currentStep += 1; 
     }
   }
 
   getProgressBarWidth(): string {
-    const progress = (this.currentStep - 1) * 50; // Assuming 50% width per step
+    const progress = (this.currentStep - 1) * 50; 
     return `${progress}%`;
   }
 
   getButtonText(): string {
     if (this.currentStep === 3) {
-      return 'Save Changes';
+      return 'Save';
     } else {
       return 'Next';
     }
   }
-  users: any[] = [];
-  selectedUser: any;
-  softwares: any[] = [];
-  selectedSoftware: any;
-  softwareVersions: any[] = [];
-  selectedSoftwareVersion: any;
-  laptops: any[] = [];
-  selectedLaptop: any;
-  accessories: any[] = [];
-  selectedAccessory: any;
 
-  constructor(@Inject(DeviceAssignService) private deviceAssignService: DeviceAssignService) { }
+
+  users: any[] = [];
+  softwares: any[] = [];
+  softwareVersions: any[] = [];
+  laptops: any[] = [];
+  accessories: any[] = [];
+  selectedSoftware: any; 
+
+  assignAssetForm: FormGroup;
+  constructor(
+    private formBuilder: FormBuilder,
+    @Inject(DeviceAssignService) private deviceAssignService: DeviceAssignService) {
+    this.assignAssetForm = this.formBuilder.group({
+      assignedTo: [null, Validators.required],
+      cygid: [null, Validators.required],
+      softwareId: [null, Validators.required],
+      //selectedSoftwareVersion: [null, Validators.required],
+      //assignedBy:,
+      //assignedDate: ["assignedDate: [new Date().toISOString(), Validators.required],-ec89-4520-8502-0ecd9005f27c", Validators.required],
+      //selectedAccessory: [null, Validators.required],
+      //laptopComment: null,
+      //softwareComment: null,
+      //accessoryComment: null,
+  })
+}
 
   ngOnInit() {
     this.getUsers();
@@ -90,7 +105,6 @@ export class AssignAssetComponent {
   getUsers(): void {
     this.deviceAssignService.getEmployeeBasicDetails().subscribe(
       (data: any[]) => {
-        console.log('Fetched Users:', data);
         this.users = data;
       },
       (error: any) => {
@@ -101,7 +115,6 @@ export class AssignAssetComponent {
   getLaptops(): void {
     this.deviceAssignService.getLaptop().subscribe(
       (data: any[]) => {
-        console.log('Fetched Laptops:', data);
         this.laptops = data;
       },
       (error: any) => {
@@ -112,7 +125,6 @@ export class AssignAssetComponent {
   getSoftwares(): void {
     this.deviceAssignService.getSoftware().subscribe(
       (data: any[]) => {
-        console.log('Fetched Softwares:', data);
         this.softwares = data;
       },
       (error: any) => {
@@ -125,7 +137,6 @@ export class AssignAssetComponent {
     console.log("SoftwareName for version", SoftwareName);
     this.deviceAssignService.getSoftwareVersion(SoftwareName).subscribe(
       (data: any[]) => {
-        console.log('Fetched SoftwaresVersion:', data);
         this.softwareVersions = data;
       },
       (error: any) => {
@@ -134,9 +145,8 @@ export class AssignAssetComponent {
     );
   }
   getAccessories(): void {
-    this.deviceAssignService.getEmployeeBasicDetails().subscribe(
+    this.deviceAssignService.getAccessories().subscribe(
       (data: any[]) => {
-        console.log('Fetched Accessories:', data);
         this.accessories = data;
       },
       (error: any) => {
@@ -145,30 +155,26 @@ export class AssignAssetComponent {
     );
   }
 
-  onUserSelected(user: any): void {
-    this.selectedUser = user;
-    console.log("assign user", user);
-  }
-  onLaptopSelected(laptop: any): void {
-    this.selectedLaptop = laptop;
-    console.log("assign laptop", laptop);
-  }
   onSoftwareSelected(software: any): void {
     this.selectedSoftware = software;
-    console.log("assign software", software);
     this.getSoftwareVersion(software.softwareName);
   }
-
-  onSoftwareVersionSelected(softwareVersion: any): void {
-    this.selectedSoftwareVersion = softwareVersion;
-    console.log("assign software version", softwareVersion);
-  }
-  onAccessoriesSelected(accessories: any): void {
-    this.selectedAccessory = accessories;
-    console.log("assign accessory", accessories);
-  }
-
+ 
   saveChanges(): void {
-    console.log('Selected User:', this.selectedUser);
+    console.log('Form Values:', this.assignAssetForm.value);
+    if (this.assignAssetForm.valid) {
+      const assignmentData = this.assignAssetForm.value;
+      this.deviceAssignService.saveAssignment(assignmentData).subscribe(
+        (response) => {
+          console.log('Assignment saved successfully:', response);
+          this.assignAssetForm.reset();
+        },
+        (error) => {
+          console.error('Error saving assignment:', error);
+        }
+      );
+    } else {
+      console.log('Form is invalid. Cannot save changes.');
+    }
   }
 }

@@ -9,6 +9,7 @@ import { DataService } from '../../../shared/services/data.service';
 })
 export class AddDeviceModelComponent implements OnInit {
 
+  showErrorMessage = false;
   deviceForm: FormGroup;
   selectedRam: string | null = null;
   selectedStorage: string | null = null;
@@ -21,6 +22,7 @@ export class AddDeviceModelComponent implements OnInit {
     console.log(this.selectedOS);
     this.setOperatingSystem();
     this.setCategoryId();
+    this.setCreatedBy();
   }
 
   createForm() {
@@ -28,16 +30,16 @@ export class AddDeviceModelComponent implements OnInit {
       deviceName: ['', Validators.required],
       brand: ['', Validators.required],
       modelNo: ['', Validators.required],
-      ram: [''],
+      ram: ['', Validators.required],
       processor: ['', Validators.required],
-      storage: [''],
+      storage: ['', Validators.required],
       isWired: [false],
       categoryId: [''],
-      createdBy: ['B294E91E-37D6-4E55-8A14-6EA0D4D8DD0E'],
+      createdBy: [''],
       createdAtUtc: [''],
-      updatedBy: ['B294E91E-37D6-4E55-8A14-6EA0D4D8DD0E'],
+      updatedBy: [''],
       updatedAtUtc: [''],
-      os: [''],
+      os: ['', Validators.required],
       isArchived: [false] 
     });
   }
@@ -45,22 +47,26 @@ export class AddDeviceModelComponent implements OnInit {
   selectRam(value: string) {
     this.selectedRam = value;
     this.deviceForm.get('ram')?.setValue(value);
+    this.hideErrorMessage();
   }
 
   selectOtherRam(event: any) {
     if (this.selectedRam == null) {
       this.deviceForm.get('ram')?.setValue(event.target.value);
+      this.hideErrorMessage();
     }
   }
 
   selectStorage(value: string) {
     this.selectedStorage = value;
     this.deviceForm.get('storage')?.setValue(value);
+    this.hideErrorMessage();
   }
 
   selectOtherStorage(event: any) {
     if (this.selectedStorage == null) {
       this.deviceForm.get('storage')?.setValue(event.target.value);
+      this.hideErrorMessage();
     }
   }
 
@@ -97,25 +103,50 @@ export class AddDeviceModelComponent implements OnInit {
       });
   }
 
+  setCreatedBy() {
+    this.dataService.getFirstUser().subscribe(
+      (data) => {
+        this.deviceForm.get('createdBy')?.setValue(data.id);
+        this.deviceForm.get('updatedBy')?.setValue(data.id);
+      },
+      (error) => {
+        console.log("User not found");
+      });
+  }
+
   onSubmit() {
 
     this.deviceForm.get('createdAtUtc')?.setValue(new Date().toISOString());
     this.deviceForm.get('updatedAtUtc')?.setValue(new Date().toISOString());
-   
 
-    console.log(this.deviceForm.value);
+    
 
-    this.dataService.postDeviceModel(this.deviceForm.value).subscribe(
-      response => {
-        console.log('Post successful', response);
-        this.deviceForm.reset();
-        this.selectedRam = null;
-        this.selectedStorage = null;
-      },
-      error => {
-        console.error('Error posting data', error);
-      }
-    );
+    if (this.deviceForm.valid) {
+      
+      console.log(this.deviceForm.value);
+
+      this.dataService.postDeviceModel(this.deviceForm.value).subscribe(
+        response => {
+          console.log('Post successful', response);
+          this.deviceForm.reset();
+          this.selectedRam = null;
+          this.selectedStorage = null;
+        },
+        error => {
+          console.error('Error posting data', error);
+        }
+      );
+    } else {
+      this.showErrorMessage = this.deviceForm.invalid;
+    }
   }
 
+  hideErrorMessage() {
+    this.showErrorMessage = false;
+  }
+  resetform() {
+    this.deviceForm.reset();
+
+    
+  }
 }

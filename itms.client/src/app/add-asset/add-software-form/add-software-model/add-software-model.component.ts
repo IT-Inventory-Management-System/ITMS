@@ -9,6 +9,8 @@ import { DataService } from '../../../shared/services/data.service';
   styleUrls: ['./add-software-model.component.css']
 })
 export class AddSoftwareModelComponent {
+  showErrorMessage = false;
+
 
   ProfileDP = '';
 
@@ -25,6 +27,36 @@ export class AddSoftwareModelComponent {
     this.getSoftwareType();
 
     this.ProfileDP = '../../../assets/icons/add_photo_alternate_outlined 1.svg';
+
+    this.setCategoryId();
+    this.setCreatedBy();
+  }
+
+  setCategoryId() {
+    this.dataService.getCategories().subscribe(
+      (data) => {
+        for (var i = 0; i < data.length; i++) {
+          for (var j = 0; j < data[i].categories.length; j++) {
+            if (data[i].categories[j].name == localStorage.getItem('selectedCategory')) {
+              this.newSoftwareForm.get('categoryId')?.setValue(data[i].categories[j].id);
+            }
+          }
+        }
+      },
+      (error) => {
+        console.log(error);
+      });
+  }
+
+  setCreatedBy() {
+    this.dataService.getFirstUser().subscribe(
+      (data) => {
+        this.newSoftwareForm.get('createdBy')?.setValue(data.id);
+        this.newSoftwareForm.get('updatedBy')?.setValue(data.id);
+      },
+      (error) => {
+        console.log("User not found");
+      });
   }
 
   getSoftwareType() {
@@ -45,18 +77,18 @@ export class AddSoftwareModelComponent {
         this.newSoftwareForm.get('softwareTypeId')?.setValue(this.softwareTypes[i].id);
       }
     }
-  }
+  } 
 
   createForm() {
     this.newSoftwareForm = this.fb.group({
       softwareName: ['', Validators.required],
       softwareTypeId: ['', Validators.required],
       version: ['', Validators.required],
-      softwareThumbnail: [null],
-      categoryId: ['2DB84557-61F5-465B-BCC3-2AD1E5C670AC'],
-      createdBy: ['B294E91E-37D6-4E55-8A14-6EA0D4D8DD0E'],
+      softwareThumbnail: [null, Validators.required],
+      categoryId: ['', Validators.required],
+      createdBy: [''],
       createdAtUtc: [''],
-      updatedBy: ['B294E91E-37D6-4E55-8A14-6EA0D4D8DD0E'],
+      updatedBy: [''],
       updatedAtUtc: [''],
     });
   }
@@ -65,17 +97,29 @@ export class AddSoftwareModelComponent {
 
     this.newSoftwareForm.get('createdAtUtc')?.setValue(new Date().toISOString());
     this.newSoftwareForm.get('updatedAtUtc')?.setValue(new Date().toISOString());
+    if (this.newSoftwareForm.valid) {
+      console.log(this.newSoftwareForm.value);
+      //this.newSoftwareForm.reset();
 
-    console.log(this.newSoftwareForm.value);
+      this.dataService.postNewSoftwareData(this.newSoftwareForm.value).subscribe(
+        response => {
+          console.log('Post Software Data successful', response);
+          this.hideErrorMessage();
+          this.ProfileDP = '../../../assets/icons/add_photo_alternate_outlined 1.svg';
+          this.newSoftwareForm.reset();
+          this.setCategoryId();
+          this.setCreatedBy();
 
-    this.dataService.postNewSoftwareData(this.newSoftwareForm.value).subscribe(
-      response => {
-        console.log('Post Software Data successful', response);
-      },
-      error => {
-        console.error('Error posting data', error);
-      }
-    );
+
+        },
+        error => {
+          console.error('Error posting data', error);
+        }
+      );
+    } else {
+      this.showErrorMessage = this.newSoftwareForm.invalid;
+
+    }
   }
 
 
@@ -108,11 +152,10 @@ export class AddSoftwareModelComponent {
 
       ctx?.drawImage(img, 0, 0, 36, 36);
 
-      const resizedDataUrl = canvas.toDataURL('image/jpeg'); // You can change the format if needed
+      const resizedDataUrl = canvas.toDataURL('image/jpeg');
 
       const base64String = resizedDataUrl.split(',')[1];
 
-      // Now you can send the byte array to the backend
       //this.uploadImageToBackend(byteArray);
       this.newSoftwareForm.get('softwareThumbnail')?.setValue(base64String);
       this.byteArrayToImage(base64String);
@@ -129,7 +172,11 @@ export class AddSoftwareModelComponent {
     // Make a POST request to your .NET backend to store the image
     console.log(byteArray);
   }
-
+  hideErrorMessage() {
+    this.showErrorMessage = false;
   }
+
+}
+
 
 

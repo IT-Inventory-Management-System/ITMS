@@ -19,6 +19,9 @@ import { AddDeviceFormComponent } from './add-asset/add-device-form/add-device-f
 import { AddDeviceModelComponent } from './add-asset/add-device-form/add-device-model/add-device-model.component';
 import { IdInputComponent } from './add-asset/add-device-form/id-input/id-input.component';
 import { LaptopComponent } from './user-detail/laptop/laptop.component';
+import { AddSoftwareFormComponent } from './add-asset/add-software-form/add-software-form.component';
+import { UserListComponent } from './user-list/user-list.component';
+import { UserDetailsComponent } from './user-details/user-details.component';
 import { CategoryTypeComponent } from './add-asset/category-type/category-type.component';
 import { UserNameListComponent } from './user-name-list/user-name-list.component';
 import { AssetsCategoryComponent } from './inventory/assets-category/assets-category.component';
@@ -36,10 +39,10 @@ import { DevicesListComponent } from './inventory/assets-category/assest/devices
 import { AssignHistoryComponent } from './inventory/assets-category/assest/assign-history/assign-history.component';
 import { CommentCardComponent } from './inventory/assets-category/assest/assign-history/comment-card/comment-card.component';
 
-import {  LaptopDetailsComponent } from './user-details/laptop-details/laptop-details.component';
+
 import { SoftwareDetailsComponent } from './user-details/software-details/software-details.component';
 import { AccessoriesDetailsComponent } from './user-details/accessories-details/accessories-details.component';
-import { CommentsComponent } from './shared/components/comments/comments.component';
+
 import { CategoryCardComponent } from './add-asset/category-card/category-card.component';
 import { CategoryNameComponent } from './add-asset/category-name/category-name.component';
 import { AssignAssetComponent } from './assign-asset/assign-asset.component';
@@ -49,15 +52,14 @@ import { AssignAccessoriesComponent } from './assign-asset/assign-accessories/as
 import { RecentActivityComponent } from './dashboard/recent-activity/recent-activity.component';
 import { SoftwareComponentComponent } from './dashboard/software-component/software-component.component';
 import { FilterSearchListPipe } from './filter-search-list.pipe';
+import { LaptopDetailsComponent } from './user-details/laptop-details/laptop-details.component';
 import { CurrentdeviceComponent } from './shared/components/currentdevice/currentdevice.component';
 import { SearchBoxComponent } from './assign-asset/search-box/search-box.component';
-import { CommentBoxComponent } from './assign-asset/comment-box/comment-box.component';
 import { AddSoftwareModelComponent } from './add-asset/add-software-form/add-software-model/add-software-model.component';
-import { UserDetailsComponent } from './user-details/user-details.component';
-import { UserListComponent } from './user-list/user-list.component';
+
 import { EmployeeComponent } from './employee/employee.component';
 import { AssetfilterdevicePipe } from './assetfilterdevice.pipe';
-import { AddSoftwareFormComponent } from './add-asset/add-software-form/add-software-form.component';
+
 import { FilterPipe } from './filter.pipe';
 import { LaptopSearchBoxComponent } from './assign-asset/laptop-search-box/laptop-search-box.component';
 import { SoftwareSearchBoxComponent } from './assign-asset/software-search-box/software-search-box.component';
@@ -65,6 +67,9 @@ import { SoftwareVersionSearchBoxComponent } from './assign-asset/software-versi
 import { AccessoriesSearchBoxComponent } from './assign-asset/accessories-search-box/accessories-search-box.component';
 import { AccesoriesComponent } from './dashboard/accesories/accesories.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { CommentsComponent } from './shared/components/comments/comments.component';
+import { UserCommentsComponent } from './user-details/user-comments/user-comments.component';
+
 
 
 
@@ -75,8 +80,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     DevicesListComponent,
     SoftwareDetailsComponent,
     AccessoriesDetailsComponent,
-    LaptopDetailsComponent,
-    CommentsComponent,
     SpecInfoComponent,
     AppComponent,
     NavbarComponent,
@@ -117,8 +120,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     FilterSearchListPipe,
     LaptopDetailsComponent,
     SearchBoxComponent,
-    CommentBoxComponent,
-    LaptopDetailsComponent,
+ 
     AddAssetComponent,
     AddSoftwareModelComponent,
     UserDetailsComponent,
@@ -127,15 +129,16 @@ import { DashboardComponent } from './dashboard/dashboard.component';
    CurrentdeviceComponent,
     AssetfilterdevicePipe,
 
-   CategoryCardComponent,
     LaptopSearchBoxComponent,
     SoftwareSearchBoxComponent,
     SoftwareVersionSearchBoxComponent,
     AccessoriesSearchBoxComponent,
     AccesoriesComponent,
-    DashboardComponent,
     CategoryCardComponent,
-    FilterPipe
+    FilterPipe,
+    DashboardComponent,
+    CommentsComponent,
+    UserCommentsComponent
 
   ],
   imports: [
