@@ -8,6 +8,7 @@ namespace ITMS.Server.Services
         {
         Task UpdateDeviceAsync(string CYGID, PostAssignAssetDTO device);
         Task UpdateSoftwareAsync(string SoftwareID, PostAssignAssetDTO software);
+
         //Task UpdateAccessoriesAsync(string Id, PostAssignAssetDTO accessories);
  
         }
