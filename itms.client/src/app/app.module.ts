@@ -128,7 +128,6 @@ import { UserCommentsComponent } from './user-details/user-comments/user-comment
     EmployeeComponent,
    CurrentdeviceComponent,
     AssetfilterdevicePipe,
-    UserCommentsComponent,
 
     LaptopSearchBoxComponent,
     SoftwareSearchBoxComponent,
@@ -138,7 +137,8 @@ import { UserCommentsComponent } from './user-details/user-comments/user-comment
     CategoryCardComponent,
     FilterPipe,
     DashboardComponent,
-    CommentsComponent
+    CommentsComponent,
+    UserCommentsComponent
 
   ],
   imports: [

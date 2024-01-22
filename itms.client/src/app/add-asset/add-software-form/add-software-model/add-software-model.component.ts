@@ -9,6 +9,8 @@ import { DataService } from '../../../shared/services/data.service';
   styleUrls: ['./add-software-model.component.css']
 })
 export class AddSoftwareModelComponent {
+  showErrorMessage = false;
+
 
   ProfileDP = '';
 
@@ -82,8 +84,8 @@ export class AddSoftwareModelComponent {
       softwareName: ['', Validators.required],
       softwareTypeId: ['', Validators.required],
       version: ['', Validators.required],
-      softwareThumbnail: [null],
-      categoryId: [''],
+      softwareThumbnail: [null, Validators.required],
+      categoryId: ['', Validators.required],
       createdBy: [''],
       createdAtUtc: [''],
       updatedBy: [''],
@@ -95,19 +97,27 @@ export class AddSoftwareModelComponent {
 
     this.newSoftwareForm.get('createdAtUtc')?.setValue(new Date().toISOString());
     this.newSoftwareForm.get('updatedAtUtc')?.setValue(new Date().toISOString());
+    if (this.newSoftwareForm.valid) {
+      console.log(this.newSoftwareForm.value);
+      //this.newSoftwareForm.reset();
 
-    console.log(this.newSoftwareForm.value);
-    this.newSoftwareForm.reset();
+      this.dataService.postNewSoftwareData(this.newSoftwareForm.value).subscribe(
+        response => {
+          console.log('Post Software Data successful', response);
+          this.hideErrorMessage();
+          this.ProfileDP = '../../../assets/icons/add_photo_alternate_outlined 1.svg';
+          this.newSoftwareForm.reset();
 
-    this.dataService.postNewSoftwareData(this.newSoftwareForm.value).subscribe(
-      response => {
-        console.log('Post Software Data successful', response);
-        
-      },
-      error => {
-        console.error('Error posting data', error);
-      }
-    );
+
+        },
+        error => {
+          console.error('Error posting data', error);
+        }
+      );
+    } else {
+      this.showErrorMessage = this.newSoftwareForm.invalid;
+
+    }
   }
 
 
@@ -160,7 +170,11 @@ export class AddSoftwareModelComponent {
     // Make a POST request to your .NET backend to store the image
     console.log(byteArray);
   }
-
+  hideErrorMessage() {
+    this.showErrorMessage = false;
   }
+
+}
+
 
 
