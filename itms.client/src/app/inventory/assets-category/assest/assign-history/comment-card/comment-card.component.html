@@ -1,6 +1,6 @@
 <div *ngIf="devicelog && devicelog.length > 0">
   <div class="comment-card col-md-12" *ngFor="let device of devicelog; let i = index">
-    <div class="comment-card col-md-12" *ngFor="let device of devicelog ; let i = index">
+   
 
       <div class="user-details">
         <div class="user">
@@ -45,7 +45,7 @@
         </div>
       </div>
       <app-comments [userId]="device.userId" [deviceId]="device.deviceId" [deviceLogId]="device.id" [commentLength]="device.comments.length" [comment]="device.comments"></app-comments>
-    </div>
+    
   </div>
 </div>
 
