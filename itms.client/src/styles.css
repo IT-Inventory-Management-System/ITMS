@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+
 ::-webkit-scrollbar {
   display: none;
   
@@ -8,3 +9,5 @@
         padding:0;
         box-sizing:border-box;
 }
+/* In your styles.css or styles.scss file */
+

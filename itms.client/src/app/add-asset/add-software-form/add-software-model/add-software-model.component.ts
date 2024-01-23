@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import { DataService } from '../../../shared/services/data.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -11,20 +12,20 @@ import { DataService } from '../../../shared/services/data.service';
 export class AddSoftwareModelComponent {
   showErrorMessage = false;
 
+  @Output() formSubmitted: EventEmitter<void> = new EventEmitter<void>();
 
   ProfileDP = '';
-
   newSoftwareForm: FormGroup;
 
   softwareTypes: any[] = [];
 
-  constructor(private fb: FormBuilder, private dataService: DataService) { }
+  constructor(private fb: FormBuilder, private dataService: DataService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
-
     this.createForm();
 
     this.getSoftwareType();
+
 
     this.ProfileDP = '../../../assets/icons/add_photo_alternate_outlined 1.svg';
 
@@ -104,11 +105,14 @@ export class AddSoftwareModelComponent {
       this.dataService.postNewSoftwareData(this.newSoftwareForm.value).subscribe(
         response => {
           console.log('Post Software Data successful', response);
+          this.toastr.success("bvflaweif");
+
           this.hideErrorMessage();
           this.ProfileDP = '../../../assets/icons/add_photo_alternate_outlined 1.svg';
           this.newSoftwareForm.reset();
           this.setCategoryId();
           this.setCreatedBy();
+          this.formSubmitted.emit();
 
 
         },

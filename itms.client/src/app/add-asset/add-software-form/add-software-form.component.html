@@ -1,5 +1,7 @@
 <div class="heading_Add_software">Add Software</div>
+
 <form [formGroup]="SoftwareForm" (ngSubmit)="onSubmit()">
+
   <div class="main_content">
     <div class="top_field">
       <label for="inlineFormSelectPref" placeholder="Enter Software Name " class="required-field software_name">Software Name </label>
@@ -23,7 +25,7 @@
 
 
     <div class="software-form-container" *ngIf="isFormOpen">
-      <app-add-software-model></app-add-software-model>
+      <app-add-software-model (formSubmitted)="onFormSubmitted()"></app-add-software-model>
     </div>
 
 
@@ -46,7 +48,7 @@
         <div class="col-6">
           <label for="VEdate" class="form-label required-field">Expiry Date</label>
 
-          <input type="date" class="form-control" id="VEdate" placeholder="12-15-2023" formControlName="expiryDate" (focus)="hideErrorMessage()"/>
+          <input type="date" class="form-control" id="VEdate" placeholder="12-15-2023" formControlName="expiryDate" (focus)="hideErrorMessage()" />
 
         </div>
       </div>
@@ -68,7 +70,7 @@
         <label class="form-label">Activation Key</label>
 
         <div class="input-group activation_key_container">
-          <input [type]=" showPassword ? 'text': 'password' " class="form-control" placeholder="Enter Activation Key" formControlName="activationKey"(focus)="hideErrorMessage()">
+          <input [type]=" showPassword ? 'text': 'password' " class="form-control" placeholder="Enter Activation Key" formControlName="activationKey" (focus)="hideErrorMessage()">
           <div class="input-group-append">
 
             <div class="toggle_hide_password">
@@ -92,7 +94,7 @@
         <div class="col-6">
           <label for="Edate" class="form-label required-field">Expiry Date</label>
 
-          <input type="date" class="form-control" id="Edate" placeholder="12-15-2023" formControlName="expiryDate"(focus)="hideErrorMessage()" />
+          <input type="date" class="form-control" id="Edate" placeholder="12-15-2023" formControlName="expiryDate" (focus)="hideErrorMessage()" />
 
         </div>
       </div>
@@ -111,7 +113,7 @@
         <div class="col-6">
           <label for="PPdate" class="form-label required-field">Date of purchase</label>
 
-          <input type="date" class="form-control" id="PPdate" placeholder="12-15-2023" formControlName="purchasedDate" (focus)="hideErrorMessage()"/>
+          <input type="date" class="form-control" id="PPdate" placeholder="12-15-2023" formControlName="purchasedDate" (focus)="hideErrorMessage()" />
 
         </div>
         <div class="col-6">
@@ -132,7 +134,7 @@
         <label class="form-label">Activation Key</label>
 
         <div class="input-group activation_key_container">
-          <input [type]=" showPassword ? 'text': 'password' " class="form-control" placeholder="Enter Activation Key" formControlName="activationKey"(focus)="hideErrorMessage()">
+          <input [type]=" showPassword ? 'text': 'password' " class="form-control" placeholder="Enter Activation Key" formControlName="activationKey" (focus)="hideErrorMessage()">
           <div class="input-group-append">
 
             <div class="toggle_hide_password">
@@ -146,15 +148,15 @@
     </div>
   </div>
 
-   
-    <div class="button_class">
-      <div *ngIf="showErrorMessage" class="alert-box">
-        <div class="alert-box-msg">
-          All Fields are Required.
-        </div>
+
+  <div class="button_class">
+    <div *ngIf="showErrorMessage" class="alert-box">
+      <div class="alert-box-msg">
+        All Fields are Required.
       </div>
-      <button  type="button"class="footer-button" (click)="resetform()"><span>Cancel</span></button>
-      <button type="submit" class="footer-save-button"><span>Save</span></button>
-    
+    </div>
+    <button type="button" class="footer-button" (click)="resetform()"><span>Cancel</span></button>
+    <button type="submit" class="footer-save-button"><span>Save</span></button>
+
   </div>
 </form>

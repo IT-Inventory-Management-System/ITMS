@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DataService } from '../../../shared/services/data.service';
 
@@ -8,6 +8,7 @@ import { DataService } from '../../../shared/services/data.service';
   styleUrls: ['./add-device-model.component.css']
 })
 export class AddDeviceModelComponent implements OnInit {
+  @Output() formSubmitted: EventEmitter<void> = new EventEmitter<void>();
 
   showErrorMessage = false;
   deviceForm: FormGroup;
@@ -131,6 +132,7 @@ export class AddDeviceModelComponent implements OnInit {
           this.deviceForm.reset();
           this.selectedRam = null;
           this.selectedStorage = null;
+          this.formSubmitted.emit();
         },
         error => {
           console.error('Error posting data', error);

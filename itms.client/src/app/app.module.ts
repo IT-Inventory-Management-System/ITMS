@@ -28,6 +28,7 @@ import { AssetsCategoryComponent } from './inventory/assets-category/assets-cate
 import { HeaderComponent } from './inventory/assets-category/header/header.component';
 import { AssestComponent } from './inventory/assets-category/assest/assest.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { DashboardAssetsComponent } from './dashboard/dashboard-assets/dashboard-assets.component';
  
@@ -70,6 +71,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { CommentsComponent } from './shared/components/comments/comments.component';
 import { UserCommentsComponent } from './user-details/user-comments/user-comments.component';
 import { AddAssetComponent } from './add-asset/add-asset.component';
+import { ToastrModule } from 'ngx-toastr';
 
 
 
@@ -155,7 +157,10 @@ import { AddAssetComponent } from './add-asset/add-asset.component';
     HttpClientModule,
     AvatarModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

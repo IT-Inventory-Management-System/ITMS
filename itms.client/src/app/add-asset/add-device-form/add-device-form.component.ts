@@ -282,4 +282,7 @@ export class AddDeviceFormComponent implements OnInit {
     this.currentStep = 1;
     
   }
+  onFormSubmitted() {
+    this.showDeviceDetailsForm = false;
+  }
  }

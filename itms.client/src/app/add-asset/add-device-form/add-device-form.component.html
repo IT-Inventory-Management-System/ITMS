@@ -70,7 +70,7 @@
             </label>
           </div>
           <div class="mb-3" *ngIf="showDeviceDetailsForm">
-            <app-add-device-model [selectedOS]="selectedOS"></app-add-device-model>
+            <app-add-device-model [selectedOS]="selectedOS" (formSubmitted)="onFormSubmitted()"></app-add-device-model>
           </div>
         </div>
 
