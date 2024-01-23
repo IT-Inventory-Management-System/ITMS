@@ -9,6 +9,7 @@ import { lastValueFrom } from 'rxjs';
 })
 export class DevicesListComponent implements OnInit {
   @Input() device: any;
+  @Input() isArchived: any;
   DeviceData: any;
   DeviceInfo: any;
   DeviceLog: any;
@@ -20,7 +21,9 @@ export class DevicesListComponent implements OnInit {
   // Static variable to store the selected device ID
   private static selectedDeviceId: string | null = null;
 
+
   constructor(private deviceService: DataService, private el: ElementRef, private renderer: Renderer2) { }
+
 
   ngOnInit() {
     this.showDevices();
@@ -33,10 +36,23 @@ export class DevicesListComponent implements OnInit {
   }
 
   async showDevices() {
-    this.AllDevices = await lastValueFrom(this.deviceService.getDevices());
-    localStorage.setItem('selectedDevice', this.AllDevices[0].cygid);
-    this.onDeviceClick(this.AllDevices[0].cygid);
+
+
+    if (this.isArchived == false) {
+      this.AllDevices = await lastValueFrom(this.deviceService.getDevices())
+      localStorage.setItem('selectedDevice', this.AllDevices[0].cygid);
+      this.onDeviceClick(this.AllDevices[0].cygid)
+    }
+    else {
+      this.AllDevices = await lastValueFrom(this.deviceService.getArchivedDevices())
+      localStorage.setItem('selectedDevice', this.AllDevices[0].cygid);
+      this.onDeviceClick(this.AllDevices[0].cygid)
+    }
+
+
   }
+
+
 
   onDeviceClick(cygid: any): void {
     this.resetStyles();
