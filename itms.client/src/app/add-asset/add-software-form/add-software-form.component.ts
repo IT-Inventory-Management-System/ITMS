@@ -143,9 +143,24 @@ export class AddSoftwareFormComponent {
   }
 
   selectedTypeName: string = 'Perpetual';
-  onSubmit() {
 
-    if (this.SoftwareForm.valid) {
+  checkForm() {
+
+    if (this.selectedTypeName == 'Perpetual') {
+      return this.SoftwareForm.get('purchasedDate') != null && this.SoftwareForm.get('activationKey') != null && this.SoftwareForm.get('qty') != null;
+    }
+
+    else if (this.selectedTypeName == 'Validity') {
+      return this.SoftwareForm.get('purchasedDate') != null && this.SoftwareForm.get('activationKey') != null && this.SoftwareForm.get('qty') != null && this.SoftwareForm.get('expiryDate') != null;
+    }
+
+    return this.SoftwareForm.get('purchasedDate') != null && this.SoftwareForm.get('qty') != null && this.SoftwareForm.get('expiryDate') != null;
+  }
+
+  onSubmit() {
+    //console.log(this.SoftwareForm.value);
+
+    if (this.checkForm()) {
 
 
       console.log(this.SoftwareForm.value);
