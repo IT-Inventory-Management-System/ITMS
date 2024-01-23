@@ -27,9 +27,11 @@ input {
   font-weight: 400;
   line-height: normal;
 }
-  input::placeholder {
-    opacity: 0.5;
-  }
+
+.form-control{
+    height:2.5rem;
+}
+
 .picture {
   width: 5.625rem;
   height: 5.625rem;

@@ -2,7 +2,7 @@
 <form [formGroup]="SoftwareForm" (ngSubmit)="onSubmit()">
   <div class="main_content">
     <div class="top_field">
-      <label for="inlineFormSelectPref" placeholder="Enter Software Name" class="required-field software_name">Software Name </label>
+      <label for="inlineFormSelectPref" placeholder="Enter Software Name " class="required-field software_name">Software Name </label>
       <select class="form-select select_input" id="inlineFormSelectPref" (change)="dynamicChanges($event)" (focus)="hideErrorMessage()">
         <option *ngFor="let value of dropdownValues" [value]="value.typeName + '@' + value.id">
           {{ value.softwareName }}
@@ -11,14 +11,18 @@
 
       <div class="checkbox-container">
         <input type="checkbox" class="form-check-input" id="toggleAccordion" (change)="toggleSoftwareForm()">
-        <label for="toggleAccordion" class="toggle-label">Add New Software</label>
+        <label for="toggleAccordion" class="toggle-label">
+          <img *ngIf="isFormOpen == false" src="../../../assets/icons/checkbox-unchecked.svg" />
+          <img *ngIf="isFormOpen == true" src="../../../assets/icons/checkbox-checked.svg" />
+          <span>Add New Software</span>
+        </label>
       </div>
     </div>
 
 
 
 
-    <div class=" software-form-container" *ngIf="isFormOpen">
+    <div class="software-form-container" *ngIf="isFormOpen">
       <app-add-software-model></app-add-software-model>
     </div>
 
