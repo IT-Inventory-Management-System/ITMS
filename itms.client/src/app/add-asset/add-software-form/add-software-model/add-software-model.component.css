@@ -27,9 +27,11 @@ input {
   font-weight: 400;
   line-height: normal;
 }
-  input::placeholder {
-    opacity: 0.5;
-  }
+
+.form-control{
+    height:2.5rem;
+}
+
 .picture {
   width: 5.625rem;
   height: 5.625rem;
@@ -185,4 +187,23 @@ input[type="checkbox"] {
   margin-top: 0.8rem;
   font-size: 1rem;
 }
-
+.alert-box-msg {
+  flex: 1 0 0;
+  color: var(--Adhoc-Red, #CC1A07);
+  font-family: Roboto;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1rem; /* 133.333% */
+}
+.add-button {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  gap: 0.625rem;
+  align-self: stretch;
+ 
+}
+.alert-box {
+  margin-top: 25px;
+}

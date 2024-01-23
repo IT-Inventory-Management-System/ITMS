@@ -54,13 +54,15 @@
             <div class="progress-bar" role="progressbar" [style.width]="getProgressBarWidth()" aria-valuemin="0" aria-valuemax="100"></div>
           </div>
         </div>
-      <div class="modal-footer">
-        <div class="button-container">
-          <button type="button" class="btn btn-secondary" *ngIf="currentStep !== 1" (click)="previousStep()">Previous</button>
-          <button type="button" class="btn btn-secondary" *ngIf="currentStep === 3" (click)="saveChanges()">Save</button>
-          <button type="button" class="btn btn-secondary" *ngIf="currentStep !== 3" (click)="skipStep()">Skip</button>
-          <button type="button" class="btn btn-primary" (click)="nextStep()">{{ getButtonText() }}</button>
+        <div class="footer">
+          <button type="button" class="btn btn-previous" *ngIf="currentStep !== 1" (click)="previousStep()">Previous</button>
+          <div class="modal-footer">
+            <div class="button-container">
+              <button type="button" class="btn-skip" *ngIf="currentStep !== 3" (click)="skipStep()">Skip</button>
+              <button type="button" class="btn-save" (click)="currentStep !== 3 ? nextStep() : saveChanges()">{{ getButtonText() }}</button>
+            </div>
+          </div>
         </div>
-      </div>
     </div>
+</div>
 </div>

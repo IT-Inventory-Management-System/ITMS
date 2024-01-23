@@ -8,6 +8,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class AddSoftwareFormComponent {
   SoftwareForm: FormGroup;
+  showErrorMessage = false;
 
   dropdownValues: any[] = [];
   constructor(private dataService: DataService, private fb: FormBuilder) {
@@ -30,11 +31,14 @@ export class AddSoftwareFormComponent {
       assignedTo: [null],
       assignedBy: [null],
       assigndate: [null],
-      locationId: ['32ACEEE5-0664-4E21-B6A7-C5447336F5B2'],
+      locationId: [''],
     });
   }
 
   setlocationId() {
+    if (!localStorage.getItem('selectedCountry')) {
+      localStorage.setItem('selectedCountry','India');
+    }
     this.dataService.getLocation().subscribe(
       (data) => {
         for (var i = 0; i < data.length; i++) {
@@ -139,31 +143,66 @@ export class AddSoftwareFormComponent {
   }
 
   selectedTypeName: string = 'Perpetual';
+
+  checkForm() {
+
+    if (this.selectedTypeName == 'Perpetual') {
+      return this.SoftwareForm.get('purchasedDate') != null && this.SoftwareForm.get('activationKey') != null && this.SoftwareForm.get('qty') != null;
+    }
+
+    else if (this.selectedTypeName == 'Validity') {
+      return this.SoftwareForm.get('purchasedDate') != null && this.SoftwareForm.get('activationKey') != null && this.SoftwareForm.get('qty') != null && this.SoftwareForm.get('expiryDate') != null;
+    }
+
+    return this.SoftwareForm.get('purchasedDate') != null && this.SoftwareForm.get('qty') != null && this.SoftwareForm.get('expiryDate') != null;
+  }
+
   onSubmit() {
+    //console.log(this.SoftwareForm.value);
+
+    if (this.checkForm()) {
 
 
+      console.log(this.SoftwareForm.value);
 
-    console.log(this.SoftwareForm.value);
-    this.SoftwareForm.get("locationId")?.setValue('32ACEEE5-0664-4E21-B6A7-C5447336F5B2');
+      this.dataService.postSoftwaredata(this.SoftwareForm.value).subscribe(
+        response => {
+          console.log('Post successful', response);
+          this.hideErrorMessage();
+          this.resetform();
 
-    this.dataService.postSoftwaredata(this.SoftwareForm.value).subscribe(
-      response => {
-        console.log('Post successful', response);
-        this.SoftwareForm.reset();
-      },
-      error => {
-        console.error('Error posting data', error);
-      }
-    );
+        },
+        error => {
+          console.error('Error posting data', error);
+        }
+      );
+    }
+    else {
+      this.showErrorMessage = this.SoftwareForm.invalid;
+
+    }
 
   }
  
   dynamicChanges(event: any): void {
     const selectedValue = event.target.value;
     const [typeName, softwareId] = selectedValue.split('@');
+
     this.selectedTypeName = typeName;
+
+    
     // Now you have the typeName and softwareId, and you can use them as needed
     this.SoftwareForm.get('softwareId')?.setValue(softwareId);
   }
+  hideErrorMessage() {
+    this.showErrorMessage = false;
+  }
+  resetform() {
+    this.SoftwareForm.reset();
+    this.setlocationId();
 
+    this.counterValue = 0;
+    this.counterValue2 = 0;
+    this.counterValue3 = 0;
+  }
 }

@@ -27,7 +27,7 @@ namespace ITMS.Server.Services
             {
                 throw new KeyNotFoundException($"Device with CYGId {CYGID} not found.");
             }
-            entityToUpdate.AssignedBy = device.AssignedBy;
+            entityToUpdate.AssignedBy = _context.Employees.FirstOrDefault().Id;
             entityToUpdate.AssignedTo = device.AssignedTo;
             entityToUpdate.AssignedDate = DateTime.UtcNow;
  
@@ -41,7 +41,7 @@ namespace ITMS.Server.Services
             {
                 throw new KeyNotFoundException($"Software with CYGId {SoftwareID} not found.");
             }
-            entityToUpdate.AssignedBy = software.AssignedBy;
+            entityToUpdate.AssignedBy = _context.Employees.FirstOrDefault().Id;
             entityToUpdate.AssignedTo = software.AssignedTo;
             entityToUpdate.AssignedDate = DateTime.UtcNow;
  
