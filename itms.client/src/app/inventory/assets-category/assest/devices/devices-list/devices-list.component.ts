@@ -21,38 +21,22 @@ export class DevicesListComponent implements OnInit {
   // Static variable to store the selected device ID
   private static selectedDeviceId: string | null = null;
 
-
   constructor(private deviceService: DataService, private el: ElementRef, private renderer: Renderer2) { }
-
 
   ngOnInit() {
     this.showDevices();
-    this.selectedDeviceId = DevicesListComponent.selectedDeviceId || null;
-
-    if (this.selectedDeviceId === this.device.cygid) {
-      this.isselectedDevice = true;
-      this.updateStyles();
-    }
   }
 
   async showDevices() {
-
-
     if (this.isArchived == false) {
-      this.AllDevices = await lastValueFrom(this.deviceService.getDevices())
-      localStorage.setItem('selectedDevice', this.AllDevices[0].cygid);
-      this.onDeviceClick(this.AllDevices[0].cygid)
-    }
-    else {
-      this.AllDevices = await lastValueFrom(this.deviceService.getArchivedDevices())
-      localStorage.setItem('selectedDevice', this.AllDevices[0].cygid);
-      this.onDeviceClick(this.AllDevices[0].cygid)
+      this.AllDevices = await lastValueFrom(this.deviceService.getDevices());
+    } else {
+      this.AllDevices = await lastValueFrom(this.deviceService.getArchivedDevices());
     }
 
-
+    // Select the first device
+    this.selectFirstDevice();
   }
-
-
 
   onDeviceClick(cygid: any): void {
     this.resetStyles();
@@ -105,5 +89,13 @@ export class DevicesListComponent implements OnInit {
         console.error('Error fetching device logs:', error);
       }
     );
+  }
+
+  // Method to select the first device
+  private selectFirstDevice(): void {
+    if (this.AllDevices && this.AllDevices.length > 0) {
+      const firstDeviceId = this.AllDevices[0].cygid;
+      this.onDeviceClick(firstDeviceId);
+    }
   }
 }
