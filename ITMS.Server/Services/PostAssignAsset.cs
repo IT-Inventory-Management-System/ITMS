@@ -8,10 +8,12 @@ namespace ITMS.Server.Services
         {
         Task UpdateDeviceAsync(string CYGID, PostAssignAssetDTO device);
         Task UpdateSoftwareAsync(string SoftwareID, PostAssignAssetDTO software);
+        Task UpdateDeviceComment(PostCommentDTO commentDto);
+        Task UpdateSoftwareComment(PostCommentDTO commentDto);
 
         //Task UpdateAccessoriesAsync(string Id, PostAssignAssetDTO accessories);
- 
-        }
+
+    }
     public class PostAssignAsset : IPostAssignAsset
     {
         private readonly ItinventorySystemContext _context;
@@ -48,6 +50,34 @@ namespace ITMS.Server.Services
             _context.SoftwareAllocations.Update(entityToUpdate);
             await _context.SaveChangesAsync();
         }
+        public async Task UpdateDeviceComment(PostCommentDTO commentDto)
+        {
+            Comment comment = new Comment();
+            comment.Description = commentDto.Description;
+            comment.CreatedBy = _context.Employees.FirstOrDefault().Id;
+            comment.CreatedAtUtc = DateTime.UtcNow;
+            comment.DeviceId = commentDto.DeviceId;
+            comment.SoftwareAllocationId = commentDto.SoftwareAllocationId;
+            comment.DeviceLogId = _context.DevicesLogs.FirstOrDefault().Id;
+
+            _context.Comments.Update(comment);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateSoftwareComment(PostCommentDTO commentDto)
+        {
+            Comment comment = new Comment();
+            comment.Description = commentDto.Description;
+            comment.CreatedBy = _context.Employees.FirstOrDefault().Id;
+            comment.CreatedAtUtc = DateTime.UtcNow;
+            comment.DeviceId = commentDto.DeviceId;
+            comment.SoftwareAllocationId = commentDto.SoftwareAllocationId;
+            comment.DeviceLogId = _context.DevicesLogs.FirstOrDefault().Id;
+
+            _context.Comments.Update(comment);
+            await _context.SaveChangesAsync();
+        }
+
         //public async Task UpdateAccessoriesAsync(string ID, PostAssignAssetDTO accessories)
         //{
         //    var entityToUpdate = _context.Categories.Where(c => c.Id.ToString()== ID).FirstOrDefault();
