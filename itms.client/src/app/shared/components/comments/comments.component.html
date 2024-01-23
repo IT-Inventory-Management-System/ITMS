@@ -18,9 +18,9 @@
       </div>
     </div>
     <div *ngIf="isCommentSectionCollapsed">
-      <div class="insideComment" *ngFor="let device of devicelog">
-        <div class="col-md-12" *ngFor="let comment of device.comments">
-          <div *ngIf="comment.deviceLogId === device.id">
+      <div class="insideComment" >
+        <div class="col-md-12" *ngFor="let comment of comment">
+          <div >
             <div class="row comment-avatar">
               <div class="col-md-6">
                 <div class="row avatar-supercomponent">
