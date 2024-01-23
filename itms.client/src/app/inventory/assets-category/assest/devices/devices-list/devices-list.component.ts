@@ -9,6 +9,7 @@ import { lastValueFrom } from 'rxjs';
 })
 export class DevicesListComponent implements OnInit {
   @Input() device: any;
+  @Input() isArchived: any;
   DeviceData: any;
   DeviceInfo: any;
   DeviceLog: any;
@@ -24,18 +25,17 @@ export class DevicesListComponent implements OnInit {
 
   ngOnInit() {
     this.showDevices();
-    this.selectedDeviceId = DevicesListComponent.selectedDeviceId || null;
-
-    if (this.selectedDeviceId === this.device.cygid) {
-      this.isselectedDevice = true;
-      this.updateStyles();
-    }
   }
 
   async showDevices() {
-    this.AllDevices = await lastValueFrom(this.deviceService.getDevices());
-    localStorage.setItem('selectedDevice', this.AllDevices[0].cygid);
-    this.onDeviceClick(this.AllDevices[0].cygid);
+    if (this.isArchived == false) {
+      this.AllDevices = await lastValueFrom(this.deviceService.getDevices());
+    } else {
+      this.AllDevices = await lastValueFrom(this.deviceService.getArchivedDevices());
+    }
+
+    // Select the first device
+    this.selectFirstDevice();
   }
 
   onDeviceClick(cygid: any): void {
@@ -89,5 +89,13 @@ export class DevicesListComponent implements OnInit {
         console.error('Error fetching device logs:', error);
       }
     );
+  }
+
+  // Method to select the first device
+  private selectFirstDevice(): void {
+    if (this.AllDevices && this.AllDevices.length > 0) {
+      const firstDeviceId = this.AllDevices[0].cygid;
+      this.onDeviceClick(firstDeviceId);
+    }
   }
 }
