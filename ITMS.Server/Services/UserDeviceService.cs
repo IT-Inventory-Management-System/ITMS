@@ -47,50 +47,53 @@ public class UserDeviceService
         return userDeviceDto;
     }
 
-    public List<UserDeviceHistory> GetDevices(Guid id)
+   public List<UserDeviceHistory> GetDevices(Guid id)
+{
+    try
     {
-        try
-        {
-            var devicesWithComments = _dbContext.DevicesLogs
-                .Where(log => log.EmployeeId == id)
-                .Include(e => e.Employee)
-                .Include(d => d.Device)
-                    .ThenInclude(dm => dm.DeviceModel)
-                .Select(log => new UserDeviceHistory
-                {
-                    cygid = log.Device.Cygid,
-                    DeviceLogId = log.Id,
-                    Model = log.Device.DeviceModel.ModelNo,
-                    DeviceId = log.DeviceId, //one change
-                    AssignBy = _dbContext.Employees
-                        .Where(employee => employee.Id == log.Device.AssignedBy)
-                        .Select(employee => $"{employee.FirstName} {employee.LastName}")
-                        .FirstOrDefault(),
-                    AssignedDate = (DateTime)log.Device.AssignedDate,
-                    Comments = _dbContext.Comments
-                        .Where(comment => comment.DeviceId == log.Device.Id)
-                        .Select(c => new CommentDto
-                        {
-                            Id = c.Id,
-                            Description = c.Description,
-                            CreatedBy = _dbContext.Employees
-                                .Where(employee => employee.Id == c.CreatedBy)
-                                .Select(employee => $"{employee.FirstName} {employee.LastName}")
-                                .FirstOrDefault(),
-                            CreatedAt = c.CreatedAtUtc,
-                            DeviceId = c.DeviceId,
-                            DeviceLogId = c.DeviceLogId
-                        })
-                        .ToList(),
-                })
-                .ToList();
+        var devicesWithComments = _dbContext.DevicesLogs
+           .Where(log => log.EmployeeId == id)
+           .Include(e => e.Employee)
+           .Include(d => d.Device)
+               .ThenInclude(dm => dm.DeviceModel)
+           .Select(log => new UserDeviceHistory
+           {
+               DeviceLogId = log.Id,
+               DeviceId = log.DeviceId,
 
-            return devicesWithComments;
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.Message);
-            return null;
-        }
+               cygid = log.Device.Cygid,
+               Model = log.Device.DeviceModel.ModelNo,
+               AssignBy = _dbContext.Employees
+                   .Where(employee => employee.Id == log.Device.AssignedBy)
+                   .Select(employee => $"{employee.FirstName} {employee.LastName}")
+                   .FirstOrDefault(),
+               AssignedDate = (DateTime)log.Device.AssignedDate,
+               Comments = _dbContext.Comments
+                   .Where(comment => comment.DeviceId == log.Device.Id)
+                   .Select(c => new CommentDto
+                   {
+                       DeviceLogId = c.DeviceLogId,
+                       DeviceId = c.DeviceId,
+                       Id = c.Id,
+                       Description = c.Description,
+                       CreatedBy = _dbContext.Employees
+                           .Where(employee => employee.Id == c.CreatedBy)
+                           .Select(employee => $"{employee.FirstName} {employee.LastName}")
+                           .FirstOrDefault(),
+                       CreatedAt = c.CreatedAtUtc,
+
+                   })
+                   .ToList(),
+           })
+           .ToList();
+
+        return devicesWithComments;
+       
     }
+    catch (Exception ex)
+    {
+        Console.WriteLine(ex.Message);
+        return null;
+    }
+}
 }

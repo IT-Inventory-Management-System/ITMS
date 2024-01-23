@@ -235,9 +235,9 @@
     background: #FFF;
   }
 
-  .select-device-dropdown placeholder{
-      opacity: 0.5;
-  }
+.select-device-dropdown placeholder{
+    opacity: 0.5;
+}
 
 .add-device-check {
   display: flex;
@@ -245,7 +245,23 @@
   gap: 0.5rem;
 }
 
+.add-device-check input {
+  display: none;
+}
+
+.add-device-check label img {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
 .add-device-check label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.add-device-check label span{
+  margin-top: 2px;
   color: var(--Primary-Blue, #28519E);
   font-family: Roboto;
   font-size: 0.875rem;
@@ -253,6 +269,51 @@
   font-weight: 500;
   line-height: normal;
 }
+
+.add-device-date {
+  display: flex;
+  width: 33.875rem;
+  align-items: flex-start;
+  gap: 1.25rem;
+}
+
+.purchase-date-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.375rem;
+  flex: 1 0 0;
+}
+
+.purchase-date-section input {
+  display: flex;
+  height: 2.5rem;
+  padding: 0.5rem 0.75rem;
+  align-items: center;
+  gap: 6.625rem;
+  align-self: stretch;
+  border-radius: 0.25rem;
+  border: 1px solid var(--Secondary-Gray, #B2B2B3);
+  background: #FFF;
+}
+
+.warranty-date-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.375rem;
+  flex: 1 0 0;
+}
+
+.warranty-date-section label {
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 0.8125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
 
 /* counter */
 .quantity-counter {
@@ -467,20 +528,20 @@ form{
   align-items: flex-start;
   gap: 0.5rem;
   align-self: stretch;
-  width:100%;
+  width:97%;
 }
 
-  .warranty-input input {
-    display: flex;
-    height: 2.5rem;
-    padding: 0.5rem 0.75rem;
-    align-items: center;
-    gap: 6.625rem;
-    flex: 1 0 0;
-    border-radius: 0.25rem;
-    border: 1px solid var(--Secondary-Gray, #B2B2B3);
-    background: #FFF;
-  }
+.warranty-input input {
+  display: flex;
+  height: 2.5rem;
+  padding: 0.5rem 0.75rem;
+  align-items: center;
+  gap: 6.625rem;
+  flex: 1 0 0;
+  border-radius: 0.25rem;
+  border: 1px solid var(--Secondary-Gray, #B2B2B3);
+  background: #FFF;
+}
 
 
 .outer-input {
@@ -540,3 +601,4 @@ form{
   font-weight: 400;
   line-height: 1rem; /* 133.333% */
 }
+

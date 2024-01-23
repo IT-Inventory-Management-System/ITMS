@@ -18,6 +18,7 @@ export class AddDeviceFormComponent implements OnInit {
   selectedOS: string = '';
   warrantyMonth: number;
   warrantyYear: number;
+ 
   constructor(private dataService: DataService, private fb: FormBuilder) {
     this.dropdownValues = [];
   }
@@ -164,6 +165,7 @@ export class AddDeviceFormComponent implements OnInit {
       this.dataService.postDevice(this.addDeviceForm.value).subscribe(
         response => {
           console.log('Data Posted successfully', response);
+          this.resetform();
         },
         error => {
           console.error('Error posting data', error);
@@ -207,6 +209,7 @@ export class AddDeviceFormComponent implements OnInit {
 
 
   setWarrantyMonth(event: any): void {
+    this.showErrorMessage = false;
     const selectedMonth = parseInt(event.target.value, 10);
 
     if (selectedMonth > 0 && selectedMonth < 13) {
@@ -218,7 +221,7 @@ export class AddDeviceFormComponent implements OnInit {
   }
 
   setWarrantyYear(event: any): void {
-    
+    this.showErrorMessage = false;
     const selectedYear = parseInt(event.target.value, 10);
     const currentYear = new Date().getFullYear();
     if (selectedYear >= currentYear) {
@@ -233,8 +236,8 @@ export class AddDeviceFormComponent implements OnInit {
     var isDeviceId = this.addDeviceForm.get('deviceModelId')?.value != '';
     var isQuantity = this.counterValue > 0;
     var isPurchasedOn = this.addDeviceForm.get('purchasedOn')?.value != '';
-    var isWarrantyDate = this.addDeviceForm.get('warrantyDate')?.value != '';
-
+    var isWarrantyDate = this.addDeviceForm.get('warrantyDate')?.value != null;
+    console.log(isDeviceId && isQuantity && isPurchasedOn && isWarrantyDate);
     return isDeviceId && isQuantity && isPurchasedOn && isWarrantyDate;
   }
 
@@ -269,5 +272,14 @@ export class AddDeviceFormComponent implements OnInit {
   hideErrorMessage() {
     this.showErrorMessage = false;
   }
+  resetform() {
 
+    this.addDeviceForm.reset();
+    this.setCreatedBy();
+    this.setlocationId();
+    this.setStatus();
+    this.counterValue = 0;
+    this.currentStep = 1;
+    
+  }
  }

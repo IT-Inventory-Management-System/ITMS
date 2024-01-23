@@ -143,9 +143,24 @@ export class AddSoftwareFormComponent {
   }
 
   selectedTypeName: string = 'Perpetual';
-  onSubmit() {
 
-    if (this.SoftwareForm.valid) {
+  checkForm() {
+
+    if (this.selectedTypeName == 'Perpetual') {
+      return this.SoftwareForm.get('purchasedDate') != null && this.SoftwareForm.get('activationKey') != null && this.SoftwareForm.get('qty') != null;
+    }
+
+    else if (this.selectedTypeName == 'Validity') {
+      return this.SoftwareForm.get('purchasedDate') != null && this.SoftwareForm.get('activationKey') != null && this.SoftwareForm.get('qty') != null && this.SoftwareForm.get('expiryDate') != null;
+    }
+
+    return this.SoftwareForm.get('purchasedDate') != null && this.SoftwareForm.get('qty') != null && this.SoftwareForm.get('expiryDate') != null;
+  }
+
+  onSubmit() {
+    //console.log(this.SoftwareForm.value);
+
+    if (this.checkForm()) {
 
 
       console.log(this.SoftwareForm.value);
@@ -154,8 +169,8 @@ export class AddSoftwareFormComponent {
         response => {
           console.log('Post successful', response);
           this.hideErrorMessage();
+          this.resetform();
 
-          this.SoftwareForm.reset();
         },
         error => {
           console.error('Error posting data', error);
@@ -181,5 +196,13 @@ export class AddSoftwareFormComponent {
   }
   hideErrorMessage() {
     this.showErrorMessage = false;
+  }
+  resetform() {
+    this.SoftwareForm.reset();
+    this.setlocationId();
+
+    this.counterValue = 0;
+    this.counterValue2 = 0;
+    this.counterValue3 = 0;
   }
 }
