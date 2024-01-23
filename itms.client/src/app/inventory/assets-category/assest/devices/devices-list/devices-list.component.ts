@@ -21,7 +21,9 @@ export class DevicesListComponent implements OnInit {
   // Static variable to store the selected device ID
   private static selectedDeviceId: string | null = null;
 
+
   constructor(private deviceService: DataService, private el: ElementRef, private renderer: Renderer2) { }
+
 
   ngOnInit() {
     this.showDevices();
@@ -34,6 +36,7 @@ export class DevicesListComponent implements OnInit {
   }
 
   async showDevices() {
+
 
     if (this.isArchived == false) {
       this.AllDevices = await lastValueFrom(this.deviceService.getDevices())
@@ -48,6 +51,8 @@ export class DevicesListComponent implements OnInit {
 
 
   }
+
+
 
   onDeviceClick(cygid: any): void {
     this.resetStyles();

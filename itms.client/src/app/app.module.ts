@@ -9,7 +9,7 @@ import { CategoryComponent } from './category/category.component';
 import { InventoryComponent } from './inventory/inventory.component';
 import { LicenseComponent } from './license/license.component';
 import { HistoryComponent } from './history/history.component';
-import { AddAssetComponent } from './add-asset/add-asset.component';
+
 import { NavbarComponent } from './shared/components/navbar/navbar.component'; 
 import { NewSidebarComponent } from './shared/components/new-sidebar/new-sidebar.component';
 
@@ -69,6 +69,7 @@ import { AccesoriesComponent } from './dashboard/accesories/accesories.component
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CommentsComponent } from './shared/components/comments/comments.component';
 import { UserCommentsComponent } from './user-details/user-comments/user-comments.component';
+import { AddAssetComponent } from './add-asset/add-asset.component';
 
 
 
@@ -87,7 +88,7 @@ import { UserCommentsComponent } from './user-details/user-comments/user-comment
     InventoryComponent,
     LicenseComponent,
     HistoryComponent,
-    AddAssetComponent,
+   
     SpecificationComponent,
     AddDeviceFormComponent,
     AddDeviceModelComponent,
@@ -120,8 +121,9 @@ import { UserCommentsComponent } from './user-details/user-comments/user-comment
     FilterSearchListPipe,
     LaptopDetailsComponent,
     SearchBoxComponent,
- 
-    AddAssetComponent,
+    
+    LaptopDetailsComponent, 
+    
     AddSoftwareModelComponent,
     UserDetailsComponent,
     UserListComponent,
@@ -138,8 +140,13 @@ import { UserCommentsComponent } from './user-details/user-comments/user-comment
     FilterPipe,
     DashboardComponent,
     CommentsComponent,
-    UserCommentsComponent
+    UserCommentsComponent,
+    AddAssetComponent
 
+    
+  
+
+    
   ],
   imports: [
     BrowserModule,

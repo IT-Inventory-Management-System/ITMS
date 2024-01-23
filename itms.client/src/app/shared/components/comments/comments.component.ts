@@ -15,6 +15,7 @@ export class CommentsComponent {
   @Input() userId: any;
   @Input() deviceLogId: any;
   @Input() commentLength: any;
+  @Input() comment: any;
   DeviceLogInfo: any;
   newComment: string = '';
   
