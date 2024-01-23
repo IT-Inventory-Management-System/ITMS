@@ -95,3 +95,10 @@
   font-weight: 400;
   line-height: normal;
 }
+
+.no-assign-history {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
