@@ -1,6 +1,8 @@
 ﻿using ITMS.Server.DTO;
 using ITMS.Server.Models;
 using Microsoft.EntityFrameworkCore;
+using MiNET.Blocks;
+using System.Runtime.InteropServices;
 
 namespace ITMS.Server.Services
 {
@@ -9,7 +11,7 @@ namespace ITMS.Server.Services
 
             Task<IEnumerable<GetSoftwareDTO>> listSoftware();
             Task<IEnumerable<GetSoftwareDTO>> getSoftwareId(string softwareName, string softwareVersion);
-
+            Task<IEnumerable<CheckSoftwareAllocationDTO>>getSoftwareAllocationId(string softwareID);
     }
         public class GetSoftwareService : IGetSoftwareService
         {
@@ -50,6 +52,17 @@ namespace ITMS.Server.Services
                              ).ToListAsync();
             return result;
 
+        }
+        public async Task<IEnumerable<CheckSoftwareAllocationDTO>>getSoftwareAllocationId(string softwareID)
+        {
+            var result = await (from sa in _context.SoftwareAllocations
+                                where sa.SoftwareId.ToString() == softwareID
+                                select new CheckSoftwareAllocationDTO
+                                {
+                                    Id = sa.Id
+                                }
+                             ).ToListAsync();
+            return result;
         }
     }
 
