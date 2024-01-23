@@ -1,4 +1,3 @@
-
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
@@ -10,7 +9,7 @@ import { InventoryComponent } from './inventory/inventory.component';
 import { LicenseComponent } from './license/license.component';
 import { HistoryComponent } from './history/history.component';
 
-import { NavbarComponent } from './shared/components/navbar/navbar.component'; 
+import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { NewSidebarComponent } from './shared/components/new-sidebar/new-sidebar.component';
 
 // Use SidebarNewComponent in your code
@@ -30,7 +29,6 @@ import { AssestComponent } from './inventory/assets-category/assest/assest.compo
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { DashboardAssetsComponent } from './dashboard/dashboard-assets/dashboard-assets.component';
- 
 import { SpecificationComponent } from './inventory/assets-category/assest/specification/specification.component';
 import { SpecInfoComponent } from './inventory/assets-category/assest/specification/spec-info/spec-info.component';
 import { DevicesComponent } from './inventory/assets-category/assest/devices/devices.component';
@@ -73,8 +71,6 @@ import { AddAssetComponent } from './add-asset/add-asset.component';
 
 
 
-
-
 @NgModule({
   declarations: [
     DevicesComponent,
@@ -88,7 +84,6 @@ import { AddAssetComponent } from './add-asset/add-asset.component';
     InventoryComponent,
     LicenseComponent,
     HistoryComponent,
-   
     SpecificationComponent,
     AddDeviceFormComponent,
     AddDeviceModelComponent,
@@ -121,14 +116,12 @@ import { AddAssetComponent } from './add-asset/add-asset.component';
     FilterSearchListPipe,
     LaptopDetailsComponent,
     SearchBoxComponent,
-    
-    LaptopDetailsComponent, 
-    
+    LaptopDetailsComponent,
     AddSoftwareModelComponent,
     UserDetailsComponent,
     UserListComponent,
     EmployeeComponent,
-   CurrentdeviceComponent,
+    CurrentdeviceComponent,
     AssetfilterdevicePipe,
 
     LaptopSearchBoxComponent,
@@ -143,10 +136,10 @@ import { AddAssetComponent } from './add-asset/add-asset.component';
     UserCommentsComponent,
     AddAssetComponent
 
-    
-  
 
-    
+
+
+
   ],
   imports: [
     BrowserModule,
