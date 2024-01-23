@@ -34,7 +34,8 @@
               </div>
               <div class="col-md-6 date-time-comment">
                 <div>
-                  <div>{{comment.createdAtUtc}}</div>
+                  <div>{{comment.createdAtUtc | date: 'MM-dd-yyyy,h:mm a'}}</div>
+                  
                 </div>
               </div>
             </div>
