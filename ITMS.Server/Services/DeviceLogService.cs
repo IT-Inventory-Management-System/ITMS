@@ -128,6 +128,7 @@ public class DeviceLogService
         {
             var comments = await _context.Comments
                 .Where(comment => comment.DeviceLogId == devicelogId)
+                .OrderByDescending(comment => comment.CreatedAtUtc)
                 .Select(comment => new CommentDto
                 {
                     Id = comment.Id,
@@ -192,11 +193,12 @@ public class DeviceLogService
 
     public void AddComment(DeviceAddComment commentDto)
     {
+        System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(System.Threading.Thread.CurrentThread.CurrentCulture.Name);
         Comment commentEntity = new Comment
         {
             Description = commentDto.Description,
             CreatedBy = commentDto.CreatedBy,
-            CreatedAtUtc = DateTime.UtcNow,
+            CreatedAtUtc = DateTime.Now,
             DeviceId = commentDto.DeviceId,
             DeviceLogId= commentDto.DeviceLogId
         };

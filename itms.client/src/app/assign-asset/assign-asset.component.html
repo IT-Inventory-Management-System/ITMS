@@ -42,8 +42,6 @@
           </app-assign-laptop>
           <app-assign-software *ngIf="currentStep === 2"
                                [SoftwareOptions]="softwares"
-                               [SoftwareVersionOptions]="softwareVersions"
-                               (SoftwareOptionSelected)="onSoftwareSelected($event)"
                                [assignAssetForm]="assignAssetForm">
           </app-assign-software>
           <app-assign-accessories *ngIf="currentStep === 3"

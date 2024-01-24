@@ -69,7 +69,7 @@ public class UserDeviceService
                    .FirstOrDefault(),
                AssignedDate = (DateTime)log.Device.AssignedDate,
                Comments = _dbContext.Comments
-                   .Where(comment => comment.DeviceId == log.Device.Id)
+                   .Where(comment => comment.DeviceId == log.Device.Id).OrderByDescending(c => c.CreatedAtUtc)
                    .Select(c => new CommentDto
                    {
                        DeviceLogId = c.DeviceLogId,

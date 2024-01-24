@@ -20,13 +20,17 @@ namespace ITMS.Server.Services
             _context = context;
         }
 
+        
+
         public void AddComment(UserCommentHistory commentDto)
         {
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(System.Threading.Thread.CurrentThread.CurrentCulture.Name);
+
             Comment commentEntity = new Comment
             {
                 Description = commentDto.Description,
                 CreatedBy = commentDto.CreatedBy,
-                CreatedAtUtc = DateTime.UtcNow,
+                CreatedAtUtc = DateTime.Now,
                 DeviceId = commentDto.DeviceId,
                 DeviceLogId = commentDto.DeviceLogId // Assign the new property
             };
