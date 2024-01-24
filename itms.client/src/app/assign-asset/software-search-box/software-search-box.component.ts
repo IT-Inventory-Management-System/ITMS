@@ -10,7 +10,6 @@ export class SoftwareSearchBoxComponent {
   @Input() label: string;
   @Input() placeholder: string;
   @Input() SoftwareOptions: any[] = [];
-  @Input() assignAssetForm: FormGroup;
   @Output() SoftwareOptionSelected: EventEmitter<any> = new EventEmitter();
 
   //searchText: string = '';
@@ -18,7 +17,6 @@ export class SoftwareSearchBoxComponent {
   selectedOption: any;
   onSelectOption(option: any): void {
     this.SoftwareOptionSelected.emit(this.selectedOption);
-    this.assignAssetForm.get('softwareId')?.setValue(option.id);
   }
   //constructor(private elementRef: ElementRef) { }
 

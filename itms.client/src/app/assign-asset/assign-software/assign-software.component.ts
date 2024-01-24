@@ -9,16 +9,33 @@ import { FormGroup } from '@angular/forms';
 export class AssignSoftwareComponent {
 
   @Input() SoftwareOptions: any[] = [];
-  @Input() SoftwareVersionOptions: any[] = [];
   @Input() assignAssetForm: FormGroup;
-  @Output() SoftwareOptionSelected: EventEmitter<any> = new EventEmitter();
 
   SelectedSoftware: any;
   SelectedSoftwareVersion: any;
+  SoftwareVersionOptions: any[] = [];
 
   SoftwareSearchBoxOptionSelected(event: any): void {
     this.SelectedSoftware = event;
-    this.SoftwareOptionSelected.emit(event);
+    this.filterSoftwareVersions();
+  }
+
+  filterSoftwareVersions(): void {
+    if (this.SelectedSoftware) {
+      const selectedSoftwareName = this.SelectedSoftware.softwareName;
+      const versionsWithSameName = this.SoftwareOptions
+        .filter(software => software.softwareName === selectedSoftwareName)
+        .map(software => ({
+          version: software.version,
+          id: software.id,
+          expiryDate: this.formatExpiryDate(software.expiryDate)
+        }));
+      this.SoftwareVersionOptions = versionsWithSameName || [];
+      console.log("SoftwareVersionOptions", this.SoftwareVersionOptions);
+
+    } else {
+      this.SoftwareVersionOptions = [];
+    }
   }
   SoftwareVersionSearchBoxOptionSelected(event: any): void {
     this.SelectedSoftwareVersion = event;
@@ -36,5 +53,4 @@ export class AssignSoftwareComponent {
     const day = date.getDate().toString().padStart(2, '0');
     return `${day}-${month}-${year}`;
   }
-
 }

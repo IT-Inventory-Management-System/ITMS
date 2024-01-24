@@ -75,16 +75,15 @@ export class AssignAssetComponent {
   softwareVersions: any[] = [];
   laptops: any[] = [];
   accessories: any[] = [];
-  selectedSoftware: any; 
 
   assignAssetForm: FormGroup;
   constructor(
     private formBuilder: FormBuilder,
     @Inject(DeviceAssignService) private deviceAssignService: DeviceAssignService) {
     this.assignAssetForm = this.formBuilder.group({
-      assignedTo: [null, Validators.required],
-      cygid: [null, Validators.required],
-      softwareId: [null, Validators.required],
+      assignedTo: null,
+      cygid: null,
+      softwareId: null,
       //selectedAccessory: [null, Validators.required],
       deviceComment: null,
       softwareComment: null,
@@ -130,17 +129,6 @@ export class AssignAssetComponent {
     );
   }
 
-  getSoftwareVersion(SoftwareName: string): void {
-    console.log("SoftwareName for version", SoftwareName);
-    this.deviceAssignService.getSoftwareVersion(SoftwareName).subscribe(
-      (data: any[]) => {
-        this.softwareVersions = data;
-      },
-      (error: any) => {
-        console.error('Error fetching software version details:', error);
-      }
-    );
-  }
   getAccessories(): void {
     this.deviceAssignService.getAccessories().subscribe(
       (data: any[]) => {
@@ -150,11 +138,6 @@ export class AssignAssetComponent {
         console.error('Error fetching software details:', error);
       }
     );
-  }
-
-  onSoftwareSelected(software: any): void {
-    this.selectedSoftware = software;
-    this.getSoftwareVersion(software.softwareName);
   }
  
   saveChanges(): void {

@@ -19,7 +19,7 @@ export class SoftwareVersionSearchBoxComponent {
   selectedOption: any;
   onSelectOption(option: any): void {
     this.SoftwareVersionOptionSelected.emit(this.selectedOption);
-    this.assignAssetForm.get('selectedSoftwareVersion')?.setValue(option.id);
+    this.assignAssetForm.get('softwareId')?.setValue(option.id);
   }
 
   //constructor(private elementRef: ElementRef) { }
