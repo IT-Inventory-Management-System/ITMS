@@ -18,18 +18,15 @@ export class CommentsComponent {
   @Input() comment: any;
   DeviceLogInfo: any;
   newComment: string = '';
-  
+
 
   toggleCommentSection() {
-    
     this.isCommentSectionCollapsed = !this.isCommentSectionCollapsed;
-    
     /*this.showcomment(cygid);*/
   }
 
   constructor(private dataService: DataService, private cdr: ChangeDetectorRef) { }
 
- 
 
   saveComment() {
     if (this.newComment) {
@@ -76,22 +73,11 @@ export class CommentsComponent {
 
   get devicelog() {
     this.DeviceLogInfo = this.dataService.DeviceLog;
-    
     return this.dataService.DeviceLog;
   }
-  
+
 
   get commentDetails() {
     return this.dataService.CommentDetails;
   }
 }
-
-
-
-
-
-
-
-
-
-
