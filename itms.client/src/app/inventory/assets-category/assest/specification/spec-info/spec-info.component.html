@@ -11,7 +11,7 @@
     <p class="heading">Model</p>
 
     <span class="values">
-      {{deviceDetails.deviceModel.deviceName}}
+      {{deviceDetails?.deviceModel?.deviceName}}
 
       <img class="specimage" src="../../assets/icons/spec-info.svg" />
     </span>
@@ -25,7 +25,7 @@
 
 
     <p class="heading">Serial No.</p>
-    <span class="value">{{deviceDetails.serialNumber}}</span>
+    <span class="value">{{deviceDetails?.serialNumber}}</span>
 
 
   </div>
@@ -42,7 +42,7 @@
 
 
   <p class="heading">Processor</p>
-  <span class="value" >{{deviceDetails.deviceModel.processor}}</span>
+  <span class="value" >{{deviceDetails?.deviceModel?.processor}}</span>
 
  
 </div>
@@ -56,7 +56,7 @@
 
 
     <p class="heading">RAM</p>
-    <span class="value">{{deviceDetails.deviceModel.ram}}</span>
+    <span class="value">{{deviceDetails?.deviceModel?.ram}}</span>
 
   
   </div>
@@ -67,7 +67,7 @@
 
 
     <p class="heading">Storage</p>
-    <span class="value">{{deviceDetails.deviceModel.storage}}</span>
+    <span class="value">{{deviceDetails?.deviceModel?.storage}}</span>
 
   </div>
 
@@ -92,7 +92,7 @@
     </span>
 
     <p class="heading">Warranty Year</p>
-    <span class="value">{{deviceDetails.warrantyRemaining}}</span>
+    <span class="value">{{deviceDetails?.warrantyRemaining}}</span>
 
   </div>
 
