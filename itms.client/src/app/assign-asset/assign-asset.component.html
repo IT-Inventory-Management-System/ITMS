@@ -57,7 +57,7 @@
           <div class="modal-footer">
             <div class="button-container">
               <button type="button" class="btn-skip" *ngIf="currentStep !== 3" (click)="skipStep()">Skip</button>
-              <button type="button" class="btn-save" (click)="currentStep !== 3 ? nextStep() : saveChanges()">{{ getButtonText() }}</button>
+              <button type="button" class="btn-save" [attr.data-bs-dismiss]="currentStep === 3 && assignAssetForm.valid ? 'modal' : null" (click)="currentStep !== 3 ? nextStep() : saveChanges()">{{ getButtonText() }}</button>
             </div>
           </div>
         </div>

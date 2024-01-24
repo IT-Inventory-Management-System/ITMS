@@ -37,7 +37,6 @@ export class AssignAssetComponent {
     }
   }
 
-
   nextStep() {
     if (this.currentStep < 3) {
       this.currentStep++;
@@ -68,7 +67,6 @@ export class AssignAssetComponent {
       return 'Next';
     }
   }
-
 
   users: any[] = [];
   softwares: any[] = [];
