@@ -14,7 +14,7 @@
         </div>
       </div>
       <ng-template #content>
-        <app-category-card *ngFor="let category of categoryData|filter:searchtext" [typeName]="category.typeName" [categories]="category.categories"></app-category-card>
+        <app-category-card *ngFor="let category of categoryData|filter:searchtext" [typeName]="category.typeName" [categories]="category.categories" (categorySelected)="setSelectedCategory($event)"></app-category-card>
       </ng-template>
     </div>
     <div class="vertical-stroke">

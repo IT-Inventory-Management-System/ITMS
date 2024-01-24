@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DataService } from '../../shared/services/data.service';
 
 @Component({
@@ -10,6 +10,11 @@ export class CategoryCardComponent {
 
   @Input() typeName: string = '';
   @Input() categories: any[] = [];
+  @Output() categorySelected = new EventEmitter<string>();
+
+  selectCategory(categoryName: string) {
+    this.categorySelected.emit(categoryName);
+  }
 
   //selectedCategory: string = '';
 
