@@ -165,7 +165,6 @@ export class AddSoftwareFormComponent {
   }
 
   onSubmit() {
-    //console.log(this.SoftwareForm.value);
 
     if (this.checkForm()) {
 
@@ -188,14 +187,17 @@ export class AddSoftwareFormComponent {
       );
     }
     else {
-      this.showErrorMessage = this.SoftwareForm.invalid;
+      this.showErrorMessage = true;
 
     }
 
   }
  
   dynamicChanges(event: any): void {
-    const selectedValue = event.target.value;
+    
+    const selectedValue = event;
+    //console.log(selectedValue);
+
     const [typeName, softwareId] = selectedValue.split('@');
 
     this.selectedTypeName = typeName;
@@ -214,4 +216,7 @@ export class AddSoftwareFormComponent {
     this.counterValue2 = 0;
     this.counterValue3 = 0;
   }
+
+
+
 }

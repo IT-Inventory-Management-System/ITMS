@@ -44,12 +44,12 @@
           <div class="device-model-select">
             <div class="select-device-dropdown">
               <label for="deviceName">Device Name <span class="required">*</span></label>
-              <select formControlName="deviceModelId">
-                <option value="" selected class="placeholder">Select Device Name</option>
-                <option *ngFor="let value of dropdownValues" [value]="value.id">
+              <ng-select formControlName="deviceModelId" placeholder="Select Device Name">
+                <!--<option value="" selected class="placeholder">Select Device Name</option>-->
+                <ng-option *ngFor="let value of dropdownValues" [value]="value.id">
                   {{ value.deviceName }}
-                </option>
-              </select>
+                </ng-option>
+              </ng-select>
             </div>
             <div class="quantity-select">
               <label for="quantity">Quantity</label>

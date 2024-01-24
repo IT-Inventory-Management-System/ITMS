@@ -11,6 +11,29 @@
   font-weight: 400;
   line-height: normal;
 }
+
+ng-select{
+    width: 100%;
+}
+
+
+::ng-deep .ng-select .ng-select-container, ::ng-deep .ng-select.ng-select-single .ng-select-container {
+  min-height: 2.5rem;
+}
+
+::ng-deep .ng-select .ng-arrow-wrapper .ng-arrow {
+  border-color: none !important;
+  border-style: none !important;
+  border-width: 0 !important;
+}
+
+::ng-deep .ng-select .ng-arrow-wrapper {
+  background-image: url('../../../assets/icons/expand_more.svg');
+  background-repeat: no-repeat;
+  margin-top: 2px;
+  margin-right: 0.75rem;
+}
+
 .select_input {
   color: var(--Primary-Gray, #343435);
   font-family: Roboto;
@@ -18,8 +41,8 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  padding:0.5rem;
-  margin-bottom:0.5rem;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 .heading_Add_software {
   color: var(--Primary-Gray, #343435);

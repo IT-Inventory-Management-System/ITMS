@@ -1,9 +1,11 @@
 ﻿using ITMS.Server.DTO;
 using ITMS.Server.Models;
 using ITMS.Server.ViewModel;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
 using System;
+using static MiNET.Net.McpeInteract;
 
 namespace ITMS.Server.Services;
     public interface IDeviceService
@@ -29,6 +31,7 @@ public class AddDeviceService : IDeviceService
         public void AddDevice(PutLaptop device)
         {
             //List<Inventory> inventories = new List<Inventory>();
+            
             for (int i = 0; i < device.Qty; i++)
             {
                 Device inventoriesItem = new Device();
@@ -40,13 +43,18 @@ public class AddDeviceService : IDeviceService
                 inventoriesItem.Status = device.Status;
                 inventoriesItem.CreatedBy = device.CreatedBy;
                 inventoriesItem.CreatedAtUtc = device.CreatedAtUtc;
+                inventoriesItem.UpdatedBy = device.UpdatedBy;
+                inventoriesItem.UpdatedAtUtc = DateTime.UtcNow;
+                inventoriesItem.WarrantyDate = device.WarrantyDate;
                 inventoriesItem.IsArchived = device.IsArchived;
                 inventoriesItem.LocationId = device.LocationId;
                 _context.Devices.Add(inventoriesItem);
+                
             }
-            //_context.Devices.Add(device);
-            _context.SaveChanges();
+        //_context.Devices.Add(device);
+             _context.SaveChanges();
         }
+
 
         public void AddDeviceModel(PutDeviceModel model)
         {

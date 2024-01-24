@@ -11,13 +11,13 @@
 
         <div class="first">
 
-          <ngx-avatars name="{{userDetails.firstName }} {{userDetails.lastName }}" [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="33"></ngx-avatars>
+          <ngx-avatars name="{{userDetails?.firstName }} {{userDetails?.lastName }}" [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="33"></ngx-avatars>
 
           <div class="user-name-id">
 
-            <div class="user-name">{{userDetails.firstName }} </div>
+            <div class="user-name">{{userDetails?.firstName }} </div>
 
-            <div class="user-id">{{ userDetails.cgiid }} </div>
+            <div class="user-id">{{ userDetails?.cgiid }} </div>
 
           </div>
 
@@ -55,11 +55,11 @@
 
     <div class="assigned">
 
-      <app-laptop-details *ngIf="selectedItem === 'laptop'" [userId]="userDetails.id" class="asd"></app-laptop-details>
+      <app-laptop-details *ngIf="selectedItem === 'laptop'" [userId]="userDetails?.id" class="asd"></app-laptop-details>
 
-      <app-software-details *ngIf="selectedItem === 'software'" [userId]="userDetails.id" class="asd"></app-software-details>
+      <app-software-details *ngIf="selectedItem === 'software'" [userId]="userDetails?.id" class="asd"></app-software-details>
 
-      <app-accessories-details *ngIf="selectedItem === 'accessories'" [userId]="userDetails.id" class="asd"></app-accessories-details>
+      <app-accessories-details *ngIf="selectedItem === 'accessories'" [userId]="userDetails?.id" class="asd"></app-accessories-details>
 
     </div>
 

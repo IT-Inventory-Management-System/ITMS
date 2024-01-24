@@ -1,4 +1,4 @@
-import { Component, Input, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, SimpleChanges } from '@angular/core';
 import { DataService } from '../../services/data.service';
 
 @Component({
@@ -27,15 +27,9 @@ export class CommentsComponent {
     /*this.showcomment(cygid);*/
   }
 
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService, private cdr: ChangeDetectorRef) { }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    
-      // Check if userId changed and call API only if it's a different value
-      this.saveComment();
-    
-  }
-
+ 
 
   saveComment() {
     if (this.newComment) {
@@ -50,17 +44,31 @@ export class CommentsComponent {
       console.log('Comment DTO:', commentDto);
 
       this.dataService.postComment(commentDto).subscribe(
-        (response) => {
+        (response: any) => {
           console.log('Comment added successfully', response);
-          // this.getComments(); 
+
+          // Update the comments array with the new comment
+          this.comment.push({
+            createdByNavigation: {
+              firstName: response.createdByFirstName  // Assuming the response contains createdByFirstName
+            },
+            createdAtUtc: response.createdAtUtc,
+            description: response.description
+          });
+
+          // Reset the new comment input
+          this.newComment = '';
+
+          // Manually trigger change detection
+          this.cdr.detectChanges();
         },
         (error) => {
           console.error('Error adding comment:', error);
         }
       );
-      this.newComment = '';
     }
   }
+
 
   get deviceDetails() {
     return this.dataService.DeviceDetails;

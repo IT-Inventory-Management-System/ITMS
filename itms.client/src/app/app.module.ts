@@ -1,4 +1,3 @@
-
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
@@ -10,7 +9,7 @@ import { InventoryComponent } from './inventory/inventory.component';
 import { LicenseComponent } from './license/license.component';
 import { HistoryComponent } from './history/history.component';
 
-import { NavbarComponent } from './shared/components/navbar/navbar.component'; 
+import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { NewSidebarComponent } from './shared/components/new-sidebar/new-sidebar.component';
 
 // Use SidebarNewComponent in your code
@@ -31,7 +30,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { DashboardAssetsComponent } from './dashboard/dashboard-assets/dashboard-assets.component';
- 
 import { SpecificationComponent } from './inventory/assets-category/assest/specification/specification.component';
 import { SpecInfoComponent } from './inventory/assets-category/assest/specification/spec-info/spec-info.component';
 import { DevicesComponent } from './inventory/assets-category/assest/devices/devices.component';
@@ -71,9 +69,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { CommentsComponent } from './shared/components/comments/comments.component';
 import { UserCommentsComponent } from './user-details/user-comments/user-comments.component';
 import { AddAssetComponent } from './add-asset/add-asset.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { ToastrModule } from 'ngx-toastr';
-
-
 
 
 
@@ -90,7 +87,6 @@ import { ToastrModule } from 'ngx-toastr';
     InventoryComponent,
     LicenseComponent,
     HistoryComponent,
-   
     SpecificationComponent,
     AddDeviceFormComponent,
     AddDeviceModelComponent,
@@ -123,14 +119,12 @@ import { ToastrModule } from 'ngx-toastr';
     FilterSearchListPipe,
     LaptopDetailsComponent,
     SearchBoxComponent,
-    
-    LaptopDetailsComponent, 
-    
+    LaptopDetailsComponent,
     AddSoftwareModelComponent,
     UserDetailsComponent,
     UserListComponent,
     EmployeeComponent,
-   CurrentdeviceComponent,
+    CurrentdeviceComponent,
     AssetfilterdevicePipe,
 
     LaptopSearchBoxComponent,
@@ -145,10 +139,10 @@ import { ToastrModule } from 'ngx-toastr';
     UserCommentsComponent,
     AddAssetComponent
 
-    
-  
 
-    
+
+
+
   ],
   imports: [
     BrowserModule,
@@ -157,10 +151,7 @@ import { ToastrModule } from 'ngx-toastr';
     HttpClientModule,
     AvatarModule,
     ReactiveFormsModule,
-    FormsModule,
-    BrowserAnimationsModule,
-
-    ToastrModule.forRoot()
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

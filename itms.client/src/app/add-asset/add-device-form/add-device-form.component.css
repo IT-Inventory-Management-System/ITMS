@@ -221,19 +221,15 @@
     line-height: normal;
   }
 
-  .select-device-dropdown select {
-    display: flex;
-    width: 23.4375rem;
-    height: 2.5rem;
-    padding: 0.5rem 0.75rem;
-    align-items: center;
-    gap: 6.625rem;
-    flex-shrink: 0;
-    align-self: stretch;
+  .select-device-dropdown ng-select {
+    width: 100%;
     border-radius: 0.25rem;
-    border: 1px solid var(--Secondary-Gray, #B2B2B3);
     background: #FFF;
   }
+
+::ng-deep .ng-select .ng-select-container, ::ng-deep .ng-select.ng-select-single .ng-select-container {
+  min-height: 2.5rem;
+}
 
 .select-device-dropdown placeholder{
     opacity: 0.5;

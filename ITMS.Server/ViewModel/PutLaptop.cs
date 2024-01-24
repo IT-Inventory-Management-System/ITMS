@@ -23,7 +23,9 @@ public partial class PutLaptop
 
     public List<String> CYGIdsList { get; set; }
 
+    public Guid? UpdatedBy { get; set; }
 
+    public DateTime? UpdatedAtUtc { get; set; }
 
     public Guid CreatedBy { get; set; }
 

@@ -36,7 +36,7 @@ export class AddDeviceFormComponent implements OnInit {
 
   createForm() {
     this.addDeviceForm = this.fb.group({
-      deviceModelId: ['', Validators.required],
+      deviceModelId: [null, Validators.required],
       isChecked: [true],
       qty: [0, Validators.required],
       purchasedOn: ['', Validators.required],
@@ -44,6 +44,7 @@ export class AddDeviceFormComponent implements OnInit {
       serialNumberList: this.fb.array([]),
       cygIdsList: this.fb.array([]),
       createdBy: [''],
+      updatedBy: [''],
       createdAtUtc: [''],
       isArchived: [false],
       locationId: [''],
@@ -75,6 +76,7 @@ export class AddDeviceFormComponent implements OnInit {
     this.dataService.getFirstUser().subscribe(
       (data) => { 
         this.addDeviceForm.get('createdBy')?.setValue(data.id);
+        this.addDeviceForm.get('updatedBy')?.setValue(data.id);
       },
       (error) => {
         console.log("User not found");
@@ -236,7 +238,7 @@ export class AddDeviceFormComponent implements OnInit {
   }
 
   nextValidation(): boolean {
-    var isDeviceId = this.addDeviceForm.get('deviceModelId')?.value != '';
+    var isDeviceId = this.addDeviceForm.get('deviceModelId')?.value != null;
     var isQuantity = this.counterValue > 0;
     var isPurchasedOn = this.addDeviceForm.get('purchasedOn')?.value != '';
     var isWarrantyDate = this.addDeviceForm.get('warrantyDate')?.value != null;
@@ -277,7 +279,7 @@ export class AddDeviceFormComponent implements OnInit {
   }
   resetform() {
 
-    this.addDeviceForm.reset();
+    this.createForm();
     this.setCreatedBy();
     this.setlocationId();
     this.setStatus();
