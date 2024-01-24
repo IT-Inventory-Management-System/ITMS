@@ -128,6 +128,7 @@ public class DeviceLogService
         {
             var comments = await _context.Comments
                 .Where(comment => comment.DeviceLogId == devicelogId)
+                .OrderByDescending(comment => comment.CreatedAtUtc)
                 .Select(comment => new CommentDto
                 {
                     Id = comment.Id,
