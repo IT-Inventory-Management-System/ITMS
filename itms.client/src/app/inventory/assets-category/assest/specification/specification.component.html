@@ -1,3 +1,5 @@
+<app-archive-modal [cygid]="deviceDetails.cygid"></app-archive-modal>
+
 <div class="spec">
   <div class="mb-3 specification" *ngIf="!isArchived">
     Device Summary
@@ -8,6 +10,7 @@
   </div>
 
 
+
   <div class="spec-card mb-3 ">
     <div class="status-container">
       <div class="status-info">
@@ -16,7 +19,8 @@
       </div>
     </div>
     <div class="button-container">
-      <button class="custom-button" *ngIf="!isArchived">
+
+      <button class="custom-button" type="button" *ngIf="!isArchived" data-toggle="modal" data-target="#exampleModal" >
         <img src="../../assets/icons/archive.svg" />
         Archive
       </button>
@@ -42,5 +46,8 @@
 
   </div>
 </div>
+
+
+
 
 

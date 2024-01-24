@@ -17,7 +17,7 @@
   </div>
 
   <div class="col-3 d-flex justify-content-end form-check rightSide">
-    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="isArchived" (change)="onCheckboxChange($event)" >
+    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="isArchived" (change)="onCheckboxChange($event)">
     <label class="form-check-label" for="flexCheckDefault">
       Show Archive Assets Only
     </label>
@@ -25,10 +25,10 @@
 </div>
 <div class="assetcolumns">
   <div class="col-md-12 d-flex">
-    <div class="col-md-3 md-3">
+    <div class="col-md-3 ">
       <app-devices #appDevices [isArchived]="isArchived"></app-devices>
     </div>
-    <div class="col-md-4 mx-3">
+    <div class="col-md-4 mx-2">
       <app-specification [isArchived]="isArchived"></app-specification>
     </div>
     <div class="col-md-5 ">

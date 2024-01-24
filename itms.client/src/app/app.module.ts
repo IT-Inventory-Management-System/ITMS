@@ -68,6 +68,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { CommentsComponent } from './shared/components/comments/comments.component';
 import { UserCommentsComponent } from './user-details/user-comments/user-comments.component';
 import { AddAssetComponent } from './add-asset/add-asset.component';
+import { ArchiveModalComponent } from './inventory/assets-category/assest/specification/archive-modal/archive-modal.component';
 
 
 
@@ -134,7 +135,8 @@ import { AddAssetComponent } from './add-asset/add-asset.component';
     DashboardComponent,
     CommentsComponent,
     UserCommentsComponent,
-    AddAssetComponent
+    AddAssetComponent,
+    ArchiveModalComponent
 
 
 
@@ -148,7 +150,9 @@ import { AddAssetComponent } from './add-asset/add-asset.component';
     HttpClientModule,
     AvatarModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+
+ 
   ],
   providers: [],
   bootstrap: [AppComponent]
