@@ -16,7 +16,7 @@
     <br>
 
     <div>
-      <label for="thumbnail" class="form-label">Software Thumbnail</label>
+      <label for="thumbnail" class="form-label required-field">Software Thumbnail </label>
       <div class="row">
 
         <div class="picture " style="border:1px solid black">
@@ -57,7 +57,7 @@
     <div class="add-button" [ngClass]="{ 'flex-row': showErrorMessage }">
       <div *ngIf="showErrorMessage" class="alert-box">
         <div class="alert-box-msg">
-          All Fields are Required.
+          Fields marked with an asterisk (*) are required.
         </div>
       </div>
 

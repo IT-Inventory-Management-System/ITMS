@@ -1,4 +1,3 @@
-// Import necessary modules and services
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { DisplayDetailsService } from '../shared/services/display-details.service';
 
@@ -6,35 +5,43 @@ import { DisplayDetailsService } from '../shared/services/display-details.servic
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css'],
-  // Add the DisplayDetailsService to the providers array
+  
   providers: [DisplayDetailsService]
 })
 
 export class UserListComponent implements OnInit {
   displayingData: any[] = [];
- /* filteredEmployees: UserListDTO[] = [];*/
   filterName: string = '';
+  selectedUserIndex: number = 0;
+
 
   @Output() userDetailsClicked: EventEmitter<any> = new EventEmitter<any>();
 
-  // Function to emit the clicked user details
-  showUserDetails(userDetails: any) {
+  
+  showUserDetails(userDetails: any, index: number) {
+   
+    this.displayingData.forEach(user => {
+      user.isSelected = false;
+    });
+
+  
+    this.displayingData[index].isSelected = true;
+
     this.userDetailsClicked.emit(userDetails);
+    
   }
 
   constructor(private displayingDetailsService: DisplayDetailsService) {
-    // Initialize your class properties here if needed
   }
 
   ngOnInit(): void {
     this.showUserListData();
     if (this.displayingData.length > 0) {
-      this.showUserDetails(this.displayingData[0]);
+      this.showUserDetails(this.displayingData[0],0);
     }
   }
 
   showUserListData() {
-    // Use the service to get data
     this.displayingDetailsService.getshowUserListData().subscribe(
       (data) => {
         this.displayingData = data;
@@ -42,7 +49,7 @@ export class UserListComponent implements OnInit {
         console.log(this.displayingData);
 
         if (this.displayingData.length > 0) {
-          this.showUserDetails(this.displayingData[0]);
+          this.showUserDetails(this.displayingData[0],0);
         }
 
 
