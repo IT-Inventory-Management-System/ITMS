@@ -18,7 +18,7 @@
           <div class="row lastupdaterow">
             <span class="last-update">
               Last Updated:
-              <span class="Time" *ngIf="logsData">
+              <span class="Time" *ngIf="logsData.length!=0">
                 {{ logsData[0].updatedOn | date: 'MM-dd-yyyy, h:mm a' }}
               </span>
               <span class="Time" *ngIf="logsData.length==0">00-00-0000, 00:00 AM</span>
@@ -176,7 +176,7 @@
                   <hr class="h-line">
 
                 </div>-->
-                <div class="container-fluid">
+                <div class="container-fluid" *ngIf="logsData.length!=0">
 
 
                   <div class="row" *ngFor="let logs of logsData; let i = index">
