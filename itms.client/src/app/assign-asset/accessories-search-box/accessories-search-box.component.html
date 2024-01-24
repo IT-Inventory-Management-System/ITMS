@@ -12,7 +12,7 @@
   </li>
 </ul>-->
 
-<ng-select class="search-box" [placeholder]="placeholder" [(ngModel)]="selectedOption" (change)="onSelectOption($event)">
+<ng-select class="custom search-box" [placeholder]="placeholder" [(ngModel)]="selectedOption" (change)="onSelectOption($event)">
   <!--<option value="" selected class="placeholder">Select Device Name</option>-->
   <ng-option class="list-items" *ngFor="let option of AccessoryOptions" [value]="option">
     {{ option.name }}

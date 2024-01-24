@@ -11,7 +11,7 @@
     {{ option.cgiid }} - {{ option.firstName }} {{ option.lastName }}
   </li>
 </ul>-->
-<ng-select class="search-box" [placeholder]="placeholder" [(ngModel)]="selectedOption" (change)="onSelectOption($event)">
+<ng-select class="custom search-box ng-select-container" [placeholder]="placeholder" [(ngModel)]="selectedOption" (change)="onSelectOption($event)">
   <!--<option value="" selected class="placeholder">Select Device Name</option>-->
   <ng-option class="list-items" *ngFor="let option of options" [value]="option">
     {{ option.cgiid }} - {{ option.firstName }} {{ option.lastName }}
