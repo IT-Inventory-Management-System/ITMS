@@ -10,11 +10,18 @@ export class AssignLaptopComponent {
   @Input() LaptopOptions: any[] = [];
   @Input() assignAssetForm: FormGroup;
   SelectedLaptop: any;
+  formattedAge: string = '';
 
   LaptopSearchBoxOptionSelected(event: any): void {
     this.SelectedLaptop = event;
+    this.calculateFormattedAge();
   }
   onInputChangeCommentBox(event: any): void {
-  //  this.assignAssetForm.get('laptopComment')?.setValue(event.target.value);
+    this.assignAssetForm.get('deviceComment')?.setValue(event.target.value);
+  }
+  calculateFormattedAge(): void {
+    if (this.SelectedLaptop?.age !== undefined) {
+      this.formattedAge = this.SelectedLaptop.age.toFixed(1);
+    }
   }
 }

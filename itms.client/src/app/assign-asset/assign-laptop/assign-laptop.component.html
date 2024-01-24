@@ -42,7 +42,7 @@
             </div>
             <div class="same-row-detail">
               <div class="details-icon"></div>
-              <div class="details-text">2.5 Years Old</div>
+              <div class="details-text">{{formattedAge}} years</div>
             </div>
           </div>
         </div>
@@ -54,9 +54,9 @@
            placeholder="Add Comment"
            aria-label="Comment"
            (input)="onInputChangeCommentBox($event)"
+       [value]="assignAssetForm.get('laptopComment')?.value || ''"
            style="resize: none">
   </div>
-  <!--[value]="assignAssetForm.get('laptopComment')!.value ? assignAssetForm.get('laptopComment')!.value : ''"-->
   <div class="Add-new">
     <img class="add-img" src="../../../../assets/icons/Add.svg" />
     <div class="add-new-text">Add Another Device</div>
