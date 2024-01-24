@@ -53,7 +53,7 @@ export class UserCommentsComponent {
       this.commentService.addComment(commentDto).subscribe(
         (response) => {
           console.log('Comment added successfully', response);
-          window.location.reload();
+         
         },
         (error) => {
           console.error('Error adding comment:', error);
