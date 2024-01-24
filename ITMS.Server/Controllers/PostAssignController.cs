@@ -44,7 +44,8 @@ namespace ITMS.Server.Controllers
                     var deviceId = device.FirstOrDefault().Id;
                     var softwareId = software.FirstOrDefault().Id;
 
-                    
+                    if (!string.IsNullOrEmpty(postAssignAssetDTO.DeviceComment))
+                    {
                         PostCommentDTO deviceCommentDTO = new PostCommentDTO()
                         {
                             Description = postAssignAssetDTO.DeviceComment,
@@ -53,7 +54,7 @@ namespace ITMS.Server.Controllers
                         };
 
                         await _postAssignAsset.UpdateDeviceComment(deviceCommentDTO);
-                    
+                    }
                     if (!string.IsNullOrEmpty(postAssignAssetDTO.SoftwareComment))
                     {
                         PostCommentDTO softwareCommentDTO = new PostCommentDTO()
