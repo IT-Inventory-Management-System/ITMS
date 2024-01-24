@@ -37,7 +37,21 @@ public class UserListService : IUserListService
 
     public async Task<UserListDTO> GetFirstUserAsync()
     {
+        var roleName = "Admin";
+
+        var adminRoleId = await _context.Roles
+            .Where(r => r.Name == roleName)
+            .Select(r => r.Id)
+            .FirstOrDefaultAsync();
+
+        if (adminRoleId == null)
+        {
+            // Handle the case where the Admin role is not found
+            return null;
+        }
+
         var user = await _context.Employees
+            .Where(u => u.RoleId == adminRoleId)
             .Select(u => new UserListDTO
             {
                 Id = u.Id,

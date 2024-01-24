@@ -69,7 +69,7 @@ import { AccesoriesComponent } from './dashboard/accesories/accesories.component
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CommentsComponent } from './shared/components/comments/comments.component';
 import { UserCommentsComponent } from './user-details/user-comments/user-comments.component';
-
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 
@@ -148,7 +148,8 @@ import { UserCommentsComponent } from './user-details/user-comments/user-comment
     HttpClientModule,
     AvatarModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    NgSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

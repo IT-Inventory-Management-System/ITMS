@@ -23,11 +23,11 @@ export class AddSoftwareFormComponent {
   }
   createForm() {
     this.SoftwareForm = this.fb.group({
-      softwareId: ['', Validators.required],
-      activationKey: ['', Validators.required],
-      purchasedDate: ['', Validators.required],
+      softwareId: [null, Validators.required],
+      activationKey: [null, Validators.required],
+      purchasedDate: [null, Validators.required],
       expiryDate: [null, Validators.required],
-      qty: [0, Validators.required],
+      qty: [null, Validators.required],
       assignedTo: [null],
       assignedBy: [null],
       assigndate: [null],
@@ -147,18 +147,17 @@ export class AddSoftwareFormComponent {
   checkForm() {
 
     if (this.selectedTypeName == 'Perpetual') {
-      return this.SoftwareForm.get('purchasedDate') != null && this.SoftwareForm.get('activationKey') != null && this.SoftwareForm.get('qty') != null;
+      return this.SoftwareForm.get('purchasedDate')?.value != null && this.SoftwareForm.get('activationKey')?.value != null && this.SoftwareForm.get('qty')?.value != null;
     }
 
     else if (this.selectedTypeName == 'Validity') {
-      return this.SoftwareForm.get('purchasedDate') != null && this.SoftwareForm.get('activationKey') != null && this.SoftwareForm.get('qty') != null && this.SoftwareForm.get('expiryDate') != null;
+      return this.SoftwareForm.get('purchasedDate')?.value != null && this.SoftwareForm.get('activationKey')?.value != null && this.SoftwareForm.get('qty')?.value != null && this.SoftwareForm.get('expiryDate')?.value != null;
     }
 
-    return this.SoftwareForm.get('purchasedDate') != null && this.SoftwareForm.get('qty') != null && this.SoftwareForm.get('expiryDate') != null;
+    return this.SoftwareForm.get('purchasedDate')?.value != null && this.SoftwareForm.get('qty')?.value != null && this.SoftwareForm.get('expiryDate')?.value != null;
   }
 
   onSubmit() {
-    //console.log(this.SoftwareForm.value);
 
     if (this.checkForm()) {
 
@@ -178,14 +177,17 @@ export class AddSoftwareFormComponent {
       );
     }
     else {
-      this.showErrorMessage = this.SoftwareForm.invalid;
+      this.showErrorMessage = true;
 
     }
 
   }
  
   dynamicChanges(event: any): void {
-    const selectedValue = event.target.value;
+    
+    const selectedValue = event;
+    //console.log(selectedValue);
+
     const [typeName, softwareId] = selectedValue.split('@');
 
     this.selectedTypeName = typeName;
@@ -205,4 +207,7 @@ export class AddSoftwareFormComponent {
     this.counterValue2 = 0;
     this.counterValue3 = 0;
   }
+
+
+
 }
