@@ -50,28 +50,23 @@ export class SoftwareComponentComponent {
     return remainingDays;
   }
 
-  getIconPath(name: string): string {
-    const lowerCaseName = name.toLowerCase();
-    // Customize this logic based on your requirements
-    if (lowerCaseName === 'figma') {
-      return '../../../assets/icons/dashboard/image 156.png';
-    } else if (lowerCaseName === 'microsofts windows nt operating system software license') {
-      return '../../../assets/icons/dashboard/Microsoft.svg';
-    } else if (lowerCaseName === 'visual studio code') {
-      return '../../../assets/icons/dashboard/image 154.png';
-    } 
+  //getIconPath(name: string): string {
+  //  const lowerCaseName = name.toLowerCase();
+  //  // Customize this logic based on your requirements
+  //  if (lowerCaseName === 'figma') {
+  //    return '../../../assets/icons/dashboard/image 156.png';
+  //  } else if (lowerCaseName === 'microsofts windows nt operating system software license') {
+  //    return '../../../assets/icons/dashboard/Microsoft.svg';
+  //  } else if (lowerCaseName === 'visual studio code') {
+  //    return '../../../assets/icons/dashboard/image 154.png';
+  //  } 
     
 
-    else {
-      // Default path or handle other cases
-      return '../../../assets/icons/dashboard/Ellipse.svg';
-    }
-  }
-
-  //loadImage(entitlementCertificateNumber: string): void {
-  //  this.cardBackgroundService.getImage(entitlementCertificateNumber, "C003").subscribe(data => {
-  //    this.image = data;
-  //    console.log(this.image);
-  //  });
+  //  else {
+  //    // Default path or handle other cases
+  //    return '../../../assets/icons/dashboard/Ellipse.svg';
+  //  }
   //}
+
+  
 }
