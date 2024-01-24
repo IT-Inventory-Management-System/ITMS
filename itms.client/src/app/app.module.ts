@@ -72,6 +72,7 @@ import { ArchiveModalComponent } from './inventory/assets-category/assest/specif
 
 
 
+
 @NgModule({
   declarations: [
     DevicesComponent,

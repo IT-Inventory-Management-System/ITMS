@@ -97,11 +97,11 @@ public class DeviceLogService
         var assignedByEmployee = _context.Employees.FirstOrDefault(emp => emp.Id == devicesLogInfo.AssignedBy);
         var receivedByEmployee = _context.Employees.FirstOrDefault(emp => emp.Id == devicesLogInfo.RecievedBy);
 
-        var assignedByFirstName = assignedByEmployee?.FirstName ?? "Unknown";
-        var assignedByLastName = assignedByEmployee?.LastName ?? "Unknown";
+        var assignedByFirstName = assignedByEmployee?.FirstName ?? "-";
+        var assignedByLastName = assignedByEmployee?.LastName ?? "-";
 
-        var receivedByFirstName = receivedByEmployee?.FirstName ?? "Unknown";
-        var receivedByLastName = receivedByEmployee?.LastName ?? "Unknown";
+        var receivedByFirstName = receivedByEmployee?.FirstName ?? "-";
+        var receivedByLastName = receivedByEmployee?.LastName ?? "-";
 
         return new DevicelogDto
         {
@@ -128,6 +128,7 @@ public class DeviceLogService
         {
             var comments = await _context.Comments
                 .Where(comment => comment.DeviceLogId == devicelogId)
+                .OrderByDescending(comment => comment.CreatedAtUtc)
                 .Select(comment => new CommentDto
                 {
                     Id = comment.Id,
@@ -192,16 +193,15 @@ public class DeviceLogService
 
     public List<CommentDto> AddComment(DeviceAddComment commentDto)
     {
-        try
+        System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(System.Threading.Thread.CurrentThread.CurrentCulture.Name);
+        Comment commentEntity = new Comment
         {
-            Comment commentEntity = new Comment
-            {
-                Description = commentDto.Description,
-                CreatedBy = commentDto.CreatedBy,
-                CreatedAtUtc = DateTime.UtcNow,
-                DeviceId = commentDto.DeviceId,
-                DeviceLogId = commentDto.DeviceLogId
-            };
+            Description = commentDto.Description,
+            CreatedBy = commentDto.CreatedBy,
+            CreatedAtUtc = DateTime.Now,
+            DeviceId = commentDto.DeviceId,
+            DeviceLogId= commentDto.DeviceLogId
+        };
 
             _context.Comments.Add(commentEntity);
             _context.SaveChanges();
