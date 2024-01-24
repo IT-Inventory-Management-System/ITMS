@@ -53,7 +53,7 @@ export class UserCommentsComponent {
       this.commentService.addComment(commentDto).subscribe(
         (response) => {
           console.log('Comment added successfully', response);
-          this.fetchComments();
+         
         },
         (error) => {
           console.error('Error adding comment:', error);
@@ -63,14 +63,5 @@ export class UserCommentsComponent {
     }
   }
 
-  private fetchComments() {
-    this.commentService.getComments(this.laptopDetails.deviceId).subscribe(
-      (comments) => {
-        console.log('Fetched comments:', comments);
-      },
-      (error) => {
-        console.error('Error fetching comments:', error);
-      }
-    );
-  }
+ 
 }
