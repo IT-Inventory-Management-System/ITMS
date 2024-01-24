@@ -151,7 +151,10 @@ import { ToastrModule } from 'ngx-toastr';
     HttpClientModule,
     AvatarModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
+    NgSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
