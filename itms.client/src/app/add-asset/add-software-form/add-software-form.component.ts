@@ -20,16 +20,15 @@ export class AddSoftwareFormComponent {
     this.loadDropdownValues();
     this.createForm();
     this.setlocationId();
-    this.toastr.success('whbgfiwar');
 
   }
   createForm() {
     this.SoftwareForm = this.fb.group({
-      softwareId: ['', Validators.required],
-      activationKey: ['', Validators.required],
-      purchasedDate: ['', Validators.required],
+      softwareId: [null, Validators.required],
+      activationKey: [null, Validators.required],
+      purchasedDate: [null, Validators.required],
       expiryDate: [null, Validators.required],
-      qty: [0, Validators.required],
+      qty: [null, Validators.required],
       assignedTo: [null],
       assignedBy: [null],
       assigndate: [null],
@@ -155,14 +154,14 @@ export class AddSoftwareFormComponent {
   checkForm() {
 
     if (this.selectedTypeName == 'Perpetual') {
-      return this.SoftwareForm.get('purchasedDate') != null && this.SoftwareForm.get('activationKey') != null && this.SoftwareForm.get('qty') != null;
+      return this.SoftwareForm.get('purchasedDate')?.value != null && this.SoftwareForm.get('activationKey')?.value != null && this.SoftwareForm.get('qty')?.value != null;
     }
 
     else if (this.selectedTypeName == 'Validity') {
-      return this.SoftwareForm.get('purchasedDate') != null && this.SoftwareForm.get('activationKey') != null && this.SoftwareForm.get('qty') != null && this.SoftwareForm.get('expiryDate') != null;
+      return this.SoftwareForm.get('purchasedDate')?.value != null && this.SoftwareForm.get('activationKey')?.value != null && this.SoftwareForm.get('qty')?.value != null && this.SoftwareForm.get('expiryDate')?.value != null;
     }
 
-    return this.SoftwareForm.get('purchasedDate') != null && this.SoftwareForm.get('qty') != null && this.SoftwareForm.get('expiryDate') != null;
+    return this.SoftwareForm.get('purchasedDate')?.value != null && this.SoftwareForm.get('qty')?.value != null && this.SoftwareForm.get('expiryDate')?.value != null;
   }
 
   onSubmit() {
@@ -177,13 +176,14 @@ export class AddSoftwareFormComponent {
         response => {
           console.log('Post successful', response);
           console.log('Before toastr call');
-          this.toastr.success('whbgfiwar');
-          console.log('After toastr call');          this.hideErrorMessage();
+          
+          this.hideErrorMessage();
           this.resetform();
-
+          this.toastr.success("Data posted successfully");
         },
         error => {
           console.error('Error posting data', error);
+          this.toastr.error("Error in posting Data");
         }
       );
     }

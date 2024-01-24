@@ -105,7 +105,6 @@ export class AddSoftwareModelComponent {
       this.dataService.postNewSoftwareData(this.newSoftwareForm.value).subscribe(
         response => {
           console.log('Post Software Data successful', response);
-          this.toastr.success("bvflaweif");
 
           this.hideErrorMessage();
           this.ProfileDP = '../../../assets/icons/add_photo_alternate_outlined 1.svg';
@@ -113,11 +112,14 @@ export class AddSoftwareModelComponent {
           this.setCategoryId();
           this.setCreatedBy();
           this.formSubmitted.emit();
+          this.toastr.success("Data posted successfully");
+
 
 
         },
         error => {
           console.error('Error posting data', error);
+          this.toastr.error("Error in posting data");
         }
       );
     } else {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import { DataService } from '../../../app/shared/services/data.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class AddDeviceFormComponent implements OnInit {
   warrantyMonth: number;
   warrantyYear: number;
  
-  constructor(private dataService: DataService, private fb: FormBuilder) {
+  constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService) {
     this.dropdownValues = [];
   }
 
@@ -166,15 +167,17 @@ export class AddDeviceFormComponent implements OnInit {
         response => {
           console.log('Data Posted successfully', response);
           this.resetform();
+          this.toastr.success("Data posted successfully");
         },
         error => {
           console.error('Error posting data', error);
+          this.toastr.error("Error in posting Data");
         }
       );
     }
     else {
       this.showErrorMessage = true;
-      this.errorMessage = 'All Fields are Required';
+      this.errorMessage = 'Fields marked with an asterisk (*) are required.';
     }
 
   }
@@ -259,7 +262,7 @@ export class AddDeviceFormComponent implements OnInit {
     }
     else {
       this.showErrorMessage = true;
-      this.errorMessage = 'All Fields are Required';
+      this.errorMessage = 'Fields marked with an asterisk (*) are required.';
       //console.log(this.addDeviceForm.valid);
       //console.log(this.addDeviceForm);
     }
