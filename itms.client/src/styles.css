@@ -1,10 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
 ::-webkit-scrollbar {
   display: none;
   
 }
 *{
     margin:0;
-        padding:0;
-        box-sizing:border-box;
+    padding:0;
+    box-sizing:border-box;
 }

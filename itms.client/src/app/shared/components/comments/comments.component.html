@@ -1,4 +1,4 @@
-<div class="comment-container" >
+<div class="comment-container">
   <div class="row">
     <div class="col-md-12 comment-header" (click)="toggleCommentSection()">
       <div class="row">
@@ -18,9 +18,9 @@
       </div>
     </div>
     <div *ngIf="isCommentSectionCollapsed">
-      <div class="insideComment" *ngFor="let device of devicelog">
-        <div class="col-md-12" *ngFor="let comment of device.comments">
-          <div *ngIf="comment.deviceLogId === device.id">
+      <div class="insideComment">
+        <div class="col-md-12" *ngFor="let comment of comment">
+          <div>
             <div class="row comment-avatar">
               <div class="col-md-6">
                 <div class="row avatar-supercomponent">
@@ -34,7 +34,7 @@
               </div>
               <div class="col-md-6 date-time-comment">
                 <div>
-                  <div>{{comment.createdAtUtc}}</div>
+                  <div>{{comment.createdAtUtc | date: 'MM-dd-yyyy,h:mm a'}}</div>
                 </div>
               </div>
             </div>
@@ -42,7 +42,6 @@
               <p class="comment-content">{{comment.description}}</p>
             </div>
           </div>
-
         </div>
         <div class="input-comment">
           <input type="text" class="input-comment" [(ngModel)]="newComment" placeholder="Add Comment...">

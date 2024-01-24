@@ -1,4 +1,3 @@
-
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
@@ -9,8 +8,8 @@ import { CategoryComponent } from './category/category.component';
 import { InventoryComponent } from './inventory/inventory.component';
 import { LicenseComponent } from './license/license.component';
 import { HistoryComponent } from './history/history.component';
-import { AddAssetComponent } from './add-asset/add-asset.component';
-import { NavbarComponent } from './shared/components/navbar/navbar.component'; 
+
+import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { NewSidebarComponent } from './shared/components/new-sidebar/new-sidebar.component';
 
 // Use SidebarNewComponent in your code
@@ -30,7 +29,6 @@ import { AssestComponent } from './inventory/assets-category/assest/assest.compo
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { DashboardAssetsComponent } from './dashboard/dashboard-assets/dashboard-assets.component';
- 
 import { SpecificationComponent } from './inventory/assets-category/assest/specification/specification.component';
 import { SpecInfoComponent } from './inventory/assets-category/assest/specification/spec-info/spec-info.component';
 import { DevicesComponent } from './inventory/assets-category/assest/devices/devices.component';
@@ -69,8 +67,8 @@ import { AccesoriesComponent } from './dashboard/accesories/accesories.component
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CommentsComponent } from './shared/components/comments/comments.component';
 import { UserCommentsComponent } from './user-details/user-comments/user-comments.component';
-
-
+import { AddAssetComponent } from './add-asset/add-asset.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 
@@ -87,7 +85,6 @@ import { UserCommentsComponent } from './user-details/user-comments/user-comment
     InventoryComponent,
     LicenseComponent,
     HistoryComponent,
-    AddAssetComponent,
     SpecificationComponent,
     AddDeviceFormComponent,
     AddDeviceModelComponent,
@@ -120,13 +117,12 @@ import { UserCommentsComponent } from './user-details/user-comments/user-comment
     FilterSearchListPipe,
     LaptopDetailsComponent,
     SearchBoxComponent,
- 
-    AddAssetComponent,
+    LaptopDetailsComponent,
     AddSoftwareModelComponent,
     UserDetailsComponent,
     UserListComponent,
     EmployeeComponent,
-   CurrentdeviceComponent,
+    CurrentdeviceComponent,
     AssetfilterdevicePipe,
 
     LaptopSearchBoxComponent,
@@ -138,7 +134,12 @@ import { UserCommentsComponent } from './user-details/user-comments/user-comment
     FilterPipe,
     DashboardComponent,
     CommentsComponent,
-    UserCommentsComponent
+    UserCommentsComponent,
+    AddAssetComponent
+
+
+
+
 
   ],
   imports: [
@@ -148,7 +149,8 @@ import { UserCommentsComponent } from './user-details/user-comments/user-comment
     HttpClientModule,
     AvatarModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    NgSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

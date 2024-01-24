@@ -5,6 +5,8 @@
         public string? CYGID { get; set; }
         public string? SoftwareId { get; set; }
         public Guid? AssignedTo { get; set; }
-        
+        public string? DeviceComment { get; set; }
+        public string? SoftwareComment { get; set; }
+
     }
 }

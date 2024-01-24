@@ -97,11 +97,11 @@ public class DeviceLogService
         var assignedByEmployee = _context.Employees.FirstOrDefault(emp => emp.Id == devicesLogInfo.AssignedBy);
         var receivedByEmployee = _context.Employees.FirstOrDefault(emp => emp.Id == devicesLogInfo.RecievedBy);
 
-        var assignedByFirstName = assignedByEmployee?.FirstName ?? "Unknown";
-        var assignedByLastName = assignedByEmployee?.LastName ?? "Unknown";
+        var assignedByFirstName = assignedByEmployee?.FirstName ?? "-";
+        var assignedByLastName = assignedByEmployee?.LastName ?? "-";
 
-        var receivedByFirstName = receivedByEmployee?.FirstName ?? "Unknown";
-        var receivedByLastName = receivedByEmployee?.LastName ?? "Unknown";
+        var receivedByFirstName = receivedByEmployee?.FirstName ?? "-";
+        var receivedByLastName = receivedByEmployee?.LastName ?? "-";
 
         return new DevicelogDto
         {
