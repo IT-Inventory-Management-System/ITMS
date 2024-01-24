@@ -23,6 +23,7 @@ export class AddAssetComponent {
 
   ngOnInit(): void {
     this.showCategories();
+
   }
 
   ngOnDestroy(): void {

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { DataService } from '../../shared/services/data.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-add-software-form',
   templateUrl: './add-software-form.component.html',
@@ -11,7 +12,7 @@ export class AddSoftwareFormComponent {
   showErrorMessage = false;
 
   dropdownValues: any[] = [];
-  constructor(private dataService: DataService, private fb: FormBuilder) {
+  constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService) {
     this.dropdownValues = [];
   }
 
@@ -141,6 +142,12 @@ export class AddSoftwareFormComponent {
   toggleSoftwareForm() {
     this.isFormOpen = !this.isFormOpen;
   }
+  onFormSubmitted() {
+    // This method will be called when the form in app-add-software-model is submitted
+    // Set isFormOpen to false to hide the form
+   
+    this.isFormOpen = false;
+  }
 
   selectedTypeName: string = 'Perpetual';
 
@@ -167,12 +174,15 @@ export class AddSoftwareFormComponent {
       this.dataService.postSoftwaredata(this.SoftwareForm.value).subscribe(
         response => {
           console.log('Post successful', response);
+          console.log('Before toastr call');
+          
           this.hideErrorMessage();
           this.resetform();
-
+          this.toastr.success("Data posted successfully");
         },
         error => {
           console.error('Error posting data', error);
+          this.toastr.error("Error in posting Data");
         }
       );
     }
@@ -202,7 +212,6 @@ export class AddSoftwareFormComponent {
   resetform() {
     this.SoftwareForm.reset();
     this.setlocationId();
-
     this.counterValue = 0;
     this.counterValue2 = 0;
     this.counterValue3 = 0;
