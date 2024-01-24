@@ -36,8 +36,8 @@ export class DevicesComponent {
         console.log(data);
       });
   }
- 
 
- 
+
+
 
 }
