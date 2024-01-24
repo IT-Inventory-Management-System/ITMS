@@ -7,6 +7,7 @@ import { FilterSearchListPipe } from '../../../../filter-search-list.pipe';
   styleUrls: ['./devices.component.css']
 })
 export class DevicesComponent {
+  @Input() isArchived: any;
   DeviceData: any[] = [];
   Cygid = this.DeviceData;
   showArchiveOnly: boolean = false;
