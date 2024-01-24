@@ -21,6 +21,7 @@
     "@angular/platform-browser": "^16.1.0",
     "@angular/platform-browser-dynamic": "^16.1.0",
     "@angular/router": "^16.1.0",
+    "@ng-select/ng-select": "^11.2.0",
     "jest-editor-support": "*",
     "ngx-avatars": "^1.6.1",
     "run-script-os": "*",
