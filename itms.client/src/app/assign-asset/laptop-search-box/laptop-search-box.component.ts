@@ -13,42 +13,49 @@ export class LaptopSearchBoxComponent {
   @Input() assignAssetForm: FormGroup;
   @Output() LaptopOptionSelected: EventEmitter<any> = new EventEmitter();
 
-  searchText: string = '';
-  filteredOptions: any[] = [];
+  //searchText: string = '';
+  //filteredOptions: any[] = [];
   selectedOption: any;
   constructor(private elementRef: ElementRef) { }
 
-  onInputChange(event: any): void {
-    this.searchText = event.target.value;
-    this.filterOptions();
-  }
+  //ngOnInit(): void {
+  //  this.filterOptions();
+  //}
 
-  filterOptions(): void {
-    this.filteredOptions = this.LaptopOptions.filter(LaptopOption =>
-      LaptopOption.cygid.toLowerCase().includes(this.searchText.toLowerCase()));
-  }
+  //onInputChange(event: any): void {
+  //  console.log(this.LaptopOptions);
 
-  selectOption(option: any): void {
-    this.selectedOption = `${option.cygid} - ${ option.deviceName }`;
-    `${option.cgiid} - ${option.firstName} ${option.lastName}`;
-    this.LaptopOptionSelected.emit(option);
-    this.filteredOptions = [];
+  //  this.searchText = event;
+  //  this.filterOptions();
+  //}
+
+  //filterOptions(): void {
+  //  console.log(this.LaptopOptions);
+  //  this.filteredOptions = this.LaptopOptions.filter(LaptopOption =>
+  //    LaptopOption.cygid.toLowerCase().includes(this.searchText.toLowerCase()));
+  //}
+
+  onSelectOption(option: any): void {
+    //this.selectedOption = `${option.cygid} - ${ option.deviceName }`;
+    //`${option.cgiid} - ${option.firstName} ${option.lastName}`;
+    this.LaptopOptionSelected.emit(this.selectedOption);
+    //this.filteredOptions = [];
     this.assignAssetForm.get('cygid')?.setValue(option.cygid); 
   }
 
-  @HostListener('document:click', ['$event'])
-  handleDocumentClick(event: MouseEvent): void {
-    const clickedInside = this.elementRef.nativeElement.contains(event.target);
-    if (!clickedInside) {
-      //if (this.selectedOption && this.selectedOption !== this.searchText) {
-      //  this.searchText = "";
-      //  this.selectedOption = "";
-      //} else if (!this.selectedOption && this.searchText) {
-      //  this.searchText = "";
-      //}
-      //console.log('Search Text:', this.searchText);
-      //console.log('Selected Option:', this.selectedOption);
-      this.filteredOptions = [];
-    }
-  }
+  //@HostListener('document:click', ['$event'])
+  //handleDocumentClick(event: MouseEvent): void {
+  //  const clickedInside = this.elementRef.nativeElement.contains(event.target);
+  //  if (!clickedInside) {
+  //    //if (this.selectedOption && this.selectedOption !== this.searchText) {
+  //    //  this.searchText = "";
+  //    //  this.selectedOption = "";
+  //    //} else if (!this.selectedOption && this.searchText) {
+  //    //  this.searchText = "";
+  //    //}
+  //    //console.log('Search Text:', this.searchText);
+  //    //console.log('Selected Option:', this.selectedOption);
+  //    this.filteredOptions = [];
+  //  }
+  //}
 }

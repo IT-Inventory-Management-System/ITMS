@@ -10,8 +10,8 @@
 .search-box {
   display: flex;
   height: 2.5rem;
-  padding: 0.5rem 0.75rem;
-  align-items: center;
+/*  padding: 0.5rem 0.75rem;
+*/  align-items: center;
   gap: 6.625rem;
   flex-shrink: 0;
   align-self: stretch;

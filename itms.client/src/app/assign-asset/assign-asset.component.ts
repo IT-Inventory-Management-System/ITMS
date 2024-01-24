@@ -85,12 +85,9 @@ export class AssignAssetComponent {
       assignedTo: [null, Validators.required],
       cygid: [null, Validators.required],
       softwareId: [null, Validators.required],
-      //selectedSoftwareVersion: [null, Validators.required],
-      //assignedBy:,
-      //assignedDate: ["assignedDate: [new Date().toISOString(), Validators.required],-ec89-4520-8502-0ecd9005f27c", Validators.required],
       //selectedAccessory: [null, Validators.required],
-      //laptopComment: null,
-      //softwareComment: null,
+      deviceComment: null,
+      softwareComment: null,
       //accessoryComment: null,
   })
 }

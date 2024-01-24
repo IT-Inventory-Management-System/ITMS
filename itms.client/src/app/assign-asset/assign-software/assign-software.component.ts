@@ -24,7 +24,7 @@ export class AssignSoftwareComponent {
     this.SelectedSoftwareVersion = event;
   }
   onInputChangeCommentBox(event: any): void {
-  //  this.assignAssetForm.get('softwareComment')?.setValue(event.target.value);
+    this.assignAssetForm.get('softwareComment')?.setValue(event.target.value);
   }
   formatExpiryDate(expiryDate: string): string {
     if (!expiryDate) {

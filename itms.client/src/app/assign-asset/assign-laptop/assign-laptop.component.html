@@ -54,9 +54,9 @@
            placeholder="Add Comment"
            aria-label="Comment"
            (input)="onInputChangeCommentBox($event)"
+       [value]="assignAssetForm.get('laptopComment')?.value || ''"
            style="resize: none">
   </div>
-  <!--[value]="assignAssetForm.get('laptopComment')!.value ? assignAssetForm.get('laptopComment')!.value : ''"-->
   <div class="Add-new">
     <img class="add-img" src="../../../../assets/icons/Add.svg" />
     <div class="add-new-text">Add Another Device</div>

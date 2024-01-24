@@ -14,42 +14,46 @@ export class SoftwareVersionSearchBoxComponent {
   @Input() assignAssetForm: FormGroup;
   @Output() SoftwareVersionOptionSelected: EventEmitter<any> = new EventEmitter();
 
-  searchText: string = '';
-  filteredOptions: any[] = [];
+  //searchText: string = '';
+  //filteredOptions: any[] = [];
   selectedOption: any;
-
-  constructor(private elementRef: ElementRef) { }
-
-  onLaptopInputChange(event: any): void {
-    this.searchText = event.target.value;
-    this.filterLaptopOptions();
+  onSelectOption(option: any): void {
+    this.SoftwareVersionOptionSelected.emit(this.selectedOption);
+    this.assignAssetForm.get('selectedSoftwareVersion')?.setValue(option.id);
   }
 
-  filterLaptopOptions(): void {
-    this.filteredOptions = this.SoftwareVersionOptions.filter(SoftwareVersionOptions =>
-      SoftwareVersionOptions.softwareVersion.toLowerCase().includes(this.searchText.toLowerCase()));
-  }
+  //constructor(private elementRef: ElementRef) { }
 
-  selectOption(option: any): void {
-    this.SoftwareVersionOptionSelected.emit(option);
-    this.selectedOption = `${option.softwareVersion}`;
-    this.filteredOptions = [];
-  //  this.assignAssetForm.get('selectedSoftwareVersion')?.setValue(option.id);
-  }
+  //onLaptopInputChange(event: any): void {
+  //  this.searchText = event.target.value;
+  //  this.filterLaptopOptions();
+  //}
 
-  @HostListener('document:click', ['$event'])
-  handleDocumentClick(event: MouseEvent): void {
-    const clickedInside = this.elementRef.nativeElement.contains(event.target);
-    if (!clickedInside) {
-      //if (this.selectedOption && this.selectedOption !== this.searchText) {
-      //  this.searchText = "";
-      //  this.selectedOption = "";
-      //} else if (!this.selectedOption && this.searchText) {
-      //  this.searchText = "";
-      //}
-      //console.log('Search Text:', this.searchText);
-      //console.log('Selected Option:', this.selectedOption);
-      this.filteredOptions = [];
-    }
-  }
+  //filterLaptopOptions(): void {
+  //  this.filteredOptions = this.SoftwareVersionOptions.filter(SoftwareVersionOptions =>
+  //    SoftwareVersionOptions.softwareVersion.toLowerCase().includes(this.searchText.toLowerCase()));
+  //}
+
+  //selectOption(option: any): void {
+  //  this.SoftwareVersionOptionSelected.emit(option);
+  //  this.selectedOption = `${option.softwareVersion}`;
+  //  this.filteredOptions = [];
+  ////  this.assignAssetForm.get('selectedSoftwareVersion')?.setValue(option.id);
+  //}
+
+  //@HostListener('document:click', ['$event'])
+  //handleDocumentClick(event: MouseEvent): void {
+  //  const clickedInside = this.elementRef.nativeElement.contains(event.target);
+  //  if (!clickedInside) {
+  //    //if (this.selectedOption && this.selectedOption !== this.searchText) {
+  //    //  this.searchText = "";
+  //    //  this.selectedOption = "";
+  //    //} else if (!this.selectedOption && this.searchText) {
+  //    //  this.searchText = "";
+  //    //}
+  //    //console.log('Search Text:', this.searchText);
+  //    //console.log('Selected Option:', this.selectedOption);
+  //    this.filteredOptions = [];
+  //  }
+  //}
 }

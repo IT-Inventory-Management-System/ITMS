@@ -1,5 +1,5 @@
 <div class="search-box-subheading">{{ label }} <span style="color:red">*</span></div>
-<input class="search-box"
+<!--<input class="search-box"
        required
        type="search"
        [placeholder]="placeholder"
@@ -10,4 +10,10 @@
   <li class="list-items" *ngFor="let option of filteredOptions" (click)="selectOption(option)">
     {{ option.softwareVersion }}
   </li>
-</ul>
+</ul>-->
+<ng-select class="search-box" [placeholder]="placeholder" [(ngModel)]="selectedOption" (change)="onSelectOption($event)">
+  <!--<option value="" selected class="placeholder">Select Device Name</option>-->
+  <ng-option class="list-items" *ngFor="let option of SoftwareVersionOptions" [value]="option">
+    {{ option.softwareVersion }}
+  </ng-option>
+</ng-select>
