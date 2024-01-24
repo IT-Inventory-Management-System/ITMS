@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { DashboardService } from '../../shared/services/Dashboard.service';
 
 @Component({
   selector: 'app-software-component',
@@ -8,6 +9,13 @@ import { Component, Input } from '@angular/core';
 export class SoftwareComponentComponent {
   @Input() softwareData: any;
   //expiringSoftwareCount: number = 0;
+  image: string | ArrayBuffer | null = null;
+
+
+  //constructor(private DashboardService: DashboardService) {
+  //  // Call your service method to fetch the image here if needed
+  //}
+
 
   constructor() {
     //this.calculateExpiringCount();
@@ -59,4 +67,11 @@ export class SoftwareComponentComponent {
       return '../../../assets/icons/dashboard/Ellipse.svg';
     }
   }
+
+  //loadImage(entitlementCertificateNumber: string): void {
+  //  this.cardBackgroundService.getImage(entitlementCertificateNumber, "C003").subscribe(data => {
+  //    this.image = data;
+  //    console.log(this.image);
+  //  });
+  //}
 }

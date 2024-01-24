@@ -47,6 +47,7 @@ namespace ITMS.Server.Services
          .ThenInclude(s => s.SoftwareAllocations)
      .SelectMany(st => st.Softwares.Select(s => new Softwares
      {
+         SoftwareThumbnail = s.SoftwareThumbnail,
          Name = s.SoftwareName,
          Version = s.Version,
          Type = st.TypeName,
