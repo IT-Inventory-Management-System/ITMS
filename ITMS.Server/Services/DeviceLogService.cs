@@ -190,20 +190,33 @@ public class DeviceLogService
         }
     }
 
-    public void AddComment(DeviceAddComment commentDto)
+    public List<CommentDto> AddComment(DeviceAddComment commentDto)
     {
-        Comment commentEntity = new Comment
+        try
         {
-            Description = commentDto.Description,
-            CreatedBy = commentDto.CreatedBy,
-            CreatedAtUtc = DateTime.UtcNow,
-            DeviceId = commentDto.DeviceId,
-            DeviceLogId= commentDto.DeviceLogId
-        };
+            Comment commentEntity = new Comment
+            {
+                Description = commentDto.Description,
+                CreatedBy = commentDto.CreatedBy,
+                CreatedAtUtc = DateTime.UtcNow,
+                DeviceId = commentDto.DeviceId,
+                DeviceLogId = commentDto.DeviceLogId
+            };
 
-        _context.Comments.Add(commentEntity);
-        _context.SaveChanges();
+            _context.Comments.Add(commentEntity);
+            _context.SaveChanges();
+
+            // Retrieve the updated list of comments after adding the new comment
+            var updatedComments = GetCommentsByDeviceLogIdAsync(commentDto.DeviceLogId).Result;
+
+            return updatedComments;
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
     }
+
 
 }
 
