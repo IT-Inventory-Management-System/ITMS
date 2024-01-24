@@ -68,9 +68,9 @@ import { AccesoriesComponent } from './dashboard/accesories/accesories.component
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CommentsComponent } from './shared/components/comments/comments.component';
 import { UserCommentsComponent } from './user-details/user-comments/user-comments.component';
-import { AddAssetComponent } from './add-asset/add-asset.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ToastrModule } from 'ngx-toastr';
+import { AddAssetComponent } from './add-asset/add-asset.component';
 
 
 
