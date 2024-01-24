@@ -39,11 +39,11 @@
     <div *ngIf="selectedTypeName === 'Validity'">
 
       <div class="row date_container">
-        <div class="col-6">
+        <div class="col-6 purchase-date-section">
           <label for="VPdate" class="form-label required-field">Date of purchase</label>
 
           <input type="date" class="form-control" id="VPdate" placeholder="12-15-2023" formControlName="purchasedDate" (focus)="hideErrorMessage()" />
-
+          <img class="calender-icon" src="../../../assets/icons/calendar.svg" />
         </div>
         <div class="col-6">
           <label for="VEdate" class="form-label required-field">Expiry Date</label>

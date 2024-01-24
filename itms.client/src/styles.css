@@ -15,8 +15,8 @@
 /* position */
 #toast-container {
   position: fixed;
-  top: 10%;
-  left:71.1%;
+  top: 4%;
+  left: 40%;
   width: 100%;
 }
 
@@ -132,7 +132,7 @@ button.toast-close-button {
 }
 
 .toast-success {
-  background-color: #51A351;
+  background-color: #28519E;
 }
 
 .toast-error {

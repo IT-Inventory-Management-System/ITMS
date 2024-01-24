@@ -10,52 +10,46 @@ export class CategoryNameComponent {
   constructor(private el: ElementRef, private renderer: Renderer2) { }
 
   @Input() name: string = '';
-  @Input() isSelected: boolean = false; 
   @Output() categorySelected = new EventEmitter<string>();
 
   ngOnInit() {
-    // Check if the current category name matches the selected category in localStorage
-    //this.resetStyles();
-    this.updateImageURL('blue');
+
+    this.updateImageURL(this.name,'blue');
     if (this.name === 'Laptop') {
-      //alert(this.name)
-      this.isSelected = true;
       this.updateStyles();
     }
   }
 
   handleClick() {
-    //this.clickEvent.emit();
     this.resetStyles();
-    //localStorage.setItem('selectedCategory', this.name);
     this.categorySelected.emit(this.name);
-    //this.isSelected = true;
     this.updateStyles();
-   // location.reload();
   }
 
   updateStyles() {
-    // Apply styles to the clicked card
     const outerCard = this.el.nativeElement.querySelector('.outer-card-name');
     this.renderer.setStyle(outerCard, 'background-color', '#28519E');
     this.renderer.setStyle(outerCard, 'color', 'white');
-    this.updateImageURL('white');
+    this.updateImageURL(this.name, 'white');
   }
 
   resetStyles() {
-    // Reset styles for all cards
     const allCards = document.querySelectorAll('.outer-card-name');
     allCards.forEach(card => {
       this.renderer.removeStyle(card, 'background-color');
       this.renderer.removeStyle(card, 'color');
-      this.updateImageURL('blue');
+      const cardName = card.getAttribute('data-name') || '';
+      const imgElement = card.querySelector('img');
+      if (imgElement) {
+        imgElement.src = this.getSrcLink(cardName, 'blue');
+      }
     });
    
   }
 
-  updateImageURL(color: string) {
+  updateImageURL(cardName: string, color: string) {
     const imgElement = this.el.nativeElement.querySelector('img');
-    imgElement.src = this.getSrcLink(this.name, color);
+    imgElement.src = this.getSrcLink(cardName, color);
   }
 
 
