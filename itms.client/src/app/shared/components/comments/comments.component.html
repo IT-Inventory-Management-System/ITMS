@@ -19,28 +19,28 @@
     </div>
     <div *ngIf="isCommentSectionCollapsed">
       <div class="insideComment">
-        <div class="col-md-12" *ngFor="let comment of comment">
+        <div class="col-md-12" *ngFor="let commentItem of comment">
 
           <div>
             <div class="row comment-avatar">
               <div class="col-md-6">
                 <div class="row avatar-supercomponent">
                   <div class="col-md-1 avatar">
-                    <ngx-avatars name={{comment.createdByNavigation.firstName}} [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="32"></ngx-avatars>
+                    <ngx-avatars name="{{commentItem?.createdByNavigation?.firstName}}" [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="32"></ngx-avatars>
                   </div>
                   <div class="col-md-4 user-details">
-                    <div style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 0.875rem; font-style: normal; font-weight: 600; line-height: normal;">{{comment.createdByNavigation.firstName}}</div>
+                    <div style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 0.875rem; font-style: normal; font-weight: 600; line-height: normal;">{{commentItem?.createdByNavigation?.firstName}}</div>
                   </div>
                 </div>
               </div>
               <div class="col-md-6 date-time-comment">
                 <div>
-                  <div>{{comment.createdAtUtc | date: 'MM-dd-yyyy,h:mm a'}}</div>
+                  <div>{{commentItem?.createdAtUtc | date: 'MM-dd-yyyy,h:mm a'}}</div>
                 </div>
               </div>
             </div>
             <div class="col-md-12">
-              <p class="comment-content">{{comment.description}}</p>
+              <p class="comment-content">{{commentItem?.description}}</p>
             </div>
           </div>
         </div>
