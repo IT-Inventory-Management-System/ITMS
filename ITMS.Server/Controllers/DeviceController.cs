@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using ITMS.Server.Models;
 using ITMS.Server.DTO;
 
+
 namespace itms.server.controllers
 {
     // devicecontroller.cs
@@ -128,8 +129,33 @@ namespace itms.server.controllers
             var statusList = _deviceService.GetStatus();
             return Ok(statusList);
         }
+    
+    [HttpPut("updateDeviceStatus")]
+    public async Task<IActionResult> UpdateDeviceStatus( string cygid)
+    {
+        try
+        {
+            var result = await _deviceService.UpdateDeviceStatusToDiscarded(cygid);
+
+            if (result)
+            {
+                return Ok($"Device with cygid {cygid} status updated to discarded.");
+            }
+            else
+            {
+                return NotFound($"Device with cygid {cygid} not found.");
+            }
+        }
+        catch (Exception ex)
+        {
+            // Log or handle the exception as needed
+            return StatusCode(500, $"Internal server error: {ex.Message}");
+        }
     }
 }
+
+}
+
 
     
 
