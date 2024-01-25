@@ -1,12 +1,13 @@
-import { Component, Input, SimpleChanges } from '@angular/core';
+import { Component, Input, SimpleChanges, ChangeDetectorRef, NgZone } from '@angular/core';
 import { EmployeeService } from '../../shared/services/Employee.service';
+import { Router } from '@angular/router'; 
 
 export class UserCommentHistory {
   description: string;
   createdBy: string;
   createdAtUtc: string;
   deviceId: string;
-  deviceLogId: string; // New property
+  deviceLogId: string;
 }
 
 
@@ -24,8 +25,10 @@ export class UserCommentsComponent {
 
   isCommentCollapsed: boolean = false;
   newComment: string = '';
+  comments: any;
+  latestComment: UserCommentHistory | null = null; 
 
-  constructor(private commentService: EmployeeService) { }
+  constructor(private commentService: EmployeeService, private router: Router, private cdr: ChangeDetectorRef, private zone: NgZone) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['userId'] && changes['userId'].currentValue !== changes['userId'].previousValue) {
@@ -33,7 +36,9 @@ export class UserCommentsComponent {
       this.saveCommentAndFetchComments();
     }
   }
-
+  isShortLength(): boolean {
+    return this.laptopDetails.comments.length <=2;
+  }
   toggleComment() {
     this.isCommentCollapsed = !this.isCommentCollapsed;
   }
@@ -45,7 +50,7 @@ export class UserCommentsComponent {
         createdBy: this.userId,
         createdAtUtc: new Date().toISOString(),
         deviceId: this.laptopDetails.deviceId,
-        deviceLogId: this.laptopDetails.deviceLogId // Use deviceLogId from laptopDe
+        deviceLogId: this.laptopDetails.deviceLogId 
       };
 
       console.log('Comment DTO:', commentDto);
@@ -53,7 +58,15 @@ export class UserCommentsComponent {
       this.commentService.addComment(commentDto).subscribe(
         (response) => {
           console.log('Comment added successfully', response);
-         
+          this.laptopDetails.comments = [...this.laptopDetails.comments, response];
+          this.newComment = '';
+
+          
+          this.latestComment = response;
+
+          this.zone.run(() => {
+            this.cdr.detectChanges();
+          });
         },
         (error) => {
           console.error('Error adding comment:', error);
