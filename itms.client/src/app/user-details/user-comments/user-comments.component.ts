@@ -1,12 +1,13 @@
-import { Component, Input, SimpleChanges } from '@angular/core';
+import { Component, Input, SimpleChanges} from '@angular/core';
 import { EmployeeService } from '../../shared/services/Employee.service';
+
 
 export class UserCommentHistory {
   description: string;
   createdBy: string;
   createdAtUtc: string;
   deviceId: string;
-  deviceLogId: string; // New property
+  deviceLogId: string;
 }
 
 
@@ -24,16 +25,35 @@ export class UserCommentsComponent {
 
   isCommentCollapsed: boolean = false;
   newComment: string = '';
+  comments: any;
+ // latestComment: any; 
 
   constructor(private commentService: EmployeeService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['userId'] && changes['userId'].currentValue !== changes['userId'].previousValue) {
-      // Check if userId changed and call API only if it's a different value
-      this.saveCommentAndFetchComments();
-    }
+  //  if (changes['userId'] && changes['userId'].currentValue !== changes['userId'].previousValue) {
+    
+  //    this.saveCommentAndFetchComments();
+  //  }
+
+  //  if (changes['laptopDetails'] && changes['laptopDetails'].currentValue) {
+  //    this.sortCommentsAfterFetch(); // Sort comments after fetching
+  //  }
+
+  //}
+
+  //sortCommentsAfterFetch() {
+  //  if (this.laptopDetails.comments && this.laptopDetails.comments.length > 1) {
+  //    this.laptopDetails.comments = this.laptopDetails.comments.sort((a: any, b: any) => {
+  //      return new Date(b.createdAtUtc).getTime() - new Date(a.createdAtUtc).getTime();
+  //    });
+  //  }
   }
 
+  
+  isShortLength(): boolean {
+    return this.laptopDetails.comments.length <=2;
+  }
   toggleComment() {
     this.isCommentCollapsed = !this.isCommentCollapsed;
   }
@@ -45,15 +65,18 @@ export class UserCommentsComponent {
         createdBy: this.userId,
         createdAtUtc: new Date().toISOString(),
         deviceId: this.laptopDetails.deviceId,
-        deviceLogId: this.laptopDetails.deviceLogId // Use deviceLogId from laptopDe
+        deviceLogId: this.laptopDetails.deviceLogId 
       };
 
       console.log('Comment DTO:', commentDto);
 
       this.commentService.addComment(commentDto).subscribe(
         (response) => {
-          console.log('Comment added successfully', response);
-          this.fetchComments();
+         
+          console.log(response); 
+          this.laptopDetails.comments.unshift(response);
+          console.log(this.laptopDetails.comments);
+          this.newComment = '';
         },
         (error) => {
           console.error('Error adding comment:', error);
@@ -63,14 +86,5 @@ export class UserCommentsComponent {
     }
   }
 
-  private fetchComments() {
-    this.commentService.getComments(this.laptopDetails.deviceId).subscribe(
-      (comments) => {
-        console.log('Fetched comments:', comments);
-      },
-      (error) => {
-        console.error('Error fetching comments:', error);
-      }
-    );
-  }
+ 
 }

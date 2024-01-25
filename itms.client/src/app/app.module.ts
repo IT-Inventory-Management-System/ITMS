@@ -27,6 +27,7 @@ import { AssetsCategoryComponent } from './inventory/assets-category/assets-cate
 import { HeaderComponent } from './inventory/assets-category/header/header.component';
 import { AssestComponent } from './inventory/assets-category/assest/assest.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { DashboardAssetsComponent } from './dashboard/dashboard-assets/dashboard-assets.component';
 import { SpecificationComponent } from './inventory/assets-category/assest/specification/specification.component';
@@ -67,10 +68,11 @@ import { AccesoriesComponent } from './dashboard/accesories/accesories.component
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CommentsComponent } from './shared/components/comments/comments.component';
 import { UserCommentsComponent } from './user-details/user-comments/user-comments.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { ToastrModule } from 'ngx-toastr';
 import { AddAssetComponent } from './add-asset/add-asset.component';
 import { ArchiveModalComponent } from './inventory/assets-category/assest/specification/archive-modal/archive-modal.component';
 import { UnrchivemodalComponent } from './inventory/assets-category/assest/specification/unrchivemodal/unrchivemodal.component';
-
 
 
 
@@ -154,8 +156,9 @@ import { UnrchivemodalComponent } from './inventory/assets-category/assest/speci
     AvatarModule,
     ReactiveFormsModule,
     FormsModule,
-
- 
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
+    NgSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

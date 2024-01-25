@@ -44,14 +44,13 @@ public class DeviceLogController : ControllerBase
         }
     }
 
-
     [HttpPost("Comment")]
     public IActionResult AddComment([FromBody] DeviceAddComment commentDto)
     {
         try
         {
-            _deviceLogService.AddComment(commentDto);
-            return Ok(new { Message = "Comment added successfully" });
+            CommentDto addedComment = _deviceLogService.AddComment(commentDto);
+            return Ok(new { Message = "Comment added successfully", Comment = addedComment });
         }
         catch (Exception ex)
         {

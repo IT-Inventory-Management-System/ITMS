@@ -18,42 +18,41 @@ export class CommentsComponent {
   @Input() comment: any;
   DeviceLogInfo: any;
   newComment: string = '';
-  
+
 
   toggleCommentSection() {
-    
     this.isCommentSectionCollapsed = !this.isCommentSectionCollapsed;
-    
     /*this.showcomment(cygid);*/
   }
 
   constructor(private dataService: DataService, private cdr: ChangeDetectorRef) { }
 
- 
+
 
   saveComment() {
-    if (this.newComment) {
-      const commentDto = {
-        description: this.newComment,
-        createdBy: this.userId,
-        createdAtUtc: new Date().toISOString(),
-        deviceId: this.deviceId,
-        deviceLogId: this.deviceLogId
-      };
+  if (this.newComment) {
+    const commentDto = {
+      description: this.newComment,
+      createdBy: this.userId,
+      createdAtUtc: new Date().toISOString(),
+      deviceId: this.deviceId,
+      deviceLogId: this.deviceLogId
+    };
 
-      console.log('Comment DTO:', commentDto);
+    console.log('Comment DTO:', commentDto);
 
-      this.dataService.postComment(commentDto).subscribe(
-        (response: any) => {
-          console.log('Comment added successfully', response);
+    this.dataService.postComment(commentDto).subscribe(
+      (response: any) => {
+        console.log('Comment added successfully', response);
 
-          // Update the comments array with the new comment
-          this.comment.push({
+        if (response && response.comment) {
+          // Prepend the new comment to the existing comments array
+          this.comment.unshift({
             createdByNavigation: {
-              firstName: response.createdByFirstName  // Assuming the response contains createdByFirstName
+              firstName: response.comment.createdBy
             },
-            createdAtUtc: response.createdAtUtc,
-            description: response.description
+            createdAtUtc: response.comment.createdAt,
+            description: response.comment.description
           });
 
           // Reset the new comment input
@@ -61,14 +60,16 @@ export class CommentsComponent {
 
           // Manually trigger change detection
           this.cdr.detectChanges();
-        },
-        (error) => {
-          console.error('Error adding comment:', error);
+        } else {
+          console.error('Invalid response format from the server:', response);
         }
-      );
-    }
+      },
+      (error) => {
+        console.error('Error adding comment:', error);
+      }
+    );
   }
-
+}
 
   get deviceDetails() {
     return this.dataService.DeviceDetails;
@@ -76,22 +77,11 @@ export class CommentsComponent {
 
   get devicelog() {
     this.DeviceLogInfo = this.dataService.DeviceLog;
-    
     return this.dataService.DeviceLog;
   }
-  
+
 
   get commentDetails() {
     return this.dataService.CommentDetails;
   }
 }
-
-
-
-
-
-
-
-
-
-

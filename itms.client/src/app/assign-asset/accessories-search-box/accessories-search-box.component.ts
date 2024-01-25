@@ -13,42 +13,46 @@ export class AccessoriesSearchBoxComponent {
   @Input() assignAssetForm: FormGroup;
   @Output() AccessoryOptionSelected: EventEmitter<any> = new EventEmitter();
 
-  searchText: string = '';
-  filteredOptions: any[] = [];
+  //searchText: string = '';
+  //filteredOptions: any[] = [];
   selectedOption: any;
-
-  constructor(private elementRef: ElementRef) { }
-
-  onInputChange(event: any): void {
-    this.searchText = event.target.value;
-    this.filterOptions();
+  onSelectOption(option: any): void {
+    this.AccessoryOptionSelected.emit(this.selectedOption);
+    this.assignAssetForm.get('selectedAccessory')?.setValue(option.id);
   }
 
-  filterOptions(): void {
-    this.filteredOptions = this.AccessoryOptions.filter(AccessoryOption =>
-      AccessoryOption.name.toLowerCase().includes(this.searchText.toLowerCase()));
-  }
+  //constructor(private elementRef: ElementRef) { }
 
-  selectOption(option: any): void {
-    this.AccessoryOptionSelected.emit(option);
-    this.selectedOption = `${option.name}`;
-    this.filteredOptions = [];
-  //  this.assignAssetForm.get('selectedAccessory')?.setValue(option.id);
-  }
+  //onInputChange(event: any): void {
+  //  this.searchText = event.target.value;
+  //  this.filterOptions();
+  //}
 
-  @HostListener('document:click', ['$event'])
-  handleDocumentClick(event: MouseEvent): void {
-    const clickedInside = this.elementRef.nativeElement.contains(event.target);
-    if (!clickedInside) {
-      //if (this.selectedOption && this.selectedOption !== this.searchText) {
-      //  this.searchText = "";
-      //  this.selectedOption = "";
-      //} else if (!this.selectedOption && this.searchText) {
-      //  this.searchText = "";
-      //}
-      //console.log('Search Text:', this.searchText);
-      //console.log('Selected Option:', this.selectedOption);
-      this.filteredOptions = [];
-    }
-  }
+  //filterOptions(): void {
+  //  this.filteredOptions = this.AccessoryOptions.filter(AccessoryOption =>
+  //    AccessoryOption.name.toLowerCase().includes(this.searchText.toLowerCase()));
+  //}
+
+  //selectOption(option: any): void {
+  //  this.AccessoryOptionSelected.emit(option);
+  //  this.selectedOption = `${option.name}`;
+  //  this.filteredOptions = [];
+  ////  this.assignAssetForm.get('selectedAccessory')?.setValue(option.id);
+  //}
+
+  //@HostListener('document:click', ['$event'])
+  //handleDocumentClick(event: MouseEvent): void {
+  //  const clickedInside = this.elementRef.nativeElement.contains(event.target);
+  //  if (!clickedInside) {
+  //    //if (this.selectedOption && this.selectedOption !== this.searchText) {
+  //    //  this.searchText = "";
+  //    //  this.selectedOption = "";
+  //    //} else if (!this.selectedOption && this.searchText) {
+  //    //  this.searchText = "";
+  //    //}
+  //    //console.log('Search Text:', this.searchText);
+  //    //console.log('Selected Option:', this.selectedOption);
+  //    this.filteredOptions = [];
+  //  }
+  //}
 }

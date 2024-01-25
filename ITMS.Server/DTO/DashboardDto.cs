@@ -63,6 +63,8 @@ namespace ITMS.Server.DTO
 
         public DateTime? ExpDate { get; set; }
 
+        public byte[]? SoftwareThumbnail { get; set; }
+
         public int? ExpiryDateCount { get; set; } = 0;
 
     }

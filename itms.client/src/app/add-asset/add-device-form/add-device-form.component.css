@@ -221,19 +221,15 @@
     line-height: normal;
   }
 
-  .select-device-dropdown select {
-    display: flex;
-    width: 23.4375rem;
-    height: 2.5rem;
-    padding: 0.5rem 0.75rem;
-    align-items: center;
-    gap: 6.625rem;
-    flex-shrink: 0;
-    align-self: stretch;
+  .select-device-dropdown ng-select {
+    width: 100%;
     border-radius: 0.25rem;
-    border: 1px solid var(--Secondary-Gray, #B2B2B3);
     background: #FFF;
   }
+
+::ng-deep .ng-select .ng-select-container, ::ng-deep .ng-select.ng-select-single .ng-select-container {
+  min-height: 2.5rem;
+}
 
 .select-device-dropdown placeholder{
     opacity: 0.5;
@@ -295,6 +291,26 @@
   border-radius: 0.25rem;
   border: 1px solid var(--Secondary-Gray, #B2B2B3);
   background: #FFF;
+  position: relative;
+}
+
+input[type='date']::-webkit-calendar-picker-indicator {
+  background: transparent;
+  bottom: 0;
+  color: transparent;
+  cursor: pointer;
+  height: auto;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: auto;
+}
+
+.purchase-date-section img {
+  margin-left: 10px; /* Adjust the value to set the space between input and icon */
+  cursor: pointer;
+  transform: translate(1700%,-230%);
 }
 
 .warranty-date-section {
@@ -403,7 +419,7 @@
   border: 1px solid #28519E;
 }
 
-..cancel-button:active {
+.cancel-button:active {
   border-style: none;
 }
 
@@ -602,3 +618,19 @@ form{
   line-height: 1rem; /* 133.333% */
 }
 
+::ng-deep .ng-select .ng-select-container, ::ng-deep .ng-select.ng-select-single .ng-select-container {
+  min-height: 2.5rem;
+}
+
+::ng-deep .ng-select .ng-arrow-wrapper .ng-arrow {
+  border-color: none !important;
+  border-style: none !important;
+  border-width: 0 !important;
+}
+
+::ng-deep .ng-select .ng-arrow-wrapper {
+  background-image: url('../../../assets/icons/expand_more.svg');
+  background-repeat: no-repeat;
+  margin-top: 2px;
+  margin-right: 0.75rem;
+}

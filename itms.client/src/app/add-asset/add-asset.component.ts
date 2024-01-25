@@ -15,14 +15,19 @@ export class AddAssetComponent {
 
   constructor(private dataService: DataService) {
     this.categoryData = [];
-    this.selectedCategory = localStorage.getItem('selectedCategory');
+    this.selectedCategory = 'Laptop';
     this.localStorageListener = this.handleStorageChange.bind(this);
     window.addEventListener('storage', this.localStorageListener);
 
   }
 
+  setSelectedCategory(category: string) {
+    this.selectedCategory = category;
+  }
+
   ngOnInit(): void {
     this.showCategories();
+
   }
 
   ngOnDestroy(): void {

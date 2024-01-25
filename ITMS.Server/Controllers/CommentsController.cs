@@ -22,12 +22,13 @@ namespace ITMS.Server.Controllers
         {
             try
             {
-                _commentService.AddComment(commentDto);
-                return Ok(new { Message = "Comment added successfully" });
+                var addedComment = _commentService.AddComment(commentDto);
+              
+                return Ok(addedComment);
             }
             catch (Exception ex)
             {
-                // Log the exception or handle it accordingly
+                
                 return StatusCode(500, new { Message = "Internal Server Error" });
             }
         }
@@ -42,7 +43,7 @@ namespace ITMS.Server.Controllers
             }
             catch (Exception ex)
             {
-                // Log the exception or handle it accordingly
+                
                 return StatusCode(500, new { Message = "Internal Server Error" });
             }
         }

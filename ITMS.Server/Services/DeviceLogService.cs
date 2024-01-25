@@ -183,7 +183,7 @@ public class DeviceLogService
         }
     }
 
-    public void AddComment(DeviceAddComment commentDto)
+    public CommentDto AddComment(DeviceAddComment commentDto)
     {
         System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(System.Threading.Thread.CurrentThread.CurrentCulture.Name);
         Comment commentEntity = new Comment
@@ -197,6 +197,18 @@ public class DeviceLogService
 
         _context.Comments.Add(commentEntity);
         _context.SaveChanges();
+
+        // Convert the added comment to a CommentDto
+        CommentDto addedComment = new CommentDto
+        {
+            Id = commentEntity.Id,
+            DeviceLogId = commentEntity.DeviceLogId,
+            Description = commentEntity.Description,
+            CreatedBy = commentEntity.CreatedByNavigation?.FirstName, // Null conditional operator
+            CreatedAt = commentEntity.CreatedAtUtc,
+        };
+
+        return addedComment;
     }
 
 }

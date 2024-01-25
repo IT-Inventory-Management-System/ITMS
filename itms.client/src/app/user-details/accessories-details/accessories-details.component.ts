@@ -9,7 +9,7 @@ import { EmployeeService } from '../../shared/services/Employee.service';
 export class AccessoriesDetailsComponent {
   @Input() userId: any;
   accessoriesDetails: any;
-  MostRecentAccessory: any; // Add this variable
+  MostRecentAccessory: any; 
 
   constructor(private employeeService: EmployeeService) { }
 
@@ -25,15 +25,15 @@ export class AccessoriesDetailsComponent {
       this.accessoriesDetails = await this.employeeService.getAccessories(this.userId).toPromise();
       this.MostRecentAccessory = this.accessoriesDetails[0];
       console.log(this.accessoriesDetails);
-      // Additional handling/logic for software details
+      
     } catch (error) {
       console.error('Error fetching software details:', error);
-      // Handle error as needed
+     
     }
   }
 
   isMostRecent(accessory: any): boolean {
-    // Check if the software is the most recent one
+   
     return accessory === this.MostRecentAccessory;
   }
 }
