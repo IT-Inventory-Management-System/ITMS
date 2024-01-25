@@ -106,6 +106,10 @@ export class DataService {
     return this.http.post(this.apiUrl + 'Device/updateDeviceStatus', formdata);
   }
 
+  UpdateDeviceStatusToNotAssigned(formdata: any): Observable<any> {
+
+    return this.http.post(this.apiUrl + 'Device/updateDeviceStatustoNotassigned', formdata);
+  }
 
 
 }

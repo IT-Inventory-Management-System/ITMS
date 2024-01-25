@@ -153,7 +153,30 @@ namespace itms.server.controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+    
+    [HttpPost("updateDeviceStatustoNotassigned")]
+    public async Task<IActionResult> UpdateDeviceStatustoNotassigned([FromBody] ArchiveDto archiveDto)
+    {
+        try
+        {
+            var result = await _deviceService.UpdateDeviceStatusToNotAssigned(archiveDto);
+
+            if (result)
+            {
+                return Ok($"Device with cygid {archiveDto.Cygid} status updated to Not Assigned.");
+            }
+            else
+            {
+                return NotFound($"Device with cygid {archiveDto.Cygid} not found or status update failed.");
+            }
+        }
+        catch (Exception ex)
+        {
+            // Log or handle the exception as needed
+            return StatusCode(500, $"Internal server error: {ex.Message}");
+        }
     }
+}
 }
 
     

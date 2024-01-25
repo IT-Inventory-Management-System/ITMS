@@ -69,6 +69,7 @@ import { CommentsComponent } from './shared/components/comments/comments.compone
 import { UserCommentsComponent } from './user-details/user-comments/user-comments.component';
 import { AddAssetComponent } from './add-asset/add-asset.component';
 import { ArchiveModalComponent } from './inventory/assets-category/assest/specification/archive-modal/archive-modal.component';
+import { UnrchivemodalComponent } from './inventory/assets-category/assest/specification/unrchivemodal/unrchivemodal.component';
 
 
 
@@ -137,7 +138,8 @@ import { ArchiveModalComponent } from './inventory/assets-category/assest/specif
     CommentsComponent,
     UserCommentsComponent,
     AddAssetComponent,
-    ArchiveModalComponent
+    ArchiveModalComponent,
+    UnrchivemodalComponent
 
 
 
