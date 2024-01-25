@@ -22,8 +22,9 @@ namespace ITMS.Server.Controllers
         {
             try
             {
-                _commentService.AddComment(commentDto);
-                return Ok(new { Message = "Comment added successfully" });
+                var addedComment = _commentService.AddComment(commentDto);
+              
+                return Ok(addedComment);
             }
             catch (Exception ex)
             {
