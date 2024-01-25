@@ -9,9 +9,9 @@ export class UserNameListComponent {
   @Input() cgiid: string;
   @Input() firstName: string;
   @Input() lastName: string;
-  @Input() isSelected: boolean; // Add this line
+  @Input() isSelected: boolean; 
 
-  @Output() userSelected = new EventEmitter<UserNameListComponent>(); // Update the type here
+  @Output() userSelected = new EventEmitter<UserNameListComponent>(); 
 
   showDetails() {
     this.userSelected.emit(this);

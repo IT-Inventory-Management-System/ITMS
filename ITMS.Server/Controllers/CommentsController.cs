@@ -27,7 +27,7 @@ namespace ITMS.Server.Controllers
             }
             catch (Exception ex)
             {
-                // Log the exception or handle it accordingly
+                
                 return StatusCode(500, new { Message = "Internal Server Error" });
             }
         }
@@ -42,7 +42,7 @@ namespace ITMS.Server.Controllers
             }
             catch (Exception ex)
             {
-                // Log the exception or handle it accordingly
+                
                 return StatusCode(500, new { Message = "Internal Server Error" });
             }
         }

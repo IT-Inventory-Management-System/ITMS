@@ -32,7 +32,7 @@ namespace ITMS.Server.Services
                 CreatedBy = commentDto.CreatedBy,
                 CreatedAtUtc = DateTime.Now,
                 DeviceId = commentDto.DeviceId,
-                DeviceLogId = commentDto.DeviceLogId // Assign the new property
+                DeviceLogId = commentDto.DeviceLogId 
             };
 
             _context.Comments.Add(commentEntity);
@@ -41,7 +41,7 @@ namespace ITMS.Server.Services
 
         public IEnumerable<Comment> GetComments(Guid deviceId)
         {
-            // Assuming you have a DbSet<Comment> in your context
+            
             return _context.Comments
                 .Where(c => c.DeviceId == deviceId)
                 .OrderByDescending(c => c.CreatedAtUtc)
