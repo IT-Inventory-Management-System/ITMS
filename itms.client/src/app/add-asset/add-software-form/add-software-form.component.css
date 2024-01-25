@@ -370,6 +370,10 @@ input[type='password'] {
     display: none;
   }
 
+.purchase-date-section{
+    position:relative;
+}
+
 .purchase-date-section img {
   margin-left: 10px; 
   cursor: pointer;
