@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
+
 import { DataService } from '../../../../../shared/services/data.service';
 import { Router } from '@angular/router';
 

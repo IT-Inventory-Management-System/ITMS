@@ -1,7 +1,7 @@
 import { Component, ComponentFactoryResolver, ElementRef, Input, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
 import { DataService } from '../../../../shared/services/data.service';
 import { ArchiveModalComponent } from '../specification/archive-modal/archive-modal.component';
-import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
+
 
 @Component({
   selector: 'app-specification',
