@@ -77,4 +77,9 @@ namespace ITMS.Server.DTO
         public string Type { get; set; }
     }
 
+    public class ArchiveDto
+    {
+        public string? Cygid { get; set; }
+    }
+
 }

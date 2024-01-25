@@ -22,6 +22,7 @@
   font-weight: 600;
   line-height: normal;
   border: 0px;
+  margin-top: 1rem;
 }
 
 .save {
@@ -130,6 +131,7 @@
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+  border:0px;
 }
 
 .comment-content {
