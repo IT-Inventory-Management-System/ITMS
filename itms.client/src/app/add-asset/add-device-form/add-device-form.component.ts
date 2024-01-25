@@ -19,6 +19,7 @@ export class AddDeviceFormComponent implements OnInit {
   selectedOS: string = '';
   warrantyMonth: number;
   warrantyYear: number;
+  deviceData: any[] = [];
  
   constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService) {
     this.dropdownValues = [];
@@ -28,6 +29,7 @@ export class AddDeviceFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadDropdownValues();
+    this.loadDeviceData();
     this.createForm();
     this.setCreatedBy();
     this.setlocationId();
@@ -69,7 +71,14 @@ export class AddDeviceFormComponent implements OnInit {
   updateCygId(index: number, event: Event) {
     this.hideErrorMessage();
     const value = (event.target as HTMLInputElement).value;
-    this.cygIds.at(index).setValue(value);
+    if (this.validateCygId(value) == true) {
+      this.cygIds.at(index).setValue(value);
+    }
+    else {
+      this.showErrorMessage = true;
+      this.errorMessage = 'CYG Id already exists.';
+    }
+    
   }
 
   setCreatedBy() {
@@ -133,6 +142,17 @@ export class AddDeviceFormComponent implements OnInit {
     );
   }
 
+  loadDeviceData() {
+    this.dataService.getDevices().subscribe(
+      (data) => {
+        this.deviceData = data;
+      },
+      (error) => {
+        console.error('Error fetching device data', error);
+      }
+    );
+  }
+
   updateWarrantyDate() {
     const month = this.warrantyMonth;
     const year = this.warrantyYear;
@@ -158,11 +178,22 @@ export class AddDeviceFormComponent implements OnInit {
     return isValid;
   }
 
+  validateCygId(cygid : string) : boolean {
+
+    for (var i = 0; i < this.deviceData.length; i++) {
+      if (this.deviceData[i].cygid == cygid) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
   onSubmit() {
 
     this.addDeviceForm.get('createdAtUtc')?.setValue(new Date().toISOString());
 
-    if (this.checkSerialNumber() && this.checkCygIds()) {
+    if (this.checkSerialNumber() && this.checkCygIds() && this.showErrorMessage == false) {
       console.log(this.addDeviceForm.value);
 
       this.dataService.postDevice(this.addDeviceForm.value).subscribe(
