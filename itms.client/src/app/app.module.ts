@@ -116,7 +116,7 @@ import { UnrchivemodalComponent } from './inventory/assets-category/assest/speci
     SoftwareComponentComponent,
     FilterSearchListPipe,
     AssignHistoryComponent,
-    CommentCardComponent,
+    
     NewSidebarComponent,
     FilterSearchListPipe,
     LaptopDetailsComponent,
@@ -141,7 +141,8 @@ import { UnrchivemodalComponent } from './inventory/assets-category/assest/speci
     UserCommentsComponent,
     AddAssetComponent,
     ArchiveModalComponent,
-    UnrchivemodalComponent
+    UnrchivemodalComponent,
+    CommentCardComponent
 
 
 
