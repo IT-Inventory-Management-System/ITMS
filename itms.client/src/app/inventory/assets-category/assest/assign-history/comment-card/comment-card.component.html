@@ -47,14 +47,14 @@
       <app-comments [userId]="device.userId" [deviceId]="device.deviceId" [deviceLogId]="device.id" [commentLength]="device.comments.length" [comment]="device.comments"></app-comments>
     
   </div>
-</div>
 
 
-<div *ngIf="!devicelog || devicelog.length === 0">
-  <div class="no-assign-history">
-    No Assign History
+  <div *ngIf="!devicelog || devicelog.length === 0">
+    <div class="no-assign-history">
+      No Assign History
+    </div>
   </div>
-</div>
+  </div>
 
 
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -100,6 +100,13 @@ export class DataService {
   getStatus(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl + 'Device/get-status');
   }
+
+  UpdateDeviceStatusToDiscarded(formdata: any): Observable<any> {
+
+    return this.http.post(this.apiUrl + 'Device/updateDeviceStatus', formdata);
+  }
+
+
 
 }
 

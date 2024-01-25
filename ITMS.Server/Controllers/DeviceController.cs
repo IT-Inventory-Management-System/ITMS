@@ -43,7 +43,7 @@ namespace itms.server.controllers
             }
 
         }
-            [HttpGet("categories")]
+        [HttpGet("categories")]
         public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
         {
             try
@@ -53,13 +53,13 @@ namespace itms.server.controllers
             }
             catch (Exception ex)
             {
-              
+
                 return StatusCode(500, "internal server error");
             }
         }
 
-    
-  
+
+
         [HttpGet("{deviceId}")]
         public async Task<ActionResult<DeviceDto>> GetDeviceStatusAndAge(string deviceId)
         {
@@ -74,7 +74,7 @@ namespace itms.server.controllers
             }
             catch (Exception ex)
             {
-                
+
                 return StatusCode(500, "Internal Server Error");
             }
         }
@@ -90,7 +90,7 @@ namespace itms.server.controllers
             }
             catch (Exception ex)
             {
-                
+
                 return StatusCode(500, "Internal Server Error");
             }
         }
@@ -105,7 +105,7 @@ namespace itms.server.controllers
             }
             catch (Exception ex)
             {
-               
+
                 return StatusCode(500, "Internal Server Error");
             }
         }
@@ -129,37 +129,31 @@ namespace itms.server.controllers
             var statusList = _deviceService.GetStatus();
             return Ok(statusList);
         }
-    
-    [HttpPut("updateDeviceStatus")]
-    public async Task<IActionResult> UpdateDeviceStatus( string cygid)
-    {
-        try
-        {
-            var result = await _deviceService.UpdateDeviceStatusToDiscarded(cygid);
 
-            if (result)
-            {
-                return Ok($"Device with cygid {cygid} status updated to discarded.");
-            }
-            else
-            {
-                return NotFound($"Device with cygid {cygid} not found.");
-            }
-        }
-        catch (Exception ex)
+
+        [HttpPost("updateDeviceStatus")]
+        public async Task<IActionResult> UpdateDeviceStatus([FromBody]ArchiveDto archiveDto)
         {
-            // Log or handle the exception as needed
-            return StatusCode(500, $"Internal server error: {ex.Message}");
+            try
+            {
+                var result = await _deviceService.UpdateDeviceStatusToDiscarded(archiveDto);
+
+                if (result)
+                {
+                    return Ok($"Device with cygid {archiveDto.Cygid} status updated to discarded.");
+                }
+                else
+                {
+                    return NotFound($"Device with cygid {archiveDto.Cygid} not found or status update failed.");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception as needed
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
     }
 }
 
-}
-
-
     
-
-
-
-
-

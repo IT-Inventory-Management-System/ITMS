@@ -15,6 +15,7 @@ using System.Linq;
 
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Http;
 
 public class DeviceService
 
@@ -459,12 +460,11 @@ public class DeviceService
 
     }
 
-
-    public async Task<bool> UpdateDeviceStatusToDiscarded(string cygid)
+    public async Task<bool> UpdateDeviceStatusToDiscarded(ArchiveDto archiveDto)
     {
         try
         {
-            var device = await GetDeviceAsync(cygid);
+            var device = await GetDeviceAsync(archiveDto.Cygid);
 
             if (device == null)
                 return false;
