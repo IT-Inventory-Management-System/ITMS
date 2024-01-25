@@ -146,7 +146,6 @@ import { UnrchivemodalComponent } from './inventory/assets-category/assest/speci
 
 
 
-
   ],
   imports: [
     BrowserModule,
