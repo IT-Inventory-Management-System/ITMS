@@ -5,6 +5,10 @@
   background: #EAEEF6;
   margin-top: 1rem;
 }
+.inside-comment{
+    margin-top:1rem;
+
+}
 
 .input-comment {
   border-radius: 0.25rem;
@@ -22,7 +26,7 @@
   font-weight: 600;
   line-height: normal;
   border: 0px;
-  margin-top: 1rem;
+ 
 }
 
 .save {
