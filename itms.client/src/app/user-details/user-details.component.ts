@@ -11,7 +11,7 @@ export class UserDetailsComponent {
   @Input() userDetails: any;
 
   constructor(private displayingDetailsService: DisplayDetailsService) {
-    // Initialize your class properties here if needed
+   
   }
 
   ngOnInit(): void {
@@ -22,7 +22,7 @@ export class UserDetailsComponent {
   }
 
   //CHANGES
-  selectedItem: string = 'laptop'; // Default to 'laptop'
+  selectedItem: string = 'laptop'; 
 
   selectItem(item: string) {
     this.selectedItem = item;

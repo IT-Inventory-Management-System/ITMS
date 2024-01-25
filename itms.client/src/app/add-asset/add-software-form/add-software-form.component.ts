@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { DataService } from '../../shared/services/data.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-add-software-form',
   templateUrl: './add-software-form.component.html',
@@ -11,7 +12,7 @@ export class AddSoftwareFormComponent {
   showErrorMessage = false;
 
   dropdownValues: any[] = [];
-  constructor(private dataService: DataService, private fb: FormBuilder) {
+  constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService) {
     this.dropdownValues = [];
   }
 
@@ -23,11 +24,11 @@ export class AddSoftwareFormComponent {
   }
   createForm() {
     this.SoftwareForm = this.fb.group({
-      softwareId: ['', Validators.required],
-      activationKey: ['', Validators.required],
-      purchasedDate: ['', Validators.required],
+      softwareId: [null, Validators.required],
+      activationKey: [null, Validators.required],
+      purchasedDate: [null, Validators.required],
       expiryDate: [null, Validators.required],
-      qty: [0, Validators.required],
+      qty: [null, Validators.required],
       assignedTo: [null],
       assignedBy: [null],
       assigndate: [null],
@@ -141,24 +142,29 @@ export class AddSoftwareFormComponent {
   toggleSoftwareForm() {
     this.isFormOpen = !this.isFormOpen;
   }
+  onFormSubmitted() {
+    // This method will be called when the form in app-add-software-model is submitted
+    // Set isFormOpen to false to hide the form
+   
+    this.isFormOpen = false;
+  }
 
   selectedTypeName: string = 'Perpetual';
 
   checkForm() {
 
     if (this.selectedTypeName == 'Perpetual') {
-      return this.SoftwareForm.get('purchasedDate') != null && this.SoftwareForm.get('activationKey') != null && this.SoftwareForm.get('qty') != null;
+      return this.SoftwareForm.get('purchasedDate')?.value != null && this.SoftwareForm.get('activationKey')?.value != null && this.SoftwareForm.get('qty')?.value != null;
     }
 
     else if (this.selectedTypeName == 'Validity') {
-      return this.SoftwareForm.get('purchasedDate') != null && this.SoftwareForm.get('activationKey') != null && this.SoftwareForm.get('qty') != null && this.SoftwareForm.get('expiryDate') != null;
+      return this.SoftwareForm.get('purchasedDate')?.value != null && this.SoftwareForm.get('activationKey')?.value != null && this.SoftwareForm.get('qty')?.value != null && this.SoftwareForm.get('expiryDate')?.value != null;
     }
 
-    return this.SoftwareForm.get('purchasedDate') != null && this.SoftwareForm.get('qty') != null && this.SoftwareForm.get('expiryDate') != null;
+    return this.SoftwareForm.get('purchasedDate')?.value != null && this.SoftwareForm.get('qty')?.value != null && this.SoftwareForm.get('expiryDate')?.value != null;
   }
 
   onSubmit() {
-    //console.log(this.SoftwareForm.value);
 
     if (this.checkForm()) {
 
@@ -168,24 +174,30 @@ export class AddSoftwareFormComponent {
       this.dataService.postSoftwaredata(this.SoftwareForm.value).subscribe(
         response => {
           console.log('Post successful', response);
+          console.log('Before toastr call');
+          
           this.hideErrorMessage();
           this.resetform();
-
+          this.toastr.success("Data posted successfully");
         },
         error => {
           console.error('Error posting data', error);
+          this.toastr.error("Error in posting Data");
         }
       );
     }
     else {
-      this.showErrorMessage = this.SoftwareForm.invalid;
+      this.showErrorMessage = true;
 
     }
 
   }
  
   dynamicChanges(event: any): void {
-    const selectedValue = event.target.value;
+    
+    const selectedValue = event;
+    //console.log(selectedValue);
+
     const [typeName, softwareId] = selectedValue.split('@');
 
     this.selectedTypeName = typeName;
@@ -200,9 +212,11 @@ export class AddSoftwareFormComponent {
   resetform() {
     this.SoftwareForm.reset();
     this.setlocationId();
-
     this.counterValue = 0;
     this.counterValue2 = 0;
     this.counterValue3 = 0;
   }
+
+
+
 }

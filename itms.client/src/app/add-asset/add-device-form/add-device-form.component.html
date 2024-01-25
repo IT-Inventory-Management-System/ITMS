@@ -44,12 +44,12 @@
           <div class="device-model-select">
             <div class="select-device-dropdown">
               <label for="deviceName">Device Name <span class="required">*</span></label>
-              <select formControlName="deviceModelId">
-                <option value="" selected class="placeholder">Select Device Name</option>
-                <option *ngFor="let value of dropdownValues" [value]="value.id">
+              <ng-select formControlName="deviceModelId" placeholder="Select Device Name">
+                <!--<option value="" selected class="placeholder">Select Device Name</option>-->
+                <ng-option *ngFor="let value of dropdownValues" [value]="value.id">
                   {{ value.deviceName }}
-                </option>
-              </select>
+                </ng-option>
+              </ng-select>
             </div>
             <div class="quantity-select">
               <label for="quantity">Quantity</label>
@@ -70,7 +70,7 @@
             </label>
           </div>
           <div class="mb-3" *ngIf="showDeviceDetailsForm">
-            <app-add-device-model [selectedOS]="selectedOS"></app-add-device-model>
+            <app-add-device-model [selectedOS]="selectedOS" (formSubmitted)="onFormSubmitted()"></app-add-device-model>
           </div>
         </div>
 
@@ -78,7 +78,8 @@
         <div class="add-device-date mb-3" id="deviceDetailsDiv" [formGroup]="addDeviceForm">
           <div class="purchase-date-section">
             <label for="purchaseDate" class="purchaseDate">Date of Purchase <span class="required">*</span></label>
-            <input type="date" class="form-control" id="purchaseDate" name="purchaseDate" formControlName="purchasedOn" >
+            <input type="date" class="form-control" id="purchaseDate" name="purchaseDate" formControlName="purchasedOn" placeholder="15-12-2023">
+            <img src="../../../assets/icons/calendar.svg" />
           </div>
           <div class="warranty-date-section">
             

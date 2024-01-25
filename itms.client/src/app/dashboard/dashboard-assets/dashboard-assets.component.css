@@ -11,6 +11,13 @@ flex: 1 0 0;
 width:20.84375rem;
 
 }
+
+@media (max-width: 1024px) {
+  .Asset {
+    width: 16.84375rem;
+  }
+}
+
 .Type {
   display: flex;
   padding: 8px;

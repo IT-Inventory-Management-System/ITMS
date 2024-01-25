@@ -41,7 +41,7 @@ namespace ITMS.Server.Services
             var entityToUpdate = _context.SoftwareAllocations.Where(sa => sa.SoftwareId.ToString() == SoftwareID).FirstOrDefault();
             if (entityToUpdate == null)
             {
-                throw new KeyNotFoundException($"Software with CYGId {SoftwareID} not found.");
+                throw new KeyNotFoundException($"Software with SoftwareID {SoftwareID} not found.");
             }
             entityToUpdate.AssignedBy = _context.Employees.FirstOrDefault().Id;
             entityToUpdate.AssignedTo = software.AssignedTo;
