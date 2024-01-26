@@ -25,15 +25,15 @@ export class SoftwareDetailsComponent implements OnChanges {
       this.softwareDetails = await this.employeeService.getSoftware(this.userId).toPromise();
       this.mostRecentSoftware = this.softwareDetails[0];
       console.log(this.softwareDetails);
-      // Additional handling/logic for software details
+     
     } catch (error) {
       console.error('Error fetching software details:', error);
-      // Handle error as needed
+     
     }
   }
 
   isMostRecent(software: any): boolean {
-    // Check if the software is the most recent one
+    
     return software === this.mostRecentSoftware;
   }
 }

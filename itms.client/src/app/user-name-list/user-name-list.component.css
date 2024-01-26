@@ -26,9 +26,9 @@
     background: #E3F3FC;
   }
   .user-list-container-items.selected {
-    background-color: #E3F3FC; /* Customize the background color for the selected user */
+    background-color: #E3F3FC; 
     border: 1px solid black;
-    /* Add any other styling you want for the selected user */
+   
   }
 .user-name {
   color: #343435;

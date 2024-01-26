@@ -28,7 +28,7 @@
           <div class="size_text">Size: 36*36 Pixels</div>
 
           <div>File Support: jpg, .jpeg, .png</div>
-          <input hidden type="file" #profileUpload (change)="ImageUpload($event)" accept=".jpeg, .jpg, .png" />
+          <input hidden type="file" #profileUpload (change)="ImageUpload($event)" accept=".jpeg, .jpg, .png, .svg" />
 
           <button type="button" class="thumbnail-submit-button" (click)="profileUpload.click();hideErrorMessage(); " >
             <img src="../../../assets/icons/upload.svg" class="upload-icon" >Upload Image

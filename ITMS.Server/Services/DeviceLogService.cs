@@ -1,3 +1,5 @@
+using ITMS.Server.Models;
+
 using ITMS.Server.DTO;
 using ITMS.Server.Models;
 using Microsoft.EntityFrameworkCore;
@@ -6,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+ 
 public class DeviceLogService
 {
     private readonly ItinventorySystemContext _context;
@@ -18,7 +20,6 @@ public class DeviceLogService
 
     public async Task<List<DevicelogDto>> GetDevicesAsync()
     {
-        
         var deviceHistory = await _context.Devices
             .OrderBy(log => log.Cygid)
             .Select(log => new DevicelogDto
@@ -31,65 +32,61 @@ public class DeviceLogService
         return deviceHistory;
     }
 
-   public async Task<IEnumerable<DevicelogDto>> GetDevicesLogInfoAsync(string cygid)
-{
-    try
+    public async Task<IEnumerable<DevicelogDto>> GetDevicesLogInfoAsync(string cygid)
     {
-        var deviceId = await GetDeviceIdByCygidAsync(cygid);
-
-        if (deviceId != Guid.Empty)
+        try
         {
-            var devicelogIds = await GetDevicelogIdsByDeviceIdAsync(deviceId);
+            var deviceId = await GetDeviceIdByCygidAsync(cygid);
 
-            
-            var devicesLogInfoList = await _context.DevicesLogs
-                .Include(log => log.Device)
-                .Include(log => log.Employee)
-                .Include(log => log.Comment)
-                .Where(log => log.Device.Cygid == cygid)
-                .OrderBy(log => log.EmployeeId)
-                .ToListAsync();
-
-            foreach (var devicelogId in devicelogIds)
+            if (deviceId != Guid.Empty)
             {
-                var comments = await GetCommentsByDeviceLogIdAsync(devicelogId);
-                   List<Comment> commentDtos = new List<Comment>();
-                    foreach(var comment in comments)
+                var devicelogIds = await GetDevicelogIdsByDeviceIdAsync(deviceId);
+
+
+                var devicesLogInfoList = await _context.DevicesLogs
+                    .Include(log => log.Device)
+                    .Include(log => log.Employee)
+                    .Include(log => log.Comment)
+                    .Where(log => log.Device.Cygid == cygid)
+                    .OrderBy(log => log.EmployeeId)
+                    .ToListAsync();
+
+                foreach (var devicelogId in devicelogIds)
+                {
+                    var comments = await GetCommentsByDeviceLogIdAsync(devicelogId);
+                    List<Comment> commentDtos = new List<Comment>();
+                    foreach (var comment in comments)
                     {
                         commentDtos.Add(new Comment
                         {
                             Id = comment.Id,
                             Description = comment.Description,
                             DeviceLogId = comment.DeviceLogId,
-                            CreatedByNavigation = new Employee 
+                            CreatedByNavigation = new Employee
                             {
                                 FirstName = comment.CreatedBy,
-                               
                             },
                             CreatedAtUtc = comment.CreatedAt
                         });
                     }
-           
                     var deviceLogInfo = devicesLogInfoList.FirstOrDefault(log => log.Id == devicelogId);
-                deviceLogInfo.Comments = commentDtos;
-            
-            }
+                    deviceLogInfo.Comments = commentDtos;
+                }
 
                 return devicesLogInfoList.Select(devicesLogInfo => FormatDevicelogDto(devicesLogInfo));
             }
-        else
-        {
-            Console.WriteLine($"Device with Cygid '{cygid}' not found.");
-            return Enumerable.Empty<DevicelogDto>();
-        }
+            else
+            {
+                Console.WriteLine($"Device with Cygid '{cygid}' not found.");
+                return Enumerable.Empty<DevicelogDto>();
+            }
             return null;
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
     }
-    catch (Exception ex)
-    {
-       
-        throw;
-    }
-}
 
 
     private DevicelogDto FormatDevicelogDto(DevicesLog devicesLogInfo)
@@ -107,19 +104,17 @@ public class DeviceLogService
         {
             Id = devicesLogInfo.Id,
             Cygid = devicesLogInfo.Device.Cygid,
-            DeviceId=devicesLogInfo.Device.Id,
+            DeviceId = devicesLogInfo.Device.Id,
             Cgiid = devicesLogInfo.Employee.Cgiid,
-            UserId=devicesLogInfo.Employee.Id,
+            UserId = devicesLogInfo.Employee.Id,
             EmployeeName = $"{devicesLogInfo.Employee.FirstName} {devicesLogInfo.Employee.LastName}",
             AssignedBy = $"{assignedByFirstName} {assignedByLastName}",
             AssignedDate = devicesLogInfo.AssignedDate,
             RecievedBy = $"{receivedByFirstName} {receivedByLastName}",
             RecievedDate = devicesLogInfo.RecievedDate,
             FormattedAssignedDate = devicesLogInfo.AssignedDate?.ToString("MM-dd-yyyy") ?? "DefaultDate",
-           
-        Comments = devicesLogInfo.Comments
-         
-    };
+            Comments = devicesLogInfo.Comments
+        };
     }
 
     public async Task<List<CommentDto>> GetCommentsByDeviceLogIdAsync(Guid devicelogId)
@@ -139,7 +134,7 @@ public class DeviceLogService
                 })
          .ToListAsync();
             // Assuming you have a CommentDto instance called 'commentDto'
-            
+
 
             return comments;
         }
@@ -160,7 +155,6 @@ public class DeviceLogService
 
             if (device == Guid.Empty)
             {
-               
                 return Guid.Empty;
             }
 
@@ -168,7 +162,6 @@ public class DeviceLogService
         }
         catch (Exception ex)
         {
-            
             throw;
         }
     }
@@ -186,12 +179,11 @@ public class DeviceLogService
         }
         catch (Exception ex)
         {
-            
             throw;
         }
     }
 
-    public void AddComment(DeviceAddComment commentDto)
+    public CommentDto AddComment(DeviceAddComment commentDto)
     {
         System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(System.Threading.Thread.CurrentThread.CurrentCulture.Name);
         Comment commentEntity = new Comment
@@ -200,13 +192,23 @@ public class DeviceLogService
             CreatedBy = commentDto.CreatedBy,
             CreatedAtUtc = DateTime.Now,
             DeviceId = commentDto.DeviceId,
-            DeviceLogId= commentDto.DeviceLogId
+            DeviceLogId = commentDto.DeviceLogId
         };
 
         _context.Comments.Add(commentEntity);
         _context.SaveChanges();
+
+        // Convert the added comment to a CommentDto
+        CommentDto addedComment = new CommentDto
+        {
+            Id = commentEntity.Id,
+            DeviceLogId = commentEntity.DeviceLogId,
+            Description = commentEntity.Description,
+            CreatedBy = commentEntity.CreatedByNavigation?.FirstName, // Null conditional operator
+            CreatedAt = commentEntity.CreatedAtUtc,
+        };
+
+        return addedComment;
     }
 
 }
-
-

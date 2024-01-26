@@ -15,6 +15,7 @@ using System.Linq;
 
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Http;
 
 public class DeviceService
 
@@ -459,7 +460,94 @@ public class DeviceService
 
     }
 
+    public async Task<bool> UpdateDeviceStatusToDiscarded(ArchiveDto archiveDto)
+    {
+        try
+        {
+            var device = await GetDeviceAsync(archiveDto.Cygid);
 
+            if (device == null)
+                return false;
 
+            // Make sure StatusNavigation is not null
+            if (device.StatusNavigation != null)
+            {
+                // Find the "discarded" status from the database
+                var discardedStatus = await _context.Statuses.FirstOrDefaultAsync(s => s.Type == "discarded");
 
+                if (discardedStatus != null)
+                {
+                    // Update the status to discarded
+                    device.StatusNavigation = discardedStatus;
+
+                    // Set IsArchived to true (1)
+                    device.IsArchived = true;
+
+                    // Save the changes
+                    await _context.SaveChangesAsync();
+
+                    return true;
+                }
+                else
+                {
+                    // Log or handle the case where the "discarded" status is not found
+                    return false;
+                }
+            }
+            else
+            {
+                // Log or handle the case where StatusNavigation is null
+                return false;
+            }
+        }
+        catch (Exception)
+        {
+            // Log or handle the exception as needed
+            throw;
+        }
+    }
+
+    public async Task<bool> UpdateDeviceStatusToNotAssigned(ArchiveDto archiveDto)
+    {
+        try
+        {
+            var device = await GetDeviceAsync(archiveDto.Cygid);
+
+            if (device == null)
+                return false;
+
+            // Make sure StatusNavigation is not null
+            if (device.StatusNavigation != null)
+            {
+                // Find the "discarded" status from the database
+                var discardedStatus = await _context.Statuses.FirstOrDefaultAsync(s => s.Type == "not Assigned");
+
+                if (discardedStatus != null)
+                {
+                    // Update the status to discarded
+                    device.StatusNavigation = discardedStatus;
+
+                    // Set IsArchived to true (1)
+                    device.IsArchived = false;
+
+                    // Save the changes
+                    await _context.SaveChangesAsync();
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
 }

@@ -71,6 +71,8 @@ import { UserCommentsComponent } from './user-details/user-comments/user-comment
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ToastrModule } from 'ngx-toastr';
 import { AddAssetComponent } from './add-asset/add-asset.component';
+import { ArchiveModalComponent } from './inventory/assets-category/assest/specification/archive-modal/archive-modal.component';
+import { UnrchivemodalComponent } from './inventory/assets-category/assest/specification/unrchivemodal/unrchivemodal.component';
 
 
 
@@ -137,7 +139,9 @@ import { AddAssetComponent } from './add-asset/add-asset.component';
     DashboardComponent,
     CommentsComponent,
     UserCommentsComponent,
-    AddAssetComponent
+    AddAssetComponent,
+    ArchiveModalComponent,
+    UnrchivemodalComponent
 
 
 

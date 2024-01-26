@@ -8,7 +8,7 @@ namespace ITMS.Server.Services
 {
     public interface ICommentService
     {
-        void AddComment(UserCommentHistory commentDto);
+        CommentDto AddComment(UserCommentHistory commentDto);
         IEnumerable<Comment> GetComments(Guid deviceId);
     }
     public class AddCommentService : ICommentService
@@ -20,9 +20,9 @@ namespace ITMS.Server.Services
             _context = context;
         }
 
-        
 
-        public void AddComment(UserCommentHistory commentDto)
+
+        public CommentDto AddComment(UserCommentHistory commentDto)
         {
             System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(System.Threading.Thread.CurrentThread.CurrentCulture.Name);
 
@@ -32,16 +32,28 @@ namespace ITMS.Server.Services
                 CreatedBy = commentDto.CreatedBy,
                 CreatedAtUtc = DateTime.Now,
                 DeviceId = commentDto.DeviceId,
-                DeviceLogId = commentDto.DeviceLogId // Assign the new property
+                DeviceLogId = commentDto.DeviceLogId
             };
 
             _context.Comments.Add(commentEntity);
             _context.SaveChanges();
+
+            CommentDto addedComment = new CommentDto
+            {
+                Id = commentEntity.Id,
+                DeviceLogId = commentEntity.DeviceLogId,
+                DeviceId = commentEntity.DeviceId,
+                Description = commentEntity.Description,
+                CreatedBy = commentEntity.CreatedByNavigation?.FirstName, // Null conditional operator
+                CreatedAt = commentEntity.CreatedAtUtc,
+            };
+
+            return addedComment;
         }
 
         public IEnumerable<Comment> GetComments(Guid deviceId)
         {
-            // Assuming you have a DbSet<Comment> in your context
+            
             return _context.Comments
                 .Where(c => c.DeviceId == deviceId)
                 .OrderByDescending(c => c.CreatedAtUtc)
