@@ -1,12 +1,12 @@
 import { Component, Input, Output, EventEmitter, ElementRef, HostListener } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { AssignDataManagementService } from '../../shared/services/assign-data-management.service';
 
 @Component({
   selector: 'app-software-version-search-box',
   templateUrl: './software-version-search-box.component.html',
   styleUrls: ['./software-version-search-box.component.css']
 })
-
 export class SoftwareVersionSearchBoxComponent {
   @Input() label: string;
   @Input() placeholder: string;
@@ -17,9 +17,26 @@ export class SoftwareVersionSearchBoxComponent {
   //searchText: string = '';
   //filteredOptions: any[] = [];
   selectedOption: any;
+  constructor(private assignDataManagementService: AssignDataManagementService) { }
+
   onSelectOption(option: any): void {
-    this.SoftwareVersionOptionSelected.emit(this.selectedOption);
+    this.SoftwareVersionOptionSelected.emit(option);
     this.assignAssetForm.get('softwareId')?.setValue(option.id);
+  }
+  onClearSelection(): void {
+    this.assignAssetForm.get('softwareId')?.setValue(null);
+  }
+
+  ngOnInit(): void {
+    this.selectedOption = this.assignDataManagementService.getState("softwareVersion");
+    this.SoftwareVersionOptionSelected.emit(this.selectedOption);
+  }
+  ngOnDestroy(): void {
+    this.assignDataManagementService.setState("softwareVersion", this.selectedOption);
+  }
+
+  setSaveStateOnDestroy(): void {
+    this.selectedOption = null;
   }
 
   //constructor(private elementRef: ElementRef) { }

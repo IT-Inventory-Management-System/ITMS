@@ -4,13 +4,11 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class AssignDataManagementService {
-
   constructor() { }
-
 
   private assignedToState: any;
   private cygidState: any;
-  private softwareIdState: any;
+  private softwareNameState: any;
   private softwareVersionState: any;
   private accessoryState: any;
   private laptopCommentState: any;
@@ -25,11 +23,12 @@ export class AssignDataManagementService {
       case 'cygid':
         this.cygidState = newState;
         break;
-      case 'softwareId':
-        this.softwareIdState = newState;
+      case 'softwareName':
+        this.softwareNameState = newState;
         break;
       case 'softwareVersion':
         this.softwareVersionState = newState;
+        console.log(this.softwareVersionState);
         break;
       case 'accessory':
         this.accessoryState = newState;
@@ -54,10 +53,12 @@ export class AssignDataManagementService {
         return this.assignedToState !== undefined ? this.assignedToState : null;
       case 'cygid':
         return this.cygidState !== undefined ? this.cygidState : null;
-      case 'softwareId':
-        return this.softwareIdState !== undefined ? this.softwareIdState : null;
+      case 'softwareName':
+        return this.softwareNameState !== undefined ? this.softwareNameState : null;
       case 'softwareVersion':
-        return this.softwareVersionState !== undefined ? this.softwareVersionState : null;
+         this.softwareVersionState !== undefined ? this.softwareVersionState : null;
+        console.log(this.softwareVersionState);
+        return;
       case 'accessory':
         return this.accessoryState !== undefined ? this.accessoryState : null;
       case 'laptopComment':

@@ -1,7 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { DeviceAssignService } from '../shared/services/device-assign.service';
 import { Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AssignDataManagementService } from '../shared/services/assign-data-management.service';
+import { SearchBoxComponent } from './search-box/search-box.component';
+import { LaptopSearchBoxComponent } from './laptop-search-box/laptop-search-box.component';
+import { AccessoriesSearchBoxComponent } from './accessories-search-box/accessories-search-box.component';
+import { SoftwareSearchBoxComponent } from './software-search-box/software-search-box.component';
+import { SoftwareVersionSearchBoxComponent } from './software-version-search-box/software-version-search-box.component';
+import { AssignAccessoriesComponent } from './assign-accessories/assign-accessories.component';
+
 
 @Component({
   selector: 'app-assign-asset',
@@ -68,6 +76,7 @@ export class AssignAssetComponent {
     }
   }
 
+
   users: any[] = [];
   softwares: any[] = [];
   softwareVersions: any[] = [];
@@ -75,8 +84,17 @@ export class AssignAssetComponent {
   accessories: any[] = [];
 
   assignAssetForm: FormGroup;
+  @ViewChild(SearchBoxComponent) SearchBoxComponent: any;
+  @ViewChild(LaptopSearchBoxComponent) LaptopSearchBoxComponent: any;
+  @ViewChild(AccessoriesSearchBoxComponent) accessoriesSearchBoxComponent: AccessoriesSearchBoxComponent;
+  @ViewChild(SoftwareSearchBoxComponent) softwareSearchBoxComponent: SoftwareSearchBoxComponent;
+  @ViewChild(SoftwareVersionSearchBoxComponent) softwareVersionSearchBoxComponent: SoftwareVersionSearchBoxComponent;
+  @ViewChild(AssignAccessoriesComponent) assignAccessoriesComponent: AssignAccessoriesComponent;
+
+
   constructor(
     private formBuilder: FormBuilder,
+    private assignDataManagementService : AssignDataManagementService,
     @Inject(DeviceAssignService) private deviceAssignService: DeviceAssignService) {
     this.assignAssetForm = this.formBuilder.group({
       assignedTo: null,
@@ -90,6 +108,7 @@ export class AssignAssetComponent {
 }
 
   ngOnInit() {
+    console.log("assign-asset init");
     this.getUsers();
     this.getSoftwares();
     this.getLaptops();
@@ -136,6 +155,32 @@ export class AssignAssetComponent {
         console.error('Error fetching software details:', error);
       }
     );
+  }
+
+  closeForm(): void {
+    console.log("closeForm");
+
+    this.assignAssetForm.reset();
+    this.currentStep = 1;
+    //this.searchBoxComponent.setSaveStateOnDestroy();
+    //this.assignAccessoriesComponent.setSaveStateOnDestroy();
+    //this.laptopSearchBoxComponent.setSaveStateOnDestroy();
+    //this.softwareSearchBoxComponent.setSaveStateOnDestroy();
+    //this.softwareVersionSearchBoxComponent.setSaveStateOnDestroy();
+
+    this.SearchBoxComponent.setSaveStateOnDestroy();
+    //this.LaptopSearchBoxComponent.setSaveStateOnDestroy();
+    this.assignDataManagementService.setState("assignedTo", null);
+    this.assignDataManagementService.setState("cygid", null);
+    this.assignDataManagementService.setState("softwareName", null);
+    this.assignDataManagementService.setState("softwareVersion", null);
+    this.assignDataManagementService.setState("accessory", null);
+    this.assignDataManagementService.setState("laptopComment", null);
+    this.assignDataManagementService.setState("softwareComment", null);
+    this.assignDataManagementService.setState("accessoryComment", null);
+    //this.accessoriesSearchBoxComponent.setSaveStateOnDestroy();
+
+
   }
  
   saveChanges(): void {

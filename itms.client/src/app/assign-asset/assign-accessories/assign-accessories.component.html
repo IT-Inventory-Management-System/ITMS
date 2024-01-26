@@ -11,7 +11,7 @@
     <input class="comment-input-box"
            required
            placeholder="Add Comment"
-           [value]="assignAssetForm.get('accessoryComment')?.value || ''"
+           [value]="selectedOption"
            aria-label="Comment"
            (input)="onInputChangeCommentBox($event)">
   </div>

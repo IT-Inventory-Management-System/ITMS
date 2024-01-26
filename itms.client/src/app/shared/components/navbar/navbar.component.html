@@ -24,23 +24,18 @@
       </ul>
       <div class="nav-icons position-relative">
         <button class="dropdown-main add-asset" (click)="isOptionsVisible = !isOptionsVisible">
-
           Manage Assets
           <img src="../../../../assets/icons/Chevron down.svg" />
         </button>
 
         <div *ngIf="isOptionsVisible" class="additional-options position-absolute">
-          <!-- Display additional options when isOptionsVisible is true -->
-          <div class="dropdown-both dropdown-btn" (click)="handleOptionClick('add-assets')" routerLink="/add-asset">
+          <div class="dropdown-both dropdown-btn" (click)="isOptionsVisible = !isOptionsVisible" routerLink="/add-asset">
             <img class="dropdown-icn" src="../../../../assets/icons/laptop-solid 2.svg" />
             Add Assets
           </div>
-          <!--<p class="dropdown-list">-->
-          <div class="dropdown-both dropdown-btn" (click)="handleOptionClick('manage-assets')" routerLink="/assign-asset" data-bs-toggle="modal" data-bs-target="#assignAssetModal">
+          <div class="dropdown-both dropdown-btn" (click)="isOptionsVisible = !isOptionsVisible"  data-bs-toggle="modal" data-bs-target="#assignAssetModal">
             <img src="../../../../assets/icons/laptop-solid 2 (1).svg" />
             Assign Assets
-            <!--<p class="centre-text dropdown-btn" ></p>-->
-
           </div>
         </div>
         <div class="avatar-dropdown">
