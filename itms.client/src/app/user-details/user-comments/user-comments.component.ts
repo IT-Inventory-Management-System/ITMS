@@ -2,13 +2,7 @@ import { Component, Input, SimpleChanges} from '@angular/core';
 import { EmployeeService } from '../../shared/services/Employee.service';
 
 
-export class UserCommentHistory {
-  description: string;
-  createdBy: string;
-  createdAtUtc: string;
-  deviceId: string;
-  deviceLogId: string;
-}
+
 
 
 @Component({
