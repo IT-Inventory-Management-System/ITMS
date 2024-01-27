@@ -1,5 +1,6 @@
-import { Component, Input, Output, EventEmitter, ElementRef, HostListener } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { AssignDataManagementService } from '../../shared/services/assign-data-management.service';
 
 @Component({
   selector: 'app-accessories-search-box',
@@ -16,11 +17,38 @@ export class AccessoriesSearchBoxComponent {
   //searchText: string = '';
   //filteredOptions: any[] = [];
   selectedOption: any;
+  constructor(private assignDataManagementService: AssignDataManagementService) { }
+
   onSelectOption(option: any): void {
-    this.AccessoryOptionSelected.emit(this.selectedOption);
-    this.assignAssetForm.get('selectedAccessory')?.setValue(option.id);
+    this.AccessoryOptionSelected.emit(option);
+    if (option.assignedTo && 'assignedTo' in option && option.assignedTo) {
+      this.selectedOption = null;
+      this.assignAssetForm.get('selectedAccessory')?.setValue(null);
+    }
+    else {
+      this.selectedOption = option;
+      this.assignAssetForm.get('selectedAccessory')?.setValue(option.id);
+    }
+  }
+  onClearSelection(): void {
+    this.assignAssetForm.get('selectedAccessory')?.setValue(null);
   }
 
+  ngOnInit(): void {
+    this.selectedOption = this.assignDataManagementService.getState("accessory");
+    this.AccessoryOptionSelected.emit(this.selectedOption);
+  }
+
+  ngOnDestroy(): void {
+    this.assignDataManagementService.setState("accessory", this.selectedOption);
+  }
+
+  setSaveStateOnDestroy(): void {
+    this.selectedOption = null;
+  }
+  resetComponentState(): void {
+    this.selectedOption = null;
+  }
   //constructor(private elementRef: ElementRef) { }
 
   //onInputChange(event: any): void {
