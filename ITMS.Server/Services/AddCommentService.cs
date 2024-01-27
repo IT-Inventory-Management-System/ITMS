@@ -36,18 +36,18 @@ namespace ITMS.Server.Services
                 DeviceLogId = commentDto.DeviceLogId
             };
 
-            // Load the related Employee directly
+           
             var createdByEntity = _context.Employees
                 .Where(e => e.Id == commentDto.CreatedBy)
                 .FirstOrDefault();
 
-            // Attach the retrieved Employee entity to the Comment entity
+           
             if (createdByEntity != null)
             {
                 commentEntity.CreatedByNavigation = createdByEntity;
             }
 
-            // Now, you can add the commentEntity to the DbSet
+            
             _context.Comments.Add(commentEntity);
             _context.SaveChanges();
 
