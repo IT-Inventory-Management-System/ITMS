@@ -68,6 +68,11 @@ public class UserDeviceService
                    .Select(employee => $"{employee.FirstName} {employee.LastName}")
                    .FirstOrDefault(),
                AssignedDate = (DateTime)log.Device.AssignedDate,
+               SubmitedBy = _dbContext.Employees
+                   .Where(employee => employee.Id == log.Device.RecievedBy)
+                   .Select(employee => $"{employee.FirstName} {employee.LastName}")
+                   .FirstOrDefault(),
+               SubmitedByDate = (DateTime)log.Device.RecievedDate,
                Comments = _dbContext.Comments
                    .Where(comment => comment.DeviceId == log.Device.Id).OrderByDescending(c => c.CreatedAtUtc)
                    .Select(c => new CommentDto
