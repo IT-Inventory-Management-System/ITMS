@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ElementRef, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ElementRef, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { AssignDataManagementService } from '../../shared/services/assign-data-management.service';
 
@@ -31,14 +31,22 @@ export class LaptopSearchBoxComponent implements OnInit, OnDestroy {
   }
 
   onClearSelection(): void {
+    this.selectedOption = null;
     this.assignAssetForm.get('cygid')?.setValue(null);
   }
+
   onSelectOption(option: any): void {
     //this.selectedOption = `${option.cygid} - ${ option.deviceName }`;
     //`${option.cgiid} - ${option.firstName} ${option.lastName}`;
     this.LaptopOptionSelected.emit(option);
-    //this.filteredOptions = [];
-    this.assignAssetForm.get('cygid')?.setValue(option.cygid);
+    if (option.assignedTo && 'assignedTo' in option && option.assignedTo) {
+      this.selectedOption = null;
+      this.assignAssetForm.get('cygid')?.setValue(null);
+    }
+    else {
+      this.selectedOption = option;
+      this.assignAssetForm.get('cygid')?.setValue(option.cygid);
+    }
   }
 
 

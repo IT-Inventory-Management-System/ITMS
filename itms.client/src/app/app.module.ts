@@ -47,7 +47,6 @@ import { CategoryNameComponent } from './add-asset/category-name/category-name.c
 import { AssignAssetComponent } from './assign-asset/assign-asset.component';
 import { AssignLaptopComponent } from './assign-asset/assign-laptop/assign-laptop.component';
 import { AssignSoftwareComponent } from './assign-asset/assign-software/assign-software.component';
-import { AssignAccessoriesComponent } from './assign-asset/assign-accessories/assign-accessories.component';
 import { RecentActivityComponent } from './dashboard/recent-activity/recent-activity.component';
 import { SoftwareComponentComponent } from './dashboard/software-component/software-component.component';
 import { FilterSearchListPipe } from './filter-search-list.pipe';
@@ -63,7 +62,6 @@ import { FilterPipe } from './filter.pipe';
 import { LaptopSearchBoxComponent } from './assign-asset/laptop-search-box/laptop-search-box.component';
 import { SoftwareSearchBoxComponent } from './assign-asset/software-search-box/software-search-box.component';
 import { SoftwareVersionSearchBoxComponent } from './assign-asset/software-version-search-box/software-version-search-box.component';
-import { AccessoriesSearchBoxComponent } from './assign-asset/accessories-search-box/accessories-search-box.component';
 import { AccesoriesComponent } from './dashboard/accesories/accesories.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CommentsComponent } from './shared/components/comments/comments.component';
@@ -71,8 +69,11 @@ import { UserCommentsComponent } from './user-details/user-comments/user-comment
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ToastrModule } from 'ngx-toastr';
 import { AddAssetComponent } from './add-asset/add-asset.component';
-import { ArchiveModalComponent } from './inventory/assets-category/assest/specification/archive-modal/archive-modal.component';
 import { UnrchivemodalComponent } from './inventory/assets-category/assest/specification/unrchivemodal/unrchivemodal.component';
+import { ArchiveModalComponent } from './inventory/assets-category/assest/specification/archive-modal/archive-modal.component';
+import { AccessoriesSearchBoxComponent } from './assign-asset/accessories-search-box/accessories-search-box.component';
+import { AssignAccessoriesComponent } from './assign-asset/assign-accessories/assign-accessories.component';
+
 
 
 
@@ -100,7 +101,6 @@ import { UnrchivemodalComponent } from './inventory/assets-category/assest/speci
     AssignAssetComponent,
     AssignLaptopComponent,
     AssignSoftwareComponent,
-    AssignAccessoriesComponent,
     AssetsCategoryComponent,
     HeaderComponent,
     AssestComponent,
@@ -128,11 +128,9 @@ import { UnrchivemodalComponent } from './inventory/assets-category/assest/speci
     EmployeeComponent,
     CurrentdeviceComponent,
     AssetfilterdevicePipe,
-
     LaptopSearchBoxComponent,
     SoftwareSearchBoxComponent,
     SoftwareVersionSearchBoxComponent,
-    AccessoriesSearchBoxComponent,
     AccesoriesComponent,
     CategoryCardComponent,
     FilterPipe,
@@ -140,12 +138,10 @@ import { UnrchivemodalComponent } from './inventory/assets-category/assest/speci
     CommentsComponent,
     UserCommentsComponent,
     AddAssetComponent,
+    UnrchivemodalComponent,
     ArchiveModalComponent,
-    UnrchivemodalComponent
-
-
-
-
+    AccessoriesSearchBoxComponent,
+    AssignAccessoriesComponent,
 
   ],
   imports: [

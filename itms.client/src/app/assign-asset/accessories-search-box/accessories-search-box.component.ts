@@ -7,7 +7,7 @@ import { AssignDataManagementService } from '../../shared/services/assign-data-m
   templateUrl: './accessories-search-box.component.html',
   styleUrls: ['./accessories-search-box.component.css']
 })
-export class AccessoriesSearchBoxComponent implements OnInit, OnDestroy {
+export class AccessoriesSearchBoxComponent {
   @Input() label: string;
   @Input() placeholder: string;
   @Input() AccessoryOptions: any[] = [];
@@ -21,7 +21,14 @@ export class AccessoriesSearchBoxComponent implements OnInit, OnDestroy {
 
   onSelectOption(option: any): void {
     this.AccessoryOptionSelected.emit(option);
-    this.assignAssetForm.get('selectedAccessory')?.setValue(option.id);
+    if (option.assignedTo && 'assignedTo' in option && option.assignedTo) {
+      this.selectedOption = null;
+      this.assignAssetForm.get('selectedAccessory')?.setValue(null);
+    }
+    else {
+      this.selectedOption = option;
+      this.assignAssetForm.get('selectedAccessory')?.setValue(option.id);
+    }
   }
   onClearSelection(): void {
     this.assignAssetForm.get('selectedAccessory')?.setValue(null);

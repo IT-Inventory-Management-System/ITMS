@@ -21,7 +21,14 @@ export class SoftwareVersionSearchBoxComponent {
 
   onSelectOption(option: any): void {
     this.SoftwareVersionOptionSelected.emit(option);
-    this.assignAssetForm.get('softwareId')?.setValue(option.id);
+    if (option.assignedTo && 'assignedTo' in option && option.assignedTo) {
+      this.selectedOption = null;
+      this.assignAssetForm.get('softwareId')?.setValue(null);
+    }
+    else {
+      this.selectedOption = option;
+      this.assignAssetForm.get('softwareId')?.setValue(option.id);
+    }
   }
   onClearSelection(): void {
     this.assignAssetForm.get('softwareId')?.setValue(null);

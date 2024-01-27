@@ -1,7 +1,7 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { DeviceAssignService } from '../shared/services/device-assign.service';
 import { Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, AbstractControl, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { AssignDataManagementService } from '../shared/services/assign-data-management.service';
 import { SearchBoxComponent } from './search-box/search-box.component';
 import { LaptopSearchBoxComponent } from './laptop-search-box/laptop-search-box.component';
@@ -9,7 +9,8 @@ import { AccessoriesSearchBoxComponent } from './accessories-search-box/accessor
 import { SoftwareSearchBoxComponent } from './software-search-box/software-search-box.component';
 import { SoftwareVersionSearchBoxComponent } from './software-version-search-box/software-version-search-box.component';
 import { AssignAccessoriesComponent } from './assign-accessories/assign-accessories.component';
-
+import { ToastrService } from 'ngx-toastr';
+import { customValidation } from './custom-validators';
 
 @Component({
   selector: 'app-assign-asset',
@@ -94,18 +95,19 @@ export class AssignAssetComponent {
 
   constructor(
     private formBuilder: FormBuilder,
+    private toastr: ToastrService,
     private assignDataManagementService : AssignDataManagementService,
     @Inject(DeviceAssignService) private deviceAssignService: DeviceAssignService) {
     this.assignAssetForm = this.formBuilder.group({
-      assignedTo: null,
-      cygid: null,
-      softwareId: null,
+      assignedTo: [null, Validators.required],
+      cygid: [null],
+      softwareId: [null],
       //selectedAccessory: [null, Validators.required],
-      deviceComment: null,
-      softwareComment: null,
-      //accessoryComment: null,
-  })
-}
+      deviceComment: [null],
+      softwareComment: [null],
+      //accessoryComment: [null],
+    }, { validator: customValidation(this.toastr) });
+  }
 
   ngOnInit() {
     console.log("assign-asset init");
@@ -157,6 +159,8 @@ export class AssignAssetComponent {
     );
   }
 
+
+
   closeForm(): void {
     console.log("closeForm");
 
@@ -179,25 +183,41 @@ export class AssignAssetComponent {
     this.assignDataManagementService.setState("softwareComment", null);
     this.assignDataManagementService.setState("accessoryComment", null);
     //this.accessoriesSearchBoxComponent.setSaveStateOnDestroy();
-
-
   }
  
   saveChanges(): void {
     console.log('Form Values:', this.assignAssetForm.value);
+
     if (this.assignAssetForm.valid) {
       const assignmentData = this.assignAssetForm.value;
       this.deviceAssignService.saveAssignment(assignmentData).subscribe(
         (response) => {
-          console.log('Assignment saved successfully:', response);
+          this.closeForm();
           this.assignAssetForm.reset();
+          this.toastr.success('Assignment saved successfully:', response);
         },
         (error) => {
-          console.error('Error saving assignment:', error);
+          this.closeForm();
+          this.assignAssetForm.reset();
+          this.toastr.error('Error saving assignment:', error);
         }
       );
     } else {
-      console.log('Form is invalid. Cannot save changes.');
+      const errors = this.assignAssetForm.errors;
+
+      if (errors) {
+        // If there are custom errors, display them using Toastr
+        for (const key of Object.keys(errors)) {
+          const message = errors[key];
+          this.toastr.error(message);
+        }
+      } else {
+        this.toastr.error('Form is invalid. Cannot save changes.');
+      }
+
+      this.closeForm();
+      this.assignAssetForm.reset();
     }
   }
+
 }

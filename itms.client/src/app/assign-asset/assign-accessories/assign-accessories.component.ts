@@ -3,7 +3,6 @@ import { FormGroup } from '@angular/forms';
 import { AssignDataManagementService } from '../../shared/services/assign-data-management.service';
 import { AccessoriesSearchBoxComponent } from '../accessories-search-box/accessories-search-box.component';
 
-
 @Component({
   selector: 'app-assign-accessories',
   templateUrl: './assign-accessories.component.html',
