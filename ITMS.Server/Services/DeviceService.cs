@@ -15,6 +15,7 @@ using System.Linq;
 
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Http;
 
 public class DeviceService
 
@@ -459,12 +460,11 @@ public class DeviceService
 
     }
 
-
-    public async Task<bool> UpdateDeviceStatusToDiscarded(string cygid)
+    public async Task<bool> UpdateDeviceStatusToDiscarded(ArchiveDto archiveDto)
     {
         try
         {
-            var device = await GetDeviceAsync(cygid);
+            var device = await GetDeviceAsync(archiveDto.Cygid);
 
             if (device == null)
                 return false;
@@ -507,5 +507,47 @@ public class DeviceService
         }
     }
 
+    public async Task<bool> UpdateDeviceStatusToNotAssigned(ArchiveDto archiveDto)
+    {
+        try
+        {
+            var device = await GetDeviceAsync(archiveDto.Cygid);
 
+            if (device == null)
+                return false;
+
+            // Make sure StatusNavigation is not null
+            if (device.StatusNavigation != null)
+            {
+                // Find the "discarded" status from the database
+                var discardedStatus = await _context.Statuses.FirstOrDefaultAsync(s => s.Type == "not Assigned");
+
+                if (discardedStatus != null)
+                {
+                    // Update the status to discarded
+                    device.StatusNavigation = discardedStatus;
+
+                    // Set IsArchived to true (1)
+                    device.IsArchived = false;
+
+                    // Save the changes
+                    await _context.SaveChangesAsync();
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
 }
