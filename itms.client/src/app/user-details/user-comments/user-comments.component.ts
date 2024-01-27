@@ -17,7 +17,7 @@ export class UserCommentsComponent {
   @Input() softwareDetails: any;
   @Input() userId: any;
 
-  isCommentCollapsed: boolean = false;
+  isCommentCollapsed: boolean = true;
   newComment: string = '';
   comments: any;
  // latestComment: any; 
