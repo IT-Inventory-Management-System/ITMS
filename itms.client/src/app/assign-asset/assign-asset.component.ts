@@ -11,6 +11,7 @@ import { SoftwareVersionSearchBoxComponent } from './software-version-search-box
 import { AssignAccessoriesComponent } from './assign-accessories/assign-accessories.component';
 import { ToastrService } from 'ngx-toastr';
 import { customValidation } from './custom-validators';
+//import { customValidation } from './custom-validators';
 
 @Component({
   selector: 'app-assign-asset',
