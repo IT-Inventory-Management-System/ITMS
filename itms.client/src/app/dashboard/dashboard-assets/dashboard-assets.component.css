@@ -112,9 +112,11 @@ width:22.0rem;
 }
 
 
+
 .lowstock-container {
   display: flex;
-  align-items: center; /* Align items vertically in the middle */
+  align-items: center;
+  margin-left:25px ;
 }
 
 .lowstock {
