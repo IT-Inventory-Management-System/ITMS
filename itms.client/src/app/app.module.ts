@@ -9,7 +9,6 @@ import { InventoryComponent } from './inventory/inventory.component';
 import { LicenseComponent } from './license/license.component';
 import { HistoryComponent } from './history/history.component';
 
-import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { NewSidebarComponent } from './shared/components/new-sidebar/new-sidebar.component';
 
 // Use SidebarNewComponent in your code
@@ -73,6 +72,7 @@ import { AssignAssetComponent } from './assign-asset/assign-asset.component';
 import { AssignLaptopComponent } from './assign-asset/assign-laptop/assign-laptop.component';
 import { AssignSoftwareComponent } from './assign-asset/assign-software/assign-software.component';
 import { SearchBoxComponent } from './assign-asset/search-box/search-box.component';
+import { NavbarComponent } from './shared/components/navbar/navbar.component';
 
 
 
@@ -85,7 +85,6 @@ import { SearchBoxComponent } from './assign-asset/search-box/search-box.compone
     AccessoriesDetailsComponent,
     SpecInfoComponent,
     AppComponent,
-    NavbarComponent,
     CategoryComponent,
     InventoryComponent,
     LicenseComponent,
@@ -146,7 +145,8 @@ import { SearchBoxComponent } from './assign-asset/search-box/search-box.compone
     AssignSoftwareComponent,
     SearchBoxComponent,
     UnrchivemodalComponent,
-    CommentCardComponent
+    CommentCardComponent,
+    NavbarComponent
 
 
 

@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, Input, OnInit, ElementRef, AfterViewInit} from '@angular/core';
 import { DashboardService } from '../shared/services/Dashboard.service';
 import { FormGroup } from '@angular/forms';
+import { LocationService } from '../shared/services/location.service';
 
 
 
@@ -18,6 +19,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   //  { text: "ListItem 5", value: "ListItem 5" }
   //];
   //fieldsvalues: Object = { dataSource: this.data, text: "text", value: "value" };
+  location: any = '';
+
   loading: boolean = true;
   selectedAssetAge: any = '';
   accessoriesData: any[];
@@ -46,7 +49,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     );
   }
 
-  constructor(private dashboardService: DashboardService, private cdr: ChangeDetectorRef, private elementRef: ElementRef) {
+  constructor(private dashboardService: DashboardService, private cdr: ChangeDetectorRef, private elementRef: ElementRef, private LocationService: LocationService) {
     this.filteredAccessories = this.accessoriesData;
     this.filteredSoftware = this.softwaresData;
 
@@ -66,12 +69,21 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     window.addEventListener('resize', this.addClassBasedOnScreenSize.bind(this));
       window.addEventListener('mousemove', this.addClassBasedOnScreenSize.bind(this));
     //window.addEventListener('loadeddata', this.addClassBasedOnScreenSize.bind(this));
-
-  
-
+    window.addEventListener('storage', (event) => {
+      if (event.key === 'selectedCountry') {
+        console.log('Storage event - selectedCountry changed');
+      }
+    });
   }
 
-  
+  updateUI() {
+    this.location = localStorage.getItem('selectedCountry');
+    //this.LocationService.selectedCountry$.subscribe((country) => {
+    //  this.location = country;
+    //});
+    console.log(this.location);
+  }
+
  addClassBasedOnScreenSize() {
   //const containerDiv = document.getElementById('myDiv');
    // const screenWidth = window.innerWidth;
@@ -108,6 +120,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.getSoftwaresData();
     this.getPrimaryData();
     this.getLogsData();
+    this.updateUI();
   }
 
 
