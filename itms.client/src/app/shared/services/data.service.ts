@@ -16,6 +16,7 @@ export class DataService {
   Archiveddevices: any;
   showArchiveOnly: boolean = false;
   CommentDetails: any;
+  locationId:string =''
 
   // Subject to track button click state
   private buttonClickedSource = new Subject<void>();
@@ -27,12 +28,12 @@ export class DataService {
     return this.http.get<any[]>(this.apiUrl + 'Device/categories');
   }
 
-  getDevices(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl + 'DeviceLog/devices');
+  getDevices(locationId:any): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + 'DeviceLog/devices/'+locationId);
   }
 
-  getArchivedDevices(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl + 'Device/archived-cygids');
+  getArchivedDevices(locationId: any): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + 'Device/archived-cygids/'+locationId);
   }
 
   getDevicesInfo(deviceId: string): Observable<any[]> {

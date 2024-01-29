@@ -143,7 +143,7 @@ export class AddDeviceFormComponent implements OnInit {
   }
 
   loadDeviceData() {
-    this.dataService.getDevices().subscribe(
+    this.dataService.getDevices(this.dataService.locationId).subscribe(
       (data) => {
         this.deviceData = data;
       },
