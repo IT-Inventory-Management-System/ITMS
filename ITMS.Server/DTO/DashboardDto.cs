@@ -36,8 +36,11 @@ namespace ITMS.Server.DTO
     public class Primary
     {
         public string Name { get; set; }
-        public int Total { get; set; }
-        public int Assigned { get; set; }
+        public int TotalIndia { get; set; }
+        public int AssignedIndia { get; set; }
+
+        public int TotalUSA { get; set; }
+        public int AssignedUSA { get; set; }
     }
 
     public class Logs

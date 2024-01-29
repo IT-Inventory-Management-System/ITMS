@@ -3,6 +3,7 @@ using ITMS.Server.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
+using Xamarin.Forms;
 
 
 namespace ITMS.Server.Services
@@ -79,7 +80,7 @@ namespace ITMS.Server.Services
         }
         public List<List<Primary>> GetPrimary()
         {
-            var primary = _context.Ostypes.Include(o => o.DeviceModels).ThenInclude(d => d.Devices);
+            var primary = _context.Ostypes.Include(o => o.DeviceModels).ThenInclude(d => d.Devices).ThenInclude(l=>l.Location);
             //DeviceModel.Where(dm=>dm.Os!=null).Include(d => d.Devices);
             List<List<Primary>> allprimary = new List<List<Primary>>();
             //return primary;
@@ -91,26 +92,46 @@ namespace ITMS.Server.Services
                 {
                     Primary prime = new Primary();
                     prime.Name = p.Osname;
-
+                    //.SelectMany(dm => dm.Devices).Where(l => l.Location == "India")
                     if (i == -1)
                     {
-                        prime.Total = p.DeviceModels
+                        prime.TotalIndia = p.DeviceModels
                                 .SelectMany(dm => dm.Devices)
-                                .Count();
+                                .Count(device => device.Location != null && device.Location.Location1 == "India"); 
 
-                        prime.Assigned = p.DeviceModels
+                        prime.AssignedIndia = p.DeviceModels
                                 .SelectMany(dm => dm.Devices)
-                                .Count(device => device.AssignedTo != null);
+                                .Count(device => device.AssignedTo != null && device.Location != null && device.Location.Location1 == "India");
+
+                        prime.TotalUSA = p.DeviceModels
+                               .SelectMany(dm => dm.Devices)
+                               .Count(device => device.Location != null && device.Location.Location1 == "USA");
+
+                        prime.AssignedUSA = p.DeviceModels
+                                .SelectMany(dm => dm.Devices)
+                                .Count(device => device.AssignedTo != null && device.Location != null && device.Location.Location1 == "USA");
                     }
                     else
                     {
-                        prime.Total = p.DeviceModels
+                        prime.TotalIndia = p.DeviceModels
                             .SelectMany(dm => dm.Devices)
-                            .Count(device => device.CreatedAtUtc >= DateTime.UtcNow.AddYears(-i - 1) && device.CreatedAtUtc < DateTime.UtcNow.AddYears(-i));
+                            .Count(device => device.CreatedAtUtc >= DateTime.UtcNow.AddYears(-i - 1) && device.CreatedAtUtc < DateTime.UtcNow.AddYears(-i)
+                                   && device.Location != null && device.Location.Location1 == "India");
 
-                        prime.Assigned = p.DeviceModels
+                        prime.AssignedIndia = p.DeviceModels
                             .SelectMany(dm => dm.Devices)
-                            .Count(device => device.CreatedAtUtc >= DateTime.UtcNow.AddYears(-i - 1) && device.CreatedAtUtc < DateTime.UtcNow.AddYears(-i) && device.AssignedTo != null);
+                            .Count(device => device.CreatedAtUtc >= DateTime.UtcNow.AddYears(-i - 1) && device.CreatedAtUtc < DateTime.UtcNow.AddYears(-i) && device.AssignedTo != null
+                                   && device.Location != null && device.Location.Location1 == "India");
+
+                        prime.TotalUSA = p.DeviceModels
+                           .SelectMany(dm => dm.Devices)
+                           .Count(device => device.CreatedAtUtc >= DateTime.UtcNow.AddYears(-i - 1) && device.CreatedAtUtc < DateTime.UtcNow.AddYears(-i)
+                                  && device.Location != null && device.Location.Location1 == "USA");
+
+                        prime.AssignedUSA = p.DeviceModels
+                            .SelectMany(dm => dm.Devices)
+                            .Count(device => device.CreatedAtUtc >= DateTime.UtcNow.AddYears(-i - 1) && device.CreatedAtUtc < DateTime.UtcNow.AddYears(-i) && device.AssignedTo != null
+                            && device.Location != null && device.Location.Location1 == "USA");
 
                     }
 
@@ -135,23 +156,43 @@ namespace ITMS.Server.Services
 
                     if (i == -1)
                     {
-                        prime.Total = category.DeviceModels
+                        prime.TotalIndia = category.DeviceModels
                             .SelectMany(dm => dm.Devices)
-                            .Count();
+                            .Count(device => device.Location != null && device.Location.Location1 == "India");
 
-                        prime.Assigned = category.DeviceModels
+                        prime.AssignedIndia = category.DeviceModels
                             .SelectMany(dm => dm.Devices)
-                            .Count(device => device.AssignedTo != null);
+                        .Count(device => device.AssignedTo != null && device.Location != null && device.Location.Location1 == "India");
+
+                        prime.TotalUSA = category.DeviceModels
+                        .SelectMany(dm => dm.Devices)
+                           .Count(device => device.Location != null && device.Location.Location1 == "USA");
+
+                        prime.AssignedUSA = category.DeviceModels
+                            .SelectMany(dm => dm.Devices)
+                            .Count(device => device.AssignedTo != null && device.Location != null && device.Location.Location1 == "USA");
                     }
                     else
                     {
-                        prime.Total = category.DeviceModels
+                        prime.TotalIndia = category.DeviceModels
                             .SelectMany(dm => dm.Devices)
-                            .Count(device => device.CreatedAtUtc >= DateTime.UtcNow.AddYears(-i - 1) && device.CreatedAtUtc < DateTime.UtcNow.AddYears(-i));
+                            .Count(device => device.CreatedAtUtc >= DateTime.UtcNow.AddYears(-i - 1) && device.CreatedAtUtc < DateTime.UtcNow.AddYears(-i)
+                                   && device.Location != null && device.Location.Location1 == "India");
 
-                        prime.Assigned = category.DeviceModels
+                        prime.AssignedIndia = category.DeviceModels
                             .SelectMany(dm => dm.Devices)
-                            .Count(device => device.CreatedAtUtc >= DateTime.UtcNow.AddYears(-i - 1) && device.CreatedAtUtc < DateTime.UtcNow.AddYears(-i) && device.AssignedTo != null);
+                            .Count(device => device.CreatedAtUtc >= DateTime.UtcNow.AddYears(-i - 1) && device.CreatedAtUtc < DateTime.UtcNow.AddYears(-i) && device.AssignedTo != null
+                                   && device.Location != null && device.Location.Location1 == "India");
+
+                        prime.TotalUSA = category.DeviceModels
+                           .SelectMany(dm => dm.Devices)
+                           .Count(device => device.CreatedAtUtc >= DateTime.UtcNow.AddYears(-i - 1) && device.CreatedAtUtc < DateTime.UtcNow.AddYears(-i)
+                                  && device.Location != null && device.Location.Location1 == "USA");
+
+                        prime.AssignedUSA = category.DeviceModels
+                            .SelectMany(dm => dm.Devices)
+                            .Count(device => device.CreatedAtUtc >= DateTime.UtcNow.AddYears(-i - 1) && device.CreatedAtUtc < DateTime.UtcNow.AddYears(-i) && device.AssignedTo != null
+                                   && device.Location != null && device.Location.Location1 == "USA");
                     }
 
                     listOfYearsPrimary.Add(prime);
