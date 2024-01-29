@@ -64,7 +64,7 @@ public class UserDeviceService
                cygid = log.Device.Cygid,
                Model = log.Device.DeviceModel.ModelNo,
                AssignBy = _dbContext.Employees
-                   .Where(employee => employee.Id == log.Device.AssignedBy)
+                   .Where(employee => employee.Id == log.AssignedBy)
                    .Select(employee => $"{employee.FirstName} {employee.LastName}")
                    .FirstOrDefault(),
                AssignedDate = (DateTime)log.AssignedDate,
