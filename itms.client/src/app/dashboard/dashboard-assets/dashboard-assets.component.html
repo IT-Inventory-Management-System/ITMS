@@ -21,9 +21,9 @@
           <img src="../../../assets/icons/dashboard/Check mark.svg" />
           <span class="Inventory-text"> Inventory</span>
           <!--<div class="Inventory-number">{{primaryData.total - primaryData.assigned}}</div>-->
-          <div class="lowstock-container me-0">
+          <div class="lowstock-container  me-0">
             <div class="lowstock  ms-auto" *ngIf="(primaryData.total - primaryData.assigned) < 1">
-              <div class="lowstocktext ">Low in Stock</div>
+              <div class="lowstocktext  ">Low in Stock</div>
             </div>
             <div class="Inventory-number ms-auto p-0" [ngClass]="{'inventorylowstocktext': (primaryData.total - primaryData.assigned) < 1}">
               {{primaryData.total - primaryData.assigned}}

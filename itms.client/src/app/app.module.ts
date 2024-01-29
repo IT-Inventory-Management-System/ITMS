@@ -114,7 +114,7 @@ import { SearchBoxComponent } from './assign-asset/search-box/search-box.compone
     SoftwareComponentComponent,
     FilterSearchListPipe,
     AssignHistoryComponent,
-    CommentCardComponent,
+    
     NewSidebarComponent,
     FilterSearchListPipe,
     LaptopDetailsComponent,
@@ -145,6 +145,12 @@ import { SearchBoxComponent } from './assign-asset/search-box/search-box.compone
     AssignLaptopComponent,
     AssignSoftwareComponent,
     SearchBoxComponent,
+    UnrchivemodalComponent,
+    CommentCardComponent
+
+
+
+
   ],
   imports: [
     BrowserModule,
