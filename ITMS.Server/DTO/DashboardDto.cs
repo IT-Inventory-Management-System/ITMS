@@ -29,8 +29,13 @@ namespace ITMS.Server.DTO
     public class Accessories
     {
         public string Name { get; set; }
-        public int Total { get; set; }
-        public int Assigned { get; set; }
+       
+
+        public int TotalIndia { get; set; }
+        public int AssignedIndia { get; set; }
+
+        public int TotalUSA { get; set; }
+        public int AssignedUSA { get; set; }
     }
 
     public class Primary
@@ -62,8 +67,11 @@ namespace ITMS.Server.DTO
         public string Version { get; set; }
         public string Type { get; set; }
 
-        public int Inventory { get; set; }
-        public int Assigned { get; set; }
+        public int IndiaInventory { get; set; }
+        public int IndiaAssigned { get; set; }
+
+        public int UsaInventory { get; set; }
+        public int UsaAssigned { get; set; }
 
         public DateTime? ExpDate { get; set; }
 

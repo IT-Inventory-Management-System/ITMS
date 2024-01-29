@@ -28,12 +28,23 @@ namespace ITMS.Server.Services
             {
                 Accessories accessories = new Accessories();
                 accessories.Name = category.Name;
-                accessories.Total = category.DeviceModels
+                accessories.TotalIndia = category.DeviceModels
                         .SelectMany(dm => dm.Devices)
-                        .Count();
-                accessories.Assigned = category.DeviceModels
+                        .Count(device => device.Location != null && device.Location.Location1 == "India");
+                accessories.AssignedIndia = category.DeviceModels
             .SelectMany(dm => dm.Devices)
-            .Count(device => device.AssignedTo != null);
+            .Count(device => device.AssignedTo != null && device.Location != null && device.Location.Location1 == "India");
+
+
+                accessories.TotalUSA = category.DeviceModels
+                      .SelectMany(dm => dm.Devices)
+                      .Count(device => device.Location != null && device.Location.Location1 == "USA");
+                accessories.AssignedUSA = category.DeviceModels
+            .SelectMany(dm => dm.Devices)
+            .Count(device => device.AssignedTo != null && device.Location != null && device.Location.Location1 == "USA");
+
+
+
                 allaccessories.Add(accessories);
             }
 
@@ -52,11 +63,19 @@ namespace ITMS.Server.Services
          Name = s.SoftwareName,
          Version = s.Version,
          Type = st.TypeName,
-         Inventory = s.SoftwareAllocations
-             .Count(),  
+        
+         IndiaInventory = s.SoftwareAllocations
+             .Count(s=>s.Location != null && s.Location.Location1 == "India"),
 
-         Assigned = s.SoftwareAllocations
-             .Count(sa => sa.AssignedTo != null),  
+         UsaInventory = s.SoftwareAllocations
+             .Count(s => s.Location != null && s.Location.Location1 == "USA"),
+
+         IndiaAssigned = s.SoftwareAllocations
+             .Count(s => s.AssignedTo != null && s.Location != null && s.Location.Location1 == "India"),
+
+         UsaAssigned = s.SoftwareAllocations
+             .Count(s => s.AssignedTo != null && s.Location != null && s.Location.Location1 == "USA"),
+
 
          ExpiryDateCount = s.SoftwareAllocations
             .Where(sa => sa.ExpiryDate.HasValue)
