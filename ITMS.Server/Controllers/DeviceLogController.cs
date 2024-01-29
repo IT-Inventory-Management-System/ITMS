@@ -14,12 +14,12 @@ public class DeviceLogController : ControllerBase
         _deviceLogService = deviceLogService;
     }
 
-    [HttpGet("devices")]
-    public async Task<IActionResult> GetDeviceHistory()
+    [HttpGet("devices/{locationId}")]
+    public async Task<IActionResult> GetDeviceHistory(Guid locationId)
     {
         try
         {
-            var deviceHistory = await _deviceLogService.GetDevicesAsync();
+            var deviceHistory = await _deviceLogService.GetDevicesAsync(locationId);
             return Ok(deviceHistory);
         }
         catch (Exception ex)
