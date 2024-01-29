@@ -28,6 +28,7 @@ export class LaptopSearchBoxComponent implements OnInit, OnDestroy {
 
   setSaveStateOnDestroy(): void {
     this.selectedOption = null;
+    this.assignDataManagementService.setState("cygid", null);
   }
 
   onClearSelection(): void {
