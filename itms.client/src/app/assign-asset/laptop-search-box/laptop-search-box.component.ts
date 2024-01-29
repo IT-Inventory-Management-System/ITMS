@@ -23,7 +23,7 @@ export class LaptopSearchBoxComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-      this.assignDataManagementService.setState("cygid", this.selectedOption);
+    this.assignDataManagementService.setState("cygid", this.selectedOption);
   }
 
   setSaveStateOnDestroy(): void {

@@ -56,7 +56,7 @@ export class AssignDataManagementService {
       case 'softwareName':
         return this.softwareNameState !== undefined ? this.softwareNameState : null;
       case 'softwareVersion':
-         this.softwareVersionState !== undefined ? this.softwareVersionState : null;
+        this.softwareVersionState !== undefined ? this.softwareVersionState : null;
         console.log(this.softwareVersionState);
         return;
       case 'accessory':

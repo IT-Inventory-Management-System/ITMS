@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import * as myGlobals from '../../../../Global';
-import { LocationService } from '../../services/location.service';
+import { SelectedCountryService } from '../../services/selected-country.service';
 
 @Component({
   selector: 'app-navbar',
@@ -9,15 +8,13 @@ import { LocationService } from '../../services/location.service';
 })
 export class NavbarComponent {
 
-  isOptionsVisible: boolean = false;
+  constructor(private selectedCountryService: SelectedCountryService) { }
 
-  constructor(private LocationService: LocationService) { }
+  isOptionsVisible: boolean = false;
 
   onRadioChange(event: any) {
     const selectedCountry = event.target.value;
     localStorage.setItem('selectedCountry', selectedCountry);
-    //this.LocationService.setSelectedCountry(selectedCountry);
-    //alert(selectedCountry);
-    location.reload();
+    this.selectedCountryService.setSelectedCountry(selectedCountry);
   }
 }
