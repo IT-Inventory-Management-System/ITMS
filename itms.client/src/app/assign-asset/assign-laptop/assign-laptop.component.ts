@@ -33,7 +33,6 @@ export class AssignLaptopComponent {
   }
 
   ngOnDestroy(): void {
-    console.log(this.selectedOption);
     this.assignDataManagementService.setState("laptopComment", this.selectedOption);
   }
 
