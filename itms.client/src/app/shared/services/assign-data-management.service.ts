@@ -28,7 +28,6 @@ export class AssignDataManagementService {
         break;
       case 'softwareVersion':
         this.softwareVersionState = newState;
-        console.log(this.softwareVersionState);
         break;
       case 'accessory':
         this.accessoryState = newState;
@@ -56,9 +55,8 @@ export class AssignDataManagementService {
       case 'softwareName':
         return this.softwareNameState !== undefined ? this.softwareNameState : null;
       case 'softwareVersion':
-        this.softwareVersionState !== undefined ? this.softwareVersionState : null;
-        console.log(this.softwareVersionState);
-        return;
+         this.softwareVersionState !== undefined ? this.softwareVersionState : null;
+        return this.softwareVersionState;
       case 'accessory':
         return this.accessoryState !== undefined ? this.accessoryState : null;
       case 'laptopComment':

@@ -13,7 +13,16 @@
                                      (SoftwareVersionOptionSelected)=" SoftwareVersionSearchBoxOptionSelected($event)"
                                      [assignAssetForm]="assignAssetForm">
     </app-software-version-search-box>
-    <div *ngIf="SelectedSoftware" class="software-details">
+    <div *ngIf="SelectedSoftwareVersion?.assignedTo" class="alert-box">
+      <div class="alert-image-frame">
+        <img id="alert-image" src="../../../../assets/icons/Vector.svg" />
+      </div>
+      <div class="alert-box-msg">
+        This Software has already been assigned to maximum no. of users.<br>
+        Please select another software from the list.
+      </div>
+    </div>
+    <div *ngIf="!SelectedSoftwareVersion?.assignedTo && SelectedSoftware" class="software-details">
       <div class="details-subheading">
         Selected Software Details:
       </div>
@@ -21,11 +30,11 @@
         <div class="details">
           <div class="detail">
             <div class="detail-paramter">Software Type:</div>
-            <div class="detail-value">{{SelectedSoftware.softwareType}}</div>
+            <div class="detail-value">{{SelectedSoftwareData.softwareType}}</div>
           </div>
-          <div *ngIf="SelectedSoftwareVersion" class="detail">
+          <div *ngIf="!SelectedSoftwareVersion?.assignedTo && SelectedSoftwareVersion" class="detail">
             <div class="detail-paramter">Expiry:</div>
-            <div class="detail-value">{{ formatExpiryDate(SelectedSoftware.expiryDate) }}</div>
+            <div class="detail-value">{{ formatExpiryDate(SelectedSoftwareVersion.expiryDate) }}</div>
           </div>
         </div>
       </div>

@@ -11,7 +11,6 @@ import { SoftwareVersionSearchBoxComponent } from './software-version-search-box
 import { AssignAccessoriesComponent } from './assign-accessories/assign-accessories.component';
 import { ToastrService } from 'ngx-toastr';
 import { customValidation } from './custom-validators';
-//import { customValidation } from './custom-validators';
 
 @Component({
   selector: 'app-assign-asset',
@@ -78,7 +77,6 @@ export class AssignAssetComponent {
     }
   }
 
-
   users: any[] = [];
   softwares: any[] = [];
   softwareVersions: any[] = [];
@@ -92,7 +90,6 @@ export class AssignAssetComponent {
   @ViewChild(SoftwareSearchBoxComponent) softwareSearchBoxComponent: SoftwareSearchBoxComponent;
   @ViewChild(SoftwareVersionSearchBoxComponent) softwareVersionSearchBoxComponent: SoftwareVersionSearchBoxComponent;
   @ViewChild(AssignAccessoriesComponent) assignAccessoriesComponent: AssignAccessoriesComponent;
-
 
   constructor(
     private formBuilder: FormBuilder,
@@ -160,11 +157,8 @@ export class AssignAssetComponent {
     );
   }
 
-
-
   closeForm(): void {
     console.log("closeForm");
-
     this.assignAssetForm.reset();
     this.currentStep = 1;
     //this.searchBoxComponent.setSaveStateOnDestroy();
@@ -172,7 +166,6 @@ export class AssignAssetComponent {
     //this.laptopSearchBoxComponent.setSaveStateOnDestroy();
     //this.softwareSearchBoxComponent.setSaveStateOnDestroy();
     //this.softwareVersionSearchBoxComponent.setSaveStateOnDestroy();
-
     this.SearchBoxComponent.setSaveStateOnDestroy();
     //this.LaptopSearchBoxComponent.setSaveStateOnDestroy();
     this.assignDataManagementService.setState("assignedTo", null);
@@ -207,7 +200,6 @@ export class AssignAssetComponent {
       const errors = this.assignAssetForm.errors;
 
       if (errors) {
-        // If there are custom errors, display them using Toastr
         for (const key of Object.keys(errors)) {
           const message = errors[key];
           this.toastr.error(message);
@@ -220,5 +212,4 @@ export class AssignAssetComponent {
       this.assignAssetForm.reset();
     }
   }
-
 }

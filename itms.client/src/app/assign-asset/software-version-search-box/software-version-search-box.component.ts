@@ -10,25 +10,15 @@ import { AssignDataManagementService } from '../../shared/services/assign-data-m
 export class SoftwareVersionSearchBoxComponent {
   @Input() label: string;
   @Input() placeholder: string;
-  @Input() SoftwareVersionOptions: any[] = [];
+  @Input() SoftwareVersionOptions:Set<string>;
   @Input() assignAssetForm: FormGroup;
   @Output() SoftwareVersionOptionSelected: EventEmitter<any> = new EventEmitter();
 
-  //searchText: string = '';
-  //filteredOptions: any[] = [];
   selectedOption: any;
   constructor(private assignDataManagementService: AssignDataManagementService) { }
 
   onSelectOption(option: any): void {
     this.SoftwareVersionOptionSelected.emit(option);
-    if (option.assignedTo && 'assignedTo' in option && option.assignedTo) {
-      this.selectedOption = null;
-      this.assignAssetForm.get('softwareId')?.setValue(null);
-    }
-    else {
-      this.selectedOption = option;
-      this.assignAssetForm.get('softwareId')?.setValue(option.id);
-    }
   }
   onClearSelection(): void {
     this.assignAssetForm.get('softwareId')?.setValue(null);
@@ -36,7 +26,8 @@ export class SoftwareVersionSearchBoxComponent {
 
   ngOnInit(): void {
     this.selectedOption = this.assignDataManagementService.getState("softwareVersion");
-    this.SoftwareVersionOptionSelected.emit(this.selectedOption);
+    if (this.selectedOption)
+      this.SoftwareVersionOptionSelected.emit(this.selectedOption);
   }
   ngOnDestroy(): void {
     this.assignDataManagementService.setState("softwareVersion", this.selectedOption);
@@ -45,39 +36,5 @@ export class SoftwareVersionSearchBoxComponent {
   setSaveStateOnDestroy(): void {
     this.selectedOption = null;
   }
-
-  //constructor(private elementRef: ElementRef) { }
-
-  //onLaptopInputChange(event: any): void {
-  //  this.searchText = event.target.value;
-  //  this.filterLaptopOptions();
-  //}
-
-  //filterLaptopOptions(): void {
-  //  this.filteredOptions = this.SoftwareVersionOptions.filter(SoftwareVersionOptions =>
-  //    SoftwareVersionOptions.softwareVersion.toLowerCase().includes(this.searchText.toLowerCase()));
-  //}
-
-  //selectOption(option: any): void {
-  //  this.SoftwareVersionOptionSelected.emit(option);
-  //  this.selectedOption = `${option.softwareVersion}`;
-  //  this.filteredOptions = [];
-  ////  this.assignAssetForm.get('selectedSoftwareVersion')?.setValue(option.id);
-  //}
-
-  //@HostListener('document:click', ['$event'])
-  //handleDocumentClick(event: MouseEvent): void {
-  //  const clickedInside = this.elementRef.nativeElement.contains(event.target);
-  //  if (!clickedInside) {
-  //    //if (this.selectedOption && this.selectedOption !== this.searchText) {
-  //    //  this.searchText = "";
-  //    //  this.selectedOption = "";
-  //    //} else if (!this.selectedOption && this.searchText) {
-  //    //  this.searchText = "";
-  //    //}
-  //    //console.log('Search Text:', this.searchText);
-  //    //console.log('Selected Option:', this.selectedOption);
-  //    this.filteredOptions = [];
-  //  }
-  //}
+  
 }
