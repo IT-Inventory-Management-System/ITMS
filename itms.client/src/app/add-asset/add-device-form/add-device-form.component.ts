@@ -320,5 +320,6 @@ export class AddDeviceFormComponent implements OnInit {
   }
   onFormSubmitted() {
     this.showDeviceDetailsForm = false;
+    this.ngOnInit();
   }
  }

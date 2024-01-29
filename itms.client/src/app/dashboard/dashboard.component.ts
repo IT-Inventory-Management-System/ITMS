@@ -1,6 +1,7 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, ElementRef, AfterViewInit} from '@angular/core';
 import { DashboardService } from '../shared/services/Dashboard.service';
 import { FormGroup } from '@angular/forms';
+
 
 
 @Component({
@@ -8,7 +9,7 @@ import { FormGroup } from '@angular/forms';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, AfterViewInit {
   //data: Array<Object> = [
   //  { text: "ListItem 1", value: "ListItem 1" },
   //  { text: "ListItem 2", value: "ListItem 2" },
@@ -36,6 +37,8 @@ export class DashboardComponent implements OnInit {
     );
   }
 
+  
+
   applyAccessoryFilter(event: Event) {
     this.filterValue = (event.target as HTMLInputElement).value;
     this.filteredAccessories = this.accessoriesData.filter((accessory) =>
@@ -43,12 +46,47 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  constructor(private dashboardService: DashboardService, private cdr: ChangeDetectorRef) {
+  constructor(private dashboardService: DashboardService, private cdr: ChangeDetectorRef, private elementRef: ElementRef) {
     this.filteredAccessories = this.accessoriesData;
     this.filteredSoftware = this.softwaresData;
 
+  }
+
+  //ngOnInit(): void {
+  //  this.ngAfterViewInit(); 
+  //  this.addClassBasedOnScreenSize();
+  //}
+
+  ngAfterViewInit(): void {
+    //window.addEventListener('DOMContentLoaded', () => {
+    //  // Call the method directly when the content is loaded
+    //  this.addClassBasedOnScreenSize();
+    //});
+    this.addClassBasedOnScreenSize();
+    window.addEventListener('resize', this.addClassBasedOnScreenSize.bind(this));
+      window.addEventListener('mousemove', this.addClassBasedOnScreenSize.bind(this));
+    //window.addEventListener('loadeddata', this.addClassBasedOnScreenSize.bind(this));
+
+  
 
   }
+
+  
+ addClassBasedOnScreenSize() {
+  //const containerDiv = document.getElementById('myDiv');
+   // const screenWidth = window.innerWidth;
+   const containerDiv = this.elementRef.nativeElement.querySelector('#set-size');
+   console.log(containerDiv);
+   
+   if (containerDiv) {
+     if (window.innerWidth >= 2000) {
+       containerDiv.classList.add('container', 'd-flex', 'justify-content-center', 'align-items-center');
+     } else {
+       containerDiv.classList.remove('container', 'd-flex', 'justify-content-center', 'align-items-center');
+     }
+   }
+}
+
 
   getAssetAgeLabel(selectedValue: any): string {
     switch (selectedValue) {

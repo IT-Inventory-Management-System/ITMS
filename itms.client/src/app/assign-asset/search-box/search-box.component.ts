@@ -1,4 +1,4 @@
-import { Component, Input,OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { AssignDataManagementService } from '../../shared/services/assign-data-management.service';
 
@@ -17,11 +17,11 @@ export class SearchBoxComponent implements OnInit, OnDestroy {
   constructor(private assignDataManagementService: AssignDataManagementService) { }
 
   ngOnInit(): void {
-      this.selectedOption = this.assignDataManagementService.getState("assignedTo");
+    this.selectedOption = this.assignDataManagementService.getState("assignedTo");
   }
 
   ngOnDestroy(): void {
-      this.assignDataManagementService.setState("assignedTo", this.selectedOption);
+    this.assignDataManagementService.setState("assignedTo", this.selectedOption);
   }
   onSelectOption(option: any): void {
     this.assignAssetForm.get('assignedTo')?.setValue(option.id);
@@ -29,7 +29,7 @@ export class SearchBoxComponent implements OnInit, OnDestroy {
   setSaveStateOnDestroy(): void {
     this.selectedOption = null;
   }
-    
+
   onClearSelection(): void {
     this.assignAssetForm.get('assignedTo')?.setValue(null);
   }

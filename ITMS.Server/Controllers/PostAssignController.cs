@@ -44,6 +44,14 @@ namespace ITMS.Server.Controllers
                     var deviceId = device.FirstOrDefault().Id;
                     var softwareId = software.FirstOrDefault().Id;
 
+                    PostDeviceLogDTO postDeviceLogDTO = new PostDeviceLogDTO()
+                    {
+                        DeviceId = deviceId,
+                        EmployeeId = postAssignAssetDTO.AssignedTo,
+                    };
+
+                    await _postAssignAsset.UpdateDeviceLogAsync(postDeviceLogDTO);
+
                     if (!string.IsNullOrEmpty(postAssignAssetDTO.DeviceComment))
                     {
                         PostCommentDTO deviceCommentDTO = new PostCommentDTO()
@@ -76,6 +84,15 @@ namespace ITMS.Server.Controllers
 
                     var device = await _deviceService.CheckDeviceStatus(postAssignAssetDTO.CYGID);
                     var deviceId = device.FirstOrDefault().Id;
+
+                    PostDeviceLogDTO postDeviceLogDTO = new PostDeviceLogDTO()
+                    {
+                        DeviceId = deviceId,
+                        EmployeeId = postAssignAssetDTO.AssignedTo,
+                    };
+
+                    await _postAssignAsset.UpdateDeviceLogAsync(postDeviceLogDTO);
+
                     if (!string.IsNullOrEmpty(postAssignAssetDTO.DeviceComment))
                     {
                     PostCommentDTO deviceCommentDTO = new PostCommentDTO()

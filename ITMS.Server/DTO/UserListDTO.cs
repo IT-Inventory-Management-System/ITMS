@@ -9,6 +9,7 @@ namespace ITMS.Server.DTO
             public String Cgiid { get; set; }
             public String FirstName { get; set; } = null!;
             public String? LastName { get; set; }
+            public Guid LocationId { get; set; }
 
         
     }

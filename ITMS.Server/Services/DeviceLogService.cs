@@ -195,16 +195,30 @@ public class DeviceLogService
             DeviceLogId = commentDto.DeviceLogId
         };
 
+        var createdByEntity = _context.Employees
+      .Where(e => e.Id == commentDto.CreatedBy)
+      .FirstOrDefault();
+
+
+        if (createdByEntity != null)
+        {
+            commentEntity.CreatedByNavigation = createdByEntity;
+        }
+
+
         _context.Comments.Add(commentEntity);
         _context.SaveChanges();
 
-        // Convert the added comment to a CommentDto
+
         CommentDto addedComment = new CommentDto
         {
             Id = commentEntity.Id,
             DeviceLogId = commentEntity.DeviceLogId,
+            DeviceId = commentEntity.DeviceId,
             Description = commentEntity.Description,
-            CreatedBy = commentEntity.CreatedByNavigation?.FirstName, // Null conditional operator
+            CreatedBy = commentEntity.CreatedByNavigation != null
+                             ? $"{commentEntity.CreatedByNavigation.FirstName} "
+                             : null,
             CreatedAt = commentEntity.CreatedAtUtc,
         };
 

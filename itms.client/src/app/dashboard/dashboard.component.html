@@ -8,15 +8,16 @@
 
 
 <ng-template #content>
-  <div class="container d-flex justify-content-center align-items-center  ">
+  <div class="container-fluid custom-container d-flex justify-content-center align-items-center  ">
+
     <div class="container-fluid my-dashboard me-0 p-0  " *ngIf="!loading && logsData">
-      <div class="row header">
-        <div class="col-8 dashboard-title ">
+      <div class="row header ms-0 me-0  ">
+        <div class="col-8 dashboard-title  ">
           Dashboard
         </div>
-        <div class="col-4 ">
-          <div class="row lastupdaterow">
-            <span class="last-update">
+        <div class="col-4 p-0 y ">
+          <div class="row lastupdaterow ">
+            <span class="last-update ">
               Last Updated:
               <span class="Time" *ngIf="logsData.length!=0">
                 {{ logsData[0].updatedOn | date: 'MM-dd-yyyy, h:mm a' }}
@@ -32,7 +33,7 @@
         </div>
       </div>
 
-      <div class="container d-flex justify-content-center align-items-center">
+      <div class="container-fluid x">
 
         <div class="row  KPI-card  ">
 
@@ -147,7 +148,7 @@
                   <input class="Search-text" placeholder="Search by software name" [(ngModel)]="filterValues"
                          (input)="applySoftwareFilter($event)" />
                 </div>
-                <div class="container-fluid">
+                <div class="container-fluid list">
                   <app-software-component *ngFor="let software of filteredSoftware? filteredSoftware : softwaresData " [softwareData]="software"></app-software-component>
                 </div>
               </div>
@@ -223,6 +224,6 @@
 
       </div>
     </div>
-  </div>
+    </div>
 </ng-template>
 

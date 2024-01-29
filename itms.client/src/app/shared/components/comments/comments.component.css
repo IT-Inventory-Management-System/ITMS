@@ -54,6 +54,13 @@
   display: flex;
   align-items: center;
 }
+.chevron-down {
+  filter: invert(100%);
+  margin-left: 35rem;
+  width: 30px;
+  height: 30px;
+  opacity: 0.7;
+}
 
 .avatar {
   width: 2rem;

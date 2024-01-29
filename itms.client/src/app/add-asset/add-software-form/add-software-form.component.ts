@@ -147,6 +147,7 @@ export class AddSoftwareFormComponent {
     // Set isFormOpen to false to hide the form
    
     this.isFormOpen = false;
+    this.ngOnInit();
   }
 
   selectedTypeName: string = 'Perpetual';
