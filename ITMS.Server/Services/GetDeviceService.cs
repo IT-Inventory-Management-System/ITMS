@@ -27,17 +27,18 @@ namespace ITMS.Server.Services
                                 on dm.Os equals os.Id
                                 select new GetDeviceDTO
                                 {
-                                    Cygid=d.Cygid,
-                                    AssignedTo=d.AssignedTo,
-                                    RecievedBy=d.RecievedBy,
-                                    Age= (DateTime.UtcNow - d.PurchasedDate.GetValueOrDefault()).TotalDays / 365,
-                                    DeviceName =dm.DeviceName,
-                                    Brand=dm.Brand,
-                                    ModelNo=dm.ModelNo,
-                                    Processor=dm.Processor,
-                                    Os=os.Osname,
-                                    Ram=dm.Ram,
-                                    Storage=dm.Storage,        
+                                    Cygid = d.Cygid,
+                                    AssignedTo = d.AssignedTo,
+                                    RecievedBy = d.RecievedBy,
+                                    Age = (DateTime.UtcNow - d.PurchasedDate.GetValueOrDefault()).TotalDays / 365,
+                                    DeviceName = dm.DeviceName,
+                                    Brand = dm.Brand,
+                                    ModelNo = dm.ModelNo,
+                                    Processor = dm.Processor,
+                                    Os = os.Osname,
+                                    Ram = dm.Ram,
+                                    Storage = dm.Storage,  
+                                    LocationId = d.LocationId,
                                    
                                 }
                              ).ToListAsync();

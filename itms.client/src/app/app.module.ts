@@ -63,7 +63,6 @@ import { CommentsComponent } from './shared/components/comments/comments.compone
 import { UserCommentsComponent } from './user-details/user-comments/user-comments.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ToastrModule } from 'ngx-toastr';
-import { AddAssetComponent } from './add-asset/add-asset.component';
 import { UnrchivemodalComponent } from './inventory/assets-category/assest/specification/unrchivemodal/unrchivemodal.component';
 import { ArchiveModalComponent } from './inventory/assets-category/assest/specification/archive-modal/archive-modal.component';
 import { AccessoriesSearchBoxComponent } from './assign-asset/accessories-search-box/accessories-search-box.component';
@@ -74,6 +73,7 @@ import { AssignSoftwareComponent } from './assign-asset/assign-software/assign-s
 import { SearchBoxComponent } from './assign-asset/search-box/search-box.component';
 import { LaptopSearchBoxComponent } from './assign-asset/laptop-search-box/laptop-search-box.component';
 import { SoftwareSearchBoxComponent } from './assign-asset/software-search-box/software-search-box.component';
+import { AddAssetComponent } from './add-asset/add-asset.component';
 
 
 
@@ -132,10 +132,9 @@ import { SoftwareSearchBoxComponent } from './assign-asset/software-search-box/s
     DashboardComponent,
     CommentsComponent,
     UserCommentsComponent,
-    AddAssetComponent,
     UnrchivemodalComponent,
     ArchiveModalComponent,
-
+    AddAssetComponent,
 
     LaptopSearchBoxComponent,
     SoftwareSearchBoxComponent,
