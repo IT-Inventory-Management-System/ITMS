@@ -2,13 +2,7 @@ import { Component, Input, SimpleChanges} from '@angular/core';
 import { EmployeeService } from '../../shared/services/Employee.service';
 
 
-export class UserCommentHistory {
-  description: string;
-  createdBy: string;
-  createdAtUtc: string;
-  deviceId: string;
-  deviceLogId: string;
-}
+
 
 
 @Component({
@@ -23,7 +17,7 @@ export class UserCommentsComponent {
   @Input() softwareDetails: any;
   @Input() userId: any;
 
-  isCommentCollapsed: boolean = false;
+  isCommentCollapsed: boolean = true;
   newComment: string = '';
   comments: any;
  // latestComment: any; 

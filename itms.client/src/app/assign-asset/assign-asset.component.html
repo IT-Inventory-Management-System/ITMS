@@ -3,7 +3,7 @@
     <div class="modal-content assign-asset-modal-outer-box">
       <div class="modal-header assign-asset-modal-header">
         <h1 class="modal-title assign-asset-modal-title fs-5" id="assignAssetModal">Assign Assets</h1>
-        <button type="button" class="close-button" data-bs-dismiss="modal" aria-label="Close"><img src="../../../../assets/icons/Close.svg" /></button>
+        <button type="button" class="close-button" data-bs-dismiss="modal" aria-label="Close" (click)="closeForm()"><img src="../../../../assets/icons/Close.svg" /></button>
       </div>
         <div class="modal-body">
           <app-search-box class="sbox"
@@ -38,7 +38,8 @@
           </div>
           <app-assign-laptop *ngIf="currentStep === 1"
                              [LaptopOptions]="laptops"
-                             [assignAssetForm]="assignAssetForm">
+                             [assignAssetForm]="assignAssetForm"
+                             >
           </app-assign-laptop>
           <app-assign-software *ngIf="currentStep === 2"
                                [SoftwareOptions]="softwares"
@@ -57,7 +58,7 @@
           <div class="modal-footer">
             <div class="button-container">
               <button type="button" class="btn-skip" *ngIf="currentStep !== 3" (click)="skipStep()">Skip</button>
-              <button type="button" class="btn-save" (click)="currentStep !== 3 ? nextStep() : saveChanges()">{{ getButtonText() }}</button>
+              <button type="button" class="btn-save" [attr.data-bs-dismiss]="currentStep === 3 && assignAssetForm.valid ? 'modal' : null" (click)="currentStep !== 3 ? nextStep() : saveChanges()">{{ getButtonText() }}</button>
             </div>
           </div>
         </div>

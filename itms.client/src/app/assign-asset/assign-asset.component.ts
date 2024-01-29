@@ -1,7 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { DeviceAssignService } from '../shared/services/device-assign.service';
 import { Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, AbstractControl, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { AssignDataManagementService } from '../shared/services/assign-data-management.service';
+import { SearchBoxComponent } from './search-box/search-box.component';
+import { LaptopSearchBoxComponent } from './laptop-search-box/laptop-search-box.component';
+import { AccessoriesSearchBoxComponent } from './accessories-search-box/accessories-search-box.component';
+import { SoftwareSearchBoxComponent } from './software-search-box/software-search-box.component';
+import { SoftwareVersionSearchBoxComponent } from './software-version-search-box/software-version-search-box.component';
+import { AssignAccessoriesComponent } from './assign-accessories/assign-accessories.component';
+import { ToastrService } from 'ngx-toastr';
+import { customValidation } from './custom-validators';
+//import { customValidation } from './custom-validators';
 
 @Component({
   selector: 'app-assign-asset',
@@ -36,7 +46,6 @@ export class AssignAssetComponent {
         return '';
     }
   }
-
 
   nextStep() {
     if (this.currentStep < 3) {
@@ -77,21 +86,32 @@ export class AssignAssetComponent {
   accessories: any[] = [];
 
   assignAssetForm: FormGroup;
+  @ViewChild(SearchBoxComponent) SearchBoxComponent: any;
+  @ViewChild(LaptopSearchBoxComponent) LaptopSearchBoxComponent: any;
+  @ViewChild(AccessoriesSearchBoxComponent) accessoriesSearchBoxComponent: AccessoriesSearchBoxComponent;
+  @ViewChild(SoftwareSearchBoxComponent) softwareSearchBoxComponent: SoftwareSearchBoxComponent;
+  @ViewChild(SoftwareVersionSearchBoxComponent) softwareVersionSearchBoxComponent: SoftwareVersionSearchBoxComponent;
+  @ViewChild(AssignAccessoriesComponent) assignAccessoriesComponent: AssignAccessoriesComponent;
+
+
   constructor(
     private formBuilder: FormBuilder,
+    private toastr: ToastrService,
+    private assignDataManagementService : AssignDataManagementService,
     @Inject(DeviceAssignService) private deviceAssignService: DeviceAssignService) {
     this.assignAssetForm = this.formBuilder.group({
-      assignedTo: null,
-      cygid: null,
-      softwareId: null,
+      assignedTo: [null, Validators.required],
+      cygid: [null],
+      softwareId: [null],
       //selectedAccessory: [null, Validators.required],
-      deviceComment: null,
-      softwareComment: null,
-      //accessoryComment: null,
-  })
-}
+      deviceComment: [null],
+      softwareComment: [null],
+      //accessoryComment: [null],
+    }, { validator: customValidation(this.toastr) });
+  }
 
   ngOnInit() {
+    console.log("assign-asset init");
     this.getUsers();
     this.getSoftwares();
     this.getLaptops();
@@ -139,22 +159,66 @@ export class AssignAssetComponent {
       }
     );
   }
+
+
+
+  closeForm(): void {
+    console.log("closeForm");
+
+    this.assignAssetForm.reset();
+    this.currentStep = 1;
+    //this.searchBoxComponent.setSaveStateOnDestroy();
+    //this.assignAccessoriesComponent.setSaveStateOnDestroy();
+    //this.laptopSearchBoxComponent.setSaveStateOnDestroy();
+    //this.softwareSearchBoxComponent.setSaveStateOnDestroy();
+    //this.softwareVersionSearchBoxComponent.setSaveStateOnDestroy();
+
+    this.SearchBoxComponent.setSaveStateOnDestroy();
+    //this.LaptopSearchBoxComponent.setSaveStateOnDestroy();
+    this.assignDataManagementService.setState("assignedTo", null);
+    this.assignDataManagementService.setState("cygid", null);
+    this.assignDataManagementService.setState("softwareName", null);
+    this.assignDataManagementService.setState("softwareVersion", null);
+    this.assignDataManagementService.setState("accessory", null);
+    this.assignDataManagementService.setState("laptopComment", null);
+    this.assignDataManagementService.setState("softwareComment", null);
+    this.assignDataManagementService.setState("accessoryComment", null);
+    //this.accessoriesSearchBoxComponent.setSaveStateOnDestroy();
+  }
  
   saveChanges(): void {
     console.log('Form Values:', this.assignAssetForm.value);
+
     if (this.assignAssetForm.valid) {
       const assignmentData = this.assignAssetForm.value;
       this.deviceAssignService.saveAssignment(assignmentData).subscribe(
         (response) => {
-          console.log('Assignment saved successfully:', response);
+          this.closeForm();
           this.assignAssetForm.reset();
+          this.toastr.success('Assignment saved successfully:', response);
         },
         (error) => {
-          console.error('Error saving assignment:', error);
+          this.closeForm();
+          this.assignAssetForm.reset();
+          this.toastr.error('Error saving assignment:', error);
         }
       );
     } else {
-      console.log('Form is invalid. Cannot save changes.');
+      const errors = this.assignAssetForm.errors;
+
+      if (errors) {
+        // If there are custom errors, display them using Toastr
+        for (const key of Object.keys(errors)) {
+          const message = errors[key];
+          this.toastr.error(message);
+        }
+      } else {
+        this.toastr.error('Form is invalid. Cannot save changes.');
+      }
+
+      this.closeForm();
+      this.assignAssetForm.reset();
     }
   }
+
 }

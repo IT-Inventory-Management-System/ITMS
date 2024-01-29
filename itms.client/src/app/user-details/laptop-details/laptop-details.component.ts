@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { EmployeeService } from '../../shared/services/Employee.service';
+import { Router } from '@angular/router';  // Import Angular Router
 
 @Component({
   selector: 'app-laptop-details',
@@ -10,7 +11,7 @@ export class LaptopDetailsComponent implements OnChanges {
   @Input() userId: any;
   laptopDetails: any;
 
-  constructor(private employeeService: EmployeeService) { }
+  constructor(private employeeService: EmployeeService, private router: Router) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['userId'] && changes['userId'].currentValue !== changes['userId'].previousValue) {
@@ -32,6 +33,11 @@ export class LaptopDetailsComponent implements OnChanges {
         console.error('Error fetching laptop details:', error);
        
       });
+  }
+
+  navigateToDeviceDetails(cygId: string): void {
+  
+    this.router.navigate(['/api/Device', cygId]);
   }
 
 }

@@ -7,7 +7,8 @@ import { EmployeeComponent } from './employee/employee.component';
 import { LicenseComponent } from './license/license.component';
 import { HistoryComponent } from './history/history.component';
 import { AddAssetComponent } from './add-asset/add-asset.component';
-
+import { DevicesListComponent } from './inventory/assets-category/assest/devices/devices-list/devices-list.component';
+import { DevicesComponent } from './inventory/assets-category/assest/devices/devices.component';
 
 
 const routes: Routes = [
@@ -20,6 +21,8 @@ const routes: Routes = [
   { path: 'licence', component: LicenseComponent },
   { path: 'history', component: HistoryComponent },
   { path: 'add-asset', component: AddAssetComponent },
+  { path: 'assign-asset', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: 'api/Device/:cygId', component: InventoryComponent },
   
 ];
 
