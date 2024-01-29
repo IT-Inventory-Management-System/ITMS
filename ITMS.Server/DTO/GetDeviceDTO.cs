@@ -26,7 +26,7 @@
 
         public string? Storage { get; set; }
 
-
+        public Guid LocationId { get; set; }
 
     }
 }

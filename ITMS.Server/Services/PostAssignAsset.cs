@@ -10,6 +10,7 @@ namespace ITMS.Server.Services
         Task UpdateSoftwareAsync(string SoftwareID, PostAssignAssetDTO software);
         Task UpdateDeviceComment(PostCommentDTO commentDto);
         Task UpdateSoftwareComment(PostCommentDTO commentDto);
+        Task UpdateDeviceLogAsync(PostDeviceLogDTO devicelogDto);
 
         //Task UpdateAccessoriesAsync(string Id, PostAssignAssetDTO accessories);
 
@@ -75,6 +76,25 @@ namespace ITMS.Server.Services
             comment.DeviceLogId = _context.DevicesLogs.FirstOrDefault().Id;
 
             _context.Comments.Update(comment);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateDeviceLogAsync(PostDeviceLogDTO devicelogDto)
+        {
+            DevicesLog devicesLog = new DevicesLog();
+
+            devicesLog.DeviceId = devicelogDto.DeviceId;
+            devicesLog.EmployeeId = (Guid)devicelogDto.EmployeeId;
+            devicesLog.AssignedBy = _context.Employees.FirstOrDefault().Id;
+            devicesLog.AssignedDate = DateTime.UtcNow;
+            devicesLog.AllotedDate = DateTime.UtcNow;
+            devicesLog.CreatedBy = _context.Employees.FirstOrDefault().Id;
+            devicesLog.CreatedAtUtc = DateTime.UtcNow;
+            devicesLog.UpdatedBy = _context.Employees.FirstOrDefault().Id;
+            devicesLog.UpdatedAtUtc = DateTime.UtcNow;
+            devicesLog.ActionId = _context.ActionTables.FirstOrDefault().Id;
+            
+            _context.DevicesLogs.Update(devicesLog);
             await _context.SaveChangesAsync();
         }
 
