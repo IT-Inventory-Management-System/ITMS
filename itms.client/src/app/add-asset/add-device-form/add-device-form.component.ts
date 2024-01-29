@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import { DataService } from '../../../app/shared/services/data.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -18,8 +19,9 @@ export class AddDeviceFormComponent implements OnInit {
   selectedOS: string = '';
   warrantyMonth: number;
   warrantyYear: number;
+  deviceData: any[] = [];
  
-  constructor(private dataService: DataService, private fb: FormBuilder) {
+  constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService) {
     this.dropdownValues = [];
   }
 
@@ -27,6 +29,7 @@ export class AddDeviceFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadDropdownValues();
+    this.loadDeviceData();
     this.createForm();
     this.setCreatedBy();
     this.setlocationId();
@@ -35,7 +38,7 @@ export class AddDeviceFormComponent implements OnInit {
 
   createForm() {
     this.addDeviceForm = this.fb.group({
-      deviceModelId: ['', Validators.required],
+      deviceModelId: [null, Validators.required],
       isChecked: [true],
       qty: [0, Validators.required],
       purchasedOn: ['', Validators.required],
@@ -43,6 +46,7 @@ export class AddDeviceFormComponent implements OnInit {
       serialNumberList: this.fb.array([]),
       cygIdsList: this.fb.array([]),
       createdBy: [''],
+      updatedBy: [''],
       createdAtUtc: [''],
       isArchived: [false],
       locationId: [''],
@@ -67,13 +71,21 @@ export class AddDeviceFormComponent implements OnInit {
   updateCygId(index: number, event: Event) {
     this.hideErrorMessage();
     const value = (event.target as HTMLInputElement).value;
-    this.cygIds.at(index).setValue(value);
+    if (this.validateCygId(value) == true) {
+      this.cygIds.at(index).setValue(value);
+    }
+    else {
+      this.showErrorMessage = true;
+      this.errorMessage = 'CYG Id already exists.';
+    }
+    
   }
 
   setCreatedBy() {
     this.dataService.getFirstUser().subscribe(
       (data) => { 
         this.addDeviceForm.get('createdBy')?.setValue(data.id);
+        this.addDeviceForm.get('updatedBy')?.setValue(data.id);
       },
       (error) => {
         console.log("User not found");
@@ -130,6 +142,17 @@ export class AddDeviceFormComponent implements OnInit {
     );
   }
 
+  loadDeviceData() {
+    this.dataService.getDevices().subscribe(
+      (data) => {
+        this.deviceData = data;
+      },
+      (error) => {
+        console.error('Error fetching device data', error);
+      }
+    );
+  }
+
   updateWarrantyDate() {
     const month = this.warrantyMonth;
     const year = this.warrantyYear;
@@ -155,26 +178,39 @@ export class AddDeviceFormComponent implements OnInit {
     return isValid;
   }
 
+  validateCygId(cygid : string) : boolean {
+
+    for (var i = 0; i < this.deviceData.length; i++) {
+      if (this.deviceData[i].cygid == cygid) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
   onSubmit() {
 
     this.addDeviceForm.get('createdAtUtc')?.setValue(new Date().toISOString());
 
-    if (this.checkSerialNumber() && this.checkCygIds()) {
+    if (this.checkSerialNumber() && this.checkCygIds() && this.showErrorMessage == false) {
       console.log(this.addDeviceForm.value);
 
       this.dataService.postDevice(this.addDeviceForm.value).subscribe(
         response => {
           console.log('Data Posted successfully', response);
           this.resetform();
+          this.toastr.success("Data posted successfully");
         },
         error => {
           console.error('Error posting data', error);
+          this.toastr.error("Error in posting Data");
         }
       );
     }
     else {
       this.showErrorMessage = true;
-      this.errorMessage = 'All Fields are Required';
+      this.errorMessage = 'Fields marked with an asterisk (*) are required.';
     }
 
   }
@@ -233,7 +269,7 @@ export class AddDeviceFormComponent implements OnInit {
   }
 
   nextValidation(): boolean {
-    var isDeviceId = this.addDeviceForm.get('deviceModelId')?.value != '';
+    var isDeviceId = this.addDeviceForm.get('deviceModelId')?.value != null;
     var isQuantity = this.counterValue > 0;
     var isPurchasedOn = this.addDeviceForm.get('purchasedOn')?.value != '';
     var isWarrantyDate = this.addDeviceForm.get('warrantyDate')?.value != null;
@@ -259,7 +295,7 @@ export class AddDeviceFormComponent implements OnInit {
     }
     else {
       this.showErrorMessage = true;
-      this.errorMessage = 'All Fields are Required';
+      this.errorMessage = 'Fields marked with an asterisk (*) are required.';
       //console.log(this.addDeviceForm.valid);
       //console.log(this.addDeviceForm);
     }
@@ -274,12 +310,15 @@ export class AddDeviceFormComponent implements OnInit {
   }
   resetform() {
 
-    this.addDeviceForm.reset();
+    this.createForm();
     this.setCreatedBy();
     this.setlocationId();
     this.setStatus();
     this.counterValue = 0;
     this.currentStep = 1;
     
+  }
+  onFormSubmitted() {
+    this.showDeviceDetailsForm = false;
   }
  }

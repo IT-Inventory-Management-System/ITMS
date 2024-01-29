@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DataService } from '../../../shared/services/data.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-device-model',
@@ -8,6 +9,7 @@ import { DataService } from '../../../shared/services/data.service';
   styleUrls: ['./add-device-model.component.css']
 })
 export class AddDeviceModelComponent implements OnInit {
+  @Output() formSubmitted: EventEmitter<void> = new EventEmitter<void>();
 
   showErrorMessage = false;
   deviceForm: FormGroup;
@@ -15,7 +17,7 @@ export class AddDeviceModelComponent implements OnInit {
   selectedStorage: string | null = null;
   @Input() selectedOS: string;
 
-  constructor(private fb: FormBuilder, private dataService: DataService) { }
+  constructor(private fb: FormBuilder, private dataService: DataService, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.createForm();
@@ -131,13 +133,17 @@ export class AddDeviceModelComponent implements OnInit {
           this.deviceForm.reset();
           this.selectedRam = null;
           this.selectedStorage = null;
+          this.formSubmitted.emit();
+          this.toastr.success("Data posted successfully");
         },
         error => {
           console.error('Error posting data', error);
+          this.toastr.error("Error in posting data");
         }
       );
     } else {
       this.showErrorMessage = this.deviceForm.invalid;
+
     }
   }
 

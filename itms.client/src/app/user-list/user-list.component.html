@@ -9,11 +9,13 @@
      
     </div>
   </div>
-  <div class=" user-name-list"  >
-    <user-name-list (click)="showUserDetails(userDetails)" *ngFor="let userDetails of displayingData | filterSearchList : filterName"
+  <div class="user-name-list">
+    <user-name-list (click)="showUserDetails(userDetails, i)" *ngFor="let userDetails of displayingData | filterSearchList : filterName; let i = index"
                     [cgiid]="userDetails.cgiid"
                     [firstName]="userDetails.firstName"
-                    [lastName]="userDetails.lastName"></user-name-list>
+                    [lastName]="userDetails.lastName"
+                    [isSelected]="userDetails.isSelected">
+    </user-name-list>
   </div>
 
 </div>

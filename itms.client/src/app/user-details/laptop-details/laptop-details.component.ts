@@ -14,8 +14,11 @@ export class LaptopDetailsComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['userId'] && changes['userId'].currentValue !== changes['userId'].previousValue) {
-      // Check if userId changed and call API only if it's a different value
-      this.getDevices(this.userId);
+      
+      if (this.userId) {
+       
+        this.getDevices(this.userId);
+      }
     }
   }
 
@@ -24,10 +27,10 @@ export class LaptopDetailsComponent implements OnChanges {
       .subscribe((data) => {
         this.laptopDetails = data;
         console.log(this.laptopDetails);
-        // Additional handling/logic for laptop details
+       
       }, (error) => {
         console.error('Error fetching laptop details:', error);
-        // Handle error as needed
+       
       });
   }
 
