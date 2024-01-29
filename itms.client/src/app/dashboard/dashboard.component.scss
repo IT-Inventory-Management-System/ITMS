@@ -3,23 +3,23 @@
   margin-top: 2rem;
 }
 
-@media (max-width: 767.98px) {
+/*@media (max-width: 767.98px) {
   .custom-container {
     padding-right: 15px; 
     padding-left: 15px;
     margin-right: auto;
     margin-left: auto;
   }
-}
+}*/
 
-@media (min-width: 768px) and (max-width: 2560px) {
+/*@media (min-width: 780px) and (max-width: 2560px) {
   .custom-container {
-    width: 1200px !important; /* Adjust the width as needed */
-  }
-}
+    width: 1200px !important;*/ /* Adjust the width as needed */
+  /*}
+}*/
 
-/* On extra-large screens above 2560px, use a fixed-width container */
-@media (min-width: 2561px) {
+
+@media (min-width: 2560px) {
   .custom-container {
     width: 1500px !important; /* Adjust the width as needed */
   }
