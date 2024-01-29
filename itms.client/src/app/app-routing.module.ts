@@ -11,7 +11,6 @@ import { DevicesListComponent } from './inventory/assets-category/assest/devices
 import { DevicesComponent } from './inventory/assets-category/assest/devices/devices.component';
 
 
-
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' }, // Redirect empty path to 'dashboard'
 
@@ -22,6 +21,7 @@ const routes: Routes = [
   { path: 'licence', component: LicenseComponent },
   { path: 'history', component: HistoryComponent },
   { path: 'add-asset', component: AddAssetComponent },
+  { path: 'assign-asset', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'api/Device/:cygId', component: InventoryComponent },
   
 ];

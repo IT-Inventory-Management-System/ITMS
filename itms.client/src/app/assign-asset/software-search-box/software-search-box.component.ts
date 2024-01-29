@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter, ElementRef, HostListener } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { AssignDataManagementService } from '../../shared/services/assign-data-management.service';
+
 
 @Component({
   selector: 'app-software-search-box',
@@ -15,9 +16,25 @@ export class SoftwareSearchBoxComponent {
   //searchText: string = '';
   //filteredOptions: any[] = [];
   selectedOption: any;
+  constructor(private assignDataManagementService: AssignDataManagementService) { }
+
   onSelectOption(option: any): void {
+    this.SoftwareOptionSelected.emit(option);
+  }
+
+  ngOnInit(): void {
+    this.selectedOption = this.assignDataManagementService.getState("softwareName");
     this.SoftwareOptionSelected.emit(this.selectedOption);
   }
+
+  ngOnDestroy(): void {
+    this.assignDataManagementService.setState("softwareName", this.selectedOption);
+  }
+
+  setSaveStateOnDestroy(): void {
+    this.selectedOption = null;
+  }
+
   //constructor(private elementRef: ElementRef) { }
 
   //onSoftwareInputChange(event: any): void {
