@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DataService } from '../../../../shared/services/data.service';
 import { FilterSearchListPipe } from '../../../../filter-search-list.pipe';
+import { SelectedCountryService } from '../../../../shared/services/selected-country.service';
 @Component({
   selector: 'app-devices',
   templateUrl: './devices.component.html',
@@ -13,8 +14,8 @@ export class DevicesComponent implements OnInit{
   showArchiveOnly: boolean = false;
   ArchivedData: any[] = [];
   searchdevice: any; 
-  locationId: string='';
-  constructor(private dataService: DataService) {
+  locationId: string = '';
+  constructor(private dataService: DataService, private selectedCountryService: SelectedCountryService) {
   }
 
   getDeviceLocation() {
@@ -36,7 +37,12 @@ export class DevicesComponent implements OnInit{
 
 
   ngOnInit(): void {
-    this.getDeviceLocation();
+    this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
+      localStorage.setItem('selectedCountry', selectedCountry);
+      this.getDeviceLocation();
+    });
+
+   
    
   }
 
