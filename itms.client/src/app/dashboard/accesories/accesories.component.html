@@ -13,7 +13,7 @@
           <img src="../../../assets/icons/dashboard/icon.svg" />
           <span class="Assigned-text">Assigned</span>
 
-          <div class="Assigned-number">{{accessoriesData.assigned}}</div>
+          <div class="Assigned-number">{{ selectedLocation === 'India' ? accessoriesData.assignedIndia : accessoriesData.assignedUSA }}</div>
         </div>
         <div class=" col-6 inventory">
           <img src="../../../assets/icons/dashboard/Check mark.svg" />
@@ -28,7 +28,7 @@
               <div class="lowstocktext ">Low in Stock</div>
             </div>
             <div class="Inventory-number ms-auto p-0" [ngClass]="{'inventorylowstocktext': (accessoriesData.total - accessoriesData.assigned) < 1}">
-              {{accessoriesData.total-accessoriesData.assigned}}
+              {{ selectedLocation === 'India' ? accessoriesData.totalIndia - accessoriesData.assignedIndia : accessoriesData.totalUSA - accessoriesData.assignedUSA }}
             </div>
           </div>
         </div>

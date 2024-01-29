@@ -37,8 +37,9 @@
           <img src="../../../assets/icons/dashboard/icon.svg" />
           <span class="assignedtext">Assigned</span>
         </div>
-        <div class="assignednumber">{{ softwareData.assigned }}</div>
-
+      <span class="assignednumber">
+        {{ selectedLocation === 'India' ? softwareData.indiaAssigned : softwareData.usaAssigned }}
+      </span>
       </div>
       <div class="inventory">
         <div class="inventory-icon">
@@ -46,12 +47,13 @@
           <span class="inventory-text">Inventory</span>
         </div>
         <div class="lowstock-container">
-          <div class="lowstock"*ngIf="softwareData.inventory < 1">
+          <div class="lowstock" *ngIf="softwareData.inventory < 1">
             <div class="lowstocktext">Low in Stock</div>
           </div>
-          <div class="inventorynumber"[ngClass]="{'inventorylowstocktext': softwareData.inventory < 1}" >
-            {{ softwareData.inventory }}
-          </div>
+          <span class="assignednumber" [ngClass]="{'inventorylowstocktext': softwareData.inventory < 1}">
+            {{ selectedLocation === 'India' ? softwareData.indiaInventory : softwareData.usaInventory }}
+          </span>
+
         </div>
        
      
