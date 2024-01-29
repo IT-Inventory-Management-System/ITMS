@@ -52,6 +52,7 @@ namespace ITMS.Server.DTO
         public string? AssignedTo { get; set; }
         public string Action { get; set; }
         public DateTime? UpdatedOn { get; set; }
+        public string Location { get; set; }
     }
 
 
