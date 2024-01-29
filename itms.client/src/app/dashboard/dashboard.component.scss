@@ -1,6 +1,40 @@
+
 .my-dashboard {
-  margin-top: 3.5rem;
+  margin-top: 2rem;
 }
+
+@media (max-width: 767.98px) {
+  .custom-container {
+    padding-right: 15px; 
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 2560px) {
+  .custom-container {
+    width: 1200px !important; /* Adjust the width as needed */
+  }
+}
+
+/* On extra-large screens above 2560px, use a fixed-width container */
+@media (min-width: 2561px) {
+  .custom-container {
+    width: 1500px !important; /* Adjust the width as needed */
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
 .dashboard-title {
   color: var(--Primary-Gray, #343435);
   font-family: Roboto;
@@ -9,7 +43,7 @@
   font-weight: 600;
   line-height: normal;
   text-align: left;
-  padding-left:1.5rem;
+  padding-left:1rem;
 }
 .header{
     text-align:center;
@@ -17,6 +51,10 @@
 
 .lastupdaterow {
   text-align: right;
+}
+
+.lastactivity{
+    text-align:right;
 }
 
 .lastupdate {
@@ -177,8 +215,8 @@
   align-items: flex-start;
   gap: 1rem;
   align-self: stretch;
-  overflow-y:scroll;
-  margin-right:0;
+/*  overflow-y:scroll;
+*/  margin-right:0;
 }
 
 
@@ -267,6 +305,11 @@
   gap: 0.25rem;
   flex-shrink: 0;
   align-self: stretch;
+}
+
+.list{
+  overflow-x: hidden;
+  border:none;
 }
 
 .Software-Content {
