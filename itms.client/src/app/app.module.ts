@@ -55,8 +55,7 @@ import { EmployeeComponent } from './employee/employee.component';
 import { AssetfilterdevicePipe } from './assetfilterdevice.pipe';
 
 import { FilterPipe } from './filter.pipe';
-import { LaptopSearchBoxComponent } from './assign-asset/laptop-search-box/laptop-search-box.component';
-import { SoftwareSearchBoxComponent } from './assign-asset/software-search-box/software-search-box.component';
+
 import { SoftwareVersionSearchBoxComponent } from './assign-asset/software-version-search-box/software-version-search-box.component';
 import { AccesoriesComponent } from './dashboard/accesories/accesories.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -73,6 +72,8 @@ import { AssignAssetComponent } from './assign-asset/assign-asset.component';
 import { AssignLaptopComponent } from './assign-asset/assign-laptop/assign-laptop.component';
 import { AssignSoftwareComponent } from './assign-asset/assign-software/assign-software.component';
 import { SearchBoxComponent } from './assign-asset/search-box/search-box.component';
+import { LaptopSearchBoxComponent } from './assign-asset/laptop-search-box/laptop-search-box.component';
+import { SoftwareSearchBoxComponent } from './assign-asset/software-search-box/software-search-box.component';
 
 
 
@@ -114,7 +115,7 @@ import { SearchBoxComponent } from './assign-asset/search-box/search-box.compone
     SoftwareComponentComponent,
     FilterSearchListPipe,
     AssignHistoryComponent,
-    
+
     NewSidebarComponent,
     FilterSearchListPipe,
     LaptopDetailsComponent,
@@ -134,8 +135,8 @@ import { SearchBoxComponent } from './assign-asset/search-box/search-box.compone
     AddAssetComponent,
     UnrchivemodalComponent,
     ArchiveModalComponent,
-    
-    
+
+
     LaptopSearchBoxComponent,
     SoftwareSearchBoxComponent,
     SoftwareVersionSearchBoxComponent,
