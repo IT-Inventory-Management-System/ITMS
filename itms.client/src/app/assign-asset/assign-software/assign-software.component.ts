@@ -14,9 +14,12 @@ export class AssignSoftwareComponent {
 
   SelectedSoftware: any;
   SelectedSoftwareVersion: any;
-  SoftwareVersionOptions: any[] = [];
+  SoftwareVersionOptions: Set<string>;
+  FileredSoftwareOptions: any[] = [];
   selectedOption: any;
+  SelectedSoftwareData: any;
   constructor(private assignDataManagementService: AssignDataManagementService) { }
+
 
   SoftwareSearchBoxOptionSelected(event: any): void {
     this.SelectedSoftware = event;
@@ -25,23 +28,26 @@ export class AssignSoftwareComponent {
 
   filterSoftwareVersions(): void {
     if (this.SelectedSoftware) {
-      const selectedSoftwareName = this.SelectedSoftware.softwareName;
-      const versionsWithSameName = this.SoftwareOptions
-        .filter(software => software.softwareName === selectedSoftwareName)
-        .map(software => ({
-          version: software.version,
-          id: software.id,
-          expiryDate: this.formatExpiryDate(software.expiryDate)
-        }));
-      this.SoftwareVersionOptions = versionsWithSameName || [];
-      console.log("SoftwareVersionOptions", this.SoftwareVersionOptions);
-
-    } else {
-      this.SoftwareVersionOptions = [];
+      this.FileredSoftwareOptions = this.SoftwareOptions.filter(opt => opt.softwareName === this.SelectedSoftware);
+      this.SelectedSoftwareData = this.FileredSoftwareOptions[0];
+      this.SoftwareVersionOptions = new Set<string>(this.FileredSoftwareOptions.map(option => option.version));
     }
+    else {
+        this.SoftwareVersionOptions;
+      }
   }
   SoftwareVersionSearchBoxOptionSelected(event: any): void {
-    this.SelectedSoftwareVersion = event;
+    const filteredOptions = this.FileredSoftwareOptions.filter(
+      (option: any) => option.version === event 
+    );
+    if (filteredOptions.length > 0) {
+      this.SelectedSoftwareVersion = filteredOptions[0];
+      this.assignAssetForm.get('softwareId')?.setValue(this.SelectedSoftwareVersion.id);
+    }
+    else {
+      this.SelectedSoftwareVersion = null;
+        this.assignAssetForm.get('softwareId')?.setValue(null);
+    }
   }
   onInputChangeCommentBox(event: any): void {
     this.selectedOption = event.target.value;

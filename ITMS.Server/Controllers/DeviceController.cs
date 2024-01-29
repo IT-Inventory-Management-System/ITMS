@@ -95,12 +95,12 @@ namespace itms.server.controllers
             }
         }
 
-        [HttpGet("archived-cygids")]
-        public async Task<IActionResult> GetDeviceHistory()
+        [HttpGet("archived-cygids/{locationId}")]
+        public async Task<IActionResult> GetDeviceHistory(Guid locationId)
         {
             try
             {
-                var deviceHistory = await _deviceService.GetArchivedCygIdsAsync();
+                var deviceHistory = await _deviceService.GetArchivedCygIdsAsync(locationId);
                 return Ok(deviceHistory);
             }
             catch (Exception ex)

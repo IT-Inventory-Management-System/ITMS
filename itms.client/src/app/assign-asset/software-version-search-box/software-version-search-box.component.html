@@ -1,23 +1,10 @@
 <div class="search-box-subheading">{{ label }} <span style="color:red">*</span></div>
-<!--<input class="search-box"
-       required
-       type="search"
-       [placeholder]="placeholder"
-       [(ngModel)]="selectedOption"
-       aria-label="Search"
-       (input)="onLaptopInputChange($event)">
-<ul *ngIf="filteredOptions.length > 0" class="options-list">
-  <li class="list-items" *ngFor="let option of filteredOptions" (click)="selectOption(option)">
-    {{ option.softwareVersion }}
-  </li>
-</ul>-->
 <ng-select class=" custom search-box"
            [placeholder]="placeholder"
            [(ngModel)]="selectedOption"
            (change)="onSelectOption($event)"
            (clear)="onClearSelection()">
-  <!--<option value="" selected class="placeholder">Select Device Name</option>-->
   <ng-option class="list-items" *ngFor="let option of SoftwareVersionOptions" [value]="option">
-    {{ option.version }}
+    {{ option }}
   </ng-option>
 </ng-select>
