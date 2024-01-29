@@ -142,7 +142,6 @@ export class AssignAssetComponent {
             this.laptops = this.totalLaptopsData.filter(item => item.locationId === this.locationId);
             this.softwares = this.totalSoftwaresData.filter(item => item.locationId === this.locationId);
             this.accessories = this.totalAccessoriesData.filter(item => item.locationId === this.locationId);
-            console.log(this.locationId);
             break;
           }
         }
@@ -155,7 +154,6 @@ export class AssignAssetComponent {
   getUsers(): void {
     this.deviceAssignService.getEmployeeBasicDetails().subscribe(
       (data: any[]) => {
-        console.log(data);
         this.totalUsersData = data;
         this.users = this.totalUsersData.filter(item => item.locationId === this.locationId);
       },
@@ -167,7 +165,6 @@ export class AssignAssetComponent {
   getLaptops(): void {
     this.deviceAssignService.getLaptop().subscribe(
       (data: any[]) => {
-        console.log(data);
         this.totalLaptopsData = data;
         this.laptops = this.totalLaptopsData.filter(item => item.locationId === this.locationId);
       },
@@ -179,10 +176,8 @@ export class AssignAssetComponent {
   getSoftwares(): void {
     this.deviceAssignService.getSoftware().subscribe(
       (data: any[]) => {
-        console.log(data);
         this.totalSoftwaresData = data;
         this.softwares = this.totalSoftwaresData.filter(item => item.locationId === this.locationId);
-
       },
       (error: any) => {
         console.error('Error fetching software details:', error);
@@ -193,7 +188,6 @@ export class AssignAssetComponent {
   getAccessories(): void {
     this.deviceAssignService.getAccessories().subscribe(
       (data: any[]) => {
-        console.log(data);
         this.totalAccessoriesData = data;
         this.accessories = this.totalAccessoriesData
           //.filter(item => item.locationId === this.locationId);
@@ -205,7 +199,7 @@ export class AssignAssetComponent {
   }
 
   closeForm(): void {
-    console.log("closeForm");
+    //console.log("closeForm");
     this.assignAssetForm.reset();
     this.currentStep = 1;
     this.closeFlag.setCloseFlagToTrue();
@@ -214,10 +208,10 @@ export class AssignAssetComponent {
     //this.laptopSearchBoxComponent.setSaveStateOnDestroy();
     //this.softwareSearchBoxComponent.setSaveStateOnDestroy();
     //this.softwareVersionSearchBoxComponent.setSaveStateOnDestroy();
-    if (this.currentStep == 1) {
-      this.assignLaptopComponent.setSaveStateOnDestroy();
-      this.laptopSearchBoxComponent.setSaveStateOnDestroy();
-    }
+    //if (this.currentStep == 1) {
+    //  this.assignLaptopComponent.setSaveStateOnDestroy();
+    ////  this.laptopSearchBoxComponent.setSaveStateOnDestroy();
+    //}
     this.SearchBoxComponent.setSaveStateOnDestroy();
     this.assignDataManagementService.setState("assignedTo", null);
     this.assignDataManagementService.setState("cygid", null);
@@ -231,7 +225,7 @@ export class AssignAssetComponent {
   }
  
   saveChanges(): void {
-    console.log('Form Values:', this.assignAssetForm.value);
+    //console.log('Form Values:', this.assignAssetForm.value);
 
     if (this.assignAssetForm.valid) {
       const assignmentData = this.assignAssetForm.value;
