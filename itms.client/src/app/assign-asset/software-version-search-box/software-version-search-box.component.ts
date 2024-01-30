@@ -1,6 +1,8 @@
 import { Component, Input, Output, EventEmitter, ElementRef, HostListener } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { AssignDataManagementService } from '../../shared/services/assign-data-management.service';
+import { Subscription } from 'rxjs';
+import { CloseFlagService } from '../../shared/services/close-flag.service';
 
 @Component({
   selector: 'app-software-version-search-box',
@@ -15,7 +17,11 @@ export class SoftwareVersionSearchBoxComponent {
   @Output() SoftwareVersionOptionSelected: EventEmitter<any> = new EventEmitter();
 
   selectedOption: any;
-  constructor(private assignDataManagementService: AssignDataManagementService) { }
+  private closeFlagSubscription: Subscription;
+
+  constructor(private assignDataManagementService: AssignDataManagementService,
+    private closeFlagService: CloseFlagService
+) { }
 
   onSelectOption(option: any): void {
     this.SoftwareVersionOptionSelected.emit(option);
@@ -25,12 +31,18 @@ export class SoftwareVersionSearchBoxComponent {
   }
 
   ngOnInit(): void {
+    this.closeFlagService.setCloseFlagToFalse();
     this.selectedOption = this.assignDataManagementService.getState("softwareVersion");
     if (this.selectedOption)
       this.SoftwareVersionOptionSelected.emit(this.selectedOption);
   }
   ngOnDestroy(): void {
-    this.assignDataManagementService.setState("softwareVersion", this.selectedOption);
+    this.closeFlagSubscription = this.closeFlagService.closeFlag$.subscribe((closeFlag) => {
+      if (!closeFlag) {
+        this.assignDataManagementService.setState("softwareVersion", this.selectedOption);
+      }
+    });
+    this.closeFlagSubscription.unsubscribe();
   }
 
   setSaveStateOnDestroy(): void {

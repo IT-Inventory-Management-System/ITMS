@@ -1,6 +1,8 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { AssignDataManagementService } from '../../shared/services/assign-data-management.service';
+import { Subscription } from 'rxjs';
+import { CloseFlagService } from '../../shared/services/close-flag.service';
 
 @Component({
   selector: 'app-assign-software',
@@ -18,7 +20,11 @@ export class AssignSoftwareComponent {
   FileredSoftwareOptions: any[] = [];
   selectedOption: any;
   SelectedSoftwareData: any;
-  constructor(private assignDataManagementService: AssignDataManagementService) { }
+  private closeFlagSubscription: Subscription;
+
+  constructor(private assignDataManagementService: AssignDataManagementService,
+    private closeFlagService: CloseFlagService
+) { }
 
   SoftwareSearchBoxOptionSelected(event: any): void {
     this.SelectedSoftware = event;
@@ -65,11 +71,17 @@ export class AssignSoftwareComponent {
     return `${day}-${month}-${year}`;
   }
   ngOnInit(): void {
+    this.closeFlagService.setCloseFlagToFalse();
     this.selectedOption = this.assignDataManagementService.getState("softwareComment");
   }
 
   ngOnDestroy(): void {
-    this.assignDataManagementService.setState("softwareComment", this.selectedOption);
+    this.closeFlagSubscription = this.closeFlagService.closeFlag$.subscribe((closeFlag) => {
+      if (!closeFlag) {
+        this.assignDataManagementService.setState("softwareComment", this.selectedOption);
+      }
+    });
+    this.closeFlagSubscription.unsubscribe();
   }
 
   setSaveStateOnDestroy(): void {
