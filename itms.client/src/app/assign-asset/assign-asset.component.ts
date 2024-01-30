@@ -210,8 +210,8 @@ export class AssignAssetComponent {
     //this.softwareSearchBoxComponent.setSaveStateOnDestroy();
     //this.softwareVersionSearchBoxComponent.setSaveStateOnDestroy();
     //if (this.currentStep == 1) {
-    //  this.assignLaptopComponent.setSaveStateOnDestroy();
-    ////  this.laptopSearchBoxComponent.setSaveStateOnDestroy();
+      this.assignLaptopComponent.setSaveStateOnDestroy();
+      this.laptopSearchBoxComponent.setSaveStateOnDestroy();
     //}
     this.SearchBoxComponent.setSaveStateOnDestroy();
     this.assignDataManagementService.setState("assignedTo", null);
