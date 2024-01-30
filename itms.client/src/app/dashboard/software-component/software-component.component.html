@@ -1,19 +1,29 @@
 <div  class="software">
   <div class="software-details">
 
-    <span *ngIf="softwareData.expiryDateCountIndia > 0 && getRemainingDays(softwareData.expDate) < 30" class="warning-text">
+    <span *ngIf="(softwareData.expiryDateCountIndia > 0 && getRemainingDays(softwareData.expDateIndia) < 30 && selectedLocation==='India'); else noTotalText" class="warning-text">
       <div *ngIf="softwareData.type !== 'perpetual'" class="expiring-tag">
         <img src="../../../assets/icons/dashboard/Warning.svg" />
 
 
 
-        {{ selectedLocation === 'India' ? softwareData.expiryDateCountIndia : softwareData.expiryDateCountUsa }} Expiring in   {{ selectedLocation === 'India' ? softwareData.expDateIndia : softwareData.expDateUsa }} days
-      
-        <!--{{ softwareData.expiryDateCount }} Expiring in {{ getRemainingDays(softwareData.expDate) }} days-->
+        {{softwareData.expiryDateCountIndia}} Expiring in   {{getRemainingDays(softwareData.expDateIndia)}} days
+
       </div>
     </span>
+    <ng-template #noTotalText>
+      <span *ngIf="softwareData.expiryDateCountUsa > 0 && getRemainingDays(softwareData.expDateUsa) < 30" class="warning-text">
+        <div *ngIf="softwareData.type !== 'perpetual'" class="expiring-tag">
+          <img src="../../../assets/icons/dashboard/Warning.svg" />
 
-    
+
+
+          {{softwareData.expiryDateCountUsa }} Expiring in   {{getRemainingDays(softwareData.expDateUsa) }} days
+
+        </div>
+      </span>
+    </ng-template>
+
     <div class="section1">
       <div class="software-name">
         <div class="title">
@@ -42,9 +52,9 @@
           <img src="../../../assets/icons/dashboard/icon.svg" />
           <span class="assignedtext">Assigned</span>
         </div>
-      <span class="assignednumber">
-        {{ selectedLocation === 'India' ? softwareData.indiaAssigned : softwareData.usaAssigned }}
-      </span>
+        <span class="assignednumber">
+          {{ selectedLocation === 'India' ? softwareData.indiaAssigned : softwareData.usaAssigned }}
+        </span>
       </div>
       <div class="inventory">
         <div class="inventory-icon">
@@ -60,8 +70,8 @@
           </span>
 
         </div>
-       
-     
+
+
 
       </div>
     </div>
