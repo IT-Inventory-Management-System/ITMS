@@ -126,7 +126,7 @@ export class AssignAssetComponent {
       localStorage.setItem('selectedCountry', selectedCountry);
       this.getDeviceLocation();
     });
-    this.getUsers();
+    //this.getUsers();
     this.getSoftwares();
     this.getLaptops();
     this.getAccessories();
@@ -142,6 +142,7 @@ export class AssignAssetComponent {
             this.laptops = this.totalLaptopsData.filter(item => item.locationId === this.locationId);
             this.softwares = this.totalSoftwaresData.filter(item => item.locationId === this.locationId);
             this.accessories = this.totalAccessoriesData.filter(item => item.locationId === this.locationId);
+            this.getUsers();
             break;
           }
         }
@@ -152,7 +153,7 @@ export class AssignAssetComponent {
   }
 
   getUsers(): void {
-    this.deviceAssignService.getEmployeeBasicDetails().subscribe(
+    this.deviceAssignService.getEmployeeBasicDetails(this.locationId).subscribe(
       (data: any[]) => {
         this.totalUsersData = data;
         this.users = this.totalUsersData.filter(item => item.locationId === this.locationId);

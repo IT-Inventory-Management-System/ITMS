@@ -68,6 +68,8 @@ export class CategoryNameComponent {
         return `../../assets/icons/bag-${color}.svg`;
       case 'Mouse':
         return `../../assets/icons/mouse-${color}.svg`;
+      case 'Mobile Devices':
+        return `../../assets/icons/mobile-${color}.svg`;
       default:
         return `../../assets/icons/placeholder.svg`;
     }

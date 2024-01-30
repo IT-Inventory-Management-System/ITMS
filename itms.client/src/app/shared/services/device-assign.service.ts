@@ -10,8 +10,8 @@ export class DeviceAssignService {
 
   constructor(private http: HttpClient) { }
 
-  getEmployeeBasicDetails(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl + `employee/basicdetails`);
+  getEmployeeBasicDetails(locationId: any): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + `employee/basicdetails/` + locationId);
   }
   getSoftware(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl + `software/getSoftware`);
