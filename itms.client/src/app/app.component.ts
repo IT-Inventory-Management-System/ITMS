@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DataService } from './shared/services/data.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,15 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'common-layout';
+
+  constructor(private dataService: DataService) {
+    this.dataService.getFirstUser().subscribe(
+      (data) => {
+        localStorage.setItem("user", JSON.stringify(data));
+      },
+      (error) => {
+        console.log("User not found");
+      });
+  }
+
 }

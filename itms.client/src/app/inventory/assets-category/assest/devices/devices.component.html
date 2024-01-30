@@ -7,9 +7,16 @@
       </div>
     </div>
 
-    <app-devices-list *ngFor="let device of DeviceData | assetfilterdevice : searchdevice" [device]="device" [isArchived]="isArchived" ></app-devices-list>
-   
- 
+    <div class="page-loader" *ngIf="loading; else content">
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+
+    <ng-template #content>
+      <app-devices-list *ngFor="let device of DeviceData | assetfilterdevice : searchdevice" [device]="device" [isArchived]="isArchived"></app-devices-list>
+    </ng-template>
+
 
   </div>
   </div>

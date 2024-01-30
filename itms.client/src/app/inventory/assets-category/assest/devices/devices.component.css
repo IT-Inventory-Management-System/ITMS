@@ -74,3 +74,9 @@
 user-name-list {
   width: 100%;
 }
+
+.page-loader{
+    display: flex;
+    justify-content:center;
+    margin-top: 1.25rem;
+}

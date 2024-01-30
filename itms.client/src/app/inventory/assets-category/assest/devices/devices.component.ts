@@ -15,6 +15,7 @@ export class DevicesComponent implements OnInit{
   ArchivedData: any[] = [];
   searchdevice: any; 
   locationId: string = '';
+  loading: boolean = true;
   constructor(private dataService: DataService, private selectedCountryService: SelectedCountryService) {
   }
 
@@ -37,6 +38,7 @@ export class DevicesComponent implements OnInit{
 
 
   ngOnInit(): void {
+    this.loading = true;
     this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
       localStorage.setItem('selectedCountry', selectedCountry);
       this.getDeviceLocation();
@@ -52,6 +54,7 @@ export class DevicesComponent implements OnInit{
       (data) => {
         this.DeviceData = data;
         console.log(this.DeviceData);
+        this.loading = false; 
       });
   }
 

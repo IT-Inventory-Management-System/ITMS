@@ -20,9 +20,15 @@ export class UserCommentsComponent {
   isCommentCollapsed: boolean = true;
   newComment: string = '';
   comments: any;
+  loggedUser: any;
  // latestComment: any; 
 
-  constructor(private commentService: EmployeeService) { }
+  constructor(private commentService: EmployeeService) {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser !== null) {
+      this.loggedUser = JSON.parse(storedUser);
+    } 
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
   //  if (changes['userId'] && changes['userId'].currentValue !== changes['userId'].previousValue) {
@@ -56,7 +62,7 @@ export class UserCommentsComponent {
     if (this.newComment) {
       const commentDto = {
         description: this.newComment,
-        createdBy: this.userId,
+        createdBy: this.loggedUser.id,
         createdAtUtc: new Date().toISOString(),
         deviceId: this.laptopDetails.deviceId,
         deviceLogId: this.laptopDetails.deviceLogId 
