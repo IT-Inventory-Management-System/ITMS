@@ -17,10 +17,10 @@ namespace ITMS.Server.Controllers
             _context = context;
             _userListService = userListService;
         }
-        [HttpGet("basicdetails")]
-        public async Task<IEnumerable<UserListDTO>> GetUserDevicesAsync()
+        [HttpGet("basicdetails/{locationId}")]
+        public async Task<IEnumerable<UserListDTO>> GetUserDevicesAsync(Guid locationId)
         {
-            return await _userListService.GetUserDevicesAsync();
+            return await _userListService.GetUserDevicesAsync(locationId);
         }
 
         [HttpGet("GetFirstUser")]
