@@ -17,21 +17,40 @@ export class DevicesListComponent implements OnInit {
   AllDevices: any;
   isselectedDevice: boolean = false;
   selectedDeviceId: string | null = null;
+  locationId: string = '';
 
   // Static variable to store the selected device ID
   private static selectedDeviceId: string | null = null;
 
   constructor(private deviceService: DataService, private el: ElementRef, private renderer: Renderer2) { }
 
+  getDeviceLocation() {
+    this.deviceService.getLocation().subscribe(
+      (data) => {
+        for (var i = 0; i < data.length; i++) {
+          if (data[i].type == localStorage.getItem('selectedCountry')) {
+            this.locationId = data[i].id;
+            this.deviceService.locationId = this.locationId;
+            //alert(this.locationId);
+            this.showDevices();
+            break;
+          }
+        }
+      },
+      (error) => {
+        console.log("User not found");
+      });
+  }
+
   ngOnInit() {
-    this.showDevices();
+    this.getDeviceLocation();
   }
 
   async showDevices() {
     if (this.isArchived == false) {
-      this.AllDevices = await lastValueFrom(this.deviceService.getDevices());
+      this.AllDevices = await lastValueFrom(this.deviceService.getDevices(this.locationId));
     } else {
-      this.AllDevices = await lastValueFrom(this.deviceService.getArchivedDevices());
+      this.AllDevices = await lastValueFrom(this.deviceService.getArchivedDevices(this.locationId));
     }
 
     // Select the first device

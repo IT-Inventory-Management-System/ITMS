@@ -205,11 +205,12 @@ public class DeviceService
 
     }
 
-    public async Task<List<DevicelogDto>> GetArchivedCygIdsAsync()
+    public async Task<List<DevicelogDto>> GetArchivedCygIdsAsync(Guid locationId)
 
     {
 
         var archivedCygIds = await _context.Devices
+            .Where (log=> log.LocationId == locationId)
 
             .OrderBy(log => log.Cygid)
 

@@ -23,11 +23,12 @@ export class LaptopSearchBoxComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-      this.assignDataManagementService.setState("cygid", this.selectedOption);
+    this.assignDataManagementService.setState("cygid", this.selectedOption);
   }
 
   setSaveStateOnDestroy(): void {
     this.selectedOption = null;
+    this.assignDataManagementService.setState("cygid", null);
   }
 
   onClearSelection(): void {
@@ -36,8 +37,6 @@ export class LaptopSearchBoxComponent implements OnInit, OnDestroy {
   }
 
   onSelectOption(option: any): void {
-    //this.selectedOption = `${option.cygid} - ${ option.deviceName }`;
-    //`${option.cgiid} - ${option.firstName} ${option.lastName}`;
     this.LaptopOptionSelected.emit(option);
     if (option.assignedTo && 'assignedTo' in option && option.assignedTo) {
       this.selectedOption = null;
@@ -48,43 +47,4 @@ export class LaptopSearchBoxComponent implements OnInit, OnDestroy {
       this.assignAssetForm.get('cygid')?.setValue(option.cygid);
     }
   }
-
-
-  //searchText: string = '';
-  //filteredOptions: any[] = [];
-
-
-  //ngOnInit(): void {
-  //  this.filterOptions();
-  //}
-
-  //onInputChange(event: any): void {
-  //  console.log(this.LaptopOptions);
-
-  //  this.searchText = event;
-  //  this.filterOptions();
-  //}
-
-  //filterOptions(): void {
-  //  console.log(this.LaptopOptions);
-  //  this.filteredOptions = this.LaptopOptions.filter(LaptopOption =>
-  //    LaptopOption.cygid.toLowerCase().includes(this.searchText.toLowerCase()));
-  //}
-
-
-  //@HostListener('document:click', ['$event'])
-  //handleDocumentClick(event: MouseEvent): void {
-  //  const clickedInside = this.elementRef.nativeElement.contains(event.target);
-  //  if (!clickedInside) {
-  //    //if (this.selectedOption && this.selectedOption !== this.searchText) {
-  //    //  this.searchText = "";
-  //    //  this.selectedOption = "";
-  //    //} else if (!this.selectedOption && this.searchText) {
-  //    //  this.searchText = "";
-  //    //}
-  //    //console.log('Search Text:', this.searchText);
-  //    //console.log('Selected Option:', this.selectedOption);
-  //    this.filteredOptions = [];
-  //  }
-  //}
 }

@@ -1,5 +1,9 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { CloseFlagService } from '../../shared/services/close-flag.service';
+
+
 import { AssignDataManagementService } from '../../shared/services/assign-data-management.service';
 
 @Component({
@@ -13,11 +17,12 @@ export class AccessoriesSearchBoxComponent {
   @Input() AccessoryOptions: any[] = [];
   @Input() assignAssetForm: FormGroup;
   @Output() AccessoryOptionSelected: EventEmitter<any> = new EventEmitter();
-
-  //searchText: string = '';
-  //filteredOptions: any[] = [];
   selectedOption: any;
-  constructor(private assignDataManagementService: AssignDataManagementService) { }
+  private closeFlagSubscription: Subscription;
+
+  constructor(private assignDataManagementService: AssignDataManagementService,
+    private closeFlagService: CloseFlagService
+) { }
 
   onSelectOption(option: any): void {
     this.AccessoryOptionSelected.emit(option);
@@ -35,13 +40,23 @@ export class AccessoriesSearchBoxComponent {
   }
 
   ngOnInit(): void {
+    this.closeFlagService.setCloseFlagToFalse();
     this.selectedOption = this.assignDataManagementService.getState("accessory");
     this.AccessoryOptionSelected.emit(this.selectedOption);
   }
 
   ngOnDestroy(): void {
-    this.assignDataManagementService.setState("accessory", this.selectedOption);
+    this.closeFlagSubscription = this.closeFlagService.closeFlag$.subscribe((closeFlag) => {
+      console.log(closeFlag);
+
+      if (!closeFlag) {
+        this.assignDataManagementService.setState("accessory", this.selectedOption);
+      } 
+    });
+    this.closeFlagSubscription.unsubscribe();
+
   }
+
 
   setSaveStateOnDestroy(): void {
     this.selectedOption = null;
@@ -49,38 +64,4 @@ export class AccessoriesSearchBoxComponent {
   resetComponentState(): void {
     this.selectedOption = null;
   }
-  //constructor(private elementRef: ElementRef) { }
-
-  //onInputChange(event: any): void {
-  //  this.searchText = event.target.value;
-  //  this.filterOptions();
-  //}
-
-  //filterOptions(): void {
-  //  this.filteredOptions = this.AccessoryOptions.filter(AccessoryOption =>
-  //    AccessoryOption.name.toLowerCase().includes(this.searchText.toLowerCase()));
-  //}
-
-  //selectOption(option: any): void {
-  //  this.AccessoryOptionSelected.emit(option);
-  //  this.selectedOption = `${option.name}`;
-  //  this.filteredOptions = [];
-  ////  this.assignAssetForm.get('selectedAccessory')?.setValue(option.id);
-  //}
-
-  //@HostListener('document:click', ['$event'])
-  //handleDocumentClick(event: MouseEvent): void {
-  //  const clickedInside = this.elementRef.nativeElement.contains(event.target);
-  //  if (!clickedInside) {
-  //    //if (this.selectedOption && this.selectedOption !== this.searchText) {
-  //    //  this.searchText = "";
-  //    //  this.selectedOption = "";
-  //    //} else if (!this.selectedOption && this.searchText) {
-  //    //  this.searchText = "";
-  //    //}
-  //    //console.log('Search Text:', this.searchText);
-  //    //console.log('Selected Option:', this.selectedOption);
-  //    this.filteredOptions = [];
-  //  }
-  //}
 }

@@ -10,11 +10,13 @@ export class HeaderComponent {
 
   Archiveddevices: any[];
 
+   
+
   constructor(private deviceService: DataService) { }
 
   onCheckboxChange(event: any) {
     if (event.target.checked) {
-      this.deviceService.getArchivedDevices()
+      this.deviceService.getArchivedDevices(this.deviceService.locationId)
         .subscribe(data => {
           this.deviceService.Archiveddevices=data
           this.Archiveddevices = data;

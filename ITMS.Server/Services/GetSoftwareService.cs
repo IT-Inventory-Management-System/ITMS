@@ -35,7 +35,9 @@ namespace ITMS.Server.Services
                                     SoftwareName = s.SoftwareName,
                                     SoftwareType = st.TypeName,
                                     ExpiryDate = sa.ExpiryDate,
-                                    Version=s.Version
+                                    Version = s.Version,
+                                    LocationId = sa.LocationId,
+                                    AssignedTo = sa.AssignedTo,
                                 }
                              ).ToListAsync();
             return result;

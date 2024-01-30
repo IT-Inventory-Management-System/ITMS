@@ -13,6 +13,7 @@ export class AssignLaptopComponent {
   SelectedLaptop: any;
   formattedAge: string = '';
   selectedOption: any;
+
   constructor(private assignDataManagementService: AssignDataManagementService) { }
 
   LaptopSearchBoxOptionSelected(event: any): void {
@@ -33,11 +34,11 @@ export class AssignLaptopComponent {
   }
 
   ngOnDestroy(): void {
-    console.log(this.selectedOption);
     this.assignDataManagementService.setState("laptopComment", this.selectedOption);
   }
 
   setSaveStateOnDestroy(): void {
-    this.assignDataManagementService.setState("laptopComment", this.selectedOption);
+    this.selectedOption = null;
+    this.assignDataManagementService.setState("laptopComment", null);
   }
 }

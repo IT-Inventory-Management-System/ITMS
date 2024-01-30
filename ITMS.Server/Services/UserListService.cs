@@ -31,7 +31,8 @@ public class UserListService : IUserListService
                                 Id = e.Id,
                                 Cgiid = e.Cgiid,
                                 FirstName = e.FirstName,
-                                LastName = e.LastName
+                                LastName = e.LastName,
+                                LocationId = e.LocationId,
                             }).ToListAsync();
         
         return result;

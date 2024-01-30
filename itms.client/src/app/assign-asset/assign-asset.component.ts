@@ -11,7 +11,10 @@ import { SoftwareVersionSearchBoxComponent } from './software-version-search-box
 import { AssignAccessoriesComponent } from './assign-accessories/assign-accessories.component';
 import { ToastrService } from 'ngx-toastr';
 import { customValidation } from './custom-validators';
-//import { customValidation } from './custom-validators';
+import { SelectedCountryService } from '../shared/services/selected-country.service';
+import { DataService } from '../shared/services/data.service';
+import { CloseFlagService } from '../shared/services/close-flag.service';
+import { AssignLaptopComponent } from './assign-laptop/assign-laptop.component';
 
 @Component({
   selector: 'app-assign-asset',
@@ -78,12 +81,17 @@ export class AssignAssetComponent {
     }
   }
 
-
+  totalUsersData: any[] = [];
+  totalSoftwaresData: any[] = [];
+  totalLaptopsData: any[] = [];
+  totalAccessoriesData: any[] = [];
   users: any[] = [];
   softwares: any[] = [];
   softwareVersions: any[] = [];
   laptops: any[] = [];
   accessories: any[] = [];
+  locationId: string = '';
+  closeFlag$ = this.closeFlag.closeFlag$;
 
   assignAssetForm: FormGroup;
   @ViewChild(SearchBoxComponent) SearchBoxComponent: any;
@@ -92,12 +100,15 @@ export class AssignAssetComponent {
   @ViewChild(SoftwareSearchBoxComponent) softwareSearchBoxComponent: SoftwareSearchBoxComponent;
   @ViewChild(SoftwareVersionSearchBoxComponent) softwareVersionSearchBoxComponent: SoftwareVersionSearchBoxComponent;
   @ViewChild(AssignAccessoriesComponent) assignAccessoriesComponent: AssignAccessoriesComponent;
-
-
+  @ViewChild(AssignLaptopComponent) assignLaptopComponent: AssignLaptopComponent;
+  @ViewChild(LaptopSearchBoxComponent) laptopSearchBoxComponent: LaptopSearchBoxComponent;
   constructor(
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
-    private assignDataManagementService : AssignDataManagementService,
+    private assignDataManagementService: AssignDataManagementService,
+    private closeFlag: CloseFlagService,
+    private selectedCountryService: SelectedCountryService,
+    private dataService: DataService,
     @Inject(DeviceAssignService) private deviceAssignService: DeviceAssignService) {
     this.assignAssetForm = this.formBuilder.group({
       assignedTo: [null, Validators.required],
@@ -111,17 +122,40 @@ export class AssignAssetComponent {
   }
 
   ngOnInit() {
-    console.log("assign-asset init");
+    this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
+      localStorage.setItem('selectedCountry', selectedCountry);
+      this.getDeviceLocation();
+    });
     this.getUsers();
     this.getSoftwares();
     this.getLaptops();
     this.getAccessories();
   }
 
+  getDeviceLocation() {
+    this.dataService.getLocation().subscribe(
+      (data) => {
+        for (var i = 0; i < data.length; i++) {
+          if (data[i].type == localStorage.getItem('selectedCountry')) {
+            this.locationId = data[i].id;
+            this.users = this.totalUsersData.filter(item => item.locationId === this.locationId);
+            this.laptops = this.totalLaptopsData.filter(item => item.locationId === this.locationId);
+            this.softwares = this.totalSoftwaresData.filter(item => item.locationId === this.locationId);
+            this.accessories = this.totalAccessoriesData.filter(item => item.locationId === this.locationId);
+            break;
+          }
+        }
+      },
+      (error) => {
+        console.log("User not found");
+      });
+  }
+
   getUsers(): void {
     this.deviceAssignService.getEmployeeBasicDetails().subscribe(
       (data: any[]) => {
-        this.users = data;
+        this.totalUsersData = data;
+        this.users = this.totalUsersData.filter(item => item.locationId === this.locationId);
       },
       (error: any) => {
         console.error('Error fetching user details:', error);
@@ -131,7 +165,8 @@ export class AssignAssetComponent {
   getLaptops(): void {
     this.deviceAssignService.getLaptop().subscribe(
       (data: any[]) => {
-        this.laptops = data;
+        this.totalLaptopsData = data;
+        this.laptops = this.totalLaptopsData.filter(item => item.locationId === this.locationId);
       },
       (error: any) => {
         console.error('Error fetching software details:', error);
@@ -141,7 +176,8 @@ export class AssignAssetComponent {
   getSoftwares(): void {
     this.deviceAssignService.getSoftware().subscribe(
       (data: any[]) => {
-        this.softwares = data;
+        this.totalSoftwaresData = data;
+        this.softwares = this.totalSoftwaresData.filter(item => item.locationId === this.locationId);
       },
       (error: any) => {
         console.error('Error fetching software details:', error);
@@ -152,7 +188,9 @@ export class AssignAssetComponent {
   getAccessories(): void {
     this.deviceAssignService.getAccessories().subscribe(
       (data: any[]) => {
-        this.accessories = data;
+        this.totalAccessoriesData = data;
+        this.accessories = this.totalAccessoriesData
+          //.filter(item => item.locationId === this.locationId);
       },
       (error: any) => {
         console.error('Error fetching software details:', error);
@@ -160,21 +198,21 @@ export class AssignAssetComponent {
     );
   }
 
-
-
   closeForm(): void {
-    console.log("closeForm");
-
+    //console.log("closeForm");
     this.assignAssetForm.reset();
     this.currentStep = 1;
+    this.closeFlag.setCloseFlagToTrue();
     //this.searchBoxComponent.setSaveStateOnDestroy();
     //this.assignAccessoriesComponent.setSaveStateOnDestroy();
     //this.laptopSearchBoxComponent.setSaveStateOnDestroy();
     //this.softwareSearchBoxComponent.setSaveStateOnDestroy();
     //this.softwareVersionSearchBoxComponent.setSaveStateOnDestroy();
-
+    //if (this.currentStep == 1) {
+    //  this.assignLaptopComponent.setSaveStateOnDestroy();
+    ////  this.laptopSearchBoxComponent.setSaveStateOnDestroy();
+    //}
     this.SearchBoxComponent.setSaveStateOnDestroy();
-    //this.LaptopSearchBoxComponent.setSaveStateOnDestroy();
     this.assignDataManagementService.setState("assignedTo", null);
     this.assignDataManagementService.setState("cygid", null);
     this.assignDataManagementService.setState("softwareName", null);
@@ -187,7 +225,7 @@ export class AssignAssetComponent {
   }
  
   saveChanges(): void {
-    console.log('Form Values:', this.assignAssetForm.value);
+    //console.log('Form Values:', this.assignAssetForm.value);
 
     if (this.assignAssetForm.valid) {
       const assignmentData = this.assignAssetForm.value;
@@ -207,7 +245,6 @@ export class AssignAssetComponent {
       const errors = this.assignAssetForm.errors;
 
       if (errors) {
-        // If there are custom errors, display them using Toastr
         for (const key of Object.keys(errors)) {
           const message = errors[key];
           this.toastr.error(message);
@@ -220,5 +257,4 @@ export class AssignAssetComponent {
       this.assignAssetForm.reset();
     }
   }
-
 }
