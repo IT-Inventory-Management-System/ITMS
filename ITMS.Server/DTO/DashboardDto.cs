@@ -73,11 +73,17 @@ namespace ITMS.Server.DTO
         public int UsaInventory { get; set; }
         public int UsaAssigned { get; set; }
 
-        public DateTime? ExpDate { get; set; }
+        public DateTime? ExpDateUsa { get; set; }
+
+        public DateTime? ExpDateIndia { get; set; }
+
+
 
         public byte[]? SoftwareThumbnail { get; set; }
 
-        public int? ExpiryDateCount { get; set; } = 0;
+        public int? ExpiryDateCountUsa { get; set; } = 0;
+
+        public int? ExpiryDateCountIndia { get; set; } = 0;
 
     }
 }

@@ -77,16 +77,33 @@ namespace ITMS.Server.Services
              .Count(s => s.AssignedTo != null && s.Location != null && s.Location.Location1 == "USA"),
 
 
-         ExpiryDateCount = s.SoftwareAllocations
-            .Where(sa => sa.ExpiryDate.HasValue)
+         ExpiryDateCountIndia = s.SoftwareAllocations
+    .Where(sa => sa.ExpiryDate.HasValue && sa.Location.Location1 == "India")
+    .OrderByDescending(sa => sa.ExpiryDate)
+    .AsEnumerable()
+    .GroupBy(sa => sa.ExpiryDate.Value)
+    .Select(group => group.Count())
+    .FirstOrDefault(),
+
+         ExpDateIndia = s.SoftwareAllocations
+            .Where(sa => sa.ExpiryDate.HasValue && sa.Location.Location1 == "India")
             .OrderByDescending(sa => sa.ExpiryDate)
-            .AsEnumerable()
-            .GroupBy(sa => sa.ExpiryDate.Value)
-            .Select(group => group.Count())
+            .Select(sa => sa.ExpiryDate.Value)
             .FirstOrDefault(),
 
-         ExpDate = s.SoftwareAllocations
-            .Where(sa => sa.ExpiryDate.HasValue)
+
+
+
+         ExpiryDateCountUsa = s.SoftwareAllocations
+    .Where(sa => sa.ExpiryDate.HasValue && sa.Location.Location1 == "USA")
+    .OrderByDescending(sa => sa.ExpiryDate)
+    .AsEnumerable()
+    .GroupBy(sa => sa.ExpiryDate.Value)
+    .Select(group => group.Count())
+    .FirstOrDefault(),
+
+         ExpDateUsa = s.SoftwareAllocations
+            .Where(sa => sa.ExpiryDate.HasValue && sa.Location.Location1 == "USA")
             .OrderByDescending(sa => sa.ExpiryDate)
             .Select(sa => sa.ExpiryDate.Value)
             .FirstOrDefault(),
