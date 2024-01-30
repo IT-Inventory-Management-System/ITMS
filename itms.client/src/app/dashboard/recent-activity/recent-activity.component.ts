@@ -7,4 +7,5 @@ import { Component, Input } from '@angular/core';
 })
 export class RecentActivityComponent {
   @Input() logsData: any;
+  @Input() selectedLocation: any;
 }
