@@ -20,3 +20,9 @@ p{
 .my-inventory{
     margin-top:3.5rem;
 }
+
+@media (min-width: 2560px) {
+  .custom-container {
+    width: 1500px !important; /* Adjust the width as needed */
+  }
+}
