@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { DisplayDetailsService } from '../shared/services/display-details.service';
 import { DataService } from '../shared/services/data.service';
+import { SelectedCountryService } from '../shared/services/selected-country.service';
 
 @Component({
   selector: 'app-user-list',
@@ -33,8 +34,8 @@ export class UserListComponent implements OnInit {
     
   }
 
-  constructor(private displayingDetailsService: DisplayDetailsService, private dataService: DataService) {
-  }
+  constructor(private displayingDetailsService: DisplayDetailsService, private dataService: DataService, private selectedCountryService: SelectedCountryService) {
+  } 
 
   getUserLocation() {
     this.dataService.getLocation().subscribe(
@@ -54,7 +55,11 @@ export class UserListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getUserLocation(); 
+    //this.getUserLocation();
+    this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
+      localStorage.setItem('selectedCountry', selectedCountry);
+      this.getUserLocation();
+    });
   }
  
   showUserListData() {
