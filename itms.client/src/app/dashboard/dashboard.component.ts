@@ -1,6 +1,9 @@
 import { ChangeDetectorRef, Component, Input, OnInit, ElementRef, AfterViewInit} from '@angular/core';
 import { DashboardService } from '../shared/services/Dashboard.service';
 import { FormGroup } from '@angular/forms';
+import { LocationService } from '../shared/services/location.service';
+import { SelectedCountryService } from '../shared/services/selected-country.service';
+
 
 
 
@@ -18,6 +21,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   //  { text: "ListItem 5", value: "ListItem 5" }
   //];
   //fieldsvalues: Object = { dataSource: this.data, text: "text", value: "value" };
+  selectedLocation: any = '';
+  //@Input() selectedLocation: any;
+
   loading: boolean = true;
   selectedAssetAge: any = '';
   accessoriesData: any[];
@@ -46,10 +52,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     );
   }
 
-  constructor(private dashboardService: DashboardService, private cdr: ChangeDetectorRef, private elementRef: ElementRef) {
+  constructor(private dashboardService: DashboardService, private cdr: ChangeDetectorRef, private elementRef: ElementRef, private LocationService: LocationService, private selectedCountryService: SelectedCountryService) {
     this.filteredAccessories = this.accessoriesData;
     this.filteredSoftware = this.softwaresData;
-
   }
 
   //ngOnInit(): void {
@@ -66,17 +71,26 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     window.addEventListener('resize', this.addClassBasedOnScreenSize.bind(this));
       window.addEventListener('mousemove', this.addClassBasedOnScreenSize.bind(this));
     //window.addEventListener('loadeddata', this.addClassBasedOnScreenSize.bind(this));
-
-  
-
+    //window.addEventListener('storage', (event) => {
+    //  if (event.key === 'selectedCountry') {
+    //    console.log('Storage event - selectedCountry changed');
+    //  }
+    //});
   }
 
-  
+  //updateUI() {
+  //  this.location = localStorage.getItem('selectedCountry');
+  //  //this.LocationService.selectedCountry$.subscribe((country) => {
+  //  //  this.location = country;
+  //  //});
+  //  console.log(this.location);
+  //}
+
  addClassBasedOnScreenSize() {
   //const containerDiv = document.getElementById('myDiv');
    // const screenWidth = window.innerWidth;
    const containerDiv = this.elementRef.nativeElement.querySelector('#set-size');
-   console.log(containerDiv);
+   
    
    if (containerDiv) {
      if (window.innerWidth >= 2000) {
@@ -108,10 +122,15 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.getSoftwaresData();
     this.getPrimaryData();
     this.getLogsData();
+    //this.updateUI();
+    this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
+      localStorage.setItem('selectedCountry', selectedCountry);
+      this.selectedLocation = selectedCountry;
+      console.log(this.selectedLocation);
+    });
   }
 
 
-  // utils.ts
 
   extractDate(dateTime: string): string {
     const dateObj = new Date(dateTime);

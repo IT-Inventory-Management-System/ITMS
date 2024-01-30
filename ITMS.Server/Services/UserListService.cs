@@ -7,7 +7,7 @@ namespace ITMS.Server.Services;
 
 public interface IUserListService
 {
-    Task<IEnumerable<UserListDTO>> GetUserDevicesAsync();
+    Task<IEnumerable<UserListDTO>> GetUserDevicesAsync(Guid locationId);
 
     Task<UserListDTO> GetFirstUserAsync();
 }
@@ -21,9 +21,11 @@ public class UserListService : IUserListService
     {
         _context = context;
     }
-    public async Task<IEnumerable<UserListDTO>> GetUserDevicesAsync()
+    public async Task<IEnumerable<UserListDTO>> GetUserDevicesAsync(Guid locationId)
     {
         var result = await (from e in _context.Employees
+                            .Include(e => e.Location)
+                            .Where(e => e.Location.Id == locationId) 
                             select new UserListDTO
                             {
                                 Id = e.Id,
@@ -38,7 +40,7 @@ public class UserListService : IUserListService
 
     public async Task<UserListDTO> GetFirstUserAsync()
     {
-        var roleName = "Admin";
+        var roleName = "Superadmin";
 
         var adminRoleId = await _context.Roles
             .Where(r => r.Name == roleName)
@@ -58,7 +60,8 @@ public class UserListService : IUserListService
                 Id = u.Id,
                 Cgiid = u.Cgiid,
                 FirstName = u.FirstName,
-                LastName = u.LastName
+                LastName = u.LastName,
+                LocationId = u.LocationId
             })
             .FirstOrDefaultAsync();
 

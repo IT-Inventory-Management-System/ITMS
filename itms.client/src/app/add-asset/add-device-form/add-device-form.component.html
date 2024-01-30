@@ -54,9 +54,9 @@
             <div class="quantity-select">
               <label for="quantity">Quantity</label>
               <div class="quantity-counter">
-                <div class="reduce-button" (click)="decrement()"><img src="../../../assets/icons/reduce-quantity.svg" /></div>
+                <div class="reduce-button" (click)="decrement(); hideErrorMessage()"><img src="../../../assets/icons/reduce-quantity.svg" /></div>
                 <span class="counter-value">{{ counterValue }}</span>
-                <div class="add-button" (click)="increment()"><img src="../../../assets/icons/add-quantity.svg" /></div>
+                <div class="add-button" (click)="increment();hideErrorMessage()"><img src="../../../assets/icons/add-quantity.svg" /></div>
               </div>
             </div>
           </div>
@@ -92,19 +92,17 @@
           </div>
         </div>
       </div>
-      <div *ngIf="currentStep === 2" class="app-id-input container-fluid">
-        <div *ngFor="let ele of counterValues; let i = index" class="row">
+      <div *ngIf="currentStep === 2" class="app-id-input custom-container">
+        <div *ngFor="let ele of counterValues; let i = index" class="outer-input">
 
-          <div class="outer-input row">
-            <div class="serial-number-input col-6">
+            <div class="serial-number-input ">
               <label for="serialNumber">Serial Number<span class="required">*</span></label>
-              <input type="text" id="serialNumber" name="serialNumber" (input)="updateSerialNumber(i, $event)" />
+              <input type="text" id="serialNumber" name="serialNumber" (input)="updateSerialNumber(i, $event)" placeholder="Enter Serial No."/>
             </div>
-            <div class="cyg-id-input col-6">
+            <div class="cyg-id-input">
               <label for="cygId">CYG ID.<span class="required">*</span></label>
-              <input type="text" id="cygId" name="cygId" (input)="updateCygId(i, $event)" />
+              <input type="text" id="cygId" name="cygId" (input)="updateCygId(i, $event)" placeholder="Enter CYG ID"/>
             </div>
-          </div>
 
 
         </div>

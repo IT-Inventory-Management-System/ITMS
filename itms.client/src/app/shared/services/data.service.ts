@@ -112,6 +112,9 @@ export class DataService {
     return this.http.post(this.apiUrl + 'Device/updateDeviceStatustoNotassigned', formdata);
   }
 
+  getDevicesCyg(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + 'Device/getDevices/');
+  }
 
 }
 

@@ -10,18 +10,45 @@ import { ToastrService } from 'ngx-toastr';
 export class AddSoftwareFormComponent {
   SoftwareForm: FormGroup;
   showErrorMessage = false;
-
+  NewSoftwareName: string = '';
+  NewSoftwareType :string = '';
   dropdownValues: any[] = [];
+  softwareTypes: any[] = [];
+  NewSoftwareID: any;
+
   constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService) {
     this.dropdownValues = [];
+
   }
 
   ngOnInit(): void {
     this.loadDropdownValues();
+    this.getSoftwareType();
     this.createForm();
     this.setlocationId();
 
   }
+  getSoftwareType() {
+    this.dataService.getSoftwareTypes().subscribe(
+      (data) => {
+        this.softwareTypes = data;
+        console.log(data);
+      },
+      (error) => {
+        console.error('Error fetching software values', error);
+      }
+    );
+  }
+
+  changeSoftwareType(event: any): string {
+
+    for (var i = 0; i < this.softwareTypes.length; i++) {
+      if (this.softwareTypes[i].id == event) {
+        return (this.softwareTypes[i].typeName);
+      }
+    }
+    return '';
+  } 
   createForm() {
     this.SoftwareForm = this.fb.group({
       softwareId: [null, Validators.required],
@@ -142,9 +169,10 @@ export class AddSoftwareFormComponent {
   toggleSoftwareForm() {
     this.isFormOpen = !this.isFormOpen;
   }
-  onFormSubmitted() {
-    // This method will be called when the form in app-add-software-model is submitted
-    // Set isFormOpen to false to hide the form
+  onFormSubmitted(event:any):void {
+ 
+    this.NewSoftwareName = event.softwareName;
+    this.NewSoftwareType = this.changeSoftwareType(event.softwareTypeId);
    
     this.isFormOpen = false;
     this.ngOnInit();

@@ -1,14 +1,29 @@
 <div  class="software">
   <div class="software-details">
 
-    <span *ngIf="softwareData.expiryDateCount > 0 && getRemainingDays(softwareData.expDate) < 30" class="warning-text">
+    <span *ngIf="(softwareData.expiryDateCountIndia > 0 && getRemainingDays(softwareData.expDateIndia) < 30 && selectedLocation==='India'); else noTotalText" class="warning-text">
       <div *ngIf="softwareData.type !== 'perpetual'" class="expiring-tag">
         <img src="../../../assets/icons/dashboard/Warning.svg" />
-        {{ softwareData.expiryDateCount }} Expiring in {{ getRemainingDays(softwareData.expDate) }} days
+
+
+
+        {{softwareData.expiryDateCountIndia}} Expiring in   {{getRemainingDays(softwareData.expDateIndia)}} days
+
       </div>
     </span>
+    <ng-template #noTotalText>
+      <span *ngIf="softwareData.expiryDateCountUsa > 0 && getRemainingDays(softwareData.expDateUsa) < 30" class="warning-text">
+        <div *ngIf="softwareData.type !== 'perpetual'" class="expiring-tag">
+          <img src="../../../assets/icons/dashboard/Warning.svg" />
 
-    
+
+
+          {{softwareData.expiryDateCountUsa }} Expiring in   {{getRemainingDays(softwareData.expDateUsa) }} days
+
+        </div>
+      </span>
+    </ng-template>
+
     <div class="section1">
       <div class="software-name">
         <div class="title">
@@ -37,8 +52,9 @@
           <img src="../../../assets/icons/dashboard/icon.svg" />
           <span class="assignedtext">Assigned</span>
         </div>
-        <div class="assignednumber">{{ softwareData.assigned }}</div>
-
+        <span class="assignednumber">
+          {{ selectedLocation === 'India' ? softwareData.indiaAssigned : softwareData.usaAssigned }}
+        </span>
       </div>
       <div class="inventory">
         <div class="inventory-icon">
@@ -46,15 +62,16 @@
           <span class="inventory-text">Inventory</span>
         </div>
         <div class="lowstock-container">
-          <div class="lowstock"*ngIf="softwareData.inventory < 1">
+          <div class="lowstock" *ngIf="softwareData.inventory < 1">
             <div class="lowstocktext">Low in Stock</div>
           </div>
-          <div class="inventorynumber"[ngClass]="{'inventorylowstocktext': softwareData.inventory < 1}" >
-            {{ softwareData.inventory }}
-          </div>
+          <span class="assignednumber" [ngClass]="{'inventorylowstocktext': softwareData.inventory < 1}">
+            {{ selectedLocation === 'India' ? softwareData.indiaInventory : softwareData.usaInventory }}
+          </span>
+
         </div>
-       
-     
+
+
 
       </div>
     </div>

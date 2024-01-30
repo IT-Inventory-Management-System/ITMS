@@ -12,7 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 export class AddSoftwareModelComponent {
   showErrorMessage = false;
 
-  @Output() formSubmitted: EventEmitter<void> = new EventEmitter<void>();
+  @Output() formSubmitted: EventEmitter<any> = new EventEmitter<any>();
 
   ProfileDP = '';
   newSoftwareForm: FormGroup;
@@ -105,13 +105,13 @@ export class AddSoftwareModelComponent {
       this.dataService.postNewSoftwareData(this.newSoftwareForm.value).subscribe(
         response => {
           console.log('Post Software Data successful', response);
+          this.formSubmitted.emit(this.newSoftwareForm.value);
 
           this.hideErrorMessage();
           this.ProfileDP = '../../../assets/icons/add_photo_alternate_outlined 1.svg';
           this.newSoftwareForm.reset();
           this.setCategoryId();
           this.setCreatedBy();
-          this.formSubmitted.emit();
           this.toastr.success("Data posted successfully");
 
 
