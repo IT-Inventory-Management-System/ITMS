@@ -9,12 +9,11 @@ export class DisplayDetailsService {
 
   private apiUrl = 'https://localhost:7283/api/';
   searchText: any;
+    
   constructor(private http: HttpClient) { }
 
-  getshowUserListData(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl + 'employee/basicdetails');
+  getshowUserListData(locationId: any): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + 'employee/basicdetails/' + locationId);
   }
-
-
   
 }

@@ -7,7 +7,7 @@ namespace ITMS.Server.Services;
 
 public interface IUserListService
 {
-    Task<IEnumerable<UserListDTO>> GetUserDevicesAsync();
+    Task<IEnumerable<UserListDTO>> GetUserDevicesAsync(Guid locationId);
 
     Task<UserListDTO> GetFirstUserAsync();
 }
@@ -21,9 +21,11 @@ public class UserListService : IUserListService
     {
         _context = context;
     }
-    public async Task<IEnumerable<UserListDTO>> GetUserDevicesAsync()
+    public async Task<IEnumerable<UserListDTO>> GetUserDevicesAsync(Guid locationId)
     {
         var result = await (from e in _context.Employees
+                            .Include(e => e.Location)
+                            .Where(e => e.Location.Id == locationId) 
                             select new UserListDTO
                             {
                                 Id = e.Id,
