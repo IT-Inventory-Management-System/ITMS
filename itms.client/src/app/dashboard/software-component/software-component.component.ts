@@ -8,6 +8,7 @@ import { DashboardService } from '../../shared/services/Dashboard.service';
 })
 export class SoftwareComponentComponent {
   @Input() softwareData: any;
+  @Input() selectedLocation: any;
   //expiringSoftwareCount: number = 0;
   image: string | ArrayBuffer | null = null;
 

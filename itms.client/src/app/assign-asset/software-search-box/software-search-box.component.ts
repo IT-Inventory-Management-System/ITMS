@@ -12,11 +12,14 @@ export class SoftwareSearchBoxComponent {
   @Input() placeholder: string;
   @Input() SoftwareOptions: any[] = [];
   @Output() SoftwareOptionSelected: EventEmitter<any> = new EventEmitter();
-
-  //searchText: string = '';
-  //filteredOptions: any[] = [];
+  uniqueSoftwareNames: any[] = [];
   selectedOption: any;
   constructor(private assignDataManagementService: AssignDataManagementService) { }
+
+  UniqueOptions(): void {
+    const uniqueNamesSet = new Set<string>(this.SoftwareOptions.map(option => option.softwareName));
+    this.uniqueSoftwareNames = Array.from(uniqueNamesSet);
+  }
 
   onSelectOption(option: any): void {
     this.SoftwareOptionSelected.emit(option);
@@ -25,6 +28,7 @@ export class SoftwareSearchBoxComponent {
   ngOnInit(): void {
     this.selectedOption = this.assignDataManagementService.getState("softwareName");
     this.SoftwareOptionSelected.emit(this.selectedOption);
+    this.UniqueOptions();
   }
 
   ngOnDestroy(): void {
@@ -34,39 +38,4 @@ export class SoftwareSearchBoxComponent {
   setSaveStateOnDestroy(): void {
     this.selectedOption = null;
   }
-
-  //constructor(private elementRef: ElementRef) { }
-
-  //onSoftwareInputChange(event: any): void {
-  //  this.searchText = event.target.value;
-  //  this.filterSoftwareOptions();
-  //}
-
-  //filterSoftwareOptions(): void {
-  //  this.filteredOptions = this.SoftwareOptions.filter(SoftwareOption =>
-  //    SoftwareOption.softwareName.toLowerCase().includes(this.searchText.toLowerCase()));
-  //}
-
-  //selectOption(option: any): void {
-  //  this.selectedOption = option.softwareName;
-  //  this.SoftwareOptionSelected.emit(option);
-  //  this.filteredOptions = [];
-  //  this.assignAssetForm.get('softwareId')?.setValue(option.id);
-  //}
-
-  //@HostListener('document:click', ['$event'])
-  //handleDocumentClick(event: MouseEvent): void {
-  //  const clickedInside = this.elementRef.nativeElement.contains(event.target);
-  //  if (!clickedInside) {
-  //    //if (this.selectedOption && this.selectedOption !== this.searchText) {
-  //    //  this.searchText = "";
-  //    //  this.selectedOption = "";
-  //    //} else if (!this.selectedOption && this.searchText) {
-  //    //  this.searchText = "";
-  //    //}
-  //    //console.log('Search Text:', this.searchText);
-  //    //console.log('Selected Option:', this.selectedOption);
-  //    this.filteredOptions = [];
-  //  }
-  //}
 }

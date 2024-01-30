@@ -8,10 +8,14 @@ import { Component } from '@angular/core';
 export class EmployeeComponent {
   
   selectedUser: any; // Variable to store selected user details
+  isLoading: boolean = true; 
 
-  // Function to handle user details clicked event
+ 
   onUserDetailsClicked(userDetails: any) {
     this.selectedUser = userDetails;
   }
-
+  
+  setLoadingState(isLoading: boolean) {
+    this.isLoading = isLoading;
+  }
 }

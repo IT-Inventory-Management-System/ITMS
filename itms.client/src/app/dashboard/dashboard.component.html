@@ -100,18 +100,18 @@
               <div class="container-fluid Assets ms-0 p-0  ">
                 <div class="container-fluid Section1 row ms-0 p-0 me-0  ">
                   <div class="col-6 ms-0 p-0 me-0 " *ngIf="primaryData && primaryData[0]">
-                    <app-dashboard-assets [primaryData]="primaryData[0][+selectedAssetAge]"></app-dashboard-assets>
+                    <app-dashboard-assets [primaryData]="primaryData[0][+selectedAssetAge]" [selectedLocation]="selectedLocation"></app-dashboard-assets>
                   </div>
                   <div class="col-6  p-0 me-0 d-flex justify-content-end" *ngIf="primaryData && primaryData[1]">
-                    <app-dashboard-assets [primaryData]="primaryData[1][+selectedAssetAge]"></app-dashboard-assets>
+                    <app-dashboard-assets [primaryData]="primaryData[1][+selectedAssetAge]" [selectedLocation]="selectedLocation"></app-dashboard-assets>
                   </div>
                 </div>
                 <div class="container-fluid Section2 row ms-0 p-0 me-0" *ngIf="primaryData && primaryData[2]">
                   <div class="col-6 ms-0 p-0 me-0">
-                    <app-dashboard-assets [primaryData]="primaryData[2][+selectedAssetAge]"></app-dashboard-assets>
+                    <app-dashboard-assets [primaryData]="primaryData[2][+selectedAssetAge]" [selectedLocation]="selectedLocation"></app-dashboard-assets>
                   </div>
                   <div class="col-6 ms-0 p-0 d-flex justify-content-end" *ngIf="primaryData && primaryData[3]">
-                    <app-dashboard-assets [primaryData]="primaryData[3][+selectedAssetAge]"></app-dashboard-assets>
+                    <app-dashboard-assets [primaryData]="primaryData[3][+selectedAssetAge]" [selectedLocation]="selectedLocation"></app-dashboard-assets>
                   </div>
 
                 </div>
@@ -135,7 +135,7 @@
                 </div>
                 <div class="Software-Content">
                   <app-accesories *ngFor="let accessory of filteredAccessories ? filteredAccessories : accessoriesData"
-                                  [accessoriesData]="accessory"></app-accesories>
+                                  [accessoriesData]="accessory" [selectedLocation]="selectedLocation"></app-accesories>
                 </div>
               </div>
               <div class="col-md-6 Software  ">
@@ -149,7 +149,7 @@
                          (input)="applySoftwareFilter($event)" />
                 </div>
                 <div class="container-fluid list">
-                  <app-software-component *ngFor="let software of filteredSoftware? filteredSoftware : softwaresData " [softwareData]="software"></app-software-component>
+                  <app-software-component *ngFor="let software of filteredSoftware? filteredSoftware : softwaresData " [softwareData]="software" [selectedLocation]="selectedLocation"></app-software-component>
                 </div>
               </div>
             </div>
@@ -181,7 +181,7 @@
 
 
                   <div class="row" *ngFor="let logs of logsData; let i = index">
-                    <div class="Date" *ngIf="isDateDifferent(i)">
+                    <div class="Date" *ngIf="isDateDifferent(i) && selectedLocation === logs.location">
                       <hr class="h-line">
                       <div class="Date-content">
                         <img src="../../../assets/icons/dashboard/CalendarBlank.svg" />
@@ -190,7 +190,7 @@
                       <hr class="h-line">
 
                     </div>
-                    <app-recent-activity [logsData]="logs"></app-recent-activity>
+                    <app-recent-activity  *ngIf="selectedLocation === logs.location" [logsData]="logs" ></app-recent-activity>
 
 
                   </div>
