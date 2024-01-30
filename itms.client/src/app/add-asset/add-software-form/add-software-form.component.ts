@@ -14,6 +14,7 @@ export class AddSoftwareFormComponent {
   NewSoftwareType :string = '';
   dropdownValues: any[] = [];
   softwareTypes: any[] = [];
+  NewSoftwareID: any;
 
   constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService) {
     this.dropdownValues = [];
@@ -169,11 +170,10 @@ export class AddSoftwareFormComponent {
     this.isFormOpen = !this.isFormOpen;
   }
   onFormSubmitted(event:any):void {
-    // This method will be called when the form in app-add-software-model is submitted
-    // Set isFormOpen to false to hide the form
+ 
     this.NewSoftwareName = event.softwareName;
     this.NewSoftwareType = this.changeSoftwareType(event.softwareTypeId);
-
+   
     this.isFormOpen = false;
     this.ngOnInit();
   }

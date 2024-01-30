@@ -5,7 +5,7 @@
   <div class="main_content">
     <div class="top_field">
       <label for="inlineFormSelectPref" placeholder="Enter Software Name " class="required-field software_name">Software Name </label>
-      <ng-select *ngIf="dropdownValues" placeholder={{NewSoftwareName}} (change)="dynamicChanges($event)" >
+      <ng-select *ngIf="dropdownValues" placeholder="Select Software Name" (change)="dynamicChanges($event)" >
 
         <ng-option *ngFor="let value of dropdownValues" [value]="value?.typeName + '@' + value?.id">
           {{ value.softwareName }}
