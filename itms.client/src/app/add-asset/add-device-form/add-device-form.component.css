@@ -568,6 +568,7 @@ form{
   width: 103%;
   margin-left: -2% !important;
   margin-top: 1.25rem;
+  
 }
 
 .serial-number-input {
@@ -577,9 +578,11 @@ form{
   align-items: flex-start;
   gap: 0.375rem;
   flex: 1 0 0;
-  width: 100%;
 }
-
+.custom-container{
+    width:46rem;
+    padding-left:1rem;
+}
 .cyg-id-input {
   display: flex;
   align-self: stretch;
@@ -587,7 +590,6 @@ form{
   align-items: flex-start;
   gap: 0.375rem;
   flex: 1 0 0;
-  width: 100%;
 }
 
 .serial-number-input input, .cyg-id-input input {
@@ -600,7 +602,7 @@ form{
   border-radius: 0.25rem;
   border: 1px solid var(--Secondary-Gray, #B2B2B3);
   background: #FFF;
-  width: 100%;
+  width:22rem;
 }
 
 
