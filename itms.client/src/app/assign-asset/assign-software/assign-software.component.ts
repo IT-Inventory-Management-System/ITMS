@@ -20,7 +20,6 @@ export class AssignSoftwareComponent {
   SelectedSoftwareData: any;
   constructor(private assignDataManagementService: AssignDataManagementService) { }
 
-
   SoftwareSearchBoxOptionSelected(event: any): void {
     this.SelectedSoftware = event;
     this.filterSoftwareVersions();
@@ -37,15 +36,17 @@ export class AssignSoftwareComponent {
       }
   }
   SoftwareVersionSearchBoxOptionSelected(event: any): void {
+    console.log(this.FileredSoftwareOptions);
     const filteredOptions = this.FileredSoftwareOptions.filter(
-      (option: any) => option.version === event 
+      (option: any) => option.version === event && option.assignedTo === null
     );
+    console.log(filteredOptions);
     if (filteredOptions.length > 0) {
       this.SelectedSoftwareVersion = filteredOptions[0];
       this.assignAssetForm.get('softwareId')?.setValue(this.SelectedSoftwareVersion.id);
     }
     else {
-      this.SelectedSoftwareVersion = null;
+      this.SelectedSoftwareVersion = 1;
         this.assignAssetForm.get('softwareId')?.setValue(null);
     }
   }
