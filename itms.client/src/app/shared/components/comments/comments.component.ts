@@ -18,14 +18,19 @@ export class CommentsComponent {
   @Input() comment: any;
   DeviceLogInfo: any;
   newComment: string = '';
-
+  loggedUser: any;
 
   toggleCommentSection() {
     this.isCommentSectionCollapsed = !this.isCommentSectionCollapsed;
     /*this.showcomment(cygid);*/
   }
 
-  constructor(private dataService: DataService, private cdr: ChangeDetectorRef) { }
+  constructor(private dataService: DataService, private cdr: ChangeDetectorRef) {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser !== null) {
+      this.loggedUser = JSON.parse(storedUser);
+    } 
+  }
 
 
 
@@ -33,7 +38,7 @@ export class CommentsComponent {
   if (this.newComment) {
     const commentDto = {
       description: this.newComment,
-      createdBy: this.userId,
+      createdBy: this.loggedUser.id,
       createdAtUtc: new Date().toISOString(),
       deviceId: this.deviceId,
       deviceLogId: this.deviceLogId

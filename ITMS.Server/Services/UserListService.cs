@@ -38,7 +38,7 @@ public class UserListService : IUserListService
 
     public async Task<UserListDTO> GetFirstUserAsync()
     {
-        var roleName = "Admin";
+        var roleName = "Superadmin";
 
         var adminRoleId = await _context.Roles
             .Where(r => r.Name == roleName)
@@ -58,7 +58,8 @@ public class UserListService : IUserListService
                 Id = u.Id,
                 Cgiid = u.Cgiid,
                 FirstName = u.FirstName,
-                LastName = u.LastName
+                LastName = u.LastName,
+                LocationId = u.LocationId
             })
             .FirstOrDefaultAsync();
 

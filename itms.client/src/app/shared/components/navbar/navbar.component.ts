@@ -8,7 +8,13 @@ import { SelectedCountryService } from '../../services/selected-country.service'
 })
 export class NavbarComponent {
 
-  constructor(private selectedCountryService: SelectedCountryService) { }
+  loggedUser: any;
+  constructor(private selectedCountryService: SelectedCountryService) {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser !== null) {
+      this.loggedUser = JSON.parse(storedUser);
+    } 
+  }
 
   isOptionsVisible: boolean = false;
 
