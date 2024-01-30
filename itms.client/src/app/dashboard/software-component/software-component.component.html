@@ -61,15 +61,46 @@
           <img src="../../../assets/icons/dashboard/Check mark.svg" />
           <span class="inventory-text">Inventory</span>
         </div>
+
         <div class="lowstock-container">
-          <div class="lowstock" *ngIf="softwareData.inventory < 1">
+
+          <div class="lowstock" *ngIf="(softwareData.indiaInventory - softwareData.indiaAssigned) < 1 && selectedLocation === 'India'">
             <div class="lowstocktext">Low in Stock</div>
           </div>
-          <span class="assignednumber" [ngClass]="{'inventorylowstocktext': softwareData.inventory < 1}">
-            {{ selectedLocation === 'India' ? softwareData.indiaInventory : softwareData.usaInventory }}
+          <span *ngIf="selectedLocation === 'India'; else noTT" class="assignednumber" [ngClass]="{'inventorylowstocktext': (softwareData.indiaInventory - softwareData.indiaAssigned) < 1}">
+            <!--{{selectedLocation==='India'? softwareData.indiaInventory - softwareData.indiaAssigned: softwareData.usaInventory - softwareData.usaAssigned }}-->
+            {{ softwareData.indiaInventory - softwareData.indiaAssigned }}
           </span>
 
+          <ng-template #noTT>
+              <div class="lowstock" *ngIf="(softwareData.usaInventory - softwareData.usaAssigned) < 1">
+                 <div class="lowstocktext">Low in Stock</div>
+              </div>
+              <span *ngIf="selectedLocation === 'USA'" class="assignednumber" [ngClass]="{'inventorylowstocktext': (softwareData.usaInventory - softwareData.usaAssigned) < 1}">
+                {{ softwareData.usaInventory - softwareData.usaAssigned }}
+              </span>
+            </ng-template>
         </div>
+
+        <!--<div class="lowstock-container me-0">
+          <div class="lowstock" *ngIf="(softwareData.indiaInventory - softwareData.indiaAssigned) < 1 && selectedLocation === 'India'; else noTotalText">
+            <div class="lowstocktext">Low in Stock</div>
+          </div>
+
+          <span *ngIf="selectedLocation === 'India'" class="assignednumber" [ngClass]="{'inventorylowstocktext': (softwareData.indiaInventory - softwareData.indiaAssigned) < 1}">
+            {{softwareData.indiaInventory - softwareData.indiaAssigned }}
+          </span>
+
+          <ng-template #noTotalText>
+            <div class="lowstock" *ngIf="(softwareData.usaInventory - softwareData.usaAssigned) < 1">
+              <div class="lowstocktext">Low in Stock</div>
+            </div>
+
+            <span class="assignednumber" [ngClass]="{'inventorylowstocktext': (softwareData.usaInventory - softwareData.usaAssigned) < 1}">
+              {{ softwareData.usaInventory - softwareData.usaAssigned }} 
+            </span>
+          </ng-template>
+        </div>-->
 
 
 
