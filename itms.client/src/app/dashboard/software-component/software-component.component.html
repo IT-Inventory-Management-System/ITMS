@@ -73,7 +73,7 @@
           </span>
 
           <ng-template #noTT>
-              <div class="lowstock" *ngIf="(softwareData.indiaInventory - softwareData.indiaAssigned) < 1">
+              <div class="lowstock" *ngIf="(softwareData.usaInventory - softwareData.usaAssigned) < 1">
                  <div class="lowstocktext">Low in Stock</div>
               </div>
               <span *ngIf="selectedLocation === 'USA'" class="assignednumber" [ngClass]="{'inventorylowstocktext': (softwareData.usaInventory - softwareData.usaAssigned) < 1}">
