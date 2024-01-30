@@ -5,17 +5,23 @@
         <div class="round">
           <img [src]="getIconPath(primaryData.name)" />
         </div>
-       
+
         <span class="windows-text">{{primaryData.name}}</span>
       </div>
-      <span class="number">{{primaryData.total}}</span>
+      <!--<span class="number">{{primaryData.total}}</span>-->
+    <span class="number">
+      {{ selectedLocation === 'India' ? primaryData.totalIndia : primaryData.totalUSA }}
+    </span>
+
     </div>
     <div class="container-fluid">
       <div class="stock-section row">
         <div class="col-6 Assigned">
           <img src="../../../assets/icons/dashboard/icon.svg" />
           <span class="Assigned-text">Assigned</span>
-          <div class="Assigned-number">{{primaryData.assigned}}</div>
+          <div class="Assigned-number">
+            {{ selectedLocation === 'India' ? primaryData.assignedIndia : primaryData.assignedUSA }}
+          </div>
         </div>
         <div class="col-6 inventory">
           <img src="../../../assets/icons/dashboard/Check mark.svg" />
@@ -25,9 +31,14 @@
             <div class="lowstock  ms-auto" *ngIf="(primaryData.total - primaryData.assigned) < 1">
               <div class="lowstocktext  ">Low in Stock</div>
             </div>
-            <div class="Inventory-number ms-auto p-0" [ngClass]="{'inventorylowstocktext': (primaryData.total - primaryData.assigned) < 1}">
-              {{primaryData.total - primaryData.assigned}}
+            <div *ngIf="selectedLocation === 'India'; else noTotalText"  class="Inventory-number ms-auto p-0" [ngClass]="{'inventorylowstocktext': (primaryData.total - primaryData.assigned) < 1}">
+              {{primaryData.totalIndia - primaryData.assignedIndia}}
             </div>
+            <ng-template #noTotalText>
+              <div class="Inventory-number ms-auto p-0" [ngClass]="{'inventorylowstocktext': (primaryData.total - primaryData.assigned) < 1}">
+                {{primaryData.totalUSA - primaryData.assignedUSA}}
+              </div>
+            </ng-template>
           </div>
         </div>
       </div>

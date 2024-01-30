@@ -7,7 +7,7 @@ import { Component, Input } from '@angular/core';
 })
 export class DashboardAssetsComponent {
   @Input() primaryData: any;
-
+  @Input() selectedLocation: any;
 
   getIconPath(name: string): string {
     const lowerCaseName = name.toLowerCase();

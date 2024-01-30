@@ -29,15 +29,23 @@ namespace ITMS.Server.DTO
     public class Accessories
     {
         public string Name { get; set; }
-        public int Total { get; set; }
-        public int Assigned { get; set; }
+       
+
+        public int TotalIndia { get; set; }
+        public int AssignedIndia { get; set; }
+
+        public int TotalUSA { get; set; }
+        public int AssignedUSA { get; set; }
     }
 
     public class Primary
     {
         public string Name { get; set; }
-        public int Total { get; set; }
-        public int Assigned { get; set; }
+        public int TotalIndia { get; set; }
+        public int AssignedIndia { get; set; }
+
+        public int TotalUSA { get; set; }
+        public int AssignedUSA { get; set; }
     }
 
     public class Logs
@@ -49,6 +57,7 @@ namespace ITMS.Server.DTO
         public string? AssignedTo { get; set; }
         public string Action { get; set; }
         public DateTime? UpdatedOn { get; set; }
+        public string Location { get; set; }
     }
 
 
@@ -58,14 +67,23 @@ namespace ITMS.Server.DTO
         public string Version { get; set; }
         public string Type { get; set; }
 
-        public int Inventory { get; set; }
-        public int Assigned { get; set; }
+        public int IndiaInventory { get; set; }
+        public int IndiaAssigned { get; set; }
 
-        public DateTime? ExpDate { get; set; }
+        public int UsaInventory { get; set; }
+        public int UsaAssigned { get; set; }
+
+        public DateTime? ExpDateUsa { get; set; }
+
+        public DateTime? ExpDateIndia { get; set; }
+
+
 
         public byte[]? SoftwareThumbnail { get; set; }
 
-        public int? ExpiryDateCount { get; set; } = 0;
+        public int? ExpiryDateCountUsa { get; set; } = 0;
+
+        public int? ExpiryDateCountIndia { get; set; } = 0;
 
     }
 }
