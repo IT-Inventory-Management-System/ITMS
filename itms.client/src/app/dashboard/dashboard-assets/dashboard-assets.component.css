@@ -8,13 +8,25 @@ flex-direction: column;
 align-items: flex-start;
 gap: 0.5rem;
 flex: 1 0 0;
-width:22.0rem;
+width:23.0rem;
 
 }
 
 @media (max-width: 1024px) {
   .Asset {
     width: 16.84375rem;
+  }
+}
+
+@media (min-width: 1440px) {
+  .Asset {
+    width: 25.5rem;
+  }
+}
+
+@media (min-width: 2560px) {
+  .Asset {
+    width: 28.5rem;
   }
 }
 

@@ -90,7 +90,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   //const containerDiv = document.getElementById('myDiv');
    // const screenWidth = window.innerWidth;
    const containerDiv = this.elementRef.nativeElement.querySelector('#set-size');
-   console.log(containerDiv);
+   
    
    if (containerDiv) {
      if (window.innerWidth >= 2000) {
