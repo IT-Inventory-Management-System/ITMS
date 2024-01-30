@@ -16,6 +16,7 @@ export class UserListComponent implements OnInit {
   filterName: string = '';
   selectedUserIndex: number = 0;
   locationId: string = '';
+  loading: boolean = true;
 
 
   @Output() userDetailsClicked: EventEmitter<any> = new EventEmitter<any>();
@@ -55,7 +56,8 @@ export class UserListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //this.getUserLocation();
+    //this.getUserLocation(); 
+    this.loading = true;
     this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
       localStorage.setItem('selectedCountry', selectedCountry);
       this.getUserLocation();
@@ -70,7 +72,7 @@ export class UserListComponent implements OnInit {
         this.displayingData = data;
         this.displayingData = data.sort((a, b) => a.cgiid.localeCompare(b.cgiid));
         console.log(this.displayingData);
-
+        this.loading = false;
         if (this.displayingData.length > 0) {
           this.showUserDetails(this.displayingData[0], 0);
         }
