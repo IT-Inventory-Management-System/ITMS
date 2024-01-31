@@ -118,6 +118,7 @@ export class AssignAssetComponent {
       deviceComment: [null],
       softwareComment: [null],
       //accessoryComment: [null],
+      assignedBy:[null],
     }, { validator: customValidation(this.toastr) });
   }
 
@@ -210,8 +211,8 @@ export class AssignAssetComponent {
     //this.softwareSearchBoxComponent.setSaveStateOnDestroy();
     //this.softwareVersionSearchBoxComponent.setSaveStateOnDestroy();
     //if (this.currentStep == 1) {
-      this.assignLaptopComponent.setSaveStateOnDestroy();
-      this.laptopSearchBoxComponent.setSaveStateOnDestroy();
+      //this.assignLaptopComponent.setSaveStateOnDestroy();
+      //this.laptopSearchBoxComponent.setSaveStateOnDestroy();
     //}
     this.SearchBoxComponent.setSaveStateOnDestroy();
     this.assignDataManagementService.setState("assignedTo", null);
@@ -227,9 +228,22 @@ export class AssignAssetComponent {
  
   saveChanges(): void {
     //console.log('Form Values:', this.assignAssetForm.value);
+    const userData = localStorage.getItem('user');
+    if (!userData) {
+      this.toastr.error('Logged in User data not found. Cannot save changes.');
+      return;
+    }
+    const userObject = JSON.parse(userData);
 
+    const cgid = userObject ? userObject.CGIID : null;
+
+    if (!cgid) {
+      this.toastr.error('CGIID not found in user data. Cannot save changes.');
+      return;
+    }
     if (this.assignAssetForm.valid) {
       const assignmentData = this.assignAssetForm.value;
+      assignmentData.assignedBy = cgid;
       this.deviceAssignService.saveAssignment(assignmentData).subscribe(
         (response) => {
           this.closeForm();
