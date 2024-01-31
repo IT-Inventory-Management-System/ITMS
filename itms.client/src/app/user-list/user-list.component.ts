@@ -29,9 +29,12 @@ export class UserListComponent implements OnInit {
     });
 
   
-    this.displayingData[index].isSelected = true;
+    const originalIndex = this.displayingData.findIndex(user => user.cgiid === userDetails.cgiid);
 
-    this.userDetailsClicked.emit(userDetails);
+    if (originalIndex !== -1) {
+      this.displayingData[originalIndex].isSelected = true;
+      this.userDetailsClicked.emit(this.displayingData[originalIndex]);
+    }
     
   }
 
