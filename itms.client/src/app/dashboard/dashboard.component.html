@@ -185,7 +185,9 @@
                       <hr class="h-line">
                       <div class="Date-content">
                         <img src="../../../assets/icons/dashboard/CalendarBlank.svg" />
-                        <span class="date-title">{{logs.updatedOn | date:'shortDate'}}</span>
+                        <span class="date-title">
+                          {{ logs.updatedOn | date:'MM-dd-yyyy' }}
+                        </span>
                       </div>
                       <hr class="h-line">
 
