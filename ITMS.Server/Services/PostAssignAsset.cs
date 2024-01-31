@@ -92,8 +92,8 @@ namespace ITMS.Server.Services
             devicesLog.CreatedAtUtc = DateTime.UtcNow;
             devicesLog.UpdatedBy = _context.Employees.FirstOrDefault().Id;
             devicesLog.UpdatedAtUtc = DateTime.UtcNow;
-            devicesLog.ActionId = _context.ActionTables.FirstOrDefault().Id;
-            
+            devicesLog.ActionId = _context.ActionTables.FirstOrDefault(action => action.ActionName == "assigned").Id;
+
             _context.DevicesLogs.Update(devicesLog);
             await _context.SaveChangesAsync();
         }

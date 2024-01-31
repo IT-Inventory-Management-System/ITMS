@@ -24,13 +24,9 @@ export class ArchiveModalComponent {
       .subscribe(response => {
         if (response) {
           console.log(`Device with cygid ${archiveDto.cygid} status updated to discarded.`);
-
-          
-
-         
           
         } else {
-          console.error(`Device with cygid ${archiveDto.cygid} not found or status update failed.`);
+          console.error(`cygid ${archiveDto.cygid} already assigned`);
           // Handle the case where the device is not found or status update fails
         }
       }, error => {

@@ -470,6 +470,11 @@ public class DeviceService
             if (device == null)
                 return false;
 
+            if (device.AssignedTo != null)
+            {
+                return false;
+            }
+
             // Make sure StatusNavigation is not null
             if (device.StatusNavigation != null)
             {
