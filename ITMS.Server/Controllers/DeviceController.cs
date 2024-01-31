@@ -140,11 +140,11 @@ namespace itms.server.controllers
 
                 if (result)
                 {
-                    return Ok($"Device with cygid {archiveDto.Cygid} status updated to discarded.");
+                    return Ok(result);
                 }
                 else
                 {
-                    return NotFound($"Device with cygid {archiveDto.Cygid} not found or status update failed.");
+                    return Ok();
                 }
             }
             catch (Exception ex)
