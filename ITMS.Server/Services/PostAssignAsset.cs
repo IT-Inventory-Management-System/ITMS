@@ -30,7 +30,7 @@ namespace ITMS.Server.Services
             {
                 throw new KeyNotFoundException($"Device with CYGId {CYGID} not found.");
             }
-            entityToUpdate.AssignedBy = _context.Employees.FirstOrDefault().Id;
+            entityToUpdate.AssignedBy = device.AssignedBy;
             entityToUpdate.AssignedTo = device.AssignedTo;
             entityToUpdate.AssignedDate = DateTime.UtcNow;
  
@@ -44,7 +44,7 @@ namespace ITMS.Server.Services
             {
                 throw new KeyNotFoundException($"Software with SoftwareID {SoftwareID} not found.");
             }
-            entityToUpdate.AssignedBy = _context.Employees.FirstOrDefault().Id;
+            entityToUpdate.AssignedBy = software.AssignedBy;
             entityToUpdate.AssignedTo = software.AssignedTo;
             entityToUpdate.AssignedDate = DateTime.UtcNow;
  
@@ -55,7 +55,7 @@ namespace ITMS.Server.Services
         {
             Comment comment = new Comment();
             comment.Description = commentDto.Description;
-            comment.CreatedBy = _context.Employees.FirstOrDefault().Id;
+            comment.CreatedBy = commentDto.CreatedBy;
             comment.CreatedAtUtc = DateTime.UtcNow;
             comment.DeviceId = commentDto.DeviceId;
             //comment.SoftwareAllocationId = commentDto.SoftwareAllocationId;
@@ -69,7 +69,7 @@ namespace ITMS.Server.Services
         {
             Comment comment = new Comment();
             comment.Description = commentDto.Description;
-            comment.CreatedBy = _context.Employees.FirstOrDefault().Id;
+            comment.CreatedBy = commentDto.CreatedBy;
             comment.CreatedAtUtc = DateTime.UtcNow;
             comment.DeviceId = commentDto.DeviceId;
             comment.SoftwareAllocationId = commentDto.SoftwareAllocationId;
@@ -85,12 +85,12 @@ namespace ITMS.Server.Services
 
             devicesLog.DeviceId = devicelogDto.DeviceId;
             devicesLog.EmployeeId = (Guid)devicelogDto.EmployeeId;
-            devicesLog.AssignedBy = _context.Employees.FirstOrDefault().Id;
+            devicesLog.AssignedBy = devicelogDto.AssignedBy;
             devicesLog.AssignedDate = DateTime.UtcNow;
             devicesLog.AllotedDate = DateTime.UtcNow;
-            devicesLog.CreatedBy = _context.Employees.FirstOrDefault().Id;
+            devicesLog.CreatedBy = (Guid)devicelogDto.AssignedBy;
             devicesLog.CreatedAtUtc = DateTime.UtcNow;
-            devicesLog.UpdatedBy = _context.Employees.FirstOrDefault().Id;
+            devicesLog.UpdatedBy = devicelogDto.AssignedBy;
             devicesLog.UpdatedAtUtc = DateTime.UtcNow;
             devicesLog.ActionId = _context.ActionTables.FirstOrDefault(action => action.ActionName == "assigned").Id;
 
