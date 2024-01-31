@@ -48,6 +48,9 @@ namespace ITMS.Server.Controllers
                     {
                         DeviceId = deviceId,
                         EmployeeId = postAssignAssetDTO.AssignedTo,
+                        AssignedBy = postAssignAssetDTO.AssignedBy,
+                        CreatedBy = postAssignAssetDTO.AssignedBy,
+                        UpdatedBy = postAssignAssetDTO.AssignedBy,
                     };
 
                     Guid newDeviceLogId = await _postAssignAsset.UpdateDeviceLogAsync(postDeviceLogDTO);
@@ -59,6 +62,7 @@ namespace ITMS.Server.Controllers
                             Description = postAssignAssetDTO.DeviceComment,
                             DeviceId = deviceId,
                             SoftwareAllocationId = softwareId,
+                            CreatedBy = postAssignAssetDTO.AssignedBy
                         };
 
                         await _postAssignAsset.UpdateDeviceComment(deviceCommentDTO, newDeviceLogId);
@@ -70,6 +74,7 @@ namespace ITMS.Server.Controllers
                             Description = postAssignAssetDTO.SoftwareComment,
                             DeviceId = deviceId,
                             SoftwareAllocationId = softwareId,
+                            CreatedBy = postAssignAssetDTO.AssignedBy,
                         };
 
                         await _postAssignAsset.UpdateSoftwareComment(softwareCommentDTO, newDeviceLogId);
@@ -89,6 +94,9 @@ namespace ITMS.Server.Controllers
                     {
                         DeviceId = deviceId,
                         EmployeeId = postAssignAssetDTO.AssignedTo,
+                        AssignedBy = postAssignAssetDTO.AssignedBy,
+                        CreatedBy = postAssignAssetDTO.AssignedBy,
+                        UpdatedBy = postAssignAssetDTO.AssignedBy,
                     };
 
                     Guid newDeviceLogId = await _postAssignAsset.UpdateDeviceLogAsync(postDeviceLogDTO);
@@ -99,6 +107,7 @@ namespace ITMS.Server.Controllers
                     {
                         Description = postAssignAssetDTO.DeviceComment,
                         DeviceId = deviceId,
+                        CreatedBy = postAssignAssetDTO.AssignedBy,
                     };
 
                     await _postAssignAsset.UpdateDeviceComment(deviceCommentDTO, newDeviceLogId);
@@ -119,6 +128,7 @@ namespace ITMS.Server.Controllers
                         {
                             Description = postAssignAssetDTO.SoftwareComment,
                             SoftwareAllocationId = softwareId,
+                            CreatedBy = postAssignAssetDTO.AssignedBy,
                         };
 
                         //await _postAssignAsset.UpdateSoftwareComment(softwareCommentDTO);

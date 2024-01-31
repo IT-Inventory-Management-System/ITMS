@@ -227,7 +227,7 @@ export class AssignAssetComponent {
   }
  
   saveChanges(): void {
-    //console.log('Form Values:', this.assignAssetForm.value);
+    console.log('Form Values:', this.assignAssetForm.value);
     const userData = localStorage.getItem('user');
     if (!userData) {
       this.toastr.error('Logged in User data not found. Cannot save changes.');
@@ -235,15 +235,15 @@ export class AssignAssetComponent {
     }
     const userObject = JSON.parse(userData);
 
-    const cgid = userObject ? userObject.CGIID : null;
+    const AssignedBy = userObject ? userObject.id : null;
 
-    if (!cgid) {
+    if (!AssignedBy) {
       this.toastr.error('CGIID not found in user data. Cannot save changes.');
       return;
     }
     if (this.assignAssetForm.valid) {
       const assignmentData = this.assignAssetForm.value;
-      assignmentData.assignedBy = cgid;
+      assignmentData.assignedBy = AssignedBy;
       this.deviceAssignService.saveAssignment(assignmentData).subscribe(
         (response) => {
           this.closeForm();
