@@ -392,6 +392,7 @@ input[type='date']::-webkit-calendar-picker-indicator {
   gap: 0.5rem;
   border-radius: 0.25rem;
   border: 1px solid #28519E;
+  background-color: white;
 }
 
 .previous-btn:active {
@@ -417,6 +418,7 @@ input[type='date']::-webkit-calendar-picker-indicator {
   gap: 0.5rem;
   border-radius: 0.25rem;
   border: 1px solid #28519E;
+  background-color: white;
 }
 
 .cancel-button:active {
@@ -645,4 +647,10 @@ form{
   background-repeat: no-repeat;
   margin-top: 2px;
   margin-right: 0.75rem;
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.6;
+  cursor: not-allowed;
 }
