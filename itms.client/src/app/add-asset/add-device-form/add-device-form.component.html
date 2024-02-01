@@ -44,7 +44,7 @@
           <div class="device-model-select">
             <div class="select-device-dropdown">
               <label for="deviceName">Device Name <span class="required">*</span></label>
-              <ng-select formControlName="deviceModelId" placeholder="Select Device Name">
+              <ng-select formControlName="deviceModelId" placeholder="Select Device Name" [class.disabled]="selectedOS == ''">
                 <!--<option value="" selected class="placeholder">Select Device Name</option>-->
                 <ng-option *ngFor="let value of dropdownValues" [value]="value.id">
                   {{ value.deviceName }}
@@ -52,15 +52,15 @@
               </ng-select>
             </div>
             <div class="quantity-select">
-              <label for="quantity">Quantity</label>
-              <div class="quantity-counter">
+              <label for="quantity">Quantity <span class="required">*</span></label>
+              <div class="quantity-counter" [class.disabled]="selectedOS == ''">
                 <div class="reduce-button" (click)="decrement(); hideErrorMessage()"><img src="../../../assets/icons/reduce-quantity.svg" /></div>
                 <span class="counter-value">{{ counterValue }}</span>
                 <div class="add-button" (click)="increment();hideErrorMessage()"><img src="../../../assets/icons/add-quantity.svg" /></div>
               </div>
             </div>
           </div>
-          <div class="add-device-check">
+          <div class="add-device-check" [class.disabled]="selectedOS == ''">
             <input class="form-check-input" type="checkbox" id="addDetailsCheckbox" (change)="toggleDeviceDetailsForm()">
             
             <label class="form-check-label" for="addDetailsCheckbox">
@@ -76,17 +76,17 @@
 
 
         <div class="add-device-date mb-3" id="deviceDetailsDiv" [formGroup]="addDeviceForm">
-          <div class="purchase-date-section">
+          <div class="purchase-date-section" >
             <label for="purchaseDate" class="purchaseDate">Date of Purchase <span class="required">*</span></label>
-            <input type="date" class="form-control" id="purchaseDate" name="purchaseDate" formControlName="purchasedOn" placeholder="15-12-2023">
-            <img src="../../../assets/icons/calendar.svg" />
+            <input type="date" class="form-control" id="purchaseDate" name="purchaseDate" formControlName="purchasedOn" placeholder="15-12-2023"  [class.disabled]="selectedOS == ''">
+            <img src="../../../assets/icons/calendar.svg"  [class.disabled]="selectedOS == ''"/>
           </div>
           <div class="warranty-date-section">
             
               <label>Warranty Year <span class="required">*</span></label>
               <div class="warranty-input">
-                <input type="number" class="form-control" id="warrantyMonth" name="warrantyYear" placeholder="Month" (blur)="setWarrantyMonth($event)">
-                <input type="number" class="form-control" id="warrantyYear" name="warrantyYear" placeholder="Year" (blur)="setWarrantyYear($event)">
+                <input type="number" class="form-control" id="warrantyMonth" name="warrantyYear" placeholder="Month" (blur)="setWarrantyMonth($event)"  [class.disabled]="selectedOS == ''">
+                <input type="number" class="form-control" id="warrantyYear" name="warrantyYear" placeholder="Year" (blur)="setWarrantyYear($event)"  [class.disabled]="selectedOS == ''">
               </div>
             
           </div>

@@ -28,6 +28,7 @@ export class AddDeviceFormComponent implements OnInit {
   currentStep: number = 1;
 
   ngOnInit(): void {
+    //console.log('selectedos : ', this.selectedOS);
     this.loadDropdownValues();
     this.loadDeviceData();
     this.createForm();
@@ -126,6 +127,7 @@ export class AddDeviceFormComponent implements OnInit {
 
 
   loadDropdownValues() {
+    //console.log(this.selectedOS);
     this.dataService.getDeviceModel().subscribe(
       (data) => {
         if (this.selectedOS) {

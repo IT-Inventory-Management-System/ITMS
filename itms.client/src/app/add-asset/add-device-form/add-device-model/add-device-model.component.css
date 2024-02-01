@@ -84,18 +84,17 @@
   border-radius: 0.25rem;
   border: 1px solid var(--Secondary-Gray, #B2B2B3);
   background: #FFF;
-  opacity: 0.5;
 }
 
-  .input-field::placeholder {
-    color: var(--Primary-Gray, #343435);
-    font-family: 'Roboto', sans-serif;
-    font-size: 0.875rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    opacity: 0.5;
-  }
+.input-field::placeholder {
+  color: var(--Primary-Gray, #343435);
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  opacity: 0.5;
+}
 
 .form-field-2 {
   width: 33.875rem;
