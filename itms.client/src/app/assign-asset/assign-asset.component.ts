@@ -80,6 +80,16 @@ export class AssignAssetComponent {
       return 'Next';
     }
   }
+  isCygidEmptyStep1: boolean = true;
+  isSoftwareIdEmptyStep2: boolean = true;
+
+  onCygidInputChangeStep1(value: boolean) {
+    this.isCygidEmptyStep1 = value;
+  }
+
+  onSoftwareIdInputChangeStep2(value: boolean) {
+    this.isSoftwareIdEmptyStep2 = value;
+  }
 
   totalUsersData: any[] = [];
   totalSoftwaresData: any[] = [];
