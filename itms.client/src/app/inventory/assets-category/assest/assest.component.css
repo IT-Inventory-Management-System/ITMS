@@ -15,11 +15,11 @@
   margin-bottom: 1rem;
 }
 
-.dropdown {
-  height: 2.52rem;
+.ng-select {
+  
   display: flex;
-  padding: 0.625rem 1rem;
-  align-items: center;
+ width:238px;
+  
   gap: 1rem;
   border-radius: 0.25rem;
   border: 1px solid var(--Secondary-Gray, #B2B2B3);
@@ -29,6 +29,7 @@
   font-weight: 500;
   line-height: normal;
 }
+
 
 .rightSide {
   display: flex;

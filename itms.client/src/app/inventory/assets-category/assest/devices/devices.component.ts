@@ -9,6 +9,7 @@ import { SelectedCountryService } from '../../../../shared/services/selected-cou
 })
 export class DevicesComponent implements OnInit{
   @Input() isArchived: any;
+  @Input() selectedItem: any;
   DeviceData: any[] = [];
   Cygid = this.DeviceData;
   showArchiveOnly: boolean = false;
@@ -53,7 +54,11 @@ export class DevicesComponent implements OnInit{
     this.dataService.getDevices(this.locationId).subscribe(
       (data) => {
         this.DeviceData = data;
-        console.log(this.DeviceData);
+       
+        //if (this.selectedItem) {
+        //  this.DeviceData = this.DeviceData.filter(device => device.operatingSystem[0].osname === this.selectedItem);
+        //}
+        //console.log( this.DeviceData)
         this.loading = false; 
       });
   }
