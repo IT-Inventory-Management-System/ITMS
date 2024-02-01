@@ -15,8 +15,8 @@ export class AssestComponent {
   constructor(private deviceService: DataService) { }
 
     dropdownItems = [
-    { id: 1, name: 'Windows Laptop' },
-    { id: 2, name: 'Macbook' },
+    { id: "Windows", name: 'Windows Laptop' },
+    { id: "Mac", name: 'Macbook' },
    
   ];
 

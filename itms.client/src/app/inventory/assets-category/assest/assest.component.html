@@ -2,8 +2,8 @@
 <div class="row">
   <div class="col-9 header">
     <div class="dropdown">
-      <ng-select placeholder="All Devices" >
-        <ng-option *ngFor="let os of dropdownItems">
+      <ng-select placeholder="All Devices" [(ngModel)]="selectedItem" >
+        <ng-option *ngFor="let os of dropdownItems" [value]="os.id">
           {{os.name}}
         </ng-option>
       </ng-select>
@@ -23,7 +23,7 @@
 <div class="assetcolumns">
   <div class="col-md-12 d-flex">
     <div class="col-md-3 ">
-      <app-devices #appDevices [isArchived]="isArchived"></app-devices>
+      <app-devices #appDevices [isArchived]="isArchived" [selectedItem]="selectedItem"></app-devices>
     </div>
     <div class="col-md-4 mx-2">
       <app-specification [isArchived]="isArchived"></app-specification>
