@@ -20,14 +20,15 @@
             <span class="last-update ">
               Last Updated:
               <span class="Time" *ngIf="logsData.length!=0">
-                {{ logsData[0].updatedOn | date: 'MM-dd-yyyy, h:mm a' }}
+                {{ selectedLocation === 'India' ? (indTime | date: 'MM-dd-yyyy, h:mm a') : (usaTime | date: 'MM-dd-yyyy, h:mm a') }}
               </span>
               <span class="Time" *ngIf="logsData.length==0">00-00-0000, 00:00 AM</span>
             </span>
 
           </div>
           <div class="GMT">
-            (GMT-06:00) Central Time (US & Canada)
+            <!-- (GMT-06:00) Central Time (US & Canada)-->
+            {{ selectedLocation === 'India' ?  '(GMT+05:30) Indian Standard Time (IST)' :  '(GMT-06:00) Central Time (US & Canada)' }}
           </div>
 
         </div>
@@ -158,16 +159,16 @@
 
 
           </div>
-          <div class=" col-4 Recent-Activity ">
-            <div class="Recent-Activity-Heading ">
+          <div class=" col-4 Recent-Activity">
+            <div class="Recent-Activity-Heading">
               <div class="Recent-Activity-Text">
                 Recent Activity
                 <img src="../../../assets/icons/dashboard/Chevron.svg" />
               </div>
 
             </div>
-            <div class=" container-fluid Recent-Activity-Content m-0 p-0 ">
-              <div class="Frame   ">
+            <div class=" container-fluid Recent-Activity-Content m-0 p-0">
+              <div class="Frame">
                 <!--<div class="Date">
                   <hr class="h-line">
                   <div class="Date-content">
@@ -181,7 +182,7 @@
 
 
                   <div class="row" *ngFor="let logs of logsData; let i = index">
-                    <div class="Date" *ngIf="isDateDifferent(i) && selectedLocation === logs.location">
+                    <div class="Date p-0" *ngIf="isDateDifferent(i) && selectedLocation === logs.location">
                       <hr class="h-line">
                       <div class="Date-content">
                         <img src="../../../assets/icons/dashboard/CalendarBlank.svg" />
@@ -192,7 +193,7 @@
                       <hr class="h-line">
 
                     </div>
-                    <app-recent-activity  *ngIf="selectedLocation === logs.location" [logsData]="logs" ></app-recent-activity>
+                    <app-recent-activity class="p-0"  *ngIf="selectedLocation === logs.location" [logsData]="logs" ></app-recent-activity>
 
 
                   </div>

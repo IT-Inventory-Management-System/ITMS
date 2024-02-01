@@ -23,6 +23,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   //fieldsvalues: Object = { dataSource: this.data, text: "text", value: "value" };
   selectedLocation: any = '';
   //@Input() selectedLocation: any;
+  indTime: any = '';
+  usaTime: any = '';
 
   loading: boolean = true;
   selectedAssetAge: any = '';
@@ -122,6 +124,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.getSoftwaresData();
     this.getPrimaryData();
     this.getLogsData();
+    
     //this.updateUI();
     this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
       localStorage.setItem('selectedCountry', selectedCountry);
@@ -197,10 +200,29 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       data => {
         console.log(data)
         this.logsData = data;
+        this.setLastUpdated();
       },
       error => {
         console.error('Error fetching accessories data', error);
       }
     );
+  }
+
+  setLastUpdated(): void {
+    if (this.logsData && this.logsData.length > 0) {
+      for (var i = 0; i < this.logsData.length; i++) {
+        if (this.logsData[i].location == 'India') {
+          this.indTime = this.logsData[i].updatedOn;
+          break;
+        }
+      }
+
+      for (var i = 0; i < this.logsData.length; i++) {
+        if (this.logsData[i].location == 'USA') {
+          this.usaTime = this.logsData[i].updatedOn;
+          break;
+        }
+      }
+    }
   }
 }
