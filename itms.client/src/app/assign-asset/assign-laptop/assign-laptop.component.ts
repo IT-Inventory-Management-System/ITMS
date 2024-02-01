@@ -10,15 +10,25 @@ import { AssignDataManagementService } from '../../shared/services/assign-data-m
 export class AssignLaptopComponent {
   @Input() LaptopOptions: any[] = [];
   @Input() assignAssetForm: FormGroup;
+  @Output() cygidInputChange = new EventEmitter<boolean>();
+
   SelectedLaptop: any;
   formattedAge: string = '';
   selectedOption: any;
 
   constructor(private assignDataManagementService: AssignDataManagementService) { }
 
+  cygidInputChangeFlag(event: any): void {
+    console.log(event);
+    this.cygidInputChange.emit(event);
+  }
+
   LaptopSearchBoxOptionSelected(event: any): void {
     this.SelectedLaptop = event;
     this.calculateFormattedAge();
+    const isAssigned = this.SelectedLaptop && this.SelectedLaptop.assignedTo;
+    const cygidValue = isAssigned ? null : (this.SelectedLaptop && this.SelectedLaptop.cygid) || '';
+    this.cygidInputChangeFlag(!cygidValue || cygidValue.trim() === '');
   }
   onInputChangeCommentBox(event: any): void {
     this.selectedOption = event.target.value;

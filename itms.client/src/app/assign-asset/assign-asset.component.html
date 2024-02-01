@@ -39,11 +39,13 @@
           <app-assign-laptop *ngIf="currentStep === 1"
                              [LaptopOptions]="laptops"
                              [assignAssetForm]="assignAssetForm"
+                             (cygidInputChange)="onCygidInputChangeStep1($event)"
                              >
           </app-assign-laptop>
           <app-assign-software *ngIf="currentStep === 2"
                                [SoftwareOptions]="softwares"
-                               [assignAssetForm]="assignAssetForm">
+                               [assignAssetForm]="assignAssetForm"
+                               (softwareIdInputChange)="onSoftwareIdInputChangeStep2($event)">
           </app-assign-software>
           <app-assign-accessories *ngIf="currentStep === 3"
                                   [AccessoryOptions]="accessories"
@@ -57,8 +59,22 @@
           <button type="button" class="btn btn-previous" *ngIf="currentStep !== 1" (click)="previousStep()">Previous</button>
           <div class="modal-footer">
             <div class="button-container">
-              <button type="button" class="btn-skip" *ngIf="currentStep !== 3" (click)="skipStep()">Skip</button>
-              <button type="button" class="btn-save" [attr.data-bs-dismiss]="currentStep === 3 && assignAssetForm.valid ? 'modal' : null" (click)="currentStep !== 3 ? nextStep() : saveChanges()">{{ getButtonText() }}</button>
+              <button type="button"
+                      class="btn-skip"
+                      *ngIf="currentStep !== 3"
+                      (click)="skipStep()"
+                      [disabled]="!isNextButtonEnabled()">
+                      Skip
+              </button>
+              <button type="button"
+                      class="btn-save"
+                      [attr.data-bs-dismiss]="currentStep === 3 && assignAssetForm.valid ? 'modal' : null"
+                      (click)="currentStep !== 3 ? nextStep() : saveChanges()"
+                      [disabled]="
+                      (currentStep === 1 && isCygidEmptyStep1) ||
+                      (currentStep === 2 && isSoftwareIdEmptyStep2)">
+                      {{ getButtonText() }}
+              </button>
             </div>
           </div>
         </div>

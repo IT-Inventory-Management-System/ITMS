@@ -277,6 +277,11 @@ app-assign-accessories{
   line-height: normal;
 }
 
+  .btn-skip:disabled {
+    background: #dcdcdc;
+    color: #a9a9a9; 
+    border: 1px solid #dcdcdc; 
+  }
 .btn-save {
   color: #FFF;
   font-family: Roboto;
@@ -294,3 +299,7 @@ app-assign-accessories{
   background: var(--Primary-Blue, #28519E);
   border: none;
 }
+  .btn-save:disabled {
+    background-color: rgba(40, 81, 158, 0.7);
+    cursor: not-allowed;
+  }

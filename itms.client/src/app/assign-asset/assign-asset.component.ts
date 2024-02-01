@@ -80,6 +80,23 @@ export class AssignAssetComponent {
       return 'Next';
     }
   }
+  isCygidEmptyStep1: boolean = true;
+  isSoftwareIdEmptyStep2: boolean = true;
+
+  onCygidInputChangeStep1(value: boolean):void {
+    this.isCygidEmptyStep1 = value;
+  }
+
+  onSoftwareIdInputChangeStep2(value: boolean): void  {
+    console.log(value);
+    this.isSoftwareIdEmptyStep2 = value;
+  }
+
+  isNextButtonEnabled(): boolean {
+    return (this.currentStep === 1 && this.isCygidEmptyStep1) ||
+      (this.currentStep === 2 && this.isSoftwareIdEmptyStep2);
+  }
+
 
   totalUsersData: any[] = [];
   totalSoftwaresData: any[] = [];
@@ -224,6 +241,8 @@ export class AssignAssetComponent {
     this.assignDataManagementService.setState("softwareComment", null);
     this.assignDataManagementService.setState("accessoryComment", null);
     //this.accessoriesSearchBoxComponent.setSaveStateOnDestroy();
+    this.isCygidEmptyStep1 = true;
+    this.isSoftwareIdEmptyStep2 = true;
   }
  
   saveChanges(): void {

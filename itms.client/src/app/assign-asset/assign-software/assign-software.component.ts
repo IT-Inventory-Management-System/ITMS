@@ -13,6 +13,7 @@ export class AssignSoftwareComponent {
 
   @Input() SoftwareOptions: any[] = [];
   @Input() assignAssetForm: FormGroup;
+  @Output() softwareIdInputChange = new EventEmitter<boolean>();
 
   SelectedSoftware: any;
   SelectedSoftwareVersion: any;
@@ -42,11 +43,9 @@ export class AssignSoftwareComponent {
       }
   }
   SoftwareVersionSearchBoxOptionSelected(event: any): void {
-    console.log(this.FileredSoftwareOptions);
     const filteredOptions = this.FileredSoftwareOptions.filter(
       (option: any) => option.version === event && option.assignedTo === null
     );
-    console.log(filteredOptions);
     if (filteredOptions.length > 0) {
       this.SelectedSoftwareVersion = filteredOptions[0];
       this.assignAssetForm.get('softwareId')?.setValue(this.SelectedSoftwareVersion.id);
@@ -55,6 +54,9 @@ export class AssignSoftwareComponent {
       this.SelectedSoftwareVersion = 1;
         this.assignAssetForm.get('softwareId')?.setValue(null);
     }
+    const isSoftwareIdEmpty = !this.SelectedSoftwareVersion || this.SelectedSoftwareVersion.id === null;
+    console.log(isSoftwareIdEmpty);
+    this.softwareIdInputChange.emit(isSoftwareIdEmpty);
   }
   onInputChangeCommentBox(event: any): void {
     this.selectedOption = event.target.value;
