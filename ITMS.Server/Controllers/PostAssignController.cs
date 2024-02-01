@@ -48,9 +48,12 @@ namespace ITMS.Server.Controllers
                     {
                         DeviceId = deviceId,
                         EmployeeId = postAssignAssetDTO.AssignedTo,
+                        AssignedBy = postAssignAssetDTO.AssignedBy,
+                        CreatedBy = postAssignAssetDTO.AssignedBy,
+                        UpdatedBy = postAssignAssetDTO.AssignedBy,
                     };
 
-                    await _postAssignAsset.UpdateDeviceLogAsync(postDeviceLogDTO);
+                    Guid newDeviceLogId = await _postAssignAsset.UpdateDeviceLogAsync(postDeviceLogDTO);
 
                     if (!string.IsNullOrEmpty(postAssignAssetDTO.DeviceComment))
                     {
@@ -59,9 +62,10 @@ namespace ITMS.Server.Controllers
                             Description = postAssignAssetDTO.DeviceComment,
                             DeviceId = deviceId,
                             SoftwareAllocationId = softwareId,
+                            CreatedBy = postAssignAssetDTO.AssignedBy
                         };
 
-                        await _postAssignAsset.UpdateDeviceComment(deviceCommentDTO);
+                        await _postAssignAsset.UpdateDeviceComment(deviceCommentDTO, newDeviceLogId);
                     }
                     if (!string.IsNullOrEmpty(postAssignAssetDTO.SoftwareComment))
                     {
@@ -70,9 +74,10 @@ namespace ITMS.Server.Controllers
                             Description = postAssignAssetDTO.SoftwareComment,
                             DeviceId = deviceId,
                             SoftwareAllocationId = softwareId,
+                            CreatedBy = postAssignAssetDTO.AssignedBy,
                         };
 
-                        await _postAssignAsset.UpdateSoftwareComment(softwareCommentDTO);
+                        await _postAssignAsset.UpdateSoftwareComment(softwareCommentDTO, newDeviceLogId);
                     }
 
                     return Results.Ok("Device and Software allocated successfully");
@@ -89,9 +94,12 @@ namespace ITMS.Server.Controllers
                     {
                         DeviceId = deviceId,
                         EmployeeId = postAssignAssetDTO.AssignedTo,
+                        AssignedBy = postAssignAssetDTO.AssignedBy,
+                        CreatedBy = postAssignAssetDTO.AssignedBy,
+                        UpdatedBy = postAssignAssetDTO.AssignedBy,
                     };
 
-                    await _postAssignAsset.UpdateDeviceLogAsync(postDeviceLogDTO);
+                    Guid newDeviceLogId = await _postAssignAsset.UpdateDeviceLogAsync(postDeviceLogDTO);
 
                     if (!string.IsNullOrEmpty(postAssignAssetDTO.DeviceComment))
                     {
@@ -99,9 +107,10 @@ namespace ITMS.Server.Controllers
                     {
                         Description = postAssignAssetDTO.DeviceComment,
                         DeviceId = deviceId,
+                        CreatedBy = postAssignAssetDTO.AssignedBy,
                     };
 
-                    await _postAssignAsset.UpdateDeviceComment(deviceCommentDTO);
+                    await _postAssignAsset.UpdateDeviceComment(deviceCommentDTO, newDeviceLogId);
                 }
 
                     return Results.Ok("Device allocated successfully");
@@ -119,9 +128,10 @@ namespace ITMS.Server.Controllers
                         {
                             Description = postAssignAssetDTO.SoftwareComment,
                             SoftwareAllocationId = softwareId,
+                            CreatedBy = postAssignAssetDTO.AssignedBy,
                         };
 
-                        await _postAssignAsset.UpdateSoftwareComment(softwareCommentDTO);
+                        //await _postAssignAsset.UpdateSoftwareComment(softwareCommentDTO);
                     }
                     return Results.Ok("Software allocated successfully");
                 }

@@ -74,7 +74,7 @@ public class UserDeviceService
                    .FirstOrDefault(),
                SubmitedByDate = (DateTime)log.RecievedDate,
                Comments = _dbContext.Comments
-                   .Where(comment => comment.DeviceId == log.Device.Id).OrderByDescending(c => c.CreatedAtUtc)
+                   .Where(comment => comment.DeviceId == log.Device.Id  && comment.SoftwareAllocationId == null).OrderByDescending(c => c.CreatedAtUtc)
                    .Select(c => new CommentDto
                    {
                        DeviceLogId = c.DeviceLogId,
