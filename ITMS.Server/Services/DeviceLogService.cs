@@ -26,8 +26,13 @@ public class DeviceLogService
             .Select(log => new DevicelogDto
             {
                 Id = log.Id,
-                Cygid = log.Cygid
+                Cygid = log.Cygid,
+                OperatingSystem = new OperatingDto
+                 {
+                     Osname = log.DeviceModel.OsNavigation.Osname // Assuming you have an OperatingSystem property in your Device model
+                 }
             })
+
             .ToListAsync();
 
         return deviceHistory;

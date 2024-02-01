@@ -25,8 +25,15 @@ public class DevicelogDto
     public bool ? IsArchived { get; set; }
 
     public List<Comment> Comments { get; set; } = new List<Comment>();
-     
-  
+
+    public OperatingDto OperatingSystem { get; set; }
+
+}
+
+public class OperatingDto
+{
+     public string? Osname { get; set; }
+
 }
 public class CommentDto
 {

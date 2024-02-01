@@ -9,9 +9,16 @@ import { DevicesComponent } from './devices/devices.component';
 })
 export class AssestComponent {
   isArchived: boolean = false;
+  selectedItem: any; 
 
   @ViewChild('appDevices') appDevices: DevicesComponent;
   constructor(private deviceService: DataService) { }
+
+    dropdownItems = [
+    { id: "Windows", name: 'Windows Laptop' },
+    { id: "Mac", name: 'Macbook' },
+   
+  ];
 
   onCheckboxChange(event: any) {
     if (event.target.checked == true) {
