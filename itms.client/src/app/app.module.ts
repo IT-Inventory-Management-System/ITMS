@@ -74,7 +74,7 @@ import { SearchBoxComponent } from './assign-asset/search-box/search-box.compone
 import { LaptopSearchBoxComponent } from './assign-asset/laptop-search-box/laptop-search-box.component';
 import { SoftwareSearchBoxComponent } from './assign-asset/software-search-box/software-search-box.component';
 import { AddAssetComponent } from './add-asset/add-asset.component';
-
+import { AddMouseFormComponent } from './add-asset/add-mouse-form/add-mouse-form.component';
 
 
 
@@ -146,8 +146,8 @@ import { AddAssetComponent } from './add-asset/add-asset.component';
     AssignSoftwareComponent,
     SearchBoxComponent,
     UnrchivemodalComponent,
-    CommentCardComponent
-
+    CommentCardComponent,
+    AddMouseFormComponent,
 
 
 
