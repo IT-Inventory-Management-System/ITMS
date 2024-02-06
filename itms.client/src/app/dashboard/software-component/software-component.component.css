@@ -141,6 +141,7 @@
   font-size: 0.875rem;
   font-style: normal;
   font-weight: 600;
+  margin-top: 0.25rem;
   line-height: normal;
 }
 
@@ -182,7 +183,8 @@
 
 .lowstock-container {
   display: flex;
-  align-items: center; /* Align items vertically in the middle */
+  align-items: center;
+  margin-top: 0.25rem;
 }
 
 .lowstock {
@@ -190,7 +192,7 @@
   height: 1.75rem;
   padding: 0.4375rem 0.625rem;
   align-items: flex-start;
-  gap: 0.625rem;
+  margin-right: 0.25rem;
   border-radius: 0.125rem;
   background: #FFE8E8;
 }
