@@ -16,6 +16,9 @@ width:20.0rem;
   .Asset {
     width: 16.84375rem;
   }
+   .lowstock-container{
+     margin-left:0px !important;
+ }
 }
 
 @media (min-width: 1440px) {
