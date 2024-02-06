@@ -53,36 +53,33 @@
                         {{ getAssetAgeLabel(selectedAssetAge) }}
                         <img src="../../../../assets/icons/dashboard/Vector.svg" />
                       </div>
-                      <div class="content" (change)="handleCheckboxChange()">
+                      <div class="content">
                         <label>
-                          <input type="radio" [(ngModel)]="selectedAssetAge" [value]="1" name="assetAge" class="hide" />
-                          <!--<img src="../../../../assets/icons/dashboard/laptop-solid 2.svg" />-->
-                          <img *ngIf="selectedAssetAge =='1' " src="../../assets/icons/checkbox-checked.svg" />
-                          <img *ngIf="selectedAssetAge !='1' " src="../../assets/icons/checkbox-unchecked.svg" />
+                          <input type="checkbox" [(ngModel)]="c1" [value]="1" name="assetAge" class="hide" (change)="handleCheckboxChange()" />
+                          <img *ngIf="c1" src="../../assets/icons/checkbox-checked.svg" />
+                          <img *ngIf="!c1" src="../../assets/icons/checkbox-unchecked.svg" />
                           0-1 years
                         </label>
                         <label>
-                          <input type="radio" [(ngModel)]="selectedAssetAge" [value]="2" name="assetAge" class="hide" />
-                          <!--<img src="../../../../assets/icons/dashboard/laptop-solid 2.svg" />-->
-                          <img *ngIf="selectedAssetAge =='2' " src="../../assets/icons/checkbox-checked.svg" />
-                          <img *ngIf="selectedAssetAge !='2' " src="../../assets/icons/checkbox-unchecked.svg" />
+                          <input type="checkbox" [(ngModel)]="c2" [value]="1" name="assetAge" class="hide" (change)="handleCheckboxChange()" />
+                          <img *ngIf="c2" src="../../assets/icons/checkbox-checked.svg" />
+                          <img *ngIf="!c2" src="../../assets/icons/checkbox-unchecked.svg" />
                           1-2 years
                         </label>
                         <label>
-                          <input type="radio" [(ngModel)]="selectedAssetAge" [value]="3" name="assetAge" class="hide" />
-                          <!--<img src="../../../../assets/icons/dashboard/laptop-solid 2.svg" />-->
-                          <img *ngIf="selectedAssetAge =='3' " src="../../assets/icons/checkbox-checked.svg" />
-                          <img *ngIf="selectedAssetAge !='3' " src="../../assets/icons/checkbox-unchecked.svg" />
+                          <input type="checkbox" [(ngModel)]="c3" [value]="1" name="assetAge" class="hide" (change)="handleCheckboxChange()" />
+                          <img *ngIf="c3" src="../../assets/icons/checkbox-checked.svg" />
+                          <img *ngIf="!c3" src="../../assets/icons/checkbox-unchecked.svg" />
                           2-3 years
                         </label>
                         <label>
-                          <input type="radio" [(ngModel)]="selectedAssetAge" [value]="4" name="assetAge" class="hide" />
-                          <!--<img src="../../../../assets/icons/dashboard/laptop-solid 2.svg" />-->
-                          <img *ngIf="selectedAssetAge =='4' " src="../../assets/icons/checkbox-checked.svg" />
-                          <img *ngIf="selectedAssetAge !='4' " src="../../assets/icons/checkbox-unchecked.svg" />
+                          <input type="checkbox" [(ngModel)]="c4" [value]="1" name="assetAge" class="hide" (change)="handleCheckboxChange()" />
+                          <img *ngIf="c4" src="../../assets/icons/checkbox-checked.svg" />
+                          <img *ngIf="!c4" src="../../assets/icons/checkbox-unchecked.svg" />
                           3-4 years
                         </label>
                       </div>
+
                     </div>
 
                     <!--<select [(ngModel)]="selectedAssetAge" class="asset-age" aria-expanded="false" (change)="handleCheckboxChange()">
@@ -100,18 +97,18 @@
               <div class="Assets ms-0 p-0">
                 <div class="container-fluid Section1 row ms-0 p-0 me-0  ">
                   <div class="col-6 ms-0 p-0 me-0 " *ngIf="primaryData && primaryData[0]">
-                    <app-dashboard-assets [primaryData]="primaryData[0][+selectedAssetAge]" [selectedLocation]="selectedLocation"></app-dashboard-assets>
+                    <app-dashboard-assets [primaryData]="assetMac" [selectedLocation]="selectedLocation"></app-dashboard-assets>
                   </div>
                   <div class="col-6  p-0 me-0 d-flex justify-content-end" *ngIf="primaryData && primaryData[1]">
-                    <app-dashboard-assets [primaryData]="primaryData[1][+selectedAssetAge]" [selectedLocation]="selectedLocation"></app-dashboard-assets>
+                    <app-dashboard-assets [primaryData]="assetWindows" [selectedLocation]="selectedLocation"></app-dashboard-assets>
                   </div>
                 </div>
                 <div class="container-fluid Section2 row ms-0 p-0 me-0" *ngIf="primaryData && primaryData[2]">
                   <div class="col-6 ms-0 p-0 me-0">
-                    <app-dashboard-assets [primaryData]="primaryData[2][+selectedAssetAge]" [selectedLocation]="selectedLocation"></app-dashboard-assets>
+                    <app-dashboard-assets [primaryData]="assetMonitor" [selectedLocation]="selectedLocation"></app-dashboard-assets>
                   </div>
                   <div class="col-6 ms-0 p-0 d-flex justify-content-end" *ngIf="primaryData && primaryData[3]">
-                    <app-dashboard-assets [primaryData]="primaryData[3][+selectedAssetAge]" [selectedLocation]="selectedLocation"></app-dashboard-assets>
+                    <app-dashboard-assets [primaryData]="assetMobile" [selectedLocation]="selectedLocation"></app-dashboard-assets>
                   </div>
 
                 </div>
