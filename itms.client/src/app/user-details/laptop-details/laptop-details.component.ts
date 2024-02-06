@@ -37,7 +37,7 @@ export class LaptopDetailsComponent implements OnChanges {
 
   navigateToDeviceDetails(cygId: string): void {
   
-    this.router.navigate(['/api/Device', cygId]);
+    this.router.navigate(['/inventory'], { queryParams: { cygId: cygId } });
   }
 
 }

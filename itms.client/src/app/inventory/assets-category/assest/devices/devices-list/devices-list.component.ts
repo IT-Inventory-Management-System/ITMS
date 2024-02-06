@@ -1,6 +1,7 @@
 import { Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 import { DataService } from '../../../../../shared/services/data.service';
 import { lastValueFrom } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-devices-list',
@@ -22,7 +23,7 @@ export class DevicesListComponent implements OnInit {
   // Static variable to store the selected device ID
   private static selectedDeviceId: string | null = null;
 
-  constructor(private deviceService: DataService, private el: ElementRef, private renderer: Renderer2) { }
+  constructor(private deviceService: DataService, private el: ElementRef, private renderer: Renderer2, private route: ActivatedRoute) { }
 
   getDeviceLocation() {
     this.deviceService.getLocation().subscribe(
@@ -113,8 +114,20 @@ export class DevicesListComponent implements OnInit {
   // Method to select the first device
   private selectFirstDevice(): void {
     if (this.AllDevices && this.AllDevices.length > 0) {
-      const firstDeviceId = this.AllDevices[0].cygid;
-      this.onDeviceClick(firstDeviceId);
+
+      this.route.queryParams.subscribe(params => {
+        const cygId = params['cygId'];
+
+        if (cygId) {
+          const firstDeviceId = cygId;
+          this.onDeviceClick(firstDeviceId);
+        } else {
+          const firstDeviceId = this.AllDevices[0].cygid;
+          this.onDeviceClick(firstDeviceId);
+        }
+      });
+
+      
     }
   }
 }
