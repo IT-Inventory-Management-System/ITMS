@@ -174,6 +174,39 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       assignedUSA: 0
     };
 
+    if (this.c1 == 0 && this.c2 == 0 && this.c3 == 0 && this.c4 == 0) {
+      this.assetMac = {
+        name: "Mac",
+        totalIndia: this.primaryData[0][0].totalIndia,
+        assignedIndia: this.primaryData[0][0].assignedIndia,
+        totalUSA: this.primaryData[0][0].totalUSA,
+        assignedUSA: this.primaryData[0][0].assignedUSA
+      };
+
+      this.assetWindows = {
+        name: "Windows",
+        totalIndia: this.primaryData[1][0].totalIndia,
+        assignedIndia: this.primaryData[1][0].assignedIndia,
+        totalUSA: this.primaryData[1][0].totalUSA,
+        assignedUSA: this.primaryData[1][0].assignedUSA
+      };
+      this.assetMonitor = {
+        name: "Monitor",
+        totalIndia: this.primaryData[2][0].totalIndia,
+        assignedIndia: this.primaryData[2][0].assignedIndia,
+        totalUSA: this.primaryData[2][0].totalUSA,
+        assignedUSA: this.primaryData[2][0].assignedUSA
+      };
+
+      this.assetMobile = {
+        name: "Mobile",
+        totalIndia: this.primaryData[3][0].totalIndia,
+        assignedIndia: this.primaryData[3][0].assignedIndia,
+        totalUSA: this.primaryData[3][0].totalUSA,
+        assignedUSA: this.primaryData[3][0].assignedUSA
+      };
+    }
+
     if (this.primaryData && this.primaryData.length > 0 && this.primaryData[0].length>0) {
       if (this.c1 == 1) {
         this.assetMac = {
@@ -410,9 +443,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
             totalUSA: this.primaryData[3][0].totalUSA,
             assignedUSA: this.primaryData[3][0].assignedUSA
           };
-
-          console.log(this.assetWindows);
-          console.log(this.primaryData[0][0]);
         }
       },
       error => {
