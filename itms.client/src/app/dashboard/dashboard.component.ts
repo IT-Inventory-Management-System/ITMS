@@ -5,22 +5,49 @@ import { LocationService } from '../shared/services/location.service';
 import { SelectedCountryService } from '../shared/services/selected-country.service';
 
 
-
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit, AfterViewInit {
-  //data: Array<Object> = [
-  //  { text: "ListItem 1", value: "ListItem 1" },
-  //  { text: "ListItem 2", value: "ListItem 2" },
-  //  { text: "ListItem 3", value: "ListItem 3" },
-  //  { text: "ListItem 4", value: "ListItem 4" },
-  //  { text: "ListItem 5", value: "ListItem 5" }
-  //];
-  //fieldsvalues: Object = { dataSource: this.data, text: "text", value: "value" };
+  c1: any = 0;
+  c2: any = 0;
+  c3: any = 0;
+  c4: any = 0;
+  
+  assetMac: any = {
+    name: "Mac",
+    totalIndia: 0,
+    assignedIndia: 0,
+    totalUSA: 0,
+    assignedUSA: 0
+  };
+
+  assetWindows: any = {
+    name: "Windows",
+    totalIndia: 0,
+    assignedIndia: 0,
+    totalUSA: 0,
+    assignedUSA: 0
+  };
+
+  assetMobile: any = {
+    name: "Mobile",
+    totalIndia: 0,
+    assignedIndia: 0,
+    totalUSA: 0,
+    assignedUSA: 0
+  };
+
+  assetMonitor: any = {
+    name: "Monitor",
+    totalIndia: 0,
+    assignedIndia: 0,
+    totalUSA: 0,
+    assignedUSA: 0
+  };
+
   selectedLocation: any = '';
   //@Input() selectedLocation: any;
   indTime: any = '';
@@ -115,7 +142,171 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   handleCheckboxChange() {
-    console.log('Selected Asset Age:', this.selectedAssetAge);
+    this.assetMac = {
+      name: "Mac",
+      totalIndia: 0,
+      assignedIndia: 0,
+      totalUSA: 0,
+      assignedUSA: 0
+    };
+
+    this.assetWindows = {
+      name: "Windows",
+      totalIndia: 0,
+      assignedIndia: 0,
+      totalUSA: 0,
+      assignedUSA: 0
+    };
+
+    this.assetMobile = {
+      name: "Mobile",
+      totalIndia: 0,
+      assignedIndia: 0,
+      totalUSA: 0,
+      assignedUSA: 0
+    };
+
+    this.assetMonitor= {
+      name: "Monitor",
+      totalIndia: 0,
+      assignedIndia: 0,
+      totalUSA: 0,
+      assignedUSA: 0
+    };
+
+    if (this.primaryData && this.primaryData.length > 0 && this.primaryData[0].length>0) {
+      if (this.c1 == 1) {
+        this.assetMac = {
+          name: "Mac",
+          totalIndia: this.assetMac.totalIndia + this.primaryData[0][1].totalIndia,
+          assignedIndia: this.assetMac.assignedIndia + this.primaryData[0][1].assignedIndia,
+          totalUSA: this.assetMac.totalUSA + this.primaryData[0][1].totalUSA,
+          assignedUSA: this.assetMac.assignedUSA + this.primaryData[0][1].assignedUSA
+        };
+
+        this.assetWindows = {
+          name: "Windows",
+          totalIndia: this.assetWindows.totalIndia + this.primaryData[1][1].totalIndia,
+          assignedIndia: this.assetWindows.assignedIndia + this.primaryData[1][1].assignedIndia,
+          totalUSA: this.assetWindows.totalUSA + this.primaryData[1][1].totalUSA,
+          assignedUSA: this.assetWindows.assignedUSA + this.primaryData[1][1].assignedUSA
+        };
+        this.assetMonitor = {
+          name: "Monitor",
+          totalIndia: this.assetMonitor.totalIndia + this.primaryData[2][1].totalIndia,
+          assignedIndia: this.assetMonitor.assignedIndia + this.primaryData[2][1].assignedIndia,
+          totalUSA: this.assetMonitor.totalUSA + this.primaryData[2][1].totalUSA,
+          assignedUSA: this.assetMonitor.assignedUSA + this.primaryData[2][1].assignedUSA
+        };
+
+        this.assetMobile = {
+          name: "Mobile",
+          totalIndia: this.assetMobile.totalIndia + this.primaryData[3][1].totalIndia,
+          assignedIndia: this.assetMobile.assignedIndia + this.primaryData[3][1].assignedIndia,
+          totalUSA: this.assetMobile.totalUSA + this.primaryData[3][1].totalUSA,
+          assignedUSA: this.assetMobile.assignedUSA + this.primaryData[3][1].assignedUSA
+        };
+      }
+
+      if (this.c2 == 1) {
+        this.assetMac = {
+          name: "Mac",
+          totalIndia: this.assetMac.totalIndia + this.primaryData[0][2].totalIndia,
+          assignedIndia: this.assetMac.assignedIndia + this.primaryData[0][2].assignedIndia,
+          totalUSA: this.assetMac.totalUSA + this.primaryData[0][2].totalUSA,
+          assignedUSA: this.assetMac.assignedUSA + this.primaryData[0][2].assignedUSA
+        };
+
+        this.assetWindows = {
+          name: "Windows",
+          totalIndia: this.assetWindows.totalIndia + this.primaryData[1][2].totalIndia,
+          assignedIndia: this.assetWindows.assignedIndia + this.primaryData[1][2].assignedIndia,
+          totalUSA: this.assetWindows.totalUSA + this.primaryData[1][2].totalUSA,
+          assignedUSA: this.assetWindows.assignedUSA + this.primaryData[1][2].assignedUSA
+        };
+        this.assetMonitor = {
+          name: "Monitor",
+          totalIndia: this.assetMonitor.totalIndia + this.primaryData[2][2].totalIndia,
+          assignedIndia: this.assetMonitor.assignedIndia + this.primaryData[2][2].assignedIndia,
+          totalUSA: this.assetMonitor.totalUSA + this.primaryData[2][2].totalUSA,
+          assignedUSA: this.assetMonitor.assignedUSA + this.primaryData[2][2].assignedUSA
+        };
+
+        this.assetMobile = {
+          name: "Mobile",
+          totalIndia: this.assetMobile.totalIndia + this.primaryData[3][2].totalIndia,
+          assignedIndia: this.assetMobile.assignedIndia + this.primaryData[3][2].assignedIndia,
+          totalUSA: this.assetMobile.totalUSA + this.primaryData[3][2].totalUSA,
+          assignedUSA: this.assetMobile.assignedUSA + this.primaryData[3][2].assignedUSA
+        };
+      }
+
+      if (this.c3 == 1) {
+        this.assetMac = {
+          name: "Mac",
+          totalIndia: this.assetMac.totalIndia + this.primaryData[0][3].totalIndia,
+          assignedIndia: this.assetMac.assignedIndia + this.primaryData[0][3].assignedIndia,
+          totalUSA: this.assetMac.totalUSA + this.primaryData[0][3].totalUSA,
+          assignedUSA: this.assetMac.assignedUSA + this.primaryData[0][3].assignedUSA
+        };
+
+        this.assetWindows = {
+          name: "Windows",
+          totalIndia: this.assetWindows.totalIndia + this.primaryData[1][3].totalIndia,
+          assignedIndia: this.assetWindows.assignedIndia + this.primaryData[1][3].assignedIndia,
+          totalUSA: this.assetWindows.totalUSA + this.primaryData[1][3].totalUSA,
+          assignedUSA: this.assetWindows.assignedUSA + this.primaryData[1][3].assignedUSA
+        };
+        this.assetMonitor = {
+          name: "Monitor",
+          totalIndia: this.assetMonitor.totalIndia + this.primaryData[2][3].totalIndia,
+          assignedIndia: this.assetMonitor.assignedIndia + this.primaryData[2][3].assignedIndia,
+          totalUSA: this.assetMonitor.totalUSA + this.primaryData[2][3].totalUSA,
+          assignedUSA: this.assetMonitor.assignedUSA + this.primaryData[2][3].assignedUSA
+        };
+
+        this.assetMobile = {
+          name: "Mobile",
+          totalIndia: this.assetMobile.totalIndia + this.primaryData[3][3].totalIndia,
+          assignedIndia: this.assetMobile.assignedIndia + this.primaryData[3][3].assignedIndia,
+          totalUSA: this.assetMobile.totalUSA + this.primaryData[3][3].totalUSA,
+          assignedUSA: this.assetMobile.assignedUSA + this.primaryData[3][3].assignedUSA
+        };
+      }
+
+      if (this.c4 == 1) {
+        this.assetMac = {
+          name: "Mac",
+          totalIndia: this.assetMac.totalIndia + this.primaryData[0][4].totalIndia,
+          assignedIndia: this.assetMac.assignedIndia + this.primaryData[0][4].assignedIndia,
+          totalUSA: this.assetMac.totalUSA + this.primaryData[0][4].totalUSA,
+          assignedUSA: this.assetMac.assignedUSA + this.primaryData[0][4].assignedUSA
+        };
+
+        this.assetWindows = {
+          name: "Windows",
+          totalIndia: this.assetWindows.totalIndia + this.primaryData[1][4].totalIndia,
+          assignedIndia: this.assetWindows.assignedIndia + this.primaryData[1][4].assignedIndia,
+          totalUSA: this.assetWindows.totalUSA + this.primaryData[1][4].totalUSA,
+          assignedUSA: this.assetWindows.assignedUSA + this.primaryData[1][4].assignedUSA
+        };
+        this.assetMonitor = {
+          name: "Monitor",
+          totalIndia: this.assetMonitor.totalIndia + this.primaryData[2][4].totalIndia,
+          assignedIndia: this.assetMonitor.assignedIndia + this.primaryData[2][4].assignedIndia,
+          totalUSA: this.assetMonitor.totalUSA + this.primaryData[2][4].totalUSA,
+          assignedUSA: this.assetMonitor.assignedUSA + this.primaryData[2][4].assignedUSA
+        };
+
+        this.assetMobile = {
+          name: "Mobile",
+          totalIndia: this.assetMobile.totalIndia + this.primaryData[3][4].totalIndia,
+          assignedIndia: this.assetMobile.assignedIndia + this.primaryData[3][4].assignedIndia,
+          totalUSA: this.assetMobile.totalUSA + this.primaryData[3][4].totalUSA,
+          assignedUSA: this.assetMobile.assignedUSA + this.primaryData[3][4].assignedUSA
+        };
+      }
+    }
   }
 
 
@@ -188,11 +379,49 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       data => {
         //console.log(data)
         this.primaryData = data;
+        if (this.primaryData && this.primaryData.length > 0) {
+          this.assetMac = {
+            name: "Mac",
+            totalIndia: this.primaryData[0][0].totalIndia,
+            assignedIndia: this.primaryData[0][0].assignedIndia,
+            totalUSA: this.primaryData[0][0].totalUSA,
+            assignedUSA: this.primaryData[0][0].assignedUSA
+          };
+
+          this.assetWindows = {
+            name: "Windows",
+            totalIndia: this.primaryData[1][0].totalIndia,
+            assignedIndia: this.primaryData[1][0].assignedIndia,
+            totalUSA: this.primaryData[1][0].totalUSA,
+            assignedUSA: this.primaryData[1][0].assignedUSA
+          };
+          this.assetMonitor = {
+            name: "Monitor",
+            totalIndia: this.primaryData[2][0].totalIndia,
+            assignedIndia: this.primaryData[2][0].assignedIndia,
+            totalUSA: this.primaryData[2][0].totalUSA,
+            assignedUSA: this.primaryData[2][0].assignedUSA
+          };
+
+          this.assetMobile = {
+            name: "Mobile",
+            totalIndia: this.primaryData[3][0].totalIndia,
+            assignedIndia: this.primaryData[3][0].assignedIndia,
+            totalUSA: this.primaryData[3][0].totalUSA,
+            assignedUSA: this.primaryData[3][0].assignedUSA
+          };
+
+          console.log(this.assetWindows);
+          console.log(this.primaryData[0][0]);
+        }
       },
       error => {
         console.error('Error fetching accessories data', error);
       }
     );
+   
+
+    
   }
 
   getLogsData(): void {
