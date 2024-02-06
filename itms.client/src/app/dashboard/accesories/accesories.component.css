@@ -1,6 +1,6 @@
 .Asset {
   border-radius: 4px;
-  border: 1px solid var(--Secondary-Light-Gray, #E9ECEB);
+  border-bottom: 1px solid var(--Secondary-Light-Gray, #E9ECEB);
   background: var(--Primary-White, #FFF);
   display: flex;
   height: 7.625rem;
@@ -8,6 +8,7 @@
   align-items: flex-start;
   gap: 0.5rem;
   flex: 1 0 0;
+  width: 21.1875rem;
 }
 
 .Type {
@@ -28,7 +29,7 @@
 .windows-text {
   color: var(--Primary-Gray, #343435);
   font-family: Roboto;
-  font-size: 20px;
+  font-size: 1rem;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
@@ -66,6 +67,7 @@
   font-style: normal;
   font-weight: 600;
   line-height: normal;
+  margin-top: 0.25rem;
 }
 
 
@@ -107,16 +109,18 @@
 
 .lowstock-container {
   display: flex;
-  align-items: center; /* Align items vertically in the middle */
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 0.25rem; 
 }
 
 .lowstock {
   display: flex;
   height: 1.75rem;
   padding: 0.4375rem 0.625rem;
-  align-items: flex-start;
-  gap: 0.625rem;
-  border-radius: 0.125rem;
+  align-items: center;
+  margin-right: 0.25rem;
+  border-radius: 0.25rem;
   background: #FFE8E8;
 }
 
@@ -126,7 +130,7 @@
   font-family: Roboto;
   font-size: 0.875rem;
   font-style: normal;
-  font-weight: 600 ;
+  font-weight: 600;
   line-height: normal;
 }
 

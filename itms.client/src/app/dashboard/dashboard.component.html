@@ -8,14 +8,13 @@
 
 
 <ng-template #content>
-  <div class="container-fluid custom-container d-flex justify-content-center align-items-center  ">
 
-    <div class="container-fluid my-dashboard me-0 p-0  " *ngIf="!loading && logsData">
-      <div class="row header ms-0 me-0  ">
-        <div class="col-8 dashboard-title  ">
+    <div class="my-dashboard me-0 p-0" *ngIf="!loading && logsData">
+      <div class="header ms-0 me-0">
+        <div class="dashboard-title">
           Dashboard
         </div>
-        <div class="col-4 p-0 y ">
+        <div class="p-0 y ">
           <div class="row lastupdaterow ">
             <span class="last-update ">
               Last Updated:
@@ -34,12 +33,12 @@
         </div>
       </div>
 
-      <div class="container-fluid x">
+      <div class="outer-box-cards">
 
-        <div class="row  KPI-card  ">
+        <div class="KPI-card">
 
-          <div class=" col-md-8 col1 ms-0  ">
-            <div class="total-asset ">
+          <div class="col1 ms-0">
+            <div class="total-asset">
               <div class="row header ">
                 <div class="col-8  Total-asset-Title">
                   Total Assets
@@ -98,7 +97,7 @@
                   </div>
                 </div>
               </div>
-              <div class="container-fluid Assets ms-0 p-0  ">
+              <div class="Assets ms-0 p-0">
                 <div class="container-fluid Section1 row ms-0 p-0 me-0  ">
                   <div class="col-6 ms-0 p-0 me-0 " *ngIf="primaryData && primaryData[0]">
                     <app-dashboard-assets [primaryData]="primaryData[0][+selectedAssetAge]" [selectedLocation]="selectedLocation"></app-dashboard-assets>
@@ -121,7 +120,7 @@
 
             </div>
 
-            <div class="row2  d-flex ">
+            <div class="row2  d-flex">
               <div class=" Assesories-Details ms-0 ">
                 <div class="Assesories-Heading">
                   <div class="Assesories-Text">Accessories</div>
@@ -139,7 +138,7 @@
                                   [accessoriesData]="accessory" [selectedLocation]="selectedLocation"></app-accesories>
                 </div>
               </div>
-              <div class="col-md-6 Software  ">
+              <div class=" Software">
                 <div class="Software-Heading">
                   <div class="Software-Text">Software</div>
                   <img src="../../../assets/icons/dashboard/Chevron.svg" />
@@ -159,7 +158,7 @@
 
 
           </div>
-          <div class=" col-4 Recent-Activity">
+          <div class="Recent-Activity">
             <div class="Recent-Activity-Heading">
               <div class="Recent-Activity-Text">
                 Recent Activity
@@ -226,7 +225,6 @@
 
 
       </div>
-    </div>
     </div>
 </ng-template>
 

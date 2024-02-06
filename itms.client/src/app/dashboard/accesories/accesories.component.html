@@ -31,21 +31,21 @@
       {{ selectedLocation === 'India' ? accessoriesData.totalIndia - accessoriesData.assignedIndia : accessoriesData.totalUSA - accessoriesData.assignedUSA }}
     </div>
   </div>-->
-          <div class="lowstock-container me-0">
-            <div class="lowstock ms-auto" *ngIf="(accessoriesData.totalIndia - accessoriesData.assignedIndia) < 1 && selectedLocation === 'India'; ">
+          <div class="lowstock-container">
+            <div class="lowstock" *ngIf="(accessoriesData.totalIndia - accessoriesData.assignedIndia) < 1 && selectedLocation === 'India'; ">
               <div class="lowstocktext">Low in Stock</div>
             </div>
 
-            <div *ngIf="selectedLocation === 'India'; else noTotalText" class="Inventory-number ms-auto p-0" [ngClass]="{'inventorylowstocktext': (accessoriesData.totalIndia - accessoriesData.assignedIndia) < 1}">
+            <div *ngIf="selectedLocation === 'India'; else noTotalText" class="Inventory-number" [ngClass]="{'inventorylowstocktext': (accessoriesData.totalIndia - accessoriesData.assignedIndia) < 1}">
               {{ accessoriesData.totalIndia - accessoriesData.assignedIndia }}
             </div>
 
             <ng-template #noTotalText>
-              <div class="lowstock ms-auto" *ngIf="(accessoriesData.totalUSA - accessoriesData.assignedUSA) < 1">
+              <div class="lowstock" *ngIf="(accessoriesData.totalUSA - accessoriesData.assignedUSA) < 1">
                 <div class="lowstocktext">Low in Stock</div>
               </div>
 
-              <div class="Inventory-number ms-auto p-0" [ngClass]="{'inventorylowstocktext': (accessoriesData.totalUSA - accessoriesData.assignedUSA) < 1}">
+              <div class="Inventory-number" [ngClass]="{'inventorylowstocktext': (accessoriesData.totalUSA - accessoriesData.assignedUSA) < 1}">
                 {{ accessoriesData.totalUSA - accessoriesData.assignedUSA }}
               </div>
             </ng-template>

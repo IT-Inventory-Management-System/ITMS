@@ -8,11 +8,11 @@ flex-direction: column;
 align-items: flex-start;
 gap: 0.5rem;
 flex: 1 0 0;
-width:20.0rem;
+width:22.58rem;
 
 }
 
-@media (max-width: 1024px) {
+/*@media (max-width: 1024px) {
   .Asset {
     width: 16.84375rem;
   }
@@ -31,7 +31,7 @@ width:20.0rem;
   .Asset {
     width: 28.5rem;
   }
-}
+}*/
 
 .Type {
   display: flex;
@@ -90,6 +90,7 @@ width:20.0rem;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
+  margin-top: 0.5rem;
 }
 
 
@@ -119,7 +120,7 @@ width:20.0rem;
   color: var(--Primary-Gray, #343435);
   text-align: right;
   font-family: Roboto;
-  font-size: 20px;
+  font-size: 1.25rem;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
@@ -132,6 +133,7 @@ width:20.0rem;
   display: flex;
   align-items: center;
   margin-left:25px ;
+  margin-top: 0.5rem;
 }
 
 .lowstock {
@@ -139,7 +141,7 @@ width:20.0rem;
   height: 1.75rem;
   padding: 0.4375rem 0.625rem;
   align-items: flex-start;
-  gap: 0.625rem;
+  gap: 0.5rem;
   border-radius: 0.125rem;
   background: #FFE8E8;
   
