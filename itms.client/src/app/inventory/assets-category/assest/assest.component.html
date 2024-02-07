@@ -1,34 +1,31 @@
 
-<div class="row">
-  <div class="col-9 header">
-    <!--<div class="dropdown">
-    <ng-select placeholder="All Devices" [(ngModel)]="selectedItem" >
-      <ng-option *ngFor="let os of dropdownItems" [value]="os.id">
-        {{os.name}}
-      </ng-option>
-    </ng-select>-->
-    <!--button class="btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    <span><img src="../../assets/icons/arrow.svg" /></span>
-  </button>-->
-    <!--</div>-->
-    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-      <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked [(ngModel)]="selectedView" value="card">
-      <label class="btn btn-outline-primary" for="btnradio1">Card View</label>
 
-      <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" [(ngModel)]="selectedView" value="table">
-      <label class="btn btn-outline-primary" for="btnradio2">Table View</label>
+<div class="asset-header">
+  <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+    <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked [(ngModel)]="selectedView" value="card">
+    <label class="btn btn-outline-primary" for="btnradio1">Card View</label>
+    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" [(ngModel)]="selectedView" value="table">
+    <label class="btn btn-outline-primary" for="btnradio2">Table View</label>
+  </div>
+  <div class="filter-section">
+    <div class="justify-content-end form-check rightSide" *ngIf="selectedView === 'card'">
+      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="isArchived" (change)="onCheckboxChange($event)">
+      <label class="form-check-label" for="flexCheckDefault">
+        Show Archive Assets Only
+      </label>
+    </div>
+    <div class="search-bar">
 
-      
+    </div>
+    <div class="export-button" *ngIf="selectedView === 'table'">
+      <button>Export to excel</button>
+    </div>
+    <div class="filter-button">
+      <button>Filter</button>
     </div>
   </div>
-
-  <div class="col-3 d-flex justify-content-end form-check rightSide">
-    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="isArchived" (change)="onCheckboxChange($event)">
-    <label class="form-check-label" for="flexCheckDefault">
-      Show Archive Assets Only
-    </label>
-  </div>
 </div>
+    
 <div class="assetcolumns" *ngIf="selectedView === 'card'">
   <div class="col-md-12 d-flex">
     <div class="col-md-3 ">

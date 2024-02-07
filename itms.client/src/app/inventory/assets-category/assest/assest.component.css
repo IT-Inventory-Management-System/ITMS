@@ -49,3 +49,19 @@
     outline-color: transparent;
   }
 
+
+.asset-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-self: stretch;
+  width: 73.5rem;
+  height: 2.5rem;
+}
+
+.filter-section {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+}
