@@ -23,9 +23,32 @@
   flex: 1 0 0;
 }
 .ag-theme-quartz {
-  --ag-header-height: 30px;
-  --ag-header-foreground-color: white;
-  --ag-header-background-color: black;
-  --ag-header-cell-hover-background-color: rgb(80, 40, 140);
-  --ag-header-cell-moving-background-color: rgb(80, 40, 140);
+  --ag-header-height: 40px;
+  --ag-header-foreground-color: var(--Primary-White, #FFF);
+  --ag-header-background-color: var(--Primary-Royal-Blue, #002C3F);
+  --ag-header-cell-hover-background-color: none;
+  --ag-header-cell-moving-background-color: none;
+  --ag-font-size: 0.875rem;
+  --ag-font-family: Roboto !important;
+  --ag-header-column-separator-display: block;
+  --ag-header-column-separator-height: 100%;
+  --ag-header-column-separator-width: 0.8px;
+  --ag-header-column-separator-color: gray;
+  --ag-header-column-resize-handle-display: block;
+  --ag-header-column-resize-handle-height: 25%;
+  --ag-header-column-resize-handle-width: 5px;
+  --ag-header-column-resize-handle-color: none;
+  
 }
+
+
+
+
+
+ 
+  
+
+ 
+
+
+
