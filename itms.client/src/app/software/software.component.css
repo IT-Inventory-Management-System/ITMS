@@ -559,6 +559,10 @@
   line-height: normal;
 }
 
+.comment-heading :hover{
+  cursor: pointer;
+}
+
 .history-cards {
   display: flex;
   flex-direction: column;

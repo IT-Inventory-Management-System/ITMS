@@ -155,7 +155,7 @@ import { SingleCommentComponent } from './shared/components/new-comments/single-
     AddMouseFormComponent,
     SoftwareComponent,
     SoftwareAssignHistoryComponent,
-    SoftwareNameComponent
+    SoftwareNameComponent,
     NewCommentsComponent,
     SingleCommentComponent,
 
