@@ -76,6 +76,8 @@ import { SoftwareSearchBoxComponent } from './assign-asset/software-search-box/s
 import { AddAssetComponent } from './add-asset/add-asset.component';
 import { AddMouseFormComponent } from './add-asset/add-mouse-form/add-mouse-form.component';
 import { SoftwareComponent } from './software/software.component';
+import { SoftwareAssignHistoryComponent } from './software/software-assign-history/software-assign-history.component';
+import { SoftwareNameComponent } from './software/software-name/software-name.component';
 import { NewCommentsComponent } from './shared/components/new-comments/new-comments.component';
 import { SingleCommentComponent } from './shared/components/new-comments/single-comment/single-comment.component';
 
@@ -152,6 +154,8 @@ import { SingleCommentComponent } from './shared/components/new-comments/single-
     CommentCardComponent,
     AddMouseFormComponent,
     SoftwareComponent,
+    SoftwareAssignHistoryComponent,
+    SoftwareNameComponent
     NewCommentsComponent,
     SingleCommentComponent,
 
