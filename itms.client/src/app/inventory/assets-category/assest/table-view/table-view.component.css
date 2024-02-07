@@ -1,0 +1,31 @@
+.outer-table{
+    margin-top:1rem;
+    display:flex;
+}
+.img-container {
+  display: flex;
+  padding: 0.625rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+}
+.text-container {
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  display: flex;
+  padding: 0.75rem 0.625rem;
+  align-items: center;
+  gap: 0.625rem;
+  flex: 1 0 0;
+}
+.ag-theme-quartz {
+  --ag-header-height: 30px;
+  --ag-header-foreground-color: white;
+  --ag-header-background-color: black;
+  --ag-header-cell-hover-background-color: rgb(80, 40, 140);
+  --ag-header-cell-moving-background-color: rgb(80, 40, 140);
+}

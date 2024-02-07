@@ -9,7 +9,8 @@ import { DevicesComponent } from './devices/devices.component';
 })
 export class AssestComponent {
   isArchived: boolean = false;
-  selectedItem: any; 
+  selectedItem: any;
+  selectedView: string='table';
 
   @ViewChild('appDevices') appDevices: DevicesComponent;
   constructor(private deviceService: DataService) { }
