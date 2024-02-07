@@ -75,8 +75,8 @@ import { LaptopSearchBoxComponent } from './assign-asset/laptop-search-box/lapto
 import { SoftwareSearchBoxComponent } from './assign-asset/software-search-box/software-search-box.component';
 import { AddAssetComponent } from './add-asset/add-asset.component';
 import { AddMouseFormComponent } from './add-asset/add-mouse-form/add-mouse-form.component';
-import { TableViewComponent } from './inventory/assets-category/assest/table-view/table-view.component';
 import { AgGridModule } from 'ag-grid-angular';
+import { TableViewComponent } from './shared/components/table-view/table-view.component';
 
 
 
@@ -150,7 +150,7 @@ import { AgGridModule } from 'ag-grid-angular';
     UnrchivemodalComponent,
     CommentCardComponent,
     AddMouseFormComponent,
-    TableViewComponent,
+    TableViewComponent
 
 
 
