@@ -1,3 +1,8 @@
+/*#button1,
+#button2 {
+  display: none;
+}*/
+
 .software-details {
   display: inline-flex;
   height: 45.625rem;
