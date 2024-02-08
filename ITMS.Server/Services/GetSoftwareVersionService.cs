@@ -21,12 +21,14 @@ namespace ITMS.Server.Services
         public async Task<IEnumerable<GetSoftwareVersionDTO>> listSoftwareVersions(String SoftwareName)
         {
             var result = await (from sa in _context.Software
+                                join s in _context.SoftwareAllocations
+                                on sa.Id equals s.SoftwareId
                                     where sa.SoftwareName == SoftwareName
                                     select new GetSoftwareVersionDTO
                                     {
                                         Id = sa.Id,
                                         SoftwareName = sa.SoftwareName,
-                                        SoftwareVersion = sa.Version
+                                        SoftwareVersion = s.Version
                                     }
                                  ).ToListAsync();
 

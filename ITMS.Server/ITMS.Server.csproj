@@ -45,6 +45,7 @@
     <PackageReference Include="MiNET" Version="1.0.2304" />
     <PackageReference Include="Prism.Forms" Version="8.1.97" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageReference Include="System.Diagnostics.Tools" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>

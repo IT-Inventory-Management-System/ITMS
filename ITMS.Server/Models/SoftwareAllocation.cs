@@ -24,12 +24,15 @@ public partial class SoftwareAllocation
     public DateTime? AssignedDate { get; set; }
 
     public Guid LocationId { get; set; }
+    public string? Version { get; set; }
 
     public virtual Employee? AssignedByNavigation { get; set; }
 
     public virtual Employee? AssignedToNavigation { get; set; }
 
     public virtual ICollection<Comment> Comments { get; } = new List<Comment>();
+
+    public virtual ICollection<DevicesLog> DevicesLogs { get; } = new List<DevicesLog>();
 
     public virtual Location Location { get; set; } = null!;
 

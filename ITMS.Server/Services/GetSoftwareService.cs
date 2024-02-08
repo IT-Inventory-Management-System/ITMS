@@ -35,7 +35,7 @@ namespace ITMS.Server.Services
                                     SoftwareName = s.SoftwareName,
                                     SoftwareType = st.TypeName,
                                     ExpiryDate = sa.ExpiryDate,
-                                    Version = s.Version,
+                                    Version = sa.Version,
                                     LocationId = sa.LocationId,
                                     AssignedTo = sa.AssignedTo,
                                 }
@@ -45,7 +45,9 @@ namespace ITMS.Server.Services
         public async Task<IEnumerable<GetSoftwareDTO>> getSoftwareId(string softwareName, string softwareVersion)
         {
             var result = await (from s in _context.Software
-                                where s.SoftwareName == softwareName && s.Version == softwareVersion
+                                join sa in _context.SoftwareAllocations
+                                on s.Id equals sa.SoftwareId
+                                where s.SoftwareName == softwareName && sa.Version == softwareVersion
 
                                 select new GetSoftwareDTO
                                 {
