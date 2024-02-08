@@ -9,6 +9,10 @@ import { Router } from '@angular/router';  // Import Angular Router
 })
 export class LaptopDetailsComponent implements OnChanges {
   @Input() userId: any;
+  @Input() firstName: any;
+  @Input() lastName: any;
+  @Input() cgiid: any;
+
   laptopDetails: any;
 
   constructor(private employeeService: EmployeeService, private router: Router) { }

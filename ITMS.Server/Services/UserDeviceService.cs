@@ -1,10 +1,12 @@
 // Services/UserDeviceService.cs
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using ITMS.Server.DTO;
 using ITMS.Server.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client.Extensions.Msal;
 
 // Services/UserDeviceService.cs
 
@@ -73,6 +75,15 @@ public class UserDeviceService
                    .Select(employee => $"{employee.FirstName} {employee.LastName}")
                    .FirstOrDefault(),
                SubmitedByDate = (DateTime)log.RecievedDate,
+               OSName = _dbContext.Ostypes
+                   .Where(os => os.Id == log.Device.DeviceModel.Os)
+                   .Select(os => $"{os.Osname}")
+                   .FirstOrDefault(),
+               Processor = log.Device.DeviceModel.Processor,
+               Ram = log.Device.DeviceModel.Ram,
+               Storage = log.Device.DeviceModel.Storage,
+               PurchasedDate = log.Device.PurchasedDate, 
+               DeviceAge = Math.Round((DateTime.Today - (log.Device.PurchasedDate ?? DateTime.Today)).TotalDays / 365.0, 1), 
                Comments = _dbContext.Comments
                    .Where(comment => comment.DeviceId == log.Device.Id  && comment.SoftwareAllocationId == null).OrderByDescending(c => c.CreatedAtUtc)
                    .Select(c => new CommentDto

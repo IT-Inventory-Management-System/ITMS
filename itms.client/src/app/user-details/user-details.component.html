@@ -1,5 +1,4 @@
 
-<app-assign-asset></app-assign-asset>
 
 
 <div class="page-container">
@@ -23,7 +22,7 @@
           </div>
 
         </div>
-
+        <app-assign-asset></app-assign-asset>
         <div class="assign" data-bs-toggle="modal" data-bs-target="#assignAssetModal"><button class="assign-button"><img src="../../assets/icons/Add.svg" /><div class="ass">Assign</div></button></div>
 
       </div>
@@ -56,11 +55,11 @@
 
     <div class="assigned">
 
-      <app-laptop-details *ngIf="selectedItem === 'laptop'" [userId]="userDetails?.id" class="asd"></app-laptop-details>
+      <app-laptop-details *ngIf="selectedItem === 'laptop'" [userId]="userDetails?.id" [firstName]="userDetails?.firstName" [lastName]="userDetails?.lastName" [cgiid]="userDetails?.cgiid" class="asd"></app-laptop-details>
 
-      <app-software-details *ngIf="selectedItem === 'software'" [userId]="userDetails?.id" class="asd"></app-software-details>
+      <app-software-details *ngIf="selectedItem === 'software'" [userId]="userDetails?.id" [firstName]="userDetails?.firstName" [lastName]="userDetails?.lastName" [cgiid]="userDetails?.cgiid" class="asd"></app-software-details>
 
-      <app-accessories-details *ngIf="selectedItem === 'accessories'" [userId]="userDetails?.id" class="asd"></app-accessories-details>
+      <app-accessories-details *ngIf="selectedItem === 'accessories'" [userId]="userDetails?.id" [firstName]="userDetails?.firstName" [lastName]="userDetails?.lastName" [cgiid]="userDetails?.cgiid" class="asd"></app-accessories-details>
 
     </div>
 

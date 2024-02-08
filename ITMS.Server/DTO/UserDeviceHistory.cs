@@ -15,6 +15,15 @@ namespace ITMS.Server.DTO
         public string? SubmitedBy { get; set; }
 
         public DateTime? SubmitedByDate { get; set; }
+        public string OSName { get; set; } //new 
+        public string? Processor { get; set; } //new
+        public string? Ram { get; set; } //new
+
+        public string? Storage { get; set; } //new
+        public DateTime? PurchasedDate { get; set; } //new
+        public double DeviceAge { get; set; } //new
+
+
         public List<CommentDto> Comments { get; set; }
 
 

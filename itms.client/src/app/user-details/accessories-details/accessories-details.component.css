@@ -20,14 +20,42 @@
 }
 
 .inner-accessories-container {
-  width: 100%;
+  position: relative;
   padding: 0.75rem;
+  width: 100%;
   border-radius: 0.25rem;
-  border: 1px solid var(--Secondary-Light-Gray, #E9ECEB);
+  border: 1px solid #E9ECEB;
   display: flex;
-  flex-direction: column;
   gap: 0.25rem;
-  z-index: 1;
+}
+.accessory-revoke-button {
+  position: absolute;
+  margin-right: 0.5rem;
+  right: 0;
+}
+
+.device-tag {
+  padding: 0.45rem 0.625rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  position: absolute;
+  top:0;
+  left: 0;
+  border-radius: 0rem 0.25rem;
+  background: #ffb81c;
+ 
+  box-sizing: content-box;
+}
+
+.device-tag-info {
+  color: #002c3f;
+  font-family: roboto;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-transform: uppercase;
 }
 
 .accessories-tag {

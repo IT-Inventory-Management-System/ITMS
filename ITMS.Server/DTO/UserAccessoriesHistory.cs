@@ -2,6 +2,7 @@
 {
     public class UserAccessoriesHistory
     {
+        public Guid DeviceId { get; set; } //new property
         public string DeviceName { get; set; }
         public string Brand { get; set; }
         public string ModelNo { get; set; }
@@ -10,5 +11,8 @@
         public string AssignBy { get; set; }
         public string AssignedTo { get; set; }
         public DateTime? AssignedDate { get; set; }
+        public bool? isWired { get; set; }  // New property added
+        public string? SubmittedBy { get; set; } //new 
+        public DateTime? SubmittedByDate { get; set; } //new
     }
 }

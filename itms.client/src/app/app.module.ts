@@ -75,6 +75,9 @@ import { LaptopSearchBoxComponent } from './assign-asset/laptop-search-box/lapto
 import { SoftwareSearchBoxComponent } from './assign-asset/software-search-box/software-search-box.component';
 import { AddAssetComponent } from './add-asset/add-asset.component';
 import { AddMouseFormComponent } from './add-asset/add-mouse-form/add-mouse-form.component';
+import { LaptopRevokeComponent } from './user-details/laptop-revoke/laptop-revoke.component';
+import { AccessoriesRevokeComponent } from './user-details/accessories-revoke/accessories-revoke.component';
+import { SoftwareRevokeComponent } from './user-details/software-revoke/software-revoke.component';
 
 
 
@@ -148,6 +151,9 @@ import { AddMouseFormComponent } from './add-asset/add-mouse-form/add-mouse-form
     UnrchivemodalComponent,
     CommentCardComponent,
     AddMouseFormComponent,
+    LaptopRevokeComponent,
+    AccessoriesRevokeComponent,
+    SoftwareRevokeComponent,
 
 
 
