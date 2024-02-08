@@ -112,13 +112,13 @@ export class AssignAssetComponent {
 
   assignAssetForm: FormGroup;
   @ViewChild(SearchBoxComponent) SearchBoxComponent: any;
-  @ViewChild(LaptopSearchBoxComponent) LaptopSearchBoxComponent: any;
-  @ViewChild(AccessoriesSearchBoxComponent) accessoriesSearchBoxComponent: AccessoriesSearchBoxComponent;
-  @ViewChild(SoftwareSearchBoxComponent) softwareSearchBoxComponent: SoftwareSearchBoxComponent;
-  @ViewChild(SoftwareVersionSearchBoxComponent) softwareVersionSearchBoxComponent: SoftwareVersionSearchBoxComponent;
-  @ViewChild(AssignAccessoriesComponent) assignAccessoriesComponent: AssignAccessoriesComponent;
-  @ViewChild(AssignLaptopComponent) assignLaptopComponent: AssignLaptopComponent;
-  @ViewChild(LaptopSearchBoxComponent) laptopSearchBoxComponent: LaptopSearchBoxComponent;
+  //@ViewChild(LaptopSearchBoxComponent) LaptopSearchBoxComponent: any;
+  //@ViewChild(AccessoriesSearchBoxComponent) accessoriesSearchBoxComponent: AccessoriesSearchBoxComponent;
+  //@ViewChild(SoftwareSearchBoxComponent) softwareSearchBoxComponent: SoftwareSearchBoxComponent;
+  //@ViewChild(SoftwareVersionSearchBoxComponent) softwareVersionSearchBoxComponent: SoftwareVersionSearchBoxComponent;
+  //@ViewChild(AssignAccessoriesComponent) assignAccessoriesComponent: AssignAccessoriesComponent;
+  //@ViewChild(AssignLaptopComponent) assignLaptopComponent: AssignLaptopComponent;
+  //@ViewChild(LaptopSearchBoxComponent) laptopSearchBoxComponent: LaptopSearchBoxComponent;
   constructor(
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
@@ -129,14 +129,17 @@ export class AssignAssetComponent {
     @Inject(DeviceAssignService) private deviceAssignService: DeviceAssignService) {
     this.assignAssetForm = this.formBuilder.group({
       assignedTo: [null, Validators.required],
-      cygid: [null],
+      cygids: this.formBuilder.array([]),
+      //cygid: [null],
       softwareId: [null],
       //selectedAccessory: [null, Validators.required],
       deviceComment: [null],
       softwareComment: [null],
       //accessoryComment: [null],
       assignedBy:[null],
-    }, { validator: customValidation(this.toastr) });
+    },
+    //  { validator: customValidation(this.toastr) }
+    );
   }
 
   ngOnInit() {
@@ -263,18 +266,18 @@ export class AssignAssetComponent {
     if (this.assignAssetForm.valid) {
       const assignmentData = this.assignAssetForm.value;
       assignmentData.assignedBy = AssignedBy;
-      this.deviceAssignService.saveAssignment(assignmentData).subscribe(
-        (response) => {
-          this.closeForm();
-          this.assignAssetForm.reset();
-          this.toastr.success('Assignment saved successfully:', response);
-        },
-        (error) => {
-          this.closeForm();
-          this.assignAssetForm.reset();
-          this.toastr.error('Error saving assignment:', error);
-        }
-      );
+      //this.deviceAssignService.saveAssignment(assignmentData).subscribe(
+      //  (response) => {
+      //    this.closeForm();
+      //    this.assignAssetForm.reset();
+      //    this.toastr.success('Assignment saved successfully:', response);
+      //  },
+      //  (error) => {
+      //    this.closeForm();
+      //    this.assignAssetForm.reset();
+      //    this.toastr.error('Error saving assignment:', error);
+      //  }
+      //);
     } else {
       const errors = this.assignAssetForm.errors;
 

@@ -8,6 +8,7 @@ export class AssignDataManagementService {
 
   private assignedToState: any;
   private cygidState: any;
+  private cygidsState: any[] = [];
   private softwareNameState: any;
   private softwareVersionState: any;
   private accessoryState: any;
@@ -15,13 +16,21 @@ export class AssignDataManagementService {
   private softwareCommentState: any;
   private accessoryCommentState: any;
 
-  setState(component: string, newState: any): void {
+  setState(component: string, newState: any, index?: number): void {
     switch (component) {
       case 'assignedTo':
         this.assignedToState = newState;
         break;
       case 'cygid':
         this.cygidState = newState;
+        break;
+      case 'cygids':
+        if (index !== undefined && index >= 0) {
+          this.ensureArraySize(index);
+          this.cygidsState[index] = newState;
+        } else {
+          console.error('Index is required for updating cygidState.');
+        }
         break;
       case 'softwareName':
         this.softwareNameState = newState;
@@ -46,12 +55,19 @@ export class AssignDataManagementService {
     }
   }
 
-  getState(component: string): void {
+  getState(component: string, index?: number): any {
     switch (component) {
       case 'assignedTo':
         return this.assignedToState !== undefined ? this.assignedToState : null;
       case 'cygid':
         return this.cygidState !== undefined ? this.cygidState : null;
+      case 'cygids':
+        if (index !== undefined && index >= 0 && index < this.cygidsState.length) {
+          return this.cygidsState[index];
+        } else {
+          console.error('Invalid index or cygidState is empty.');
+          return null;
+        }
       case 'softwareName':
         return this.softwareNameState !== undefined ? this.softwareNameState : null;
       case 'softwareVersion':
@@ -67,6 +83,11 @@ export class AssignDataManagementService {
         return this.accessoryCommentState !== undefined ? this.accessoryCommentState : null;
       default:
         console.warn('Unknown component:', component);
+    }
+  }
+  private ensureArraySize(index: number): void {
+    while (this.cygidsState.length <= index) {
+      this.cygidsState.push(null); 
     }
   }
 }
