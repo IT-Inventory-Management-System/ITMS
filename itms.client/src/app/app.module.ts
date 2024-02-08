@@ -163,7 +163,7 @@ import { SoftwareRevokeComponent } from './user-details/software-revoke/software
     SoftwareNameComponent,
     NewCommentsComponent,
     SingleCommentComponent,
-    TableViewComponent
+    TableViewComponent,
     LaptopRevokeComponent,
     AccessoriesRevokeComponent,
     SoftwareRevokeComponent,
