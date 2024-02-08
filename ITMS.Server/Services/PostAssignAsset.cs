@@ -9,7 +9,7 @@ namespace ITMS.Server.Services
         Task UpdateDeviceAsync(string CYGID, PostAssignAssetDTO device);
         Task UpdateSoftwareAsync(string SoftwareID, PostAssignAssetDTO software);
         Task UpdateDeviceComment(PostCommentDTO commentDto, Guid newDeviceLogId);
-        Task UpdateSoftwareComment(PostCommentDTO commentDto, Guid newDeviceLogId);
+        Task UpdateSoftwareComment(PostCommentDTO commentDto/*, Guid newDeviceLogId*/);
         Task<Guid> UpdateDeviceLogAsync(PostDeviceLogDTO devicelogDto);
 
         //Task UpdateAccessoriesAsync(string Id, PostAssignAssetDTO accessories);
@@ -65,7 +65,7 @@ namespace ITMS.Server.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateSoftwareComment(PostCommentDTO commentDto, Guid newDeviceLogId)
+        public async Task UpdateSoftwareComment(PostCommentDTO commentDto/*, Guid newDeviceLogId*/)
         {
             Comment comment = new Comment();
             comment.Description = commentDto.Description;
@@ -73,7 +73,7 @@ namespace ITMS.Server.Services
             comment.CreatedAtUtc = DateTime.UtcNow;
             comment.DeviceId = commentDto.DeviceId;
             comment.SoftwareAllocationId = commentDto.SoftwareAllocationId;
-            comment.DeviceLogId = newDeviceLogId;
+            //comment.DeviceLogId = newDeviceLogId;
 
             _context.Comments.Update(comment);
             await _context.SaveChangesAsync();

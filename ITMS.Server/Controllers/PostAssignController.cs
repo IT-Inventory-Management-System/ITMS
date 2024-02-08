@@ -77,7 +77,7 @@ namespace ITMS.Server.Controllers
                             CreatedBy = postAssignAssetDTO.AssignedBy,
                         };
 
-                        await _postAssignAsset.UpdateSoftwareComment(softwareCommentDTO, newDeviceLogId);
+                        await _postAssignAsset.UpdateSoftwareComment(softwareCommentDTO);
                     }
 
                     return Results.Ok("Device and Software allocated successfully");
@@ -131,7 +131,7 @@ namespace ITMS.Server.Controllers
                             CreatedBy = postAssignAssetDTO.AssignedBy,
                         };
 
-                        //await _postAssignAsset.UpdateSoftwareComment(softwareCommentDTO);
+                        await _postAssignAsset.UpdateSoftwareComment(softwareCommentDTO);
                     }
                     return Results.Ok("Software allocated successfully");
                 }
