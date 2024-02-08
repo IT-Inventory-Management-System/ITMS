@@ -9,5 +9,5 @@ import { Component, Directive, EventEmitter, Output } from '@angular/core';
 
 
 export class SoftwareComponent {
-
+  selectedView: string = 'card';
 }
