@@ -23,12 +23,13 @@ namespace ITMS.Server.Services
             try
             {
                 var deviceAccessoriesList = _context.Devices
-                    .Where(device => device.AssignedTo == id)
+                    .Where(device => device.AssignedTo == id && device.DeviceModel.Category.Name != "Laptop")
                     .Include(device => device.DeviceModel)
                         .ThenInclude(model => model.Category)
                             .ThenInclude(category => category.CategoryType)
                     .Select(device => new UserAccessoriesHistory
                     {
+                        DeviceId = device.Id,
                         DeviceName = device.DeviceModel.DeviceName,
                         Brand = device.DeviceModel.Brand,
                         ModelNo = device.DeviceModel.ModelNo,
@@ -42,7 +43,13 @@ namespace ITMS.Server.Services
                         AssignedTo = _context.Employees
                             .Where(employee => employee.Id == device.AssignedTo)
                             .Select(employee => $"{employee.FirstName} {employee.LastName}")
-                            .FirstOrDefault()
+                            .FirstOrDefault(),
+                        isWired = device.DeviceModel.IsWired,
+                        SubmittedBy = _context.Employees
+                            .Where(employee => employee.Id == device.RecievedBy)
+                            .Select(employee => $"{employee.FirstName} {employee.LastName}")
+                            .FirstOrDefault(),
+                        SubmittedByDate = device.RecievedDate
                     })
                     .ToList();
 

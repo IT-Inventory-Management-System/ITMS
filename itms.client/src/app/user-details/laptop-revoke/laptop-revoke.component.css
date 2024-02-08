@@ -1,0 +1,13 @@
+.revoke-button {
+  width: 92px;
+  height: 32px;
+  padding: 6px 8px; /* Corrected padding syntax */
+  border-radius: 4px;
+  border: 1px solid #CC1A07;
+  display: flex; /* Added to make the icon and text align horizontally */
+  align-items: center; /* Added to vertically center the icon and text */
+  gap: 4px;
+  color: #CC1A07;
+  font-weight: 500;
+  line-height: 18.75px;
+}

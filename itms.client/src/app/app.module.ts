@@ -82,6 +82,9 @@ import { NewCommentsComponent } from './shared/components/new-comments/new-comme
 import { SingleCommentComponent } from './shared/components/new-comments/single-comment/single-comment.component';
 import { AgGridModule } from 'ag-grid-angular';
 import { TableViewComponent } from './shared/components/table-view/table-view.component';
+import { LaptopRevokeComponent } from './user-details/laptop-revoke/laptop-revoke.component';
+import { AccessoriesRevokeComponent } from './user-details/accessories-revoke/accessories-revoke.component';
+import { SoftwareRevokeComponent } from './user-details/software-revoke/software-revoke.component';
 
 
 
@@ -160,7 +163,10 @@ import { TableViewComponent } from './shared/components/table-view/table-view.co
     SoftwareNameComponent,
     NewCommentsComponent,
     SingleCommentComponent,
-    TableViewComponent
+    TableViewComponent,
+    LaptopRevokeComponent,
+    AccessoriesRevokeComponent,
+    SoftwareRevokeComponent,
 
 
 

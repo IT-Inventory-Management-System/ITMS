@@ -68,6 +68,7 @@ namespace ITMS.Server.Services
                         .ThenInclude(s => s.SoftwareType)
                     .Select(sa => new UserSoftwareHistory
                     {
+                        SoftwareAllocationId = sa.Id, //new
                         TypeName = sa.Software.SoftwareType.TypeName,
                         SoftwareName = sa.Software.SoftwareName,
                         AssignBy = _dbContext.Employees
@@ -79,6 +80,9 @@ namespace ITMS.Server.Services
                             .Where(employee => employee.Id == sa.AssignedTo)
                             .Select(employee => $"{employee.FirstName} {employee.LastName}")
                             .FirstOrDefault(),
+                        PurchasedDate = sa.PurchasedDate, //new
+                        ExpiryDate = sa.ExpiryDate, //new
+                        RemainingDays = Math.Max(0, (sa.ExpiryDate.HasValue ? (sa.ExpiryDate.Value - DateTime.Today).Days : 0)), //new
                         Comments = _dbContext.Comments
                             .Where(comment => comment.SoftwareAllocationId == sa.Id) 
                             .Select(c => new CommentDto

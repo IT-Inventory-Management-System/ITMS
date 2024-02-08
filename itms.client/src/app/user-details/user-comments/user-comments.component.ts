@@ -16,6 +16,9 @@ export class UserCommentsComponent {
   @Input() laptopDetails: any;
   @Input() softwareDetails: any;
   @Input() userId: any;
+  @Input() firstName: any;
+  @Input() lastName: any;
+  @Input() cgiid: any;
 
   isCommentCollapsed: boolean = true;
   newComment: string = '';

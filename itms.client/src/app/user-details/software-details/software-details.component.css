@@ -9,45 +9,58 @@
  
   position: relative;
   width:100%;
+  overflow-y: scroll;
 }
 
-
+.expiry {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+  .expiry p {
+    margin-bottom: 0;
+  }
 
 
 .inner-software-container {
+  position: relative;
   width: 100%;
-  max-width:100%;
   padding: 0.75rem;
   border-radius: 0.25rem;
   border: 1px solid var(--Secondary-Light-Gray, #E9ECEB);
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
-  z-index: 1;
 }
 
-.software-tag {
-  display: flex;
-  padding: 0.375rem 0.625rem;
-  top: 0;
+.device-tag {
+  padding: 0.45rem 0.625rem;
   justify-content: center;
   align-items: center;
   gap: 0.625rem;
   position: absolute;
-  right: 0;
+  top: 0;
+  left: 0;
   border-radius: 0rem 0.25rem;
-  background: var(--primary-yellow, #ffb81c);
-  z-index:2;
+  background: #ffb81c;
+  box-sizing: content-box;
+ 
 }
 
-.software-tag-info {
-  color: var(--primary-royal-blue, #002c3f);
+.device-tag-info {
+  color: #002c3f;
   font-family: roboto;
   font-size: 0.875rem;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
   text-transform: uppercase;
+}
+
+.software-revoke-button {
+  position: absolute;
+  margin-right: 0.5rem;
+  right: 0;
 }
 
 .user-detail {
@@ -58,7 +71,7 @@
   align-self: stretch;
   height: auto;
   width: 100%;
-  margin: auto;
+  margin-top: 1.7rem;
 }
 
 .user-data {
@@ -76,4 +89,20 @@
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 }
+
+
+.software-name-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+  .software-name-container img {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    fill: #002c3f;
+    stroke: #002c3f;
+  }
+
 
