@@ -9,29 +9,62 @@
         </div>
       </div>
     </div>
-    <div class="filter ">
-      <div class="toggle   ">
-        <div class="tab1 ">
-          <div class="card ">Card View</div>
-        </div>
-        <div class="tab2 ">
-          <div class="table">Table View</div>
-        </div>
-      </div>
-      <div class="show-archive ">
-        <div class="archive ">
-          <img src="../../../assets/icons/Software/Checkbox component.svg" />
-          <span class="archive-text">Show Archive Software Only</span>
-        </div>
-        <span class="filterbox ">
-          <div class="filter-content">
-            <img src="../../../assets/icons/Software/Filter.svg" />
-            <span class="filter-text">Filter</span>
-          </div>
-        </span>
+    <div class="asset-header">
+      <div class="btn-group toggle-button" role="group" aria-label="Basic radio toggle button group">
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked [(ngModel)]="selectedView" value="card">
+        <label class="btn btn-outline-primary custom-label" for="btnradio1"><span>Card View</span></label>
+
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" [(ngModel)]="selectedView" value="table">
+        <label class="btn btn-outline-primary custom-label" for="btnradio2"><span>Table View</span></label>
       </div>
 
+      <div class="filter-section">
+        <div class="justify-content-end form-check rightSide" *ngIf="selectedView === 'card'">
+          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
+          <label class="form-check-label" for="flexCheckDefault">
+            Show Archive Assets Only
+          </label>
+        </div>
+        <div class="search-bar" *ngIf="selectedView === 'table'">
+
+        </div>
+        <div class="export-button" *ngIf="selectedView === 'table'">
+          <button >
+            <img src="../../../../assets/icons/Software/excel-icon.svg" />
+            <span>Export to Excel</span>
+          </button>
+        </div>
+        <div class="filter-button">
+          <button>
+            <img src="../../../../assets/icons/Software/filter-icon.svg" />
+            <span>Filter</span>
+          </button>
+        </div>
+      </div>
     </div>
+    <!--<div class="filter st ">
+    <div class="toggle   ">
+      <div class="tab1 ">
+        <div class="card ">Card View</div>
+      </div>
+      <div class="tab2 ">
+        <div class="table">Table View</div>
+      </div>
+    </div>
+    <div class="show-archive ">
+      <div class="archive ">
+        <img src="../../../assets/icons/Software/Checkbox component.svg" />
+        <span class="archive-text">Show Archive Software Only</span>
+      </div>
+      <span class="filterbox ">
+        <div class="filter-content">
+          <img src="../../../assets/icons/Software/Filter.svg" />
+          <span class="filter-text">Filter</span>
+        </div>
+      </span>
+    </div>
+
+  </div>-->
   </div>
   <div class="software  ">
     <div class="category">
@@ -104,7 +137,7 @@
           <div class="assigned">
             <div class="assigned-logo-heading">
               <div class="assigned-heading1">
-                <img src="../../../assets/icons/Software/assigned-icon.svg" />
+                <img src="../../../assets/icons/Software/Assigned-icon.svg" />
                 <div class="assigned-heading">Assigned</div>
               </div>
 
