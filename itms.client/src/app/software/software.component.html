@@ -67,8 +67,8 @@
   </div>-->
   </div>
   <div class="software  ">
-    <div class="category">
-      <div class="category-div">
+    <div class="category ">
+      <div class="category-div ">
         <div class="text-field">
           <div class="input">
             <div class="input-frame">
@@ -77,9 +77,10 @@
             </div>
           </div>
         </div>
-        <div class="sub-category">
-          <app-software-name></app-software-name>
+        <div class="sub-category " *ngFor="let software of softwaresData">
+          <app-software-name [softwareData]="software"></app-software-name>
         </div>
+
       </div>
     </div>
 

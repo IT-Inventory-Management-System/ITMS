@@ -304,6 +304,7 @@
   align-items: flex-start;
   gap: 1rem;
   align-self: stretch;
+  overflow-y: scroll;
 }
 
 .text-field {
@@ -696,3 +697,7 @@
   align-self: stretch;
 }
 
+
+.st{
+    border:1px solid black;
+}
