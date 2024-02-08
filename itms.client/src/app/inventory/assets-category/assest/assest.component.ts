@@ -13,7 +13,15 @@ import * as XLSX from 'xlsx';
 export class AssestComponent {
   isArchived: boolean = false;
   selectedItem: any;
-  selectedView: string = 'table';
+  selectedView: string = 'card';
+  deviceData: any[] = [];
+
+  onDeviceDataChange(data: any[]) {
+    
+    this.deviceData = data;
+    console.log('ssssssss', this.deviceData);
+    
+  }
 
   @ViewChild('appDevices') appDevices: DevicesComponent;
   constructor(private deviceService: DataService) { }

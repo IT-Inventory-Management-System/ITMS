@@ -37,7 +37,7 @@
 <div class="assetcolumns" *ngIf="selectedView === 'card'">
   <div class="col-md-12 d-flex">
     <div class="col-md-3 ">
-      <app-devices #appDevices [isArchived]="isArchived" [selectedItem]="selectedItem"></app-devices>
+      <app-devices #appDevices [isArchived]="isArchived" [selectedItem]="selectedItem" (deviceDataChange)="onDeviceDataChange($event)"></app-devices>
     </div>
     <div class="col-md-4 mx-2">
       <app-specification [isArchived]="isArchived"></app-specification>
