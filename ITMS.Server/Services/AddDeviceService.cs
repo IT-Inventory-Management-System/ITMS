@@ -128,7 +128,7 @@ public class AddDeviceService : IDeviceService
                 SoftwareTypeId = software.SoftwareTypeId,
                 CategoryId = software.CategoryId,
                 SoftwareThumbnail = software.SoftwareThumbnail,
-                Version = software.Version,
+                //Version = software.Version,
                 CreatedBy = software.CreatedBy,
                 CreatedAtUtc = software.CreatedAtUtc,
                 UpdatedBy = software.UpdatedBy,

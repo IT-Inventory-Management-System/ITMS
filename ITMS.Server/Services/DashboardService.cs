@@ -61,7 +61,7 @@ namespace ITMS.Server.Services
      {
          SoftwareThumbnail = s.SoftwareThumbnail,
          Name = s.SoftwareName,
-         Version = s.Version,
+         Version = s.SoftwareAllocations.Select(sa => sa.Version).FirstOrDefault(),
          Type = st.TypeName,
         
          IndiaInventory = s.SoftwareAllocations

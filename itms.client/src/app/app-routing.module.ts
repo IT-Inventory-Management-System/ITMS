@@ -9,6 +9,7 @@ import { HistoryComponent } from './history/history.component';
 import { AddAssetComponent } from './add-asset/add-asset.component';
 import { DevicesListComponent } from './inventory/assets-category/assest/devices/devices-list/devices-list.component';
 import { DevicesComponent } from './inventory/assets-category/assest/devices/devices.component';
+import { SoftwareComponent } from './software/software.component';
 
 
 const routes: Routes = [
@@ -18,7 +19,7 @@ const routes: Routes = [
   { path: 'category', component: CategoryComponent },
   { path: 'inventory', component: InventoryComponent },
   { path: 'employee', component: EmployeeComponent },
-  { path: 'licence', component: LicenseComponent },
+  { path: 'software', component: SoftwareComponent },
   { path: 'history', component: HistoryComponent },
   { path: 'add-asset', component: AddAssetComponent },
   { path: 'assign-asset', redirectTo: '/dashboard', pathMatch: 'full' },
