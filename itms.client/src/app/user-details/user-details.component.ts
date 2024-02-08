@@ -20,7 +20,7 @@ export class UserDetailsComponent {
   showUserDetails() {
 
   }
-
+  isOptionsVisible: boolean = false;
   //CHANGES
   selectedItem: string = 'laptop'; 
 

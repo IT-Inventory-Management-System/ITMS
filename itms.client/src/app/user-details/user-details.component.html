@@ -1,6 +1,6 @@
 
 <app-assign-asset></app-assign-asset>
-
+<app-exit-process></app-exit-process>
 
 <div class="page-container">
 
@@ -23,11 +23,25 @@
           </div>
 
         </div>
+        <div class="nav-icons position-relative">
+          <button class="dropdown-main add-asset" (click)="isOptionsVisible = !isOptionsVisible">
+            Action
+            <img src="../../../../assets/icons/Chevron down.svg" />
+          </button>
 
-        <div class="assign" data-bs-toggle="modal" data-bs-target="#assignAssetModal"><button class="assign-button"><img src="../../assets/icons/Add.svg" /><div class="ass">Assign</div></button></div>
-
-      </div>
-
+          <!--<div class="assign" data-bs-toggle="modal" data-bs-target="#assignAssetModal"><button class="assign-button"><img src="../../assets/icons/Add.svg" /><div class="ass">Assign</div></button></div>-->
+          <div *ngIf="isOptionsVisible" class="additional-options position-absolute ">
+            <div class="dropdown-both dropdown-btn" (click)="isOptionsVisible = !isOptionsVisible" data-bs-toggle="modal" data-bs-target="#assignAssetModal">
+              <img src="../../../../assets/icons/laptop-solid 2 (1).svg" />
+              Assign Assets
+            </div>
+            <div class="dropdown-both dropdown-btn" (click)="isOptionsVisible = !isOptionsVisible"  data-bs-toggle="modal"  data-bs-target="#exitProcessModal">
+              <img src="../../../../assets/icons/Clip path group.svg" />
+              Initiate Exit Process
+            </div>
+          </div>
+        </div>
+      
     </div>
 
 

@@ -75,6 +75,7 @@ import { LaptopSearchBoxComponent } from './assign-asset/laptop-search-box/lapto
 import { SoftwareSearchBoxComponent } from './assign-asset/software-search-box/software-search-box.component';
 import { AddAssetComponent } from './add-asset/add-asset.component';
 import { AddMouseFormComponent } from './add-asset/add-mouse-form/add-mouse-form.component';
+import { ExitProcessComponent } from './exit-process/exit-process.component';
 
 
 
@@ -148,6 +149,7 @@ import { AddMouseFormComponent } from './add-asset/add-mouse-form/add-mouse-form
     UnrchivemodalComponent,
     CommentCardComponent,
     AddMouseFormComponent,
+    ExitProcessComponent,
 
 
 

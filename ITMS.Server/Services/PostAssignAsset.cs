@@ -58,7 +58,7 @@ namespace ITMS.Server.Services
             comment.CreatedBy = commentDto.CreatedBy;
             comment.CreatedAtUtc = DateTime.UtcNow;
             comment.DeviceId = commentDto.DeviceId;
-            //comment.SoftwareAllocationId = commentDto.SoftwareAllocationId;
+            comment.SoftwareAllocationId = commentDto.SoftwareAllocationId;
             comment.DeviceLogId = newDeviceLogId;
 
             _context.Comments.Update(comment);
