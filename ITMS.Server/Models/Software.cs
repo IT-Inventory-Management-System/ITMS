@@ -23,8 +23,6 @@ public partial class Software
 
     public DateTime? UpdatedAtUtc { get; set; }
 
-    public string? Version { get; set; }
-
     public virtual Category Category { get; set; } = null!;
 
     public virtual Employee CreatedByNavigation { get; set; } = null!;

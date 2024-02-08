@@ -379,7 +379,6 @@ public partial class ItinventorySystemContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("CreatedAtUTC");
             entity.Property(e => e.SoftwareName).HasMaxLength(255);
-            entity.Property(e => e.Version).HasMaxLength(255);
             entity.Property(e => e.SoftwareThumbnail)
                .HasColumnType("VARBINARY(255)");
             entity.Property(e => e.UpdatedAtUtc)
@@ -418,6 +417,7 @@ public partial class ItinventorySystemContext : DbContext
             entity.Property(e => e.ExpiryDate).HasColumnType("date");
             entity.Property(e => e.LocationId).HasColumnName("locationId");
             entity.Property(e => e.PurchasedDate).HasColumnType("date");
+            entity.Property(e => e.Version).HasMaxLength(255);
 
             entity.HasOne(d => d.AssignedByNavigation).WithMany(p => p.SoftwareAllocationAssignedByNavigations)
                 .HasForeignKey(d => d.AssignedBy)

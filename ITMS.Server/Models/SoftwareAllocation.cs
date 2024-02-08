@@ -24,6 +24,7 @@ public partial class SoftwareAllocation
     public DateTime? AssignedDate { get; set; }
 
     public Guid LocationId { get; set; }
+    public string? Version { get; set; }
 
     public virtual Employee? AssignedByNavigation { get; set; }
 
