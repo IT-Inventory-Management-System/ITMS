@@ -86,21 +86,7 @@ export class TableViewComponent {
     { field: "Device Status", width: 119, resizable: false, suppressMovable: true, },
     { field: "Action", width: 83, resizable: false, suppressMovable: true, },
     { field: "Stock Status", pinned: 'right', cellStyle: { 'border': 'none' }, width: 122, resizable: false, suppressMovable: true, }
+];
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  ];
- 
+  
 }

@@ -10,7 +10,7 @@ import { DevicesComponent } from './devices/devices.component';
 export class AssestComponent {
   isArchived: boolean = false;
   selectedItem: any;
-  selectedView: string='table';
+  selectedView: string = 'table';
 
   @ViewChild('appDevices') appDevices: DevicesComponent;
   constructor(private deviceService: DataService) { }
@@ -28,4 +28,5 @@ export class AssestComponent {
       this.appDevices.showDevices();
     }
   }
+ 
 }
