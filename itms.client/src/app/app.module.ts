@@ -80,6 +80,8 @@ import { SoftwareAssignHistoryComponent } from './software/software-assign-histo
 import { SoftwareNameComponent } from './software/software-name/software-name.component';
 import { NewCommentsComponent } from './shared/components/new-comments/new-comments.component';
 import { SingleCommentComponent } from './shared/components/new-comments/single-comment/single-comment.component';
+import { AgGridModule } from 'ag-grid-angular';
+import { TableViewComponent } from './shared/components/table-view/table-view.component';
 
 
 
@@ -158,6 +160,7 @@ import { SingleCommentComponent } from './shared/components/new-comments/single-
     SoftwareNameComponent,
     NewCommentsComponent,
     SingleCommentComponent,
+    TableViewComponent
 
 
 
@@ -172,7 +175,8 @@ import { SingleCommentComponent } from './shared/components/new-comments/single-
     FormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    NgSelectModule
+    NgSelectModule,
+    AgGridModule
   ],
   providers: [],
   bootstrap: [AppComponent]
