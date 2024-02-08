@@ -32,6 +32,8 @@ public partial class SoftwareAllocation
 
     public virtual ICollection<Comment> Comments { get; } = new List<Comment>();
 
+    public virtual ICollection<DevicesLog> DevicesLogs { get; } = new List<DevicesLog>();
+
     public virtual Location Location { get; set; } = null!;
 
     public virtual Software? Software { get; set; }

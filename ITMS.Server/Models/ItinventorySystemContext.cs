@@ -232,7 +232,7 @@ public partial class ItinventorySystemContext : DbContext
 
         modelBuilder.Entity<DevicesLog>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__DevicesL__3214EC07896B6C9A");
+            entity.HasKey(e => e.Id).HasName("PK__DevicesL__3214EC076D76869E");
 
             entity.ToTable("DevicesLog");
 
@@ -243,6 +243,7 @@ public partial class ItinventorySystemContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("CreatedAtUTC");
             entity.Property(e => e.RecievedDate).HasColumnType("datetime");
+            entity.Property(e => e.SoftwareAllocation).HasColumnName("softwareAllocation");
             entity.Property(e => e.UpdatedAtUtc)
                 .HasColumnType("datetime")
                 .HasColumnName("UpdatedAtUTC");
@@ -266,17 +267,19 @@ public partial class ItinventorySystemContext : DbContext
 
             entity.HasOne(d => d.Device).WithMany(p => p.DevicesLogs)
                 .HasForeignKey(d => d.DeviceId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__DevicesLo__Devic__03F0984C");
 
             entity.HasOne(d => d.Employee).WithMany(p => p.DevicesLogEmployees)
                 .HasForeignKey(d => d.EmployeeId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__DevicesLo__Emplo__04E4BC85");
 
             entity.HasOne(d => d.RecievedByNavigation).WithMany(p => p.DevicesLogRecievedByNavigations)
                 .HasForeignKey(d => d.RecievedBy)
                 .HasConstraintName("FK__DevicesLo__Recie__07C12930");
+
+            entity.HasOne(d => d.SoftwareAllocationNavigation).WithMany(p => p.DevicesLogs)
+                .HasForeignKey(d => d.SoftwareAllocation)
+                .HasConstraintName("FK_SoftwareAllocation_SoftwareAllocationID");
 
             entity.HasOne(d => d.UpdatedByNavigation).WithMany(p => p.DevicesLogUpdatedByNavigations)
                 .HasForeignKey(d => d.UpdatedBy)
