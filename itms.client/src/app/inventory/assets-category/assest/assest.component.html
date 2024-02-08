@@ -1,12 +1,14 @@
 
 
 <div class="asset-header">
-  <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+  <div class="btn-group toggle-button" role="group" aria-label="Basic radio toggle button group">
     <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked [(ngModel)]="selectedView" value="card">
-    <label class="btn btn-outline-primary" for="btnradio1">Card View</label>
+    <label class="btn btn-outline-primary custom-label" for="btnradio1"><span>Card View</span></label>
+
     <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" [(ngModel)]="selectedView" value="table">
-    <label class="btn btn-outline-primary" for="btnradio2">Table View</label>
+    <label class="btn btn-outline-primary custom-label" for="btnradio2"><span>Table View</span></label>
   </div>
+
   <div class="filter-section">
     <div class="justify-content-end form-check rightSide" *ngIf="selectedView === 'card'">
       <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="isArchived" (change)="onCheckboxChange($event)">
@@ -14,14 +16,20 @@
         Show Archive Assets Only
       </label>
     </div>
-    <div class="search-bar">
+    <div class="search-bar" *ngIf="selectedView === 'table'">
 
     </div>
     <div class="export-button" *ngIf="selectedView === 'table'">
-      <button >Export to excel</button>
+      <button (click)="exporttoexcel()">
+        <img src="../../../../assets/icons/excel-icon.svg" />
+        <span>Export to Excel</span>
+      </button>
     </div>
     <div class="filter-button">
-      <button>Filter</button>
+      <button>
+        <img src="../../../../assets/icons/filter-icon.svg" />
+        <span>Filter</span>
+      </button>
     </div>
   </div>
 </div>
@@ -41,7 +49,5 @@
 </div>
 
 <div *ngIf="selectedView === 'table'">
-  <app-table-view></app-table-view>
+  <app-table-view [rowData]="rowData" [colDefs]="colDefs"></app-table-view>
 </div>
-
-
