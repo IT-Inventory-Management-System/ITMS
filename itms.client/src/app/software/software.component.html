@@ -1,10 +1,11 @@
-<app-new-comments></app-new-comments>
 <div class="software-details ">
   <div class="software-heading  ">
     <div class="software-title ">
       <div class="heading ">
         <div class="software-text">
           Software
+          <app-new-comments></app-new-comments>
+
         </div>
       </div>
     </div>
@@ -163,9 +164,10 @@
         <div class="history-heading">
           Assign History
         </div>
-        <div class="comment-heading">
+        <div class="comment-heading" data-bs-toggle="modal" data-bs-target="#exampleModal">
           <img src="../../../assets/icons/Software/Comment.svg" />
-          <span class="comment-text" data-bs-toggle="modal" data-bs-target="#exampleModal">Comments</span>
+          <span class="comment-text">Comments</span>
+
 
           <img src="../../../assets/icons/Software/Chevron.svg" />
 
@@ -174,16 +176,13 @@
 
       </div>
       <div class="history-cards">
-        <app-software-assign-history></app-software-assign-history>
+        <app-software-assign-history style="display:none;"></app-software-assign-history>
       </div>
     </div>
   </div>
+
+
+
 </div>
 
 
-
-<button id ="button1" type="button" class="btn btn-primary">
-  Launch demo modal
-</button>
-
-<button id="button2" class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">hello</button>

@@ -1,6 +1,7 @@
 #exampleModal {
   display: flex;
   width: 38.375rem;
+  margin-top: 5rem;
   height: 48.5rem;
   padding: 1rem 1.5rem !important;
   flex-direction: column;
@@ -9,6 +10,7 @@
   border-radius: 0.25rem;
   background: #FFF;
   margin-left: 50rem;
+  display: none;
 }
 
 .header {
