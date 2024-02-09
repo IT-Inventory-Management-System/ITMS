@@ -9,6 +9,8 @@ namespace ITMS.Server.Services
         {
             Task<IEnumerable<GetEmployeeDTO>> getAllEmployeeBasicDetails();
         Task<IEnumerable<GetAccessories>> getAccessories();
+        Task<IEnumerable<GetBrandDTO>> getMouseBrand();
+
     }
     public class AddAssetService : IAddAssetService
     {
@@ -41,7 +43,20 @@ namespace ITMS.Server.Services
                                 }).ToListAsync();
             return result;
         }
-
+        public async Task<IEnumerable<GetBrandDTO>> getMouseBrand()
+        {
+            var result=await (from c in _context.DeviceModel
+                              join cat in _context.Categories
+                              on c.CategoryId equals cat.Id
+                              where cat.Name== "Mouse"
+                              select new GetBrandDTO
+                             
+                              {
+                                  brand= c.Brand,
+                                  iswired = c.IsWired
+                              }).ToListAsync();
+            return result;
+        }
 
     }
 }
