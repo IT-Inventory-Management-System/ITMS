@@ -2,7 +2,8 @@
 {
     public class UserSoftwareHistory
     {
-        public Guid SoftwareAllocationId { get; set; } //new
+        public Guid DeviceLogId { get; set; } //change
+        public Guid? SoftwareAllocationId { get; set; } //change
         public string TypeName { get; set; }
         public string SoftwareName { get; set; }
         public string AssignBy { get; set; }
