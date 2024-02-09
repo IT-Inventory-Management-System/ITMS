@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./add-mouse-form.component.css']
 })
 export class AddMouseFormComponent {
+  currentStep: number = 1;
+  showDeviceDetailsForm = false;
 
+  toggleDeviceDetailsForm() {
+    this.showDeviceDetailsForm = !this.showDeviceDetailsForm;
+  }
 }

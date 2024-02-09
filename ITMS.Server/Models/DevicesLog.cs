@@ -7,7 +7,7 @@ public partial class DevicesLog
 {
     public Guid Id { get; set; }
 
-    public Guid DeviceId { get; set; }
+    public Guid? DeviceId { get; set; }
 
     public Guid EmployeeId { get; set; }
 
