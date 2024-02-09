@@ -23,7 +23,7 @@
           <div class="col-md-4 common-gap-style">
             <div style="color: var(--Adhoc-Grey, #6D6D6D); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 400; line-height: normal;">CYG ID</div>
             <div class="cyg-id-container">
-              <div (click)="navigateToDeviceDetails(laptop.cygid)" style="color: var(--Primary-Blue, #28519E); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 600; line-height: normal;">{{laptop.cygid}}</div>
+              <div (click)="navigateToDeviceDetails(laptop.cygid)" style="color: var(--Primary-Blue, #28519E); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 600; line-height: normal;">{{laptop.cygid}} {{laptop.categoryName}}</div>
               <img (click)="navigateToDeviceDetails(laptop.cygid)" src="../../../assets/icons/chevron-right.svg">
             </div>
           </div>
@@ -40,7 +40,7 @@
               Windows Laptop
             </div>
 
-            <div *ngIf="laptop.osName !== 'Windows'" style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal;">
+            <div *ngIf="laptop.osName === 'Mac'" style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal;">
               Mac
             </div>
           </div>
