@@ -15,12 +15,10 @@ export class AssestComponent {
   selectedItem: any;
   selectedView: string = 'card';
   deviceData: any[] = [];
+  rowData: any[] = [];
 
-  onDeviceDataChange(data: any[]) {
-    
-    this.deviceData = data;
-    console.log('ssssssss', this.deviceData);
-    
+  ngOnInit(): void {
+    this.loadDeviceData();
   }
 
   @ViewChild('appDevices') appDevices: DevicesComponent;
@@ -40,64 +38,88 @@ export class AssestComponent {
     }
   }
 
-  rowData = [
-    {
-      " ": " ",
-      "Brand": "hello00",
-      "Operating System": "Windows 10",
+  loadDeviceData() {
+    this.deviceService.getDevicesCyg().subscribe(
+      (data) => {
+        this.deviceData = data;
+        console.log('All Device Data', data);
+        this.setRowData();
+        console.log('Row Data', this.rowData);
+      },
+      (error) => {
+        console.error('Error fetching device data', error);
+      }
+    );
+  }
+
+  setRowData() {
+    for (var i = 0; i < this.deviceData.length; i++) {
+      this.rowData[i] = {
+        "SNo": i+1,
+        "Brand": this.deviceData[i].brand,
+        "Operating System": this.deviceData[i].os,
+        "Model No": this.deviceData[i].modelNo,
+        "Processor": this.deviceData[i].processor,
+        "Ram (GB)": this.deviceData[i].ram,
+        "Storage": this.deviceData[i].storage,
+        "Serial No": this.deviceData[i].serialNumber,
+        "CYG ID": this.deviceData[i].cygid,
+        "# Stock Count": '-',
+        "Date of Purchase": this.deviceData[i].purchasedDate,
+        "# Total": '-',
+        "# Assigned": '-',
+        "# Inventory": '-',
+        "Warranty (in Years)": this.deviceData[i].warrantyDate,
+        "Assigned To": this.deviceData[i].assignedToName,
+        "Assigned Date": this.deviceData[i].assignedDate,
+        "Device Status": this.deviceData[i].status,
+        "Action": '-',
+        "Stock Status": '-'
+      }
+
+    }
+  }
+
+  //rowData = [
+  //  {
+  //    " ": " ",
+  //    "Brand": "hello00",
+  
+  //  },
+  //  {
+  //    " ": " ",
+  //    "Brand": "hello",
+  //    "Operating System": "macOS Monterey",
       
-      "Model No": "Dell Precision 3470",
-      "Processor": "Intel Core i7",
-      "Ram (GB)": "16GB",
-      "Storage": "512GB ",
-      "Serial No": "ABC123",
-      "CYG ID": "1001",
-      "# Stock Count": 5,
-      "Date of Purchase": "2023-01-15",
-      "# Total": 5,
-      "# Assigned": 3,
-      "# Inventory": 2,
-      "Warranty (in Years)": 2,
-      "Assigned To": "John Doe",
-      "Assigned Date": "2023-01-20",
-      "Device Status": "Active",
-      "Action": "View",
-      "Stock Status": "In Stock"
-    },
-    {
-      " ": " ",
-      "Brand": "hello",
-      "Operating System": "macOS Monterey",
-      
-      "Model No": "MacBook Pro",
-      "Processor": "Apple M1 Pro",
-      "Ram (GB)": "16GB",
-      "Storage": "1TB ",
-      "Serial No": "XYZ456",
-      "CYG ID": "1002",
-      "# Stock Count": 8,
-      "Date of Purchase": "2023-02-10",
-      "# Total": 8,
-      "# Assigned": 5,
-      "# Inventory": 3,
-      "Warranty (in Years)": 3,
-      "Assigned To": "Jane Smith",
-      "Assigned Date": "2023-02-15",
-      "Device Status": "Active",
-      "Action": "View",
-      "Stock Status": "In Stock"
-    },
-    // Add more entries as needed...
-  ];
+  //    "Model No": "MacBook Pro",
+  //    "Processor": "Apple M1 Pro",
+  //    "Ram (GB)": "16GB",
+  //    "Storage": "1TB ",
+  //    "Serial No": "XYZ456",
+  //    "CYG ID": "1002",
+  //    "# Stock Count": 8,
+  //    "Date of Purchase": "2023-02-10",
+  //    "# Total": 8,
+  //    "# Assigned": 5,
+  //    "# Inventory": 3,
+  //    "Warranty (in Years)": 3,
+  //    "Assigned To": "Jane Smith",
+  //    "Assigned Date": "2023-02-15",
+  //    "Device Status": "Active",
+  //    "Action": "View",
+  //    "Stock Status": "In Stock"
+  //  },
+  //  // Add more entries as needed...
+  //];
 
 
   // Column Definitions: Defines & controls grid columns.
   colDefs: ColDef[] = [
     {
-      field: " ",
+      field: "SNo",
       resizable: false,
       suppressMovable: true,
-      width: 40
+      width: 65
     },
     {
       field: "Brand",
