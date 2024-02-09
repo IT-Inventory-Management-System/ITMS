@@ -54,6 +54,14 @@ export class AssestComponent {
 
   setRowData() {
     for (var i = 0; i < this.deviceData.length; i++) {
+
+      let statusHTML = '';
+      if (this.deviceData[i].status === 'Assigned') {
+        statusHTML = '<div class="assigned-status">Assigned</div>';
+      } else if (this.deviceData[i].status === 'Not Assigned') {
+        statusHTML = '<div class="not-assigned-status">Not Assigned</div>';
+      }
+
       this.rowData[i] = {
         "SNo": i+1,
         "Brand": this.deviceData[i].brand,
@@ -64,17 +72,17 @@ export class AssestComponent {
         "Storage": this.deviceData[i].storage,
         "Serial No": this.deviceData[i].serialNumber,
         "CYG ID": this.deviceData[i].cygid,
-        "# Stock Count": '-',
+        /*"# Stock Count": '-',*/
         "Date of Purchase": this.deviceData[i].purchasedDate,
-        "# Total": '-',
-        "# Assigned": '-',
-        "# Inventory": '-',
+        //"# Total": '-',
+        //"# Assigned": '-',
+        //"# Inventory": '-',
         "Warranty (in Years)": this.deviceData[i].warrantyDate,
         "Assigned To": this.deviceData[i].assignedToName,
         "Assigned Date": this.deviceData[i].assignedDate,
-        "Device Status": this.deviceData[i].status,
+        "Device Status": statusHTML,
         "Action": '-',
-        "Stock Status": '-'
+        //"Stock Status": '-'
       }
 
     }
@@ -134,17 +142,17 @@ export class AssestComponent {
     { field: "Storage", width: 103, resizable: false, suppressMovable: true, },
     { field: "Serial No", width: 160, resizable: false, suppressMovable: true, },
     { field: "CYG ID", width: 120, resizable: false, suppressMovable: true, },
-    { field: "# Stock Count", width: 125, resizable: false, suppressMovable: true, },
+    /*{ field: "# Stock Count", width: 125, resizable: false, suppressMovable: true, },*/
     { field: "Date of Purchase", width: 170, resizable: false, suppressMovable: true, },
-    { field: "# Total", width: 100, resizable: false, suppressMovable: true, },
-    { field: "# Assigned", width: 109, resizable: false, suppressMovable: true, },
-    { field: "# Inventory", width: 142, resizable: false, suppressMovable: true, },
+    //{ field: "# Total", width: 100, resizable: false, suppressMovable: true, },
+    //{ field: "# Assigned", width: 109, resizable: false, suppressMovable: true, },
+    //{ field: "# Inventory", width: 142, resizable: false, suppressMovable: true, },
     { field: "Warranty (in Years)", width: 152, resizable: false, suppressMovable: true, },
     { field: "Assigned To", width: 140, resizable: false, suppressMovable: true, },
     { field: "Assigned Date", width: 129, resizable: false, suppressMovable: true, },
-    { field: "Device Status", width: 119, resizable: false, suppressMovable: true, },
+    { field: "Device Status", width: 119, resizable: false, suppressMovable: true, pinned: 'right' },
     { field: "Action", width: 83, resizable: false, suppressMovable: true, },
-    { field: "Stock Status", pinned: 'right', cellStyle: { 'border': 'none' }, width: 122, resizable: false, suppressMovable: true, }
+    /* { field: "Stock Status", pinned: 'right', cellStyle: { 'border': 'none' }, width: 122, resizable: false, suppressMovable: true, }*/
 
   ];
   filename = 'ExcelSheet.xlsx';
