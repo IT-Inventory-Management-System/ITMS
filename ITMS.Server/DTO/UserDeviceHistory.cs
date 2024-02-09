@@ -3,8 +3,10 @@ namespace ITMS.Server.DTO
 {
     public class UserDeviceHistory
     {
-        public Guid DeviceId { get; set; } //JUST ONE CHANGE
+        public Guid? DeviceId { get; set; } //JUST ONE CHANGE
         public Guid DeviceLogId { get; set; } //just one change adding the DeviceLogId
+
+        public string CategoryName { get; set; } //new
         public string cygid { get; set; }
         public string Model { get; set; }
 
