@@ -45,6 +45,12 @@
   align-self: stretch;
 }
 
+input {
+  border: none; /* Remove border */
+  outline: none; /* Remove outline */
+  box-shadow: none; /* Remove box shadow */
+}
+
 .Adduser-text {
   color: #1E1E1E;
   font-family: Roboto;
