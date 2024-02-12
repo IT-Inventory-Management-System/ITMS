@@ -2,12 +2,15 @@ using ITMS.Server.Models;
 using ITMS.Server.Services;
 using Microsoft.EntityFrameworkCore;
 using MiNET.Blocks;
+using static Azure.Core.HttpHeader;
 using static ITMS.Server.Services.GetSoftwareService;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddScoped<AddDeviceService>();
+builder.Services.AddScoped<EmployeeService>();
+
 builder.Services.AddControllers();
 builder.Services.AddControllersWithViews()
     .AddNewtonsoftJson(options =>

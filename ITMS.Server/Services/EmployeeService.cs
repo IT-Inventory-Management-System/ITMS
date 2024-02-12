@@ -1,4 +1,6 @@
-﻿using ITMS.Server.Models;
+﻿using ITMS.Server.DTO;
+using ITMS.Server.Models;
+using LibNoise.Modifier;
 using Microsoft.EntityFrameworkCore;
 
 namespace ITMS.Server.Services
@@ -7,7 +9,7 @@ namespace ITMS.Server.Services
     //{
     //    public DevicelogDto GetDevices(Guid id);
     //}
-        public class EmployeeService
+    public class EmployeeService
     {
         private readonly ItinventorySystemContext _context;
 
@@ -15,6 +17,28 @@ namespace ITMS.Server.Services
         {
             _context = context;
         }
+
+        public void PutUsers(List<PutNewUsers> listOfUsers)
+        {
+            foreach (PutNewUsers singleUser in listOfUsers)
+            {
+                Employee employee = new Employee();
+                employee.FirstName = singleUser.FirstName;
+                employee.LastName = singleUser.LastName;
+                employee.Email = singleUser.Email;
+                employee.Cgiid = singleUser.Cgiid;
+                employee.RoleId = _context.Roles.FirstOrDefault(s => s.Name == "User").Id;
+                employee.CreatedBy = singleUser.CreatedBy;
+                employee.CreatedAtUtc = DateTime.UtcNow;
+                employee.UpdatedBy = singleUser.UpdatedBy;
+                employee.UpdatedAtUtc = DateTime.UtcNow;
+                employee.LocationId = singleUser.LocationId;
+                _context.Employees.Add(employee);
+            }
+            _context.SaveChanges();
+            return;
+        }
+
 
         public DevicelogDto GetDevices(Guid id)
         {
@@ -28,14 +52,14 @@ namespace ITMS.Server.Services
                 return null;
             }
 
-//public class EmployeeService
-//{
-//    private readonly ItinventorySystemContext _context;
+            //public class EmployeeService
+            //{
+            //    private readonly ItinventorySystemContext _context;
 
-//    public EmployeeService(ItinventorySystemContext context)
-//    {
-//        _context = context;
-//    }
+            //    public EmployeeService(ItinventorySystemContext context)
+            //    {
+            //        _context = context;
+            //    }
 
             //.Where(log => log.AssignedTo == id)
             //.Include(d => d.DeviceModel)
@@ -53,31 +77,31 @@ namespace ITMS.Server.Services
             //                        .Where(employee => employee.Id == c.CreatedBy)
             //.Select(employee => $"{employee.FirstName} {employee.LastName}")
             //                        .FirstOrDefault(),
-//                    AssignedDate = (DateTime)log.Device.AssignedDate,
-//                    Comments = _context.Comments
-//                        .Where(comment => comment.DeviceId == log.Device.Id)
-//                        .Select(c => new CommentDto
-//                        {
-//                            Id = c.Id,
-//                            Description = c.Description,
-//                            CreatedBy = _context.Employees
-//                                .Where(employee => employee.Id == c.CreatedBy)
-//                                .Select(employee => $"{employee.FirstName} {employee.LastName}")
-//                                .FirstOrDefault(),
-//                            CreatedAt = c.CreatedAtUtc
-//                        })
-//                        .ToList(),
-//                })
-//                .ToList();
+            //                    AssignedDate = (DateTime)log.Device.AssignedDate,
+            //                    Comments = _context.Comments
+            //                        .Where(comment => comment.DeviceId == log.Device.Id)
+            //                        .Select(c => new CommentDto
+            //                        {
+            //                            Id = c.Id,
+            //                            Description = c.Description,
+            //                            CreatedBy = _context.Employees
+            //                                .Where(employee => employee.Id == c.CreatedBy)
+            //                                .Select(employee => $"{employee.FirstName} {employee.LastName}")
+            //                                .FirstOrDefault(),
+            //                            CreatedAt = c.CreatedAtUtc
+            //                        })
+            //                        .ToList(),
+            //                })
+            //                .ToList();
 
-//            return devicesWithComments;
-//        }
-//        catch (Exception ex)
-//        {
-//            Console.WriteLine(ex.Message);
-//            return null;
-//        }
-//    }
+            //            return devicesWithComments;
+            //        }
+            //        catch (Exception ex)
+            //        {
+            //            Console.WriteLine(ex.Message);
+            //            return null;
+            //        }
+            //    }
 
             //                        CreatedAt = c.CreatedAtUtc
             //                    })
