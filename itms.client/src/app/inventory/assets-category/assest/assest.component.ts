@@ -105,7 +105,26 @@ export class AssestComponent {
       width: 117,
       suppressMovable: true
     },
-    { field: "Operating System", width: 144, resizable: false, suppressMovable: true },
+    {
+      field: "Operating System", width: 144, resizable: false, suppressMovable: true,
+      cellStyle: (params) => {
+    // Check if the value in "Operating System" column is equal to "Windows 10"
+    if (params.data && params.data['Operating System'] === 'Windows 10') {
+      return { 
+        "background-color": "green",
+        "color": "white", // Example color style
+        "padding": "10px",// Example padding style
+
+      };
+    } else {
+      return { 
+        "background-color": "black", 
+        "color": "white", // Example color style
+        "padding": "10px", // Example padding style
+      };
+    }
+  }
+    },
     { field: "Model No", width: 164, resizable: false, suppressMovable: true, },
     { field: "Processor", width: 350, resizable: false, suppressMovable: true, },
     { field: "Ram (GB)", width: 120, resizable: false, suppressMovable: true, },

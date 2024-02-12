@@ -85,6 +85,7 @@ import { TableViewComponent } from './shared/components/table-view/table-view.co
 import { LaptopRevokeComponent } from './user-details/laptop-revoke/laptop-revoke.component';
 import { AccessoriesRevokeComponent } from './user-details/accessories-revoke/accessories-revoke.component';
 import { SoftwareRevokeComponent } from './user-details/software-revoke/software-revoke.component';
+import { AddMouseBrandFormComponent } from './app/add-asset/add-device-form/add-mouse-brand-form/add-mouse-brand-form.component';
 
 
 
@@ -167,6 +168,7 @@ import { SoftwareRevokeComponent } from './user-details/software-revoke/software
     LaptopRevokeComponent,
     AccessoriesRevokeComponent,
     SoftwareRevokeComponent,
+    AddMouseBrandFormComponent,
 
 
 
