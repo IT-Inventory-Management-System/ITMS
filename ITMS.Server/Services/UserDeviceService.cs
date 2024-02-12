@@ -58,11 +58,12 @@ public class UserDeviceService
            .Include(e => e.Employee)
            .Include(d => d.Device)
                .ThenInclude(dm => dm.DeviceModel)
+               .Where(log => log.Device.DeviceModel.Category.Name == "Laptop" && log.SoftwareAllocation == null) // Filter devices by category
            .Select(log => new UserDeviceHistory
            {
                DeviceLogId = log.Id,
                DeviceId = log.DeviceId,
-
+               CategoryName = log.Device.DeviceModel.Category.Name,
                cygid = log.Device.Cygid,
                Model = log.Device.DeviceModel.ModelNo,
                AssignBy = _dbContext.Employees

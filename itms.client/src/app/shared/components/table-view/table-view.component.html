@@ -8,7 +8,8 @@
 </div>
 
 <ag-grid-angular class="ag-theme-quartz"
-                 style="height: 65vh; width: 73rem;"
+                 [style.height.px]="calculateGridHeight()"
+                 style=" width: 73rem;"
                  [rowData]="rowData"
                  [columnDefs]="colDefs">
 </ag-grid-angular>

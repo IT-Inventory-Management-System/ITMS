@@ -2,9 +2,11 @@
 {
     public class UserSoftwareHistory
     {
-        public Guid SoftwareAllocationId { get; set; } //new
+        public Guid DeviceLogId { get; set; } //change
+        public Guid? SoftwareAllocationId { get; set; } //change
         public string TypeName { get; set; }
         public string SoftwareName { get; set; }
+        public string? Version { get; set; } //new 
         public string AssignBy { get; set; }
         public string? AssignedTo { get; set; }
         //public DateTime? SubmitedByDate { get; set; }
@@ -13,6 +15,8 @@
 
         public DateTime? ExpiryDate { get; set; } //new
         public int RemainingDays { get; set; } //new
+        public string? RecievedBy { get; set; } //new 
+        public DateTime? RecievedByDate { get; set; } //new
         public List<CommentDto> Comments { get; set; } //change here
     }
 }

@@ -1,4 +1,5 @@
-﻿using ITMS.Server.Models;
+﻿using ITMS.Server.DTO;
+using ITMS.Server.Models;
 using ITMS.Server.Services;
 using ITMS.Server.ViewModel;
 using Microsoft.AspNetCore.Http;
@@ -92,5 +93,34 @@ namespace ITMS.Server.Controllers
             }
 
         }
+        [HttpPost("AddMouseModel")]
+        public ActionResult AddMouseModel([FromBody] PostMouseModelDTO mouseModel)
+        {
+            try
+            {
+                _deviceService.AddMouseModel(mouseModel);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+        }
+
+        [HttpPost("AddMouse")]
+        public ActionResult AddMouse([FromBody] PostMouseDTO mouseModel)
+        {
+            try
+            {
+                _deviceService.AddMouse(mouseModel);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+        }
+
+
     }
 }

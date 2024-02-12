@@ -22,38 +22,41 @@ namespace ITMS.Server.Services
         {
             try
             {
-                var deviceAccessoriesList = _context.Devices
-                    .Where(device => device.AssignedTo == id && device.DeviceModel.Category.Name != "Laptop")
-                    .Include(device => device.DeviceModel)
-                        .ThenInclude(model => model.Category)
-                            .ThenInclude(category => category.CategoryType)
-                    .Select(device => new UserAccessoriesHistory
+                var accessoriesList = _context.DevicesLogs
+                    .Where(log => log.EmployeeId == id && log.Device.DeviceModel.Category.Name != "Laptop" && log.SoftwareAllocation == null)
+                    .Include(log => log.Device)
+                        .ThenInclude(device => device.DeviceModel)
+                            .ThenInclude(model => model.Category)
+                                .ThenInclude(category => category.CategoryType)
+                    .Select(log => new UserAccessoriesHistory
                     {
-                        DeviceId = device.Id,
-                        DeviceName = device.DeviceModel.DeviceName,
-                        Brand = device.DeviceModel.Brand,
-                        ModelNo = device.DeviceModel.ModelNo,
-                        CategoryName = device.DeviceModel.Category.Name,
-                        CategoryType = device.DeviceModel.Category.CategoryType.TypeName,
+                        DeviceLogId = log.Id,
+                        DeviceId = log.DeviceId,
+
+                        DeviceName = log.Device.DeviceModel.DeviceName,
+                        Brand = log.Device.DeviceModel.Brand,
+                        ModelNo = log.Device.DeviceModel.ModelNo,
+                        CategoryName = log.Device.DeviceModel.Category.Name,
+                        CategoryType = log.Device.DeviceModel.Category.CategoryType.TypeName,
                         AssignBy = _context.Employees
-                            .Where(employee => employee.Id == device.AssignedBy)
+                            .Where(employee => employee.Id == log.AssignedBy)
                             .Select(employee => $"{employee.FirstName} {employee.LastName}")
                             .FirstOrDefault(),
-                        AssignedDate = device.AssignedDate,
                         AssignedTo = _context.Employees
-                            .Where(employee => employee.Id == device.AssignedTo)
+                            .Where(employee => employee.Id == log.EmployeeId)
                             .Select(employee => $"{employee.FirstName} {employee.LastName}")
                             .FirstOrDefault(),
-                        isWired = device.DeviceModel.IsWired,
+                        AssignedDate = log.AssignedDate,
+                        isWired = log.Device.DeviceModel.IsWired,
                         SubmittedBy = _context.Employees
-                            .Where(employee => employee.Id == device.RecievedBy)
+                            .Where(employee => employee.Id == log.RecievedBy)
                             .Select(employee => $"{employee.FirstName} {employee.LastName}")
                             .FirstOrDefault(),
-                        SubmittedByDate = device.RecievedDate
+                        SubmittedByDate = log.RecievedDate
                     })
                     .ToList();
 
-                return deviceAccessoriesList;
+                return accessoriesList;
             }
             catch (Exception ex)
             {
@@ -62,7 +65,6 @@ namespace ITMS.Server.Services
             }
         }
 
+
     }
-
-
-}
+    }
