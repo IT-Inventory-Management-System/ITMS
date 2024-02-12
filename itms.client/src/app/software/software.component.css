@@ -343,7 +343,14 @@
   font-weight: 400;
   line-height: normal;
   flex: 1 0 0;
+  border: none; /* Remove the border */
 }
+  .input-text::placeholder {
+    border: none; /* Remove the border */
+  }
+  .input-text:focus {
+    outline: none;
+  }
 
 .sub-category {
   display: flex;
@@ -351,6 +358,7 @@
   align-items: flex-start;
   gap: 0.5rem;
   align-self: stretch;
+  overflow-y: scroll;
 }
 .specification {
   display: flex;
@@ -389,7 +397,7 @@
   align-items: flex-start;
   gap: 1rem;
   align-self: stretch;
-  overflow-y:scroll;
+  overflow-y: scroll;
 }
 
 .status-text {
