@@ -10,10 +10,23 @@ export class SoftwareComponent implements OnInit {
   selectedView: string = 'card';
   softwaresData: any[];
 
+  filteredSoftware: any[]
+  filterValues: string = '';
+
+  applySoftwareFilter(event: Event) {
+    this.filterValues = (event.target as HTMLInputElement).value;
+    this.filteredSoftware = this.softwaresData.filter((software) =>
+      software.name.toLowerCase().includes(this.filterValues.toLowerCase())
+    );
+  }
+
+
   constructor(private softwareService: SoftwareService) { } // Injecting SoftwareService
 
   ngOnInit(): void {
     this.getSoftwaresData();
+    this.filteredSoftware = this.softwaresData;
+
   }
 
   getSoftwaresData(): void {

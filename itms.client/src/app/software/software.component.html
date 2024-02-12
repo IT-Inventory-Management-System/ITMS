@@ -73,12 +73,15 @@
           <div class="input">
             <div class="input-frame">
               <img src="../../../assets/icons/Software/Search.svg" />
-              <span class="input-text">Search Software</span>
+              <input class="input-text"  placeholder="Search software" [(ngModel)]="filterValues"
+                         (input)="applySoftwareFilter($event)"/>
             </div>
           </div>
         </div>
-        <div class="sub-category " *ngFor="let software of softwaresData">
+        <div class="sub-category  " >
+          <div *ngFor="let software of filteredSoftware? filteredSoftware : softwaresData " >
           <app-software-name [softwareData]="software"></app-software-name>
+          </div>
         </div>
 
       </div>
@@ -86,7 +89,7 @@
 
     <div class="specification ">
       <div class="summary">
-        <span class="software-summary">Software Summary</span>
+        <span class="software-summary ">Software Summary</span>
       </div>
       <div class="specification-div  ">
         <div class="status-archive ">
