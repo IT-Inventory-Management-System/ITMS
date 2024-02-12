@@ -1,6 +1,3 @@
-
-
-
 <div>
   <div>
     <button type="button" (click)="openModal('exampleModal' + laptopDetails.deviceId)" class="btn revoke-button" data-bs-toggle="modal" [attr.data-bs-target]="'#exampleModal' + laptopDetails.deviceId">
@@ -13,29 +10,61 @@
  <div class="modal fade" [id]="'exampleModal' + laptopDetails.deviceId" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
 
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Revoke</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="CloseModal('exampleModal' + laptopDetails.deviceId)"></button>
         </div>
+
         <div class="modal-body">
-          <p>{{cgiid}}</p>
-          <p>{{firstName}}</p>
-          <p>{{lastName}}</p>
-          <p>{{laptopDetails.cygid}}</p>
-          <p>{{laptopDetails.deviceId}}</p>
-          <p>{{laptopDetails.deviceLogId}}</p>
-          <p>{{laptopDetails.model}}</p>
-          <p>{{laptopDetails.osName}}</p>
-          <p>{{laptopDetails.processor}}</p>
-          <p>{{laptopDetails.ram}}</p>
-          <p>{{laptopDetails.storage}}</p>
-          <p>{{laptopDetails.deviceAge}} years</p>
+          <div class="user-details">
+            <ngx-avatars name="{{firstName}} {{lastName}}" [textSizeRatio]=3.4 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="46"></ngx-avatars>
+            <div class="user-firstname-lastname-id">
+              <div class="user-firstname-lastname">{{firstName}} {{lastName}}</div>
+              <div class="user-cgiid">{{cgiid}}</div>
+            </div>
+          </div>
+       
+
+          <div class="assigned-device-detail-box">
+            <div class="assigned-device-heading">Assigned Device Detail</div>
+            <div class="details">
+              <p>{{laptopDetails.cygid}}</p>
+              <p>{{laptopDetails.deviceId}}</p>
+              <p>{{laptopDetails.deviceLogId}}</p>
+              <p>{{laptopDetails.model}}</p>
+              <p>{{laptopDetails.osName}}</p>
+              <p>{{laptopDetails.processor}}</p>
+              <p>{{laptopDetails.submitedBy}}</p>
+              <div class="storage-details">
+                <p>{{laptopDetails.ram}}</p>
+                <p>{{laptopDetails.storage}}</p>
+                <p>{{laptopDetails.deviceAge}} years</p>
+              </div> 
+            </div>  
+          </div>
+
+          <div class="device-recieved">
+            <p>Device Recieved <span class="star">*</span></p>
+            <input type="radio" id="html" name="fav_language" value="HTML">
+            <label for="html">Yes</label>
+
+            <input type="radio" id="css" name="fav_language" value="CSS">
+            <label for="css">No</label>
+          </div>
+
+          <div class="comment-box">
+           <p>Comment <span class="star">*</span></p>
+           <input type="text" class="input-box" [(ngModel)]="newComment" placeholder="Type Here..." />
+          </div>
+
         </div>
+
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="CloseModal('exampleModal' + laptopDetails.deviceId)">Close</button>
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" >Save changes</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="saveCommentAndFetchComments()">Save changes</button>
         </div>
+
       </div>
     </div>
   </div>
