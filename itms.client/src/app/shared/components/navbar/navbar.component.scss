@@ -44,6 +44,27 @@
   text-align: center;
 }
 
+.Asset-div {
+  background: #FFF;
+  display: flex;
+  padding: 0.375rem 0.875rem 0.375rem 0.75rem;
+  align-items: center;
+  gap: 0.5rem;
+  align-self: stretch;
+}
+
+.Asset-text {
+  color: var(--Secondary-Gray, #B2B2B3);
+  leading-trim: both;
+  text-edge: cap;
+  font-family: Roboto;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.5rem; /* 171.429% */
+  text-transform: uppercase;
+}
+
 .additional-options {
   border-radius: 0.25rem;
   top: 3rem;
