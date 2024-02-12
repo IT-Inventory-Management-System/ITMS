@@ -9,6 +9,7 @@ import { SoftwareService } from '../shared/services/Software.service';
 export class SoftwareComponent implements OnInit {
   selectedView: string = 'card';
   softwaresData: any[];
+  version: string[];
 
   filteredSoftware: any[]
   filterValues: string = '';

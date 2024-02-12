@@ -26,7 +26,12 @@ namespace ITMS.Server.Services
                 .SelectMany(s => s.Softwares.Select(software => new SoftwarePage
                 {
                     name = software.SoftwareName,
-                    version = software.SoftwareAllocations.Select(sa => sa.Version).FirstOrDefault(),
+                    SoftwareThumbnail = software.SoftwareThumbnail,
+                    version = software.SoftwareAllocations
+                             .Where(sa => sa.SoftwareId == software.Id) 
+                             .Select(sa => sa.Version)
+                             .Distinct()
+                             .ToList(),
                     type =s.TypeName
                 }));
 
