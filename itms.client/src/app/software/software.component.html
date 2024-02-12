@@ -66,22 +66,32 @@
 
   </div>-->
   </div>
-  <div class="software  ">
+  <div class="software  " >
     <div class="category ">
-      <div class="category-div ">
+      <div class="category-div " >
         <div class="text-field">
-          <div class="input">
-            <div class="input-frame">
+          <div class="input" >
+            <div class="input-frame" >
               <img src="../../../assets/icons/Software/Search.svg" />
               <span class="input-text">Search Software</span>
             </div>
           </div>
         </div>
         <div class="sub-category " *ngFor="let software of softwaresData">
-          <app-software-name [softwareData]="software"></app-software-name>
-        </div>
+          <!--<div *ngFor="let version of software.version">-->
 
-      </div>
+            <app-software-name [softwareData]="software"></app-software-name>
+
+            <!--<div class="versiondiv">
+              <div class="versiondiv-text">
+                {{ version }}
+              </div>
+            </div>-->
+
+
+          <!--</div>-->
+        </div>
+        </div>
     </div>
 
     <div class="specification ">

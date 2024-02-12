@@ -1,23 +1,26 @@
-<div class="software-name">
-  <div class="icon-name">
-    <div class="software-icon">
-      <img src="../../../assets/icons/Software/Microsoft.svg" />
-    </div>
-    <div class="softwarename">
-      {{ softwareData.name}}
-    </div>
-  </div>
-  <div class="type">
-    <div class="typename">
-      <div class="subtypename">
-        <div class="typetext">
-          {{ softwareData.type }}
-        </div>
+<div *ngFor="let version of softwareData.version">
+  <div class="software-name">
+    <div class="icon-name">
+      <div class="software-icon">
+        <img *ngIf="softwareData.softwareThumbnail" [src]="'data:image/png;base64,' + softwareData.softwareThumbnail" alt="Software Image" />
+        <!--<img src="../../../assets/icons/Software/Microsoft.svg" />-->
+      </div>
+      <div class="softwarename">
+        {{ softwareData.name}}
       </div>
     </div>
-    <div class="versiondiv">
-      <div class="versiondiv-text">
-        {{ softwareData.version }}
+    <div class="type">
+      <div class="typename">
+        <div class="subtypename">
+          <div class="typetext">
+            {{ softwareData.type }}
+          </div>
+        </div>
+      </div>
+      <div class="versiondiv">
+        <div class="versiondiv-text">
+          {{ version }}
+        </div>
       </div>
     </div>
   </div>
