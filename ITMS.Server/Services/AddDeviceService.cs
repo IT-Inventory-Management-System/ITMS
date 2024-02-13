@@ -14,6 +14,9 @@ namespace ITMS.Server.Services;
     void AddSoftwareAllocation(PutSofwareAllocation sofwareAllocation);
     void AddSoftware(PutSoftware software);
     void AddDeviceModel (PutDeviceModel model);
+    void AddMouseModel(PostMouseModelDTO mouseModel);
+    void AddMouse(PostMouseDTO mouseModel);
+
     Task<List<LaptopModelDTO>> GetLaptopModelsAsync();
     Task<List<SoftwareModelDTO>> GetSoftwareModelsAsync();
 }
@@ -35,7 +38,7 @@ public class AddDeviceService : IDeviceService
             for (int i = 0; i < device.Qty; i++)
             {
                 Device inventoriesItem = new Device();
-                inventoriesItem.SerialNumber = device.SerialNumberList[i].ToString();
+                inventoriesItem.SerialNumber = device.SerialNumberList[i];
                 inventoriesItem.Cygid = device.CYGIdsList[i];
                 inventoriesItem.DeviceModelId = device.DeviceModelId; 
                 //inventoriesItem.os = inventariesItem.os;
@@ -156,5 +159,46 @@ public class AddDeviceService : IDeviceService
             }
             _context.SaveChanges();
         }
+    public void AddMouseModel(PostMouseModelDTO mouseModel)
+    {
+        DeviceModel deviceModel = new DeviceModel
+        {
+            Brand = mouseModel.brand,
+
+            IsWired = mouseModel.iswired,
+            CategoryId = mouseModel.categoryId,
+            CreatedBy = mouseModel.createdBy,
+            CreatedAtUtc = mouseModel.createdAt,
+            UpdatedBy = mouseModel.updatedBy,
+            UpdatedAtUtc = mouseModel.updatedAt,
+            IsArchived = mouseModel.isArchived,
+        };
+        _context.DeviceModel.Add(deviceModel);
+        _context.SaveChanges();
     }
+
+    public void AddMouse(PostMouseDTO mouseModel)
+    {
+        //List<Inventory> inventories = new List<Inventory>();
+
+        for (int i = 0; i <mouseModel.qty; i++)
+        {
+            Device inventoriesItem = new Device();
+            inventoriesItem.Cygid = mouseModel.deviceId[i].ToString();
+            inventoriesItem.DeviceModelId = mouseModel.deviceModelId;
+            inventoriesItem.Status = mouseModel.status;
+            inventoriesItem.CreatedBy = mouseModel.createdBy;
+            inventoriesItem.CreatedAtUtc = mouseModel.createdAt;
+            inventoriesItem.UpdatedBy = mouseModel.updatedBy;
+            inventoriesItem.UpdatedAtUtc = DateTime.UtcNow;
+            inventoriesItem.IsArchived = mouseModel.isArchived;
+            inventoriesItem.LocationId = mouseModel.locationId;
+            _context.Devices.Add(inventoriesItem);
+
+        }
+        //_context.Devices.Add(device);
+        _context.SaveChanges();
+    }
+}
+
 

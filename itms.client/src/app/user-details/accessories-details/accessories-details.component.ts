@@ -9,6 +9,10 @@ import { EmployeeService } from '../../shared/services/Employee.service';
 export class AccessoriesDetailsComponent {
   @Input() userId: any;
   accessoriesDetails: any;
+  @Input() firstName: any;
+  @Input() lastName: any;
+  @Input() cgiid: any;
+
   MostRecentAccessory: any; 
 
   constructor(private employeeService: EmployeeService) { }
