@@ -17,7 +17,7 @@ export class LaptopRevokeComponent {
   comments: any;
   loggedUser: any;
 
-  constructor(private commentService: EmployeeService) {
+  constructor(private commentService: EmployeeService, private deviceLogService: EmployeeService) {
     const storedUser = localStorage.getItem("user");
     if (storedUser !== null) {
       this.loggedUser = JSON.parse(storedUser);
@@ -25,6 +25,24 @@ export class LaptopRevokeComponent {
   }
 
   saveCommentAndFetchComments() {
+
+    const var1 = this.laptopDetails.deviceLogId;
+    const var2 = this.loggedUser.id;
+    this.deviceLogService.updateRecievedBy(var1, var2).subscribe(
+      (response) => {
+        
+        console.log(response);
+        if (response && response.receivedBy) {
+          const { firstName, lastName, recievedDate } = response.receivedBy;
+          this.laptopDetails.submitedBy = `${firstName} ${lastName}`;
+          this.laptopDetails.submitedByDate = `${recievedDate}`;
+        }
+        
+      },
+      (error) => {
+        console.error('Error :', error);
+      }
+    )
 
     if (this.newComment) {
       const commentDto = {
@@ -51,13 +69,6 @@ export class LaptopRevokeComponent {
       );
       this.newComment = '';
     }
-
-
-
-    console.log("Device Log Id: ", this.laptopDetails.deviceLogId);
-    console.log("RecievedBy Id: ", this.loggedUser.id);
-
-    
 
 
   }
