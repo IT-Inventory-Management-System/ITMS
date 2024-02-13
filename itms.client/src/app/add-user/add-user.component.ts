@@ -13,6 +13,8 @@ export class AddUserComponent implements OnInit {
   showErrorMessage: boolean = false;
   previousDisabled: boolean = true;
   addAnotherClicked: boolean = false;
+  userAddedCount = 0;
+
 
 
   list: FormGroup[] = [];
@@ -99,6 +101,7 @@ export class AddUserComponent implements OnInit {
 
   cancel(): void {
     this.previousDisabled = true;
+    this.userAddedCount = 0;
   }
 
   addNew(): void {
@@ -110,6 +113,7 @@ export class AddUserComponent implements OnInit {
     this.addNew();
     this.addAnotherClicked = true;
     this.previousDisabled = false;
+    this.userAddedCount++;
   }
 
   onSubmit(): void {
@@ -137,6 +141,8 @@ export class AddUserComponent implements OnInit {
         //this.toastr.error("Error in posting data");
       }
     );
+    this.userAddedCount = 0;
+
   }
 
   //console.log('User forms submitted:', this.userForm.map(form => form.value));
