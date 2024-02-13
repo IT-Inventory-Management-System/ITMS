@@ -50,7 +50,7 @@ namespace ITMS.Server.Services
                         CreatedBy = deviceLog.CreatedBy,
                         CreatedAtUtc = DateTime.UtcNow,  
                         UpdatedBy = deviceLog.UpdatedBy,
-                        UpdatedAtUtc = deviceLog.UpdatedAtUtc,
+                        UpdatedAtUtc = DateTime.UtcNow,
                         ActionId = deviceLog.ActionId,
                         SoftwareAllocation = deviceLog.SoftwareAllocation,
                         CreatedByNavigation = deviceLog.CreatedByNavigation,

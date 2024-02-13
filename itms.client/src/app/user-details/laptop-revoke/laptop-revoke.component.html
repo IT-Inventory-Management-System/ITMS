@@ -7,13 +7,13 @@
 
   </div>
 
- <div class="modal fade" [id]="'exampleModal' + laptopDetails.deviceId" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+ <div class="modal fade" [id]="'exampleModal' + laptopDetails.deviceId" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" (hidden.bs.modal)="handleModalClose()">
     <div class="modal-dialog">
       <div class="modal-content">
 
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Revoke</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="CloseModal('exampleModal' + laptopDetails.deviceId)"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
         <div class="modal-body">
@@ -24,7 +24,7 @@
               <div class="user-cgiid">{{cgiid}}</div>
             </div>
           </div>
-       
+
 
           <div class="assigned-device-detail-box">
             <div class="assigned-device-heading">Assigned Device Detail</div>
@@ -40,28 +40,54 @@
                 <p>{{laptopDetails.ram}}</p>
                 <p>{{laptopDetails.storage}}</p>
                 <p>{{laptopDetails.deviceAge}} years</p>
-              </div> 
-            </div>  
+              </div>
+            </div>
           </div>
 
           <div class="device-recieved">
-            <p>Device Recieved <span class="star">*</span></p>
-            <input type="radio" id="html" name="fav_language" value="HTML">
-            <label for="html">Yes</label>
 
-            <input type="radio" id="css" name="fav_language" value="CSS">
-            <label for="css">No</label>
+            <p>Item Received <span class="star">*</span></p>
+            <input type="radio" id="receivedYes" name="deviceReceived" value="Yes" (click)="showYesReasonOptions()">
+            <label for="receivedYes">Yes</label>
+
+            <input type="radio" id="receivedNo" name="deviceReceived" value="No" (click)="showNoReasonOptions()">
+            <label for="receivedNo">No</label>
           </div>
 
+
+          <div *ngIf="showYesReason" class="reason-options">
+            <p>Condition <span class="star">*</span></p>
+            <div>
+              <input type="radio" id="perfect" name="reasonOptions" value="Perfect">
+              <label for="perfect">Perfect</label>
+
+              <input type="radio" id="unassignable" name="reasonOptions" value="Unassignable">
+              <label for="unassignable">Unassignable</label>
+            </div>
+          </div>
+
+          <div *ngIf="showNoReason" class="reason-options">
+            <p>Reason <span class="star">*</span></p>
+            <div>
+              <input type="radio" id="submittedLater" name="reasonOptions" value="Submitted Later">
+              <label for="submittedLater">Will be submitted later</label>
+
+              <input type="radio" id="lostNotReceived" name="reasonOptions" value="Lost/Not Received" class="lost">
+              <label for="lostNotReceived">Lost/Not Recieved</label>
+            </div>
+          </div>
+
+
+
           <div class="comment-box">
-           <p>Comment <span class="star">*</span></p>
-           <input type="text" class="input-box" [(ngModel)]="newComment" placeholder="Type Here..." />
+            <p>Comment <span class="star">*</span></p>
+            <input type="text" class="input-box" [(ngModel)]="newComment" placeholder="Type Here..." />
           </div>
 
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="CloseModal('exampleModal' + laptopDetails.deviceId)">Close</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="saveCommentAndFetchComments()">Save changes</button>
         </div>
 

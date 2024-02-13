@@ -58,10 +58,10 @@ public class UserDeviceService
                .Include(e => e.Employee)
                .Include(d => d.Device)
                    .ThenInclude(dm => dm.DeviceModel)
-                   .Where(log => log.Device.DeviceModel.Category.Name == "Laptop" && log.SoftwareAllocation == null) // Filter devices by category
-                   .GroupBy(log => log.DeviceId)
-                    .Select(group => group.OrderBy(log => log.RecievedDate).FirstOrDefault()) // Select the record with the earliest SubmitedByDate within each group
-                    .Where(log => log.RecievedBy != null && log.RecievedDate != null) // Filter records where SubmitedBy and SubmitedByDate are not null
+                   .Where(log => log.Device.DeviceModel.Category.Name == "Laptop" && log.SoftwareAllocation == null) 
+                   .OrderByDescending(log => log.RecievedDate != null)
+                   .ThenByDescending(log => log.RecievedDate)
+                  
                .Select(log => new UserDeviceHistory
                {
                    DeviceLogId = log.Id,
@@ -88,22 +88,7 @@ public class UserDeviceService
                    Storage = log.Device.DeviceModel.Storage,
                    PurchasedDate = log.Device.PurchasedDate,
                    DeviceAge = Math.Round((DateTime.Today - (log.Device.PurchasedDate ?? DateTime.Today)).TotalDays / 365.0, 1),
-                   Comments = _dbContext.Comments
-                       .Where(comment => comment.DeviceId == log.Device.Id && comment.SoftwareAllocationId == null).OrderByDescending(c => c.CreatedAtUtc)
-                       .Select(c => new CommentDto
-                       {
-                           DeviceLogId = c.DeviceLogId,
-                           DeviceId = c.DeviceId,
-                           Id = c.Id,
-                           Description = c.Description,
-                           CreatedBy = _dbContext.Employees
-                               .Where(employee => employee.Id == c.CreatedBy)
-                               .Select(employee => $"{employee.FirstName} {employee.LastName}")
-                               .FirstOrDefault(),
-                           CreatedAt = c.CreatedAtUtc,
-
-                       })
-                       .ToList(),
+                   
                })
                .ToList();
 
@@ -113,9 +98,7 @@ public class UserDeviceService
         catch (Exception ex)
         {
             Console.WriteLine(ex.Message);
-            return null;
+            throw ex;
         }
     }
-
-
 }

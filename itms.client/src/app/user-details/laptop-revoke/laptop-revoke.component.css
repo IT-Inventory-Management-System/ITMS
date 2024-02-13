@@ -93,7 +93,7 @@
   }
 
   .device-recieved input[type="radio"] + label {
-    margin-right: 7rem; 
+    margin-right: 5rem; 
     font-size: 16px;
     top: 0;
   }
@@ -127,3 +127,19 @@
 .modal-body {
  height: 100%;
 }
+
+.reason-options {
+  margin-top: 1rem;
+}
+
+.reason-options input[type="radio"] {
+  margin-right: 0.5rem;
+  width: 20px;
+  height: 20px;
+}
+
+  .reason-options input[type="radio"] + label {
+    margin-right: 3rem;
+    font-size: 16px;
+    top: 0;
+  }

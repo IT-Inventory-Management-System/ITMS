@@ -36,6 +36,20 @@
   box-sizing: content-box;
 }
 
+.received-tag {
+  padding: 0.375rem 0.625rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 0rem 0.25rem;
+  background: #479C6B;
+  z-index: 2;
+  box-sizing: content-box;
+}
+
 .laptop-revoke-button {
   position: absolute;
   top: 0;
@@ -52,6 +66,16 @@
 
 .device-tag-info {
   color: #002c3f;
+  font-family: roboto;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-transform: uppercase;
+}
+
+.received-tag-info {
+  color: white;
   font-family: roboto;
   font-size: 0.875rem;
   font-style: normal;
@@ -113,3 +137,13 @@
     stroke: #002c3f;
     
   }
+
+.recieved-image{
+     margin-right: 0.3rem;
+     margin-bottom:0.3rem;
+}
+.fade-container {
+  opacity: 0.5; 
+  transition: opacity 0.3s ease; 
+  color: black;
+}

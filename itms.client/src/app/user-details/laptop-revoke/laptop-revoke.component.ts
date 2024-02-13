@@ -26,24 +26,26 @@ export class LaptopRevokeComponent {
 
   saveCommentAndFetchComments() {
 
-    const var1 = this.laptopDetails.deviceLogId;
-    const var2 = this.loggedUser.id;
-    this.deviceLogService.updateRecievedBy(var1, var2).subscribe(
-      (response) => {
-        
-        console.log(response);
-        if (response && response.receivedBy) {
-          const { firstName, lastName, recievedDate } = response.receivedBy;
-          this.laptopDetails.submitedBy = `${firstName} ${lastName}`;
-          this.laptopDetails.submitedByDate = `${recievedDate}`;
+    //if the item is recieved then only call the updateRecievedBy function otherwise do not call it
+    if ((document.getElementById('receivedYes') as HTMLInputElement).checked) {
+      const var1 = this.laptopDetails.deviceLogId;
+      const var2 = this.loggedUser.id;
+      this.deviceLogService.updateRecievedBy(var1, var2).subscribe(
+        (response) => {
+          console.log(response);
+          if (response && response.receivedBy) {
+            const { firstName, lastName, recievedDate } = response.receivedBy;
+            this.laptopDetails.submitedBy = `${firstName} ${lastName}`;
+            this.laptopDetails.submitedByDate = `${recievedDate}`;
+          }
+        },
+        (error) => {
+          console.error('Error :', error);
         }
-        
-      },
-      (error) => {
-        console.error('Error :', error);
-      }
-    )
+      );
+    }
 
+    //if it is a new comment
     if (this.newComment) {
       const commentDto = {
         description: this.newComment,
@@ -59,8 +61,8 @@ export class LaptopRevokeComponent {
         (response) => {
 
           console.log(response);
-          this.laptopDetails.comments.unshift(response);
-          console.log(this.laptopDetails.comments);
+          //this.laptopDetails.comments.unshift(response);
+          //console.log(this.laptopDetails.comments);
           this.newComment = '';
         },
         (error) => {
@@ -73,6 +75,35 @@ export class LaptopRevokeComponent {
 
   }
 
+  showYesReason: boolean = false;
+  showNoReason: boolean = false;
+
+  showYesReasonOptions() {
+    this.showYesReason = !this.showYesReason;
+    this.showNoReason = false;
+    
+  }
+
+  showNoReasonOptions() {
+    this.showNoReason = !this.showNoReason;
+    this.showYesReason = false;
+  }
+
+  resetRadioButtons() {
+    const radioButtons = document.getElementsByName("deviceReceived");
+    for (let i = 0; i < radioButtons.length; i++) {
+      (radioButtons[i] as HTMLInputElement).checked = false;
+    }
+    this.showYesReason = false;
+    this.showNoReason = false;
+  }
+
+  handleModalClose() {
+    this.resetRadioButtons();
+  }
+  
+
+
   openModal(modalId: string) {
     const modelDiv = document.getElementById(modalId);
     if (modelDiv != null) {
@@ -80,10 +111,5 @@ export class LaptopRevokeComponent {
     }
   }
 
-  CloseModal(modalId: string) {
-    const modelDiv = document.getElementById(modalId);
-    if (modelDiv != null) {
-      modelDiv.style.display = 'none';
-    }
-  }
+  
 }
