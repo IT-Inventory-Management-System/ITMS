@@ -32,7 +32,7 @@ namespace ITMS.Server.Services
                 employee.CreatedAtUtc = DateTime.UtcNow;
                 employee.UpdatedBy = singleUser.UpdatedBy;
                 employee.UpdatedAtUtc = DateTime.UtcNow;
-                employee.LocationId = singleUser.LocationId;
+                employee.LocationId = Guid.Parse("4F687C11-F0FC-4F5A-9B2F-DAAE538A9F53");
                 _context.Employees.Add(employee);
             }
             _context.SaveChanges();

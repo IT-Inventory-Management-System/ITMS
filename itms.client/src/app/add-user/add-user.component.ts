@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { EmployeeService } from '../shared/services/Employee.service';
 
 @Component({
   selector: 'app-add-user',
@@ -10,19 +11,20 @@ export class AddUserComponent implements OnInit {
   //deviceForm: FormGroup;
   showErrorMessage: boolean = false;
 
-  
+
   list: FormGroup[] = [];
+  res: any = [];
   userForm: FormGroup;
   //userForm: FormGroup[] = [];
 
   idx: any = 0;
   //devices: any;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private empService: EmployeeService) { }
 
   ngOnInit(): void {
     //this.initializeForm();
-    this.addUserForm(); 
+    this.addUserForm();
   }
 
   addUserForm(): void {
@@ -81,7 +83,7 @@ export class AddUserComponent implements OnInit {
   //}
 
   previous(): void {
-  
+
     alert("previous");
   }
 
@@ -101,26 +103,46 @@ export class AddUserComponent implements OnInit {
 
   onSubmit(): void {
     this.addNew();
-    for (let i=0; i < this.list.length; i++) {
+    for (let i = 0; i < this.list.length; i++) {
+      this.res.push(this.list[i].value);
       console.log(this.list[i].value);
     }
-    this.list = [];
-    //console.log('User forms submitted:', this.userForm.map(form => form.value));
-    //alert("hello");
-    //console.log(this.userForm.value.firstName);
-    //console.log(this.userForm.value.lastName);
-    //console.log(this.userForm.value.email);
-    //console.log(this.userForm.value.cgiId);
 
-    //this.devices.controls.forEach(deviceGroup => {
-    //  console.log('Device Data:', deviceGroup.value);
-    //});
 
-    //if (this.userForm.valid) {
-    //  const formValues = this.userForm.value;
-    //  console.log('Form submitted with values:', formValues);
-    //} else {
-    //  // Handle form validation errors
-    //}
+    this.empService.postUsers(this.res).subscribe(
+      response => {
+        console.log('Post successful', response);
+        this.res = [];
+        this.list = [];
+        //this.deviceForm.reset();
+        //this.selectedRam = null;
+        //this.selectedStorage = null;
+        //this.formSubmitted.emit();
+        //this.toastr.success("Data posted successfully");
+      },
+      error => {
+        console.error('Error posting data', error);
+        //this.toastr.error("Error in posting data");
+      }
+    );
   }
+
+  //console.log('User forms submitted:', this.userForm.map(form => form.value));
+  //alert("hello");
+  //console.log(this.userForm.value.firstName);
+  //console.log(this.userForm.value.lastName);
+  //console.log(this.userForm.value.email);
+  //console.log(this.userForm.value.cgiId);
+
+  //this.devices.controls.forEach(deviceGroup => {
+  //  console.log('Device Data:', deviceGroup.value);
+  //});
+
+  //if (this.userForm.valid) {
+  //  const formValues = this.userForm.value;
+  //  console.log('Form submitted with values:', formValues);
+  //} else {
+  //  // Handle form validation errors
+  //}
 }
+
