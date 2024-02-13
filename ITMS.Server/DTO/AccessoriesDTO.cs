@@ -2,6 +2,7 @@
 {
     public class GetBrandDTO
     {
+        public Guid Id { get; set; }
         public string brand { get; set; }
         public bool? iswired { get; set; }
 
@@ -10,7 +11,7 @@
     public class PostMouseModelDTO
     {
         public string brand { get; set; }
-        public bool? iswired { get; set; }
+        public bool iswired { get; set; }
         public Guid categoryId { get; set; }
         public Guid createdBy { get; set; }
         public Guid updatedBy { get; set; }

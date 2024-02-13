@@ -115,6 +115,11 @@ export class DataService {
   getDevicesCyg(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl + 'Device/getDevices/');
   }
-
+  getMouseBrand(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + 'asset/getMouseBrand');
+  }
+  postMouseBrand(formData: any): Observable<any> {
+    return this.http.post(this.apiUrl + 'addDevices/AddMouseModel', formData);
+  }
 }
 

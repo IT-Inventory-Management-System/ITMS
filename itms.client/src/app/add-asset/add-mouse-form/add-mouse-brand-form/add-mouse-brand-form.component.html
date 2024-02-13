@@ -1,19 +1,15 @@
 <div class="outer-box">
   <div class="heading-text">
-    Add New Device Details
+    Add New Brand
   </div>
-  <div class="info-box">
-    <span class="info-icon">
-      <img src="../../../../assets/icons/info-icon.svg" />
-    </span>
-    <div class="info-content">
-      Please Provide the model number of the laptop along with details about its processor configuration.
-    </div>
-  </div>
-  <form class="device-form">
-    <div class="form-field">
-      <label class="label" for="deviceName">Device Name <span class="required">*</span></label>
-      <input type="text" id="deviceName" class="input-field" placeholder="Enter device name" formControlName="deviceName" required>
+  
+  <form class="device-form" (ngSubmit)="onSubmit()" [formGroup]="deviceForm">
+    <div class="form-field" >
+      <label class="label" for="deviceName">Brand Name<span class="required">*</span></label>
+      <input type="text" id="deviceName" class="input-field" placeholder="Enter Brand Name" formControlName="brand" (input)="updateBrand($event)" required>
+      <span *ngIf="showErrorMessage==true" class="error-message">
+      {{errorMessage}}
+      </span>
     </div>
 
 

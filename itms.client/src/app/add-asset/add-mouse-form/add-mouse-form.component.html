@@ -25,31 +25,28 @@
           <div class="mouse-radio-button">
             <label class="mouse-label">Mouse Type <span class="required">*</span></label>
             <div class="mouse-input">
-              <!--<div class="window-input">-->
-              <input type="radio" name="mouseType" id="wiredRadio" value="wired">
+              <input type="radio" name="mouseType" id="wiredRadio" value="wired" [(ngModel)]="selectedmedium" (change)="loadMouseBrand()">
               <label for="wiredRadio">Wired</label>
-              <!--</div>
-              <div class="mac-input">-->
-              <input type="radio" name="mouseType" id="wirelessRadio" value="wireless">
+              <input type="radio" name="mouseType" id="wirelessRadio" value="wireless"[(ngModel)]="selectedmedium" (change)="loadMouseBrand()">
               <label for="wirelessRadio">Wireless</label>
-              <!--</div>-->
+              
             </div>
           </div>
         </div>
-        <div class="mouse-model-input">
+        <div class="mouse-model-input" >
           <div class="mouse-model-select">
             <div class="select-mouse-dropdown">
               <label for="MouseBrand">Brand <span class="required">*</span></label>
-              <ng-select placeholder="Select Device Brand">
-                <!--<option value="" selected class="placeholder">Select Device Name</option>-->
-                <ng-option>
+              <ng-select placeholder="Select Device Brand" [class.disabled]="selectedmedium== ''">
 
+                <ng-option *ngFor="let value of dropdownValues" [value]="value.id">
+                  {{ value.brand }}
                 </ng-option>
               </ng-select>
             </div>
           </div>
         </div>
-        <div class="add-device-check">
+        <div class="add-device-check" [class.disabled]="selectedmedium== ''">
           <input class="form-check-input" type="checkbox" id="addDetailsCheckbox" (change)="toggleDeviceDetailsForm()">
 
           <label class="form-check-label" for="addDetailsCheckbox">
@@ -59,11 +56,11 @@
           </label>
         </div>
         <div class="mb-3" *ngIf="showDeviceDetailsForm">
-          <app-add-mouse-brand-form></app-add-mouse-brand-form>
+          <app-add-mouse-brand-form [selectedmedium]="selectedmedium" (formSubmitted)="onFormSubmitted()"></app-add-mouse-brand-form>
         </div>
         <div class="quantity-select">
           <label for="quantity">Quantity <span class="required">*</span></label>
-          <div class="quantity-counter">
+          <div class="quantity-counter" [class.disabled]="selectedmedium== ''">
             <div class="reduce-button" (click)="decrement();"><img src="../../../assets/icons/reduce-quantity.svg" /></div>
             <span class="counter-value">{{ counterValue }}</span>
             <div class="add-button" (click)="increment();"><img src="../../../assets/icons/add-quantity.svg" /></div>
@@ -73,14 +70,14 @@
         <div class="add-device-date mb-3" id="deviceDetailsDiv">
           <div class="purchase-date-section">
             <label for="purchaseDate" class="purchaseDate">Date of Purchase <span class="required">*</span></label>
-            <input type="date" class="form-control" id="purchaseDate" name="purchaseDate" placeholder="15-12-2023">
+            <input type="date" class="form-control" id="purchaseDate" name="purchaseDate" placeholder="15-12-2023"[class.disabled]="selectedmedium== ''">
             <img src="../../../assets/icons/calendar.svg" />
           </div>
 
 
           <div class="purchase-date-section">
             <label for="Warranty Year " class="purchaseDate">Warranty Date <span class="required">*</span></label>
-            <input type="date" class="form-control" id="Warranty Year " name="Warranty Year " placeholder="15-12-2023">
+            <input type="date" class="form-control" id="Warranty Year " name="Warranty Year " placeholder="15-12-2023" [class.disabled]="selectedmedium== ''">
             <img src="../../../assets/icons/calendar.svg" />
 
           </div>
@@ -89,15 +86,24 @@
         </div>
       </div>
       <div *ngIf="currentStep === 2" class="app-id-input custom-container">
-        <div *ngFor="let ele of counterValues; let i = index" class="outer-input">
-
-          <div class="serial-number-input ">
-            <label for="serialNumber">Serial Number<span class="required">*</span></label>
-            <input type="text" id="serialNumber" name="serialNumber" placeholder="Enter Serial No." />
+        <div class="alert" role="alert">
+          <img src="../../../assets/icons/Vector.svg" class="alert-icon" alt="alert icon">
+          <div class="alert-text">
+            This device ID is auto generated.
           </div>
+        </div>
+        <div *ngFor="let ele of counterValues; let i = index" class="outer-input">
+         
+
           <div class="cyg-id-input">
-            <label for="cygId">CYG ID.<span class="required">*</span></label>
-            <input type="text" id="cygId" name="cygId" placeholder="Enter CYG ID" />
+            <div class="sno">
+              {{ele}}.
+            </div>
+            <div class="inner-cyg-div">
+              <label for="cygId" class="label-cyg">Device ID</label>
+
+              <input type="text" id="cygId" name="cygId" placeholder="Enter CYG ID" value="CGI-MOU 123" disabled />
+            </div>
           </div>
 
 

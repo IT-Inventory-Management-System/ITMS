@@ -52,6 +52,7 @@ namespace ITMS.Server.Services
                               select new GetBrandDTO
                              
                               {
+                                  Id= c.Id,
                                   brand= c.Brand,
                                   iswired = c.IsWired
                               }).ToListAsync();
