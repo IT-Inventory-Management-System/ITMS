@@ -1,6 +1,8 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { AssignDataManagementService } from '../../shared/services/assign-data-management.service';
+import { Subscription } from 'rxjs';
+import { CloseFlagService } from '../../shared/services/close-flag.service';
 
 @Component({
   selector: 'app-assign-laptop',
@@ -15,8 +17,18 @@ export class AssignLaptopComponent {
   SelectedLaptop: any;
   formattedAge: string = '';
   selectedOption: any;
+  private closeFlagSubscription: Subscription;
 
-  constructor(private assignDataManagementService: AssignDataManagementService) { }
+  constructor(private assignDataManagementService: AssignDataManagementService,
+    private closeFlagService: CloseFlagService
+  ) {
+    this.closeFlagSubscription = this.closeFlagService.closeFlag$.subscribe((closeFlag) => {
+      if (closeFlag) {
+        this.selectedOption = null;
+        this.cygidInputChange.emit(this.selectedOption);
+      }
+    });
+  }
 
   cygidInputChangeFlag(event: any): void {
     console.log(event);
@@ -44,7 +56,12 @@ export class AssignLaptopComponent {
   }
 
   ngOnDestroy(): void {
-    this.assignDataManagementService.setState("laptopComment", this.selectedOption);
+    this.closeFlagSubscription = this.closeFlagService.closeFlag$.subscribe((closeFlag) => {
+      if (!closeFlag) {
+        this.assignDataManagementService.setState("laptopComment", this.selectedOption);
+      }
+    });
+    this.closeFlagSubscription.unsubscribe();
   }
 
   setSaveStateOnDestroy(): void {

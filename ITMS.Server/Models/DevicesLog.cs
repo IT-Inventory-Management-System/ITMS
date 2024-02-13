@@ -7,7 +7,7 @@ public partial class DevicesLog
 {
     public Guid Id { get; set; }
 
-    public Guid DeviceId { get; set; }
+    public Guid? DeviceId { get; set; }
 
     public Guid EmployeeId { get; set; }
 
@@ -32,6 +32,9 @@ public partial class DevicesLog
     public DateTime? UpdatedAtUtc { get; set; }
 
     public Guid? ActionId { get; set; }
+    public Guid? SoftwareAllocation { get; set; }
+
+    public virtual SoftwareAllocation? SoftwareAllocationNavigation { get; set; }
 
     public virtual ActionTable? Action { get; set; }
 
@@ -41,9 +44,9 @@ public partial class DevicesLog
 
     public virtual Employee CreatedByNavigation { get; set; } = null!;
 
-    public virtual Device Device { get; set; } = null!;
+    public virtual Device? Device { get; set; } = null!;
 
-    public virtual Employee Employee { get; set; } = null!;
+    public virtual Employee? Employee { get; set; } = null!;
 
     public virtual Employee? RecievedByNavigation { get; set; }
 

@@ -9,6 +9,10 @@ import { EmployeeService } from '../../shared/services/Employee.service';
 export class SoftwareDetailsComponent implements OnChanges {
   @Input() userId: any;
   softwareDetails: any;
+  @Input() firstName: any;
+  @Input() lastName: any;
+  @Input() cgiid: any;
+
   mostRecentSoftware: any; // Add this variable
 
   constructor(private employeeService: EmployeeService) { }

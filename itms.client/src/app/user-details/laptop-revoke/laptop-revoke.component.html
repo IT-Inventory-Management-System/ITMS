@@ -1,0 +1,42 @@
+
+
+
+<div>
+  <div>
+    <button type="button" (click)="openModal('exampleModal' + laptopDetails.deviceId)" class="btn revoke-button" data-bs-toggle="modal" [attr.data-bs-target]="'#exampleModal' + laptopDetails.deviceId">
+      <img src="../../../assets/icons/Revoke-Vector.svg" alt="Revoke Icon" style="vertical-align: middle;" />
+      <span>Revoke</span>
+    </button>
+
+  </div>
+
+ <div class="modal fade" [id]="'exampleModal' + laptopDetails.deviceId" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="CloseModal('exampleModal' + laptopDetails.deviceId)"></button>
+        </div>
+        <div class="modal-body">
+          <p>{{cgiid}}</p>
+          <p>{{firstName}}</p>
+          <p>{{lastName}}</p>
+          <p>{{laptopDetails.cygid}}</p>
+          <p>{{laptopDetails.deviceId}}</p>
+          <p>{{laptopDetails.deviceLogId}}</p>
+          <p>{{laptopDetails.model}}</p>
+          <p>{{laptopDetails.osName}}</p>
+          <p>{{laptopDetails.processor}}</p>
+          <p>{{laptopDetails.ram}}</p>
+          <p>{{laptopDetails.storage}}</p>
+          <p>{{laptopDetails.deviceAge}} years</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="CloseModal('exampleModal' + laptopDetails.deviceId)">Close</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" >Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

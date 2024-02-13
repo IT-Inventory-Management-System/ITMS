@@ -57,42 +57,52 @@ namespace ITMS.Server.Services
             _dbContext.SaveChanges();
         }
 
-      
+
         public List<UserSoftwareHistory> GetUserSoftware(Guid id)
         {
             try
             {
-                var softwareList = _dbContext.SoftwareAllocations
-                    .Where(sa => sa.AssignedTo == id)
-                    .Include(sa => sa.Software)
-                        .ThenInclude(s => s.SoftwareType)
-                    .Select(sa => new UserSoftwareHistory
+                var softwareList = _dbContext.DevicesLogs
+                    .Where(dl => dl.EmployeeId == id && dl.SoftwareAllocationNavigation != null && dl.DeviceId == null)
+                    .Include(dl => dl.SoftwareAllocationNavigation)
+                        .ThenInclude(sa => sa.Software)
+                            .ThenInclude(s => s.SoftwareType)
+                    .Select(dl => new UserSoftwareHistory
                     {
-                        TypeName = sa.Software.SoftwareType.TypeName,
-                        SoftwareName = sa.Software.SoftwareName,
+                        DeviceLogId = dl.Id,
+                        SoftwareAllocationId = dl.SoftwareAllocationNavigation.Id,
+
+                        TypeName = dl.SoftwareAllocationNavigation.Software.SoftwareType.TypeName,
+                        SoftwareName = dl.SoftwareAllocationNavigation.Software.SoftwareName,
+                        Version = dl.SoftwareAllocationNavigation.Version, //new version added
                         AssignBy = _dbContext.Employees
-                            .Where(employee => employee.Id == sa.AssignedBy)
+                            .Where(employee => employee.Id == dl.AssignedBy)
                             .Select(employee => $"{employee.FirstName} {employee.LastName}")
                             .FirstOrDefault(),
-                        AssignedDate = sa.AssignedDate,
                         AssignedTo = _dbContext.Employees
-                            .Where(employee => employee.Id == sa.AssignedTo)
+                            .Where(employee => employee.Id == dl.EmployeeId)
                             .Select(employee => $"{employee.FirstName} {employee.LastName}")
                             .FirstOrDefault(),
-                        Comments = _dbContext.Comments
-                            .Where(comment => comment.SoftwareAllocationId == sa.Id) 
-                            .Select(c => new CommentDto
-                            {
-                                Id = c.Id,
-                                Description = c.Description,
-                                CreatedBy = _dbContext.Employees
-                                    .Where(employee => employee.Id == c.CreatedBy)
-                                    .Select(employee => $"{employee.FirstName} {employee.LastName}")
-                                    .FirstOrDefault(),
-                                CreatedAt = c.CreatedAtUtc
-                            })
-                            .ToList(),
-                        //SubmitedByDate = sa.AssignedDate 
+                        AssignedDate = dl.AssignedDate,
+                        PurchasedDate = dl.SoftwareAllocationNavigation.PurchasedDate,
+                        ExpiryDate = dl.SoftwareAllocationNavigation.ExpiryDate,
+                        RemainingDays = Math.Max(0, (dl.SoftwareAllocationNavigation.ExpiryDate.HasValue ? (dl.SoftwareAllocationNavigation.ExpiryDate.Value - DateTime.Today).Days : 0)),
+                        RecievedBy = _dbContext.Employees
+                            .Where(employee => employee.Id == dl.RecievedBy)
+                            .Select(employee => $"{employee.FirstName} {employee.LastName}")
+                            .FirstOrDefault(),
+                        RecievedByDate = dl.RecievedDate,
+
+                        Comments = dl.Comments.Select(c => new CommentDto
+                        {
+                            Id = c.Id,
+                            Description = c.Description,
+                            CreatedBy = _dbContext.Employees
+                                .Where(employee => employee.Id == c.CreatedBy)
+                                .Select(employee => $"{employee.FirstName} {employee.LastName}")
+                                .FirstOrDefault(),
+                            CreatedAt = c.CreatedAtUtc
+                        }).ToList()
                     })
                     .ToList();
 
@@ -104,6 +114,7 @@ namespace ITMS.Server.Services
                 return null;
             }
         }
+
 
 
     }

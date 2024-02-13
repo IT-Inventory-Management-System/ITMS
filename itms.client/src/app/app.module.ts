@@ -76,6 +76,16 @@ import { SoftwareSearchBoxComponent } from './assign-asset/software-search-box/s
 import { AddAssetComponent } from './add-asset/add-asset.component';
 import { AddMouseFormComponent } from './add-asset/add-mouse-form/add-mouse-form.component';
 import { ExitProcessComponent } from './exit-process/exit-process.component';
+import { SoftwareComponent } from './software/software.component';
+import { SoftwareAssignHistoryComponent } from './software/software-assign-history/software-assign-history.component';
+import { SoftwareNameComponent } from './software/software-name/software-name.component';
+import { NewCommentsComponent } from './shared/components/new-comments/new-comments.component';
+import { SingleCommentComponent } from './shared/components/new-comments/single-comment/single-comment.component';
+import { AgGridModule } from 'ag-grid-angular';
+import { TableViewComponent } from './shared/components/table-view/table-view.component';
+import { LaptopRevokeComponent } from './user-details/laptop-revoke/laptop-revoke.component';
+import { AccessoriesRevokeComponent } from './user-details/accessories-revoke/accessories-revoke.component';
+import { SoftwareRevokeComponent } from './user-details/software-revoke/software-revoke.component';
 
 
 
@@ -150,6 +160,15 @@ import { ExitProcessComponent } from './exit-process/exit-process.component';
     CommentCardComponent,
     AddMouseFormComponent,
     ExitProcessComponent,
+    SoftwareComponent,
+    SoftwareAssignHistoryComponent,
+    SoftwareNameComponent,
+    NewCommentsComponent,
+    SingleCommentComponent,
+    TableViewComponent,
+    LaptopRevokeComponent,
+    AccessoriesRevokeComponent,
+    SoftwareRevokeComponent,
 
 
 
@@ -164,7 +183,8 @@ import { ExitProcessComponent } from './exit-process/exit-process.component';
     FormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    NgSelectModule
+    NgSelectModule,
+    AgGridModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -9,22 +9,36 @@
 
 <div class="software-details">
   <div class="inner-software-container" *ngFor="let software of softwareDetails">
+
+    <div *ngIf="software.recievedBy === null" class="device-tag">
+
+      <div class="device-tag-info">CURRENT SOFTWARE</div>
+
+    </div>
+
+    <div *ngIf="software.recievedBy === null" class="software-revoke-button">
+      <app-software-revoke [softwareDetails]="software" [userId]="userId" [firstName]="firstName" [lastName]="lastName" [cgiid]="cgiid"></app-software-revoke>
+
+    </div>
+
     <div class="bb">
-      <div class="software-tag" *ngIf="isMostRecent(software)">
-        <div class="software-tag-info">CURRENT SOFTWARE</div>
-      </div>
 
       <div class="row user-detail">
         <div class="user-software">
 
-          <div class=" col-md-6 common-gap-style">
-            <div style="color: var(--Adhoc-Grey, #6D6D6D); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 400; line-height: normal;">TypeName</div>
-            <div style="color: var(--Primary-Blue, #28519E); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 600; line-height: normal;">{{software.typeName}}</div>
-          </div>
 
           <div class="col-md-6 common-gap-style">
-            <div style="color: var(--Adhoc-Grey, #6D6D6D); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 400; line-height: normal;">SoftwareName</div>
-            <div style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal;">{{software.softwareName}}</div>
+            <div class="expiry">
+              <div style="color: var(--Adhoc-Grey, #6D6D6D); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 400; line-height: normal;">Software Name</div>
+              <p *ngIf="software.remainingDays > 0 && software.remainingDays <= 60 && software.typeName == 'Perpetual'"><img src="../../../assets/icons/Warning.svg" alt="Warning" class="warning"/>Expiring in {{software.remainingDays}} days</p>
+            </div>
+            <div class="software-name-container">
+              <div style="color: var(--Primary-Blue, #28519E); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal;">{{software.softwareName}}</div>
+              <img src="../../../assets/icons/chevron-right.svg" alt="chevron-right" />
+              <div class="logo">
+                <img *ngIf="software.softwareName === 'Microsoft windows NT operating system software license'" src="../../../assets/icons/Microsoft.svg" alt="Microsoft" />
+              </div>
+            </div>
           </div>
 
         </div>
@@ -32,14 +46,28 @@
         <div class="user-software">
 
           <div class="col-md-6 common-gap-style">
-            <div style="color: var(--Adhoc-Grey, #6D6D6D); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 400; line-height: normal;">Assigned By: </div>
-            <div style="color: var(--Primary-Blue, #28519E); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 600; line-height: normal;">{{software.assignBy}}</div>
-            <div style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal;">{{software.assignedDate | date: 'MM-dd-yyyy, h:mm a'}}</div>
+            <div style="color: var(--Adhoc-Grey, #6D6D6D); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 400; line-height: normal;">Version</div>
+            <div style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 600; line-height: normal;">{{software.version}}</div>
           </div>
 
           <div class="col-md-6 common-gap-style">
-            <div style="color: var(--Adhoc-Grey, #6D6D6D); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 400; line-height: normal;">Assigned To: </div>
-            <div style="color: var(--Primary-Blue, #28519E); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 600; line-height: normal;">{{software.assignedTo}}</div>
+            <div style="color: var(--Adhoc-Grey, #6D6D6D); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 400; line-height: normal;">Type</div>
+            <div style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 600; line-height: normal;">{{software.typeName}}</div>
+          </div>
+
+        </div>
+
+        <div class="user-software">
+          <div class="col-md-6 common-gap-style">
+            <div style="color: var(--Adhoc-Grey, #6D6D6D); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 400; line-height: normal;">Assign By </div>
+            <div style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 600; line-height: normal;">{{software.assignBy}}</div>
+            <div style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal;">{{software.assignedDate | date: 'MM-dd-yyyy'}}</div>
+          </div>
+
+          <div class="col-md-6 common-gap-style">
+            <div style="color: var(--Adhoc-Grey, #6D6D6D); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 400; line-height: normal;">Received By </div>
+            <div style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 600; line-height: normal;">{{software.recievedBy !== null ? software.recievedBy : '--'}}</div>
+            <div style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal;">{{software.recievedByDate | date: 'MM-dd-yyyy'}}</div>
           </div>
 
         </div>
@@ -47,7 +75,7 @@
       </div>
     </div>
 
- 
+
   </div>
 
   <div class="no-software-message" *ngIf="!softwareDetails || softwareDetails.length === 0">
