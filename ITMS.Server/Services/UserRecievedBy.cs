@@ -60,9 +60,6 @@ namespace ITMS.Server.Services
                         Comments = deviceLog.Comments
                     };
 
-                    deviceLog.RecievedBy = receivedByDTO.receivedByUserId;
-
-                   
                     _context.DevicesLogs.Add(newDeviceLog);
                     await _context.SaveChangesAsync();
 

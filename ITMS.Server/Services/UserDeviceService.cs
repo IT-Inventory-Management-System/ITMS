@@ -59,9 +59,9 @@ public class UserDeviceService
                .Include(d => d.Device)
                    .ThenInclude(dm => dm.DeviceModel)
                    .Where(log => log.Device.DeviceModel.Category.Name == "Laptop" && log.SoftwareAllocation == null) // Filter devices by category
-               .GroupBy(log => log.DeviceId)
-               .Select(group => group.OrderBy(log => log.RecievedDate).FirstOrDefault()) // Select the record with the earliest SubmitedByDate within each group
-               .Where(log => log.RecievedBy != null && log.RecievedDate != null) // Filter records where SubmitedBy and SubmitedByDate are not null
+                   .GroupBy(log => log.DeviceId)
+                    .Select(group => group.OrderBy(log => log.RecievedDate).FirstOrDefault()) // Select the record with the earliest SubmitedByDate within each group
+                    .Where(log => log.RecievedBy != null && log.RecievedDate != null) // Filter records where SubmitedBy and SubmitedByDate are not null
                .Select(log => new UserDeviceHistory
                {
                    DeviceLogId = log.Id,
@@ -116,5 +116,6 @@ public class UserDeviceService
             return null;
         }
     }
+
 
 }
