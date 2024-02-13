@@ -95,11 +95,10 @@ export class AddUserComponent implements OnInit {
 
   previous(): void {
 
-    alert("previous");
   }
 
   cancel(): void {
-    alert("cancel");
+    this.previousDisabled = true;
   }
 
   addNew(): void {
@@ -109,7 +108,6 @@ export class AddUserComponent implements OnInit {
 
   addAnother(): void {
     this.addNew();
-    alert("add");
     this.addAnotherClicked = true;
     this.previousDisabled = false;
   }
