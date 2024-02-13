@@ -39,9 +39,13 @@ namespace ITMS.Server.Services
                         DeviceId = deviceLog.DeviceId,
                         EmployeeId = deviceLog.EmployeeId,
                         AssignedBy = deviceLog.AssignedBy,
+
                         RecievedBy = receivedByDTO.receivedByUserId,
+
                         AssignedDate = deviceLog.AssignedDate,
+
                         RecievedDate = DateTime.UtcNow,  
+
                         AllotedDate = deviceLog.AllotedDate,
                         CreatedBy = deviceLog.CreatedBy,
                         CreatedAtUtc = DateTime.UtcNow,  
