@@ -1,74 +1,72 @@
 <div class="modal fade " id="UserModal">
-    <div class="Heading  ">
-      <div class="title">
-        <span class="Adduser-text">
-          Add User
-        </span>
-       <img src="../../assets/icons/Add-user-modal/Close.svg" data-bs-dismiss="modal">
-
-      </div>
-      <hr />
-
+  <div class="Heading  ">
+    <div class="title">
+      <span class="Adduser-text">
+        Add User
+      </span>
+      <img src="../../assets/icons/Add-user-modal/Close.svg" data-bs-dismiss="modal">
 
     </div>
-    <div class="details ">
-      <span class="user-added">User Added: 01</span>
-      <div class="namesection">
-        <div class="form-fields">
-          <div class="first-last-name">
-            <div class="first">
-              <span class="firstname"> First Name*</span>
-              <div class="first-input">
-                <input class="first-input-text"  placeholder="First Name"/>
+    <hr />
+
+
+  </div>
+
+  <div *ngFor="let userFor of userForm; let i = index">
+    <form [formGroup]="userFor">
+      <div class="details">
+        <span class="user-added">User Added: 01</span>
+        <div class="namesection">
+          <div class="form-fields">
+            <div class="first-last-name">
+              <div class="first">
+                <span class="firstname"> First Name*</span>
+                <div class="first-input">
+                  <input class="first-input-text" placeholder="First Name" formControlName="firstName" />
+                </div>
               </div>
-            </div>
-            <div class="first">
-              <span class="firstname"> Last Name*</span>
-              <div class="first-input">
-                <input class="first-input-text" placeholder="Last Name" />
+              <div class="first">
+                <span class="firstname"> Last Name*</span>
+                <div class="first-input">
+                  <input formControlName="lastName" class="first-input-text" placeholder="Last Name" />
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="email-div">
-        <span class="email-text" >Email Id*</span>
-        <div class="email-input ">
-          <input class="email-input-text" placeholder="Enter Email ID"/>
+        <div class="email-div">
+          <span class="email-text">Email Id*</span>
+          <div class="email-input">
+            <input formControlName="email" class="email-input-text" placeholder="Enter Email ID" />
+          </div>
         </div>
-
-      </div>
-
-      <div class="cgi">
-        <span class="cgi-text">CGI ID*</span>
-        <div class="input-cgi">
-          <input class="cgi-input-text" placeholder="Enter CGI ID"/>
-
+        <div class="cgi">
+          <span class="cgi-text">CGI ID*</span>
+          <div class="input-cgi">
+            <input formControlName="cgiId" class="cgi-input-text" placeholder="Enter CGI ID" />
+          </div>
         </div>
       </div>
+      <div class="actions">
+        <button class="previous-btn" (click)="previous()"><span>Previous</span></button>
+        <div class="cancle-add">
+          <button class="cancel-button" (click)="cancel()"><span>Cancel</span></button>
+          <button class="cancel-button" (click)="addAnother()"><span>Add Another</span></button>
+          <button class="cancel-button" (click)="onSubmit()"><span>Add & Close</span></button>
+        </div>
+      </div>
+    </form>
     </div>
 
-    <div class="actions">
-      <button class="previous-btn" ><span>Previous</span></button>
-      <div class="cancle-add">
-        <button class="cancel-button" ><span>Cancel</span></button>
-        <button class="cancel-button"><span>Add Another</span></button>
-        <button  class="cancel-button"><span>Add&close</span></button>
 
 
+    <div class="modal-dialog">
 
-
-      </div>
-
+      <!--<div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>-->
     </div>
 
-  <div class="modal-dialog">
-
-    <!--<div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>-->
   </div>
-
-</div>
