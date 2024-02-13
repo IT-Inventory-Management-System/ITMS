@@ -10,7 +10,10 @@ export class AddUserComponent implements OnInit {
   //deviceForm: FormGroup;
   showErrorMessage: boolean = false;
 
-  userForm: FormGroup[] = [];
+  
+  list: FormGroup[] = [];
+  userForm: FormGroup;
+  //userForm: FormGroup[] = [];
 
   idx: any = 0;
   //devices: any;
@@ -25,18 +28,24 @@ export class AddUserComponent implements OnInit {
   addUserForm(): void {
     // Initialize a new userForm FormGroup and push it to the userForms array
 
-    this.userForm.push(this.createUserForm());
-  }
-
-  createUserForm(): FormGroup {
-    // Create a new userForm FormGroup with form controls and validators
-    return this.formBuilder.group({
+    //this.userForm.push(this.createUserForm());
+    this.userForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       cgiId: ['', Validators.required]
     });
   }
+
+  //createUserForm(): FormGroup {
+  //  // Create a new userForm FormGroup with form controls and validators
+  //  return this.formBuilder.group({
+  //    firstName: ['', Validators.required],
+  //    lastName: ['', Validators.required],
+  //    email: ['', [Validators.required, Validators.email]],
+  //    cgiId: ['', Validators.required]
+  //  });
+  //}
 
   //initializeForm(): void {
   //  this.userForm = this.formBuilder.group({
@@ -72,6 +81,7 @@ export class AddUserComponent implements OnInit {
   //}
 
   previous(): void {
+  
     alert("previous");
   }
 
@@ -79,13 +89,23 @@ export class AddUserComponent implements OnInit {
     alert("cancel");
   }
 
-  addAnother(): void {
+  addNew(): void {
+    this.list.push(this.userForm);
     this.addUserForm();
+  }
+
+  addAnother(): void {
+    this.addNew();
     alert("add");
   }
 
   onSubmit(): void {
-    console.log('User forms submitted:', this.userForm.map(form => form.value));
+    this.addNew();
+    for (let i=0; i < this.list.length; i++) {
+      console.log(this.list[i].value);
+    }
+    this.list = [];
+    //console.log('User forms submitted:', this.userForm.map(form => form.value));
     //alert("hello");
     //console.log(this.userForm.value.firstName);
     //console.log(this.userForm.value.lastName);

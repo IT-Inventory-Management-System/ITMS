@@ -190,7 +190,7 @@ public partial class ItinventorySystemContext : DbContext
 
             entity.ToTable("DeviceModel");
 
-            entity.HasIndex(e => e.ModelNo, "UQ__DeviceMo__E8D6B556E7687B1D").IsUnique();
+           // entity.HasIndex(e => e.ModelNo, "UQ__DeviceMo__E8D6B556E7687B1D").IsUnique();
 
             entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
             entity.Property(e => e.Brand).HasMaxLength(255);

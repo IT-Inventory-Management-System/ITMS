@@ -12,8 +12,8 @@
 
   </div>
 
-  <div *ngFor="let userFor of userForm; let i = index">
-    <form [formGroup]="userFor">
+  <!--<div *ngFor="let l of list; let i = index">-->
+    <form [formGroup]="userForm">
       <div class="details">
         <span class="user-added">User Added: 01</span>
         <div class="namesection">
@@ -50,13 +50,13 @@
       <div class="actions">
         <button class="previous-btn" (click)="previous()"><span>Previous</span></button>
         <div class="cancle-add">
-          <button class="cancel-button" (click)="cancel()"><span>Cancel</span></button>
+          <button class="cancel-button" (click)="cancel()" data-bs-dismiss="modal"><span>Cancel</span></button>
           <button class="cancel-button" (click)="addAnother()"><span>Add Another</span></button>
-          <button class="cancel-button" (click)="onSubmit()"><span>Add & Close</span></button>
+          <button class="cancel-button" (click)="onSubmit()" data-bs-dismiss="modal"><span>Add & Close</span></button>
         </div>
       </div>
     </form>
-    </div>
+    <!--</div>-->
 
 
 
