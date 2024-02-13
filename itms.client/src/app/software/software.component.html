@@ -21,7 +21,7 @@
 
       <div class="filter-section">
         <div class="justify-content-end form-check rightSide" *ngIf="selectedView === 'card'">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
+          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
           <label class="form-check-label" for="flexCheckDefault">
             Show Archive Assets Only
           </label>
@@ -30,7 +30,7 @@
 
         </div>
         <div class="export-button" *ngIf="selectedView === 'table'">
-          <button >
+          <button>
             <img src="../../../../assets/icons/Software/excel-icon.svg" />
             <span>Export to Excel</span>
           </button>
@@ -44,35 +44,35 @@
       </div>
     </div>
     <!--<div class="filter st ">
-    <div class="toggle   ">
-      <div class="tab1 ">
-        <div class="card ">Card View</div>
-      </div>
-      <div class="tab2 ">
-        <div class="table">Table View</div>
-      </div>
-    </div>
-    <div class="show-archive ">
-      <div class="archive ">
-        <img src="../../../assets/icons/Software/Checkbox component.svg" />
-        <span class="archive-text">Show Archive Software Only</span>
-      </div>
-      <span class="filterbox ">
-        <div class="filter-content">
-          <img src="../../../assets/icons/Software/Filter.svg" />
-          <span class="filter-text">Filter</span>
+      <div class="toggle   ">
+        <div class="tab1 ">
+          <div class="card ">Card View</div>
         </div>
-      </span>
-    </div>
+        <div class="tab2 ">
+          <div class="table">Table View</div>
+        </div>
+      </div>
+      <div class="show-archive ">
+        <div class="archive ">
+          <img src="../../../assets/icons/Software/Checkbox component.svg" />
+          <span class="archive-text">Show Archive Software Only</span>
+        </div>
+        <span class="filterbox ">
+          <div class="filter-content">
+            <img src="../../../assets/icons/Software/Filter.svg" />
+            <span class="filter-text">Filter</span>
+          </div>
+        </span>
+      </div>
 
-  </div>-->
+    </div>-->
   </div>
-  <div class="software  " >
+  <div class="software " *ngIf="selectedView === 'card'">
     <div class="category ">
-      <div class="category-div " >
+      <div class="category-div ">
         <div class="text-field">
-          <div class="input" >
-            <div class="input-frame" >
+          <div class="input">
+            <div class="input-frame">
               <img src="../../../assets/icons/Software/Search.svg" />
               <span class="input-text">Search Software</span>
             </div>
@@ -81,18 +81,16 @@
         <div class="sub-category " *ngFor="let software of softwaresData">
           <!--<div *ngFor="let version of software.version">-->
 
-            <app-software-name [softwareData]="software"></app-software-name>
+          <app-software-name [softwareData]="software"></app-software-name>
 
-            <!--<div class="versiondiv">
-              <div class="versiondiv-text">
-                {{ version }}
-              </div>
-            </div>-->
-
-
+          <!--<div class="versiondiv">
+            <div class="versiondiv-text">
+              {{ version }}
+            </div>
+          </div>-->
           <!--</div>-->
         </div>
-        </div>
+      </div>
     </div>
 
     <div class="specification ">
@@ -221,9 +219,14 @@
 
       </div>
       <div class="history-cards">
-        <app-software-assign-history ></app-software-assign-history>
+        <app-software-assign-history></app-software-assign-history>
       </div>
     </div>
+  </div>
+
+
+  <div *ngIf="selectedView === 'table'">
+    <app-table-view [rowData]="rowData" [colDefs]="colDefs"></app-table-view>
   </div>
 
 
