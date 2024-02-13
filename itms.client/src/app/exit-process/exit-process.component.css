@@ -31,3 +31,6 @@
   font-weight: 400;
   line-height: 1rem;
 }
+.exit-process-text{
+    color:red !important;
+}
