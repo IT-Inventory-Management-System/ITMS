@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { EmployeeService } from '../shared/services/Employee.service';
 
+
 @Component({
   selector: 'app-add-user',
   templateUrl: './add-user.component.html',
@@ -10,6 +11,8 @@ import { EmployeeService } from '../shared/services/Employee.service';
 export class AddUserComponent implements OnInit {
   //deviceForm: FormGroup;
   showErrorMessage: boolean = false;
+  previousDisabled: boolean = true;
+  addAnotherClicked: boolean = false;
 
 
   list: FormGroup[] = [];
@@ -26,6 +29,11 @@ export class AddUserComponent implements OnInit {
     //this.initializeForm();
     this.addUserForm();
   }
+
+
+
+
+  
 
   addUserForm(): void {
     // Initialize a new userForm FormGroup and push it to the userForms array
@@ -82,6 +90,9 @@ export class AddUserComponent implements OnInit {
   //  return (this.deviceForm.get('devices') as FormArray);
   //}
 
+
+
+
   previous(): void {
 
     alert("previous");
@@ -99,6 +110,8 @@ export class AddUserComponent implements OnInit {
   addAnother(): void {
     this.addNew();
     alert("add");
+    this.addAnotherClicked = true;
+    this.previousDisabled = false;
   }
 
   onSubmit(): void {
@@ -107,6 +120,7 @@ export class AddUserComponent implements OnInit {
       this.res.push(this.list[i].value);
       console.log(this.list[i].value);
     }
+
 
 
     this.empService.postUsers(this.res).subscribe(

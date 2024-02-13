@@ -48,11 +48,11 @@
         </div>
       </div>
       <div class="actions">
-        <button class="previous-btn" (click)="previous()"><span>Previous</span></button>
+        <button class="previous-btn"  [disabled]="previousDisabled" (click)="previous()"><span>Previous</span></button>
         <div class="cancle-add">
           <button class="cancel-button" (click)="cancel()" data-bs-dismiss="modal"><span>Cancel</span></button>
-          <button class="cancel-button" (click)="addAnother()"><span>Add Another</span></button>
-          <button class="cancel-button" (click)="onSubmit()" data-bs-dismiss="modal"><span>Add & Close</span></button>
+          <button class="btn btn-primary addanother" (click)="addAnother()"><span>Add Another</span></button>
+          <button class="btn btn-primary addclose" (click)="onSubmit()" data-bs-dismiss="modal"><span>Add & Close</span></button>
         </div>
       </div>
     </form>
