@@ -1,5 +1,5 @@
 <div *ngFor="let version of softwareData.version">
-  <div class="software-name">
+  <div class="software-name" (click)="onClick()">
     <div class="icon-name ">
       <div class="software-icon ">
         <img *ngIf="softwareData.softwareThumbnail" [src]="'data:image/png;base64,' + softwareData.softwareThumbnail" alt="Software Image" />

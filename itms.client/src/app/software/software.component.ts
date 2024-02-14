@@ -17,6 +17,13 @@ export class SoftwareComponent implements OnInit {
   filteredSoftware: any[]
   filterValues: string = '';
 
+
+  onCardClicked(eventData: any): void {
+    // Handle the emitted event data here
+    console.log('Card clicked:', eventData);
+    // You can also perform any other actions based on the event data
+  }
+
   applySoftwareFilter(event: Event) {
     this.filterValues = (event.target as HTMLInputElement).value;
     this.filteredSoftware = this.softwaresData.filter((software) =>
