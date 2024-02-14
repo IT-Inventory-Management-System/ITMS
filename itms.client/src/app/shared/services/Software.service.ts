@@ -15,10 +15,10 @@ export class SoftwareService {
   }
 
 
-  GetSingleSelected(parameters: any): Observable<SingleSoftwareSelected | null> {
+  GetSingleSelected(parameters: any): Observable<any | null> {
     // Assuming you have an appropriate API endpoint for GetSingleSelected
     // Adjust the URL and any other parameters as needed
-    return this.http.get<SingleSoftwareSelected | null>(this.apiUrl + 'SoftwarePage/selected', { params: parameters });
+    return this.http.get<any | null>(this.apiUrl + 'SoftwarePage/selected', { params: parameters });
   }
 
 
