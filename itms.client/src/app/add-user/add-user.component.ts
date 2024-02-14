@@ -15,15 +15,12 @@ export class AddUserComponent implements OnInit {
   addAnotherClicked: boolean = false;
   userAddedCount = 0;
 
-
-
+  curr: any = 0;
+  idx: any = 0;
   list: FormGroup[] = [];
   res: any = [];
   userForm: FormGroup;
   //userForm: FormGroup[] = [];
-
-  idx: any = 0;
-  //devices: any;
 
   constructor(private formBuilder: FormBuilder, private empService: EmployeeService) { }
 
@@ -49,71 +46,42 @@ export class AddUserComponent implements OnInit {
     });
   }
 
-  //createUserForm(): FormGroup {
-  //  // Create a new userForm FormGroup with form controls and validators
-  //  return this.formBuilder.group({
-  //    firstName: ['', Validators.required],
-  //    lastName: ['', Validators.required],
-  //    email: ['', [Validators.required, Validators.email]],
-  //    cgiId: ['', Validators.required]
-  //  });
-  //}
-
-  //initializeForm(): void {
-  //  this.userForm = this.formBuilder.group({
-  //    firstName: ['', Validators.required],
-  //    lastName: ['', Validators.required],
-  //    email: ['', [Validators.required, Validators.email]],
-  //    cgiId: ['', Validators.required]
-  //  });
-  //}
-
-  //initializeForm(): void {
-
-  //  this.deviceForm = this.formBuilder.group({
-  //    devices: this.formBuilder.array([])
-  //  });
-  //}
-
-  //addDevice(): void {
-  //  const deviceGroup = this.formBuilder.group({
-  //    deviceName: ['', Validators.required],
-  //    brand: ['', Validators.required],
-  //    modelNo: ['', Validators.required],
-  //    ram: ['', Validators.required],
-  //    processor: ['', Validators.required],
-  //    storage: ['', Validators.required]
-  //  });
-  //  (this.deviceForm.get('devices') as FormArray).push(deviceGroup);
-  //  //this.devices.push(deviceGroup);
-  //}
-
-  //get devices() {
-  //  return (this.deviceForm.get('devices') as FormArray);
-  //}
-
-
-
-
   previous(): void {
-
+    if (this.idx == this.curr) {
+      this.list.push(this.userForm);
+    }
+    this.idx--;
+    this.userForm = this.list[this.idx];
   }
 
   cancel(): void {
     this.previousDisabled = true;
-    this.userAddedCount = 0;
+    this.idx = 0;
+    this.list = [];
+    this.res = [];
   }
 
   addNew(): void {
     this.list.push(this.userForm);
+    this.curr++;
+    this.idx = this.curr;
     this.addUserForm();
   }
 
   addAnother(): void {
-    this.addNew();
-    this.addAnotherClicked = true;
-    this.previousDisabled = false;
-    this.userAddedCount++;
+    if (this.idx != this.curr) {
+      this.idx = this.curr;
+      this.userForm = this.list[this.curr];
+
+      //this.curr++;
+      //this.idx = this.curr;
+      //this.addUserForm();
+    } else {
+      this.addNew();
+      this.addAnotherClicked = true;
+      this.previousDisabled = false;
+      this.userAddedCount++;
+    }
   }
 
   onSubmit(): void {
@@ -124,23 +92,24 @@ export class AddUserComponent implements OnInit {
     }
 
 
-
-    this.empService.postUsers(this.res).subscribe(
-      response => {
-        console.log('Post successful', response);
-        this.res = [];
-        this.list = [];
-        //this.deviceForm.reset();
-        //this.selectedRam = null;
-        //this.selectedStorage = null;
-        //this.formSubmitted.emit();
-        //this.toastr.success("Data posted successfully");
-      },
-      error => {
-        console.error('Error posting data', error);
-        //this.toastr.error("Error in posting data");
-      }
-    );
+    if (this.res.length > 0) {
+      this.empService.postUsers(this.res).subscribe(
+        response => {
+          console.log('Post successful', response);
+          this.res = [];
+          this.list = [];
+          //this.deviceForm.reset();
+          //this.selectedRam = null;
+          //this.selectedStorage = null;
+          //this.formSubmitted.emit();
+          //this.toastr.success("Data posted successfully");
+        },
+        error => {
+          console.error('Error posting data', error);
+          //this.toastr.error("Error in posting data");
+        }
+      );
+    }
     this.userAddedCount = 0;
 
   }

@@ -15,7 +15,7 @@
   <!--<div *ngFor="let l of list; let i = index">-->
     <form [formGroup]="userForm">
       <div class="details">
-        <span class="user-added" *ngIf="addAnotherClicked && userAddedCount > 0">User Added: {{ userAddedCount }}</span>
+        <span class="user-added" *ngIf="addAnotherClicked && idx > 0">User Added: {{ idx }}</span>
         <div class="namesection">
           <div class="form-fields">
             <div class="first-last-name">
