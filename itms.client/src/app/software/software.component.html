@@ -1,4 +1,5 @@
 <app-filter></app-filter>
+<app-lastdate></app-lastdate>
 <div class="software-details ">
   <div class="software-heading  ">
     <div class="software-title ">
@@ -74,11 +75,12 @@
           <div class="input">
             <div class="input-frame">
               <img src="../../../assets/icons/Software/Search.svg" />
-              <span class="input-text">Search Software</span>
+              <input class="input-text" placeholder="Search software " [(ngModel)]="filterValues"
+                     (input)="applySoftwareFilter($event)" />
             </div>
           </div>
         </div>
-        <div class="sub-category " *ngFor="let software of softwaresData">
+        <div class="sub-category " *ngFor="let software of filteredSoftware? filteredSoftware : softwaresData ">
           <!--<div *ngFor="let version of software.version">-->
 
           <app-software-name [softwareData]="software"></app-software-name>
@@ -170,32 +172,24 @@
           </div>
         </div>
 
-        <div class="assigned-inventory">
-          <div class="assigned">
-            <div class="assigned-logo-heading">
-              <div class="assigned-heading1">
-                <img src="../../../assets/icons/Software/calendar.svg" />
-                <div class="assigned-heading ">Date of Purchase</div>
-              </div>
-
-            </div>
-            <div class="assigned-div-number">
-              12-10-2023
-            </div>
+    <div class="dateofpurchase ">
+      <div class="lastdate-text ">
+        <div class="calendar-icon-text">
+          <div class="calendar-icon">
+            <img src="../../assets/icons/Software/calendar.svg" />
           </div>
-          <div class="assigned">
-            <div class="assigned-logo-heading">
-              <div class="assigned-heading1">
-                <img src="../../../assets/icons/Software/calendar.svg" />
-                <div class="assigned-heading">Expiry Date</div>
-              </div>
-
-            </div>
-            <div class="assigned-div-number">
-              12-10-2025
-            </div>
-          </div>
+          <span class="last-date-heading">Last Date Of Purchase</span>
         </div>
+        <span class="number">18</span>
+      </div>
+
+      <div class="last-date-div "  data-bs-toggle="modal" data-bs-target="#lastdateModal" >
+        <span class="last-date">12-10-2023</span>
+        <img src="../../assets/icons/Software/Chevron.svg" />
+
+      </div>
+    
+    </div>
 
 
 
@@ -207,7 +201,7 @@
         <div class="history-heading">
           Assign History
         </div>
-        <div class="comment-heading" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <!--<div class="comment-heading" data-bs-toggle="modal" data-bs-target="#exampleModal">
           <img src="../../../assets/icons/Software/Comment.svg" />
           <span class="comment-text">Comments</span>
 
@@ -215,7 +209,7 @@
           <img src="../../../assets/icons/Software/Chevron.svg" />
 
 
-        </div>
+        </div>-->
 
       </div>
       <div class="history-cards">
