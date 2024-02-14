@@ -18,10 +18,14 @@ namespace ITMS.Server.Controllers
         }
 
         [HttpGet("software")]
-        public ActionResult<IEnumerable<SoftwarePage>> GetSoftware()
+        public List<IEnumerable<SoftwarePage>> GetSoftware()
         {
-            var software = _softwarepageService.GetSoftware();
-            return Ok(software);
+            List<IEnumerable<SoftwarePage>> list = new List<IEnumerable<SoftwarePage>>();
+            var softwareIndia = _softwarepageService.GetSoftware("India");
+            list.Add(softwareIndia);
+            var softwareUSA = _softwarepageService.GetSoftware("USA");
+            list.Add(softwareUSA);
+            return list;
         }
 
         [HttpGet("selected")]

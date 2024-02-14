@@ -20,25 +20,27 @@ namespace ITMS.Server.Services
         }
 
 
-        public List<SoftwarePage> GetSoftware()
+        public List<SoftwarePage> GetSoftware(string country)
         {
             var software = _context.SoftwareTypes
                 .Include(s => s.Softwares)
-                .ThenInclude(s => s.SoftwareAllocations)
+                    .ThenInclude(s => s.SoftwareAllocations)
+                        .ThenInclude(sa => sa.Location) 
                 .SelectMany(s => s.Softwares.Select(software => new SoftwarePage
                 {
                     name = software.SoftwareName,
                     SoftwareThumbnail = software.SoftwareThumbnail,
                     version = software.SoftwareAllocations
-                             .Where(sa => sa.SoftwareId == software.Id) 
-                             .Select(sa => sa.Version)
-                             .Distinct()
-                             .ToList(),
-                    type =s.TypeName
+                                .Where(sa => sa.SoftwareId == software.Id && sa.Location.Location1 == country) 
+                                .Select(sa => sa.Version)
+                                .Distinct()
+                                .ToList(),
+                    type = s.TypeName
                 }));
 
             return software.ToList();
         }
+
 
         public SingleSoftwareSelected? GetSingleSelected(SingleSoftwareSelectedParams parameters)
         {
