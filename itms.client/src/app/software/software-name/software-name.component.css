@@ -51,6 +51,11 @@
   display: flex;
   align-items: flex-start;
   gap: 0.5rem;
+  width:4.75rem;
+  margin-right:5rem;
+  height:1.0625rem
+  
+  
 }
 
 .subtypename {
@@ -60,6 +65,10 @@
   padding: 0.25rem;
   align-items: flex-start;
   gap: 0.625rem;
+  width: 4.75rem;
+  height: 1.0625rem;
+  justify-content: center; 
+  align-items: center; 
 }
 
 .typetext {
@@ -81,6 +90,10 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 0.625rem;
+  width: 4.875rem;
+  height: 1.0625rem;
+  justify-content: center;
+  align-items: center;
 }
 
 .versiondiv-text {
@@ -92,4 +105,8 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+}
+
+.st{
+    border:1px solid black;
 }

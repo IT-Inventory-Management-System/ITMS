@@ -86,6 +86,7 @@ import { LaptopRevokeComponent } from './user-details/laptop-revoke/laptop-revok
 import { AccessoriesRevokeComponent } from './user-details/accessories-revoke/accessories-revoke.component';
 import { SoftwareRevokeComponent } from './user-details/software-revoke/software-revoke.component';
 import { FilterComponent } from './software/filter/filter.component';
+import { LastdateComponent } from './software/lastdate/lastdate.component';
 
 
 
@@ -169,6 +170,7 @@ import { FilterComponent } from './software/filter/filter.component';
     AccessoriesRevokeComponent,
     SoftwareRevokeComponent,
     FilterComponent,
+    LastdateComponent,
 
 
 
