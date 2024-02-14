@@ -12,9 +12,9 @@ export class LaptopDetailsComponent implements OnChanges {
   @Input() firstName: any;
   @Input() lastName: any;
   @Input() cgiid: any;
-  // Define isLost property
-  /*isLost: boolean = false;*/
 
+  isLost: boolean = false;
+  Selectedvalue: string;
   laptopDetails: any;
 
   constructor(private employeeService: EmployeeService, private router: Router) { }
@@ -57,10 +57,14 @@ export class LaptopDetailsComponent implements OnChanges {
     this.router.navigate(['/inventory'], { queryParams: { cygId: cygId } });
   }
 
-  //// Function to handle isLost change
-  //onIsLostChange(isLost: boolean): void {
-  //  this.isLost = isLost;
-  //}
+  handleReasonSelected(selectedReason: string) {
+    
+    console.log("Selected Reason:", selectedReason);
+    this.Selectedvalue = selectedReason;
+    localStorage.setItem(this.Selectedvalue,selectedReason);
+    console.log(this.Selectedvalue);
+  }
+
 
 
 }

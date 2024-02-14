@@ -20,14 +20,15 @@
 
     </div>
 
-    <!--<div *ngIf="isLost && laptop.submitedBy !== null" class="received-tag">
+
+    <!--<div *ngIf="Selectedvalue === 'Lost/Not Received' && laptop.submitedBy != null" class="received-tag">
       <div class="received-tag-info">
-        <img  class="lost-image" />LOST
+       LOST
       </div>
     </div>-->
 
     <div *ngIf="laptop.submitedBy === null" class="laptop-revoke-button">
-      <app-laptop-revoke [laptopDetails]="laptop" [userId]="userId" [firstName]="firstName" [lastName]="lastName" [cgiid]="cgiid" ></app-laptop-revoke>
+      <app-laptop-revoke [laptopDetails]="laptop" [userId]="userId" [firstName]="firstName" [lastName]="lastName" [cgiid]="cgiid" (reasonSelected)="handleReasonSelected($event)"></app-laptop-revoke>
     </div>
 
 

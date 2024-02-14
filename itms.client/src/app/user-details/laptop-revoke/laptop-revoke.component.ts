@@ -12,12 +12,15 @@ export class LaptopRevokeComponent {
   @Input() firstName: any;
   @Input() lastName: any;
   @Input() cgiid: any;
-  // Define Output property
-/*  @Output() isLostChange = new EventEmitter<boolean>();*/
+
+  @Output() reasonSelected = new EventEmitter<string>();
+
+  selectedReason: string; // Define type for selectedReason
+
   newComment: string = '';
   comments: any;
   loggedUser: any;
-
+ 
   constructor(private commentService: EmployeeService, private deviceLogService: EmployeeService) {
     const storedUser = localStorage.getItem("user");
     if (storedUser !== null) {
@@ -28,7 +31,25 @@ export class LaptopRevokeComponent {
   saveCommentAndFetchComments() {
 
     //if the item is recieved then only call the updateRecievedBy function otherwise do not call it
-    if ((document.getElementById('receivedYes') as HTMLInputElement).checked || (document.getElementById('lostNotReceived') as HTMLInputElement).checked) {
+    if ((document.getElementById('receivedYes') as HTMLInputElement).checked) {
+      const var1 = this.laptopDetails.deviceLogId;
+      const var2 = this.loggedUser.id;
+      this.deviceLogService.updateRecievedBy(var1, var2).subscribe(
+        (response) => {
+          console.log(response);
+          if (response && response.receivedBy) {
+            const { firstName, lastName, recievedDate } = response.receivedBy;
+            this.laptopDetails.submitedBy = `${firstName} ${lastName}`;
+            this.laptopDetails.submitedByDate = `${recievedDate}`;
+          }
+        },
+        (error) => {
+          console.error('Error :', error);
+        }
+      );
+    }
+
+    if (this.selectedReason =='Lost/Not Received') {
       const var1 = this.laptopDetails.deviceLogId;
       const var2 = this.loggedUser.id;
       this.deviceLogService.updateRecievedBy(var1, var2).subscribe(
@@ -103,13 +124,12 @@ export class LaptopRevokeComponent {
     this.resetRadioButtons();
   }
   
+  emitReasonSelected() {
+    if (this.selectedReason) {
+      this.reasonSelected.emit(this.selectedReason);
+    }
+  }
 
-  //// Function to handle radio button change
-  //onRadioChange(event: Event): void {
-  //  // Emit the value of the radio button
-  //  const isLost = (event.target as HTMLInputElement).checked;
-  //  this.isLostChange.emit(isLost);
-  //}
 
   openModal(modalId: string) {
     const modelDiv = document.getElementById(modalId);
