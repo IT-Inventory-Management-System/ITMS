@@ -5,6 +5,7 @@ import * as XLSX from 'xlsx';
 import { LocationService } from '../shared/services/location.service';
 import { SelectedCountryService } from '../shared/services/selected-country.service';
 
+
 @Component({
   selector: 'app-software',
   templateUrl: './software.component.html',
@@ -16,17 +17,17 @@ export class SoftwareComponent implements OnInit {
   version: string[];
   rowData: any[] = [];
   selectedLocation: any = '';
-
+  parameters: any = null;
 
   filteredSoftware: any[]
   filterValues: string = '';
 
 
-  onCardClicked(eventData: any): void {
-    // Handle the emitted event data here
-    console.log('Card clicked:', eventData);
-    // You can also perform any other actions based on the event data
-  }
+  //onCardClicked(eventData: any): void {
+  //  // Handle the emitted event data here
+  //  console.log('Card clicked:', eventData);
+  //  // You can also perform any other actions based on the event data
+  //}
 
   applySoftwareFilter(event: Event) {
     this.filterValues = (event.target as HTMLInputElement).value;
@@ -37,6 +38,33 @@ export class SoftwareComponent implements OnInit {
 
 
   constructor(private softwareService: SoftwareService, private LocationService: LocationService, private selectedCountryService: SelectedCountryService) { } // Injecting SoftwareService
+
+  onCardClicked(eventData: any): void {
+    // Assuming eventData contains the parameters needed for GetSingleSelected
+     parameters = {
+      name: eventData.name,
+      version: eventData.version,
+      location: eventData.location,
+      type: eventData.type
+    };
+
+    // Call the service method
+    this.softwareService.GetSingleSelected(parameters).subscribe(
+      (result: parameters | null) => {
+        if (result) {
+          // Handle the result here
+          console.log('Single software selected:', result);
+        } else {
+          // Handle case when no software is found
+          console.log('No software found for parameters:', parameters);
+        }
+      },
+      error => {
+        console.error('Error fetching single software:', error);
+      }
+    );
+  }
+
 
   ngOnInit(): void {
     this.getSoftwaresData();
