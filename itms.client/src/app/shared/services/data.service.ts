@@ -121,5 +121,11 @@ export class DataService {
   postMouseBrand(formData: any): Observable<any> {
     return this.http.post(this.apiUrl + 'addDevices/AddMouseModel', formData);
   }
+  getCGIID(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + 'asset/getCGIID');
+  }
+  postMouse(formData: any): Observable<any> {
+    return this.http.post(this.apiUrl + 'addDevices/AddMouse', formData);
+  }
 }
 
