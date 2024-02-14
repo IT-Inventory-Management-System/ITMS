@@ -29,17 +29,36 @@
           <div class="assigned-device-detail-box">
             <div class="assigned-device-heading">Assigned Device Detail</div>
             <div class="details">
-              <p>{{laptopDetails.cygid}}</p>
-              <p>{{laptopDetails.deviceId}}</p>
-              <p>{{laptopDetails.deviceLogId}}</p>
-              <p>{{laptopDetails.model}}</p>
-              <p>{{laptopDetails.osName}}</p>
-              <p>{{laptopDetails.processor}}</p>
-              <p>{{laptopDetails.submitedBy}}</p>
+              <div class="iconsOfModal">
+                <img src="../../../assets/icons/CYGVector.svg" /><p>{{laptopDetails.cygid}}</p>
+              </div>
+             
+              <!--<p>{{laptopDetails.deviceId}}</p>
+              <p>{{laptopDetails.deviceLogId}}</p>-->
+              <div class="iconsOfModal">
+                <img src="../../../assets/icons/ModelVector.svg" /><p>{{laptopDetails.model}}</p>
+              </div>
+              <div class="iconsOfModal">
+                <img src="../../../assets/icons/windows.svg" /><p>{{laptopDetails.osName}}</p>
+                
+              </div>
+              <div class="iconsOfModal">
+                <img src="../../../assets/icons/ProcessorVector.svg" /><p>{{laptopDetails.processor}}</p>
+                
+              </div>
+         
               <div class="storage-details">
-                <p>{{laptopDetails.ram}}</p>
-                <p>{{laptopDetails.storage}}</p>
-                <p>{{laptopDetails.deviceAge}} years</p>
+                <div class="iconsOfModal">
+                  <img src="../../../assets/icons/Ram.svg" /><p>{{laptopDetails.ram}}</p>
+                </div>
+                <div class="iconsOfModal">
+                  <img src="../../../assets/icons/Storage.svg" /><p>{{laptopDetails.storage}}</p>
+                  
+                </div>
+                <div class="iconsOfModal">
+                  <img src="../../../assets/icons/DeviceAge.svg" /> <p>Device Age {{laptopDetails.deviceAge}} years</p>
+                </div>
+               
               </div>
             </div>
           </div>
@@ -87,8 +106,8 @@
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="saveCommentAndFetchComments()">Save changes</button>
+          <button type="button" class="btn CloseButton" data-bs-dismiss="modal" >Cancel</button>
+          <button type="button" class="btn SubmitButton" data-bs-dismiss="modal" (click)="saveCommentAndFetchComments()">Submit</button>
         </div>
 
       </div>

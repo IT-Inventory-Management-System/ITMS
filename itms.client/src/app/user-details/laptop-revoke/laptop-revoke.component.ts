@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { EmployeeService } from '../../shared/services/Employee.service';
 
 @Component({
@@ -12,7 +12,8 @@ export class LaptopRevokeComponent {
   @Input() firstName: any;
   @Input() lastName: any;
   @Input() cgiid: any;
-
+  // Define Output property
+/*  @Output() isLostChange = new EventEmitter<boolean>();*/
   newComment: string = '';
   comments: any;
   loggedUser: any;
@@ -27,7 +28,7 @@ export class LaptopRevokeComponent {
   saveCommentAndFetchComments() {
 
     //if the item is recieved then only call the updateRecievedBy function otherwise do not call it
-    if ((document.getElementById('receivedYes') as HTMLInputElement).checked) {
+    if ((document.getElementById('receivedYes') as HTMLInputElement).checked || (document.getElementById('lostNotReceived') as HTMLInputElement).checked) {
       const var1 = this.laptopDetails.deviceLogId;
       const var2 = this.loggedUser.id;
       this.deviceLogService.updateRecievedBy(var1, var2).subscribe(
@@ -103,6 +104,12 @@ export class LaptopRevokeComponent {
   }
   
 
+  //// Function to handle radio button change
+  //onRadioChange(event: Event): void {
+  //  // Emit the value of the radio button
+  //  const isLost = (event.target as HTMLInputElement).checked;
+  //  this.isLostChange.emit(isLost);
+  //}
 
   openModal(modalId: string) {
     const modelDiv = document.getElementById(modalId);

@@ -2,7 +2,7 @@
   
 
 <div class="laptop-details">
-
+  
   <div class="inner-laptop-container" *ngFor="let laptop of laptopDetails">
 
 
@@ -15,19 +15,27 @@
     <div *ngIf="laptop.submitedBy != null" class="received-tag">
 
       <div class="received-tag-info">
-      <img src="../../../assets/icons/ReceivedVector.svg" class="recieved-image"/>RECEIVED
+        <img src="../../../assets/icons/ReceivedVector.svg" class="recieved-image" />RECEIVED
       </div>
 
     </div>
 
+    <!--<div *ngIf="isLost && laptop.submitedBy !== null" class="received-tag">
+      <div class="received-tag-info">
+        <img  class="lost-image" />LOST
+      </div>
+    </div>-->
+
     <div *ngIf="laptop.submitedBy === null" class="laptop-revoke-button">
-      <app-laptop-revoke [laptopDetails]="laptop" [userId]="userId" [firstName]="firstName" [lastName]="lastName" [cgiid]="cgiid"></app-laptop-revoke>
+      <app-laptop-revoke [laptopDetails]="laptop" [userId]="userId" [firstName]="firstName" [lastName]="lastName" [cgiid]="cgiid" ></app-laptop-revoke>
     </div>
 
-    <div class="col-md-12 pp"  [ngClass]="{'fade-container': laptop.submitedBy !== null}">
+
+    <div class="col-md-12 pp" [ngClass]="{'fade-container': laptop.submitedBy !== null}">
 
 
       <div class="row user-detail">
+
         <div class="aa">
 
           <div class="col-md-4 common-gap-style">

@@ -58,10 +58,9 @@ public class UserDeviceService
                .Include(e => e.Employee)
                .Include(d => d.Device)
                    .ThenInclude(dm => dm.DeviceModel)
-                   .Where(log => log.Device.DeviceModel.Category.Name == "Laptop" && log.SoftwareAllocation == null) 
-                   .OrderByDescending(log => log.RecievedDate != null)
-                   .ThenByDescending(log => log.RecievedDate)
-                  
+                   .Where(log => log.Device.DeviceModel.Category.Name == "Laptop" && log.SoftwareAllocation == null)
+                   .OrderByDescending(log => log.AssignedDate)
+
                .Select(log => new UserDeviceHistory
                {
                    DeviceLogId = log.Id,
@@ -88,9 +87,10 @@ public class UserDeviceService
                    Storage = log.Device.DeviceModel.Storage,
                    PurchasedDate = log.Device.PurchasedDate,
                    DeviceAge = Math.Round((DateTime.Today - (log.Device.PurchasedDate ?? DateTime.Today)).TotalDays / 365.0, 1),
-                   
+
                })
                .ToList();
+
 
             return devicesWithComments;
 
