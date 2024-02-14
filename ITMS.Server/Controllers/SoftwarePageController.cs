@@ -32,5 +32,11 @@ namespace ITMS.Server.Controllers
             return Ok(selected);
 
         }
+
+        [HttpGet("History")]
+        public ActionResult<IEnumerable<SingleSoftwareHistory>> GetHistory([FromQuery] SingleSoftwareSelectedParams parameters)
+        {
+            return _softwarepageService.GetSingleHistory(parameters);
+        }
     }
 }

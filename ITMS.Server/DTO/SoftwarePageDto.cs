@@ -40,5 +40,13 @@ namespace ITMS.Server.DTO
         public List<DateTime?> PurchaseDates { get; set; }
         public List<DateTime?>? ExpiryDates { get; set; }
     }
+
+    public class SingleSoftwareHistory
+    {
+        public string? assignedTo { get; set; }
+        public string? assignedToCGI { get; set; }
+        public string? assignedBy { get; set; } 
+        public DateTime? assignedDate { get; set; }
+    }
 }
 
