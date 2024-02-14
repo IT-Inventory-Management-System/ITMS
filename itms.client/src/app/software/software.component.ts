@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { SoftwareService } from '../shared/services/Software.service';
 import { ColDef } from 'ag-grid-community';
 import * as XLSX from 'xlsx';
+import { LocationService } from '../shared/services/location.service';
+import { SelectedCountryService } from '../shared/services/selected-country.service';
 
 @Component({
   selector: 'app-software',
@@ -13,6 +15,8 @@ export class SoftwareComponent implements OnInit {
   softwaresData: any[];
   version: string[];
   rowData: any[] = [];
+  selectedLocation: any = '';
+
 
   filteredSoftware: any[]
   filterValues: string = '';
@@ -32,11 +36,16 @@ export class SoftwareComponent implements OnInit {
   }
 
 
-  constructor(private softwareService: SoftwareService) { } // Injecting SoftwareService
+  constructor(private softwareService: SoftwareService, private LocationService: LocationService, private selectedCountryService: SelectedCountryService) { } // Injecting SoftwareService
 
   ngOnInit(): void {
     this.getSoftwaresData();
     this.filteredSoftware = this.softwaresData;
+    this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
+      localStorage.setItem('selectedCountry', selectedCountry);
+      this.selectedLocation = selectedCountry;
+      console.log(this.selectedLocation);
+    });
 
   }
 

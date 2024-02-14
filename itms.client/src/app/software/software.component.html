@@ -83,7 +83,7 @@
         <div class="sub-category " *ngFor="let software of filteredSoftware? filteredSoftware : softwaresData ">
           <!--<div *ngFor="let version of software.version">-->
 
-          <app-software-name [softwareData]="software" (cardClicked)="onCardClicked($event)"></app-software-name>
+          <app-software-name [softwareData]="software" [selectedLocation]="selectedLocation" (cardClicked)="onCardClicked($event)"></app-software-name>
 
           <!--<div class="versiondiv">
             <div class="versiondiv-text">

@@ -8,12 +8,15 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class SoftwareNameComponent {
 
   @Input() softwareData: any;
+  @Input() selectedLocation: any;
+
   @Output() cardClicked: EventEmitter<any> = new EventEmitter<any>();
   onClick(): void {
     this.cardClicked.emit({
       name: this.softwareData.name,
       version: this.softwareData.version,
       type: this.softwareData.type,
+      location: this.selectedLocation
       // Add more properties as needed
     });
   }
