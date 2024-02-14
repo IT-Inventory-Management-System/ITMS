@@ -39,9 +39,11 @@ export class SoftwareComponent implements OnInit {
 
   constructor(private softwareService: SoftwareService, private LocationService: LocationService, private selectedCountryService: SelectedCountryService) { } // Injecting SoftwareService
 
+
+
   onCardClicked(eventData: any): void {
     // Assuming eventData contains the parameters needed for GetSingleSelected
-     parameters = {
+    const parameters = {
       name: eventData.name,
       version: eventData.version,
       location: eventData.location,
@@ -50,7 +52,7 @@ export class SoftwareComponent implements OnInit {
 
     // Call the service method
     this.softwareService.GetSingleSelected(parameters).subscribe(
-      (result: parameters | null) => {
+      (result: any | null) => {
         if (result) {
           // Handle the result here
           console.log('Single software selected:', result);
@@ -64,7 +66,6 @@ export class SoftwareComponent implements OnInit {
       }
     );
   }
-
 
   ngOnInit(): void {
     this.getSoftwaresData();
