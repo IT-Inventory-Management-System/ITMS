@@ -57,13 +57,6 @@ export class AssestComponent {
   setRowData() {
     for (var i = 0; i < this.deviceData.length; i++) {
 
-      let statusHTML = '';
-      if (this.deviceData[i].status === 'Assigned') {
-        statusHTML = '<div class="assigned-status">Assigned</div>';
-      } else if (this.deviceData[i].status === 'Not Assigned') {
-        statusHTML = '<div class="not-assigned-status">Not Assigned</div>';
-      }
-
       this.rowData[i] = {
         "SNo": i + 1,
         "Brand": this.deviceData[i].brand,

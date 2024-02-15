@@ -27,6 +27,10 @@
     <img class="sidebar-icon" src="../../assets/icons/Logs.svg" alt="Sidebar Image" />
     <span *ngIf="!isCollapsed">Activity Logs</span>
   </div>
+  <div class="content" routerLink="/manage-access" (click)="highlightIcon('acess')" [ngClass]="{'selected': isIconSelected('access')}">
+    <img class="sidebar-icon" src="../../../../assets/icons/access-icon.svg" alt="Sidebar Image" />
+    <span *ngIf="!isCollapsed">Manage Acess</span>
+  </div>
 
   <div class="content-collapse" (click)="toggleCollapse()">
     <img class="collapse-expand" src="../../assets/icons/collapse.svg" alt="Expanded Icon" *ngIf="!isCollapsed" />
@@ -36,3 +40,4 @@
 
 </div>
 
+<!--manage-access-->

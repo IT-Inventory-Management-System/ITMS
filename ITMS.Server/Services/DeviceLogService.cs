@@ -21,7 +21,9 @@ public class DeviceLogService
     public async Task<List<DevicelogDto>> GetDevicesAsync(Guid locationId)
     {
         var deviceHistory = await _context.Devices
-    .Where(log => log.LocationId == locationId && log.Cygid.StartsWith("CYG "))
+            .Include(log => log.DeviceModel)
+            .ThenInclude(model => model.Category)
+            .Where(log => log.LocationId == locationId && log.DeviceModel.Category.Name == "Laptop")
             .OrderBy(log => log.Cygid)
             .Select(log => new DevicelogDto
             {

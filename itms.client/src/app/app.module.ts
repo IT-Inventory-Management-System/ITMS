@@ -90,6 +90,9 @@ import { AssetFilterComponent } from './inventory/assets-category/assest/asset-f
 import { AccordionComponent } from './shared/components/accordion/accordion.component';
 import { AccordionItemComponent } from './shared/components/accordion/accordion-item/accordion-item.component';
 import { MyCellComponent } from './shared/components/my-cell/my-cell.component';
+import { ManageAccessComponent } from './manage-access/manage-access.component';
+import { AdminListPanelComponent } from './manage-access/admin-list-panel/admin-list-panel.component';
+import { AdminPermissionsPanelComponent } from './manage-access/admin-permissions-panel/admin-permissions-panel.component';
 
 
 
@@ -176,7 +179,10 @@ import { MyCellComponent } from './shared/components/my-cell/my-cell.component';
     AssetFilterComponent,
     AccordionComponent,
     AccordionItemComponent,
-    MyCellComponent
+    MyCellComponent,
+    ManageAccessComponent,
+    AdminListPanelComponent,
+    AdminPermissionsPanelComponent
 
 
   ],
