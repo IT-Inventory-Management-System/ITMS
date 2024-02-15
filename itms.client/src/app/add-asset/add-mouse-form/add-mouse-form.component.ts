@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {DataService} from '../../../app/shared/services/data.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-mouse-form',
@@ -9,7 +10,7 @@ import {DataService} from '../../../app/shared/services/data.service';
 })
 
 export class AddMouseFormComponent {
-  constructor(private dataService: DataService, private fb: FormBuilder) {
+  constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService) {
     
   }
 
@@ -63,7 +64,11 @@ export class AddMouseFormComponent {
   }
   increment() {
     this.counterValue++;
-   
+    const ele = this.counterValue;
+    this.pushValueIntoDeviceId('CGI-MOU ' + (this.laststoredcgi + ele));
+    this.addDeviceForm.patchValue({
+      qty: this.counterValue
+    });
   }
   setStatus() {
     this.dataService.getStatus().subscribe(
@@ -83,10 +88,10 @@ export class AddMouseFormComponent {
   createForm() {
     this.addDeviceForm = this.fb.group({
       deviceModelId: [null],
-      qty: [1],
+      qty: [0],
       purchaseddate: [''],
       warrantydate: [null],
-      deviceId: this.fb.array(["cyg123"]),
+      deviceId: this.fb.array([]),
       createdBy: [''],
       updatedBy: [''],
       createdAt: [''],
@@ -101,7 +106,12 @@ export class AddMouseFormComponent {
   decrement() {
     if (this.counterValue > 0) {
       this.counterValue--;
-    
+      this.addDeviceForm.patchValue({
+        qty: this.counterValue
+      });
+      // If you also want to remove the corresponding value from deviceId array when decrementing
+      const deviceIdArray = this.addDeviceForm.get('deviceId') as FormArray;
+      deviceIdArray.removeAt(deviceIdArray.length - 1);
     }
   }
   next() {
@@ -158,22 +168,35 @@ export class AddMouseFormComponent {
 
     this.addDeviceForm.get('createdAt')?.setValue(new Date().toISOString());
     this.addDeviceForm.get('updatedAt')?.setValue(new Date().toISOString());
-    this.addDeviceForm.get('purchaseddate')?.setValue(new Date().toISOString());
-    this.addDeviceForm.get('warrantydate')?.setValue(new Date().toISOString());
+
 
       console.log(this.addDeviceForm.value);
 
       this.dataService.postMouse(this.addDeviceForm.value).subscribe(
         response => {
           console.log('Data Posted successfully', response);
+          this.toastr.success("Data Posted SuccessFully");
+          this.resettingform();
 
         },
         error => {
           console.error('Error posting data', error);
+          this.toastr.error("Error in posting data");
         }
       );
-    
-  
+
+
+  }
+  pushValueIntoDeviceId(value: string) {
+    const deviceIdArray = this.addDeviceForm.get('deviceId') as FormArray;
+    deviceIdArray.push(this.fb.control(value));
+  }
+
+  resettingform() {
+    this.addDeviceForm.reset();
+    this.counterValue = 0;
+    this.selectedmedium = '';
+    this.ngOnInit();
 
   }
 
