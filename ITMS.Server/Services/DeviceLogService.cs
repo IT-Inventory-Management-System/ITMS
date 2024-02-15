@@ -21,7 +21,7 @@ public class DeviceLogService
     public async Task<List<DevicelogDto>> GetDevicesAsync(Guid locationId)
     {
         var deviceHistory = await _context.Devices
-            .Where(log=> log.LocationId == locationId)
+    .Where(log => log.LocationId == locationId && log.Cygid.StartsWith("CYG "))
             .OrderBy(log => log.Cygid)
             .Select(log => new DevicelogDto
             {
@@ -29,7 +29,7 @@ public class DeviceLogService
                 Cygid = log.Cygid,
                 OperatingSystem = new OperatingDto
                  {
-                     Osname = log.DeviceModel.OsNavigation.Osname // Assuming you have an OperatingSystem property in your Device model
+                     Osname = log.DeviceModel.OsNavigation.Osname
                  }
             })
 
