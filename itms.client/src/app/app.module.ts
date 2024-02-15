@@ -89,6 +89,7 @@ import { AddMouseBrandFormComponent } from './add-asset/add-mouse-form/add-mouse
 import { AssetFilterComponent } from './inventory/assets-category/assest/asset-filter/asset-filter.component';
 import { AccordionComponent } from './shared/components/accordion/accordion.component';
 import { AccordionItemComponent } from './shared/components/accordion/accordion-item/accordion-item.component';
+import { MyCellComponent } from './shared/components/my-cell/my-cell.component';
 
 
 
@@ -174,7 +175,8 @@ import { AccordionItemComponent } from './shared/components/accordion/accordion-
     AddMouseBrandFormComponent,
     AssetFilterComponent,
     AccordionComponent,
-    AccordionItemComponent
+    AccordionItemComponent,
+    MyCellComponent
 
 
   ],

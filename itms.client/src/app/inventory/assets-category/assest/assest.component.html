@@ -18,7 +18,7 @@
       </label>
     </div>
     <div class="search-bar" *ngIf="selectedView === 'table'">
-
+      <input type="text" id="filter-text-box" placeholder="Filter" [(ngModel)]="searchValue"  (input)="onFilterTextBoxChanged()" />
     </div>
     <div class="export-button" *ngIf="selectedView === 'table'">
       <button (click)="exporttoexcel()">
@@ -50,5 +50,5 @@
 </div>
 
 <div *ngIf="selectedView === 'table'">
-  <app-table-view [rowData]="rowData" [colDefs]="colDefs"></app-table-view>
+  <app-table-view [rowData]="rowData" [colDefs]="colDefs" [searchValue]="searchValue"></app-table-view>
 </div>
