@@ -196,7 +196,10 @@ export class AddMouseFormComponent {
     this.addDeviceForm.reset();
     this.counterValue = 0;
     this.selectedmedium = '';
+    this.currentStep = 1;
+
     this.ngOnInit();
+
 
   }
 
