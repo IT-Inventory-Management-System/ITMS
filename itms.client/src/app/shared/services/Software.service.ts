@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class SoftwareService {
 
-  private apiUrl = 'https://localhost:7283/api/';
+  private apiUrl = 'https://localhost:44384/api/';
 
   constructor(private http: HttpClient) { }
   GetSoftware(): Observable<any[]> {

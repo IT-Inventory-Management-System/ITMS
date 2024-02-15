@@ -80,18 +80,30 @@
             </div>
           </div>
         </div>
-        <div class="sub-category " *ngFor="let software of filteredSoftware? filteredSoftware : softwaresData ">
-          <!--<div *ngFor="let version of software.version">-->
+        <div *ngIf="filteredSoftware">
+          <!--<div class="sub-category " *ngFor="let software of filteredSoftware? filteredSoftware : softwaresData ">-->
+            <!--<div class="sub-category " *ngFor="let software of (selectedLocation === 'India' ? [softwaresData[0]] : [softwaresData[1]]) || softwaresData">-->
+            <div class="sub-category" *ngFor="let software of (selectedLocation === 'India' ? [filteredSoftware[0]] : [filteredSoftware[1]]) || softwaresData">
+            <!--<div *ngFor="let version of software.version">-->
 
-          <app-software-name [softwareData]="software" [selectedLocation]="selectedLocation" (cardClicked)="onCardClicked($event)"></app-software-name>
+            <app-software-name [softwareData]="software" [selectedLocation]="selectedLocation" (cardClicked)="onCardClicked($event)"></app-software-name>
+
+
+
+
+
+
 
           <!--<div class="versiondiv">
-            <div class="versiondiv-text">
-              {{ version }}
-            </div>
-          </div>-->
+      <div class="versiondiv-text">
+        {{ version }}
+      </div>
+    </div>-->
           <!--</div>-->
+          </div>
         </div>
+          
+
       </div>
     </div>
 

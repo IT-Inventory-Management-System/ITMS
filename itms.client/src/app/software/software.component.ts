@@ -33,6 +33,7 @@ export class SoftwareComponent implements OnInit {
     this.filterValues = (event.target as HTMLInputElement).value;
     this.filteredSoftware = this.softwaresData.filter((software) =>
       software.name.toLowerCase().includes(this.filterValues.toLowerCase())
+
     );
   }
 
@@ -69,11 +70,13 @@ export class SoftwareComponent implements OnInit {
 
   ngOnInit(): void {
     this.getSoftwaresData();
-    this.filteredSoftware = this.softwaresData;
+    //this.filteredSoftware = this.softwaresData;
     this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
       localStorage.setItem('selectedCountry', selectedCountry);
       this.selectedLocation = selectedCountry;
       console.log(this.selectedLocation);
+
+
     });
 
   }
@@ -83,6 +86,13 @@ export class SoftwareComponent implements OnInit {
       data => {
         console.log(data)
         this.softwaresData = data;
+        this.filteredSoftware = this.softwaresData;
+        console.log("filter", this.filteredSoftware);
+
+
+
+
+
       },
       error => {
         console.error('Error fetching software data', error);
