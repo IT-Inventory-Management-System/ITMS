@@ -10,6 +10,8 @@ namespace ITMS.Server.Services
             Task<IEnumerable<GetEmployeeDTO>> getAllEmployeeBasicDetails();
         Task<IEnumerable<GetAccessories>> getAccessories();
         Task<IEnumerable<GetBrandDTO>> getMouseBrand();
+        
+            Task<IEnumerable<getCGIDTO>> getCGIID();
 
     }
     public class AddAssetService : IAddAssetService
@@ -56,6 +58,29 @@ namespace ITMS.Server.Services
                                   brand= c.Brand,
                                   iswired = c.IsWired
                               }).ToListAsync();
+            return result;
+        }
+        public async Task<IEnumerable<getCGIDTO>> getCGIID()
+        {
+            var result = await (from c in _context.Devices
+                                
+                                where c.Cygid.StartsWith("CGI-MOU")
+                                
+
+                                select new getCGIDTO
+
+                                {
+                                    CGIID = c.Cygid.Substring(8) 
+                                }).OrderByDescending(c => c.CGIID)
+                       .Take(1)
+
+                       .ToListAsync();
+
+            if (result.Count == 0)
+            {
+                return new List<getCGIDTO> { new getCGIDTO { CGIID = "0" } };
+            }
+            else
             return result;
         }
 
