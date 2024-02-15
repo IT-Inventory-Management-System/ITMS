@@ -63,6 +63,10 @@ export class DataService {
   getOs(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl + 'Device/get-ostype');
   }
+
+  getUniqueProcessor(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + 'Device/get-unique-processors');
+  }
  
   getSoftwares(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl + 'addDevices/software-models');
