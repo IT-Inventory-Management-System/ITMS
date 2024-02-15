@@ -17,7 +17,6 @@ export class DevicesComponent implements OnInit{
   searchdevice: any; 
   locationId: string = '';
   loading: boolean = true;
-  @Output() deviceDataChange: EventEmitter<any[]> = new EventEmitter<any[]>();
 
   constructor(private dataService: DataService, private selectedCountryService: SelectedCountryService) {
   }
@@ -56,7 +55,6 @@ export class DevicesComponent implements OnInit{
     this.dataService.getDevices(this.locationId).subscribe(
       (data) => {
         this.DeviceData = data;
-        this.updateDeviceData();
         //if (this.selectedItem) {
         //  this.DeviceData = this.DeviceData.filter(device => device.operatingSystem[0].osname === this.selectedItem);
         //}
@@ -71,10 +69,6 @@ export class DevicesComponent implements OnInit{
         this.DeviceData = data;
         console.log(data);
       });
-  }
-
-  updateDeviceData() {
-    this.deviceDataChange.emit(this.DeviceData);
   }
 
 

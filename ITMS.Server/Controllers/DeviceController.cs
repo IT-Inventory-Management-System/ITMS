@@ -130,6 +130,12 @@ namespace itms.server.controllers
             return Ok(statusList);
         }
 
+        [HttpGet("get-unique-processors")]
+        public ActionResult<IEnumerable<ProcessorDto>> GetUniqueProcessors()
+        {
+            var processors = _deviceService.GetUniqueProcessors();
+            return Ok(processors);
+        }
 
         [HttpPost("updateDeviceStatus")]
         public async Task<IActionResult> UpdateDeviceStatus([FromBody]ArchiveDto archiveDto)
