@@ -24,15 +24,12 @@
 }
 .button1 {
   display: flex;
-  padding: 0.625rem 1rem;
+  padding: 0.4rem; 
   justify-content: center;
   align-items: flex-start;
   gap: 0.625rem;
   flex: 1 0 0;
   align-self: stretch;
-  border-radius: 0.25rem;
-  border: 1px solid var(--Blue, #28519E);
-  background: var(--White, #FFF);
   border-radius: 0.25rem;
   border: 1px solid var(--Blue, #28519E);
   background: var(--White, #FFF);
@@ -51,7 +48,7 @@
 }
 .button2 {
   display: flex;
-  padding: 0.625rem 1rem;
+  padding: 0.4rem;
   justify-content: center;
   align-items: flex-start;
   gap: 0.625rem;
