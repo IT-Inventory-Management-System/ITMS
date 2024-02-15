@@ -14,10 +14,13 @@ import { SelectedCountryService } from '../shared/services/selected-country.serv
 export class SoftwareComponent implements OnInit {
   selectedView: string = 'card';
   softwaresData: any[];
+  softwarestableData: any[];
   version: string[];
   rowData: any[] = [];
   selectedLocation: any = '';
   parameters: any = null;
+  singlesoftware: any = null;
+  softwarehistory: any = null;
 
   filteredSoftware: any[]
   filterValues: string = '';
@@ -57,6 +60,9 @@ export class SoftwareComponent implements OnInit {
         if (result) {
           // Handle the result here
           console.log('Single software selected:', result);
+          this.singlesoftware = result;
+          console.log('Single software :', this.singlesoftware);
+
         } else {
           // Handle case when no software is found
           console.log('No software found for parameters:', parameters);
@@ -66,10 +72,32 @@ export class SoftwareComponent implements OnInit {
         console.error('Error fetching single software:', error);
       }
     );
+
+    // Call the service method
+    this.softwareService.GetHistory(parameters).subscribe(
+      (result: any | null) => {
+        if (result) {
+          // Handle the result here
+          console.log(' software history:', result);
+          this.softwarehistory = result;
+          console.log(' software history:', this.softwarehistory);
+
+        } else {
+          // Handle case when no software is found
+          console.log('No software history for parameters:', parameters);
+        }
+      },
+      error => {
+        console.error('Error fetching single software:', error);
+      }
+    );
+
+
   }
 
   ngOnInit(): void {
     this.getSoftwaresData();
+    this.getSoftwaretabledata();
     //this.filteredSoftware = this.softwaresData;
     this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
       localStorage.setItem('selectedCountry', selectedCountry);
@@ -101,6 +129,53 @@ export class SoftwareComponent implements OnInit {
   }
 
 
+  getSoftwaretabledata(): void {
+    this.softwareService.GettableSoftwares().subscribe(
+      data => {
+        this.softwarestableData = data;
+
+        console.log("tabel", this.softwarestableData);
+        this.setRowData();
+        console.log('Row Data', this.rowData);
+
+      },
+      error => {
+        console.error('Error fetching software data', error);
+      }
+    );
+  }
+
+
+
+  setRowData() {
+    for (var i = 0; i < this.softwarestableData.length; i++) {
+
+      let statusHTML = '';
+      if (this.softwarestableData[i].status === 'Assigned') {
+        statusHTML = '<div class="assigned-status">Assigned</div>';
+      } else if (this.softwarestableData[i].status === 'Not Assigned') {
+        statusHTML = '<div class="not-assigned-status">Not Assigned</div>';
+      }
+
+      this.rowData[i] = {
+        "SNo": i + 1,
+        "Software Name": this.softwarestableData[i].name,
+        "Version": this.softwarestableData[i].version,
+        "# Total": this.softwarestableData[i].assigned + this.softwarestableData[i].inventory ,
+        "# Assigned": this.softwarestableData[i].assigned,
+        "# Inventory": this.softwarestableData[i].inventory,
+        "Expiry Date": this.softwarestableData[i].expDate,
+        "Date of Purchase": this.softwarestableData[i].purchaseDates,
+        
+
+
+     
+      }
+
+    }
+  }
+
+
   colDefs: ColDef[] = [
     {
       field: "SNo",
@@ -115,9 +190,8 @@ export class SoftwareComponent implements OnInit {
     { field: "# Inventory", width: 142, resizable: false, suppressMovable: true, },
     { field: "Date of Purchase", width: 170, resizable: false, suppressMovable: true, },
     { field: "Expiry Date", width: 150, resizable: false, suppressMovable: true, },
-    { field: "# Stock Status", width: 125, resizable: false, suppressMovable: true, },
-    { field: "Assigned To", width: 128, resizable: false, suppressMovable: true, },
-    { field: "Assigned Date", width: 129, resizable: false, suppressMovable: true, },
+    //{ field: "Assigned To", width: 128, resizable: false, suppressMovable: true, },
+    //{ field: "Assigned Date", width: 129, resizable: false, suppressMovable: true, },
     { field: "Software Status", width: 135, resizable: false, suppressMovable: true, },
      { field: "Stock Status", pinned: 'right', cellStyle: { 'border': 'none' }, width: 122, resizable: false, suppressMovable: true, }
 

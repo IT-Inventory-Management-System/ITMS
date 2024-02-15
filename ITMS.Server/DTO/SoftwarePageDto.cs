@@ -101,4 +101,25 @@ namespace ITMS.Server.DTO
         public string? assignedBy { get; set; }
         public DateTime? assignedDate { get; set; }
     }
+
+
+
+    public class tableSoftwares
+    {
+        public string? Name { get; set; }
+        public string? Type { get; set; }
+        public string? Version { get; set; }
+        public DateTime? ExpDate { get; set; }
+        public int? Inventory { get; set; }
+        public int? Assigned { get; set; }
+
+        // public DateTime? ExpDateIndia { get; set; }
+        public int? ExpiryDateCount { get; set; } = 0;
+
+        //public int? ExpiryDateCountIndia { get; set; } = 0;
+
+        public List<DateTime?> PurchaseDates { get; set; }
+        public List<DateTime?>? ExpiryDates { get; set; }
+
+    }
 }

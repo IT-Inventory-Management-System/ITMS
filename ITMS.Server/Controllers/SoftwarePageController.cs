@@ -85,5 +85,19 @@ namespace ITMS.Server.Controllers
         {
             return _softwarepageService.GetSingleHistory(parameters);
         }
+
+        [HttpGet("softwarestable")]
+        public ActionResult<IEnumerable<Softwares>> GetSoftwares()
+        {
+            try
+            {
+                var software = _softwarepageService.GettableSoftwares();
+                return Ok(software);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error: {ex.Message}");
+            }
+        }
     }
 }

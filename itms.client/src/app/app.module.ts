@@ -151,7 +151,8 @@ import { LastdateComponent } from './software/lastdate/lastdate.component';
     UnrchivemodalComponent,
     ArchiveModalComponent,
     AddAssetComponent,
-
+    FilterComponent,
+    LastdateComponent,
     LaptopSearchBoxComponent,
     SoftwareSearchBoxComponent,
     SoftwareVersionSearchBoxComponent,
@@ -177,8 +178,8 @@ import { LastdateComponent } from './software/lastdate/lastdate.component';
     AssetFilterComponent,
     AccordionComponent,
     AccordionItemComponent
-    FilterComponent,
-    LastdateComponent,
+    //FilterComponent,
+    //LastdateComponent,
 
 
 

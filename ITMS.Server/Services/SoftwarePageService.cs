@@ -151,17 +151,17 @@ namespace ITMS.Server.Services
             var software = _context.SoftwareTypes
                 .Include(s => s.Softwares)
                     .ThenInclude(s => s.SoftwareAllocations)
-                        .ThenInclude(sa => sa.Location) 
+                        .ThenInclude(sa => sa.Location)
                 .SelectMany(s => s.Softwares.Select(software => new SoftwarePage
                 {
                     name = software.SoftwareName,
                     SoftwareThumbnail = software.SoftwareThumbnail,
                     version = software.SoftwareAllocations
-                             .Where(sa => sa.SoftwareId == software.Id) 
+                             .Where(sa => sa.SoftwareId == software.Id)
                              .Select(sa => sa.Version)
                              .Distinct()
                              .ToList(),
-                    type =s.TypeName
+                    type = s.TypeName
                 }));
 
             return software.ToList();
@@ -245,6 +245,65 @@ namespace ITMS.Server.Services
                                  }).ToList();
 
             return singleHistory;
+
+
+
         }
+
+        public List<tableSoftwares> GettableSoftwares()
+        {
+            var specsToBeReturned = (from s in _context.Software
+                                     join sa in _context.SoftwareAllocations on s.Id equals sa.SoftwareId into softwareAllocationsGroup
+                                     from softwareAllocation in softwareAllocationsGroup.DefaultIfEmpty()
+
+                                     join t in _context.SoftwareTypes on s.SoftwareTypeId equals t.Id into softwareTypesGroup
+                                     from softwareType in softwareTypesGroup.DefaultIfEmpty()
+
+                                     join l in _context.Locations on softwareAllocation.LocationId equals l.Id into locationsGroup
+                                     from location in locationsGroup.DefaultIfEmpty()
+
+                                     select new
+                                     {
+                                         SoftwareName = s.SoftwareName,
+                                         Version = softwareAllocation != null ? softwareAllocation.Version : null,
+                                         TypeName = softwareType != null ? softwareType.TypeName : null,
+                                         AssignedToCount = s.SoftwareAllocations.Count(sa => sa.AssignedTo != null && sa.Version != null),
+                                         NotAssignedCount = s.SoftwareAllocations.Count(sa => sa.AssignedTo == null && sa.Version != null),
+                                         PurchaseDates = s.SoftwareAllocations.Where(sa => sa.PurchasedDate != null && sa.Version != null)
+                                                                             .Select(sa => sa.PurchasedDate)
+                                                                             .ToList(),
+                                         ExpiryDates = s.SoftwareAllocations.Where(sa => sa.ExpiryDate != null)
+                                                                     .Select(sa => sa.ExpiryDate)
+                                                                     .ToList(),
+                                         ExpDate = s.SoftwareAllocations
+                                          .Where(sa => sa.ExpiryDate.HasValue)
+                                          .OrderByDescending(sa => sa.ExpiryDate)
+                                          .Select(sa => sa.ExpiryDate)
+                                          .FirstOrDefault(),
+                                         ExpiryDateCount = s.SoftwareAllocations
+                                                             .Where(sa => sa.ExpiryDate.HasValue && sa.Version != null)
+                                                             .Select(sa => sa.ExpiryDate)
+                                                             .Distinct()
+                                                             .Count(),
+                                     }).AsEnumerable() // Bring the data to memory
+                                     .Select(x => new tableSoftwares
+                                     {
+                                         Name = x.SoftwareName,
+                                         Version = x.Version,
+                                         Type = x.TypeName,
+                                         Assigned = x.AssignedToCount,
+                                         Inventory = x.NotAssignedCount,
+                                         PurchaseDates = x.PurchaseDates,
+                                         ExpiryDateCount = x.ExpiryDateCount,
+                                     }).ToList();
+
+            return specsToBeReturned;
+        }
+
+
+
+
+
     }
+
 }
