@@ -15,7 +15,7 @@ export class AddAssetComponent {
 
   constructor(private dataService: DataService) {
     this.categoryData = [];
-    this.selectedCategory = 'Mouse';
+    this.selectedCategory = 'Laptop';
     this.localStorageListener = this.handleStorageChange.bind(this);
     window.addEventListener('storage', this.localStorageListener);
 
