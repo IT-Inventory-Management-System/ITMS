@@ -74,6 +74,7 @@ namespace ITMS.Server.Services
 
                         TypeName = dl.SoftwareAllocationNavigation.Software.SoftwareType.TypeName,
                         SoftwareName = dl.SoftwareAllocationNavigation.Software.SoftwareName,
+                        Version = dl.SoftwareAllocationNavigation.Version, //new version added
                         AssignBy = _dbContext.Employees
                             .Where(employee => employee.Id == dl.AssignedBy)
                             .Select(employee => $"{employee.FirstName} {employee.LastName}")
@@ -86,6 +87,12 @@ namespace ITMS.Server.Services
                         PurchasedDate = dl.SoftwareAllocationNavigation.PurchasedDate,
                         ExpiryDate = dl.SoftwareAllocationNavigation.ExpiryDate,
                         RemainingDays = Math.Max(0, (dl.SoftwareAllocationNavigation.ExpiryDate.HasValue ? (dl.SoftwareAllocationNavigation.ExpiryDate.Value - DateTime.Today).Days : 0)),
+                        RecievedBy = _dbContext.Employees
+                            .Where(employee => employee.Id == dl.RecievedBy)
+                            .Select(employee => $"{employee.FirstName} {employee.LastName}")
+                            .FirstOrDefault(),
+                        RecievedByDate = dl.RecievedDate,
+
                         Comments = dl.Comments.Select(c => new CommentDto
                         {
                             Id = c.Id,
