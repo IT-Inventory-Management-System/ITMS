@@ -82,4 +82,9 @@ namespace ITMS.Server.DTO
         public string? Cygid { get; set; }
     }
 
+    public class ProcessorDto
+    {
+        public string Name { get; set; }
+    }
+
 }

@@ -1,0 +1,16 @@
+<div class="acc-outer">
+  <div class="acc-header" (click)="toggle()" [ngClass]="{'acc-border': showBody==true}">
+    <div class="acc-title">
+      <span>{{title}}</span>
+    </div>
+    <div class="acc-icon">
+      <img *ngIf="showBody==false" src="../../../../../assets/icons/expand-open.svg" />
+      <img *ngIf="showBody==true" src="../../../../../assets/icons/expand-close.svg" />
+    </div>
+  </div>
+  <div *ngIf="showBody">
+    <div class="acc-body">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>

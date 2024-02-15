@@ -1,0 +1,72 @@
+<div class="modal fade " id="filterModal">
+  <div class="filtersection">
+    <div class="tab">
+      <div class="filtertab">
+        <img src="../../../assets/icons/Software/Filter-black.svg" />
+        <div class="filtertext">Filter</div>
+        <img src="../../../assets/icons/Close.svg" style="margin-left:14rem;" data-bs-dismiss="modal" />
+      </div>
+    </div>
+
+  </div>
+  <div class="criteria">
+    <div class="criteria-text">
+      <span class="text">Refine the assets by implementing specific criteria.</span>
+    </div>
+
+    <app-accordion>
+      <app-accordion-item title="Operating System">
+        <div class="filter-checkbox-outer">
+          <div *ngFor="let status of operatingSystem" class="filter-checkbox">
+            <input class="filter-checkbox-input" type="checkbox" id="{{status}}" (change)="toggleCheckbox(status)">
+            <label class="filter-checkbox-label" for="{{status}}">
+              <img *ngIf="checked === status" src="../../../../../assets/icons/checkbox-checked.svg" />
+              <img *ngIf="checked !== status" src="../../../../../assets/icons/checkbox-unchecked.svg" />
+              <span>{{status}}</span>
+            </label>
+          </div>
+        </div>
+      </app-accordion-item>
+      <app-accordion-item title="Stock Status">...........</app-accordion-item>
+      <app-accordion-item title="Device Status">
+        <div class="filter-checkbox-outer">
+          <div *ngFor="let status of deviceStatus" class="filter-checkbox">
+            <input class="filter-checkbox-input" type="checkbox" id="{{status}}" (change)="toggleCheckbox(status)">
+            <label class="filter-checkbox-label" for="{{status}}">
+              <img *ngIf="checked === status" src="../../../../../assets/icons/checkbox-checked.svg" />
+              <img *ngIf="checked !== status" src="../../../../../assets/icons/checkbox-unchecked.svg" />
+              <span>{{status}}</span>
+            </label>
+          </div>
+        </div>
+      </app-accordion-item>
+      <app-accordion-item title="Processor">
+        <div class="filter-checkbox-outer">
+          <div *ngFor="let value of uniqueProcessor" class="filter-checkbox">
+            <input class="filter-checkbox-input" type="checkbox" id="{{value.name}}" (change)="toggleCheckbox(value.name)">
+            <label class="filter-checkbox-label" for="{{value.name}}">
+              <img *ngIf="checked === value.name" src="../../../../../assets/icons/checkbox-checked.svg" />
+              <img *ngIf="checked !== value.name" src="../../../../../assets/icons/checkbox-unchecked.svg" />
+              <span>{{value.name}}</span>
+            </label>
+          </div>
+        </div>
+      </app-accordion-item>
+      <app-accordion-item title="Date of Purchase">...........</app-accordion-item>
+    </app-accordion>
+    
+  </div>
+  <div class="cancle-apply ">
+    <button class="cancel-button "><span>Cancel</span></button>
+    <button type="button" class="btn btn-primary apply">Apply</button>
+
+  </div>
+
+
+
+
+  <div class="modal-dialog">
+  </div>
+
+
+</div>
