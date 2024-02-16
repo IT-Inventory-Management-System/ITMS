@@ -80,8 +80,8 @@
             </div>
           </div>
         </div>
-        <div *ngIf="filteredSoftware && selectedLocation === 'India' ">
-          <div class="sub-category " *ngFor="let software of filteredSoftware? filteredSoftware[0] : softwaresData[0] ">
+        <div *ngIf="filteredSoftware">
+          <div class="sub-category " *ngFor="let software of filteredSoftware? selectedLocation === 'India' ? filteredSoftware[0]:filteredSoftware[1] : selectedLocation === 'India' ? softwaresData[0] : softwaresData[1]">
             <app-software-name [softwareData]="software" [selectedLocation]="selectedLocation" (cardClicked)="onCardClicked($event)"></app-software-name>
             {{ version }}
           </div>

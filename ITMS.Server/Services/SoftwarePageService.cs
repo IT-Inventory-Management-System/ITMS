@@ -157,14 +157,23 @@ namespace ITMS.Server.Services
                     name = software.SoftwareName,
                     SoftwareThumbnail = software.SoftwareThumbnail,
                     version = software.SoftwareAllocations
-                             .Where(sa => sa.SoftwareId == software.Id)
+                             .Where(sa => sa.SoftwareId == software.Id && sa.Location.Location1 == country)
                              .Select(sa => sa.Version)
                              .Distinct()
                              .ToList(),
                     type = s.TypeName
                 }));
 
-            return software.ToList();
+            List< SoftwarePage > res = new List< SoftwarePage >();
+            foreach(SoftwarePage s in software.ToList())
+            {
+                if (s.version?.Count > 0)
+                {
+                    res.Add(s);
+                }
+            }
+
+            return res;
         }
 
 

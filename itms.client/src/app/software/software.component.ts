@@ -92,6 +92,15 @@ export class SoftwareComponent implements OnInit {
       }
     );
 
+    //var purchaseTable = {
+    //  pDate: '',
+    //  qty: '',
+    //  eDate:'',
+    //}
+    //listPurchaseTable: any[];
+    //for (var s in this.singlesoftware.purchaseDates) {
+      
+    //}
 
   }
 
