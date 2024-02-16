@@ -12,17 +12,19 @@
   /*box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.15);
 }*/
 .assign-history {
-  display: flex;
+  /*display: flex;
   
   height: 40.25rem;
   padding: 1rem;
   flex-direction: column;
   align-items: flex-start;
   border-radius: 0.5rem;
-  background: #FFF;
+  background: #FFF;*/
   /* Shadow */
-  box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.15);
-  overflow:auto;
+  /*box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.15);*/
+  width:25.1875rem;
+  height:38.25rem;
+  overflow:scroll;
 }
 p {
   color: var(--Primary-Gray, #343435);
