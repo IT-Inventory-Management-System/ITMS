@@ -22,6 +22,8 @@ export class SoftwareComponent implements OnInit {
   singlesoftware: any = null;
   softwarehistory: any = null;
 
+  isArchived: boolean = false;
+
   filteredSoftware: any[]
   filterValues: string = '';
 
@@ -43,7 +45,10 @@ export class SoftwareComponent implements OnInit {
 
   constructor(private softwareService: SoftwareService, private LocationService: LocationService, private selectedCountryService: SelectedCountryService) { } // Injecting SoftwareService
 
-
+  onApplyClicked(eventData: any): void {
+    console.log
+      (eventData);
+  }
 
   onCardClicked(eventData: any): void {
     // Assuming eventData contains the parameters needed for GetSingleSelected
@@ -91,17 +96,6 @@ export class SoftwareComponent implements OnInit {
         console.error('Error fetching single software:', error);
       }
     );
-
-    //var purchaseTable = {
-    //  pDate: '',
-    //  qty: '',
-    //  eDate:'',
-    //}
-    //listPurchaseTable: any[];
-    //for (var s in this.singlesoftware.purchaseDates) {
-      
-    //}
-
   }
 
   ngOnInit(): void {
@@ -116,6 +110,14 @@ export class SoftwareComponent implements OnInit {
 
     });
 
+  }
+
+  Archived() {  
+    if (this.isArchived == true) {
+      this.isArchived = false;
+    } else {
+      this.isArchived = true;
+    }
   }
 
   getSoftwaresData(): void {

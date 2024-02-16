@@ -9,6 +9,7 @@ export class SoftwareNameComponent {
 
   @Input() softwareData: any;
   @Input() selectedLocation: any;
+  @Input() isArchived: any;
 
   @Output() cardClicked: EventEmitter<any> = new EventEmitter<any>();
   onClick(): void {
@@ -17,7 +18,6 @@ export class SoftwareNameComponent {
       version: this.softwareData.version,
       type: this.softwareData.type,
       location: this.selectedLocation
-      // Add more properties as needed
     });
   }
 }

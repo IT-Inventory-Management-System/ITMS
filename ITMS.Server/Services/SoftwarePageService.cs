@@ -156,15 +156,23 @@ namespace ITMS.Server.Services
                 {
                     name = software.SoftwareName,
                     SoftwareThumbnail = software.SoftwareThumbnail,
-                    version = software.SoftwareAllocations
-                             .Where(sa => sa.SoftwareId == software.Id && sa.Location.Location1 == country)
-                             .Select(sa => sa.Version)
-                             .Distinct()
-                             .ToList(),
+                    //version = software.SoftwareAllocations
+                    //         .Where(sa => sa.SoftwareId == software.Id && sa.Location.Location1 == country)
+                    //         .Select(sa => sa.Version)
+                    //         .Distinct()
+                    //         .ToList(),
                     type = s.TypeName,
-                    isArchived = software.SoftwareAllocations
-                    .Where(sa => sa.SoftwareId == software.Id && sa.Location.Location1 == country)
-                    .Select(sa => sa.IsArchived).FirstOrDefault(),
+                    //isArchived = software.SoftwareAllocations
+                    //.Where(sa => sa.SoftwareId == software.Id && sa.Location.Location1 == country)
+                    //.Select(sa => sa.IsArchived).FirstOrDefault(),
+
+                    version = software.SoftwareAllocations
+            .Where(sa => sa.SoftwareId == software.Id && sa.Location.Location1 == country)
+            .GroupBy(sa => new { sa.Version, sa.SoftwareId, sa.IsArchived })
+            .Select(g => new Ver_Qty_Pur_Arch { version = g.Key.Version, inStock = g.Count(), isArchived = g.Key.IsArchived,
+                purchaseDates = g.Select(sa => sa.PurchasedDate).Distinct().OrderBy(pd=>pd).ToList()
+            })
+            .ToList(),
                 }));
 
             List< SoftwarePage > res = new List< SoftwarePage >();

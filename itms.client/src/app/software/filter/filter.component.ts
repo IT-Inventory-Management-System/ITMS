@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-filter',
@@ -13,14 +13,32 @@ export class FilterComponent {
   SoftwareStatus: string[] = ["Active", "Archive"];
   StockStatus: string[] = ["Low In Stock", "Out Of Stock", "In Stock"];
 
-  
+  @Output() applyClicked: EventEmitter<any> = new EventEmitter<any>();
 
-  checked: string = ""; // To store the checked status
+  type: string = "";
+  stat: string = "";
+  stock: string = "";
 
-  toggleCheckbox(status: string) {
-    // Implement logic to handle checkbox state for each status
-    this.checked = (this.checked === status) ? "" : status;
+  toggleCheckboxType(status: string) {
+    this.type = (this.type === status) ? "" : status;
+    console.log(this.type);
   }
 
+  toggleCheckboxStatus(status: string) {
+    this.stat = (this.stat === status) ? "" : status;
+    console.log(this.stat);
+  }
 
+  toggleCheckboxStock(status: string) {
+    this.stock = (this.stock === status) ? "" : status;
+    console.log(this.stock);
+  }
+
+  Apply() {
+    this.applyClicked.emit({
+      type: this.type,
+      stat: this.stat,
+      stock: this.stock,
+    });
+  }
 }
