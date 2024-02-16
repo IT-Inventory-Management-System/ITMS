@@ -22,10 +22,30 @@ export class AssetFilterComponent {
       })
   }
 
-  checked: string = ""; // To store the checked status
+  selectedCheckboxes: { [key: string]: string[] } = {
+    operatingSystem: [],
+    deviceStatus: [],
+    uniqueProcessor: [],
+  };
 
-  toggleCheckbox(status: string) {
+  checked: string = "";
+
+  toggleCheckbox(value: string, category:string) {
     // Implement logic to handle checkbox state for each status
-    this.checked = (this.checked === status) ? "" : status;
+    const categoryCheckboxes = this.selectedCheckboxes[category];
+    const index = categoryCheckboxes.indexOf(value);
+
+    if (index === -1) {
+      // Checkbox was checked, add to the selected list
+      categoryCheckboxes.push(value);
+      this.checked = value;
+    } else {
+      // Checkbox was unchecked, remove from the selected list
+      categoryCheckboxes.splice(index, 1);
+      this.checked = "";
+    }
+
+    // Log the selected values (you can use this.selectedCheckboxes for further processing)
+    console.log("Selected Checkboxes:", this.selectedCheckboxes);
   }
 }

@@ -93,6 +93,7 @@ import { MyCellComponent } from './shared/components/my-cell/my-cell.component';
 import { ManageAccessComponent } from './manage-access/manage-access.component';
 import { AdminListPanelComponent } from './manage-access/admin-list-panel/admin-list-panel.component';
 import { AdminPermissionsPanelComponent } from './manage-access/admin-permissions-panel/admin-permissions-panel.component';
+import { AdminNameCardComponent } from './shared/components/admin-name-card/admin-name-card.component';
 
 
 
@@ -182,7 +183,8 @@ import { AdminPermissionsPanelComponent } from './manage-access/admin-permission
     MyCellComponent,
     ManageAccessComponent,
     AdminListPanelComponent,
-    AdminPermissionsPanelComponent
+    AdminPermissionsPanelComponent,
+    AdminNameCardComponent
 
 
   ],
