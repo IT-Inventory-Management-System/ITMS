@@ -63,6 +63,10 @@ namespace ITMS.Server.Controllers
                         };
 
                         await _postAssignAsset.UpdateDeviceComment(deviceCommentDTO);
+
+                        var Comments = await _postAssignAsset.ListComment(deviceLogID);
+                        var commentID = Comments.FirstOrDefault().Id;
+                        await _postAssignAsset.UpdateCommentIDLogAsync(deviceLogID, commentID);
                     }
 
 
@@ -96,6 +100,12 @@ namespace ITMS.Server.Controllers
                         };
 
                         await _postAssignAsset.UpdateSoftwareComment(softwareCommentDTO);
+
+                        var Comments = await _postAssignAsset.ListComment(SoftwareLogID);
+                        var commentID = Comments.FirstOrDefault().Id;
+
+                        await _postAssignAsset.UpdateCommentIDLogAsync(SoftwareLogID, commentID);
+
                     }
 
                     return Results.Ok("Device and Software allocated successfully");
@@ -133,6 +143,10 @@ namespace ITMS.Server.Controllers
                         };
 
                         await _postAssignAsset.UpdateDeviceComment(deviceCommentDTO);
+                        var Comments = await _postAssignAsset.ListComment(deviceLogID);
+                        var commentID = Comments.FirstOrDefault().Id;
+
+                        await _postAssignAsset.UpdateCommentIDLogAsync(deviceLogID, commentID);
                     }
 
                     return Results.Ok("Device allocated successfully");
@@ -169,6 +183,11 @@ namespace ITMS.Server.Controllers
                         };
 
                         await _postAssignAsset.UpdateSoftwareComment(softwareCommentDTO);
+
+                        var Comments = await _postAssignAsset.ListComment(SoftwareLogID);
+                        var commentID = Comments.FirstOrDefault().Id;
+
+                        await _postAssignAsset.UpdateCommentIDLogAsync(SoftwareLogID, commentID);
                     }
                     return Results.Ok("Software allocated successfully");
                 }
