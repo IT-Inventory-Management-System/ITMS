@@ -7,6 +7,7 @@ public class DevicelogDto
 {
     public Guid Id { get; set; }
     public string? Cygid { get; set; }
+    public string? status { get; set; }
 
     public Guid DeviceId { get; set; }
     public Guid UserId { get; set; }

@@ -25,20 +25,26 @@ public class DeviceLogService
             .ThenInclude(model => model.Category)
             .Where(log => log.LocationId == locationId && log.DeviceModel.Category.Name == "Laptop")
             .OrderBy(log => log.Cygid)
-            .Select(log => new DevicelogDto
-            {
-                Id = log.Id,
-                Cygid = log.Cygid,
-                OperatingSystem = new OperatingDto
-                 {
-                     Osname = log.DeviceModel.OsNavigation.Osname
-                 }
-            })
-
+            .Join(
+                _context.Statuses,
+                device => device.Status,
+                status => status.Id,
+                (device, status) => new DevicelogDto
+                {
+                    Id = device.Id,
+                    Cygid = device.Cygid,
+                    status = status.Type,
+                    OperatingSystem = new OperatingDto
+                    {
+                        Osname = device.DeviceModel.OsNavigation.Osname
+                    }
+                }
+            )
             .ToListAsync();
 
         return deviceHistory;
     }
+
 
     public async Task<IEnumerable<DevicelogDto>> GetDevicesLogInfoAsync(string cygid)
     {
@@ -68,6 +74,7 @@ public class DeviceLogService
                         commentDtos.Add(new Comment
                         {
                             Id = comment.Id,
+                            
                             Description = comment.Description,
                             DeviceLogId = comment.DeviceLogId,
                             CreatedByNavigation = new Employee

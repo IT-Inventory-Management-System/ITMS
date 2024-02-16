@@ -3,9 +3,11 @@
   <button #firstButton class="devices-list-container-items"  (click)="onDeviceClick(device?.cygid) "  [attr.data-name]="device?.cygid" >
    <img src="../assets/icons/laptop-solid.svg" />
     <div class="devices-detail">
-      <p class="devices-name">{{device?.cygid}}</p>
+      <p class="devices-name">{{device?.cygid}} </p>
     </div>
-
+    <div *ngIf="device?.status === 'Not Assigned'" class="status-outer available">
+      <span>Available</span>
+    </div>
   </button>
 
 
