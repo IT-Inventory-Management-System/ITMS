@@ -64,7 +64,7 @@ namespace ITMS.Server.DTO
         public byte[]? SoftwareThumbnail { get; set; }
         public string type { get; set; }
         public List<string?>? version { get; set; }
-
+        public bool? isArchived { get; set; }
 
     }
 
@@ -93,6 +93,7 @@ namespace ITMS.Server.DTO
         public List<Pur_Qty_Exp> PurchaseDates { get; set; }
 
         public List<DateTime?>? ExpiryDates { get; set; }
+        public bool? isArchived { get; set; }
     }
 
     public class Pur_Qty_Exp

@@ -161,7 +161,10 @@ namespace ITMS.Server.Services
                              .Select(sa => sa.Version)
                              .Distinct()
                              .ToList(),
-                    type = s.TypeName
+                    type = s.TypeName,
+                    isArchived = software.SoftwareAllocations
+                    .Where(sa => sa.SoftwareId == software.Id && sa.Location.Location1 == country)
+                    .Select(sa => sa.IsArchived).FirstOrDefault(),
                 }));
 
             List< SoftwarePage > res = new List< SoftwarePage >();
@@ -220,6 +223,8 @@ namespace ITMS.Server.Services
                                                           .Select(sa => sa.ExpiryDate)
                                                           .Distinct()
                                                           .Count(),
+
+                                         isArchived = software.IsArchived
                                      }).FirstOrDefault();
 
 
