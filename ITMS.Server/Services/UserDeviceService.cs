@@ -87,6 +87,15 @@ public class UserDeviceService
                    Storage = log.Device.DeviceModel.Storage,
                    PurchasedDate = log.Device.PurchasedDate,
                    DeviceAge = Math.Round((DateTime.Today - (log.Device.PurchasedDate ?? DateTime.Today)).TotalDays / 365.0, 1),
+                   ActionName = _dbContext.ActionTables
+                       .Where(action => action.Id == log.ActionId)
+                       .Select(action => $"{action.ActionName}")
+                       .FirstOrDefault(),
+                   UpdatedBy = _dbContext.Employees
+                       .Where(employee => employee.Id == log.UpdatedBy)
+                       .Select(employee => $"{employee.FirstName} {employee.LastName}")
+                       .FirstOrDefault(),
+                   UpdatedAtUtc = log.UpdatedAtUtc
 
                })
                .ToList();

@@ -12,7 +12,9 @@
 
     </div>
 
-    <div *ngIf="laptop.submitedBy != null" class="received-tag">
+
+
+    <div *ngIf="laptop.actionName === 'Submitted' && laptop.submitedBy != null" class="received-tag">
 
       <div class="received-tag-info">
         <img src="../../../assets/icons/ReceivedVector.svg" class="recieved-image" />RECEIVED
@@ -20,15 +22,27 @@
 
     </div>
 
+    <div *ngIf="laptop.actionName === 'Lost' && laptop.submitedBy != null" class="received-tag">
 
-    <!--<div *ngIf="Selectedvalue === 'Lost/Not Received' && laptop.submitedBy != null" class="received-tag">
       <div class="received-tag-info">
-       LOST
+        <img src="../../../assets/icons/ReceivedVector.svg" class="recieved-image" />LOST
       </div>
-    </div>-->
+
+    </div>
+
+    <!--<div *ngIf="Selectedvalue === 'Lost/Not Received' && laptop.submitedBy != null " class="received-tag">
+    <div class="received-tag-info">
+      LOST
+    </div>
+  </div>-->
+    <!--<div *ngIf="Selectedvalue == 'Submitted Later'" class="received-tag">
+    <div class="received-tag-info">
+     Submit later
+    </div>
+  </div>-->
 
     <div *ngIf="laptop.submitedBy === null" class="laptop-revoke-button">
-      <app-laptop-revoke [laptopDetails]="laptop" [userId]="userId" [firstName]="firstName" [lastName]="lastName" [cgiid]="cgiid" (reasonSelected)="handleReasonSelected($event)"></app-laptop-revoke>
+      <app-laptop-revoke [laptopDetails]="laptop" [userId]="userId" [firstName]="firstName" [lastName]="lastName" [cgiid]="cgiid"></app-laptop-revoke>
     </div>
 
 

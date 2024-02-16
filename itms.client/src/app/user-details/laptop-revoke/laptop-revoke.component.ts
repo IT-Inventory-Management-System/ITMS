@@ -13,34 +13,59 @@ export class LaptopRevokeComponent {
   @Input() lastName: any;
   @Input() cgiid: any;
 
-  @Output() reasonSelected = new EventEmitter<string>();
+  //@Output() reasonSelected = new EventEmitter<any>();
 
-  selectedReason: string; // Define type for selectedReason
+  selectedReason: any; // Define type for selectedReason
 
   newComment: string = '';
   comments: any;
   loggedUser: any;
- 
-  constructor(private commentService: EmployeeService, private deviceLogService: EmployeeService) {
+  actionId: any;
+  actionsArray: any[] = [];
+  
+  constructor(private commentService: EmployeeService, private deviceLogService: EmployeeService, private actionService: EmployeeService) {
     const storedUser = localStorage.getItem("user");
     if (storedUser !== null) {
       this.loggedUser = JSON.parse(storedUser);
     }
+
+    this.actionService.getActions().subscribe(
+      (actions) => {
+        this.actionsArray = actions;
+      },
+      (error) => {
+        console.error('Error fetching actions:', error);
+
+      }
+    )
   }
 
   saveCommentAndFetchComments() {
-
-    //if the item is recieved then only call the updateRecievedBy function otherwise do not call it
-    if ((document.getElementById('receivedYes') as HTMLInputElement).checked) {
+    const Unassignable = (document.getElementById('unassignable') as HTMLInputElement)?.checked;
+    const Perfect = (document.getElementById('perfect') as HTMLInputElement)?.checked;
+    const lostNotReceivedChecked = (document.getElementById('lostNotReceived') as HTMLInputElement)?.checked;
+ 
+   
+    if (lostNotReceivedChecked) {
       const var1 = this.laptopDetails.deviceLogId;
       const var2 = this.loggedUser.id;
-      this.deviceLogService.updateRecievedBy(var1, var2).subscribe(
+
+      const lostAction = this.actionsArray.find(a => a.actionName === 'Lost');
+      if (lostAction) {
+        this.actionId = lostAction.id;
+        console.log("Lost Action: ", this.actionId);
+      }
+
+      const var3 = this.actionId;
+
+      this.deviceLogService.updateRecievedBy(var1, var2, var3).subscribe(
         (response) => {
           console.log(response);
           if (response && response.receivedBy) {
-            const { firstName, lastName, recievedDate } = response.receivedBy;
+            const { firstName, lastName, recievedDate, actionName } = response.receivedBy;
             this.laptopDetails.submitedBy = `${firstName} ${lastName}`;
             this.laptopDetails.submitedByDate = `${recievedDate}`;
+            this.laptopDetails.actionName = `${actionName}`;
           }
         },
         (error) => {
@@ -49,16 +74,26 @@ export class LaptopRevokeComponent {
       );
     }
 
-    if (this.selectedReason =='Lost/Not Received') {
+    if (Perfect || Unassignable) {
       const var1 = this.laptopDetails.deviceLogId;
       const var2 = this.loggedUser.id;
-      this.deviceLogService.updateRecievedBy(var1, var2).subscribe(
+
+      const SubmittedAction = this.actionsArray.find(a => a.actionName === 'Submitted');
+      if (SubmittedAction) {
+        this.actionId = SubmittedAction.id;
+        console.log("Submitted Action: ", this.actionId);
+      }
+
+      const var3 = this.actionId;
+
+      this.deviceLogService.updateRecievedBy(var1, var2, var3).subscribe(
         (response) => {
           console.log(response);
           if (response && response.receivedBy) {
-            const { firstName, lastName, recievedDate } = response.receivedBy;
+            const { firstName, lastName, recievedDate, actionName } = response.receivedBy;
             this.laptopDetails.submitedBy = `${firstName} ${lastName}`;
             this.laptopDetails.submitedByDate = `${recievedDate}`;
+            this.laptopDetails.actionName = `${actionName}`;
           }
         },
         (error) => {
@@ -66,6 +101,7 @@ export class LaptopRevokeComponent {
         }
       );
     }
+
 
     //if it is a new comment
     if (this.newComment) {
@@ -124,11 +160,11 @@ export class LaptopRevokeComponent {
     this.resetRadioButtons();
   }
   
-  emitReasonSelected() {
-    if (this.selectedReason) {
-      this.reasonSelected.emit(this.selectedReason);
-    }
-  }
+  //emitReasonSelected() {
+  //  if (this.selectedReason) {
+  //    this.reasonSelected.emit({ reason: this.selectedReason, deviceId: this.laptopDetails.deviceId });
+  //  }
+  //}
 
 
   openModal(modalId: string) {

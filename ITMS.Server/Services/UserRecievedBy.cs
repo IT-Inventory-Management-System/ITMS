@@ -49,9 +49,14 @@ namespace ITMS.Server.Services
                         AllotedDate = deviceLog.AllotedDate,
                         CreatedBy = deviceLog.CreatedBy,
                         CreatedAtUtc = DateTime.UtcNow,  
-                        UpdatedBy = deviceLog.UpdatedBy,
+
+                        UpdatedBy = receivedByDTO.receivedByUserId, //new
+
                         UpdatedAtUtc = DateTime.UtcNow,
-                        ActionId = deviceLog.ActionId,
+
+
+                        ActionId = receivedByDTO.ActionId, //new change
+
                         SoftwareAllocation = deviceLog.SoftwareAllocation,
                         CreatedByNavigation = deviceLog.CreatedByNavigation,
                         Device = deviceLog.Device,
@@ -63,12 +68,19 @@ namespace ITMS.Server.Services
                     _context.DevicesLogs.Add(newDeviceLog);
                     await _context.SaveChangesAsync();
 
-                   
+                    var actionName = await _context.ActionTables
+                       .Where(a => a.Id == newDeviceLog.ActionId)
+                       .Select(a => a.ActionName)
+                       .FirstOrDefaultAsync();
+
+
                     return new EmployeeDTO
                     {
                         FirstName = newDeviceLog.RecievedByNavigation.FirstName,
                         LastName = newDeviceLog.RecievedByNavigation.LastName,
-                        RecievedDate = newDeviceLog.RecievedDate // Include the RecievedDate
+                        RecievedDate = newDeviceLog.RecievedDate,// Include the RecievedDate
+                        ActionName = actionName // Include ActionName
+
                     };
                 }
                 else

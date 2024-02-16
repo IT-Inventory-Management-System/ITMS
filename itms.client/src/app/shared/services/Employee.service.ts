@@ -25,8 +25,12 @@ export class EmployeeService {
     return this.http.get<any[]>(this.apiUrl + 'Accessories/GetUserAccessories/' + id);
   }
 
-  updateRecievedBy(deviceLogId: any, receivedByUserId: any){
-    const body = { deviceLogId, receivedByUserId };
+  getActions(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + 'ActionTable/getActions');
+  }
+
+  updateRecievedBy(deviceLogId: any, receivedByUserId: any, ActionId: any) {
+    const body = { deviceLogId, receivedByUserId, ActionId };
     console.log(body);
     return this.http.post<any>(this.apiUrl + 'RecievedBy', body);
 

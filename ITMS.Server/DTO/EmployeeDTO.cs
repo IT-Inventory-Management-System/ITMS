@@ -6,5 +6,7 @@
         public string? LastName { get; set; }
 
         public DateTime? RecievedDate { get; set; }
+
+        public string ActionName { get; set; }
     }
 }

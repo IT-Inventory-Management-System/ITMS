@@ -13,12 +13,15 @@ export class LaptopDetailsComponent implements OnChanges {
   @Input() lastName: any;
   @Input() cgiid: any;
 
-  isLost: boolean = false;
-  Selectedvalue: string;
+  //isLost: boolean = false;
+  //Selectedvalue: any;
   laptopDetails: any;
 
   constructor(private employeeService: EmployeeService, private router: Router) { }
-
+  //ngOnInit() {
+   
+  //  this.Selectedvalue = localStorage.getItem('Selectedvalue');
+  //}
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['userId'] && changes['userId'].currentValue !== changes['userId'].previousValue) {
       
@@ -45,7 +48,7 @@ export class LaptopDetailsComponent implements OnChanges {
   filterLaptops(data: any[]): any[] {
     const laptopMap = new Map();
     for (const laptop of data) {
-      if (!laptopMap.has(laptop.deviceId) || laptop.submitedBy !== null) {
+      if (!laptopMap.has(laptop.deviceId) || laptop.updatedBy !== null) {
         laptopMap.set(laptop.deviceId, laptop);
       }
     }
@@ -57,13 +60,16 @@ export class LaptopDetailsComponent implements OnChanges {
     this.router.navigate(['/inventory'], { queryParams: { cygId: cygId } });
   }
 
-  handleReasonSelected(selectedReason: string) {
+  //handleReasonSelected(selectedReason: string, deviceId: any) {
     
-    console.log("Selected Reason:", selectedReason);
-    this.Selectedvalue = selectedReason;
-    localStorage.setItem(this.Selectedvalue,selectedReason);
-    console.log(this.Selectedvalue);
-  }
+  //  const laptop = this.laptopDetails.find((l: { deviceId: any; }) => l.deviceId === deviceId);
+  //  if (laptop) {
+  //    laptop.selectedReason = selectedReason;
+  //  }
+  //  localStorage.setItem('Selectedvalue', selectedReason);
+  //  this.Selectedvalue = selectedReason;
+    
+  //}
 
 
 

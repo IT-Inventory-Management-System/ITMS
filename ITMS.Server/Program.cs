@@ -40,6 +40,7 @@ builder.Services.AddScoped<SoftwareService>();
 builder.Services.AddScoped<AccessoriesService>();
 builder.Services.AddScoped<ICommentService, AddCommentService>();
 builder.Services.AddScoped<IUserRecievedBy,  UserRecievedBy>();
+builder.Services.AddScoped<ActionService, ActionService>();
 
 
 builder.Services.AddScoped<IPostAssignAsset, PostAssignAsset>();

@@ -77,10 +77,10 @@
           <div *ngIf="showYesReason" class="reason-options">
             <p>Condition <span class="star">*</span></p>
             <div>
-              <input type="radio" id="perfect" name="reasonOptions" value="Perfect">
+              <input type="radio" id="perfect" name="reasonOptions" value="Perfect"  [(ngModel)]="selectedReason">
               <label for="perfect">Perfect</label>
 
-              <input type="radio" id="unassignable" name="reasonOptions" value="Unassignable">
+              <input type="radio" id="unassignable" name="reasonOptions" value="Unassignable"  [(ngModel)]="selectedReason">
               <label for="unassignable">Unassignable</label>
             </div>
           </div>
@@ -107,7 +107,7 @@
 
         <div class="modal-footer">
           <button type="button" class="btn CloseButton" data-bs-dismiss="modal" >Cancel</button>
-          <button type="submit" class="btn SubmitButton" data-bs-dismiss="modal" (click)="saveCommentAndFetchComments();emitReasonSelected()">Submit</button>
+          <button type="submit" class="btn SubmitButton" data-bs-dismiss="modal" (click)="saveCommentAndFetchComments()">Submit</button>
         </div>
 
       </div>
