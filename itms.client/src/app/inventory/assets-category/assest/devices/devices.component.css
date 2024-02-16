@@ -14,14 +14,15 @@
 
 .Category {
   /* Adjust width to 100% for responsiveness */
-  height: 40.25rem; /* Remove fixed height */
-  padding: 1rem;
+  /*height: 40.25rem;*/ /* Remove fixed height */
+  /*padding: 1rem;
   align-items: flex-start;
   gap: 1.5rem;
   border-radius: 0.5rem;
   background: #FFF;
-  box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.15);*/
   overflow-y:scroll;
+  width:19.1875rem;
 }
 
 

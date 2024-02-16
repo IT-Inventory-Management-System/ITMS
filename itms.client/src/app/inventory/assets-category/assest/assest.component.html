@@ -36,17 +36,15 @@
 </div>
 
 <div class="assetcolumns" *ngIf="selectedView === 'card'">
-  <div class="col-md-12 d-flex">
-    <div class="col-md-3 ">
+    <div class="left-container">
       <app-devices #appDevices [isArchived]="isArchived" [selectedItem]="selectedItem"></app-devices>
     </div>
-    <div class="col-md-4 mx-2">
+    <div class="middle-container">
       <app-specification [isArchived]="isArchived"></app-specification>
     </div>
-    <div class="col-md-5 ">
+    <div class="right-container">
       <app-assign-history></app-assign-history>
     </div>
-  </div>
 </div>
 
 <div *ngIf="selectedView === 'table'">
