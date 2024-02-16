@@ -2,7 +2,7 @@
   <div class="filtersection">
     <div class="tab">
       <div class="filtertab">
-        <img src="../../../assets/icons/Software/Filter-black.svg" />
+        <img src="../../../../../assets/icons/filter-icon.svg" />
         <div class="filtertext">Filter</div>
         <img src="../../../assets/icons/Close.svg" style="margin-left:14rem;" data-bs-dismiss="modal" />
       </div>
@@ -18,7 +18,7 @@
       <app-accordion-item title="Operating System">
         <div class="filter-checkbox-outer">
           <div *ngFor="let status of operatingSystem" class="filter-checkbox">
-            <input class="filter-checkbox-input" type="checkbox" id="{{status}}" (change)="toggleCheckbox(status)">
+            <input class="filter-checkbox-input" type="checkbox" id="{{status}}" (change)="toggleCheckbox(status, 'operatingSystem')">
             <label class="filter-checkbox-label" for="{{status}}">
               <img *ngIf="checked === status" src="../../../../../assets/icons/checkbox-checked.svg" />
               <img *ngIf="checked !== status" src="../../../../../assets/icons/checkbox-unchecked.svg" />
@@ -27,11 +27,10 @@
           </div>
         </div>
       </app-accordion-item>
-      <app-accordion-item title="Stock Status">...........</app-accordion-item>
       <app-accordion-item title="Device Status">
         <div class="filter-checkbox-outer">
           <div *ngFor="let status of deviceStatus" class="filter-checkbox">
-            <input class="filter-checkbox-input" type="checkbox" id="{{status}}" (change)="toggleCheckbox(status)">
+            <input class="filter-checkbox-input" type="checkbox" id="{{status}}" (change)="toggleCheckbox(status, 'deviceStatus')">
             <label class="filter-checkbox-label" for="{{status}}">
               <img *ngIf="checked === status" src="../../../../../assets/icons/checkbox-checked.svg" />
               <img *ngIf="checked !== status" src="../../../../../assets/icons/checkbox-unchecked.svg" />
@@ -43,7 +42,7 @@
       <app-accordion-item title="Processor">
         <div class="filter-checkbox-outer">
           <div *ngFor="let value of uniqueProcessor" class="filter-checkbox">
-            <input class="filter-checkbox-input" type="checkbox" id="{{value.name}}" (change)="toggleCheckbox(value.name)">
+            <input class="filter-checkbox-input" type="checkbox" id="{{value.name}}" (change)="toggleCheckbox(value.name, 'uniqueProcessor')">
             <label class="filter-checkbox-label" for="{{value.name}}">
               <img *ngIf="checked === value.name" src="../../../../../assets/icons/checkbox-checked.svg" />
               <img *ngIf="checked !== value.name" src="../../../../../assets/icons/checkbox-unchecked.svg" />
@@ -52,21 +51,39 @@
           </div>
         </div>
       </app-accordion-item>
-      <app-accordion-item title="Date of Purchase">...........</app-accordion-item>
+      <app-accordion-item title="Date of Purchase">
+        <div class="filter-checkbox-outer">
+          <div class="date-filter-outer">
+            <div class="date-filter">
+              <input type="text" placeholder="From Date" onfocus="(this.type='date')" onblur="(this.type='text')" />
+              <img src="../../../../../assets/icons/calendar.svg" />
+            </div>
+          </div>
+          <div class="date-filter-outer">
+            <div class="date-filter">
+              <input type="text" placeholder="To Date" onfocus="(this.type='date')" onblur="(this.type='text')" />
+              <img src="../../../../../assets/icons/calendar.svg" />
+            </div>
+          </div>
+        </div>
+      </app-accordion-item>
     </app-accordion>
-    
+    <div class="filter-footer">
+      <div class="save-cancel-button">
+        <button type="button" class="filter-cancel-button"><span>Cancel</span></button>
+        <button type="button" class="filter-save-button"><span>Apply</span></button>
+      </div>
+    </div>
   </div>
-  <div class="cancle-apply ">
-    <button class="cancel-button "><span>Cancel</span></button>
-    <button type="button" class="btn btn-primary apply">Apply</button>
 
-  </div>
 
 
 
 
   <div class="modal-dialog">
-  </div>
 
+  </div>
+  
 
 </div>
+
