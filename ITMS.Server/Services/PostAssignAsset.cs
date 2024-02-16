@@ -12,7 +12,9 @@ namespace ITMS.Server.Services
         Task UpdateSoftwareComment(PostCommentDTO commentDto);
         Task UpdateDeviceLogAsync(PostDeviceLogDTO devicelogDto);
         Task UpdateSoftwareLogAsync(PostDeviceLogDTO devicelogDto);
-        Task<IEnumerable<GetDeviceLogDTO>> ListDeviceLog(Guid d);
+        Task UpdateCommentIDLogAsync(Guid? DeviceLogID, Guid? CommentId);
+        Task<IEnumerable<GetDeviceLogDTO>> ListDeviceLog(Guid id);
+        Task<IEnumerable<Comment>> ListComment(Guid? DeviceLogID);
 
         //Task UpdateAccessoriesAsync(string Id, PostAssignAssetDTO accessories);
 
@@ -25,6 +27,19 @@ namespace ITMS.Server.Services
             _context = context;
         }
 
+        public async Task<IEnumerable<Comment>> ListComment(Guid? DeviceLogID)
+        {
+            var result = await (from c in _context.Comments
+                                where c.DeviceLogId == DeviceLogID
+                                select new Comment
+                                {
+                                    Id = c.Id,
+                                    DeviceId = c.DeviceId,
+                                    SoftwareAllocation = c.SoftwareAllocation
+                                }).ToListAsync();
+
+            return result;
+        }
         public async Task<IEnumerable<GetDeviceLogDTO>> ListDeviceLog(Guid id)
         {
             var result = await (from dl in _context.DevicesLogs
@@ -109,6 +124,18 @@ namespace ITMS.Server.Services
             devicesLog.SoftwareAllocation = devicelogDto.SoftwareAllocationId;
             _context.DevicesLogs.Update(devicesLog);
             await _context.SaveChangesAsync();
+        }
+        public async Task UpdateCommentIDLogAsync(Guid? DeviceLogID, Guid? CommentId)
+        {
+            var entityToUpdate = _context.DevicesLogs.Where(dl => dl.Id == DeviceLogID).FirstOrDefault();
+            if (entityToUpdate == null)
+            {
+                throw new KeyNotFoundException($"Device with DeviceLogID {DeviceLogID} not found.");
+            }
+            entityToUpdate.CommentId = CommentId;
+            _context.DevicesLogs.Update(entityToUpdate);
+            await _context.SaveChangesAsync();
+
         }
         public async Task UpdateSoftwareLogAsync(PostDeviceLogDTO devicelogDto)
         {
