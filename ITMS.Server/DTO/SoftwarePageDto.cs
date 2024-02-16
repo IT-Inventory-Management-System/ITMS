@@ -90,8 +90,16 @@ namespace ITMS.Server.DTO
 
         //public int? ExpiryDateCountIndia { get; set; } = 0;
 
-        public List<DateTime?> PurchaseDates { get; set; }
+        public List<Pur_Qty_Exp> PurchaseDates { get; set; }
+
         public List<DateTime?>? ExpiryDates { get; set; }
+    }
+
+    public class Pur_Qty_Exp
+    {
+        public DateTime? PurchaseDates { get; set; }
+        public DateTime? ExpiryDates { get; set; }
+        public int Qty { get; set; }
     }
 
     public class SingleSoftwareHistory

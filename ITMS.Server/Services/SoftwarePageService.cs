@@ -201,12 +201,14 @@ namespace ITMS.Server.Services
                                          Type = type != null ? type.TypeName : null,
                                          Assigned = s.SoftwareAllocations.Count(software => software.AssignedTo != null && software.Version != null && software.Version == parameters.version),
                                          Inventory = s.SoftwareAllocations.Count(software => software.AssignedTo == null && software.Version != null && software.Version == parameters.version),
-                                         PurchaseDates = s.SoftwareAllocations.Where(sa => sa.PurchasedDate != null && sa.Version == parameters.version)
-                                                                             .Select(sa => sa.PurchasedDate)
-                                                                             .ToList(),
-                                         ExpiryDates = s.SoftwareAllocations.Where(sa => sa.ExpiryDate != null && sa.Version == parameters.version)
-                                                                             .Select(sa => sa.ExpiryDate)
-                                                                             .ToList(),
+                                         PurchaseDates = s.SoftwareAllocations
+                                                         .Where(sa => sa.PurchasedDate != null && sa.Version == parameters.version)
+                                                         .GroupBy(sa => new { sa.PurchasedDate, sa.ExpiryDate })
+                                                         .OrderBy(sa => sa.Key.PurchasedDate)
+                                                         .ThenBy(sa => sa.Key.ExpiryDate)
+                                                         .Select(sa => new Pur_Qty_Exp { PurchaseDates = sa.Key.PurchasedDate, ExpiryDates = sa.Key.ExpiryDate, Qty= sa.Count()})
+                                                         .ToList(),
+
                                          ExpDate = s.SoftwareAllocations
                                                   .Where(sa => sa.ExpiryDate.HasValue && sa.Location.Location1 == parameters.location && sa.Version == parameters.version)
                                                   .OrderByDescending(sa => sa.ExpiryDate)
