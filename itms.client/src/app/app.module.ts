@@ -177,7 +177,7 @@ import { ConfirmationModalComponent } from './exit-process/confirmation-modal/co
     AddMouseBrandFormComponent,
     AssetFilterComponent,
     AccordionComponent,
-    AccordionItemComponent
+    AccordionItemComponent,
     ConfirmationModalComponent,
 
 

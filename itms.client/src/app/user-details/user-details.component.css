@@ -314,6 +314,7 @@
   width: 100%;
   align-items: center;
   margin-left: 0% !important;
+  cursor: pointer;
 }
 .dropdown-btn {
   display: flex;
@@ -321,4 +322,7 @@
   align-items: center;
   gap: 8px;
   text-align: center;
+}
+.exit-process-text {
+  color: #CC1A07;
 }
