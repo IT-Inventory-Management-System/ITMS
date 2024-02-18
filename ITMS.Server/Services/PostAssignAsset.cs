@@ -1,16 +1,20 @@
 ﻿using ITMS.Server.DTO;
 using ITMS.Server.Models;
+using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Asn1.Ocsp;
- 
 namespace ITMS.Server.Services
 {
-        public interface IPostAssignAsset
-        {
+    public interface IPostAssignAsset
+    {
         Task UpdateDeviceAsync(string CYGID, PostAssignAssetDTO device);
         Task UpdateSoftwareAsync(string SoftwareID, PostAssignAssetDTO software);
-        Task UpdateDeviceComment(PostCommentDTO commentDto, Guid newDeviceLogId);
-        Task UpdateSoftwareComment(PostCommentDTO commentDto, Guid newDeviceLogId);
-        Task<Guid> UpdateDeviceLogAsync(PostDeviceLogDTO devicelogDto);
+        Task UpdateDeviceComment(PostCommentDTO commentDto);
+        Task UpdateSoftwareComment(PostCommentDTO commentDto);
+        Task UpdateDeviceLogAsync(PostDeviceLogDTO devicelogDto);
+        Task UpdateSoftwareLogAsync(PostDeviceLogDTO devicelogDto);
+        Task UpdateCommentIDLogAsync(Guid? DeviceLogID, Guid? CommentId);
+        Task<IEnumerable<GetDeviceLogDTO>> ListDeviceLog(Guid id);
+        Task<IEnumerable<Comment>> ListComment(Guid? DeviceLogID);
 
         //Task UpdateAccessoriesAsync(string Id, PostAssignAssetDTO accessories);
 
@@ -18,10 +22,36 @@ namespace ITMS.Server.Services
     public class PostAssignAsset : IPostAssignAsset
     {
         private readonly ItinventorySystemContext _context;
- 
         public PostAssignAsset(ItinventorySystemContext context)
         {
             _context = context;
+        }
+
+        public async Task<IEnumerable<Comment>> ListComment(Guid? DeviceLogID)
+        {
+            var result = await (from c in _context.Comments
+                                where c.DeviceLogId == DeviceLogID
+                                select new Comment
+                                {
+                                    Id = c.Id,
+                                    DeviceId = c.DeviceId,
+                                    SoftwareAllocation = c.SoftwareAllocation
+                                }).ToListAsync();
+
+            return result;
+        }
+        public async Task<IEnumerable<GetDeviceLogDTO>> ListDeviceLog(Guid id)
+        {
+            var result = await (from dl in _context.DevicesLogs
+                                where dl.DeviceId == id || dl.SoftwareAllocation == id
+                                select new GetDeviceLogDTO
+                                {
+                                    Id = dl.Id,
+                                    DeviceId = dl.DeviceId,
+                                    SoftwareAllocationID = dl.SoftwareAllocation
+                                }).ToListAsync();
+
+            return result;
         }
         public async Task UpdateDeviceAsync(string CYGID, PostAssignAssetDTO device)
         {
@@ -33,7 +63,6 @@ namespace ITMS.Server.Services
             entityToUpdate.AssignedBy = device.AssignedBy;
             entityToUpdate.AssignedTo = device.AssignedTo;
             entityToUpdate.AssignedDate = DateTime.UtcNow;
- 
             _context.Devices.Update(entityToUpdate);
             await _context.SaveChangesAsync();
         }
@@ -47,11 +76,10 @@ namespace ITMS.Server.Services
             entityToUpdate.AssignedBy = software.AssignedBy;
             entityToUpdate.AssignedTo = software.AssignedTo;
             entityToUpdate.AssignedDate = DateTime.UtcNow;
- 
             _context.SoftwareAllocations.Update(entityToUpdate);
             await _context.SaveChangesAsync();
         }
-        public async Task UpdateDeviceComment(PostCommentDTO commentDto, Guid newDeviceLogId)
+        public async Task UpdateDeviceComment(PostCommentDTO commentDto)
         {
             Comment comment = new Comment();
             comment.Description = commentDto.Description;
@@ -59,13 +87,13 @@ namespace ITMS.Server.Services
             comment.CreatedAtUtc = DateTime.UtcNow;
             comment.DeviceId = commentDto.DeviceId;
             comment.SoftwareAllocationId = commentDto.SoftwareAllocationId;
-            comment.DeviceLogId = newDeviceLogId;
+            comment.DeviceLogId = commentDto.DevicelogId;
 
             _context.Comments.Update(comment);
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateSoftwareComment(PostCommentDTO commentDto, Guid newDeviceLogId)
+        public async Task UpdateSoftwareComment(PostCommentDTO commentDto)
         {
             Comment comment = new Comment();
             comment.Description = commentDto.Description;
@@ -73,13 +101,13 @@ namespace ITMS.Server.Services
             comment.CreatedAtUtc = DateTime.UtcNow;
             comment.DeviceId = commentDto.DeviceId;
             comment.SoftwareAllocationId = commentDto.SoftwareAllocationId;
-            comment.DeviceLogId = newDeviceLogId;
+            comment.DeviceLogId = commentDto.DevicelogId;
 
             _context.Comments.Update(comment);
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Guid> UpdateDeviceLogAsync(PostDeviceLogDTO devicelogDto)
+        public async Task UpdateDeviceLogAsync(PostDeviceLogDTO devicelogDto)
         {
             DevicesLog devicesLog = new DevicesLog();
 
@@ -93,11 +121,39 @@ namespace ITMS.Server.Services
             devicesLog.UpdatedBy = devicelogDto.AssignedBy;
             devicesLog.UpdatedAtUtc = DateTime.UtcNow;
             devicesLog.ActionId = _context.ActionTables.FirstOrDefault(action => action.ActionName == "assigned").Id;
-
+            devicesLog.SoftwareAllocation = devicelogDto.SoftwareAllocationId;
             _context.DevicesLogs.Update(devicesLog);
             await _context.SaveChangesAsync();
+        }
+        public async Task UpdateCommentIDLogAsync(Guid? DeviceLogID, Guid? CommentId)
+        {
+            var entityToUpdate = _context.DevicesLogs.Where(dl => dl.Id == DeviceLogID).FirstOrDefault();
+            if (entityToUpdate == null)
+            {
+                throw new KeyNotFoundException($"Device with DeviceLogID {DeviceLogID} not found.");
+            }
+            entityToUpdate.CommentId = CommentId;
+            _context.DevicesLogs.Update(entityToUpdate);
+            await _context.SaveChangesAsync();
 
-            return devicesLog.Id;
+        }
+        public async Task UpdateSoftwareLogAsync(PostDeviceLogDTO devicelogDto)
+        {
+            DevicesLog devicesLog = new DevicesLog();
+
+            devicesLog.DeviceId = devicelogDto.DeviceId;
+            devicesLog.EmployeeId = (Guid)devicelogDto.EmployeeId;
+            devicesLog.AssignedBy = devicelogDto.AssignedBy;
+            devicesLog.AssignedDate = DateTime.UtcNow;
+            devicesLog.AllotedDate = DateTime.UtcNow;
+            devicesLog.CreatedBy = (Guid)devicelogDto.AssignedBy;
+            devicesLog.CreatedAtUtc = DateTime.UtcNow;
+            devicesLog.UpdatedBy = devicelogDto.AssignedBy;
+            devicesLog.UpdatedAtUtc = DateTime.UtcNow;
+            devicesLog.ActionId = _context.ActionTables.FirstOrDefault(action => action.ActionName == "assigned").Id;
+            devicesLog.SoftwareAllocation = devicelogDto.SoftwareAllocationId;
+            _context.DevicesLogs.Update(devicesLog);
+            await _context.SaveChangesAsync();
         }
 
         //public async Task UpdateAccessoriesAsync(string ID, PostAssignAssetDTO accessories)

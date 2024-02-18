@@ -24,7 +24,7 @@ public partial class Device
     public Guid? AssignedTo { get; set; }
 
     public Guid? AssignedBy { get; set; }
-
+    
     public Guid? RecievedBy { get; set; }
 
     public DateTime? AssignedDate { get; set; }
