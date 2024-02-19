@@ -1,6 +1,6 @@
 .assign-role-modal {
   display: inline-flex;
-  height: 38.25rem;
+  /*height: 38.25rem;*/
   padding: 1rem 0rem 1.5rem 0rem;
   flex-direction: column;
   align-items: flex-end;
@@ -40,8 +40,8 @@
 .assign-role-content-inner {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  gap: 2.125rem;
+  /*align-items: flex-end;*/
+  gap: 1rem;
   align-self: stretch;
 }
 
@@ -138,13 +138,179 @@ ng-option {
   display: flex;
   padding: 0.375rem 0rem;
   flex-direction: column;
-  align-items: flex-start;
   gap: 0.25rem;
+}
+
+.role-selector-heading span {
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 0.8125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.role-radio {
+  display: flex;
+  align-items: flex-start;
+  gap: 3rem;
 }
 
 
 
+.role-radio {
+  display: flex;
+  align-items: flex-start;
+  gap: 3rem;
+}
+
+  .role-radio input {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+  }
+
+  .role-radio label {
+    position: relative;
+    padding-top: 1px;
+    padding-left: 25px;
+    padding-bottom: 10px;
+    cursor: pointer;
+    color: var(--Primary-Gray, #343435);
+    font-family: Roboto;
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+
+  .role-radio input[type="radio"] {
+    display: none;
+  }
+
+  .role-radio label::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    background-image: url('../../../assets/icons/Component 2.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 10px;
+  }
+
+  .role-radio input[type="radio"]:checked + label::before {
+    background-image: url('../../../assets/icons/Component 2_checked.svg');
+  }
+
+.role-permissions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  align-self: stretch;
+}
+
+.permission-heading {
+  width: 29.23656rem;
+  height: 1.125rem;
+}
+
+.permission-heading span {
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 0.8125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-transform: uppercase;
+}
+
+.permission-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+  flex: 1 0 0;
+}
+
+.permission-title {
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.permission-description {
+  align-self: stretch;
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.permissions-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  align-self: stretch;
+}
+
+.assign-role-button {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 2.125rem;
+  gap: 1rem;
+}
+
+.cancel-button {
+  display: flex;
+  width: 6.141rem;
+  padding: 0.75rem 0.5rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 0.25rem;
+  border: 1.068px solid #28519E;
+  background-color: #fff;
+}
+
+.cancel-button span {
+  color: #28519E;
+  font-family: Roboto;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
 
 
-.st {
+.save-button {
+  border: none;
+  outline: none;
+  display: flex;
+  width: 6.141rem;
+  padding: 0.75rem 0.5rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 0.25rem;
+  background: var(--Primary-Blue, #28519E);
+}
+
+
+.save-button span {
+  color: var(--Primary-White, #FFF);
+  font-family: Roboto;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
 }
