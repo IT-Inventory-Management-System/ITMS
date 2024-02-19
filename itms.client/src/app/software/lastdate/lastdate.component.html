@@ -2,7 +2,7 @@
   <div class="heading ">
     <div class="title-close  ">
       <div class="title ">Date of Purchase</div>
-      <img  src="../../../assets/icons/Close.svg" style="margin-left:10rem;" data-bs-dismiss="modal" />
+      <img src="../../../assets/icons/Close.svg" style="margin-left:10rem;" data-bs-dismiss="modal" />
 
 
     </div>
@@ -17,16 +17,16 @@
             <th>Expiry Date</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>2024-02-13</td>
-            <td class="qtynumber">10</td>
-            <td class="expiry">2024-03-13</td>
+        <tbody *ngIf="singlesoftware">
+          <tr *ngFor="let purchase of singlesoftware.purchaseDates">
+            <td>{{ purchase.purchaseDates | date: 'yyyy-MM-dd' }}</td>
+            <td class="qtynumber">{{ purchase.qty }}</td>
+            <td class="expiry">{{ purchase.expiryDates | date: 'yyyy-MM-dd' }}</td>
           </tr>
 
-        </tbody>
-      </table>
-    </div>
+    </tbody>
+    </table>
+  </div>
 
 
   </div>

@@ -12,10 +12,10 @@ export class SoftwareNameComponent {
   @Input() isArchived: any;
 
   @Output() cardClicked: EventEmitter<any> = new EventEmitter<any>();
-  onClick(): void {
+  onClick(version: any): void {
     this.cardClicked.emit({
       name: this.softwareData.name,
-      version: this.softwareData.version,
+      version:version.version,
       type: this.softwareData.type,
       location: this.selectedLocation
     });

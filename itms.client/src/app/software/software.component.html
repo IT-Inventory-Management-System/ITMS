@@ -1,6 +1,6 @@
 <app-filter (applyClicked)="onApplyClicked($event)"></app-filter>
-<app-archivesoftware></app-archivesoftware>
-<app-lastdate></app-lastdate>
+<app-archivesoftware  (archiveClicked)="onarchiveclicked($event)"  ></app-archivesoftware>
+<app-lastdate [singlesoftware]="singlesoftware"></app-lastdate>
 <div class="software-details ">
   <div class="software-heading  ">
     <div class="software-title ">
@@ -187,12 +187,14 @@
           </div>
           <span class="last-date-heading">Last Date Of Purchase</span>
         </div>
-        <span class="number">18</span>
+        <span class="number">
+          {{ singlesoftware?.purchaseDates[0]?.qty }}
+        </span>
       </div>
 
       <div class="last-date-div "  data-bs-toggle="modal" data-bs-target="#lastdateModal" >
         <span class="last-date">
-          {{ singlesoftware?.purchaseDates[0] | date: 'MM-dd-yyyy' }}
+          {{ singlesoftware?.purchaseDates[0]?.purchaseDates | date: 'MM-dd-yyyy' }}
         </span>
         <img src="../../assets/icons/Software/Chevron.svg" />
 

@@ -22,7 +22,7 @@ export class SoftwareComponent implements OnInit {
   parameters: any = null;
   singlesoftware: any = null;
   softwarehistory: any = null;
-
+  archive: any;
   isArchived: boolean = false;
 
   filteredSoftware: any[]
@@ -133,6 +133,37 @@ export class SoftwareComponent implements OnInit {
     console.log(this.softwaresData);
     console.log(res);
   }
+  onarchiveclicked(eventData: any): void {
+    console.log("archiveeventdata", eventData);
+
+    // Prepare the data for the request body
+    const body = {
+      name: this.singlesoftware?.name || "", // If name is not available, provide an empty string
+      version: this.singlesoftware?.version || "", // If version is not available, provide an empty string
+      type: this.singlesoftware?.type || "", // If type is not available, provide an empty string
+      isArchived: eventData, // Assuming eventData is a boolean value
+      location: this.archive?.location || "" // If location is not available, provide an empty string
+    };
+
+    // Call the service method with the prepared body
+    this.softwareService.UpdateSoftwareArchiveStatus(body).subscribe(
+      (result: any | null) => {
+        if (result) {
+          // Handle the result here
+          this.singlesoftware = result;
+          console.log('Single software:', this.singlesoftware);
+        } else {
+          // Handle case when no software is found
+          console.log('No software found for parameters:', body);
+        }
+      },
+      error => {
+        console.error('Error updating software archive status:', error);
+      }
+    );
+  }
+
+
 
   onCardClicked(eventData: any): void {
     const parameters = {
@@ -140,12 +171,14 @@ export class SoftwareComponent implements OnInit {
       version: eventData.version,
       location: eventData.location,
       type: eventData.type
+
     };
+    this.archive = parameters;
 
     this.softwareService.GetSingleSelected(parameters).subscribe(
       (result: any | null) => {
         if (result) {
-          console.log('Single software selected:', result);
+          // Handle the result here
           this.singlesoftware = result;
           console.log('Single software :', this.singlesoftware);
 

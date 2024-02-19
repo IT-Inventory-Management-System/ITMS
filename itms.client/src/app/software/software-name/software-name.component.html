@@ -1,7 +1,7 @@
 <div *ngFor="let version of softwareData.version">
   <div *ngIf="version.version!=null">
     <div *ngIf="(isArchived==true && version.isArchived==1)||(isArchived==false && (version.isArchived==0||version.isArchived==null))">
-      <div class="software-name" (click)="onClick()">
+      <div class="software-name" (click)="onClick(version)">
         <div class="icon-name ">
           <div class="software-icon ">
             <img *ngIf="softwareData.softwareThumbnail" [src]="'data:image/png;base64,' + softwareData.softwareThumbnail" alt="Software Image" />
