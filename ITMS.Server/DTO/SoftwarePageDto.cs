@@ -145,4 +145,15 @@ namespace ITMS.Server.DTO
         public List<DateTime?>? ExpiryDates { get; set; }
 
     }
+
+    public class SoftwareUpdateDto
+    {
+        public string Name { get; set; }
+        public string Version { get; set; }
+        public string Type { get; set; }
+        public bool IsArchived { get; set; }
+
+        public string location { get; set; }
+    }
+
 }

@@ -1,4 +1,5 @@
 <app-filter (applyClicked)="onApplyClicked($event)"></app-filter>
+<app-archivesoftware></app-archivesoftware>
 <app-lastdate></app-lastdate>
 <div class="software-details ">
   <div class="software-heading  ">
@@ -105,9 +106,9 @@
             <div class="status-text">Status</div>
             <div class="status-active">Active</div>
           </div>
-          <div class="status-archive-div">
+          <div class="status-archive-div" data-bs-toggle="modal" data-bs-target="#exampleModal">
             <img src="../../../assets/icons/Software/Archive button.svg" />
-            <span class="archivebutton-text">Archive</span>
+            <div class="archivebutton-text">Archive</div>
 
           </div>
         </div>
