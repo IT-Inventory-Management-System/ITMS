@@ -209,7 +209,7 @@ export class SoftwareComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getSoftwaresData();
+    this.getSoftwaresData(false);
     this.getSoftwaretabledata();
     //this.filteredSoftware = this.softwaresData;
     this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
@@ -228,13 +228,15 @@ export class SoftwareComponent implements OnInit {
     } else {
       this.isArchived = true;
     }
+    this.getSoftwaresData(this.isArchived);
   }
 
-  getSoftwaresData(): void {
-    this.softwareService.GetSoftware().subscribe(
+  getSoftwaresData(arch: boolean): void {
+    //alert(arch);
+    this.softwareService.GetSoftware(arch).subscribe(
       data => {
-        console.log(data)
         this.softwaresData = data;
+        console.log(this.softwaresData);
         this.filteredSoftware = this.softwaresData;
         // Copy the entire array from data to allSoftwareData
         //this.allSoftwareData = JSON.parse(JSON.stringify(data));
@@ -263,7 +265,7 @@ export class SoftwareComponent implements OnInit {
         //  }
         //}
 
-        this.allSoftwareData = _.cloneDeep(data);
+        //this.allSoftwareData = _.cloneDeep(data);
         //for (let i = 0; i < data[0].length; i++) {
         //  // Copy the version array
 
@@ -276,7 +278,7 @@ export class SoftwareComponent implements OnInit {
         //  this.allSoftwareData[1][i].version = _.cloneDeep(data[1][i].version);
         //}
 
-        console.log("helo",this.allSoftwareData);
+        //console.log("helo",this.allSoftwareData);
         //console.log("filter", this.filteredSoftware);
 
 
