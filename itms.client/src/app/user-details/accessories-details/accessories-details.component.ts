@@ -20,24 +20,46 @@ export class AccessoriesDetailsComponent {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['userId'] && changes['userId'].currentValue !== changes['userId'].previousValue) {
       // Check if userId changed and call API only if it's a different value
-      this.getAccessories();
+      if (this.userId) {
+        this.getAccessories(this.userId);
+
+      }
     }
   }
 
-  async getAccessories(): Promise<void> {
-    try {
-      this.accessoriesDetails = await this.employeeService.getAccessories(this.userId).toPromise();
-      this.MostRecentAccessory = this.accessoriesDetails[0];
-      console.log(this.accessoriesDetails);
+  getAccessories(userId: any): void {
+    this.employeeService.getAccessories(userId)
+      .subscribe((data) => {
+        this.accessoriesDetails = this.filterAccessories(data);
+        console.log(this.accessoriesDetails);
+      },
+        (error) => {
+          console.error('Error fetching Accessories details:', error);
+
+        });
+    //try {
+    //  this.accessoriesDetails = await this.employeeService.getAccessories(this.userId).toPromise();
+    //  this.MostRecentAccessory = this.accessoriesDetails[0];
+    //  console.log(this.accessoriesDetails);
       
-    } catch (error) {
-      console.error('Error fetching software details:', error);
+    //} catch (error) {
+    //  console.error('Error fetching software details:', error);
      
-    }
+    //}
   }
 
-  isMostRecent(accessory: any): boolean {
-   
-    return accessory === this.MostRecentAccessory;
+  filterAccessories(data: any[]): any[] {
+    const accessoryMap = new Map();
+    for (const accessory of data) {
+      if (!accessoryMap.has(accessory.deviceId) || accessory.updatedAtUtc !== null) {
+        accessoryMap.set(accessory.deviceId, accessory);
+      }
+    }
+    return Array.from(accessoryMap.values());
   }
+
+  //isMostRecent(accessory: any): boolean {
+   
+  //  return accessory === this.MostRecentAccessory;
+  //}
 }

@@ -7,32 +7,103 @@
 
   </div>
 
-  <div class="modal fade" [id]="'exampleModal' + accessoriesDetails.deviceId" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" [id]="'exampleModal' + accessoriesDetails.deviceId" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" (hidden.bs.modal)="handleModalClose()">
     <div class="modal-dialog">
       <div class="modal-content">
+
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"(click)="CloseModal('exampleModal' + accessoriesDetails.deviceId)"></button>
+          <h5 class="modal-title" id="exampleModalLabel">Revoke</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+
         <div class="modal-body">
-          <p>{{cgiid}}</p>
-          <p>{{firstName}}</p>
-          <p>{{lastName}}</p>
-          <p>{{accessoriesDetails.deviceLogId}}</p>
-          <p>{{accessoriesDetails.categoryName}}</p>
-          <p>{{accessoriesDetails.deviceId}}</p>
-          <p>{{accessoriesDetails.brand}}</p>
-          <p>
-            <ng-container *ngIf="accessoriesDetails.isWired; else notWiredText">Wired</ng-container>
-            <ng-template #notWiredText>Not Wired</ng-template>
-          </p>
+
+          <div class="user-details">
+            <ngx-avatars name="{{firstName}} {{lastName}}" [textSizeRatio]=3.4 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="46"></ngx-avatars>
+            <div class="user-firstname-lastname-id">
+              <div class="user-firstname-lastname">{{firstName}} {{lastName}}</div>
+              <div class="user-cgiid">{{cgiid}}</div>
+            </div>
+          </div>
+
+          <div class="assigned-accessory-detail-box">
+            <div class="assigned-accessory-heading">Assigned Assessory Detail</div>
+            <div class="details">
+              <div class="iconsOfModal">
+                <img *ngIf="accessoriesDetails.categoryName === 'Mouse'" src="../../../assets/icons/MouseVector.svg" />
+                <img *ngIf="accessoriesDetails.categoryName === 'Keyboard'" src="../../../assets/icons/KeyboardVector.svg" />
+                <p>{{accessoriesDetails.categoryName}}</p>
+              </div>
+
+              <div class="iconsOfModal">
+                <img src="../../../assets/icons/BrandVector.svg"/><p>{{accessoriesDetails.brand}}</p>
+              </div>
+              <div class="wiredNotWired">
+                <div class="iconsOfModal">
+                  <img src="../../../assets/icons/WiredVector.svg" />
+                  <p>
+                    <ng-container *ngIf="accessoriesDetails.isWired; else notWiredText">Wired</ng-container>
+                    <ng-template #notWiredText>Not Wired</ng-template>
+                  </p>
+                </div>
+
+                <div class="iconsOfModal">
+                  <img src="../../../assets/icons/CalenderVector.svg" />
+                  <p>{{accessoriesDetails.assignedDate | date: 'MM-dd-yyyy'}}</p>
+                </div>
+              </div>
+             
+
+              <p>{{accessoriesDetails.deviceLogId}}</p>
+              <p>{{accessoriesDetails.deviceId}}</p>
+            </div>
+          </div>
+
+          <div class="accessory-recieved">
+
+            <p>Item Received <span class="star">*</span></p>
+            <input type="radio" id="receivedYes" name="accessoryReceived" value="Yes" (click)="showYesReasonOptions()">
+            <label for="receivedYes">Yes</label>
+
+            <input type="radio" id="receivedNo" name="accessoryReceived" value="No" (click)="showNoReasonOptions()">
+            <label for="receivedNo">No</label>
+          </div>
+
+          <div *ngIf="showYesReason" class="reason-options">
+            <p>Condition <span class="star">*</span></p>
+            <div>
+              <input type="radio" id="perfect" name="reasonOptions" value="Perfect" [(ngModel)]="selectedReason">
+              <label for="perfect">Perfect</label>
+
+              <input type="radio" id="unassignable" name="reasonOptions" value="Unassignable" [(ngModel)]="selectedReason">
+              <label for="unassignable">Unassignable</label>
+            </div>
+          </div>
+
+          <div *ngIf="showNoReason" class="reason-options">
+            <p>Reason <span class="star">*</span></p>
+            <div>
+              <input type="radio" id="submittedLater" name="reasonOptions" value="Submitted Later" [(ngModel)]="selectedReason">
+              <label for="submittedLater">Will be submitted later</label>
+
+              <input type="radio" id="lostNotReceived" name="reasonOptions" value="Lost/Not Received" class="lost" [(ngModel)]="selectedReason">
+              <label for="lostNotReceived">Lost/Not Recieved</label>
+            </div>
+          </div>
+
+
+          <div class="comment-box">
+            <p>Comment <span class="star">*</span></p>
+            <input type="text" class="input-box" [(ngModel)]="newComment" placeholder="Type Here..." />
+          </div>
 
         </div>
+
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="CloseModal('exampleModal' + accessoriesDetails.deviceId)" >Close</button>
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" >Save changes</button>
+          <button type="button" class="btn CloseButton" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn SubmitButton" data-bs-dismiss="modal" (click)="saveAndFetch()">Submit</button>
         </div>
+
       </div>
     </div>
   </div>

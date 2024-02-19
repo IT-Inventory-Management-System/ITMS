@@ -22,10 +22,18 @@
 
     </div>
 
-    <div *ngIf="laptop.actionName === 'Lost' && laptop.submitedBy != null" class="received-tag">
+    <div *ngIf="laptop.actionName === 'Lost' && laptop.submitedBy != null" class="lost-tag">
 
-      <div class="received-tag-info">
-        <img src="../../../assets/icons/ReceivedVector.svg" class="recieved-image" />LOST
+      <div class="lost-tag-info">
+       LOST
+      </div>
+
+    </div>
+
+    <div *ngIf="laptop.actionName === 'Assigned' && laptop.submitedBy != null" class="submit-later-tag">
+
+      <div class="submit-later-tag-info">
+        NOT SUBMITTED
       </div>
 
     </div>
@@ -41,12 +49,12 @@
     </div>
   </div>-->
 
-    <div *ngIf="laptop.submitedBy === null" class="laptop-revoke-button">
+    <div *ngIf= "laptop.actionName === 'Assigned' ||  laptop.submitedBy === null " class="laptop-revoke-button">
       <app-laptop-revoke [laptopDetails]="laptop" [userId]="userId" [firstName]="firstName" [lastName]="lastName" [cgiid]="cgiid"></app-laptop-revoke>
     </div>
 
 
-    <div class="col-md-12 pp" [ngClass]="{'fade-container': laptop.submitedBy !== null}">
+    <div class="col-md-12 pp" [ngClass]="{'fade-container': (laptop.actionName === 'Lost' || laptop.actionName === 'Submitted')}">
 
 
       <div class="row user-detail">
@@ -55,9 +63,9 @@
 
           <div class="col-md-4 common-gap-style">
             <div style="color: var(--Adhoc-Grey, #6D6D6D); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 400; line-height: normal;">CYG ID</div>
-            <div class="cyg-id-container" [ngStyle]="{'color': laptop.submitedBy !== null ? 'black' : 'var(--Primary-Blue, #28519E)'}">
+            <div class="cyg-id-container" [ngStyle]="{'color': (laptop.actionName === 'Lost' || laptop.actionName === 'Submitted') ? 'black' : 'var(--Primary-Blue, #28519E)'}">
               <div (click)="navigateToDeviceDetails(laptop.cygid)" style="font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 600; line-height: normal;">{{laptop.cygid}} {{laptop.categoryName}}</div>
-              <img *ngIf="laptop.submitedBy === null" (click)="navigateToDeviceDetails(laptop.cygid)" src="../../../assets/icons/chevron-right.svg">
+              <img *ngIf="laptop.actionName === 'Assigned'" (click)="navigateToDeviceDetails(laptop.cygid)" src="../../../assets/icons/chevron-right.svg">
             </div>
           </div>
 
@@ -69,7 +77,7 @@
           <div class="col-md-4 common-gap-style">
             <div style="color: var(--Adhoc-Grey, #6D6D6D); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 400; line-height: normal;">OS</div>
             <div *ngIf="laptop.osName === 'Windows'" style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal;">
-              <img src="../../../../assets/icons/windows.svg" [ngStyle]="{'filter': laptop.submitedBy !== null ? 'grayscale(100%)' : 'none'}">
+              <img src="../../../../assets/icons/windows.svg" [ngStyle]="{'filter': (laptop.actionName === 'Lost' || laptop.actionName === 'Submitted') ? 'grayscale(100%)' : 'none'}">
               Windows Laptop
             </div>
 

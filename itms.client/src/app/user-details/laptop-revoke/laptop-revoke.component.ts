@@ -41,6 +41,7 @@ export class LaptopRevokeComponent {
   }
 
   saveCommentAndFetchComments() {
+    const SubmitLater = (document.getElementById('submittedLater') as HTMLInputElement)?.checked;
     const Unassignable = (document.getElementById('unassignable') as HTMLInputElement)?.checked;
     const Perfect = (document.getElementById('perfect') as HTMLInputElement)?.checked;
     const lostNotReceivedChecked = (document.getElementById('lostNotReceived') as HTMLInputElement)?.checked;
@@ -82,6 +83,34 @@ export class LaptopRevokeComponent {
       if (SubmittedAction) {
         this.actionId = SubmittedAction.id;
         console.log("Submitted Action: ", this.actionId);
+      }
+
+      const var3 = this.actionId;
+
+      this.deviceLogService.updateRecievedBy(var1, var2, var3).subscribe(
+        (response) => {
+          console.log(response);
+          if (response && response.receivedBy) {
+            const { firstName, lastName, recievedDate, actionName } = response.receivedBy;
+            this.laptopDetails.submitedBy = `${firstName} ${lastName}`;
+            this.laptopDetails.submitedByDate = `${recievedDate}`;
+            this.laptopDetails.actionName = `${actionName}`;
+          }
+        },
+        (error) => {
+          console.error('Error :', error);
+        }
+      );
+    }
+
+    if (SubmitLater) {
+      const var1 = this.laptopDetails.deviceLogId;
+      const var2 = this.loggedUser.id;
+
+      const SubmitLaterAction = this.actionsArray.find(a => a.actionName === 'Assigned');
+      if (SubmitLaterAction) {
+        this.actionId = SubmitLaterAction.id;
+        console.log("Submit Later Action: ", this.actionId);
       }
 
       const var3 = this.actionId;

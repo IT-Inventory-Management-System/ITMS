@@ -52,7 +52,16 @@ namespace ITMS.Server.Services
                             .Where(employee => employee.Id == log.RecievedBy)
                             .Select(employee => $"{employee.FirstName} {employee.LastName}")
                             .FirstOrDefault(),
-                        SubmittedByDate = log.RecievedDate
+                        SubmittedByDate = log.RecievedDate,
+                        ActionName = _context.ActionTables
+                               .Where(action => action.Id == log.ActionId)
+                               .Select(action => $"{action.ActionName}")
+                               .FirstOrDefault(),
+                        UpdatedBy = _context.Employees
+                               .Where(employee => employee.Id == log.UpdatedBy)
+                               .Select(employee => $"{employee.FirstName} {employee.LastName}")
+                               .FirstOrDefault(),
+                        UpdatedAtUtc = log.UpdatedAtUtc
                     })
                     .ToList();
 

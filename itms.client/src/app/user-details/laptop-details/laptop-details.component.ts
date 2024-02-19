@@ -48,7 +48,7 @@ export class LaptopDetailsComponent implements OnChanges {
   filterLaptops(data: any[]): any[] {
     const laptopMap = new Map();
     for (const laptop of data) {
-      if (!laptopMap.has(laptop.deviceId) || laptop.updatedBy !== null) {
+      if (!laptopMap.has(laptop.deviceId) || laptop.updatedAtUtc !== null) {
         laptopMap.set(laptop.deviceId, laptop);
       }
     }
