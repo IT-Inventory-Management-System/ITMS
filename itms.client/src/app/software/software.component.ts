@@ -48,6 +48,42 @@ export class SoftwareComponent implements OnInit {
   onApplyClicked(eventData: any): void {
     console.log
       (eventData);
+
+    let res: any[] = [];
+
+
+    if (eventData.type.length>0) {
+        let softwareArray = this.selectedLocation === 'India' ? this.softwaresData[0] : this.softwaresData[1];
+      for (let s of softwareArray) {
+        if (s.type === eventData.type) {
+          res.push(s);
+        }
+      }
+    }
+
+    if (eventData.status!=null) {
+      let softwareArray = this.selectedLocation === 'India' ? this.softwaresData[0] : this.softwaresData[1];
+      for (let s of softwareArray) {
+        let b = false;
+        for (let v of s.version) {
+          if ((v.isArchived == 1 && eventData.status == 'Archive') || ((v.isArchived == null||v.isArchived == 0) && eventData.status == 'Active')) {
+            res.push(s);
+            b = true;
+            break;
+          }
+        }
+        if (b) {
+          break;
+        }
+      }
+    }
+
+    if (this.selectedLocation === 'India') {
+      this.softwaresData[0] = res;
+    } else {
+      this.softwaresData[1] = res;
+    }
+    console.log(res);
   }
 
   onCardClicked(eventData: any): void {
