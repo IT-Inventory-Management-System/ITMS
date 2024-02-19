@@ -191,7 +191,7 @@
 
       <div class="last-date-div "  data-bs-toggle="modal" data-bs-target="#lastdateModal" >
         <span class="last-date">
-          {{ singlesoftware?.purchaseDates[0] | date: 'MM-dd-yyyy' }}
+          {{ singlesoftware?.purchaseDates[0]?.purchaseDates | date: 'MM-dd-yyyy' }}
         </span>
         <img src="../../assets/icons/Software/Chevron.svg" />
 

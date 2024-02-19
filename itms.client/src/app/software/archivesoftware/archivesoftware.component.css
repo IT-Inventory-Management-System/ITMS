@@ -1,3 +1,4 @@
+
 .btn {
   border-radius: 0.25rem;
   border: 1px solid #28519E;
@@ -6,15 +7,120 @@
 .archive-img {
   width: 3.75rem;
   height: 3.75rem;
+  margin-bottom: 2rem;
+  margin-top: -1.5rem;
 }
 
-.archive-close{
-    width:1rem;
-
+.modal-content {
+  height: 18.625rem;
+  width: 25rem;
+  top: 6rem;
+  border-radius: 0rem;
 }
 
+.archive_item_heading {
+  color: var(--Dark-Blue, #334253);
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-family: Roboto;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-bottom: 0.94rem;
+}
 
+.close_btn {
+  background: none;
+  width: 1.4375rem;
+  height: 1.5rem;
+  padding: 0rem;
+  display: inline;
+  margin-left: 95%;
+  border: none;
+  margin-top: 0rem;
+}
 
-.st{
-    border:1px solid black;
+.modal_text {
+  color: var(--Grayish-Blue, #67727E);
+  font-family: Roboto;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.5rem; /* 150% */
+  padding: 0rem;
+  width: 21rem;
+  height: 3rem;
+  margin-bottom: 1.8rem;
+}
+
+.modal-body {
+  padding: 0rem;
+  width: 21rem;
+}
+
+.comment_input {
+  width: 21rem;
+  height: 5.9785rem;
+  margin-bottom: 2rem;
+}
+
+.modal-footer {
+  display: flex;
+  width: 21.02888rem;
+  align-items: flex-start;
+  gap: 1rem;
+  height: 2.5rem;
+  padding: 0rem;
+  border: none;
+}
+
+.footer_bu {
+  display: flex;
+  height: 2.5rem;
+  padding: 0.75rem 0.5rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1 0 0;
+  margin: 0rem;
+  color: var(--Primary-Blue, #28519E);
+  font-family: Roboto;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.Archive_bu {
+  background: var(--Primary-Blue, #28519E);
+  color: #FFF;
+  font-family: Roboto;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+textarea {
+  height: 4.375rem;
+  width: 21rem;
+  padding: 0.75rem;
+  font-family: Roboto;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.textarea_label {
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 0.8125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.required {
+  color: var(--Other-Red, #E03E2D);
 }

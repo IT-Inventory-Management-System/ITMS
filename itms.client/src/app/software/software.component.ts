@@ -100,7 +100,6 @@ export class SoftwareComponent implements OnInit {
       (result: any | null) => {
         if (result) {
           // Handle the result here
-          console.log('Single software selected:', result);
           this.singlesoftware = result;
           console.log('Single software :', this.singlesoftware);
 

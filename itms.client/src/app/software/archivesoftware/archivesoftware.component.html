@@ -1,23 +1,30 @@
 <div class="container">
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog" role="document">
-      <div class="modal-content " style="padding: 1rem;">
+
+      <div class="modal-content" style="padding: 2rem;">
+        <button type="button" class="close close_btn" data-bs-dismiss="modal" aria-label="Close">
+          <!--<span aria-hidden="true">&times;</span>-->
+          <img src="../../../../../../assets/icons/Close.svg" />
+        </button>
         <img class="archive-img" src="../../assets/icons/ArchiveModal.svg" />
-        <img  class="archive-close" src="../../../assets/icons/Close.svg" data-bs-dismiss="modal" />
 
-        <div class="modal-header ">
+        <div class="modal-title archive_item_heading" id="exampleModalLabel">Archive Item </div>
+        <div class="modal-body ">
+          <div class="modal_text">
+            Are you sure you want to archive this software?
+            <br />
+            This will save in the archive section.
+          </div>
 
-          <h5 class="modal-title" id="exampleModalLabel">Archive Item </h5>
+
+          <div class="modal-footer ">
+            <button type="button" class="btn footer_bu" data-bs-dismiss="modal">No, Cancel</button>
+            <button type="button" class="btn  footer_bu Archive_bu" data-dismiss="modal">Yes, Archive</button>
+          </div>
         </div>
-        <div class="modal-body">
-          Are you sure you want to archive this device?
-          <br />
-          This will save in the archive section.
-        </div>
-        <div class="modal-footer d-flex justify-content-center">
-          <button type="button" class="btn" data-dismiss="modal">No, Cancel</button>
-          <button type="button" class="btn btn-primary" data-dismiss="modal">Yes, Archive</button>
-        </div>
+
+    
       </div>
     </div>
   </div>
