@@ -35,3 +35,23 @@ p {
   line-height: normal;
 }
 
+.heading{
+    display:flex;
+    justify-content:space-between;
+    
+}
+.comments_text {
+  color: var(--Primary-Blue, #28519E);
+  font-family: Roboto;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+.button-customize{
+    border:none;
+    background:none;
+    padding:0rem;
+    height:2rem;
+    
+}
