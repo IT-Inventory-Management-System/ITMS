@@ -1,0 +1,39 @@
+<div>
+  <div>
+    <button type="button" (click)="openModal('exampleModal' + accessoriesDetails.deviceId)" class="btn revoke-button" data-bs-toggle="modal" [attr.data-bs-target]="'#exampleModal' + accessoriesDetails.deviceId">
+      <img src="../../../assets/icons/Revoke-Vector.svg" alt="Revoke Icon" style="vertical-align: middle;" />
+      <span>Revoke</span>
+    </button>
+
+  </div>
+
+  <div class="modal fade" [id]="'exampleModal' + accessoriesDetails.deviceId" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"(click)="CloseModal('exampleModal' + accessoriesDetails.deviceId)"></button>
+        </div>
+        <div class="modal-body">
+          <p>{{cgiid}}</p>
+          <p>{{firstName}}</p>
+          <p>{{lastName}}</p>
+          <p>{{accessoriesDetails.deviceLogId}}</p>
+          <p>{{accessoriesDetails.categoryName}}</p>
+          <p>{{accessoriesDetails.deviceId}}</p>
+          <p>{{accessoriesDetails.brand}}</p>
+          <p>
+            <ng-container *ngIf="accessoriesDetails.isWired; else notWiredText">Wired</ng-container>
+            <ng-template #notWiredText>Not Wired</ng-template>
+          </p>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="CloseModal('exampleModal' + accessoriesDetails.deviceId)" >Close</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" >Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

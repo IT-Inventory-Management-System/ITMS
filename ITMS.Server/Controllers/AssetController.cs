@@ -30,5 +30,17 @@ namespace ITMS.Server.Controllers
 
         }
 
+        [HttpGet("getMouseBrand")]
+        public async Task<IEnumerable<GetBrandDTO>> getMouseBrand()
+        {
+            return await _addAssetService.getMouseBrand();
+        }
+
+        [HttpGet("getCGIID")]
+        public async Task<IEnumerable<getCGIDTO>> getCGIID()
+        {
+            return await _addAssetService.getCGIID();
+        }
+
     }
 }

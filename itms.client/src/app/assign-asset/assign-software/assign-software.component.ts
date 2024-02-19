@@ -73,18 +73,13 @@ export class AssignSoftwareComponent {
       this.FilteredSoftwaresOptions[index] = this.SoftwareOptions.filter(opt => opt.softwareName === this.selectedSoftwareNames[index]);
       console.log(this.FilteredSoftwaresOptions[index]);
       this.SelectedSoftwaresData[index] = this.FilteredSoftwaresOptions[index][0];
-      //console.log(this.SelectedSoftwaresData[index]);
       const uniqueVersions: string[] = [];
-      // Iterate over the filtered options and add their versions to the array
       this.FilteredSoftwaresOptions[index].forEach(option => {
-        // Check if the version is not already present in the array
         if (!uniqueVersions.includes(option.version)) {
           uniqueVersions.push(option.version);
         }
       });
-      // Assign the array to softwareVersionsOptions[index]
       this.softwareVersionsOptions[index] = uniqueVersions;
-      //console.log(this.SoftwareOptions);
       console.log(this.softwareVersionsOptions[index]);
     }
     else {
@@ -110,9 +105,6 @@ export class AssignSoftwareComponent {
         }));
         this.formatExpiryDate(selectedIndex);
       }
-      //else if () {
-
-      //}
       else {
         if (filteredOptions.length == 0)
           this.selectedSoftwareVersions[selectedIndex] = 1;

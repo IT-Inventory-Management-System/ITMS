@@ -84,6 +84,13 @@ import { AgGridModule } from 'ag-grid-angular';
 import { TableViewComponent } from './shared/components/table-view/table-view.component';
 import { AssignLaptopCommentComponent } from './assign-asset/assign-laptop-comment/assign-laptop-comment.component';
 import { AssignSoftwareCommentComponent } from './assign-asset/assign-software-comment/assign-software-comment.component';
+import { LaptopRevokeComponent } from './user-details/laptop-revoke/laptop-revoke.component';
+import { AccessoriesRevokeComponent } from './user-details/accessories-revoke/accessories-revoke.component';
+import { SoftwareRevokeComponent } from './user-details/software-revoke/software-revoke.component';
+import { AddMouseBrandFormComponent } from './add-asset/add-mouse-form/add-mouse-brand-form/add-mouse-brand-form.component';
+import { AssetFilterComponent } from './inventory/assets-category/assest/asset-filter/asset-filter.component';
+import { AccordionComponent } from './shared/components/accordion/accordion.component';
+import { AccordionItemComponent } from './shared/components/accordion/accordion-item/accordion-item.component';
 
 
 
@@ -166,6 +173,14 @@ import { AssignSoftwareCommentComponent } from './assign-asset/assign-software-c
     AssignLaptopCommentComponent,
     AssignSoftwareCommentComponent,
 
+    TableViewComponent,
+    LaptopRevokeComponent,
+    AccessoriesRevokeComponent,
+    SoftwareRevokeComponent,
+    AddMouseBrandFormComponent,
+    AssetFilterComponent,
+    AccordionComponent,
+    AccordionItemComponent
 
 
   ],

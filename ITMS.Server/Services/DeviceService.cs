@@ -461,6 +461,25 @@ public class DeviceService
 
     }
 
+    public List<ProcessorDto> GetUniqueProcessors()
+    {
+        var uniqueProcessors = _context.DeviceModel
+                                .Where(d => d.Processor != null)
+                                .Select(d => d.Processor)
+                                .Distinct()
+                                .ToList();
+        List<ProcessorDto> processorList = new List<ProcessorDto>();
+
+        foreach (var processor in uniqueProcessors)
+        {
+            ProcessorDto processorDto = new ProcessorDto();
+            processorDto.Name = processor;
+            processorList.Add(processorDto);
+        }
+
+        return processorList;
+    }
+
     public async Task<bool> UpdateDeviceStatusToDiscarded(ArchiveDto archiveDto)
     {
         try
