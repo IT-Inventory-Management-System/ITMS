@@ -80,14 +80,15 @@
             </div>
           </div>
         </div>
-        <div *ngIf="filteredSoftware">
-          <div class="sub-category " *ngFor="let software of filteredSoftware? selectedLocation === 'India' ? filteredSoftware[0]:filteredSoftware[1] : selectedLocation === 'India' ? softwaresData[0] : softwaresData[1]">
-            <!--<div *ngIf="(isArchived==true && software.isArchived==1)||(isArchived==false && (software.isArchived==0||software.isArchived==null))">-->
-              <app-software-name [softwareData]="software" [selectedLocation]="selectedLocation" (cardClicked)="onCardClicked($event)" [isArchived]="isArchived"></app-software-name>
-            <!--</div>-->
-          </div>
-        </div>
 
+          <div *ngIf="filteredSoftware">
+            <div class="sub-category " *ngFor="let software of filteredSoftware? selectedLocation === 'India' ? filteredSoftware[0]:filteredSoftware[1] : selectedLocation === 'India' ? softwaresData[0] : softwaresData[1]">
+              <!--<div *ngIf="(isArchived==true && software.isArchived==1)||(isArchived==false && (software.isArchived==0||software.isArchived==null))">-->
+              <app-software-name [softwareData]="software" [selectedLocation]="selectedLocation" (cardClicked)="onCardClicked($event)" [isArchived]="isArchived"></app-software-name>
+              <!--</div>-->
+            </div>
+          </div>
+        
 
 
 

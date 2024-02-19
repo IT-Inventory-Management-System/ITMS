@@ -12,6 +12,7 @@ import { SelectedCountryService } from '../shared/services/selected-country.serv
   styleUrls: ['./software.component.css']
 })
 export class SoftwareComponent implements OnInit {
+  allSoftwareData: any[];
   selectedView: string = 'card';
   softwaresData: any[];
   softwarestableData: any[];
@@ -43,46 +44,48 @@ export class SoftwareComponent implements OnInit {
   }
 
 
-  constructor(private softwareService: SoftwareService, private LocationService: LocationService, private selectedCountryService: SelectedCountryService) { } // Injecting SoftwareService
+  constructor(private softwareService: SoftwareService, private LocationService: LocationService, private selectedCountryService: SelectedCountryService) { }
 
   onApplyClicked(eventData: any): void {
     console.log
       (eventData);
 
     let res: any[] = [];
+    this.softwaresData = this.allSoftwareData;
+    //console.log(this.allSoftwareData);
 
-
-    if (eventData.type.length>0) {
+    if (eventData.type != '') {
         let softwareArray = this.selectedLocation === 'India' ? this.softwaresData[0] : this.softwaresData[1];
-      for (let s of softwareArray) {
-        if (s.type === eventData.type) {
-          res.push(s);
-        }
+      res = softwareArray.filter((s: any) => s.type === eventData.type);
+
+      if (this.selectedLocation === 'India') {
+        this.softwaresData[0] = res;
+      } else {
+        this.softwaresData[1] = res;
       }
     }
+    console.log(this.softwaresData);
+    //this.softwaresData = [];
+    //console.log("empty");
+    //console.log(this.softwaresData);
+    ////if (eventData.status!=null) {
+    //  let softwareArray = this.selectedLocation === 'India' ? this.softwaresData[0] : this.softwaresData[1];
+    //  for (let s of softwareArray) {
+    //    let b = false;
+    //    for (let v of s.version) {
+    //      if ((v.isArchived == 1 && eventData.status == 'Archive') || ((v.isArchived == null||v.isArchived == 0) && eventData.status == 'Active')) {
+    //        res.push(s);
+    //        b = true;
+    //        break;
+    //      }
+    //    }
+    //    if (b) {
+    //      break;
+    //    }
+    //  }
+    //}
 
-    if (eventData.status!=null) {
-      let softwareArray = this.selectedLocation === 'India' ? this.softwaresData[0] : this.softwaresData[1];
-      for (let s of softwareArray) {
-        let b = false;
-        for (let v of s.version) {
-          if ((v.isArchived == 1 && eventData.status == 'Archive') || ((v.isArchived == null||v.isArchived == 0) && eventData.status == 'Active')) {
-            res.push(s);
-            b = true;
-            break;
-          }
-        }
-        if (b) {
-          break;
-        }
-      }
-    }
-
-    if (this.selectedLocation === 'India') {
-      this.softwaresData[0] = res;
-    } else {
-      this.softwaresData[1] = res;
-    }
+   
     console.log(res);
   }
 
@@ -162,6 +165,7 @@ export class SoftwareComponent implements OnInit {
         console.log(data)
         this.softwaresData = data;
         this.filteredSoftware = this.softwaresData;
+        this.allSoftwareData = [...this.softwaresData];
         console.log("filter", this.filteredSoftware);
 
 
