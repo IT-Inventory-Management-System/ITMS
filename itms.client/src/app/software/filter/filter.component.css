@@ -1,3 +1,5 @@
+
+
 #filterModal {
   border-radius: 0.25rem;
   background: #FFF;
@@ -8,10 +10,14 @@
   align-items: center;
   gap: 1.25rem;
   margin-left: 57rem;
-  height: 47.25rem;
   display: none;
   margin-top: 4rem;
-  overflow-y: scroll;
+  height: 47.75rem;
+}
+
+.criteria {
+  overflow: scroll;
+  margin-top: 1.25rem;
 }
 
 .filtersection {
@@ -66,7 +72,6 @@
   align-items: flex-end;
   gap: 1.5rem;
   align-self: stretch;
-  margin-top:0.5rem;
 }
 
 .text {
@@ -186,3 +191,107 @@
       font-weight: 400;
       line-height: 1rem;
     }
+
+.date-filter-outer {
+  display: flex;
+  height: 3.6875rem;
+  padding: 0rem 0.5rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0.0625rem;
+  align-self: stretch;
+}
+
+.date-filter {
+  display: flex;
+  height: 2.5rem;
+  padding: 0.5rem 0.75rem;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+  align-self: stretch;
+  border-radius: 0.25rem;
+  border: 1px solid var(--Secondary-Gray, #B2B2B3);
+  background: #FFF;
+  width: 17.5rem;
+}
+
+  .date-filter img {
+    display: flex;
+    width: 0.8125rem;
+    height: 0.875rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .date-filter input {
+    height: 150%;
+    border: none;
+    outline: none;
+  }
+
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
+}
+
+.filter-footer {
+  display: flex;
+  width: 20.5rem;
+  padding: 1rem 0rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+}
+
+.save-cancel-button {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  align-self: stretch;
+}
+
+
+.filter-cancel-button {
+  display: flex;
+  padding: 0.75rem 0.5rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1 0 0;
+  border-radius: 0.25rem;
+  border: 1px solid #28519E;
+}
+
+  .filter-cancel-button span {
+    color: #28519E;
+    font-family: Roboto;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
+
+.filter-save-button {
+  display: flex;
+  padding: 0.75rem 0.5rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1 0 0;
+  border-radius: 0.25rem;
+  background: var(--Primary-Blue, #28519E);
+}
+
+  .filter-save-button span {
+    color: var(--Primary-White, #FFF);
+    font-family: Roboto;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+  }
