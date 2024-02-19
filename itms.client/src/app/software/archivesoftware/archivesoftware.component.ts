@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-archivesoftware',
@@ -6,5 +6,27 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./archivesoftware.component.css']
 })
 export class ArchivesoftwareComponent {
+  isarchivedclicked: boolean = false;
 
-}
+
+
+  @Output() archiveClicked: EventEmitter<any> = new EventEmitter<any>();
+  onarchive() {
+    console.log(this.isarchivedclicked);
+    this.isarchivedclicked = true; // Set the property value
+    this.archiveClicked.emit(this.isarchivedclicked);
+    setTimeout(() => {
+      this.isarchivedclicked = false;
+    }, 0);
+  }
+
+
+  
+
+
+
+  }
+ 
+  
+
+

@@ -36,5 +36,11 @@ export class SoftwareService {
   }
 
 
+  UpdateSoftwareArchiveStatus(body: any): Observable<any | null> {
+    return this.http.post<any | null>(this.apiUrl + 'SoftwarePage/archive', body);
+  }
+
+
+
 
 }
