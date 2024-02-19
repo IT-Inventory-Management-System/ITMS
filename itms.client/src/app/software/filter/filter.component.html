@@ -51,18 +51,34 @@
           </div>
         </div>
       </app-accordion-item>
-    
-      <app-accordion-item title="Date of Purchase">
 
+      <app-accordion-item title="Date of Purchase">
+        <div class="filter-checkbox-outer">
+          <div class="date-filter-outer">
+            <div class="date-filter">
+              <input type="text" placeholder="From Date" onfocus="(this.type='date')" onblur="(this.type='text')" />
+              <img src="../../../../../assets/icons/calendar.svg" />
+            </div>
+          </div>
+          <div class="date-filter-outer">
+            <div class="date-filter">
+              <input type="text" placeholder="To Date" onfocus="(this.type='date')" onblur="(this.type='text')" />
+              <img src="../../../../../assets/icons/calendar.svg" />
+            </div>
+          </div>
+        </div>
       </app-accordion-item>
+
     </app-accordion>
 
   </div>
-  <div class="cancle-apply ">
-    <button class="cancel-button " data-bs-dismiss="modal"><span>Cancel</span></button>
-    <button type="button" class="btn btn-primary apply" (click)="Apply()" data-bs-dismiss="modal">Apply</button>
-
+  <div class="filter-footer">
+    <div class="save-cancel-button">
+      <button type="button" class="filter-cancel-button" data-bs-dismiss="modal"><span>Cancel</span></button>
+      <button type="button" class="filter-save-button" (click)="Apply()" data-bs-dismiss="modal"><span>Apply</span></button>
+    </div>
   </div>
+
 
 
 
