@@ -1,15 +1,16 @@
-<div class="Device">
-  <div class="Device-Section">
+<div class="Device" *ngFor="let device of devices; let i = index">
+  <div class="Device-Section" [class.Device-Section-bottom-margin]="i !== devices.length - 1">
     <div class="Device-Frame">
       <app-laptop-search-box class="sbox"
                              [label]="'CYG ID'"
                              [placeholder]="'Select CYG ID'"
                              [LaptopOptions]="LaptopOptions"
-                             (LaptopOptionSelected)="LaptopSearchBoxOptionSelected($event)"
-                             [assignAssetForm]="assignAssetForm">
+                             (LaptopOptionSelected)="LaptopSearchBoxOptionSelected($event, i)"
+                             [assignAssetForm]="assignAssetForm"
+                             [index]="i"
+                             (removeDevice)="removeDevice($event)">
       </app-laptop-search-box>
-
-      <div *ngIf="SelectedLaptop?.assignedTo" class="alert-box">
+      <div *ngIf="SelectedLaptops[i]?.assignedTo" class="alert-box">
         <div class="alert-image-frame">
           <img id="alert-image" src="../../../../assets/icons/Vector.svg" />
         </div>
@@ -18,46 +19,42 @@
           Please select another device from the list.
         </div>
       </div>
-      <div *ngIf="!SelectedLaptop?.assignedTo && SelectedLaptop" class="device-details">
+      <div *ngIf="!SelectedLaptops[i]?.assignedTo && SelectedLaptops[i]" class="device-details">
         <div class="details-subheading">
           Selected Device Configuration:
         </div>
         <div class="details">
           <div class="device-model">
             <div class="details-icon"></div>
-            <div class="details-text">{{SelectedLaptop?.modelNo}}</div>
+            <div class="details-text">{{SelectedLaptops[i]?.modelNo}}</div>
           </div>
           <div class="device-model">
             <div class="details-icon"></div>
-            <div class="details-text">{{SelectedLaptop?.processor}}</div>
+            <div class="details-text">{{SelectedLaptops[i]?.processor}}</div>
           </div>
           <div class="device-model-same-row">
             <div class="same-row-detail">
               <div class="details-icon"></div>
-              <div class="details-text">{{SelectedLaptop?.ram}}</div>
+              <div class="details-text">{{SelectedLaptops[i]?.ram}}</div>
             </div>
             <div class="same-row-detail">
               <div class="details-icon"></div>
-              <div class="details-text">{{SelectedLaptop?.storage}}</div>
+              <div class="details-text">{{SelectedLaptops[i]?.storage}}</div>
             </div>
             <div class="same-row-detail">
               <div class="details-icon"></div>
-              <div class="details-text">{{formattedAge}} years</div>
+              <div class="details-text">{{formattedAges[i]}} years</div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="comment-subheading">Comment</div>
-    <input class="comment-input-box"
-           required
-           placeholder="Add Comment"
-           aria-label="Comment"
-           (input)="onInputChangeCommentBox($event)"
-           [value]="selectedOption"
-           style="resize: none">
+    <app-assign-laptop-comment class="sbox"
+                               [assignAssetForm]="assignAssetForm"
+                               [index]="i">
+    </app-assign-laptop-comment>
   </div>
-  <div class="Add-new">
+  <div class="Add-new" *ngIf="i === devices.length - 1" (click)="addNewDevice()">
     <img class="add-img" src="../../../../assets/icons/Add.svg" />
     <div class="add-new-text">Add Another Device</div>
   </div>

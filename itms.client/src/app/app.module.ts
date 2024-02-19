@@ -82,6 +82,8 @@ import { NewCommentsComponent } from './shared/components/new-comments/new-comme
 import { SingleCommentComponent } from './shared/components/new-comments/single-comment/single-comment.component';
 import { AgGridModule } from 'ag-grid-angular';
 import { TableViewComponent } from './shared/components/table-view/table-view.component';
+import { AssignLaptopCommentComponent } from './assign-asset/assign-laptop-comment/assign-laptop-comment.component';
+import { AssignSoftwareCommentComponent } from './assign-asset/assign-software-comment/assign-software-comment.component';
 
 
 
@@ -160,7 +162,9 @@ import { TableViewComponent } from './shared/components/table-view/table-view.co
     SoftwareNameComponent,
     NewCommentsComponent,
     SingleCommentComponent,
-    TableViewComponent
+    TableViewComponent,
+    AssignLaptopCommentComponent,
+    AssignSoftwareCommentComponent,
 
 
 

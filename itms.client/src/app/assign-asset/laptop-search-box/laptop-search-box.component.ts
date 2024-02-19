@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, ElementRef, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormArray, FormBuilder } from '@angular/forms';
 import { AssignDataManagementService } from '../../shared/services/assign-data-management.service';
 import { Subscription } from 'rxjs';
 import { CloseFlagService } from '../../shared/services/close-flag.service';
@@ -14,11 +14,14 @@ export class LaptopSearchBoxComponent implements OnInit, OnDestroy {
   @Input() placeholder: string;
   @Input() LaptopOptions: any[] = [];
   @Input() assignAssetForm: FormGroup;
+  @Input() index: number;
   @Output() LaptopOptionSelected: EventEmitter<any> = new EventEmitter();
+  @Output() removeDevice = new EventEmitter<number>();
 
   private closeFlagSubscription: Subscription;
   selectedOption: any;
   constructor(private assignDataManagementService: AssignDataManagementService,
+    private formBuilder: FormBuilder,
     private closeFlagService: CloseFlagService
 ) {
     this.closeFlagSubscription = this.closeFlagService.closeFlag$.subscribe((closeFlag) => {
@@ -30,39 +33,59 @@ export class LaptopSearchBoxComponent implements OnInit, OnDestroy {
 }
 
   ngOnInit(): void {
-    this.selectedOption = this.assignDataManagementService.getState("cygid");
+    this.selectedOption = this.assignDataManagementService.getState("cygids",this.index);
     this.LaptopOptionSelected.emit(this.selectedOption);
   }
 
   ngOnDestroy(): void {
     this.closeFlagSubscription = this.closeFlagService.closeFlag$.subscribe((closeFlag) => {
       if (!closeFlag) {
-        this.assignDataManagementService.setState("cygid", this.selectedOption);
+        this.assignDataManagementService.setState("cygids", this.selectedOption, this.index);
       }
     });
     this.closeFlagSubscription.unsubscribe();
   }
 
-  setSaveStateOnDestroy(): void {
-    this.selectedOption = null;
-    this.assignDataManagementService.setState("cygid", null);
-  }
+  //setSaveStateOnDestroy(): void {
+  //  this.selectedOption = null;
+  //  this.assignDataManagementService.setState("cygid", null, this.index);
+  //}
 
   onClearSelection(): void {
     this.selectedOption = null;
-    this.assignAssetForm.get('cygid')?.setValue(null);
+    const cygidsArray = this.assignAssetForm.get('cygids') as FormArray;
+    const index = cygidsArray.controls.findIndex(control => control.value.index === this.index);
+    if (index !== -1) {
+      cygidsArray.removeAt(index);
+      this.selectedOption = null;
+    }
+    //console.log(this.assignAssetForm.get('cygids'));
   }
 
   onSelectOption(option: any): void {
+    //console.log(option);
     this.LaptopOptionSelected.emit(option);
-    if (option.assignedTo && 'assignedTo' in option && option.assignedTo) {
-      this.selectedOption = null;
-      this.assignAssetForm.get('cygid')?.setValue(null);
-      console.log(this.selectedOption);
+    if (option && option.assignedTo && 'assignedTo' in option && option.assignedTo) {
+      const cygidsArray = this.assignAssetForm.get('cygids') as FormArray;
+      const index = cygidsArray.controls.findIndex(control => control.value.index === this.index);
+      if (index !== -1) {
+        cygidsArray.removeAt(index);
+        this.selectedOption = null;
+      }
+    //  console.log(this.assignAssetForm.get('cygids'));
     }
     else {
+      //console.log(option);
       this.selectedOption = option;
-      this.assignAssetForm.get('cygid')?.setValue(option.cygid);
+      const cygidsArray = this.assignAssetForm.get('cygids') as FormArray;
+      cygidsArray.push(this.formBuilder.group({
+        index: this.index,
+        cygid: option.cygid
+      }));
+      //console.log(this.assignAssetForm.get('cygids'));
     }
+  }
+  emitRemoveDevice(): void {
+    this.removeDevice.emit(this.index);
   }
 }
