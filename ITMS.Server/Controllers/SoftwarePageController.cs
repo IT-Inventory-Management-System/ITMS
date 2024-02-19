@@ -61,12 +61,23 @@ namespace ITMS.Server.Controllers
         }
 
         [HttpGet("software")]
-        public List<IEnumerable<SoftwarePage>> GetSoftware()
+        public List<IEnumerable<SoftwarePage>> GetSoftware(bool arch)
         {
             List<IEnumerable<SoftwarePage>> list = new List<IEnumerable<SoftwarePage>>();
-            var softwareIndia = _softwarepageService.GetSoftware("India");
+
+            var softwareIndia = new List<SoftwarePage>();
+            var softwareUSA = new List<SoftwarePage>(); 
+            if (arch==false) {
+                softwareIndia = _softwarepageService.GetSoftware("India", false);
+
+                softwareUSA = _softwarepageService.GetSoftware("USA", false);
+            }
+
+            softwareIndia.AddRange(_softwarepageService.GetSoftware("India", true));
+            softwareUSA.AddRange(_softwarepageService.GetSoftware("USA", true));
+
+
             list.Add(softwareIndia);
-            var softwareUSA = _softwarepageService.GetSoftware("USA");
             list.Add(softwareUSA);
             return list;
         }

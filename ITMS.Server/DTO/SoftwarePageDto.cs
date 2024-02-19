@@ -63,12 +63,12 @@ namespace ITMS.Server.DTO
 
         public byte[]? SoftwareThumbnail { get; set; }
         public string type { get; set; }
-       // public List<string?>? version { get; set; }
-        //public bool? isArchived { get; set; }
+        public string? version { get; set; }
+        public bool? isArchived { get; set; }
         //public int inStock { get; set; }
         //public List<DateTime?> purchaseDates { get; set; }
 
-        public List<Ver_Qty_Pur_Arch>? version { get; set; }
+        //public List<Ver_Qty_Pur_Arch>? version { get; set; }
 
     }
 

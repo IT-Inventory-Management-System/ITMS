@@ -4,7 +4,7 @@ import { ColDef } from 'ag-grid-community';
 import * as XLSX from 'xlsx';
 import { LocationService } from '../shared/services/location.service';
 import { SelectedCountryService } from '../shared/services/selected-country.service';
-
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-software',
@@ -51,29 +51,41 @@ export class SoftwareComponent implements OnInit {
       (eventData);
 
     let res: any[] = [];
-    this.softwaresData = this.allSoftwareData;
-    //console.log(this.allSoftwareData);
+    this.softwaresData[0] = this.allSoftwareData[0];
+    //this.softwaresData[0].version = [...this.allSoftwareData[0].version];
+    //if (!this.softwaresData[0].version) {
+    //  this.softwaresData[0].version = [];
+    //}
+
+    //// Iterate over each version in allSoftwareData[0]
+    //for (let version of this.allSoftwareData[0].version) {
+    //  // Add each version to the version array in softwaresData[0]
+    //  this.softwaresData[0].version.push(version);
+    //}
+    this.softwaresData[1] = this.allSoftwareData[1];
+    
 
     if (eventData.type != '') {
-        let softwareArray = this.selectedLocation === 'India' ? this.softwaresData[0] : this.softwaresData[1];
-      res = softwareArray.filter((s: any) => s.type === eventData.type);
+        //let softwareArray = this.selectedLocation === 'India' ? this.softwaresData[0] : this.softwaresData[1];
+      //res = softwareArray.filter((s: any) => s.type === eventData.type);
 
       if (this.selectedLocation === 'India') {
-        this.softwaresData[0] = res;
+        this.softwaresData[0] = this.softwaresData[0].filter((s: any) => s.type === eventData.type);
       } else {
-        this.softwaresData[1] = res;
+        this.softwaresData[1] = this.softwaresData[1].filter((s: any) => s.type === eventData.type);
       }
     }
-    console.log(this.softwaresData);
-    //this.softwaresData = [];
-    //console.log("empty");
-    //console.log(this.softwaresData);
-    ////if (eventData.status!=null) {
+
+    //if (eventData.stat != '') {
+    //  alert(eventData.stat);
+    //}
+
+    //if (eventData.stat != '') {
     //  let softwareArray = this.selectedLocation === 'India' ? this.softwaresData[0] : this.softwaresData[1];
     //  for (let s of softwareArray) {
     //    let b = false;
     //    for (let v of s.version) {
-    //      if ((v.isArchived == 1 && eventData.status == 'Archive') || ((v.isArchived == null||v.isArchived == 0) && eventData.status == 'Active')) {
+    //      if ((v.isArchived == 1 && eventData.stat == 'Archive') || ((v.isArchived == null||v.isArchived == 0) && eventData.stat == 'Active')) {
     //        res.push(s);
     //        b = true;
     //        break;
@@ -83,14 +95,46 @@ export class SoftwareComponent implements OnInit {
     //      break;
     //    }
     //  }
+
+    //  if (this.selectedLocation === 'India') {
+    //    this.softwaresData[0] = res;
+    //  } else {
+    //    this.softwaresData[1] = res;
+    //  }
     //}
 
-   
+    //if (eventData.stock != '') {
+    //  let softwareArray = this.selectedLocation === 'India' ? this.softwaresData[0] : this.softwaresData[1];
+    //  for (let s of softwareArray) {
+    //    for (let v of s.version) {
+    //      if ((eventData == 'Low In Stock' && v.inStock <= 1) || (eventData == 'Out In Stock' && v.inStock <= 0) || (eventData == 'In Stock' && v.inStock > 1)) {
+
+    //      }
+    //    }
+    //  }
+    //}
+
+    if (eventData.stock != '') {
+      const softwareArrayIndex = this.selectedLocation === 'India' ? 0 : 1;
+
+      this.softwaresData[softwareArrayIndex] = this.softwaresData[softwareArrayIndex].filter((s: any) => {
+        s.version = s.version.filter((v: any) => {
+          return (eventData.stock === 'Low In Stock' && v.inStock <= 1) ||
+            (eventData.stock === 'Out In Stock' && v.inStock <= 0) ||
+            (eventData.stock === 'In Stock' && v.inStock > 1);
+        });
+
+        return s.version.length > 0;
+      });
+    }
+
+
+    console.log(this.allSoftwareData);
+    console.log(this.softwaresData);
     console.log(res);
   }
 
   onCardClicked(eventData: any): void {
-    // Assuming eventData contains the parameters needed for GetSingleSelected
     const parameters = {
       name: eventData.name,
       version: eventData.version,
@@ -98,17 +142,14 @@ export class SoftwareComponent implements OnInit {
       type: eventData.type
     };
 
-    // Call the service method
     this.softwareService.GetSingleSelected(parameters).subscribe(
       (result: any | null) => {
         if (result) {
-          // Handle the result here
           console.log('Single software selected:', result);
           this.singlesoftware = result;
           console.log('Single software :', this.singlesoftware);
 
         } else {
-          // Handle case when no software is found
           console.log('No software found for parameters:', parameters);
         }
       },
@@ -117,17 +158,14 @@ export class SoftwareComponent implements OnInit {
       }
     );
 
-    // Call the service method
     this.softwareService.GetHistory(parameters).subscribe(
       (result: any | null) => {
         if (result) {
-          // Handle the result here
           console.log(' software history:', result);
           this.softwarehistory = result;
           console.log(' software history:', this.softwarehistory);
 
         } else {
-          // Handle case when no software is found
           console.log('No software history for parameters:', parameters);
         }
       },
@@ -144,7 +182,7 @@ export class SoftwareComponent implements OnInit {
     this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
       localStorage.setItem('selectedCountry', selectedCountry);
       this.selectedLocation = selectedCountry;
-      console.log(this.selectedLocation);
+     // console.log(this.selectedLocation);
 
 
     });
@@ -165,8 +203,48 @@ export class SoftwareComponent implements OnInit {
         console.log(data)
         this.softwaresData = data;
         this.filteredSoftware = this.softwaresData;
-        this.allSoftwareData = [...this.softwaresData];
-        console.log("filter", this.filteredSoftware);
+        // Copy the entire array from data to allSoftwareData
+        //this.allSoftwareData = JSON.parse(JSON.stringify(data));
+          //[...data];
+        //console.log(data);
+        // Copy the version arrays for each element in data
+        //for (let i = 0; i < data[0].length; i++) {
+        //  // Copy the version array
+
+        //    this.allSoftwareData[0][i].version = [...data[0][i].version];
+        //}
+        //for (let i = 0; i < data[1].length; i++) {
+        //  // Copy the version array
+
+        //  this.allSoftwareData[1][i].version = [...data[1][i].version];
+        //}
+
+        //this.allSoftwareData = JSON.parse(JSON.stringify(data));
+
+       
+        //for (let i = 0; i < this.allSoftwareData.length; i++) {
+        //  for (let j = 0; j < this.allSoftwareData[i].length; j++) {
+        //    //if (Array.isArray(this.allSoftwareData[i][j].version)) {
+        //      this.allSoftwareData[i][j].version = JSON.parse(JSON.stringify(this.allSoftwareData[i][j].version));
+        //    //}
+        //  }
+        //}
+
+        this.allSoftwareData = _.cloneDeep(data);
+        //for (let i = 0; i < data[0].length; i++) {
+        //  // Copy the version array
+
+        //  this.allSoftwareData[0][i].version = _.cloneDeep(data[0][i].version);
+        //}
+
+        //for (let i = 0; i < data[1].length; i++) {
+        //  // Copy the version array
+
+        //  this.allSoftwareData[1][i].version = _.cloneDeep(data[1][i].version);
+        //}
+
+        console.log("helo",this.allSoftwareData);
+        //console.log("filter", this.filteredSoftware);
 
 
 
@@ -185,9 +263,9 @@ export class SoftwareComponent implements OnInit {
       data => {
         this.softwarestableData = data;
 
-        console.log("tabel", this.softwarestableData);
+        //console.log("tabel", this.softwarestableData);
         this.setRowData();
-        console.log('Row Data', this.rowData);
+        //console.log('Row Data', this.rowData);
 
       },
       error => {
