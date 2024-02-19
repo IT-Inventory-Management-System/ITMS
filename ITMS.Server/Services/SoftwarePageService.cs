@@ -326,6 +326,29 @@ namespace ITMS.Server.Services
 
 
 
+        public bool UpdateSoftwareArchiveStatus(SoftwareUpdateDto dto)
+        {
+            var softwareAllocations = _context.SoftwareAllocations
+                .Where(sa => sa.Software.SoftwareName == dto.Name &&
+                             sa.Version == dto.Version &&
+                             sa.Software.SoftwareType.TypeName == dto.Type &&
+                             sa.Location.Location1==dto.location) 
+                             
+
+                             
+                .ToList();
+
+            if (softwareAllocations.Count == 0)
+                return false; // No matching software allocations found
+
+            foreach (var allocation in softwareAllocations)
+            {
+                allocation.IsArchived = dto.IsArchived;
+            }
+
+            _context.SaveChanges();
+            return true; // Update successful
+        }
 
 
     }

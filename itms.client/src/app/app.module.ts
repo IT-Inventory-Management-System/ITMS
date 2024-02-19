@@ -91,6 +91,7 @@ import { AccordionComponent } from './shared/components/accordion/accordion.comp
 import { AccordionItemComponent } from './shared/components/accordion/accordion-item/accordion-item.component';
 import { FilterComponent } from './software/filter/filter.component';
 import { LastdateComponent } from './software/lastdate/lastdate.component';
+import { ArchivesoftwareComponent } from './software/archivesoftware/archivesoftware.component';
 
 
 
@@ -177,7 +178,8 @@ import { LastdateComponent } from './software/lastdate/lastdate.component';
     AddMouseBrandFormComponent,
     AssetFilterComponent,
     AccordionComponent,
-    AccordionItemComponent
+    AccordionItemComponent,
+    ArchivesoftwareComponent,
     //FilterComponent,
     //LastdateComponent,
 

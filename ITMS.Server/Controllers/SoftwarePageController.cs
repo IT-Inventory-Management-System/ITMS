@@ -99,5 +99,26 @@ namespace ITMS.Server.Controllers
                 return BadRequest($"Error: {ex.Message}");
             }
         }
+
+     [HttpPost("archive")]
+public IActionResult Archive([FromBody] SoftwareUpdateDto dto)
+{
+    if (!ModelState.IsValid)
+    {
+        return BadRequest(ModelState);
+    }
+
+    bool updateResult = _softwarepageService.UpdateSoftwareArchiveStatus(dto);
+    if (!updateResult)
+    {
+        return NotFound("Software not found.");
+    }
+
+    return Ok("Software archive status updated successfully.");
+}
+
+
+
+
     }
 }
