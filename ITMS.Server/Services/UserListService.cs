@@ -10,6 +10,7 @@ public interface IUserListService
     Task<IEnumerable<UserListDTO>> GetUserDevicesAsync(Guid locationId);
 
     Task<UserListDTO> GetFirstUserAsync();
+    Task<IEnumerable<AdminListDTO>> GetAdminList();
 }
 public class UserListService : IUserListService
 {
@@ -66,6 +67,24 @@ public class UserListService : IUserListService
             .FirstOrDefaultAsync();
 
         return user;
+    }
+
+    public async Task<IEnumerable<AdminListDTO>> GetAdminList()
+    {
+        var adminList = await _context.Employees
+            .Join(_context.Roles, e => e.RoleId, r => r.Id, (e, r) => new AdminListDTO
+            {
+                Id = e.Id,
+                Cgiid = e.Cgiid,
+                FirstName = e.FirstName,
+                LastName = e.LastName,
+                Role = r.Name,
+                LocationId = e.LocationId
+            })
+            .Where(dto => dto.Role == "Admin" || dto.Role == "Superadmin")
+            .ToListAsync();
+
+        return adminList;
     }
 
 }

@@ -1,9 +1,17 @@
 <div class="user-list-container">
-  <button class="user-list-container-items"> <!--[ngClass]="{'selected': isSelected}" (click)="showDetails()"-->
-    <ngx-avatars name="Divyansh Rampal" [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="33"></ngx-avatars>
-    <div class="user-detail">
-      <p class="user-name">Divyansh Rampal</p>
-      <p class="user-int">CYG001</p>
+  <!--<button class="user-list-container">[ngClass]="{'selected': isSelected}" (click)="showDetails()"-->
+  <div class="user-detail">
+    <ngx-avatars name="{{adminDetail.firstName}} {{adminDetail.lastName}}" [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="33"></ngx-avatars>
+    <div class="user-name-id">
+      <span class="user-name">{{adminDetail.firstName}} {{adminDetail.lastName}}</span>
+      <span class="user-int">{{adminDetail.cgiid}}</span>
     </div>
-  </button>
+  </div>
+  <div *ngIf="adminDetail.role=='Admin'" class="user-role-admin">
+    <span>{{adminDetail.role}}</span>
+  </div>
+  <div *ngIf="adminDetail.role=='Superadmin'" class="user-role-superadmin">
+    <span>Super Admin</span>
+  </div>
+  <!--</button>-->
 </div>

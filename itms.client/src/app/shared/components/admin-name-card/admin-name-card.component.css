@@ -1,15 +1,19 @@
 .user-list-container {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.534rem;
-  flex: 1 0 0;
+  padding: 0.5rem 0.75rem;
+  align-items: center;
+  gap: 1rem;
   align-self: stretch;
-  width: 100%
+  border-radius: 0.267rem;
+  border: 1px solid var(--Secondary-Light-Gray, #E9ECEB);
+  background: var(--Primary-White, #FFF);
+  width: 19.1875rem;
+  height: 3.1875rem;
+  cursor: pointer;
 }
 
 
-.user-list-container-items {
+/*.user-list-container-items {
   display: flex;
   padding: 0.5rem 0.75rem;
   align-items: center;
@@ -20,37 +24,88 @@
   background: white;
   border-radius: 0.267rem;
   transition: 0.3s ease-in-out;
-}
+}*/
 
-  .user-list-container-items:focus, .user-list-container-items:active {
+  .user-list-container:focus, .user-list-container:active {
     background: #E3F3FC;
   }
 
-  .user-list-container-items.selected {
+  .user-list-container.selected {
     background-color: #E3F3FC;
     border: 1px solid black;
   }
 
+.user-detail {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1 0 0;
+}
+
+.user-name-id {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+  height: 2.1875rem;
+}
+
 .user-name {
-  color: #343435;
+  color: var(--Primary-Gray, #343435);
   font-family: Roboto;
   font-size: 0.875rem;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
-  width: 9.345rem;
-  margin: 0;
-  text-align: left;
 }
 
 .user-int {
-  color: #6D6D6D;
+  color: var(--Adhoc-text-gray, #6D6D6D);
   font-family: Roboto;
   font-size: 0.8125rem;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  margin: 0;
-  text-transform: uppercase;
-  text-align: left;
+}
+
+.user-role-admin {
+  display: flex;
+  padding: 0.25rem 0.625rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  border-radius: 0.25rem;
+  background: #FFEFC5;
+}
+
+.user-role-admin span {
+  color: #73461A;
+  font-family: Roboto;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.25rem; 
+}
+
+.user-role-superadmin {
+  display: flex;
+  height: 1.75rem;
+  padding: 0.4375rem 0.625rem;
+  align-items: center;
+  gap: 0.625rem;
+  border-radius: 0.25rem;
+  background: #E8E2FE;
+}
+
+.user-role-superadmin span {
+  color: #43327F;
+  font-family: Roboto;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.25rem;
+}
+
+.st {
+  border: 1px solid black;
 }

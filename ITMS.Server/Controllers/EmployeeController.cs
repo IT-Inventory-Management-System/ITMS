@@ -29,5 +29,11 @@ namespace ITMS.Server.Controllers
             return await _userListService.GetFirstUserAsync();
         }
 
+        [HttpGet("admin-list")]
+        public async Task<IEnumerable<AdminListDTO>> GetAdminList()
+        {
+            return await _userListService.GetAdminList();
+        }
+
     }
 }

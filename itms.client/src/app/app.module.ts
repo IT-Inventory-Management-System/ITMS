@@ -94,6 +94,7 @@ import { ManageAccessComponent } from './manage-access/manage-access.component';
 import { AdminListPanelComponent } from './manage-access/admin-list-panel/admin-list-panel.component';
 import { AdminPermissionsPanelComponent } from './manage-access/admin-permissions-panel/admin-permissions-panel.component';
 import { AdminNameCardComponent } from './shared/components/admin-name-card/admin-name-card.component';
+import { AssignRoleModalComponent } from './manage-access/assign-role-modal/assign-role-modal.component';
 
 
 
@@ -184,7 +185,8 @@ import { AdminNameCardComponent } from './shared/components/admin-name-card/admi
     ManageAccessComponent,
     AdminListPanelComponent,
     AdminPermissionsPanelComponent,
-    AdminNameCardComponent
+    AdminNameCardComponent,
+    AssignRoleModalComponent
 
 
   ],

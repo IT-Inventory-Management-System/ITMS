@@ -131,5 +131,9 @@ export class DataService {
   postMouse(formData: any): Observable<any> {
     return this.http.post(this.apiUrl + 'addDevices/AddMouse', formData);
   }
+
+  getAdminList(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + 'employee/admin-list');
+  }
 }
 

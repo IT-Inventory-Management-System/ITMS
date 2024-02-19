@@ -6,6 +6,6 @@
     </div>
   </div>
   <div class="admin-list">
-    <app-admin-name-card></app-admin-name-card>
+      <app-admin-name-card *ngFor="let adminDetail of adminList" [adminDetail]="adminDetail"></app-admin-name-card>
   </div>
 </div>

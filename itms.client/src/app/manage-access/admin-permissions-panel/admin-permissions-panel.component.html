@@ -14,4 +14,12 @@
       </div>
     </div>
   </div>
+  <div *ngFor="let permission of adminPermissions" class="permissions-panel-body">
+    <div class="permission-card">
+      <div class="permission-details">
+        <span class="permission-title">{{permission.permissionName}}</span>
+        <span class="permission-description">{{permission.permissionDescription}}</span>
+      </div>
+    </div>
+  </div>
 </div>

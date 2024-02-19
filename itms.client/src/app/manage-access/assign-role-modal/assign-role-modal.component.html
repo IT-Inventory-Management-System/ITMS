@@ -1,0 +1,33 @@
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content assign-role-modal">
+      <div class="assign-role-heading">
+        <span>Assign Role</span>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="assign-role-content-outer">
+        <div class="assign-role-content-inner">
+          <div class="assign-user">
+            <span>User</span>
+            <ng-select placeholder="Select User">
+              <ng-option *ngFor="let value of userDataList" [value]="value.id">
+                <div class="option">
+                  <ngx-avatars name="{{value.firstName}} {{value.lastName}}" [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="33"></ngx-avatars>
+                  <div class="name-id">
+                    <span class="option-name">{{value.firstName}} {{value.lastName}}</span>
+                    <span class="option-id">{{value.cgiid}}</span>
+                  </div>S
+                </div>
+              </ng-option>
+            </ng-select>
+          </div>
+          <div class="role-selector">
+            <div><span>Select Role</span></div>
+            <div class="role-checkbox"></div>
+          </div>
+          <div class="assign-role-button"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
