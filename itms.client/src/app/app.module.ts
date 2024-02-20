@@ -91,6 +91,7 @@ import { AssetFilterComponent } from './inventory/assets-category/assest/asset-f
 import { AccordionComponent } from './shared/components/accordion/accordion.component';
 import { AccordionItemComponent } from './shared/components/accordion/accordion-item/accordion-item.component';
 import { ConfirmationModalComponent } from './exit-process/confirmation-modal/confirmation-modal.component';
+import { RevokeAllComponent } from './revoke-all/revoke-all.component';
 
 
 
@@ -179,6 +180,7 @@ import { ConfirmationModalComponent } from './exit-process/confirmation-modal/co
     AccordionComponent,
     AccordionItemComponent,
     ConfirmationModalComponent,
+    RevokeAllComponent,
 
 
 

@@ -2,6 +2,7 @@
 <app-assign-asset></app-assign-asset>
 <app-exit-process></app-exit-process>
 <app-confirmation-modal></app-confirmation-modal>
+<app-revoke-all></app-revoke-all>
 
 <div class="page-container">
 
@@ -36,86 +37,92 @@
               <img src="../../../../assets/icons/laptop-solid 2 (1).svg" />
               Assign Assets
             </div>
-            <div class="dropdown-both dropdown-btn exit-process-text" (click)="isOptionsVisible = !isOptionsVisible"  data-bs-toggle="modal"  data-bs-target="#confirmationModal">
+            <div class="dropdown-both dropdown-btn exit-process-text" (click)="isOptionsVisible = !isOptionsVisible" data-bs-toggle="modal" data-bs-target="#confirmationModal">
               <img src="../../../../assets/icons/Clip path group.svg" />
               Initiate Exit Process
             </div>
           </div>
         </div>
 
-    </div>
+      </div>
+
+      <div class="revoke-alert">
+        <img src="../../assets/icons/Vector-red.svg" />
+        <p>Exit process initiated and all the assets information has been sent to the user.</p>
+        <div class="btn btn-revoke" data-bs-toggle="modal" data-bs-target="#revokeAllModal">
+          <img src="../../assets/icons/Revoke.svg" />
+          <p class="revoke-btn-text">Revoke all items</p>
+        </div>
+      </div>
+
+      <div class="buttons">
+
+        <button class="item1" (click)="selectItem('laptop')" [ngClass]="{'selected': selectedItem === 'laptop'}">
+
+          <div class="laptop">Laptop</div>
+
+        </button>
+
+        <button class="item2" (click)="selectItem('software')" [ngClass]="{'selected': selectedItem === 'software'}">
+
+          <div class="software">Software</div>
+
+        </button>
+
+        <button class="item3" (click)="selectItem('accessories')" [ngClass]="{'selected': selectedItem === 'accessories'}">
+
+          <div class="accessories">Accessories</div>
+
+        </button>
+
+      </div>
+
+      <div class="assigned">
+
+        <app-laptop-details *ngIf="selectedItem === 'laptop'" [userId]="userDetails?.id" [firstName]="userDetails?.firstName" [lastName]="userDetails?.lastName" [cgiid]="userDetails?.cgiid" class="asd"></app-laptop-details>
+
+        <app-software-details *ngIf="selectedItem === 'software'" [userId]="userDetails?.id" [firstName]="userDetails?.firstName" [lastName]="userDetails?.lastName" [cgiid]="userDetails?.cgiid" class="asd"></app-software-details>
+
+        <app-accessories-details *ngIf="selectedItem === 'accessories'" [userId]="userDetails?.id" [firstName]="userDetails?.firstName" [lastName]="userDetails?.lastName" [cgiid]="userDetails?.cgiid" class="asd"></app-accessories-details>
+
+      </div>
 
 
+      <!--<div class="assigned">
 
-    <div class="buttons">
+  <div class="buttons">
 
-      <button class="item1" (click)="selectItem('laptop')" [ngClass]="{'selected': selectedItem === 'laptop'}">
+  <button class="item1">
 
-        <div class="laptop">Laptop</div>
+  <div class="laptop">Laptop</div>
 
-      </button>
+  </button>
 
-      <button class="item2" (click)="selectItem('software')" [ngClass]="{'selected': selectedItem === 'software'}">
+  <button class="item2">
 
-        <div class="software">Software</div>
+  <div class="software">Software
 
-      </button>
+          </div>
 
-      <button class="item3" (click)="selectItem('accessories')" [ngClass]="{'selected': selectedItem === 'accessories'}">
+  </button>
 
-        <div class="accessories">Accessories</div>
+  <button class="item3">
 
-      </button>
+  <div class="accessories">Accessories</div>
 
-    </div>
-
-    <div class="assigned">
-
-      <app-laptop-details *ngIf="selectedItem === 'laptop'" [userId]="userDetails?.id" [firstName]="userDetails?.firstName" [lastName]="userDetails?.lastName" [cgiid]="userDetails?.cgiid" class="asd"></app-laptop-details>
-
-      <app-software-details *ngIf="selectedItem === 'software'" [userId]="userDetails?.id" [firstName]="userDetails?.firstName" [lastName]="userDetails?.lastName" [cgiid]="userDetails?.cgiid" class="asd"></app-software-details>
-
-      <app-accessories-details *ngIf="selectedItem === 'accessories'" [userId]="userDetails?.id" [firstName]="userDetails?.firstName" [lastName]="userDetails?.lastName" [cgiid]="userDetails?.cgiid" class="asd"></app-accessories-details>
-
-    </div>
-
-
-    <!--<div class="assigned">
-
-    <div class="buttons">
-
-    <button class="item1">
-
-    <div class="laptop">Laptop</div>
-
-    </button>
-
-    <button class="item2">
-
-    <div class="software">Software
-
-            </div>
-
-    </button>
-
-    <button class="item3">
-
-    <div class="accessories">Accessories</div>
-
-    </button>
-
-    </div>
-
-        <app-laptop-details [userId]="userDetails.id"></app-laptop-details>
-
-    <app-software-details></app-software-details>
-
-    <app-accessories-details></app-accessories-details>
-
-      </div>-->
-
+  </button>
 
   </div>
+
+      <app-laptop-details [userId]="userDetails.id"></app-laptop-details>
+
+  <app-software-details></app-software-details>
+
+  <app-accessories-details></app-accessories-details>
+
+    </div>-->
+
+    </div>
 
 
 </div>
