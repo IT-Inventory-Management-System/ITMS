@@ -25,7 +25,7 @@ export class SoftwareComponent implements OnInit {
   archive: any;
   isArchived: boolean = false;
 
-  filteredSoftware: any[]
+  filteredSoftware: any[] = [];
   filterValues: string = '';
 
 
@@ -35,13 +35,23 @@ export class SoftwareComponent implements OnInit {
   //  // You can also perform any other actions based on the event data
   //}
 
-  applySoftwareFilter(event: Event) {
-    this.filterValues = (event.target as HTMLInputElement).value;
-    this.filteredSoftware = this.softwaresData.filter((software) =>
-      software.name.toLowerCase().includes(this.filterValues.toLowerCase())
+  //applySoftwareFilter(event: Event) {
+  //  this.filterValues = (event.target as HTMLInputElement).value;
+  //  this.filteredSoftware = this.softwaresData.filter((software) =>
+  //    software.name.toLowerCase().includes(this.filterValues.toLowerCase())
 
+  //  );
+  //}
+  
+
+  applySoftwareFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
+    this.filteredSoftware = this.softwaresData.filter((software: any) =>
+      software.name.toLowerCase().includes(filterValue)
     );
   }
+
+ 
 
 
   constructor(private softwareService: SoftwareService, private LocationService: LocationService, private selectedCountryService: SelectedCountryService) { }
@@ -145,9 +155,12 @@ export class SoftwareComponent implements OnInit {
       name: this.singlesoftware?.name || "", // If name is not available, provide an empty string
       version: this.singlesoftware?.version || "", // If version is not available, provide an empty string
       type: this.singlesoftware?.type || "", // If type is not available, provide an empty string
-      isArchived: eventData, // Assuming eventData is a boolean value
+      isArchived: !this.singlesoftware?.isArchived, // Assuming eventData is a boolean value
       location: this.archive?.location || "" // If location is not available, provide an empty string
     };
+    console.log("body", body);
+
+
 
     // Call the service method with the prepared body
     this.softwareService.UpdateSoftwareArchiveStatus(body).subscribe(
@@ -294,6 +307,25 @@ export class SoftwareComponent implements OnInit {
         console.error('Error fetching software data', error);
       }
     );
+  }
+
+
+  getRemainingDays(expDate: Date): number | string {
+    const today = new Date();
+    const expirationDate = new Date(expDate);
+
+    // Check if the expiration date has already passed
+    if (expirationDate < today) {
+      return "Expired"; // Return "Expired" if the expiration date has passed
+    }
+
+    // Calculate the difference in milliseconds
+    const timeDifference = expirationDate.getTime() - today.getTime();
+
+    // Convert the difference to days
+    const remainingDays = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+
+    return remainingDays;
   }
 
 

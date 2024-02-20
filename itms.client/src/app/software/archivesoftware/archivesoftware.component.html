@@ -9,18 +9,18 @@
         </button>
         <img class="archive-img" src="../../assets/icons/ArchiveModal.svg" />
 
-        <div class="modal-title archive_item_heading" id="exampleModalLabel">Archive Item </div>
+        <div class="modal-title archive_item_heading" id="exampleModalLabel">{{ singlesoftware?.isArchived ?'Unarchive':'Archive' }} Item </div>
         <div class="modal-body ">
           <div class="modal_text">
-            Are you sure you want to archive this software?
+            Are you sure you want to {{ singlesoftware?.isArchived ?'Unarchive':'Archive' }} this software?
             <br />
-            This will save in the archive section.
+            This will save in the {{ singlesoftware?.isArchived ?'Unarchive':'Archive' }} section.
           </div>
 
 
           <div class="modal-footer ">
             <button type="button" class="btn footer_bu" data-bs-dismiss="modal">No, Cancel</button>
-            <button type="button" class="btn  footer_bu Archive_bu" (click)="onarchive()" data-dismiss="modal">Yes, Archive</button>
+            <button type="button" class="btn  footer_bu Archive_bu" (click)="onarchive()" data-dismiss="modal">yes,{{ singlesoftware?.isArchived ?'Unarchive':'Archive' }}</button>
           </div>
         </div>
 

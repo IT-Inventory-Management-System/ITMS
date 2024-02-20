@@ -8,7 +8,14 @@
   border-radius: 0.25rem;
   border: 1px solid var(--Secondary-Gray, #B2B2B3);
   background: var(--Primary-White, #FFF);
+  text-align:left;
 }
+
+
+  .software-name:focus, .software-name:active {
+    background: #E3F3FC;
+    border: 1px solid var(--Primary-Blue, #28519E);
+  }
 
 .icon-name {
   display: flex;
@@ -36,6 +43,7 @@
   font-weight: 500;
   line-height: normal;
   flex: 1 0 0;
+  padding-left:0.5rem;
 }
 
 .type {
@@ -53,7 +61,9 @@
   gap: 0.5rem;
   width:4.75rem;
   margin-right:5rem;
-  height:1.0625rem
+  height:1.0625rem;
+  border:none;
+
   
   
 }
@@ -84,7 +94,7 @@
 
 .versiondiv {
   border-radius: 0.125rem;
-  background: var(--Primary-Royal-Blue, #002C3F);
+  background: var(--Secondary-Light-Gray, #E9ECEB);
   display: flex;
   padding: 0.25rem;
   flex-direction: column;
@@ -94,18 +104,22 @@
   height: 1.0625rem;
   justify-content: center;
   align-items: center;
+  border:none;
 }
 
 .versiondiv-text {
-  color: var(--Primary-White, #FFF);
+  color: var(--Primary-Gray, #343435);
   leading-trim: both;
   text-edge: cap;
   font-family: Roboto;
   font-size: 0.75rem;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 401;
   line-height: normal;
 }
+
+
+
 
 .st{
     border:1px solid black;

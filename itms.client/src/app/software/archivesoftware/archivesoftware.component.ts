@@ -7,6 +7,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class ArchivesoftwareComponent {
   isarchivedclicked: boolean = false;
+  @Input() singlesoftware: any = null;
+  
 
 
 
