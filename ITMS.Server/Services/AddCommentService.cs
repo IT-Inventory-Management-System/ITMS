@@ -10,6 +10,9 @@ namespace ITMS.Server.Services
     public interface ICommentService
     {
         CommentDto AddComment(UserCommentHistory commentDto);
+
+        CommentDto AddSoftwareComment(UserSoftwareCommentHistory commentDto);
+
         IEnumerable<Comment> GetComments(Guid deviceId);
     }
     public class AddCommentService : ICommentService
@@ -57,6 +60,52 @@ namespace ITMS.Server.Services
                 Id = commentEntity.Id,
                 DeviceLogId = commentEntity.DeviceLogId,
                 DeviceId = commentEntity.DeviceId,
+                Description = commentEntity.Description,
+                CreatedBy = commentEntity.CreatedByNavigation != null
+                                ? $"{commentEntity.CreatedByNavigation.FirstName} {commentEntity.CreatedByNavigation.LastName}"
+                                : null,
+                CreatedAt = commentEntity.CreatedAtUtc,
+            };
+
+            return addedComment;
+        }
+
+
+        //software comments
+        public CommentDto AddSoftwareComment(UserSoftwareCommentHistory commentDto)
+        {
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(System.Threading.Thread.CurrentThread.CurrentCulture.Name);
+
+            Comment commentEntity = new Comment
+            {
+                Description = commentDto.Description,
+                CreatedBy = commentDto.CreatedBy,
+                CreatedAtUtc = DateTime.Now,
+                SoftwareAllocationId = commentDto.SoftwareAllocationId,
+                DeviceLogId = commentDto.DeviceLogId
+            };
+
+
+            var createdByEntity = _context.Employees
+                .Where(e => e.Id == commentDto.CreatedBy)
+                .FirstOrDefault();
+
+
+            if (createdByEntity != null)
+            {
+                commentEntity.CreatedByNavigation = createdByEntity;
+            }
+
+
+            _context.Comments.Add(commentEntity);
+            _context.SaveChanges();
+
+
+            CommentDto addedComment = new CommentDto
+            {
+                Id = commentEntity.Id,
+                DeviceLogId = commentEntity.DeviceLogId,
+                SoftwareAllocationId = commentEntity.SoftwareAllocationId,
                 Description = commentEntity.Description,
                 CreatedBy = commentEntity.CreatedByNavigation != null
                                 ? $"{commentEntity.CreatedByNavigation.FirstName} {commentEntity.CreatedByNavigation.LastName}"

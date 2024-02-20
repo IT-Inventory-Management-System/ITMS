@@ -2,6 +2,7 @@
 using ITMS.Server.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Asn1.Ocsp;
 using Org.BouncyCastle.Crypto.Prng.Drbg;
 using System;
 using System.Text;
@@ -32,7 +33,7 @@ namespace ITMS.Server.Services
                     {
                         DeviceLogId = log.Id,
                         DeviceId = log.DeviceId,
-
+                        cygid = log.Device.Cygid, //new change in accessories
                         DeviceName = log.Device.DeviceModel.DeviceName,
                         Brand = log.Device.DeviceModel.Brand,
                         ModelNo = log.Device.DeviceModel.ModelNo,

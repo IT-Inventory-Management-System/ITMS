@@ -45,6 +45,7 @@ public class CommentDto
    
     public DateTime CreatedAt { get; set; }
     public Guid? DeviceId { get; set; }
+    public Guid? SoftwareAllocationId { get; set; } //new
 }
 
 public class DeviceAddComment

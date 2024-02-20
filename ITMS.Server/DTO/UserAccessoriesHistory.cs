@@ -4,6 +4,7 @@
     {
         public Guid DeviceLogId { get; set; } //new
         public Guid? DeviceId { get; set; } //new property
+        public string cygid { get; set; } //new property
         public string DeviceName { get; set; }
         public string Brand { get; set; }
         public string ModelNo { get; set; }

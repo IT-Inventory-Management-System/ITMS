@@ -39,6 +39,10 @@ export class EmployeeService {
     return this.http.post<any>(this.apiUrl + 'Comments', commentDto);
   }
 
+  addSoftwareComment(commentDto: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl + 'Comments/AddSoftwareComment', commentDto);
+  }
+
   getComments(deviceId: any): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl + 'Comments/' + deviceId);
   }

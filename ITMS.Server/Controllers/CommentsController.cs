@@ -33,6 +33,23 @@ namespace ITMS.Server.Controllers
             }
         }
 
+        [HttpPost("AddSoftwareComment")]
+        public IActionResult AddSoftwareComment([FromBody] UserSoftwareCommentHistory commentDto)
+        {
+            try
+            {
+                var addedComment = _commentService.AddSoftwareComment(commentDto);
+
+                return Ok(addedComment);
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(500, new { Message = "Internal Server Error" });
+            }
+        }
+
+
         [HttpGet("{deviceId}")]
         public IActionResult GetComments(Guid deviceId)
         {
