@@ -133,6 +133,10 @@ export class SoftwareComponent implements OnInit {
     console.log(this.softwaresData);
     console.log(res);
   }
+
+
+
+
   onarchiveclicked(eventData: any): void {
     console.log("archiveeventdata", eventData);
 

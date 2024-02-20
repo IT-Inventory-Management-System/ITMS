@@ -61,7 +61,7 @@ namespace ITMS.Server.Controllers
         }
 
         [HttpGet("software")]
-        public List<IEnumerable<SoftwarePage>> GetSoftware([FromBody] bool arch)
+        public List<IEnumerable<SoftwarePage>> GetSoftware([FromQuery] bool arch)
         {
             List<IEnumerable<SoftwarePage>> list = new List<IEnumerable<SoftwarePage>>();
 
