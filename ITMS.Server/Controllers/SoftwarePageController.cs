@@ -82,6 +82,50 @@ namespace ITMS.Server.Controllers
             return list;
         }
 
+        [HttpPost("filter")]
+        public List<IEnumerable<SoftwarePage>> Filter([FromBody] filterDto attri)
+        {
+            var allData = GetSoftware(attri.IsArchived);
+
+            List<IEnumerable<SoftwarePage>> filteredData = new List<IEnumerable<SoftwarePage>>();
+
+            if (attri.location == "India")
+            {
+                var India = allData[0].Where(s =>
+                    (string.IsNullOrEmpty(attri.inStock) || (attri.inStock == "Low In Stock" && s.inStock <= 1) || (attri.inStock == "In Stock" && s.inStock > 1) || (attri.inStock == "Out Of Stock" && s.inStock == 0)) &&
+                    (string.IsNullOrEmpty(attri.type) || s.type == attri.type) &&
+                   (attri.From == null ||s.purchaseDates.Any(pd => DateOnly.FromDateTime((DateTime)pd) >= attri.From)) &&
+(attri.To == null || s.purchaseDates.Any(pd => DateOnly.FromDateTime((DateTime)pd) <= attri.To))
+                ).ToList();
+
+                filteredData.Add(India);
+                filteredData.Add(allData[1]);
+            }
+            else
+            {
+                var USA = allData[1].Where(s =>
+     (string.IsNullOrEmpty(attri.inStock) || (attri.inStock == "Low In Stock" && s.inStock <= 1) || (attri.inStock == "In Stock" && s.inStock > 1) || (attri.inStock == "Out Of Stock" && s.inStock == 0)) &&
+     (string.IsNullOrEmpty(attri.type) || s.type == attri.type) && 
+     (attri.From == null || s.purchaseDates.Any(pd => DateOnly.FromDateTime((DateTime)pd) >= attri.From)) &&
+(attri.To == null || s.purchaseDates.Any(pd => DateOnly.FromDateTime((DateTime)pd) <= attri.To))
+
+ ).ToList();
+
+
+
+                filteredData.Add(allData[0]);
+                filteredData.Add(USA);
+            }
+
+            return filteredData;
+
+
+
+            //}
+
+            return filteredData;
+        }
+
         [HttpGet("selected")]
         public IActionResult GetSelected([FromQuery] SingleSoftwareSelectedParams parameters)
         {

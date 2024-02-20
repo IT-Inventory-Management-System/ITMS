@@ -40,7 +40,9 @@ export class SoftwareService {
     return this.http.post<any | null>(this.apiUrl + 'SoftwarePage/archive', body);
   }
 
-
+  FilterSoftware(body: any): Observable<any | null> {
+    return this.http.post<any | null>(this.apiUrl + 'SoftwarePage/filter', body);
+  }
 
 
 }

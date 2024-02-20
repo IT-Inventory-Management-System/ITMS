@@ -56,13 +56,14 @@
         <div class="filter-checkbox-outer">
           <div class="date-filter-outer">
             <div class="date-filter">
-              <input type="text" placeholder="From Date" onfocus="(this.type='date')" onblur="(this.type='text')" />
+              <input #fromInput id="from" type="text" placeholder="From Date" (focus)="toggleInputType('date')" (blur)="toggleInputType('text')" (blur)="toggleCheckboxFrom(fromInput.value)" />
               <img src="../../../../../assets/icons/calendar.svg" />
             </div>
           </div>
           <div class="date-filter-outer">
             <div class="date-filter">
-              <input type="text" placeholder="To Date" onfocus="(this.type='date')" onblur="(this.type='text')" />
+              <input #toInput id="to" type="text" placeholder="To Date" (focus)="toggleInputTypeTo('date')" (blur)="toggleInputTypeTo('text')" (blur)="toggleCheckboxTo(toInput.value)" />
+              <!--<input type="text" placeholder="To Date" onfocus="(this.type='date')" onblur="(this.type='text')" />-->
               <img src="../../../../../assets/icons/calendar.svg" />
             </div>
           </div>

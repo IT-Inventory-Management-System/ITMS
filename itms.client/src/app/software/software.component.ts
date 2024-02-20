@@ -49,92 +49,49 @@ export class SoftwareComponent implements OnInit {
   onApplyClicked(eventData: any): void {
     console.log
       (eventData);
+       //public string location { get; set; }
+       // public string ? inStock { get; set; }
+       // public bool IsArchived { get; set; }
+       // public string ? type { get; set; }
+       // public DateOnly ? From { get; set; }
+    // public DateOnly ? To { get; set; }
+    const fromDate = eventData.from ? eventData.from.toISOString().split('T')[0] : ''; // Convert From Date to string
+    const toDate = eventData.to ? eventData.to.toISOString().split('T')[0] : '';
+    const body:any = {
+      location: "India",
+      IsArchived: this.isArchived,
+    }
+    if (eventData.type !== '') {
+      body.type = eventData.type;
+    }
+    if (eventData.stock !== '') {
+      body.inStock = eventData.stock;
+    }
+    if (fromDate !== '') {
+      alert(fromDate);
+      body.From = fromDate;
+    }
+    if (toDate !== '') {
+      alert(toDate);
+      body.To = toDate;
+    }
 
-    let res: any[] = [];
-    this.softwaresData[0] = this.allSoftwareData[0];
-    //this.softwaresData[0].version = [...this.allSoftwareData[0].version];
-    //if (!this.softwaresData[0].version) {
-    //  this.softwaresData[0].version = [];
-    //}
-
-    //// Iterate over each version in allSoftwareData[0]
-    //for (let version of this.allSoftwareData[0].version) {
-    //  // Add each version to the version array in softwaresData[0]
-    //  this.softwaresData[0].version.push(version);
-    //}
-    this.softwaresData[1] = this.allSoftwareData[1];
-    
-
-    if (eventData.type != '') {
-        //let softwareArray = this.selectedLocation === 'India' ? this.softwaresData[0] : this.softwaresData[1];
-      //res = softwareArray.filter((s: any) => s.type === eventData.type);
-
-      if (this.selectedLocation === 'India') {
-        this.softwaresData[0] = this.softwaresData[0].filter((s: any) => s.type === eventData.type);
-      } else {
-        this.softwaresData[1] = this.softwaresData[1].filter((s: any) => s.type === eventData.type);
+    this.softwareService.FilterSoftware(body).subscribe(
+      (result: any | null) => {
+        if (result) {
+          alert("hello");
+          this.softwaresData = result;
+          console.log(result);
+          this.filteredSoftware = this.softwaresData;
+        } else {
+          console.log('No software found for parameters:', body);
+        }
+      },
+      error => {
+        console.error('Error updating software archive status:', error);
       }
-    }
-
-    //if (eventData.stat != '') {
-    //  alert(eventData.stat);
-    //}
-
-    //if (eventData.stat != '') {
-    //  let softwareArray = this.selectedLocation === 'India' ? this.softwaresData[0] : this.softwaresData[1];
-    //  for (let s of softwareArray) {
-    //    let b = false;
-    //    for (let v of s.version) {
-    //      if ((v.isArchived == 1 && eventData.stat == 'Archive') || ((v.isArchived == null||v.isArchived == 0) && eventData.stat == 'Active')) {
-    //        res.push(s);
-    //        b = true;
-    //        break;
-    //      }
-    //    }
-    //    if (b) {
-    //      break;
-    //    }
-    //  }
-
-    //  if (this.selectedLocation === 'India') {
-    //    this.softwaresData[0] = res;
-    //  } else {
-    //    this.softwaresData[1] = res;
-    //  }
-    //}
-
-    //if (eventData.stock != '') {
-    //  let softwareArray = this.selectedLocation === 'India' ? this.softwaresData[0] : this.softwaresData[1];
-    //  for (let s of softwareArray) {
-    //    for (let v of s.version) {
-    //      if ((eventData == 'Low In Stock' && v.inStock <= 1) || (eventData == 'Out In Stock' && v.inStock <= 0) || (eventData == 'In Stock' && v.inStock > 1)) {
-
-    //      }
-    //    }
-    //  }
-    //}
-
-    if (eventData.stock != '') {
-      const softwareArrayIndex = this.selectedLocation === 'India' ? 0 : 1;
-
-      this.softwaresData[softwareArrayIndex] = this.softwaresData[softwareArrayIndex].filter((s: any) => {
-        s.version = s.version.filter((v: any) => {
-          return (eventData.stock === 'Low In Stock' && v.inStock <= 1) ||
-            (eventData.stock === 'Out In Stock' && v.inStock <= 0) ||
-            (eventData.stock === 'In Stock' && v.inStock > 1);
-        });
-
-        return s.version.length > 0;
-      });
-    }
-
-
-    console.log(this.allSoftwareData);
-    console.log(this.softwaresData);
-    console.log(res);
+    );
   }
-
-
 
 
   onarchiveclicked(eventData: any): void {
@@ -242,53 +199,6 @@ export class SoftwareComponent implements OnInit {
         this.softwaresData = data;
         console.log(this.softwaresData);
         this.filteredSoftware = this.softwaresData;
-        // Copy the entire array from data to allSoftwareData
-        //this.allSoftwareData = JSON.parse(JSON.stringify(data));
-          //[...data];
-        //console.log(data);
-        // Copy the version arrays for each element in data
-        //for (let i = 0; i < data[0].length; i++) {
-        //  // Copy the version array
-
-        //    this.allSoftwareData[0][i].version = [...data[0][i].version];
-        //}
-        //for (let i = 0; i < data[1].length; i++) {
-        //  // Copy the version array
-
-        //  this.allSoftwareData[1][i].version = [...data[1][i].version];
-        //}
-
-        //this.allSoftwareData = JSON.parse(JSON.stringify(data));
-
-       
-        //for (let i = 0; i < this.allSoftwareData.length; i++) {
-        //  for (let j = 0; j < this.allSoftwareData[i].length; j++) {
-        //    //if (Array.isArray(this.allSoftwareData[i][j].version)) {
-        //      this.allSoftwareData[i][j].version = JSON.parse(JSON.stringify(this.allSoftwareData[i][j].version));
-        //    //}
-        //  }
-        //}
-
-        //this.allSoftwareData = _.cloneDeep(data);
-        //for (let i = 0; i < data[0].length; i++) {
-        //  // Copy the version array
-
-        //  this.allSoftwareData[0][i].version = _.cloneDeep(data[0][i].version);
-        //}
-
-        //for (let i = 0; i < data[1].length; i++) {
-        //  // Copy the version array
-
-        //  this.allSoftwareData[1][i].version = _.cloneDeep(data[1][i].version);
-        //}
-
-        //console.log("helo",this.allSoftwareData);
-        //console.log("filter", this.filteredSoftware);
-
-
-
-
-
       },
       error => {
         console.error('Error fetching software data', error);

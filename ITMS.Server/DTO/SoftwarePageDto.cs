@@ -109,6 +109,14 @@ namespace ITMS.Server.DTO
 
         public bool? isArchived { get; set; }
     }
+    public class filterDto{
+        public string location { get; set; }
+        public string? inStock { get; set; }
+        public bool IsArchived { get; set; }
+        public string? type { get; set; }
+        public DateOnly? From { get; set; }
+        public DateOnly? To { get; set; }
+    }
 
     public class Pur_Qty_Exp
     {
