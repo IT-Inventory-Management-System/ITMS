@@ -7,7 +7,7 @@
 
   </div>
 
-  <div class="modal fade" [id]="'exampleModal' + softwareDetails.softwareAllocationId" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" (hidden.bs.modal)="handleModalClose()">
+  <div class="modal fade" [id]="'exampleModal' + softwareDetails.softwareAllocationId" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
 
@@ -46,12 +46,12 @@
                 <p>{{softwareDetails.assignedDate | date: 'MM-dd-yyyy'}}</p>
               </div>
 
-              <p>{{softwareDetails.deviceLogId}}</p>
-              <p>{{softwareDetails.softwareAllocationId}}</p>
+              <!--<p>{{softwareDetails.deviceLogId}}</p>
+              <p>{{softwareDetails.softwareAllocationId}}</p>-->
             </div>
           </div>
 
-          <div class="software-recieved">
+          <!--<div class="software-recieved">
 
             <p>Item Received <span class="star">*</span></p>
             <input type="radio" id="receivedYes" name="softwareReceived" value="Yes" (click)="showYesReasonOptions()">
@@ -81,7 +81,7 @@
               <input type="radio" id="lostNotReceived" name="reasonOptions" value="Lost/Not Received" class="lost" [(ngModel)]="selectedReason">
               <label for="lostNotReceived">Lost/Not Recieved</label>
             </div>
-          </div>
+          </div>-->
 
 
           <div class="comment-box">

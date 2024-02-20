@@ -179,5 +179,10 @@
 
 .wiredNotWired {
   display: flex;
-  gap: 15rem;
+  gap: 10rem;
+}
+
+.brand{
+    display: flex;
+    gap: 8.6rem;
 }

@@ -39,40 +39,40 @@ export class SoftwareRevokeComponent {
   }
 
   saveAndFetchSoftware() {
-    const SubmitLater = (document.getElementById('submittedLater') as HTMLInputElement)?.checked;
-    const Unassignable = (document.getElementById('unassignable') as HTMLInputElement)?.checked;
-    const Perfect = (document.getElementById('perfect') as HTMLInputElement)?.checked;
-    const lostNotReceivedChecked = (document.getElementById('lostNotReceived') as HTMLInputElement)?.checked;
+    //const SubmitLater = (document.getElementById('submittedLater') as HTMLInputElement)?.checked;
+    //const Unassignable = (document.getElementById('unassignable') as HTMLInputElement)?.checked;
+    //const Perfect = (document.getElementById('perfect') as HTMLInputElement)?.checked;
+    //const lostNotReceivedChecked = (document.getElementById('lostNotReceived') as HTMLInputElement)?.checked;
 
-    if (lostNotReceivedChecked) {
-      const var1 = this.softwareDetails.deviceLogId;
-      const var2 = this.loggedUser.id;
+    //if (lostNotReceivedChecked) {
+    //  const var1 = this.softwareDetails.deviceLogId;
+    //  const var2 = this.loggedUser.id;
 
-      const lostAction = this.actionsArray.find(a => a.actionName === 'Lost');
-      if (lostAction) {
-        this.actionId = lostAction.id;
-        console.log("Lost Action: ", this.actionId);
-      }
+    //  const lostAction = this.actionsArray.find(a => a.actionName === 'Lost');
+    //  if (lostAction) {
+    //    this.actionId = lostAction.id;
+    //    console.log("Lost Action: ", this.actionId);
+    //  }
 
-      const var3 = this.actionId;
+    //  const var3 = this.actionId;
 
-      this.deviceLogService.updateRecievedBy(var1, var2, var3).subscribe(
-        (response) => {
-          console.log(response);
-          if (response && response.receivedBy) {
-            const { firstName, lastName, recievedDate, actionName } = response.receivedBy;
-            this.softwareDetails.recievedBy = `${firstName} ${lastName}`;
-            this.softwareDetails.recievedByDate = `${recievedDate}`;
-            this.softwareDetails.actionName = `${actionName}`;
-          }
-        },
-        (error) => {
-          console.error('Error :', error);
-        }
-      );
-    }
+    //  this.deviceLogService.updateRecievedBy(var1, var2, var3).subscribe(
+    //    (response) => {
+    //      console.log(response);
+    //      if (response && response.receivedBy) {
+    //        const { firstName, lastName, recievedDate, actionName } = response.receivedBy;
+    //        this.softwareDetails.recievedBy = `${firstName} ${lastName}`;
+    //        this.softwareDetails.recievedByDate = `${recievedDate}`;
+    //        this.softwareDetails.actionName = `${actionName}`;
+    //      }
+    //    },
+    //    (error) => {
+    //      console.error('Error :', error);
+    //    }
+    //  );
+    //}
 
-    if (Perfect || Unassignable) {
+    
       const var1 = this.softwareDetails.deviceLogId;
       const var2 = this.loggedUser.id;
 
@@ -98,35 +98,35 @@ export class SoftwareRevokeComponent {
           console.error('Error :', error);
         }
       );
-    }
+    
 
-    if (SubmitLater) {
-      const var1 = this.softwareDetails.deviceLogId;
-      const var2 = this.loggedUser.id;
+    //if (SubmitLater) {
+    //  const var1 = this.softwareDetails.deviceLogId;
+    //  const var2 = this.loggedUser.id;
 
-      const SubmitLaterAction = this.actionsArray.find(a => a.actionName === 'Assigned');
-      if (SubmitLaterAction) {
-        this.actionId = SubmitLaterAction.id;
-        console.log("Submit Later Action: ", this.actionId);
-      }
+    //  const SubmitLaterAction = this.actionsArray.find(a => a.actionName === 'Assigned');
+    //  if (SubmitLaterAction) {
+    //    this.actionId = SubmitLaterAction.id;
+    //    console.log("Submit Later Action: ", this.actionId);
+    //  }
 
-      const var3 = this.actionId;
+    //  const var3 = this.actionId;
 
-      this.deviceLogService.updateRecievedBy(var1, var2, var3).subscribe(
-        (response) => {
-          console.log(response);
-          if (response && response.receivedBy) {
-            const { firstName, lastName, recievedDate, actionName } = response.receivedBy;
-            this.softwareDetails.recievedBy = `${firstName} ${lastName}`;
-            this.softwareDetails.recievedByDate = `${recievedDate}`;
-            this.softwareDetails.actionName = `${actionName}`;
-          }
-        },
-        (error) => {
-          console.error('Error :', error);
-        }
-      );
-    }
+    //  this.deviceLogService.updateRecievedBy(var1, var2, var3).subscribe(
+    //    (response) => {
+    //      console.log(response);
+    //      if (response && response.receivedBy) {
+    //        const { firstName, lastName, recievedDate, actionName } = response.receivedBy;
+    //        this.softwareDetails.recievedBy = `${firstName} ${lastName}`;
+    //        this.softwareDetails.recievedByDate = `${recievedDate}`;
+    //        this.softwareDetails.actionName = `${actionName}`;
+    //      }
+    //    },
+    //    (error) => {
+    //      console.error('Error :', error);
+    //    }
+    //  );
+    //}
 
 
     //if it is a new comment
@@ -159,32 +159,32 @@ export class SoftwareRevokeComponent {
 
   }
 
-  showYesReason: boolean = false;
-  showNoReason: boolean = false;
+  //showYesReason: boolean = false;
+  //showNoReason: boolean = false;
 
-  showYesReasonOptions() {
-    this.showYesReason = !this.showYesReason;
-    this.showNoReason = false;
+  //showYesReasonOptions() {
+  //  this.showYesReason = !this.showYesReason;
+  //  this.showNoReason = false;
 
-  }
+  //}
 
-  showNoReasonOptions() {
-    this.showNoReason = !this.showNoReason;
-    this.showYesReason = false;
-  }
+  //showNoReasonOptions() {
+  //  this.showNoReason = !this.showNoReason;
+  //  this.showYesReason = false;
+  //}
 
-  resetRadioButtons() {
-    const radioButtons = document.getElementsByName("softwareReceived");
-    for (let i = 0; i < radioButtons.length; i++) {
-      (radioButtons[i] as HTMLInputElement).checked = false;
-    }
-    this.showYesReason = false;
-    this.showNoReason = false;
-  }
+  //resetRadioButtons() {
+  //  const radioButtons = document.getElementsByName("softwareReceived");
+  //  for (let i = 0; i < radioButtons.length; i++) {
+  //    (radioButtons[i] as HTMLInputElement).checked = false;
+  //  }
+  //  this.showYesReason = false;
+  //  this.showNoReason = false;
+  //}
 
-  handleModalClose() {
-    this.resetRadioButtons();
-  }
+  //handleModalClose() {
+  //  this.resetRadioButtons();
+  //}
 
   openModal(modalId: string) {
     const modelDiv = document.getElementById(modalId);
