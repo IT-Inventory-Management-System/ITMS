@@ -148,21 +148,63 @@ namespace ITMS.Server.Services
 
         public List<SoftwarePage> GetSoftware(string country,bool archive)
         {
+            //var softwares = _context.Software
+            //                .Include(s => s.SoftwareType)
+            //                //.Where(s => s.SoftwareAllocations.Any(sa => sa.Location.Location1 == country)) 
+            //                .SelectMany(s => s.SoftwareAllocations.Where(sa => sa.Location.Location1 == country && sa.IsArchived == archive)
+            //                .Select(sa => new SoftwarePage
+            //                {
+            //                  name = s.SoftwareName,
+            //                  SoftwareThumbnail = s.SoftwareThumbnail,
+            //                  type = s.SoftwareType.TypeName,
+            //                  version = sa.Version,
+            //                  isArchived = sa.IsArchived,
+            //                  inStock = s.SoftwareAllocations.Count(sa => sa.Location.Location1 == country && sa.IsArchived == false && sa.Version==sa.Version),
+
+            //                }))
+            //                .GroupBy(sp => new { sp.name, sp.SoftwareThumbnail, sp.type, sp.version, sp.isArchived }) 
+            //                .Select(g => g.First())
+            //                .ToList();
+
             var softwares = _context.Software
-                            .Include(s => s.SoftwareType)
-                            //.Where(s => s.SoftwareAllocations.Any(sa => sa.Location.Location1 == country)) 
-                            .SelectMany(s => s.SoftwareAllocations.Where(sa => sa.Location.Location1 == country && sa.IsArchived == archive)
-                            .Select(sa => new SoftwarePage
-                            {
-                              name = s.SoftwareName,
-                              SoftwareThumbnail = s.SoftwareThumbnail,
-                              type = s.SoftwareType.TypeName,
-                              version = sa.Version,
-                              isArchived = sa.IsArchived
-                            }))
-                            .GroupBy(sp => new { sp.name, sp.SoftwareThumbnail, sp.type, sp.version, sp.isArchived }) 
-                            .Select(g => g.First())
-                            .ToList();
+    .Include(s => s.SoftwareType)
+    .SelectMany(s => s.SoftwareAllocations
+        .Where(sa => sa.Location.Location1 == country && sa.IsArchived == archive)
+        .Select(sa => new
+        {
+            SoftwareName = s.SoftwareName,
+            SoftwareThumbnail = s.SoftwareThumbnail,
+            SoftwareTypeName = s.SoftwareType.TypeName,
+            Version = sa.Version,
+            IsArchived = sa.IsArchived
+        }))
+    .GroupBy(sa => new
+    {
+        sa.SoftwareName,
+        sa.SoftwareThumbnail,
+        sa.SoftwareTypeName,
+        sa.Version,
+        sa.IsArchived
+    })
+    .Select(g => new SoftwarePage
+    {
+        name = g.Key.SoftwareName,
+        SoftwareThumbnail = g.Key.SoftwareThumbnail,
+        type = g.Key.SoftwareTypeName,
+        version = g.Key.Version,
+        isArchived = g.Key.IsArchived,
+        inStock = _context.SoftwareAllocations
+            .Count(sa => sa.Software.SoftwareName == g.Key.SoftwareName
+                && sa.Version == g.Key.Version
+                && sa.Location.Location1 == country
+                && sa.AssignedTo == null),
+        purchaseDates = _context.SoftwareAllocations.Where(sa => sa.Software.SoftwareName == g.Key.SoftwareName
+                && sa.Version == g.Key.Version
+                && sa.Location.Location1 == country).Select(sa => sa.PurchasedDate).Distinct().ToList(),
+    })
+    .ToList();
+
+
 
             return softwares;
         }

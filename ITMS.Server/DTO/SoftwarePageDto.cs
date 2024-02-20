@@ -65,8 +65,8 @@ namespace ITMS.Server.DTO
         public string type { get; set; }
         public string? version { get; set; }
         public bool? isArchived { get; set; }
-        //public int inStock { get; set; }
-        //public List<DateTime?> purchaseDates { get; set; }
+        public int inStock { get; set; }
+        public List<DateTime?> purchaseDates { get; set; }
 
         //public List<Ver_Qty_Pur_Arch>? version { get; set; }
 
