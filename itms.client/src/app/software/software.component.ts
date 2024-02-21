@@ -29,6 +29,12 @@ export class SoftwareComponent implements OnInit {
   filterValues: string = '';
   expiringtag: boolean = false;
 
+  archivedAttributes: any = {
+    type: '',
+    stock: '',
+    from: '',
+    to: '',
+  }
 
   //onCardClicked(eventData: any): void {
   //  // Handle the emitted event data here
@@ -60,39 +66,36 @@ export class SoftwareComponent implements OnInit {
   onApplyClicked(eventData: any): void {
     console.log
       (eventData);
-       //public string location { get; set; }
-       // public string ? inStock { get; set; }
-       // public bool IsArchived { get; set; }
-       // public string ? type { get; set; }
-       // public DateOnly ? From { get; set; }
-    // public DateOnly ? To { get; set; }
     const fromDate = eventData.from ? eventData.from.toISOString().split('T')[0] : ''; // Convert From Date to string
     const toDate = eventData.to ? eventData.to.toISOString().split('T')[0] : '';
     const body:any = {
-      location: "India",
+      location: this.selectedLocation,
       IsArchived: this.isArchived,
     }
     if (eventData.type !== '') {
       body.type = eventData.type;
+      this.archivedAttributes.type = eventData.type;
     }
     if (eventData.stock !== '') {
       body.inStock = eventData.stock;
+      this.archivedAttributes.stock = eventData.stock;
     }
-    if (fromDate !== '') {
-      alert(fromDate);
+    if (fromDate !== null) {
       body.From = fromDate;
+      this.archivedAttributes.from = fromDate;
     }
-    if (toDate !== '') {
-      alert(toDate);
+    if (toDate !== null) {
       body.To = toDate;
+      this.archivedAttributes.to = toDate;
     }
+    console.log("archivedAttributes",this.archivedAttributes);
 
     this.softwareService.FilterSoftware(body).subscribe(
       (result: any | null) => {
         if (result) {
-          alert("hello");
+          //alert("hello");
           this.softwaresData = result;
-          console.log(result);
+          //console.log(result);
           this.filteredSoftware = this.softwaresData;
         } else {
           console.log('No software found for parameters:', body);
@@ -191,10 +194,15 @@ export class SoftwareComponent implements OnInit {
     this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
       localStorage.setItem('selectedCountry', selectedCountry);
       this.selectedLocation = selectedCountry;
+      this.onVariableChanged();
+      console.log(this.selectedLocation);
      // console.log(this.selectedLocation);
 
 
     });
+
+  }
+  onVariableChanged() {
 
   }
 
@@ -204,7 +212,12 @@ export class SoftwareComponent implements OnInit {
     } else {
       this.isArchived = true;
     }
-    this.getSoftwaresData(this.isArchived);
+    if (this.archivedAttributes.type == '' && this.archivedAttributes.body == '' && this.archivedAttributes.from == '' && this.archivedAttributes.to == '') {
+      this.getSoftwaresData(this.isArchived);
+    } else {
+      this.onApplyClicked(this.archivedAttributes);
+    }
+
   }
 
   getSoftwaresData(arch: boolean): void {
