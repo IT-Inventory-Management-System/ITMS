@@ -172,25 +172,31 @@ namespace ITMS.Server.Services
         .Where(sa => sa.Location.Location1 == country && sa.IsArchived == archive)
         .Select(sa => new
         {
+            SoftwareNameId = s.Id,
             SoftwareName = s.SoftwareName,
             SoftwareThumbnail = s.SoftwareThumbnail,
             SoftwareTypeName = s.SoftwareType.TypeName,
+            SoftwareTypeNameId = s.SoftwareType.Id,
             Version = sa.Version,
             IsArchived = sa.IsArchived
         }))
     .GroupBy(sa => new
     {
+        sa.SoftwareNameId,
         sa.SoftwareName,
         sa.SoftwareThumbnail,
         sa.SoftwareTypeName,
+        sa.SoftwareTypeNameId,
         sa.Version,
         sa.IsArchived
     })
     .Select(g => new SoftwarePage
     {
+        nameId = g.Key.SoftwareNameId,
         name = g.Key.SoftwareName,
         SoftwareThumbnail = g.Key.SoftwareThumbnail,
         type = g.Key.SoftwareTypeName,
+        typeId = g.Key.SoftwareTypeNameId,
         version = g.Key.Version,
         isArchived = g.Key.IsArchived,
         inStock = _context.SoftwareAllocations
@@ -208,48 +214,6 @@ namespace ITMS.Server.Services
 
             return softwares;
         }
-
-        //public List<SoftwarePage> GetSoftware(string country)
-        //{
-        //    var software = _context.SoftwareTypes
-        //        .Include(s => s.Softwares)
-        //            .ThenInclude(s => s.SoftwareAllocations)
-        //                .ThenInclude(sa => sa.Location)
-        //        .SelectMany(s => s.Softwares.Select(software => new SoftwarePage
-        //        {
-        //            name = software.SoftwareName,
-        //            SoftwareThumbnail = software.SoftwareThumbnail,
-        //            //version = software.SoftwareAllocations
-        //            //         .Where(sa => sa.SoftwareId == software.Id && sa.Location.Location1 == country)
-        //            //         .Select(sa => sa.Version)
-        //            //         .Distinct()
-        //            //         .ToList(),
-        //            type = s.TypeName,
-        //            //isArchived = software.SoftwareAllocations
-        //            //.Where(sa => sa.SoftwareId == software.Id && sa.Location.Location1 == country)
-        //            //.Select(sa => sa.IsArchived).FirstOrDefault(),
-
-        //            version = software.SoftwareAllocations
-        //    .Where(sa => sa.SoftwareId == software.Id && sa.Location.Location1 == country)
-        //    .GroupBy(sa => new { sa.Version, sa.SoftwareId, sa.IsArchived })
-        //    .Select(g => new Ver_Qty_Pur_Arch { version = g.Key.Version, inStock = g.Count(), isArchived = g.Key.IsArchived,
-        //        purchaseDates = g.Select(sa => sa.PurchasedDate).Distinct().OrderBy(pd=>pd).ToList()
-        //    })
-        //    .ToList(),
-        //        }));
-
-        //    List< SoftwarePage > res = new List< SoftwarePage >();
-        //    foreach(SoftwarePage s in software.ToList())
-        //    {
-        //        if (s.version?.Count > 0)
-        //        {
-        //            res.Add(s);
-        //        }
-        //    }
-
-        //    return res;
-        //}
-
 
         public SingleSoftwareSelected? GetSingleSelected(SingleSoftwareSelectedParams parameters)
         {
