@@ -14,7 +14,7 @@
 
 
 
-    <div *ngIf="laptop.actionName === 'Submitted' && laptop.submitedBy != null" class="received-tag">
+    <div *ngIf="(laptop.actionName === 'Submitted' || laptop.actionName === 'submitted') && laptop.submitedBy != null" class="received-tag">
 
       <div class="received-tag-info">
         <img src="../../../assets/icons/ReceivedVector.svg" class="recieved-image" />RECEIVED
@@ -22,7 +22,7 @@
 
     </div>
 
-    <div *ngIf="laptop.actionName === 'Lost' && laptop.submitedBy != null" class="lost-tag">
+    <div *ngIf="(laptop.actionName === 'Lost' || laptop.actionName === 'lost') && laptop.submitedBy != null" class="lost-tag">
 
       <div class="lost-tag-info">
        LOST
@@ -30,7 +30,7 @@
 
     </div>
 
-    <div *ngIf="laptop.actionName === 'Assigned' && laptop.submitedBy != null" class="submit-later-tag">
+    <div *ngIf="(laptop.actionName === 'Assigned' || laptop.actionName === 'assigned') && laptop.submitedBy != null" class="submit-later-tag">
 
       <div class="submit-later-tag-info">
         NOT SUBMITTED
@@ -49,12 +49,12 @@
     </div>
   </div>-->
 
-    <div *ngIf= "laptop.actionName === 'Assigned' ||  laptop.submitedBy === null " class="laptop-revoke-button">
+    <div *ngIf= "(laptop.actionName === 'Assigned' || laptop.actionName === 'assigned') ||  laptop.submitedBy === null " class="laptop-revoke-button">
       <app-laptop-revoke [laptopDetails]="laptop" [userId]="userId" [firstName]="firstName" [lastName]="lastName" [cgiid]="cgiid"></app-laptop-revoke>
     </div>
 
 
-    <div class="col-md-12 pp" [ngClass]="{'fade-container': (laptop.actionName === 'Lost' || laptop.actionName === 'Submitted')}">
+    <div class="col-md-12 pp" [ngClass]="{'fade-container': (laptop.actionName === 'Lost' || laptop.actionName === 'lost' || laptop.actionName === 'Submitted' || laptop.actionName === 'submitted')}">
 
 
       <div class="row user-detail">

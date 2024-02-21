@@ -78,11 +78,24 @@ namespace ITMS.Server.Services
                        .Select(a => a.ActionName)
                        .FirstOrDefaultAsync();
 
+                    var firstName = await _context.Employees
+                         .Where(e => e.Id == newDeviceLog.RecievedBy)
+                         .Select(e => e.FirstName)
+                         .FirstOrDefaultAsync();
+
+                    var lastName = await _context.Employees
+                         .Where(e => e.Id == newDeviceLog.RecievedBy)
+                         .Select(e => e.LastName)
+                         .FirstOrDefaultAsync();
+
+
+
 
                     return new EmployeeDTO
-                    {
-                        FirstName = newDeviceLog.RecievedByNavigation.FirstName,
-                        LastName = newDeviceLog.RecievedByNavigation.LastName,
+                    {   
+                        deviceLogId = newDeviceLog.Id,
+                        FirstName = firstName,
+                        LastName = lastName,
                         RecievedDate = newDeviceLog.RecievedDate,// Include the RecievedDate
                         ActionName = actionName // Include ActionName
 

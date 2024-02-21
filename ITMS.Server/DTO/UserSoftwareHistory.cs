@@ -20,6 +20,7 @@
         public string ActionName { get; set; } //new
 
         public string UpdatedBy { get; set; } //new
+        public DateTime? CreatedAtUtc { get; set; } //new
 
         public DateTime? UpdatedAtUtc { get; set; } //new
         public List<CommentDto> Comments { get; set; } //change here

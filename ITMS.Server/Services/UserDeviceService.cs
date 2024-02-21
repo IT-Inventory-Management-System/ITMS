@@ -7,6 +7,7 @@ using ITMS.Server.DTO;
 using ITMS.Server.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client.Extensions.Msal;
+using MiNET.Blocks;
 
 // Services/UserDeviceService.cs
 
@@ -95,13 +96,18 @@ public class UserDeviceService
                        .Where(employee => employee.Id == log.UpdatedBy)
                        .Select(employee => $"{employee.FirstName} {employee.LastName}")
                        .FirstOrDefault(),
-                   UpdatedAtUtc = log.UpdatedAtUtc
-
+                   UpdatedAtUtc = log.UpdatedAtUtc,
+                   CreatedAtUtc = log.CreatedAtUtc
                })
                .ToList();
 
+            var latestDeviceLogs = devicesWithComments
+                .GroupBy(log => log.DeviceId)
+                .Select(group => group.OrderByDescending(log => log.CreatedAtUtc).First())
+                .ToList();
 
-            return devicesWithComments;
+
+            return latestDeviceLogs;
 
         }
         catch (Exception ex)
@@ -154,11 +160,18 @@ public class UserDeviceService
                            .Where(employee => employee.Id == dl.UpdatedBy)
                            .Select(employee => $"{employee.FirstName} {employee.LastName}")
                            .FirstOrDefault(),
-                    UpdatedAtUtc = dl.UpdatedAtUtc
+                    UpdatedAtUtc = dl.UpdatedAtUtc,
+                    CreatedAtUtc = dl.CreatedAtUtc
                 })
                 .ToList();
 
-            return softwareList;
+            var latestSoftwareLogs = softwareList
+               .GroupBy(log => log.SoftwareAllocationId)
+               .Select(group => group.OrderByDescending(log => log.CreatedAtUtc).First())
+               .ToList();
+
+
+            return latestSoftwareLogs;
         }
         catch (Exception ex)
         {

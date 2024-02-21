@@ -30,6 +30,7 @@ namespace ITMS.Server.DTO
         public string UpdatedBy { get; set; } //new
 
         public DateTime? UpdatedAtUtc { get; set; } //new
+        public DateTime? CreatedAtUtc { get; set; }
         public List<CommentDto> Comments { get; set; }
 
 
