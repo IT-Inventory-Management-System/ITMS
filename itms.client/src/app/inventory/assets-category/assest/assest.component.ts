@@ -5,6 +5,7 @@ import { DevicesComponent } from './devices/devices.component';
 import { ColDef } from 'ag-grid-community';
 import * as XLSX from 'xlsx';
 import { MyCellComponent } from '../../../shared/components/my-cell/my-cell.component';
+import { SelectedCountryService } from '../../../shared/services/selected-country.service';
 
 @Component({
   selector: 'app-assest',
@@ -14,17 +15,40 @@ import { MyCellComponent } from '../../../shared/components/my-cell/my-cell.comp
 export class AssestComponent {
   isArchived: boolean = false;
   selectedItem: any;
+  locationId: string = '';
+
   selectedView: string = 'card';
   deviceData: any[] = [];
   rowData: any[] = [];
   searchValue: string = '';
 
-  ngOnInit(): void {
-    this.loadDeviceData();
-  }
+
 
   @ViewChild('appDevices') appDevices: DevicesComponent;
-  constructor(private deviceService: DataService) { }
+  constructor(private deviceService: DataService, private dataService: DataService, private selectedCountryService: SelectedCountryService) { }
+  getDeviceLocation() {
+    this.dataService.getLocation().subscribe(
+      (data) => {
+        for (var i = 0; i < data.length; i++) {
+          if (data[i].type == localStorage.getItem('selectedCountry')) {
+            this.locationId = data[i].id;
+            //alert(this.locationId);
+            this.loadDeviceData();
+            break;
+          }
+        }
+      },
+      (error) => {
+        console.log("User not found");
+      });
+  }
+  ngOnInit(): void {
+    //this.loadDeviceData();
+    this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
+      localStorage.setItem('selectedCountry', selectedCountry);
+      this.getDeviceLocation();
+    });
+  }
 
   dropdownItems = [
     { id: "Windows", name: 'Windows Laptop' },
@@ -40,9 +64,14 @@ export class AssestComponent {
     }
   }
 
+
   loadDeviceData() {
-    this.deviceService.getDevicesCyg().subscribe(
+    this.deviceService.getDevicesCyg(this.locationId).subscribe(
+      
       (data) => {
+        console.log(this.locationId);
+        //alert(this.locationId);
+        console.log(data);
         this.deviceData = data;
         console.log('All Device Data', data);
         this.setRowData();
@@ -55,6 +84,8 @@ export class AssestComponent {
   }
 
   setRowData() {
+    
+    this.rowData = [];
     for (var i = 0; i < this.deviceData.length; i++) {
 
       this.rowData[i] = {
