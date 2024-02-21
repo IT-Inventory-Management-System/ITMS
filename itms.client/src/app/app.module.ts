@@ -92,6 +92,9 @@ import { AccordionItemComponent } from './shared/components/accordion/accordion-
 import { FilterComponent } from './software/filter/filter.component';
 import { LastdateComponent } from './software/lastdate/lastdate.component';
 import { ArchivesoftwareComponent } from './software/archivesoftware/archivesoftware.component';
+import { AccessoriesComponent } from './accessories/accessories.component';
+import { AccesoriesnameComponent } from './accessories/accesoriesname/accesoriesname.component';
+import { AssignhistoryComponent } from './accessories/assignhistory/assignhistory.component';
 
 
 
@@ -180,6 +183,9 @@ import { ArchivesoftwareComponent } from './software/archivesoftware/archivesoft
     AccordionComponent,
     AccordionItemComponent,
     ArchivesoftwareComponent,
+    AccessoriesComponent,
+    AccesoriesnameComponent,
+    AssignhistoryComponent,
     //FilterComponent,
     //LastdateComponent,
 

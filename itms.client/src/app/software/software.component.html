@@ -47,29 +47,7 @@
         </div>
       </div>
     </div>
-    <!--<div class="filter st ">
-      <div class="toggle   ">
-        <div class="tab1 ">
-          <div class="card ">Card View</div>
-        </div>
-        <div class="tab2 ">
-          <div class="table">Table View</div>
-        </div>
-      </div>
-      <div class="show-archive ">
-        <div class="archive ">
-          <img src="../../../assets/icons/Software/Checkbox component.svg" />
-          <span class="archive-text">Show Archive Software Only</span>
-        </div>
-        <span class="filterbox ">
-          <div class="filter-content">
-            <img src="../../../assets/icons/Software/Filter.svg" />
-            <span class="filter-text">Filter</span>
-          </div>
-        </span>
-      </div>
 
-    </div>-->
   </div>
   <div class="software " *ngIf="selectedView === 'card'">
     <div class="category ">
@@ -89,7 +67,7 @@
 
           <!--<div *ngIf="(isArchived==true && software.isArchived==1)||(isArchived==false && (software.isArchived==0||software.isArchived==null))">-->
           <ng-container *ngIf="passesFilter(software)">
-            <app-software-name [softwareData]="software" [selectedLocation]="selectedLocation" (cardClicked)="onCardClicked($event)" [isArchived]="isArchived"></app-software-name>
+            <app-software-name  [softwareData]="software"  [selectedLocation]="selectedLocation" (cardClicked)="onCardClicked($event)" [isArchived]="isArchived"></app-software-name>
                     </ng-container>
 
             <!--</div>-->
