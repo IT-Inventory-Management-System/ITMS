@@ -14,7 +14,7 @@ import * as _ from 'lodash';
 export class SoftwareComponent implements OnInit {
   allSoftwareData: any[];
   selectedView: string = 'card';
-  softwaresData: any[];
+  softwaresData: any[][] = [[], []]; // Define softwaresData array
   softwarestableData: any[];
   version: string[];
   rowData: any[] = [];
@@ -25,10 +25,10 @@ export class SoftwareComponent implements OnInit {
   archive: any;
   isArchived: boolean = false;
 
-  filteredSoftware: any[] = [];
+  filteredSoftware: any[][] = [[], []];
   filterValues: string = '';
   expiringtag: boolean = false;
-
+  searchValue: string = '';
   archivedAttributes: any = {
     type: '',
     stock: '',
@@ -46,18 +46,40 @@ export class SoftwareComponent implements OnInit {
   //  this.filterValues = (event.target as HTMLInputElement).value;
   //  this.filteredSoftware = this.softwaresData.filter((software) =>
   //    software.name.toLowerCase().includes(this.filterValues.toLowerCase())
-
   //  );
   //}
-  
 
-  applySoftwareFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
-    this.filteredSoftware = this.softwaresData.filter((software: any) =>
-      software.name.toLowerCase().includes(filterValue)
+
+
+  //applySoftwareFilter(event: Event) {
+  //  const keyword = (event.target as HTMLInputElement).value.toLowerCase().trim(); // Get the input value and convert to lowercase
+  //  // Check if selectedLocation is 'India'
+  //  if (this.selectedLocation === 'India') {
+  //    // Filter software cards from filteredSoftware[0] based on the keyword
+  //    this.filteredSoftware[0] = this.softwaresData[0].filter((software: any) =>
+  //      software.name.toLowerCase().includes(keyword)
+  //    );
+  //  } else {
+  //    // Filter software cards from filteredSoftware[1] based on the keyword
+  //    this.filteredSoftware[1] = this.softwaresData[1].filter((software: any) =>
+  //      software.name.toLowerCase().includes(keyword)
+  //    );
+  //  }
+  //}
+
+  applySoftwareFilter() {
+    const keyword = this.filterValues.toLowerCase().trim(); // Get filter keyword
+    // Filter software based on the keyword
+    this.filteredSoftware = this.softwaresData.map(softwareGroup =>
+      softwareGroup.filter(software=>software.name.toLowerCase().includes(keyword)
+      )
     );
   }
 
+  passesFilter(software: any): boolean {
+    const keyword = this.filterValues.toLowerCase().trim(); // Get filter keyword
+    return software.name.toLowerCase().includes(keyword);
+  }
  
 
 
@@ -138,6 +160,7 @@ export class SoftwareComponent implements OnInit {
         console.error('Error updating software archive status:', error);
       }
     );
+
   }
 
 
@@ -273,6 +296,7 @@ export class SoftwareComponent implements OnInit {
 
 
   setRowData() {
+    this.rowData = [];
     for (var i = 0; i < this.softwarestableData.length; i++) {
 
       let statusHTML = '';
@@ -286,14 +310,13 @@ export class SoftwareComponent implements OnInit {
         "SNo": i + 1,
         "Software Name": this.softwarestableData[i].name,
         "Version": this.softwarestableData[i].version,
-        "# Total": this.softwarestableData[i].assigned + this.softwarestableData[i].inventory ,
-        "# Assigned": this.softwarestableData[i].assigned,
-        "# Inventory": this.softwarestableData[i].inventory,
-        "Expiry Date": this.softwarestableData[i].expDate,
-        "Date of Purchase": this.softwarestableData[i].purchaseDates,
-        
-
-
+        "Type": this.softwarestableData[i].type ,
+        "Date of Purchase": this.softwarestableData[i].purchasedDate,
+        "Expiry Date": this.softwarestableData[i].expireyDate,
+        "Assigned To": this.softwarestableData[i].assignedTo,
+        "Assigned By": this.softwarestableData[i].assignedBy,
+        "Assigned Date": this.softwarestableData[i].assignedDate,
+        "isArchived": this.softwarestableData[i].isArchived,
      
       }
 
@@ -310,13 +333,16 @@ export class SoftwareComponent implements OnInit {
     },
     { field: "Software Name",  resizable: false,  width: 150,  suppressMovable: true },
     {field: "Version",  width: 100,  resizable: false, suppressMovable: true },
-    { field: "# Total", width: 90, resizable: false, suppressMovable: true, },
-    { field: "# Assigned", width: 109, resizable: false, suppressMovable: true, },
-    { field: "# Inventory", width: 142, resizable: false, suppressMovable: true, },
+    { field: "Type", width: 100, resizable: false, suppressMovable: true, },
     { field: "Date of Purchase", width: 170, resizable: false, suppressMovable: true, },
     { field: "Expiry Date", width: 150, resizable: false, suppressMovable: true, },
-    { field: "Software Status", width: 135, resizable: false, suppressMovable: true, },
-     { field: "Stock Status", pinned: 'right', cellStyle: { 'border': 'none' }, width: 122, resizable: false, suppressMovable: true, }
+    { field: "Assigned To", width: 150, resizable: false, suppressMovable: true, },
+    { field: "Assigned By", width: 150, resizable: false, suppressMovable: true, },
+    { field: "Assigned Date", width: 150, resizable: false, suppressMovable: true, },
+    { field: "isArchived", pinned: 'right', width: 150, resizable: false, suppressMovable: true, },
+
+    //{ field: "Software Status", width: 135, resizable: false, suppressMovable: true, },
+    // { field: "Stock Status", pinned: 'right', cellStyle: { 'border': 'none' }, width: 122, resizable: false, suppressMovable: true, }
 
   ];
   filename = 'ExcelSheet.xlsx';
