@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AdminDetailService } from '../../shared/services/admin-detail.service';
 
 @Component({
   selector: 'app-admin-permissions-panel',
@@ -6,6 +7,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./admin-permissions-panel.component.css']
 })
 export class AdminPermissionsPanelComponent {
+  selectedAdmin: any;
+
+  constructor(private adminDetailService: AdminDetailService) { }
+
+  ngOnInit() {
+    this.adminDetailService.selectedAdmin$.subscribe((admin) => {
+      this.selectedAdmin = admin;
+    });
+  }
 
 
   superAdminPermissions: { permissionName: string; permissionDescription: string; }[] = [
