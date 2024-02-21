@@ -2,7 +2,18 @@
 #button2 {
   display: none;
 }*/
+#filter-text-box {
+  border: none; /* Remove border */
+  outline: none; /* Remove outline */
+}
 
+  #filter-text-box:focus {
+    border: none; /* Remove border when input is focused */
+    outline: none; /* Remove outline when input is focused */
+  }
+
+ 
+  
 
 
 .software-details {

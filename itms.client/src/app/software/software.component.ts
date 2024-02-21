@@ -14,7 +14,7 @@ import * as _ from 'lodash';
 export class SoftwareComponent implements OnInit {
   allSoftwareData: any[];
   selectedView: string = 'card';
-  softwaresData: any[];
+  softwaresData: any[][] = [[], []]; // Define softwaresData array
   softwarestableData: any[];
   version: string[];
   rowData: any[] = [];
@@ -25,7 +25,7 @@ export class SoftwareComponent implements OnInit {
   archive: any;
   isArchived: boolean = false;
 
-  filteredSoftware: any[] = [];
+  filteredSoftware: any[][] = [[], []];
   filterValues: string = '';
   expiringtag: boolean = false;
   searchValue: string = '';
@@ -46,18 +46,40 @@ export class SoftwareComponent implements OnInit {
   //  this.filterValues = (event.target as HTMLInputElement).value;
   //  this.filteredSoftware = this.softwaresData.filter((software) =>
   //    software.name.toLowerCase().includes(this.filterValues.toLowerCase())
-
   //  );
   //}
-  
 
-  applySoftwareFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
-    this.filteredSoftware = this.softwaresData.filter((software: any) =>
-      software.name.toLowerCase().includes(filterValue)
+
+
+  //applySoftwareFilter(event: Event) {
+  //  const keyword = (event.target as HTMLInputElement).value.toLowerCase().trim(); // Get the input value and convert to lowercase
+  //  // Check if selectedLocation is 'India'
+  //  if (this.selectedLocation === 'India') {
+  //    // Filter software cards from filteredSoftware[0] based on the keyword
+  //    this.filteredSoftware[0] = this.softwaresData[0].filter((software: any) =>
+  //      software.name.toLowerCase().includes(keyword)
+  //    );
+  //  } else {
+  //    // Filter software cards from filteredSoftware[1] based on the keyword
+  //    this.filteredSoftware[1] = this.softwaresData[1].filter((software: any) =>
+  //      software.name.toLowerCase().includes(keyword)
+  //    );
+  //  }
+  //}
+
+  applySoftwareFilter() {
+    const keyword = this.filterValues.toLowerCase().trim(); // Get filter keyword
+    // Filter software based on the keyword
+    this.filteredSoftware = this.softwaresData.map(softwareGroup =>
+      softwareGroup.filter(software=>software.name.toLowerCase().includes(keyword)
+      )
     );
   }
 
+  passesFilter(software: any): boolean {
+    const keyword = this.filterValues.toLowerCase().trim(); // Get filter keyword
+    return software.name.toLowerCase().includes(keyword);
+  }
  
 
 
@@ -137,6 +159,7 @@ export class SoftwareComponent implements OnInit {
         console.error('Error updating software archive status:', error);
       }
     );
+
   }
 
 

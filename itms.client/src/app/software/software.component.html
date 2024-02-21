@@ -29,7 +29,9 @@
           </label>
         </div>
         <div class="search-bar" *ngIf="selectedView === 'table'">
-          <input type="text" id="filter-text-box" placeholder="Filter" [(ngModel)]="searchValue"/>
+          <img src="../../../assets/icons/Software/Search.svg" />
+
+          <input type="text" id="filter-text-box" placeholder="Search" [(ngModel)]="searchValue" />
         </div>
         <div class="export-button" *ngIf="selectedView === 'table'">
           <button (click)="exporttoexcel()">
@@ -77,17 +79,21 @@
             <div class="input-frame">
               <img src="../../../assets/icons/Software/Search.svg" />
               <input class="input-text" placeholder="Search software " [(ngModel)]="filterValues"
-                     (input)="applySoftwareFilter($event)" />
+                     (input)="applySoftwareFilter()" />
             </div>
           </div>
         </div>
 
 
-          <div class="sub-category " *ngFor="let software of filteredSoftware? selectedLocation === 'India' ? filteredSoftware[0]:filteredSoftware[1] : selectedLocation === 'India' ? softwaresData[0] : softwaresData[1]">
-            <!--<div *ngIf="(isArchived==true && software.isArchived==1)||(isArchived==false && (software.isArchived==0||software.isArchived==null))">-->
-            <app-software-name   [softwareData]="software" [selectedLocation]="selectedLocation" (cardClicked)="onCardClicked($event)" [isArchived]="isArchived"></app-software-name>
+        <div class="sub-category " *ngFor="let software of filteredSoftware? selectedLocation === 'India' ? filteredSoftware[0]:filteredSoftware[1] : selectedLocation === 'India' ? softwaresData[0] : softwaresData[1]">
+
+          <!--<div *ngIf="(isArchived==true && software.isArchived==1)||(isArchived==false && (software.isArchived==0||software.isArchived==null))">-->
+          <ng-container *ngIf="passesFilter(software)">
+            <app-software-name [softwareData]="software" [selectedLocation]="selectedLocation" (cardClicked)="onCardClicked($event)" [isArchived]="isArchived"></app-software-name>
+                    </ng-container>
+
             <!--</div>-->
-          </div>
+        </div>
 
      
 
