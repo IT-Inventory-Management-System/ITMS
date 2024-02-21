@@ -18,7 +18,7 @@ export class SoftwareComponent implements OnInit {
   softwarestableData: any[];
   version: string[];
   rowData: any[] = [];
-  selectedLocation: any = '';
+  selectedLocation: any = "India";
   parameters: any = null;
   singlesoftware: any = null;
   softwarehistory: any = null;
@@ -93,9 +93,7 @@ export class SoftwareComponent implements OnInit {
     this.softwareService.FilterSoftware(body).subscribe(
       (result: any | null) => {
         if (result) {
-          //alert("hello");
           this.softwaresData = result;
-          //console.log(result);
           this.filteredSoftware = this.softwaresData;
         } else {
           console.log('No software found for parameters:', body);
@@ -189,16 +187,14 @@ export class SoftwareComponent implements OnInit {
 
   ngOnInit(): void {
     this.getSoftwaresData(false);
-    this.getSoftwaretabledata();
+    
     //this.filteredSoftware = this.softwaresData;
     this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
       localStorage.setItem('selectedCountry', selectedCountry);
       this.selectedLocation = selectedCountry;
       this.onVariableChanged();
       console.log(this.selectedLocation);
-     // console.log(this.selectedLocation);
-
-
+      this.getSoftwaretabledata(this.selectedLocation);
     });
 
   }
@@ -254,12 +250,15 @@ export class SoftwareComponent implements OnInit {
   }
 
 
-  getSoftwaretabledata(): void {
-    this.softwareService.GettableSoftwares().subscribe(
+  getSoftwaretabledata(ctry: any): void {
+    const params = {
+      country: ctry
+    }
+    this.softwareService.GettableSoftwares(params).subscribe(
       data => {
         this.softwarestableData = data;
-
-        //console.log("tabel", this.softwarestableData);
+        
+        console.log("tabel", this.softwarestableData);
         this.setRowData();
         //console.log('Row Data', this.rowData);
 
@@ -315,8 +314,6 @@ export class SoftwareComponent implements OnInit {
     { field: "# Inventory", width: 142, resizable: false, suppressMovable: true, },
     { field: "Date of Purchase", width: 170, resizable: false, suppressMovable: true, },
     { field: "Expiry Date", width: 150, resizable: false, suppressMovable: true, },
-    //{ field: "Assigned To", width: 128, resizable: false, suppressMovable: true, },
-    //{ field: "Assigned Date", width: 129, resizable: false, suppressMovable: true, },
     { field: "Software Status", width: 135, resizable: false, suppressMovable: true, },
      { field: "Stock Status", pinned: 'right', cellStyle: { 'border': 'none' }, width: 122, resizable: false, suppressMovable: true, }
 

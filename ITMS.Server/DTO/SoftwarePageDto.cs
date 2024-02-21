@@ -72,6 +72,19 @@ namespace ITMS.Server.DTO
 
     }
 
+    public class TablePage
+    {
+        public string name { get; set; }
+        public string? version { get; set; }
+        public string type { get; set; }
+        public DateTime? purchasedDate { get; set; }
+        public DateTime? expireyDate { get; set; }
+        public string? assignedTo { get; set; }
+        public string? assignedBy { get; set; }
+        public DateTime? assignedDate { get; set;}
+        public bool? isArchived { get; set; }
+    }
+
     public class Ver_Qty_Pur_Arch
     {
         public string? version { get; set; }

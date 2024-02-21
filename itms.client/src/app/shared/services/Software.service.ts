@@ -31,8 +31,8 @@ export class SoftwareService {
   }
 
 
-  GettableSoftwares(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl + 'SoftwarePage/softwarestable');
+  GettableSoftwares(parameters: any): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + 'SoftwarePage/softwarestable', { params: parameters });
   }
 
 

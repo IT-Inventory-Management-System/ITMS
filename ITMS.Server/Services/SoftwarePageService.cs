@@ -337,54 +337,30 @@ namespace ITMS.Server.Services
 
         }
 
-        public List<tableSoftwares> GettableSoftwares()
+
+        public List<TablePage> GettableSoftwares(String country)
         {
-            var specsToBeReturned = (from s in _context.Software
-                                     join sa in _context.SoftwareAllocations on s.Id equals sa.SoftwareId into softwareAllocationsGroup
-                                     from softwareAllocation in softwareAllocationsGroup.DefaultIfEmpty()
-
-                                     join t in _context.SoftwareTypes on s.SoftwareTypeId equals t.Id into softwareTypesGroup
-                                     from softwareType in softwareTypesGroup.DefaultIfEmpty()
-
-                                     join l in _context.Locations on softwareAllocation.LocationId equals l.Id into locationsGroup
-                                     from location in locationsGroup.DefaultIfEmpty()
-
-                                     select new
-                                     {
-                                         SoftwareName = s.SoftwareName,
-                                         Version = softwareAllocation != null ? softwareAllocation.Version : null,
-                                         TypeName = softwareType != null ? softwareType.TypeName : null,
-                                         AssignedToCount = s.SoftwareAllocations.Count(sa => sa.AssignedTo != null && sa.Version != null),
-                                         NotAssignedCount = s.SoftwareAllocations.Count(sa => sa.AssignedTo == null && sa.Version != null),
-                                         PurchaseDates = s.SoftwareAllocations.Where(sa => sa.PurchasedDate != null && sa.Version != null)
-                                                                             .Select(sa => sa.PurchasedDate)
-                                                                             .ToList(),
-                                         ExpiryDates = s.SoftwareAllocations.Where(sa => sa.ExpiryDate != null)
-                                                                     .Select(sa => sa.ExpiryDate)
-                                                                     .ToList(),
-                                         ExpDate = s.SoftwareAllocations
-                                          .Where(sa => sa.ExpiryDate.HasValue)
-                                          .OrderByDescending(sa => sa.ExpiryDate)
-                                          .Select(sa => sa.ExpiryDate)
-                                          .FirstOrDefault(),
-                                         ExpiryDateCount = s.SoftwareAllocations
-                                                             .Where(sa => sa.ExpiryDate.HasValue && sa.Version != null)
-                                                             .Select(sa => sa.ExpiryDate)
-                                                             .Distinct()
-                                                             .Count(),
-                                     }).AsEnumerable() // Bring the data to memory
-                                     .Select(x => new tableSoftwares
-                                     {
-                                         Name = x.SoftwareName,
-                                         Version = x.Version,
-                                         Type = x.TypeName,
-                                         Assigned = x.AssignedToCount,
-                                         Inventory = x.NotAssignedCount,
-                                         PurchaseDates = x.PurchaseDates,
-                                         ExpiryDateCount = x.ExpiryDateCount,
-                                     }).ToList();
-
-            return specsToBeReturned;
+            var tableView = _context.SoftwareAllocations
+                             .Include(sa => sa.AssignedByNavigation)
+                             .Include(sa => sa.AssignedToNavigation)
+                             .Include(sa => sa.Software)
+                               .ThenInclude(s => s.SoftwareType)
+                             .Include(sa => sa.Location)
+                             .Where(sa => sa.Location.Location1 == country)
+                             .Select(tv => new TablePage
+                             {
+                                 name = tv.Software.SoftwareName,
+                                 version = tv.Version,
+                                 type = tv.Software.SoftwareType.TypeName,
+                                 purchasedDate = tv.PurchasedDate,
+                                 expireyDate = tv.ExpiryDate,
+                                 assignedTo = tv.AssignedToNavigation.FirstName + " " + tv.AssignedToNavigation.LastName,
+                                 assignedBy = tv.AssignedByNavigation.FirstName + " " + tv.AssignedByNavigation.LastName,
+                                 assignedDate = tv.AssignedDate,
+                                 isArchived = tv.IsArchived
+                             }).ToList();
+                            
+            return tableView;
         }
 
 

@@ -142,11 +142,11 @@ namespace ITMS.Server.Controllers
         }
 
         [HttpGet("softwarestable")]
-        public ActionResult<IEnumerable<Softwares>> GetSoftwares()
+        public ActionResult<IEnumerable<Softwares>> GetSoftwares([FromQuery] String country)
         {
             try
             {
-                var software = _softwarepageService.GettableSoftwares();
+                var software = _softwarepageService.GettableSoftwares(country);
                 return Ok(software);
             }
             catch (Exception ex)
