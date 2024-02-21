@@ -1,11 +1,12 @@
 <div class="assign-history-card">
   <div class="username-cgiid">
     <div class="username-avatar">
-      <span class="avatar-text">CW</span>
+      <ngx-avatars name={{historyData.assignedTo}} [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="33"></ngx-avatars>
+
     </div>
     <div class="name-cgiid">
-      <span class="username">Cameron Williamson</span>
-      <span class="cgiid">CGI 098</span>
+      <span class="username">{{ historyData.assignedTo }}</span>
+      <span class="cgiid">{{ historyData.assignedToCGI }}</span>
 
     </div>
   </div>
@@ -13,8 +14,8 @@
     <div class="assignedby">
       <span class="assignedby-text">Assigned By</span>
       <span class="name-date">
-        John Doe <br />
-        12-10-2023
+        {{ historyData.assignedBy }} <br />
+        {{ historyData.assignedDate | date: 'MM-dd-yyyy' }}
       </span>
     </div>
   </div>

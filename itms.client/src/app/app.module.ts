@@ -89,6 +89,12 @@ import { AddMouseBrandFormComponent } from './add-asset/add-mouse-form/add-mouse
 import { AssetFilterComponent } from './inventory/assets-category/assest/asset-filter/asset-filter.component';
 import { AccordionComponent } from './shared/components/accordion/accordion.component';
 import { AccordionItemComponent } from './shared/components/accordion/accordion-item/accordion-item.component';
+import { FilterComponent } from './software/filter/filter.component';
+import { LastdateComponent } from './software/lastdate/lastdate.component';
+import { ArchivesoftwareComponent } from './software/archivesoftware/archivesoftware.component';
+import { AccessoriesComponent } from './accessories/accessories.component';
+import { AccesoriesnameComponent } from './accessories/accesoriesname/accesoriesname.component';
+import { AssignhistoryComponent } from './accessories/assignhistory/assignhistory.component';
 
 
 
@@ -149,7 +155,8 @@ import { AccordionItemComponent } from './shared/components/accordion/accordion-
     UnrchivemodalComponent,
     ArchiveModalComponent,
     AddAssetComponent,
-
+    FilterComponent,
+    LastdateComponent,
     LaptopSearchBoxComponent,
     SoftwareSearchBoxComponent,
     SoftwareVersionSearchBoxComponent,
@@ -174,7 +181,15 @@ import { AccordionItemComponent } from './shared/components/accordion/accordion-
     AddMouseBrandFormComponent,
     AssetFilterComponent,
     AccordionComponent,
-    AccordionItemComponent
+    AccordionItemComponent,
+    ArchivesoftwareComponent,
+    AccessoriesComponent,
+    AccesoriesnameComponent,
+    AssignhistoryComponent,
+    //FilterComponent,
+    //LastdateComponent,
+
+
 
 
   ],
