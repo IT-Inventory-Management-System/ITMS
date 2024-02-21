@@ -71,6 +71,7 @@ export class SoftwareComponent implements OnInit {
     const body:any = {
       location: this.selectedLocation,
       IsArchived: this.isArchived,
+      view: this.selectedView, 
     }
     if (eventData.type !== '') {
       body.type = eventData.type;
@@ -88,7 +89,7 @@ export class SoftwareComponent implements OnInit {
       body.To = toDate;
       this.archivedAttributes.to = toDate;
     }
-    console.log("archivedAttributes",this.archivedAttributes);
+    console.log("body",body);
 
     this.softwareService.FilterSoftware(body).subscribe(
       (result: any | null) => {

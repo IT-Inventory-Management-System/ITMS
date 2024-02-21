@@ -89,6 +89,7 @@ namespace ITMS.Server.Controllers
 
             List<IEnumerable<SoftwarePage>> filteredData = new List<IEnumerable<SoftwarePage>>();
 
+           
             if (attri.location == "India")
             {
                 var India = allData[0].Where(s =>
@@ -119,9 +120,16 @@ namespace ITMS.Server.Controllers
 
             return filteredData;
 
+        }
 
-
-            //}
+        [HttpPost("filterTable")]
+        public List<TablePage> FilterTable([FromBody] filterDto attri)
+        {
+            List<TablePage> allData = GetSoftwares(attri.location);
+            List<TablePage> filteredData = allData.Where(s =>
+     (string.IsNullOrEmpty(attri.type) || s.type == attri.type) && 
+     (attri.From == null || DateOnly.FromDateTime((DateTime)s.purchasedDate) >= attri.From) &&
+(attri.To == null || DateOnly.FromDateTime((DateTime)s.purchasedDate) <= attri.To)).ToList();
 
             return filteredData;
         }
@@ -142,16 +150,16 @@ namespace ITMS.Server.Controllers
         }
 
         [HttpGet("softwarestable")]
-        public ActionResult<IEnumerable<Softwares>> GetSoftwares([FromQuery] String country)
+        public List<TablePage> GetSoftwares([FromQuery] String country)
         {
             try
             {
                 var software = _softwarepageService.GettableSoftwares(country);
-                return Ok(software);
+                return software;
             }
             catch (Exception ex)
             {
-                return BadRequest($"Error: {ex.Message}");
+                return null;
             }
         }
 
