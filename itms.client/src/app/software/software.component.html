@@ -32,7 +32,7 @@
 
         </div>
         <div class="export-button" *ngIf="selectedView === 'table'">
-          <button>
+          <button (click)="exporttoexcel()">
             <img src="../../../../assets/icons/Software/excel-icon.svg" />
             <span>Export to Excel</span>
           </button>
