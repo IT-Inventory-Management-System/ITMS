@@ -27,6 +27,7 @@ export class SoftwareComponent implements OnInit {
 
   filteredSoftware: any[] = [];
   filterValues: string = '';
+  expiringtag: boolean = false;
 
 
   //onCardClicked(eventData: any): void {
@@ -140,6 +141,7 @@ export class SoftwareComponent implements OnInit {
 
 
   onCardClicked(eventData: any): void {
+    this.expiringtag = true;
     const parameters = {
       name: eventData.name,
       version: eventData.version,
