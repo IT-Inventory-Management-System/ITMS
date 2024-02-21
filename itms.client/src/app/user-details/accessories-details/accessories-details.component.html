@@ -13,7 +13,7 @@
 
     </div>
 
-    <div *ngIf="accessory.actionName === 'Submitted' && accessory.submittedBy != null" class="received-tag">
+    <div *ngIf="(accessory.actionName === 'Submitted' || accessory.actionName === 'submitted') && accessory.submittedBy != null" class="received-tag">
 
       <div class="received-tag-info">
         <img src="../../../assets/icons/ReceivedVector.svg" class="recieved-image" />RECEIVED
@@ -21,7 +21,7 @@
 
     </div>
 
-    <div *ngIf="accessory.actionName === 'Lost' && accessory.submittedBy != null" class="lost-tag">
+    <div *ngIf="(accessory.actionName === 'Lost' || accessory.actionName === 'lost') && accessory.submittedBy != null" class="lost-tag">
 
       <div class="lost-tag-info">
         LOST
@@ -29,7 +29,7 @@
 
     </div>
 
-    <div *ngIf="accessory.actionName === 'Assigned' && accessory.submittedBy != null" class="submit-later-tag">
+    <div *ngIf="(accessory.actionName === 'Assigned' || accessory.actionName === 'assigned') && accessory.submittedBy != null" class="submit-later-tag">
 
       <div class="submit-later-tag-info">
         NOT SUBMITTED
@@ -37,14 +37,14 @@
 
     </div>
 
-    <div *ngIf="accessory.actionName === 'Assigned' || accessory.submittedBy === null" class="accessory-revoke-button">
+    <div *ngIf="(accessory.actionName === 'Assigned' || accessory.actionName === 'assigned') || accessory.submittedBy === null" class="accessory-revoke-button">
       <app-accessories-revoke [accessoriesDetails]="accessory" [userId]="userId" [firstName]="firstName" [lastName]="lastName" [cgiid]="cgiid"></app-accessories-revoke>
 
     </div>
 
 
 
-    <div class="col-md-12 pp" [ngClass]="{'fade-container': (accessory.actionName === 'Lost' || accessory.actionName === 'Submitted')}">
+    <div class="col-md-12 pp" [ngClass]="{'fade-container': (accessory.actionName === 'Lost' || accessory.actionName === 'lost' || accessory.actionName === 'Submitted' || accessory.actionName === 'submitted')}">
 
 
       <div class="row user-detail">

@@ -16,7 +16,7 @@
 
     </div>
 
-    <div *ngIf="software.actionName === 'Submitted' && software.recievedBy != null" class="received-tag">
+    <div *ngIf="(software.actionName === 'Submitted' || software.actionName === 'submitted') && software.recievedBy != null" class="received-tag">
 
       <div class="received-tag-info">
         <img src="../../../assets/icons/ReceivedVector.svg" class="recieved-image" />RECEIVED
@@ -40,12 +40,12 @@
 
     </div>
 
-    <div *ngIf="software.actionName === 'Assigned' || software.recievedBy === null" class="software-revoke-button">
+    <div *ngIf="(software.actionName === 'Assigned' || software.actionName === 'assigned')  || software.recievedBy === null" class="software-revoke-button">
       <app-software-revoke [softwareDetails]="software" [userId]="userId" [firstName]="firstName" [lastName]="lastName" [cgiid]="cgiid"></app-software-revoke>
 
     </div>
 
-    <div class="bb" [ngClass]="{'fade-container': (software.actionName  === 'Lost' || software.actionName  === 'Submitted')}">
+    <div class="bb" [ngClass]="{'fade-container': (software.actionName === 'Lost' || software.actionName === 'lost' || software.actionName === 'Submitted' || software.actionName === 'submitted')}">
 
       <div class="row user-detail">
         <div class="user-software">

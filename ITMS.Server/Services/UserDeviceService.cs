@@ -224,11 +224,18 @@ public class UserDeviceService
                            .Where(employee => employee.Id == log.UpdatedBy)
                            .Select(employee => $"{employee.FirstName} {employee.LastName}")
                            .FirstOrDefault(),
-                    UpdatedAtUtc = log.UpdatedAtUtc
+                    UpdatedAtUtc = log.UpdatedAtUtc,
+                    CreatedAtUtc = log.CreatedAtUtc
                 })
                 .ToList();
 
-            return accessoriesList;
+            var latestAccessoriesLogs = accessoriesList
+              .GroupBy(log => log.DeviceId)
+              .Select(group => group.OrderByDescending(log => log.CreatedAtUtc).First())
+              .ToList();
+
+
+            return latestAccessoriesLogs;
         }
         catch (Exception ex)
         {

@@ -76,7 +76,7 @@ export class SoftwareRevokeComponent {
       const var1 = this.softwareDetails.deviceLogId;
       const var2 = this.loggedUser.id;
 
-      const SubmittedAction = this.actionsArray.find(a => a.actionName === 'Submitted');
+      const SubmittedAction = this.actionsArray.find(a => a.actionName === 'Submitted' || a.actionName === 'submitted');
       if (SubmittedAction) {
         this.actionId = SubmittedAction.id;
         console.log("Submitted Action: ", this.actionId);
@@ -88,10 +88,11 @@ export class SoftwareRevokeComponent {
         (response) => {
           console.log(response);
           if (response && response.receivedBy) {
-            const { firstName, lastName, recievedDate, actionName } = response.receivedBy;
+            const { deviceLogId, firstName, lastName, recievedDate, actionName } = response.receivedBy;
             this.softwareDetails.recievedBy = `${firstName} ${lastName}`;
             this.softwareDetails.recievedByDate = `${recievedDate}`;
             this.softwareDetails.actionName = `${actionName}`;
+            this.addNewComment(deviceLogId);
           }
         },
         (error) => {
@@ -129,34 +130,34 @@ export class SoftwareRevokeComponent {
     //}
 
 
-    //if it is a new comment
-    if (this.newComment) {
-      const commentDto = {
-        description: this.newComment,
-        createdBy: this.loggedUser.id,
-        createdAtUtc: new Date().toISOString(),
-        softwareAllocationId: this.softwareDetails.softwareAllocationId,
-        deviceLogId: this.softwareDetails.deviceLogId
-      };
 
-      console.log('Comment DTO:', commentDto);
+  }
 
-      this.commentService.addSoftwareComment(commentDto).subscribe(
-        (response) => {
+  addNewComment(deviceLogId: any) {
+    console.log('software comment called');
+    const commentDto = {
+      description: this.newComment,
+      createdBy: this.loggedUser.id,
+      createdAtUtc: new Date().toISOString(),
+      softwareAllocationId: this.softwareDetails.softwareAllocationId,
+      deviceLogId: deviceLogId
+    };
 
-          console.log(response);
-          //this.laptopDetails.comments.unshift(response);
-          //console.log(this.laptopDetails.comments);
-          this.newComment = '';
-        },
-        (error) => {
-          console.error('Error adding comment:', error);
-        }
-      );
-      this.newComment = '';
-    }
+    console.log('Comment DTO:', commentDto);
 
+    this.commentService.addSoftwareComment(commentDto).subscribe(
+      (response) => {
 
+        console.log(response);
+        //this.laptopDetails.comments.unshift(response);
+        //console.log(this.laptopDetails.comments);
+        this.newComment = '';
+      },
+      (error) => {
+        console.error('Error adding comment:', error);
+      }
+    );
+    this.newComment = '';
   }
 
   //showYesReason: boolean = false;
