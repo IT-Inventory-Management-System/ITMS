@@ -16,19 +16,19 @@ namespace ITMS.Server.Controllers
             _accessoriesService = accessoriesService;
         }
 
-        [HttpGet("GetUserAccessories/{id}")]
-        public IActionResult GetUserAccessories(Guid id)
-        {
-            try
-            {
-                var accessoriesList = _accessoriesService.GetUserAccessories(id);
-                return Ok(accessoriesList);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+        //[HttpGet("GetUserAccessories/{id}")]
+        //public IActionResult GetUserAccessories(Guid id)
+        //{
+        //    try
+        //    {
+        //        var accessoriesList = _accessoriesService.GetUserAccessories(id);
+        //        return Ok(accessoriesList);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
 
     }
 

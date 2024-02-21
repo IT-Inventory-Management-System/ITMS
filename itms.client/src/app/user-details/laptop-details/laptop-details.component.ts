@@ -7,7 +7,7 @@ import { Router } from '@angular/router';  // Import Angular Router
   templateUrl: './laptop-details.component.html',
   styleUrls: ['./laptop-details.component.css']
 })
-export class LaptopDetailsComponent implements OnChanges {
+export class LaptopDetailsComponent{
   @Input() userId: any;
   @Input() firstName: any;
   @Input() lastName: any;
@@ -15,45 +15,47 @@ export class LaptopDetailsComponent implements OnChanges {
 
   //isLost: boolean = false;
   //Selectedvalue: any;
-  laptopDetails: any;
+  @Input() laptopDetails: any;
 
   constructor(private employeeService: EmployeeService, private router: Router) { }
   //ngOnInit() {
    
   //  this.Selectedvalue = localStorage.getItem('Selectedvalue');
   //}
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['userId'] && changes['userId'].currentValue !== changes['userId'].previousValue) {
+  //ngOnChanges(changes: SimpleChanges): void {
+  //  if (changes['userId'] && changes['userId'].currentValue !== changes['userId'].previousValue) {
       
-      if (this.userId) {
+  //    if (this.userId) {
        
-        this.getDevices(this.userId);
-      }
-    }
-  }
+  //      this.getDevices(this.userId);
+  //    }
+  //  }
+  //}
 
-  getDevices(userId: any): void {
-    this.employeeService.getDevices(userId)
-      .subscribe((data) => {
-       
-        this.laptopDetails = this.filterLaptops(data);
-        console.log(this.laptopDetails);
-       
-      }, (error) => {
-        console.error('Error fetching laptop details:', error);
-       
-      });
-  }
 
-  filterLaptops(data: any[]): any[] {
-    const laptopMap = new Map();
-    for (const laptop of data) {
-      if (!laptopMap.has(laptop.deviceId) || laptop.updatedAtUtc !== null) {
-        laptopMap.set(laptop.deviceId, laptop);
-      }
-    }
-    return Array.from(laptopMap.values());
-  }
+  //getDevices(userId: any): void {
+  //  this.employeeService.getDevices(userId)
+  //    .subscribe(
+  //      (data: any) => {
+  //        console.log("data is", data);
+  //        this.laptopDetails = data.laptop;
+  //        console.log(this.laptopDetails);
+  //      },
+  //      (error) => {
+  //        console.error('Error fetching laptop details:', error);
+  //      }
+  //    );
+  //}
+
+  //filterLaptops(data: any[]): any[] {
+  //  const laptopMap = new Map();
+  //  for (const laptop of data) {
+  //    if (!laptopMap.has(laptop.deviceId) || laptop.updatedAtUtc !== null) {
+  //      laptopMap.set(laptop.deviceId, laptop);
+  //    }
+  //  }
+  //  return Array.from(laptopMap.values());
+  //}
 
   navigateToDeviceDetails(cygId: string): void {
   

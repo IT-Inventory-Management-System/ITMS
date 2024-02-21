@@ -13,17 +13,22 @@ export class EmployeeService {
   private apiUrl = 'https://localhost:7283/api/';
 
   constructor(private http: HttpClient) { }
+  //getDevices(id: any): Observable<any[]> {
+  //  return this.http.get<any[]>(this.apiUrl + 'userdevices/GetDevices/'+id);
+  //}
+
   getDevices(id: any): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl + 'userdevices/GetDevices/'+id);
+    console.log(id);
+    return this.http.get<any[]>(this.apiUrl + 'userdevices/GetDevices/' + id);
   }
 
-  getSoftware(id: any): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl + 'software/GetUserSoftware/'+id);
-  }
+  //getSoftware(id: any): Observable<any[]> {
+  //  return this.http.get<any[]>(this.apiUrl + 'software/GetUserSoftware/'+id);
+  //}
 
-  getAccessories(id: any): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl + 'Accessories/GetUserAccessories/' + id);
-  }
+  //getAccessories(id: any): Observable<any[]> {
+  //  return this.http.get<any[]>(this.apiUrl + 'Accessories/GetUserAccessories/' + id);
+  //}
 
   getActions(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl + 'ActionTable/getActions');

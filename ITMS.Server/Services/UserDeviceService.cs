@@ -110,4 +110,118 @@ public class UserDeviceService
             throw ex;
         }
     }
+
+    public List<UserSoftwareHistory> GetUserSoftware(Guid id)
+    {
+        try
+        {
+            var softwareList = _dbContext.DevicesLogs
+                .Where(dl => dl.EmployeeId == id && dl.SoftwareAllocationNavigation != null && dl.DeviceId == null)
+                .Include(dl => dl.SoftwareAllocationNavigation)
+                    .ThenInclude(sa => sa.Software)
+                        .ThenInclude(s => s.SoftwareType)
+                         .OrderByDescending(log => log.AssignedDate)
+                .Select(dl => new UserSoftwareHistory
+                {
+                    DeviceLogId = dl.Id,
+                    SoftwareAllocationId = dl.SoftwareAllocationNavigation.Id,
+
+                    TypeName = dl.SoftwareAllocationNavigation.Software.SoftwareType.TypeName,
+                    SoftwareName = dl.SoftwareAllocationNavigation.Software.SoftwareName,
+                    Version = dl.SoftwareAllocationNavigation.Version, //new version added
+                    AssignBy = _dbContext.Employees
+                        .Where(employee => employee.Id == dl.AssignedBy)
+                        .Select(employee => $"{employee.FirstName} {employee.LastName}")
+                        .FirstOrDefault(),
+                    AssignedTo = _dbContext.Employees
+                        .Where(employee => employee.Id == dl.EmployeeId)
+                        .Select(employee => $"{employee.FirstName} {employee.LastName}")
+                        .FirstOrDefault(),
+                    AssignedDate = dl.AssignedDate,
+                    PurchasedDate = dl.SoftwareAllocationNavigation.PurchasedDate,
+                    ExpiryDate = dl.SoftwareAllocationNavigation.ExpiryDate,
+                    RemainingDays = Math.Max(0, (dl.SoftwareAllocationNavigation.ExpiryDate.HasValue ? (dl.SoftwareAllocationNavigation.ExpiryDate.Value - DateTime.Today).Days : 0)),
+                    RecievedBy = _dbContext.Employees
+                        .Where(employee => employee.Id == dl.RecievedBy)
+                        .Select(employee => $"{employee.FirstName} {employee.LastName}")
+                        .FirstOrDefault(),
+                    RecievedByDate = dl.RecievedDate,
+                    ActionName = _dbContext.ActionTables
+                           .Where(action => action.Id == dl.ActionId)
+                           .Select(action => $"{action.ActionName}")
+                           .FirstOrDefault(),
+                    UpdatedBy = _dbContext.Employees
+                           .Where(employee => employee.Id == dl.UpdatedBy)
+                           .Select(employee => $"{employee.FirstName} {employee.LastName}")
+                           .FirstOrDefault(),
+                    UpdatedAtUtc = dl.UpdatedAtUtc
+                })
+                .ToList();
+
+            return softwareList;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            return null;
+        }
+    }
+
+
+    public List<UserAccessoriesHistory> GetUserAccessories(Guid id)
+    {
+        try
+        {
+            var accessoriesList = _dbContext.DevicesLogs
+                .Where(log => log.EmployeeId == id && log.Device.DeviceModel.Category.Name != "Laptop" && log.SoftwareAllocation == null)
+                .Include(log => log.Device)
+                    .ThenInclude(device => device.DeviceModel)
+                        .ThenInclude(model => model.Category)
+                            .ThenInclude(category => category.CategoryType)
+                .Select(log => new UserAccessoriesHistory
+                {
+                    DeviceLogId = log.Id,
+                    DeviceId = log.DeviceId,
+                    cygid = log.Device.Cygid, //new change in accessories
+                    DeviceName = log.Device.DeviceModel.DeviceName,
+                    Brand = log.Device.DeviceModel.Brand,
+                    ModelNo = log.Device.DeviceModel.ModelNo,
+                    CategoryName = log.Device.DeviceModel.Category.Name,
+                    CategoryType = log.Device.DeviceModel.Category.CategoryType.TypeName,
+                    AssignBy = _dbContext.Employees
+                        .Where(employee => employee.Id == log.AssignedBy)
+                        .Select(employee => $"{employee.FirstName} {employee.LastName}")
+                        .FirstOrDefault(),
+                    AssignedTo = _dbContext.Employees
+                        .Where(employee => employee.Id == log.EmployeeId)
+                        .Select(employee => $"{employee.FirstName} {employee.LastName}")
+                        .FirstOrDefault(),
+                    AssignedDate = log.AssignedDate,
+                    isWired = log.Device.DeviceModel.IsWired,
+                    SubmittedBy = _dbContext.Employees
+                        .Where(employee => employee.Id == log.RecievedBy)
+                        .Select(employee => $"{employee.FirstName} {employee.LastName}")
+                        .FirstOrDefault(),
+                    SubmittedByDate = log.RecievedDate,
+                    ActionName = _dbContext.ActionTables
+                           .Where(action => action.Id == log.ActionId)
+                           .Select(action => $"{action.ActionName}")
+                           .FirstOrDefault(),
+                    UpdatedBy = _dbContext.Employees
+                           .Where(employee => employee.Id == log.UpdatedBy)
+                           .Select(employee => $"{employee.FirstName} {employee.LastName}")
+                           .FirstOrDefault(),
+                    UpdatedAtUtc = log.UpdatedAtUtc
+                })
+                .ToList();
+
+            return accessoriesList;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            return null;
+        }
+    }
+
 }
