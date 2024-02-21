@@ -10,8 +10,8 @@ export class SoftwareNameComponent {
   @Input() softwareData: any;
   @Input() selectedLocation: any;
   @Input() isArchived: any;
-
  
+
 
   @Output() cardClicked: EventEmitter<any> = new EventEmitter<any>();
   onClick(): void {
