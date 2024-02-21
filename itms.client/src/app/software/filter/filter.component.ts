@@ -1,11 +1,13 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { SelectedCountryService } from '../../shared/services/selected-country.service';
+
 
 @Component({
   selector: 'app-filter',
   templateUrl: './filter.component.html',
   styleUrls: ['./filter.component.css']
 })
-export class FilterComponent {
+export class FilterComponent implements OnInit {
 
 
  
@@ -14,12 +16,39 @@ export class FilterComponent {
   StockStatus: string[] = ["Low In Stock", "Out Of Stock", "In Stock"];
 
   @Output() applyClicked: EventEmitter<any> = new EventEmitter<any>();
+  @ViewChild('toInput') toInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('fromInput') fromInput!: ElementRef<HTMLInputElement>;
 
   type: string = "";
   stat: string = "";
   stock: string = "";
-  from: Date;
-  to: Date;
+  from: Date | null;
+  to: Date | null;
+  selectedLocation: any = '';
+
+  constructor(private selectedCountryService: SelectedCountryService) { }
+
+  ngOnInit(): void {
+    this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
+      localStorage.setItem('selectedCountry', selectedCountry);
+      this.selectedLocation = selectedCountry;
+      this.type = '';
+      this.stock = '';
+      this.from = null;
+      this.to = null;
+      if (this.toInput) {
+        this.toInput.nativeElement.value = '';
+      }
+      if (this.fromInput) {
+        this.fromInput.nativeElement.value = '';
+      }
+      this.Apply();
+    });
+
+  }
+
+
+
 
   toggleCheckboxType(status: string) {
     this.type = (this.type === status) ? "" : status;
