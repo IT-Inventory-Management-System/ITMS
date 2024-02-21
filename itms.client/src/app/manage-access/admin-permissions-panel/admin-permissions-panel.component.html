@@ -3,8 +3,8 @@
     <div class="admin-name">
       <ngx-avatars name="John Doe" [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="35"></ngx-avatars>
       <div class="admin-name-id">
-        <span class="name">John Doe</span>
-        <span class="id">CGI 001</span>
+        <span class="name">{{ selectedAdmin?.firstName }} {{ selectedAdmin?.lastName }}</span>
+        <span class="id">{{ selectedAdmin?.cgiid }}</span>
       </div>
     </div>
     <div class="status-toggle">
@@ -14,7 +14,8 @@
       </div>
     </div>
   </div>
-  <div *ngFor="let permission of adminPermissions" class="permissions-panel-body">
+
+  <div *ngFor="let permission of selectedAdmin?.role == 'Admin' ? adminPermissions : superAdminPermissions" class="permissions-panel-body">
     <div class="permission-card">
       <div class="permission-details">
         <span class="permission-title">{{permission.permissionName}}</span>

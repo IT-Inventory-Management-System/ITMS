@@ -1,4 +1,4 @@
-<div class="user-list-container">
+<div class="user-list-container" [class.selected]="isSelected" (click)="onCardClick()">
   <!--<button class="user-list-container">[ngClass]="{'selected': isSelected}" (click)="showDetails()"-->
   <div class="user-detail">
     <ngx-avatars name="{{adminDetail.firstName}} {{adminDetail.lastName}}" [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="33"></ngx-avatars>
