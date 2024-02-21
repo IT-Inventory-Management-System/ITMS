@@ -28,7 +28,7 @@ export class SoftwareComponent implements OnInit {
   filteredSoftware: any[] = [];
   filterValues: string = '';
   expiringtag: boolean = false;
-
+  searchValue: string = '';
   archivedAttributes: any = {
     type: '',
     stock: '',
