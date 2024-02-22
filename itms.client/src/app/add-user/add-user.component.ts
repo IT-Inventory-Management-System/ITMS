@@ -25,7 +25,6 @@ export class AddUserComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private empService: EmployeeService) { }
 
   ngOnInit(): void {
-    //this.initializeForm();
     this.addUserForm();
   }
 
@@ -72,10 +71,6 @@ export class AddUserComponent implements OnInit {
     if (this.idx != this.curr) {
       this.idx = this.curr;
       this.userForm = this.list[this.curr];
-
-      //this.curr++;
-      //this.idx = this.curr;
-      //this.addUserForm();
     } else {
       this.addNew();
       this.addAnotherClicked = true;
@@ -95,41 +90,20 @@ export class AddUserComponent implements OnInit {
     if (this.res.length > 0) {
       this.empService.postUsers(this.res).subscribe(
         response => {
-          console.log('Post successful', response);
-          this.res = [];
-          this.list = [];
-          //this.deviceForm.reset();
-          //this.selectedRam = null;
-          //this.selectedStorage = null;
-          //this.formSubmitted.emit();
-          //this.toastr.success("Data posted successfully");
+          console.log('Post successful', response);         
         },
         error => {
           console.error('Error posting data', error);
-          //this.toastr.error("Error in posting data");
         }
       );
     }
+    this.res = [];
+    this.list = [];
+    this.ngOnInit();
+    this.addUserForm();
+    this.idx = 0;
     this.userAddedCount = 0;
 
   }
-
-  //console.log('User forms submitted:', this.userForm.map(form => form.value));
-  //alert("hello");
-  //console.log(this.userForm.value.firstName);
-  //console.log(this.userForm.value.lastName);
-  //console.log(this.userForm.value.email);
-  //console.log(this.userForm.value.cgiId);
-
-  //this.devices.controls.forEach(deviceGroup => {
-  //  console.log('Device Data:', deviceGroup.value);
-  //});
-
-  //if (this.userForm.valid) {
-  //  const formValues = this.userForm.value;
-  //  console.log('Form submitted with values:', formValues);
-  //} else {
-  //  // Handle form validation errors
-  //}
 }
 
