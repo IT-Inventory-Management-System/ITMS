@@ -84,6 +84,16 @@ public class CategoryTypeWithCategoriesDTO
     public int Priority { get; set; }
 }
 
-
+public class singleLog
+{
+    public string? UpdatedBy { get; set; }
+    public string? CYGID { get; set; }
+    public string? Category { get; set; }
+    public string? SubmittedTo { get; set; }
+    public string? AssignedTo { get; set; }
+    public string? Action { get; set; }
+    public DateTime? UpdatedOn { get; set; }
+    public string? SoftwareName { get; set; }
+}
 
 

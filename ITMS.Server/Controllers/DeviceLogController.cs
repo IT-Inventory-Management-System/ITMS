@@ -1,5 +1,6 @@
 // Controllers/DeviceLogController.cs
 using ITMS.Server.Models;
+using ITMS.Server.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -63,39 +64,45 @@ public class DeviceLogController : ControllerBase
             return StatusCode(500, new { Message = "Internal Server Error" });
         }
     }
+    //, 
+    [HttpPost("employeeLog")]
+    public IActionResult GetDevicesLogs(Guid employeeId, Guid locationName)
+    {
+        var groupedLogs = _context.DevicesLogs
+            .Include(dl => dl.UpdatedByNavigation)
+            .Where(dl => (dl.UpdatedBy == employeeId) &&(dl.DeviceId != null ? dl.Device.LocationId == locationName : dl.SoftwareAllocationNavigation.LocationId == locationName))
+            .OrderByDescending(dl => dl.UpdatedAtUtc)
+            .GroupBy(dl => dl.UpdatedAtUtc.Date)
+                          .Select(dl => new 
+                          {
+                              UpdatedDate = dl.Key,
+                              Logs = dl.Select(s => new singleLog
+                              {
+                                  CYGID = s.DeviceId != null ? s.Device.Cygid : null,
 
-    //[HttpPost("employeeLog")]
-    //public IActionResult GetDevicesLogs(Guid employeeId, string location)
-    //{
-    //    // Retrieve DevicesLog data based on EmployeeId and Location
-    //    var devicesLogs = _context.DevicesLogs
-    //        .Where(dl => dl.EmployeeId == employeeId && dl.Device.Location.Location1 == location)
-    //        .OrderBy(dl => dl.CreatedAtUtc) // Assuming logs are ordered by CreatedAtUtc
-    //        .ToList();
+                                  UpdatedBy = s.UpdatedByNavigation.FirstName + " " + s.UpdatedByNavigation.LastName != null ? s.UpdatedByNavigation.LastName : null,
 
-    //    // Group the logs by date
-    //    var groupedLogs = devicesLogs.GroupBy(dl => dl.CreatedAtUtc.Date);
+                                  SubmittedTo = s.RecievedBy != null ? _context.Employees
+                                              .Where(e => (e.Id == s.RecievedBy) && (s.DeviceId != null ? s.Device.LocationId == locationName : s.SoftwareAllocationNavigation.LocationId == locationName))
+                                              .Select(e => e.FirstName + " " + e.LastName)
+                                              .FirstOrDefault() : null,
 
-    //    // Create a list to hold the formatted logs
-    //    var formattedLogs = new List<string>();
+                                  AssignedTo = s.EmployeeId != null ? _context.Employees
+                                              .Where(e => (e.Id == s.EmployeeId) && (s.DeviceId != null ? s.Device.LocationId == locationName : s.SoftwareAllocationNavigation.LocationId == locationName))
+                                              .Select(e => e.FirstName + " " + e.LastName)
+                                              .FirstOrDefault() :
+                                              null,
 
-    //    // Format each group of logs
-    //    foreach (var group in groupedLogs)
-    //    {
-    //        // Format the date
-    //        string formattedDate = group.Key.ToString("MM-dd-yyyy");
-    //        formattedLogs.Add(formattedDate);
+                                  SoftwareName = s.SoftwareAllocation != null ? s.SoftwareAllocationNavigation.Software.SoftwareName : null,
 
-    //        // Format each log entry
-    //        foreach (var logEntry in group)
-    //        {
-    //            string formattedTime = logEntry.CreatedAtUtc.ToString("hh:mm tt");
-    //            //string logInfo = $"{formattedTime}\n{logEntry.Device.DeviceModel.DeviceName} has been {logEntry.Action.ActionName.ToLower()} by {logEntry.AssignedByNavigation.FullName}";
-    //            formattedLogs.Add(logInfo);
-    //        }
-    //    }
+                                  Category = s.DeviceId != null ? s.Device.DeviceModel.Category.Name : null,
+                                  Action = s.Action.ActionName,
+                                  UpdatedOn = s.UpdatedAtUtc,
+                              })
+                          })
+       .ToList();
 
-    //    return Ok(formattedLogs);
-    //}
+        return Ok(groupedLogs);
+    }
 
 }
