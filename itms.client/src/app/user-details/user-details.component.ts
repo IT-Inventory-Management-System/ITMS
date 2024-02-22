@@ -13,6 +13,8 @@ export class UserDetailsComponent {
   @Input() laptopDetails: any;
   @Input() softwareDetails: any;
   @Input() accessoriesDetails: any;
+  showRevokeAlert: { [userId: string]: boolean } = {};
+  showAssignAsset: boolean = true;
 
   constructor(private displayingDetailsService: DisplayDetailsService, private employeeService: EmployeeService) {
    
@@ -21,12 +23,27 @@ export class UserDetailsComponent {
   ngOnInit(): void {
     this.showUserDetails();
 
-  
+    if (this.userDetails) {
+      this.userDetails.forEach((user: { id: string | number; }) => {
+        this.showRevokeAlert[user.id] = false;
+      });
+    }
     
   }
   showUserDetails() {
 
   }
+
+  onInitiateExitProcess(userId: string) {
+    this.showRevokeAlert[userId] = true;
+    this.showAssignAsset = false; 
+  }
+
+  onRetrieveExitProcess(userId: string) {
+    this.showRevokeAlert[userId] = false;
+    this.showAssignAsset = true; 
+  }
+
   isOptionsVisible: boolean = false;
 
   

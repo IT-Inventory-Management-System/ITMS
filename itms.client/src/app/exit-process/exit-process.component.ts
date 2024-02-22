@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-exit-process',
@@ -6,8 +6,21 @@ import { Component } from '@angular/core';
   styleUrls: ['./exit-process.component.css']
 })
 export class ExitProcessComponent {
+  @Input() userId: any;
+  @Input() firstName: any;
+  @Input() lastName: any;
+  @Input() cgiid: any;
+  @Input() laptopDetails: any;
+  @Input() accessoriesDetails: any;
 
-  closeForm(): void {
-    
+  @Output() initiateExitProcess: EventEmitter<void> = new EventEmitter<void>();
+
+  constructor() { }
+
+  onInitiateExitProcess() {
+    this.initiateExitProcess.emit();
   }
+  //closeForm(): void {
+    
+  //}
 }

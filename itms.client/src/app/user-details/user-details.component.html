@@ -1,7 +1,7 @@
 
 <app-assign-asset></app-assign-asset>
-<app-exit-process></app-exit-process>
-<app-confirmation-modal></app-confirmation-modal>
+<app-exit-process (initiateExitProcess)="onInitiateExitProcess(userDetails.id)" [laptopDetails]="laptopDetails"[accessoriesDetails]="accessoriesDetails" [userId]="userDetails?.id" [firstName]="userDetails?.firstName" [lastName]="userDetails?.lastName" [cgiid]="userDetails?.cgiid"></app-exit-process>
+<app-confirmation-modal [userId]="userDetails?.id" [firstName]="userDetails?.firstName" [lastName]="userDetails?.lastName" [cgiid]="userDetails?.cgiid"></app-confirmation-modal>
 
 <div class="page-container">
 
@@ -30,28 +30,28 @@
             <img src="../../../../assets/icons/Chevron down.svg" />
           </button>
 
-          <!--<div class="assign" data-bs-toggle="modal" data-bs-target="#assignAssetModal"><button class="assign-button"><img src="../../assets/icons/Add.svg" /><div class="ass">Assign</div></button></div>-->
+          
           <div *ngIf="isOptionsVisible" class="additional-options position-absolute ">
-            <div class="dropdown-both dropdown-btn" (click)="isOptionsVisible = !isOptionsVisible" data-bs-toggle="modal" data-bs-target="#assignAssetModal">
+            <div class="dropdown-both dropdown-btn"  [ngClass]="{ 'disabled': !showAssignAsset }" [attr.disabled]="!showAssignAsset ? true : null" (click)="isOptionsVisible = !isOptionsVisible" data-bs-toggle="modal" data-bs-target="#assignAssetModal">
               <img src="../../../../assets/icons/laptop-solid 2 (1).svg" />
               Assign Assets
             </div>
-            <div class="dropdown-both dropdown-btn exit-process-text" (click)="isOptionsVisible = !isOptionsVisible" data-bs-toggle="modal" data-bs-target="#confirmationModal">
+            <div class="dropdown-both dropdown-btn exit-process-text" *ngIf="!showAssignAsset" (click)="isOptionsVisible = !isOptionsVisible;onRetrieveExitProcess(userDetails.id)">
+              
+              Retrieve Exit Process
+            </div>
+            <div class="dropdown-both dropdown-btn exit-process-text" *ngIf="showAssignAsset" (click)="isOptionsVisible = !isOptionsVisible" data-bs-toggle="modal" data-bs-target="#confirmationModal">
               <img src="../../../../assets/icons/Clip path group.svg" />
               Initiate Exit Process
             </div>
           </div>
         </div>
-
-        <!--<app-assign-asset></app-assign-asset>
-      <div class="assign" data-bs-toggle="modal" data-bs-target="#assignAssetModal"><button class="assign-button"><img src="../../assets/icons/Add.svg" /><div class="ass">Assign</div></button></div>-->
-        <!--<app-sample-modal [userId]="userDetails?.id" [firstName]="userDetails?.firstName" [lastName]="userDetails?.lastName" [cgiid]="userDetails?.cgiid"></app-sample-modal>-->
       </div>
 
     </div>
-    <div class="revoke-alert">
-      <img src="../../assets/icons/Vector-red.svg"/>
-      <p>Exit process initiated and all the assets information has been sent to the user.</p>
+    <div class="revoke-alert" *ngIf="showRevokeAlert[userDetails?.id]">
+      <img class="alert-revoke-img" src="../../assets/icons/Vector-red.svg"/>
+      <p class="exit-pro-text">Exit process initiated and all the assets information has<br /> been sent to the user.</p>
       <div class="btn btn-revoke" data-bs-toggle="modal" data-bs-target="#revokeAllModal">
         <img src="../../assets/icons/Revoke.svg" />
         <p class="revoke-btn-text">Revoke all items</p>

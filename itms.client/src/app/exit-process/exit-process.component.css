@@ -28,7 +28,7 @@
   font-size: 0.875rem;
   font-style: normal;
   font-weight: 500;
-  line-height: 1rem; /* 114.286% */
+  line-height: 1rem;  
 }
 .exit-process-text{
     color:red !important;
@@ -42,10 +42,10 @@
   font-size: 1.125rem;
   font-style: normal;
   font-weight: 600;
-  line-height: 2rem; /* 177.778% */
+  line-height: 2rem;  
 }
 .modal-header{
-    padding:1rem 1.5rem 0..25rem 1.5rem;
+    padding:1rem 1.5rem 0.25rem 1.5rem;
 }
 .close-button {
   border: none;
@@ -178,7 +178,7 @@
   font-size: 0.75rem;
   font-style: normal;
   font-weight: 400;
-  line-height: 1rem; /* 133.333% */
+  line-height: 1rem;  
   border-radius: 0.25rem;
   background: #BFE6FB;
 }

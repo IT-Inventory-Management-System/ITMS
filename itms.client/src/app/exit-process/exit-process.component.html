@@ -1,10 +1,14 @@
-<div class="modal main fade" id="exitProcessModal" role="dialog" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal main fade" id="exitProcessModal" role="dialog" tabindex="-1" aria-labelledby="exitProcessModal" aria-hidden="true">
+
   <div class="modal-dialog">
-    <div class="modal-content ">
+
+    <div class="modal-content">
+
       <div class="modal-header ">
         <h1 class="modal-title">Initiate Exit Process</h1>
-        <button type="button" class="close-button" data-bs-dismiss="modal" aria-label="Close" (click)="closeForm()"><img src="../../../../assets/icons/Close.svg" /></button>
+        <button type="button" class="close-button" data-bs-dismiss="modal" aria-label="Close"><img src="../../../../assets/icons/Close.svg" /></button>
       </div>
+
       <div class="modal-body">
         <div class="alert-box">
           <div class="alert-image-frame">
@@ -16,81 +20,99 @@
 
         </div>
         <div class="user-details">
-          <ngx-avatars class="avatar" name="Marvin McKinney" [textSizeRatio]=2.7 bgColor="#b8dde1" fgColor="#264f9d" [round]="true"></ngx-avatars>
+          <ngx-avatars name="{{firstName}} {{lastName}}" [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="33"></ngx-avatars>
           <div class="user-name-details">
-            <div class="user-name">Marvin McKinney</div>
-            <div class="user-id">CGI 098</div>
+            <div class="user-name">{{firstName}} {{lastName}}</div>
+            <div class="user-id">{{cgiid}}</div>
           </div>
         </div>
 
         <div class="device-details">
-          <div class="details-subheading">
-            Assigned Laptop
-          </div>
-          <div class="details">
-            <div class="device-model">
-              <div class="details-icon"><img src="../../assets/icons/laptop-small.svg" /></div>
-              <div class="details-text">Dell Precision 3470</div>
-            </div>
-            <div class="device-model">
-              <div class="details-icon"><img src="../../assets/icons/Windows-small.svg"></div>
-              <div class="details-text">Windows</div>
-            </div>
-            <div class="device-model">
-              <div class="details-icon"><img src="../../assets/icons/processor.svg"></div>
-              <div class="details-text">12th Gen Intel(R) Core(TM) i7-1270P   2.20 GHz</div>
-            </div>
-            <div class="same-row-details">
-              <div class="device-model-same-row">
-                <div class="details-icon"><img src="../../assets/icons/storage.svg" /></div>
-                <div class="details-text">16 GB</div>
-              </div>
-              <div class="device-model">
-                <div class="details-icon-same-row"><img src="../../assets/icons/disk.svg"></div>
-                <div class="details-text">512 GB</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="accessories-details">
-          <div class="details-subheading">
-            Assigned Accessories
-          </div>
-          <div class="accessories-model-details">
-            <div class="accessories-model">
-              <div class="details-icon"><img src="../../assets/icons/bag-small.svg"></div>
-              <div class="accessories-details-text">Bag</div>
-            </div>
-            <div class="accessories-model">
-              <div class="details-icon"><img src="../../assets/icons/hdmi-small.svg"></div>
-              <div class="accessories-details-text">HDMI Cable</div>
-            </div>
 
-          </div>
-          <div class="accessories-model-details">
-            <div class="accessories-model">
-              <div class="details-icon"><img src="../../assets/icons/mouse-small.svg"></div>
-              <div class="accessories-details-text">Mouse</div>
+          <div *ngFor="let laptop of laptopDetails">
+            <div *ngIf="laptop.submitedBy === null">
+              <div class="details-subheading">
+                Assigned Laptop
+              </div>
+              <div class="details">
+                <div class="device-model">
+                  <div class="details-icon"><img src="../../assets/icons/laptop-small.svg" /></div>
+                  <div class="details-text">{{laptop.model}}</div>
+                </div>
+                <div class="device-model">
+                  <div class="details-icon"><img src="../../assets/icons/Windows-small.svg"></div>
+                  <div class="details-text">{{laptop.osName}}</div>
+                </div>
+                <div class="device-model">
+                  <div class="details-icon"><img src="../../assets/icons/processor.svg"></div>
+                  <div class="details-text">{{laptop.processor}}</div>
+                </div>
+                <div class="same-row-details">
+                  <div class="device-model-same-row">
+                    <div class="details-icon"><img src="../../assets/icons/Storage.svg" /></div>
+                    <div class="details-text">{{laptop.ram}}</div>
+                  </div>
+                  <div class="device-model">
+                    <div class="details-icon-same-row"><img src="../../assets/icons/disk.svg"></div>
+                    <div class="details-text">{{laptop.storage}}</div>
+                  </div>
+                </div>
+              </div>
+
             </div>
-            <div class="accessories-model">
-              <div class="details-icon"><img src="../../assets/icons/keyboard-small.svg"></div>
-              <div class="accessories-details-text">Keyboard</div>
+          </div>
+
+          <div *ngFor="let accessory of accessoriesDetails">
+            <div *ngIf="accessory.submittedBy === null">
+              <div class="accessories-details">
+                <div class="details-subheading">
+                  Assigned Accessories
+                </div>
+                <div class="accessories-model-details">
+                  <div class="accessories-model">
+                    <div class="details-icon"><img src="../../assets/icons/bag-small.svg"></div>
+                    <div class="accessories-details-text">{{accessory.categoryName}}</div>
+                    <div class="accessories-details-text">{{accessory.assignedDate | date: 'MM-dd-yyyy'}}</div>
+                  </div>
+
+                </div>
+
+              </div>
             </div>
           </div>
         </div>
+
         <div class="alert-box-bottom">
           <img src="../../assets/icons/Vector.svg">
           This information will be sent to the user through an email
         </div>
 
+      </div>
 
-        <div class="footer">
-          <div class="btn btn-cancel">Cancel</div>
-          <div class="btn btn-initiate">Initiate</div>
-        </div>
-
+      <div class="modal-footer">
+        <div class="btn btn-cancel" data-bs-dismiss="modal">Cancel</div>
+        <div class="btn btn-initiate" (click)="onInitiateExitProcess()" data-bs-dismiss="modal">Initiate</div>
       </div>
 
     </div>
+
+  </div>
 </div>
-</div>
+
+<!--<div class="modal fade" tabindex="-1" id="exitProcessModal" aria-labelledby="exitProcessModal" aria-hidden="true" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Modal body text goes here.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary"  data-bs-dismiss="modal">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>-->
