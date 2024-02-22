@@ -95,6 +95,8 @@ import { AdminListPanelComponent } from './manage-access/admin-list-panel/admin-
 import { AdminPermissionsPanelComponent } from './manage-access/admin-permissions-panel/admin-permissions-panel.component';
 import { AdminNameCardComponent } from './shared/components/admin-name-card/admin-name-card.component';
 import { AssignRoleModalComponent } from './manage-access/assign-role-modal/assign-role-modal.component';
+import { AddMonitorFormComponent } from './add-asset/add-monitor-form/add-monitor-form.component';
+import { AddMonitorBrandFormComponent } from './add-asset/add-monitor-form/add-monitor-brand-form/add-monitor-brand-form.component';
 
 
 
@@ -186,7 +188,9 @@ import { AssignRoleModalComponent } from './manage-access/assign-role-modal/assi
     AdminListPanelComponent,
     AdminPermissionsPanelComponent,
     AdminNameCardComponent,
-    AssignRoleModalComponent
+    AssignRoleModalComponent,
+    AddMonitorFormComponent,
+    AddMonitorBrandFormComponent
 
 
   ],

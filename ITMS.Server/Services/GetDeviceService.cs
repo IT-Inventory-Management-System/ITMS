@@ -7,6 +7,7 @@ namespace ITMS.Server.Services
     public interface IGetDeviceService
     {
         Task<IEnumerable<GetDeviceDTO>> listDevices(Guid locationId);
+        Task<IEnumerable<getcommentDTO>> listAllComments(Guid deviceId);
         Task<IEnumerable<GetDeviceDTO>> CheckDeviceStatus(String CYGID);
     }
 
@@ -58,6 +59,8 @@ namespace ITMS.Server.Services
             return result;
         }
 
+
+
         public async Task<IEnumerable<GetDeviceDTO>> CheckDeviceStatus(String CYGID)
         {
             var result = await (from d in _context.Devices
@@ -70,6 +73,32 @@ namespace ITMS.Server.Services
                                 }).ToListAsync();
             return result;
         }
+
+        public async Task<IEnumerable<getcommentDTO>> listAllComments(Guid deviceId)
+        {
+
+            var result = await(from d in _context.Comments
+                               join deviceLog in _context.DevicesLogs on d.DeviceLogId equals deviceLog.Id into deviceLogGroup
+                               from deviceLog in deviceLogGroup.DefaultIfEmpty()
+                               where deviceLog.DeviceId == deviceId  
+                               orderby d.CreatedAtUtc ascending
+                               select new getcommentDTO
+                               {
+                                   Description = d.Description,
+                                   CreatedAtUtc = d.CreatedAtUtc,
+                                   ActionId = deviceLog.ActionId,
+                                   EmployeeId = deviceLog.EmployeeId,
+                                   AssignedBy = deviceLog.AssignedBy,
+                                   ReceivedBy = deviceLog.RecievedBy
+                               }
+                               ).ToListAsync();
+            return result;
+
+
+
+        }
+
     }
+
 }
 
