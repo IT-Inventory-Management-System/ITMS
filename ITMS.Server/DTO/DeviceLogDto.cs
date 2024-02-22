@@ -96,4 +96,11 @@ public class singleLog
     public string? SoftwareName { get; set; }
 }
 
+public class adminHistoryParamsDTO
+{
+    public string employeeId { get; set; }
+    public string locationName { get; set; }
+
+}
+
 
