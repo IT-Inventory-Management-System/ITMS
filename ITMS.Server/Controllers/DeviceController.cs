@@ -144,7 +144,7 @@ namespace itms.server.controllers
         }
 
         [HttpPost("updateDeviceStatus")]
-        public async Task<IActionResult> UpdateDeviceStatus([FromBody]ArchiveDto archiveDto)
+        public async Task<IActionResult> UpdateDeviceStatus([FromBody] ArchivedoneDto archiveDto)
         {
             try
             {
@@ -167,7 +167,7 @@ namespace itms.server.controllers
         }
     
     [HttpPost("updateDeviceStatustoNotassigned")]
-    public async Task<IActionResult> UpdateDeviceStatustoNotassigned([FromBody] ArchiveDto archiveDto)
+    public async Task<IActionResult> UpdateDeviceStatustoNotassigned([FromBody] ArchivedoneDto archiveDto)
     {
         try
         {

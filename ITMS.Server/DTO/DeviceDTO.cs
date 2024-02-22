@@ -80,11 +80,20 @@ namespace ITMS.Server.DTO
     public class ArchiveDto
     {
         public string? Cygid { get; set; }
+
+      
     }
 
     public class ProcessorDto
     {
         public string Name { get; set; }
     }
+    public class ArchivedoneDto
+    {
+        public string? Cygid { get; set; }
 
+        public Guid CreatedBy { get; set; }
+        public Guid? UpdatedBy { get; set; }
+        public string? Description { get; set; }
+    }
 }
