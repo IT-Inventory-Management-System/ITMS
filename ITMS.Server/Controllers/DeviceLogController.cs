@@ -66,8 +66,11 @@ public class DeviceLogController : ControllerBase
     }
     //, 
     [HttpPost("employeeLog")]
-    public IActionResult GetDevicesLogs(Guid employeeId, Guid locationName)
+    public IActionResult GetDevicesLogs([FromBody] adminHistoryParamsDTO adminHistoryParams)
     {
+        var employeeId = Guid.Parse(adminHistoryParams.employeeId);
+        var locationName = Guid.Parse(adminHistoryParams.locationName);
+
         var groupedLogs = _context.DevicesLogs
             .Include(dl => dl.UpdatedByNavigation)
             .Where(dl => (dl.UpdatedBy == employeeId) &&(dl.DeviceId != null ? dl.Device.LocationId == locationName : dl.SoftwareAllocationNavigation.LocationId == locationName))

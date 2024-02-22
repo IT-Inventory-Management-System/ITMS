@@ -1,10 +1,15 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminDetailService {
+  constructor(private http: HttpClient) { }
+
+  private apiUrl = 'https://localhost:7283/api/';
 
   private selectedCardIndexSubject = new BehaviorSubject<number>(0);
   selectedCardIndex$ = this.selectedCardIndexSubject.asObservable();
@@ -19,4 +24,14 @@ export class AdminDetailService {
   setSelectedAdmin(admin: any) {
     this.selectedAdminSubject.next(admin);
   }
+
+  getLogs(employeeId: any, locationName: any): Observable<any | null> {
+    const params = {
+      employeeId: employeeId,
+      locationName: locationName,
+    };
+
+    return this.http.post<any | null>(this.apiUrl + 'DeviceLog/employeeLog', params );
+  }
+
 }

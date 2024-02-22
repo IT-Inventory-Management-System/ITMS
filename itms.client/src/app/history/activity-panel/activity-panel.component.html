@@ -23,16 +23,20 @@
     </div>
  </div>
   <div class="filtersection">
-    <div class="logs-details">
+    <div class="logs-details" *ngFor="let logEntry of admindata">
       <div class="date">
         <img src="../../../assets/icons/calendar.svg" />
-        <span class="date-text">12-12-2024</span>
+        <span class="date-text">{{ logEntry.updatedDate | date: 'dd-MM-yyyy' }}</span>
       </div>
-      <div class="log">
+      <div class="log"*ngFor="let log of logEntry.logs">
         <div class="detail-section">
-          <span class="time">10.30 AM</span>
+          <span class="time">{{ log.updatedOn | date: 'hh:mm a' }}</span>
           <span class="detail">
-            <span class="cyg-name">CYG 761</span> has been submitted by <span class="cyg-name">Kylee lee</span>
+            <span class="cyg-name">{{log.cygid}}</span> has been
+            <span *ngIf="log.action === 'create'">created</span>
+            <span *ngIf="log.action === 'update'">updated</span>
+            <span *ngIf="log.action === 'delete'">deleted</span>
+            by <span class="cyg-name">{{ log.updatedBy }}</span>
           </span>
         </div>
       </div>
