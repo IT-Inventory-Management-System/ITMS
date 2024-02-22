@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-software-assign-history',
@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./software-assign-history.component.css']
 })
 export class SoftwareAssignHistoryComponent {
-
+  @Input() historyData: any;
 }

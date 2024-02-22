@@ -16,12 +16,12 @@
     <div class="status-container">
       <div class="status-info">
         <span class="status-label">Status</span>
-        <span class="status-value">{{deviceDetails?.status?.type}}</span>
+        <!--<span class="status-value">{{deviceDetails?.status?.type}}</span>-->
       </div>
     </div>
-    <div class="button-container">
+    <!--<div class="button-container">
 
-      <button class="custom-button" type="button" *ngIf="!isArchived && deviceDetails?.status?.type!=='Discarded'" data-toggle="modal" data-target="#exampleModal">
+      <button class="custom-button" type="button" *ngIf="!isArchived && deviceDetails?.status?.type!=='Discarded'" data-toggle="modal" data-target="#exampleModa">
         <img src="../../assets/icons/archive.svg" />
         Archive
       </button>
@@ -29,9 +29,16 @@
         <img src="../../assets/icons/archive.svg" />
         Unarchive
       </button>
-    </div>
+    </div>-->
+    
   </div>
-  <div class="age mb-3">
+  <ng-select>
+    <ng-option>Archieve</ng-option>
+    <ng-option>Unassignable</ng-option>
+    <ng-option>Unarchieve</ng-option>
+  </ng-select>
+
+  <div class="age">
     <span class="half-asset">
       <img class="asset-image" src="../../assets/icons/assetAge.svg" />
       <span class="asset-age">Asset Age</span>

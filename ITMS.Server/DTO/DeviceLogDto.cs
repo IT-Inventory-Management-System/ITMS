@@ -7,6 +7,7 @@ public class DevicelogDto
 {
     public Guid Id { get; set; }
     public string? Cygid { get; set; }
+    public string? status { get; set; }
 
     public Guid DeviceId { get; set; }
     public Guid UserId { get; set; }
@@ -38,7 +39,7 @@ public class OperatingDto
 public class CommentDto
 {
     public Guid Id { get; set; }
-    public Guid DeviceLogId { get; set; }
+    public Guid? DeviceLogId { get; set; }
     public string Description { get; set; }
     public string CreatedBy { get; set; }
 
@@ -84,5 +85,17 @@ public class CategoryTypeWithCategoriesDTO
 }
 
 
+//public class logDTO
+//{
+//    public Guid DeviceId { get; set; }
+//    public Guid createdBy { get; set; }
+//    public Guid updatedbyBy { get; set; }
+//    public DateTime CreatedAt { get; set;}
+//    public DateTime updatedAt { get; set; }
+//    public Guid actionId { get; set; }
 
+
+
+
+//}
 

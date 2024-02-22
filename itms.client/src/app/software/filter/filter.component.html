@@ -1,0 +1,91 @@
+<div class="modal fade " id="filterModal">
+  <div class="filtersection">
+    <div class="tab">
+      <div class="filtertab">
+        <img src="../../../assets/icons/Software/Filter-black.svg" />
+        <div class="filtertext">Filter</div>
+        <img src="../../../assets/icons/Close.svg" style="margin-left:14rem;" data-bs-dismiss="modal" />
+      </div>
+    </div>
+
+  </div>
+  <div class="criteria">
+    <div class="criteria-text">
+      <span class="text">Refine the assets by implementing specific criteria.</span>
+    </div>
+
+    <app-accordion>
+      <app-accordion-item title="SoftwareType">
+        <div class="filter-checkbox-outer">
+          <div *ngFor="let status of SoftwareType" class="filter-checkbox">
+            <input class="filter-checkbox-input" type="checkbox" id="{{status}}" (change)="toggleCheckboxType(status)">
+            <label class="filter-checkbox-label" for="{{status}}">
+              <img *ngIf="type === status" src="../../../../../assets/icons/checkbox-checked.svg" />
+              <img *ngIf="type !== status" src="../../../../../assets/icons/checkbox-unchecked.svg" />
+              <span>{{status}}</span>
+            </label>
+          </div>
+        </div>
+      </app-accordion-item>
+      <app-accordion-item title="SoftwareStatus">
+        <div class="filter-checkbox-outer">
+          <div *ngFor="let status of SoftwareStatus" class="filter-checkbox">
+            <input class="filter-checkbox-input" type="checkbox" id="{{status}}" (change)="toggleCheckboxStatus(status)">
+            <label class="filter-checkbox-label" for="{{status}}">
+              <img *ngIf="stat === status" src="../../../../../assets/icons/checkbox-checked.svg" />
+              <img *ngIf="stat !== status" src="../../../../../assets/icons/checkbox-unchecked.svg" />
+              <span>{{status}}</span>
+            </label>
+          </div>
+        </div>
+      </app-accordion-item>
+      <app-accordion-item title="StockStatus">
+        <div class="filter-checkbox-outer">
+          <div *ngFor="let status of StockStatus" class="filter-checkbox">
+            <input class="filter-checkbox-input" type="checkbox" id="{{status}}" (change)="toggleCheckboxStock(status)">
+            <label class="filter-checkbox-label" for="{{status}}">
+              <img *ngIf="stock === status" src="../../../../../assets/icons/checkbox-checked.svg" />
+              <img *ngIf="stock !== status" src="../../../../../assets/icons/checkbox-unchecked.svg" />
+              <span>{{status}}</span>
+            </label>
+          </div>
+        </div>
+      </app-accordion-item>
+
+      <app-accordion-item title="Date of Purchase">
+        <div class="filter-checkbox-outer">
+          <div class="date-filter-outer">
+            <div class="date-filter">
+              <input #fromInput id="from" type="text" placeholder="From Date" (focus)="toggleInputType('date')" (blur)="toggleInputType('text')" (blur)="toggleCheckboxFrom(fromInput.value)" />
+              <img src="../../../../../assets/icons/calendar.svg" />
+            </div>
+          </div>
+          <div class="date-filter-outer">
+            <div class="date-filter">
+              <input #toInput id="to" type="text" placeholder="To Date" (focus)="toggleInputTypeTo('date')" (blur)="toggleInputTypeTo('text')" (blur)="toggleCheckboxTo(toInput.value)" />
+              <!--<input type="text" placeholder="To Date" onfocus="(this.type='date')" onblur="(this.type='text')" />-->
+              <img src="../../../../../assets/icons/calendar.svg" />
+            </div>
+          </div>
+        </div>
+      </app-accordion-item>
+
+    </app-accordion>
+
+  </div>
+  <div class="filter-footer">
+    <div class="save-cancel-button">
+      <button type="button" class="filter-cancel-button" data-bs-dismiss="modal"><span>Cancel</span></button>
+      <button type="button" class="filter-save-button" (click)="Apply()" data-bs-dismiss="modal"><span>Apply</span></button>
+    </div>
+  </div>
+
+
+
+
+
+  <div class="modal-dialog">
+  </div>
+
+
+</div>

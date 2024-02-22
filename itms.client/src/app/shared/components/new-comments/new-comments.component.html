@@ -26,13 +26,14 @@
       <app-single-comment></app-single-comment>
       <app-single-comment></app-single-comment>
       <app-single-comment></app-single-comment>
+
     </div>
   </div>
 
-  <div class="input-comment">
-      <input type="text" class="cbox" placeholder="Add Comment..." />
-      <button class="submit-button">Save</button>
-  </div>
+  <form class="input-comment" [formGroup]="deviceForm">
+      <input type="text" class="cbox" placeholder="Add Comment..."  formControlName="description"/>
+      <button class="submit-button" data-bs-dismiss="modal" (click)="onSubmit()">Save</button>
+  </form>
 
 
   <div class="modal-dialog">

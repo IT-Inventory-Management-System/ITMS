@@ -178,7 +178,7 @@
 
 
                   <div class="row" *ngFor="let logs of logsData; let i = index">
-                    <div class="Date p-0" *ngIf="isDateDifferent(i) && selectedLocation === logs.location">
+                    <div class="Date p-0" *ngIf="isDateDifferent(i)">
                       <hr class="h-line">
                       <div class="Date-content">
                         <img src="../../../assets/icons/dashboard/CalendarBlank.svg" />
@@ -189,7 +189,7 @@
                       <hr class="h-line">
 
                     </div>
-                    <app-recent-activity class="p-0"  *ngIf="selectedLocation === logs.location" [logsData]="logs" ></app-recent-activity>
+                    <app-recent-activity class="p-0"   [logsData]="logs" ></app-recent-activity>
 
 
                   </div>

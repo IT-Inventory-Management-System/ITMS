@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { DevicesComponent } from './devices/devices.component';
 import { ColDef } from 'ag-grid-community';
 import * as XLSX from 'xlsx';
+import { MyCellComponent } from '../../../shared/components/my-cell/my-cell.component';
+import { SelectedCountryService } from '../../../shared/services/selected-country.service';
 
 @Component({
   selector: 'app-assest',
@@ -13,21 +15,45 @@ import * as XLSX from 'xlsx';
 export class AssestComponent {
   isArchived: boolean = false;
   selectedItem: any;
+  locationId: string = '';
+
   selectedView: string = 'card';
   deviceData: any[] = [];
   rowData: any[] = [];
+  searchValue: string = '';
 
-  ngOnInit(): void {
-    this.loadDeviceData();
-  }
+
 
   @ViewChild('appDevices') appDevices: DevicesComponent;
-  constructor(private deviceService: DataService) { }
+  constructor(private deviceService: DataService, private dataService: DataService, private selectedCountryService: SelectedCountryService) { }
+  getDeviceLocation() {
+    this.dataService.getLocation().subscribe(
+      (data) => {
+        for (var i = 0; i < data.length; i++) {
+          if (data[i].type == localStorage.getItem('selectedCountry')) {
+            this.locationId = data[i].id;
+            //alert(this.locationId);
+            this.loadDeviceData();
+            break;
+          }
+        }
+      },
+      (error) => {
+        console.log("User not found");
+      });
+  }
+  ngOnInit(): void {
+    //this.loadDeviceData();
+    this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
+      localStorage.setItem('selectedCountry', selectedCountry);
+      this.getDeviceLocation();
+    });
+  }
 
-    dropdownItems = [
+  dropdownItems = [
     { id: "Windows", name: 'Windows Laptop' },
     { id: "Mac", name: 'Macbook' },
-   
+
   ];
 
   onCheckboxChange(event: any) {
@@ -38,9 +64,14 @@ export class AssestComponent {
     }
   }
 
+
   loadDeviceData() {
-    this.deviceService.getDevicesCyg().subscribe(
+    this.deviceService.getDevicesCyg(this.locationId).subscribe(
+      
       (data) => {
+        console.log(this.locationId);
+        //alert(this.locationId);
+        console.log(data);
         this.deviceData = data;
         console.log('All Device Data', data);
         this.setRowData();
@@ -53,17 +84,12 @@ export class AssestComponent {
   }
 
   setRowData() {
+    
+    this.rowData = [];
     for (var i = 0; i < this.deviceData.length; i++) {
 
-      let statusHTML = '';
-      if (this.deviceData[i].status === 'Assigned') {
-        statusHTML = '<div class="assigned-status">Assigned</div>';
-      } else if (this.deviceData[i].status === 'Not Assigned') {
-        statusHTML = '<div class="not-assigned-status">Not Assigned</div>';
-      }
-
       this.rowData[i] = {
-        "SNo": i+1,
+        "SNo": i + 1,
         "Brand": this.deviceData[i].brand,
         "Operating System": this.deviceData[i].os,
         "Model No": this.deviceData[i].modelNo,
@@ -80,7 +106,7 @@ export class AssestComponent {
         "Warranty (in Years)": this.deviceData[i].warrantyDate,
         "Assigned To": this.deviceData[i].assignedToName,
         "Assigned Date": this.deviceData[i].assignedDate,
-        "Device Status": statusHTML,
+        "Device Status": this.deviceData[i].status,
         "Action": '-',
         //"Stock Status": '-'
       }
@@ -88,38 +114,9 @@ export class AssestComponent {
     }
   }
 
-  //rowData = [
-  //  {
-  //    " ": " ",
-  //    "Brand": "hello00",
-  
-  //  },
-  //  {
-  //    " ": " ",
-  //    "Brand": "hello",
-  //    "Operating System": "macOS Monterey",
-      
-  //    "Model No": "MacBook Pro",
-  //    "Processor": "Apple M1 Pro",
-  //    "Ram (GB)": "16GB",
-  //    "Storage": "1TB ",
-  //    "Serial No": "XYZ456",
-  //    "CYG ID": "1002",
-  //    "# Stock Count": 8,
-  //    "Date of Purchase": "2023-02-10",
-  //    "# Total": 8,
-  //    "# Assigned": 5,
-  //    "# Inventory": 3,
-  //    "Warranty (in Years)": 3,
-  //    "Assigned To": "Jane Smith",
-  //    "Assigned Date": "2023-02-15",
-  //    "Device Status": "Active",
-  //    "Action": "View",
-  //    "Stock Status": "In Stock"
-  //  },
-  //  // Add more entries as needed...
-  //];
-
+  onFilterTextBoxChanged() {
+    console.log('Searched Value : ', this.searchValue);
+  }
 
   // Column Definitions: Defines & controls grid columns.
   colDefs: ColDef[] = [
@@ -137,23 +134,6 @@ export class AssestComponent {
     },
     {
       field: "Operating System", width: 144, resizable: false, suppressMovable: true,
-      cellStyle: (params) => {
-    // Check if the value in "Operating System" column is equal to "Windows 10"
-    if (params.data && params.data['Operating System'] === 'Windows 10') {
-      return { 
-        "background-color": "green",
-        "color": "white", // Example color style
-        "padding": "10px",// Example padding style
-
-      };
-    } else {
-      return { 
-        "background-color": "black", 
-        "color": "white", // Example color style
-        "padding": "10px", // Example padding style
-      };
-    }
-  }
     },
     { field: "Model No", width: 164, resizable: false, suppressMovable: true, },
     { field: "Processor", width: 350, resizable: false, suppressMovable: true, },
@@ -169,7 +149,7 @@ export class AssestComponent {
     { field: "Warranty (in Years)", width: 152, resizable: false, suppressMovable: true, },
     { field: "Assigned To", width: 140, resizable: false, suppressMovable: true, },
     { field: "Assigned Date", width: 129, resizable: false, suppressMovable: true, },
-    { field: "Device Status", width: 119, resizable: false, suppressMovable: true, pinned: 'right' },
+    { field: "Device Status", width: 119, resizable: false, suppressMovable: true, pinned: 'right', cellRenderer: MyCellComponent },
     { field: "Action", width: 83, resizable: false, suppressMovable: true, },
     /* { field: "Stock Status", pinned: 'right', cellStyle: { 'border': 'none' }, width: 122, resizable: false, suppressMovable: true, }*/
 
