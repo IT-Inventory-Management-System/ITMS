@@ -29,8 +29,8 @@ export class SoftwareComponent implements OnInit {
   expiringtag: boolean = false;
   searchValue: string = '';
   archivedAttributes: any = {
-    type: '',
-    stock: '',
+    selectedType: [],
+    selectedStock: [],
     from: '',
     to: '',
   }
@@ -86,21 +86,19 @@ export class SoftwareComponent implements OnInit {
 
   onApplyClicked(eventData: any): void {
     console.log
-      (eventData);
+      ("event data", eventData);
     const fromDate = eventData.from ? eventData.from.toISOString().split('T')[0] : ''; // Convert From Date to string
     const toDate = eventData.to ? eventData.to.toISOString().split('T')[0] : '';
+
     const body:any = {
       location: this.selectedLocation,
       IsArchived: this.isArchived,
+      selectedType: eventData.selectedTypes,
+      selectedStock: eventData.selectedStock,
     }
-    if (eventData.type !== '') {
-      body.type = eventData.type;
-      this.archivedAttributes.type = eventData.type;
-    }
-    if (eventData.stock !== '') {
-      body.inStock = eventData.stock;
-      this.archivedAttributes.stock = eventData.stock;
-    }
+    this.archivedAttributes.selectedType = eventData.selectedTypes;
+    this.archivedAttributes.selectedStock = eventData.selectedStock;
+
     if (fromDate !== null) {
       body.From = fromDate;
       this.archivedAttributes.from = fromDate;

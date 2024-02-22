@@ -19,12 +19,12 @@ export class FilterComponent implements OnInit {
   @ViewChild('toInput') toInput!: ElementRef<HTMLInputElement>;
   @ViewChild('fromInput') fromInput!: ElementRef<HTMLInputElement>;
 
-  type: string = "";
   stat: string = "";
-  stock: string = "";
+  selectedStock: string[] = [];
   from: Date | null;
   to: Date | null;
   selectedLocation: any = '';
+  selectedTypes: string[] = [];
 
   constructor(private selectedCountryService: SelectedCountryService) { }
 
@@ -32,8 +32,8 @@ export class FilterComponent implements OnInit {
     this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
       localStorage.setItem('selectedCountry', selectedCountry);
       this.selectedLocation = selectedCountry;
-      this.type = '';
-      this.stock = '';
+      this.selectedTypes = [];
+      this.selectedStock = [];
       this.from = null;
       this.to = null;
       if (this.toInput) {
@@ -47,12 +47,28 @@ export class FilterComponent implements OnInit {
 
   }
 
+  isSelectedType(status: string): boolean {
+    return this.selectedTypes.includes(status);
+  }
 
+  toggleCheckboxType(status: string): void {
+    if (this.isSelectedType(status)) {
+      this.selectedTypes = this.selectedTypes.filter(type => type !== status);
+    } else {
+      this.selectedTypes.push(status);
+    }
+  }
 
+  isSelectedStock(status: string): boolean {
+    return this.selectedStock.includes(status);
+  }
 
-  toggleCheckboxType(status: string) {
-    this.type = (this.type === status) ? "" : status;
-    console.log(this.type);
+  toggleCheckboxStock(status: string): void {
+    if (this.isSelectedStock(status)) {
+      this.selectedStock = this.selectedStock.filter(stock => stock !== status);
+    } else {
+      this.selectedStock.push(status);
+    }
   }
 
   toggleCheckboxStatus(status: string) {
@@ -60,10 +76,6 @@ export class FilterComponent implements OnInit {
     console.log(this.stat);
   }
 
-  toggleCheckboxStock(status: string) {
-    this.stock = (this.stock === status) ? "" : status;
-    console.log(this.stock);
-  }
   toggleInputType(type: string) {
     const inputElement = document.querySelector('#from');
     if (inputElement) {
@@ -92,9 +104,9 @@ export class FilterComponent implements OnInit {
 
   Apply() {
     this.applyClicked.emit({
-      type: this.type,
+      selectedTypes: this.selectedTypes,
       stat: this.stat,
-      stock: this.stock,
+      selectedStock: this.selectedStock,
       from: this.from,
       to: this.to,
     });

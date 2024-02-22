@@ -389,7 +389,83 @@ namespace ITMS.Server.Services
             return true; // Update successful
         }
 
+        public List<IEnumerable<SoftwarePage>> CardFilter(List<IEnumerable<SoftwarePage>> allData, filterDto attri)
+        {
+            List<IEnumerable<SoftwarePage>> filteredData = new List<IEnumerable<SoftwarePage>>();
+
+            if (attri.location == "India")
+            {
+                List<SoftwarePage> India = allData[0].Where(s =>
+                     //(string.IsNullOrEmpty(attri.inStock) || (attri.inStock == "Low In Stock" && s.inStock <= 1) || (attri.inStock == "In Stock" && s.inStock > 1) || (attri.inStock == "Out Of Stock" && s.inStock == 0)) &&
+                     (attri.selectedType.Count == 0 || attri.selectedType.Contains(s.type)) &&
+                   (attri.From == null || s.purchaseDates.Any(pd => DateOnly.FromDateTime((DateTime)pd) >= attri.From)) &&
+(attri.To == null || s.purchaseDates.Any(pd => DateOnly.FromDateTime((DateTime)pd) <= attri.To))
+                ).ToList();
+
+                India = India.Where(s =>
+                {
+                    if (attri.selectedStock == null || attri.selectedStock.Count == 0)
+                        return true; 
+
+                    foreach (var stockOption in attri.selectedStock)
+                    {
+                        if (string.IsNullOrEmpty(stockOption))
+                            continue; 
+
+                        if ((stockOption == "Low In Stock" && s.inStock <= 1) ||
+                            (stockOption == "In Stock" && s.inStock > 1) ||
+                            (stockOption == "Out Of Stock" && s.inStock == 0))
+                        {
+                            return true; 
+                        }
+                    }
+
+                    return false; 
+                }).ToList();
+
+                filteredData.Add(India);
+                filteredData.Add(allData[1]);
+            }
+            else
+            {
+                var USA = allData[1].Where(s =>
+     (attri.selectedType.Count == 0 || attri.selectedType.Contains(s.type)) &&
+     (attri.From == null || s.purchaseDates.Any(pd => DateOnly.FromDateTime((DateTime)pd) >= attri.From)) &&
+(attri.To == null || s.purchaseDates.Any(pd => DateOnly.FromDateTime((DateTime)pd) <= attri.To))
+
+ ).ToList();
+
+                USA = USA.Where(s =>
+                {
+                    if (attri.selectedStock == null || attri.selectedStock.Count == 0)
+                        return true; 
+
+                    foreach (var stockOption in attri.selectedStock)
+                    {
+                        if (string.IsNullOrEmpty(stockOption))
+                            continue; 
+
+                        if ((stockOption == "Low In Stock" && s.inStock <= 1) ||
+                            (stockOption == "In Stock" && s.inStock > 1) ||
+                            (stockOption == "Out Of Stock" && s.inStock == 0))
+                        {
+                            return true; 
+                        }
+                    }
+
+                    return false; 
+                }).ToList();
+
+                filteredData.Add(allData[0]);
+                filteredData.Add(USA);
+            }
+
+            return filteredData;
+
+        }
+
 
     }
+
 
 }
