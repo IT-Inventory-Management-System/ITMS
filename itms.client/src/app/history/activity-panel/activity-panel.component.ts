@@ -8,6 +8,7 @@ import { AdminDetailService } from '../../shared/services/admin-detail.service';
 })
 export class ActivityPanelComponent {
   selectedAdmin: any;
+    admindata: any;
 
   constructor(private adminDetailService: AdminDetailService) { }
 
@@ -27,7 +28,8 @@ export class ActivityPanelComponent {
     console.log("REQUEST BODY : ", body);
     this.adminDetailService.getLogs(employeeId, locationId).subscribe(
       data => {
-        console.log("ADMIN LOGS : " , data);
+        console.log("ADMIN LOGS : ", data);
+        this.admindata = data;
       },
       error => {
         console.error('Error fetching logs data', error);
