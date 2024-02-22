@@ -1,20 +1,20 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { DeviceAssignService } from '../shared/services/device-assign.service';
 import { Inject } from '@angular/core';
-import { FormBuilder, FormGroup, AbstractControl, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, AbstractControl, ValidationErrors, ValidatorFn, Validators, FormArray } from '@angular/forms';
 import { AssignDataManagementService } from '../shared/services/assign-data-management.service';
 import { SearchBoxComponent } from './search-box/search-box.component';
-import { LaptopSearchBoxComponent } from './laptop-search-box/laptop-search-box.component';
-import { AccessoriesSearchBoxComponent } from './accessories-search-box/accessories-search-box.component';
-import { SoftwareSearchBoxComponent } from './software-search-box/software-search-box.component';
-import { SoftwareVersionSearchBoxComponent } from './software-version-search-box/software-version-search-box.component';
-import { AssignAccessoriesComponent } from './assign-accessories/assign-accessories.component';
 import { ToastrService } from 'ngx-toastr';
-import { customValidation } from './custom-validators';
 import { SelectedCountryService } from '../shared/services/selected-country.service';
 import { DataService } from '../shared/services/data.service';
 import { CloseFlagService } from '../shared/services/close-flag.service';
-import { AssignLaptopComponent } from './assign-laptop/assign-laptop.component';
+//import { customValidation } from './custom-validators';
+//import { LaptopSearchBoxComponent } from './laptop-search-box/laptop-search-box.component';
+//import { AccessoriesSearchBoxComponent } from './accessories-search-box/accessories-search-box.component';
+//import { SoftwareSearchBoxComponent } from './software-search-box/software-search-box.component';
+//import { SoftwareVersionSearchBoxComponent } from './software-version-search-box/software-version-search-box.component';
+//import { AssignAccessoriesComponent } from './assign-accessories/assign-accessories.component';
+//import { AssignLaptopComponent } from './assign-laptop/assign-laptop.component';
 
 @Component({
   selector: 'app-assign-asset',
@@ -64,7 +64,7 @@ export class AssignAssetComponent {
 
   skipStep() {
     if (this.currentStep < 3) {
-      this.currentStep += 1; 
+      this.currentStep += 1;
     }
   }
 
@@ -82,14 +82,17 @@ export class AssignAssetComponent {
   }
   isCygidEmptyStep1: boolean = true;
   isSoftwareIdEmptyStep2: boolean = true;
+  isAccessoryIdEmptyStep3: boolean = true;
 
   onCygidInputChangeStep1(value: boolean):void {
     this.isCygidEmptyStep1 = value;
   }
 
   onSoftwareIdInputChangeStep2(value: boolean): void  {
-    console.log(value);
     this.isSoftwareIdEmptyStep2 = value;
+  }
+  onAccessoryIdInputChangeStep3(value: boolean): void {
+    this.isAccessoryIdEmptyStep3 = value;
   }
 
   isNextButtonEnabled(): boolean {
@@ -112,13 +115,13 @@ export class AssignAssetComponent {
 
   assignAssetForm: FormGroup;
   @ViewChild(SearchBoxComponent) SearchBoxComponent: any;
-  @ViewChild(LaptopSearchBoxComponent) LaptopSearchBoxComponent: any;
-  @ViewChild(AccessoriesSearchBoxComponent) accessoriesSearchBoxComponent: AccessoriesSearchBoxComponent;
-  @ViewChild(SoftwareSearchBoxComponent) softwareSearchBoxComponent: SoftwareSearchBoxComponent;
-  @ViewChild(SoftwareVersionSearchBoxComponent) softwareVersionSearchBoxComponent: SoftwareVersionSearchBoxComponent;
-  @ViewChild(AssignAccessoriesComponent) assignAccessoriesComponent: AssignAccessoriesComponent;
-  @ViewChild(AssignLaptopComponent) assignLaptopComponent: AssignLaptopComponent;
-  @ViewChild(LaptopSearchBoxComponent) laptopSearchBoxComponent: LaptopSearchBoxComponent;
+  //@ViewChild(LaptopSearchBoxComponent) LaptopSearchBoxComponent: any;
+  //@ViewChild(AccessoriesSearchBoxComponent) accessoriesSearchBoxComponent: AccessoriesSearchBoxComponent;
+  //@ViewChild(SoftwareSearchBoxComponent) softwareSearchBoxComponent: SoftwareSearchBoxComponent;
+  //@ViewChild(SoftwareVersionSearchBoxComponent) softwareVersionSearchBoxComponent: SoftwareVersionSearchBoxComponent;
+  //@ViewChild(AssignAccessoriesComponent) assignAccessoriesComponent: AssignAccessoriesComponent;
+  //@ViewChild(AssignLaptopComponent) assignLaptopComponent: AssignLaptopComponent;
+  //@ViewChild(LaptopSearchBoxComponent) laptopSearchBoxComponent: LaptopSearchBoxComponent;
   constructor(
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
@@ -129,14 +132,22 @@ export class AssignAssetComponent {
     @Inject(DeviceAssignService) private deviceAssignService: DeviceAssignService) {
     this.assignAssetForm = this.formBuilder.group({
       assignedTo: [null, Validators.required],
-      cygid: [null],
-      softwareId: [null],
+      assignedBy: [null, Validators.required],
+      cygids: this.formBuilder.array([]),
+      softwareIds: this.formBuilder.array([]),
+      accessoryIds: this.formBuilder.array([]),
+      deviceComments: this.formBuilder.array([]),
+      softwareComments: this.formBuilder.array([]),
+      accessoryComments: this.formBuilder.array([])
       //selectedAccessory: [null, Validators.required],
-      deviceComment: [null],
-      softwareComment: [null],
+      //deviceComment: [null],
+      //cygid: [null],
+      //softwareId: [null],
+      //softwareComment: [null],
       //accessoryComment: [null],
-      assignedBy:[null],
-    }, { validator: customValidation(this.toastr) });
+    },
+    //  { validator: customValidation(this.toastr) }
+    );
   }
 
   ngOnInit() {
@@ -222,30 +233,48 @@ export class AssignAssetComponent {
     this.assignAssetForm.reset();
     this.currentStep = 1;
     this.closeFlag.setCloseFlagToTrue();
-    //this.searchBoxComponent.setSaveStateOnDestroy();
-    //this.assignAccessoriesComponent.setSaveStateOnDestroy();
-    //this.laptopSearchBoxComponent.setSaveStateOnDestroy();
-    //this.softwareSearchBoxComponent.setSaveStateOnDestroy();
-    //this.softwareVersionSearchBoxComponent.setSaveStateOnDestroy();
-    //if (this.currentStep == 1) {
-      //this.assignLaptopComponent.setSaveStateOnDestroy();
-      //this.laptopSearchBoxComponent.setSaveStateOnDestroy();
-    //}
     this.SearchBoxComponent.setSaveStateOnDestroy();
-    this.assignDataManagementService.setState("assignedTo", null);
-    this.assignDataManagementService.setState("cygid", null);
-    this.assignDataManagementService.setState("softwareName", null);
-    this.assignDataManagementService.setState("softwareVersion", null);
-    this.assignDataManagementService.setState("accessory", null);
-    this.assignDataManagementService.setState("laptopComment", null);
-    this.assignDataManagementService.setState("softwareComment", null);
-    this.assignDataManagementService.setState("accessoryComment", null);
-    //this.accessoriesSearchBoxComponent.setSaveStateOnDestroy();
+    this.assignDataManagementService.setState('assignedTo', null);
+    this.assignDataManagementService.setState('accessory', null);
+    this.assignDataManagementService.setState('accessoryComment', null);
+    this.assignDataManagementService.setMultipleInstanceState('selectedLaptops', []);
+    this.assignDataManagementService.setMultipleInstanceState('formattedAges', []);
+    this.assignDataManagementService.setMultipleInstanceState('devices', []);
+    this.assignDataManagementService.setMultipleInstanceState('softwares', []);
+    this.assignDataManagementService.setMultipleInstanceState('softwareNames', []);
+    this.assignDataManagementService.setMultipleInstanceState('softwareVersions', []);
+    this.assignDataManagementService.setMultipleInstanceState('softwareExpiryDate', []);
+    this.assignDataManagementService.setMultipleInstanceState('FilteredSoftwaresOptions', []);
+    this.assignDataManagementService.setMultipleInstanceState('SelectedSoftwaresData', []);
+    this.assignDataManagementService.setMultipleInstanceState('SoftwareVersionsOptions', []);
+    this.assignDataManagementService.resetSpecificStateVariables();
     this.isCygidEmptyStep1 = true;
     this.isSoftwareIdEmptyStep2 = true;
+    this.isAccessoryIdEmptyStep3 = true;
   }
- 
+
+  removeNullIndexInstances(): void {
+    const cygidsArray = this.assignAssetForm.get('cygids') as FormArray;
+    const softwareIdsArray = this.assignAssetForm.get('softwareIds') as FormArray;
+    const deviceCommentsArray = this.assignAssetForm.get('deviceComments') as FormArray;
+    const softwareCommentsArray = this.assignAssetForm.get('softwareComments') as FormArray;
+
+    this.removeNullIndexItems(cygidsArray);
+    this.removeNullIndexItems(softwareIdsArray);
+    this.removeNullIndexItems(deviceCommentsArray);
+    this.removeNullIndexItems(softwareCommentsArray);
+  }
+
+  removeNullIndexItems(array: FormArray): void {
+    for (let i = array.length - 1; i >= 0; i--) {
+      if (array.at(i)?.get('index')?.value === null) {
+        array.removeAt(i);
+      }
+    }
+  }
+
   saveChanges(): void {
+    this.removeNullIndexInstances();
     console.log('Form Values:', this.assignAssetForm.value);
     const userData = localStorage.getItem('user');
     if (!userData) {
@@ -253,28 +282,41 @@ export class AssignAssetComponent {
       return;
     }
     const userObject = JSON.parse(userData);
-
     const AssignedBy = userObject ? userObject.id : null;
 
     if (!AssignedBy) {
       this.toastr.error('CGIID not found in user data. Cannot save changes.');
       return;
     }
+
+    if (!this.assignAssetForm?.get('assignedTo')?.value) {
+      this.toastr.error('Assigned To is required.');
+      return;
+    }
+
+    const softwareIds = this.assignAssetForm?.get('softwareIds')?.value;
+    const cygids = this.assignAssetForm?.get('cygids')?.value;
+
+    if (!softwareIds.length && !cygids.length) {
+      this.toastr.error('At least one of Laptop / Software / Accessory must be selected.');
+      return;
+    }
+
     if (this.assignAssetForm.valid) {
       const assignmentData = this.assignAssetForm.value;
       assignmentData.assignedBy = AssignedBy;
-      this.deviceAssignService.saveAssignment(assignmentData).subscribe(
-        (response) => {
-          this.closeForm();
-          this.assignAssetForm.reset();
-          this.toastr.success('Assignment saved successfully:', response);
-        },
-        (error) => {
-          this.closeForm();
-          this.assignAssetForm.reset();
-          this.toastr.error('Error saving assignment:', error);
-        }
-      );
+      //this.deviceAssignService.saveAssignment(assignmentData).subscribe(
+      //  (response) => {
+      //    this.closeForm();
+      //    this.assignAssetForm.reset();
+      //    this.toastr.success('Assignment saved successfully:', response);
+      //  },
+      //  (error) => {
+      //    this.closeForm();
+      //    this.assignAssetForm.reset();
+      //    this.toastr.error('Error saving assignment:', error);
+      //  }
+      //);
     } else {
       const errors = this.assignAssetForm.errors;
 

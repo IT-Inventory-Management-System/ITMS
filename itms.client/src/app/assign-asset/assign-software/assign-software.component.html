@@ -1,19 +1,21 @@
-<div class="Software-Section">
-  <div class="form-fields">
+<div class="Software-Section" *ngFor="let software of softwares; let i = index">
+  <div class="form-fields" [class.Software-Section-bottom-margin]="i !== softwares.length - 1">
     <app-software-search-box class="sbox"
                              [label]="'Software'"
                              [placeholder]="'Select Software'"
                              [SoftwareOptions]="SoftwareOptions"
-                             (SoftwareOptionSelected)="SoftwareSearchBoxOptionSelected($event)">
+                             (SoftwareOptionSelected)="SoftwareSearchBoxOptionSelected($event,i)"
+                             [index]=i
+                             (removeSoftware)="removeSoftware($event)">
     </app-software-search-box>
     <app-software-version-search-box class="sbox"
                                      [label]="'Software Version'"
                                      [placeholder]="'Select Software Version'"
-                                     [SoftwareVersionOptions]="SoftwareVersionOptions"
-                                     (SoftwareVersionOptionSelected)=" SoftwareVersionSearchBoxOptionSelected($event)"
+                                     [SoftwareVersionOptions]="softwareVersionsOptions[i]"
+                                     (SoftwareVersionOptionSelected)=" SoftwareVersionSearchBoxOptionSelected($event,i)"
                                      [assignAssetForm]="assignAssetForm">
     </app-software-version-search-box>
-    <div *ngIf="SelectedSoftwareVersion==1 && SelectedSoftware" class="alert-box">
+    <div *ngIf="selectedSoftwareVersions[i]==1 && selectedSoftwareNames[i]" class="alert-box">
       <div class="alert-image-frame">
         <img id="alert-image" src="../../../../assets/icons/Vector.svg" />
       </div>
@@ -22,7 +24,7 @@
         Please select another software from the list.
       </div>
     </div>
-    <div *ngIf="SelectedSoftwareVersion!=1 && SelectedSoftware" class="software-details">
+    <div *ngIf="selectedSoftwareVersions[i] && selectedSoftwareNames[i]" class="software-details">
       <div class="details-subheading">
         Selected Software Details:
       </div>
@@ -30,24 +32,21 @@
         <div class="details">
           <div class="detail">
             <div class="detail-paramter">Software Type:</div>
-            <div class="detail-value">{{SelectedSoftwareData.softwareType}}</div>
+            <div class="detail-value">{{selectedSoftwareNames[i].softwareType}}</div>
           </div>
-          <div *ngIf="!SelectedSoftwareVersion?.assignedTo && SelectedSoftwareVersion" class="detail">
+          <div *ngIf="!selectedSoftwareVersions[i]?.assignedTo && selectedSoftwareVersions" class="detail">
             <div class="detail-paramter">Expiry:</div>
-            <div class="detail-value">{{ formatExpiryDate(SelectedSoftwareVersion.expiryDate) }}</div>
+            <div class="detail-value">{{ softwareExpiryDate[i] }}</div>
           </div>
         </div>
       </div>
     </div>
-    <div class="comment-subheading">Comment</div>
-    <input class="comment-input-box"
-           required
-           placeholder="Add Comment"
-           aria-label="Comment"
-           [value]="selectedOption"
-           (input)="onInputChangeCommentBox($event)">
+    <app-assign-software-comment class="sbox"
+                               [assignAssetForm]="assignAssetForm"
+                               [index]="i">
+    </app-assign-software-comment>
   </div>
-  <div class="Add-new">
+  <div class="Add-new" *ngIf="i === softwares.length - 1" (click)="addNewSoftware()">
     <img class="add-img" src="../../../../assets/icons/Add.svg" />
     <div class="add-new-text">Add Another Software</div>
   </div>
