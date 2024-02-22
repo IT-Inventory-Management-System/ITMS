@@ -102,6 +102,8 @@ import { AdminPermissionsPanelComponent } from './manage-access/admin-permission
 import { AdminNameCardComponent } from './shared/components/admin-name-card/admin-name-card.component';
 import { AssignRoleModalComponent } from './manage-access/assign-role-modal/assign-role-modal.component';
 import { ActivityLogComponent } from './activity-log/activity-log.component';
+import { ActivityPanelComponent } from './history/activity-panel/activity-panel.component';
+import { AdminPanelComponent } from './history/admin-panel/admin-panel.component';
 
 
 
@@ -204,7 +206,9 @@ import { ActivityLogComponent } from './activity-log/activity-log.component';
     AdminPermissionsPanelComponent,
     AdminNameCardComponent,
     AssignRoleModalComponent,
-    ActivityLogComponent
+    ActivityLogComponent,
+    ActivityPanelComponent,
+    AdminPanelComponent
 
 
   ],
