@@ -54,10 +54,10 @@ namespace ITMS.Server.Controllers
             return Ok(os);
         }
 
-        [HttpGet("logs")]
-        public ActionResult<IEnumerable<Logs>> GetLogs()
+        [HttpPost("logs")]
+        public ActionResult<IEnumerable<Logs>> GetLogs([FromBody] Guid country)
         {
-            var history = _dashboardService.GetLogs();
+            var history = _dashboardService.GetLogsForLocation(country, 1);
             return Ok(history);
         }
 
