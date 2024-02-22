@@ -210,7 +210,7 @@ import { AddMonitorBrandFormComponent } from './add-asset/add-monitor-form/add-m
     AssignRoleModalComponent,
     ActivityLogComponent,
     ActivityPanelComponent,
-    AdminPanelComponent
+    AdminPanelComponent,
     AssignRoleModalComponent,
     AddMonitorFormComponent,
     AddMonitorBrandFormComponent
