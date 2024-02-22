@@ -23,19 +23,6 @@ export class SoftwareSearchBoxComponent {
     private closeFlagService: CloseFlagService
   ) { }
 
-  onClearSelection(): void {
-    this.selectedOption = null;
-  }
-
-  UniqueOptions(): void {
-    const uniqueNamesSet = new Set<string>(this.SoftwareOptions.map(option => option.softwareName));
-    this.uniqueSoftwareNames = Array.from(uniqueNamesSet);
-  }
-
-  onSelectOption(option: any): void {
-    this.SoftwareOptionSelected.emit(option);
-  }
-
   ngOnInit(): void {
     this.closeFlagService.setCloseFlagToFalse();
     this.selectedOption = this.assignDataManagementService.getState("softwareNames", this.index);
@@ -51,6 +38,21 @@ export class SoftwareSearchBoxComponent {
     });
     this.closeFlagSubscription.unsubscribe();
   }
+
+  onClearSelection(): void {
+    this.selectedOption = null;
+  }
+
+  UniqueOptions(): void {
+    const uniqueNamesSet = new Set<string>(this.SoftwareOptions.map(option => option.softwareName));
+    this.uniqueSoftwareNames = Array.from(uniqueNamesSet);
+  }
+
+  onSelectOption(option: any): void {
+    this.SoftwareOptionSelected.emit(option);
+  }
+
+
   emitRemoveSoftware(): void {
     this.removeSoftware.emit(this.index);
   }

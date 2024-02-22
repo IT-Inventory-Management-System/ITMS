@@ -91,6 +91,8 @@ import { AddMouseBrandFormComponent } from './add-asset/add-mouse-form/add-mouse
 import { AssetFilterComponent } from './inventory/assets-category/assest/asset-filter/asset-filter.component';
 import { AccordionComponent } from './shared/components/accordion/accordion.component';
 import { AccordionItemComponent } from './shared/components/accordion/accordion-item/accordion-item.component';
+import { AssignAccessoryCommentComponent } from './assign-asset/assign-accessory-comment/assign-accessory-comment.component';
+import { AccessoryBrandySearchBoxComponent } from './assign-asset/accessory-brandy-search-box/accessory-brandy-search-box.component';
 
 
 
@@ -180,7 +182,9 @@ import { AccordionItemComponent } from './shared/components/accordion/accordion-
     AddMouseBrandFormComponent,
     AssetFilterComponent,
     AccordionComponent,
-    AccordionItemComponent
+    AccordionItemComponent,
+    AssignAccessoryCommentComponent,
+    AccessoryBrandySearchBoxComponent
 
 
   ],

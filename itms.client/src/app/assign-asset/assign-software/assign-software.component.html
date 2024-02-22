@@ -12,7 +12,7 @@
                                      [label]="'Software Version'"
                                      [placeholder]="'Select Software Version'"
                                      [SoftwareVersionOptions]="softwareVersionsOptions[i]"
-                                     (SoftwareVersionOptionSelected)=" SoftwareVersionSearchBoxOptionSelected($event)"
+                                     (SoftwareVersionOptionSelected)=" SoftwareVersionSearchBoxOptionSelected($event,i)"
                                      [assignAssetForm]="assignAssetForm">
     </app-software-version-search-box>
     <div *ngIf="selectedSoftwareVersions[i]==1 && selectedSoftwareNames[i]" class="alert-box">

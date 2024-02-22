@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { AssignDataManagementService } from '../../shared/services/assign-data-management.service';
+import { CloseFlagService } from '../../shared/services/close-flag.service';
 
 @Component({
   selector: 'app-assign-laptop',
@@ -12,13 +13,21 @@ export class AssignLaptopComponent {
   @Input() assignAssetForm: FormGroup;
   @Output() cygidInputChange = new EventEmitter<boolean>();
 
+  devices: any[] = [{}];
   SelectedLaptops: any[] = [];
   formattedAges: string[] = [];
-  devices: any[] = [{}];
+  closeFlagSubscription: any;
 
-  constructor(private assignDataManagementService: AssignDataManagementService) { }
+  constructor(private assignDataManagementService: AssignDataManagementService,
+    private closeFlagService: CloseFlagService) {
+    this.closeFlagSubscription = this.closeFlagService.closeFlag$.subscribe(flag => {
+      if (flag) {
+        this.devices = [{}];
+      }
+    });
+  }
+
   ngOnInit(): void {
-    // Retrieve state from service
     this.devices = this.assignDataManagementService.getMultipleInstanceState('devices') || [];
     if (this.devices.length === 0) {
       this.devices.push({});
@@ -28,20 +37,22 @@ export class AssignLaptopComponent {
   }
 
   ngOnDestroy(): void {
-    // Save state to service before component is destroyed
     this.assignDataManagementService.setMultipleInstanceState('selectedLaptops', this.SelectedLaptops);
     this.assignDataManagementService.setMultipleInstanceState('formattedAges', this.formattedAges);
     this.assignDataManagementService.setMultipleInstanceState('devices', this.devices);
+    this.closeFlagSubscription.unsubscribe();
   }
 
   cygidInputChangeFlag(): void {
+    // Check if SelectedLaptops is not empty
+    const laptopsNotEmpty = this.SelectedLaptops.length > 0;
+
     // Check that all SelectedLaptops are not null and have no assignedTo
-    const allSelected = this.SelectedLaptops.every(laptop => laptop !== null && !laptop.assignedTo);
-    //console.log(allSelected, this.SelectedLaptops);
+    const allSelected = laptopsNotEmpty && this.SelectedLaptops.every(laptop => laptop !== null && !laptop.assignedTo);
+
+    // Emit the appropriate value
     this.cygidInputChange.emit(!allSelected);
   }
-
-
   //cygidInputChangeFlag(event: any): void {
   //  console.log(event);
   //  this.cygidInputChange.emit(event);

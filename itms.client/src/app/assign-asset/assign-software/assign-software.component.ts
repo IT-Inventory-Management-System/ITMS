@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormArray, FormBuilder } from '@angular/forms';
 import { AssignDataManagementService } from '../../shared/services/assign-data-management.service';
+import { CloseFlagService } from '../../shared/services/close-flag.service';
 
 @Component({
   selector: 'app-assign-software',
@@ -19,17 +20,28 @@ export class AssignSoftwareComponent {
   //SelectedSoftwareData: any;
 
   softwareVersionsOptions: any[][] = [];
-  SelectedSoftwaresData: any;
+  SelectedSoftwaresData: any[]=[];
   FilteredSoftwaresOptions: any[][] = [];
   selectedSoftwareNames: any[] = [];
   selectedSoftwareVersions: any[] = [];
   softwareExpiryDate: any[] = [];
   softwares: any[] = [{}];
-  devices: any[] = [{}];
+  closeFlagSubscription: any;
+
 
   constructor(private assignDataManagementService: AssignDataManagementService,
     private formBuilder: FormBuilder,
-) { }
+    private closeFlagService: CloseFlagService) {
+    this.closeFlagSubscription = this.closeFlagService.closeFlag$.subscribe(flag => {
+      if (flag) {
+        this.softwares=[{}];
+        this.selectedSoftwareNames = [];
+        this.selectedSoftwareVersions = [];
+        this.softwareExpiryDate =[];
+        this.SelectedSoftwaresData = [];
+      }
+    });
+  }
   ngOnInit(): void {
     this.softwares = this.assignDataManagementService.getMultipleInstanceState('softwares') || [];
     if (this.softwares.length === 0) {
@@ -41,19 +53,18 @@ export class AssignSoftwareComponent {
     this.selectedSoftwareNames = this.assignDataManagementService.getMultipleInstanceState('softwareNames') || [];
     this.selectedSoftwareVersions = this.assignDataManagementService.getMultipleInstanceState('softwareVersions') || [];
     this.softwareExpiryDate = this.assignDataManagementService.getMultipleInstanceState('softwareExpiryDate') || [];
-    this.devices = this.assignDataManagementService.getMultipleInstanceState('devices') || [];
   }
 
   ngOnDestroy(): void {
     this.assignDataManagementService.setMultipleInstanceState('SelectedSoftwaresData', this.SelectedSoftwaresData);
-    this.assignDataManagementService.setMultipleInstanceState('SoftwareVersionOptions', this.softwareVersionsOptions);
+    this.assignDataManagementService.setMultipleInstanceState('SoftwareVersionsOptions', this.softwareVersionsOptions);
     this.assignDataManagementService.setMultipleInstanceState('FilteredSoftwaresOptions', this.FilteredSoftwaresOptions);
     this.assignDataManagementService.setMultipleInstanceState('softwareNames', this.selectedSoftwareNames);
     this.assignDataManagementService.setMultipleInstanceState('softwareVersions', this.selectedSoftwareVersions);
     this.assignDataManagementService.setMultipleInstanceState('softwareExpiryDate', this.softwareExpiryDate);
     this.assignDataManagementService.setMultipleInstanceState('softwares', this.softwares);
   }
-  softwareVersionSelected(): void {
+  softwareIdInputChangeFlag(): void {
     // Check that all SelectedLaptops are not null and have no assignedTo
     //const allSelected = this.SelectedLaptops.every(laptop => laptop !== null && !laptop.assignedTo);
     //console.log(allSelected, this.SelectedLaptops);
@@ -61,6 +72,9 @@ export class AssignSoftwareComponent {
     //const isSoftwareIdEmpty = !this.SelectedSoftwareVersion || this.SelectedSoftwareVersion.id === null;
     //console.log(isSoftwareIdEmpty);
     //this.softwareIdInputChange.emit(isSoftwareIdEmpty);
+      const allSelected = this.selectedSoftwareNames.every(name => name !== null) &&
+        this.selectedSoftwareVersions.every(version => version !== null && version !== 1);
+      this.softwareIdInputChange.emit(allSelected);
   }
 
   SoftwareSearchBoxOptionSelected(event: any, index: number): void {
@@ -86,9 +100,10 @@ export class AssignSoftwareComponent {
       this.softwareVersionsOptions[index];
       }
   }
-  SoftwareVersionSearchBoxOptionSelected(data: any): void {
-    const selectedOption = data.option;
-    const selectedIndex = data.index;
+  //filter from FilteredSoftwaresOptions to add and remove from selectedSoftwareVersions
+  SoftwareVersionSearchBoxOptionSelected(data: any, index: number): void {
+    const selectedOption = data;
+    const selectedIndex = index;
     const softwareIdsArray = this.assignAssetForm.get('softwareIds') as FormArray;
       const filteredOptions = this.FilteredSoftwaresOptions[selectedIndex].filter(
         (option: any) => option.version === selectedOption && option.assignedTo === null
@@ -98,7 +113,7 @@ export class AssignSoftwareComponent {
       );
       const numberOfInstances = sameSoftwareIdInstances.length;
       if (numberOfInstances < filteredOptions.length && filteredOptions.length > 0) {
-        this.selectedSoftwareVersions[selectedIndex] = filteredOptions[0];
+        this.selectedSoftwareVersions[selectedIndex] = filteredOptions[numberOfInstances-1];
         softwareIdsArray.push(this.formBuilder.group({
           index: selectedIndex,
           softwareId: this.selectedSoftwareVersions[selectedIndex].id
@@ -115,7 +130,7 @@ export class AssignSoftwareComponent {
           softwareIdsArray.removeAt(index);
         }
     }
-    this.softwareVersionSelected();
+    this.softwareIdInputChangeFlag();
   }
 
   formatExpiryDate(index: any): void {
@@ -135,7 +150,7 @@ export class AssignSoftwareComponent {
     this.selectedSoftwareVersions.push(null);
     this.softwareExpiryDate.push(null);
     this.SelectedSoftwaresData.push(null);
-    this.softwareVersionSelected();
+    this.softwareIdInputChangeFlag();
   }
 
   removeSoftware(index: number): void {
@@ -144,6 +159,6 @@ export class AssignSoftwareComponent {
     this.selectedSoftwareVersions.splice(index, 1);
     this.softwareExpiryDate.splice(index, 1);
     this.SelectedSoftwaresData.splice(index, 1);
-    this.softwareVersionSelected();
+    this.softwareIdInputChangeFlag();
   }
 }

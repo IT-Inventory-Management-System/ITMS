@@ -5,14 +5,6 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  width: 100%;
-}
-.close-button {
-  flex-shrink: 0;
-  border: 0;
-  background-color: #FFF;
-  padding: 0;
-  margin-left: 77.3%;
 }
 
 .ng-select.custom {
@@ -29,8 +21,8 @@
 .search-box {
   display: flex;
   height: 2.5rem;
-  /*padding: 0.5rem 0.75rem;*/
-  align-items: center;
+  /*  padding: 0.5rem 0.75rem;
+*/ align-items: center;
   gap: 6.625rem;
   flex-shrink: 0;
   align-self: stretch;
@@ -39,16 +31,16 @@
   background: #FFF;
 }
 
-.search-box::placeholder {
-  flex: 1 0 0;
-  color: var(--Primary-Gray, #343435);
-  font-family: Roboto;
-  font-size: 0.875rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  opacity: 0.5;
-}
+  .search-box::placeholder {
+    flex: 1 0 0;
+    color: var(--Primary-Gray, #343435);
+    font-family: Roboto;
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    opacity: 0.5;
+  }
 
 .options-list {
   z-index: 2;
@@ -67,6 +59,6 @@
   border: 1px solid #B2B2B3;
 }
 
-.list-items:hover {
-  background-color: #dddddd;
-}
+  .list-items:hover {
+    background-color: #dddddd;
+  }
