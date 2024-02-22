@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-exit-process',
@@ -7,7 +8,13 @@ import { Component } from '@angular/core';
 })
 export class ExitProcessComponent {
 
+  constructor(private modalService: NgbModal) { }
+
+  openModal(content: any): void {
+    this.modalService.open(content, { centered: true });  // Open the modal
+  }
+
   closeForm(): void {
-    
+    this.modalService.dismissAll();  // Close the modal
   }
 }

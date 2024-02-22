@@ -92,6 +92,7 @@ import { AccordionComponent } from './shared/components/accordion/accordion.comp
 import { AccordionItemComponent } from './shared/components/accordion/accordion-item/accordion-item.component';
 import { ConfirmationModalComponent } from './exit-process/confirmation-modal/confirmation-modal.component';
 import { RevokeAllComponent } from './revoke-all/revoke-all.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -196,7 +197,8 @@ import { RevokeAllComponent } from './revoke-all/revoke-all.component';
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     NgSelectModule,
-    AgGridModule
+    AgGridModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
