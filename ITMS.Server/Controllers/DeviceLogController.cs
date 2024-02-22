@@ -1,5 +1,7 @@
 // Controllers/DeviceLogController.cs
+using ITMS.Server.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
 
@@ -8,10 +10,12 @@ using System.Threading.Tasks;
 public class DeviceLogController : ControllerBase
 {
     private readonly DeviceLogService _deviceLogService;
+    private readonly ItinventorySystemContext _context;
 
-    public DeviceLogController(DeviceLogService deviceLogService)
+    public DeviceLogController(DeviceLogService deviceLogService, ItinventorySystemContext context)
     {
         _deviceLogService = deviceLogService;
+        _context = context;
     }
 
     [HttpGet("devices/{locationId}")]
@@ -59,5 +63,39 @@ public class DeviceLogController : ControllerBase
             return StatusCode(500, new { Message = "Internal Server Error" });
         }
     }
+
+    //[HttpPost("employeeLog")]
+    //public IActionResult GetDevicesLogs(Guid employeeId, string location)
+    //{
+    //    // Retrieve DevicesLog data based on EmployeeId and Location
+    //    var devicesLogs = _context.DevicesLogs
+    //        .Where(dl => dl.EmployeeId == employeeId && dl.Device.Location.Location1 == location)
+    //        .OrderBy(dl => dl.CreatedAtUtc) // Assuming logs are ordered by CreatedAtUtc
+    //        .ToList();
+
+    //    // Group the logs by date
+    //    var groupedLogs = devicesLogs.GroupBy(dl => dl.CreatedAtUtc.Date);
+
+    //    // Create a list to hold the formatted logs
+    //    var formattedLogs = new List<string>();
+
+    //    // Format each group of logs
+    //    foreach (var group in groupedLogs)
+    //    {
+    //        // Format the date
+    //        string formattedDate = group.Key.ToString("MM-dd-yyyy");
+    //        formattedLogs.Add(formattedDate);
+
+    //        // Format each log entry
+    //        foreach (var logEntry in group)
+    //        {
+    //            string formattedTime = logEntry.CreatedAtUtc.ToString("hh:mm tt");
+    //            //string logInfo = $"{formattedTime}\n{logEntry.Device.DeviceModel.DeviceName} has been {logEntry.Action.ActionName.ToLower()} by {logEntry.AssignedByNavigation.FullName}";
+    //            formattedLogs.Add(logInfo);
+    //        }
+    //    }
+
+    //    return Ok(formattedLogs);
+    //}
 
 }

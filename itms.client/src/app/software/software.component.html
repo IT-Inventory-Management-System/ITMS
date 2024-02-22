@@ -1,3 +1,6 @@
+<app-filter (applyClicked)="onApplyClicked($event)"></app-filter>
+<app-archivesoftware  (archiveClicked)="onarchiveclicked($event) " [singlesoftware]="singlesoftware"  ></app-archivesoftware>
+<app-lastdate [singlesoftware]="singlesoftware"></app-lastdate>
 <div class="software-details ">
   <div class="software-heading  ">
     <div class="software-title ">
@@ -20,21 +23,23 @@
 
       <div class="filter-section">
         <div class="justify-content-end form-check rightSide" *ngIf="selectedView === 'card'">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" >
+          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" (click)="Archived()">
           <label class="form-check-label" for="flexCheckDefault">
             Show Archive Assets Only
           </label>
         </div>
         <div class="search-bar" *ngIf="selectedView === 'table'">
+          <img src="../../../assets/icons/Software/Search.svg" />
 
+          <input type="text" id="filter-text-box" placeholder="Search" [(ngModel)]="searchValue" />
         </div>
         <div class="export-button" *ngIf="selectedView === 'table'">
-          <button >
+          <button (click)="exporttoexcel()">
             <img src="../../../../assets/icons/Software/excel-icon.svg" />
             <span>Export to Excel</span>
           </button>
         </div>
-        <div class="filter-button">
+        <div class="filter-button" data-bs-toggle="modal" data-bs-target="#filterModal">
           <button>
             <img src="../../../../assets/icons/Software/filter-icon.svg" />
             <span>Filter</span>
@@ -42,44 +47,35 @@
         </div>
       </div>
     </div>
-    <!--<div class="filter st ">
-    <div class="toggle   ">
-      <div class="tab1 ">
-        <div class="card ">Card View</div>
-      </div>
-      <div class="tab2 ">
-        <div class="table">Table View</div>
-      </div>
-    </div>
-    <div class="show-archive ">
-      <div class="archive ">
-        <img src="../../../assets/icons/Software/Checkbox component.svg" />
-        <span class="archive-text">Show Archive Software Only</span>
-      </div>
-      <span class="filterbox ">
-        <div class="filter-content">
-          <img src="../../../assets/icons/Software/Filter.svg" />
-          <span class="filter-text">Filter</span>
-        </div>
-      </span>
-    </div>
 
-  </div>-->
   </div>
-  <div class="software  ">
-    <div class="category">
-      <div class="category-div">
+  <div class="software " *ngIf="selectedView === 'card'">
+    <div class="category ">
+      <div class="category-div ">
         <div class="text-field">
           <div class="input">
             <div class="input-frame">
               <img src="../../../assets/icons/Software/Search.svg" />
-              <span class="input-text">Search Software</span>
+              <input class="input-text" placeholder="Search software " [(ngModel)]="filterValues"
+                     (input)="applySoftwareFilter()" />
             </div>
           </div>
         </div>
-        <div class="sub-category">
-          <app-software-name></app-software-name>
+
+
+        <div class="sub-category " *ngFor="let software of filteredSoftware? selectedLocation === 'India' ? filteredSoftware[0]:filteredSoftware[1] : selectedLocation === 'India' ? softwaresData[0] : softwaresData[1]">
+
+          <!--<div *ngIf="(isArchived==true && software.isArchived==1)||(isArchived==false && (software.isArchived==0||software.isArchived==null))">-->
+          <ng-container *ngIf="passesFilter(software)">
+            <app-software-name  [softwareData]="software"  [selectedLocation]="selectedLocation" (cardClicked)="onCardClicked($event)" [isArchived]="isArchived"></app-software-name>
+                    </ng-container>
+
+            <!--</div>-->
         </div>
+
+     
+
+
       </div>
     </div>
 
@@ -91,17 +87,24 @@
         <div class="status-archive ">
           <div class="status-div">
             <div class="status-text">Status</div>
-            <div class="status-active">Active</div>
+            <div class="status-active">{{ singlesoftware?.isArchived ?'Archived':'Active' }}</div>
           </div>
-          <div class="status-archive-div">
+          <div class="status-archive-div" data-bs-toggle="modal" data-bs-target="#exampleModal">
             <img src="../../../assets/icons/Software/Archive button.svg" />
-            <span class="archivebutton-text">Archive</span>
+            <div class="archivebutton-text">{{ singlesoftware?.isArchived ?'Unarchive':'Archive' }}</div>
 
           </div>
         </div>
-        <div class="expiring">
+        <div class="expiring" *ngIf="expiringtag" >
           <img src="../../../assets/icons/Software/Warning.svg" />
-          <span class="expiringbutton-text">3 Expiring in 60 days</span>
+          <span class="expiringbutton-text">
+            <ng-container *ngIf="getRemainingDays(singlesoftware?.expDate) === 'Expired'; else remainingDays">
+              Expired
+            </ng-container>
+            <ng-template #remainingDays>
+              {{ singlesoftware?.expiryDateCount }} Expiring in{{ getRemainingDays(singlesoftware?.expDate) }} days
+            </ng-template>
+          </span>
         </div>
 
         <div class="software-name-div  ">
@@ -111,10 +114,14 @@
               <span class="software-name-span">Software Name</span>
             </div>
             <span class="software-number">
-              60
+              {{singlesoftware?.assigned+singlesoftware?.inventory}}
+
+
             </span>
           </div>
-          <div class="software-div-name">Microsoft's Windows NT operating system software license</div>
+          <div class="software-div-name">
+            {{singlesoftware?.name}}
+          </div>
         </div>
 
         <div class="version-name-div  ">
@@ -128,7 +135,7 @@
           </div>
           <div class="version-number">
             <div class="version-number-text">
-              Version 2.0.0
+              {{singlesoftware?.version}}
             </div>
           </div>
         </div>
@@ -143,7 +150,8 @@
 
             </div>
             <div class="assigned-div-number">
-              60
+              {{singlesoftware?.assigned}}
+
             </div>
           </div>
           <div class="assigned">
@@ -155,37 +163,34 @@
 
             </div>
             <div class="assigned-div-number">
-              40
+              {{singlesoftware?.inventory}}
+
             </div>
           </div>
         </div>
 
-        <div class="assigned-inventory">
-          <div class="assigned">
-            <div class="assigned-logo-heading">
-              <div class="assigned-heading1">
-                <img src="../../../assets/icons/Software/calendar.svg" />
-                <div class="assigned-heading ">Date of Purchase</div>
-              </div>
-
-            </div>
-            <div class="assigned-div-number">
-              12-10-2023
-            </div>
+    <div class="dateofpurchase ">
+      <div class="lastdate-text ">
+        <div class="calendar-icon-text">
+          <div class="calendar-icon">
+            <img src="../../assets/icons/Software/calendar.svg" />
           </div>
-          <div class="assigned">
-            <div class="assigned-logo-heading">
-              <div class="assigned-heading1">
-                <img src="../../../assets/icons/Software/calendar.svg" />
-                <div class="assigned-heading">Expiry Date</div>
-              </div>
-
-            </div>
-            <div class="assigned-div-number">
-              12-10-2025
-            </div>
-          </div>
+          <span class="last-date-heading">Last Date Of Purchase</span>
         </div>
+        <span class="number">
+          {{ singlesoftware?.purchaseDates[0]?.qty }}
+        </span>
+      </div>
+
+      <div class="last-date-div "  data-bs-toggle="modal" data-bs-target="#lastdateModal" >
+        <span class="last-date">
+          {{ singlesoftware?.purchaseDates[0]?.purchaseDates | date: 'MM-dd-yyyy' }}
+        </span>
+        <img src="../../assets/icons/Software/Chevron.svg" />
+
+      </div>
+    
+    </div>
 
 
 
@@ -197,7 +202,7 @@
         <div class="history-heading">
           Assign History
         </div>
-        <div class="comment-heading" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <!--<div class="comment-heading" data-bs-toggle="modal" data-bs-target="#exampleModal">
           <img src="../../../assets/icons/Software/Comment.svg" />
           <span class="comment-text">Comments</span>
 
@@ -205,13 +210,18 @@
           <img src="../../../assets/icons/Software/Chevron.svg" />
 
 
-        </div>
+        </div>-->
 
       </div>
       <div class="history-cards">
-        <app-software-assign-history ></app-software-assign-history>
+        <app-software-assign-history  *ngFor="let historyItem of softwarehistory" [historyData]="historyItem"></app-software-assign-history>
       </div>
     </div>
+  </div>
+
+
+  <div *ngIf="selectedView === 'table'">
+    <app-table-view [rowData]="rowData" [colDefs]="colDefs" [searchValue]="searchValue"></app-table-view>
   </div>
 
 
