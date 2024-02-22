@@ -29,5 +29,27 @@ namespace ITMS.Server.Controllers
             return await _userListService.GetFirstUserAsync();
         }
 
+        [HttpGet("admin-list/{locationId}")]
+        public async Task<IEnumerable<AdminListDTO>> GetAdminList(string locationId)
+        {
+            return await _userListService.GetAdminList(Guid.Parse(locationId));
+        }
+
+        [HttpPost("change-role")]
+        public async Task<IActionResult> ChangeUserRoleAsync([FromBody] ChangeRoleDTO changeRoleDTO)
+        {
+            try
+            {
+                await _userListService.ChangeUserRoleAsync( Guid.Parse(changeRoleDTO.UserId), changeRoleDTO.NewRole);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions and return appropriate response
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Error: {ex.Message}");
+            }
+        }
+
     }
 }

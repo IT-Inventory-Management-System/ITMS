@@ -1,0 +1,41 @@
+<div class="permissions-panel-container">
+  <div class="permissions-panel-header ">
+    <div class="admin-name">
+      <ngx-avatars name="{{ selectedAdmin?.firstName }} {{ selectedAdmin?.lastName }}" [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="35"></ngx-avatars>
+      <div class="admin-name-id">
+        <span class="name">{{ selectedAdmin?.firstName }} {{ selectedAdmin?.lastName }}</span>
+        <span class="id">{{ selectedAdmin?.cgiid }}</span>
+      </div>
+    </div>
+    <div class="filter">
+      <div class="filter-icon">
+        <img src="../../../assets/icons/activity-filter.svg"/>
+        <span class="filter-text">Filter</span>
+
+      </div>
+      <div class="selected-date">
+        <div class="selected-date-text">
+          Select Date
+          <img src="../../../assets/icons/calendar.svg" />
+
+        </div>
+      </div>
+    </div>
+ </div>
+  <div class="filtersection">
+    <div class="logs-details">
+      <div class="date">
+        <img src="../../../assets/icons/calendar.svg" />
+        <span class="date-text">12-12-2024</span>
+      </div>
+      <div class="log">
+        <div class="detail-section">
+          <span class="time">10.30 AM</span>
+          <span class="detail">
+            <span class="cyg-name">CYG 761</span> has been submitted by <span class="cyg-name">Kylee lee</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

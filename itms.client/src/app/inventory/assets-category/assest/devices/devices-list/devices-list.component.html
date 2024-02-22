@@ -1,11 +1,23 @@
 <div class="devices-list-container">
 
-  <button #firstButton class="devices-list-container-items"  (click)="onDeviceClick(device?.cygid) "  [attr.data-name]="device?.cygid" >
-   <img src="../assets/icons/laptop-solid.svg" />
+  <button #firstButton class="devices-list-container-items" (click)="onDeviceClick(device?.cygid) " [attr.data-name]="device?.cygid">
+    <ng-container *ngIf="device.operatingSystem.osname=='Windows'">
+      <img src="../../../../../../assets/icons/Assets/windows.svg" />
+    </ng-container>
+    <ng-container *ngIf="device.operatingSystem.osname=='Mac'">
+      <img src="../../../../../../assets/icons/Assets/apple.svg" />
+    </ng-container>
+    <ng-container *ngIf="device.operatingSystem.osname=='ChromeBook'">
+      <img src="../../../../../../assets/icons/Assets/GoogleChromeBook.svg" />
+    </ng-container>
     <div class="devices-detail">
-      <p class="devices-name">{{device?.cygid}}</p>
-    </div>
+      <p class="devices-name">{{device?.cygid}} </p>
 
+
+    </div>
+    <div *ngIf="device?.status === 'Not Assigned'" class="status-outer available">
+      <span>Available</span>
+    </div>
   </button>
 
 

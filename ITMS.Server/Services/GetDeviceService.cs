@@ -6,7 +6,7 @@ namespace ITMS.Server.Services
 {
     public interface IGetDeviceService
     {
-        Task<IEnumerable<GetDeviceDTO>> listDevices();
+        Task<IEnumerable<GetDeviceDTO>> listDevices(Guid locationId);
         Task<IEnumerable<GetDeviceDTO>> CheckDeviceStatus(String CYGID);
     }
 
@@ -18,9 +18,11 @@ namespace ITMS.Server.Services
             _context = context;
             
         }
-        public async Task<IEnumerable<GetDeviceDTO>> listDevices()
+        public async Task<IEnumerable<GetDeviceDTO>> listDevices(Guid locationId)
         {
             var result = await (from d in _context.Devices
+                               .Where(log => log.LocationId == locationId)
+
                                 join dm in _context.DeviceModel
                                 on d.DeviceModelId equals dm.Id
                                 join os in _context.Ostypes

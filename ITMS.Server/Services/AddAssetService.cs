@@ -62,26 +62,42 @@ namespace ITMS.Server.Services
         }
         public async Task<IEnumerable<getCGIDTO>> getCGIID()
         {
+            //    var result = await (from c in _context.Devices
+            //                        where c.Cygid.StartsWith("CGI-MOU")
+            //                        select new getCGIDTO
+            //                        {
+            //                            CGIID = int.Parse(c.Cygid.Substring(8))  // Convert to integer
+            //                        })
+            //              .OrderByDescending(c => c.CGIID)
+            //              .Take(1)
+            //              .ToListAsync();
+
+
+            //    if (result.Count == 0)
+            //    {
+            //        return new List<getCGIDTO> { new getCGIDTO { CGIID = 0 } };
+            //    }
+            //    else
+            //    return result;
+
             var result = await (from c in _context.Devices
-                                
                                 where c.Cygid.StartsWith("CGI-MOU")
-                                
-
                                 select new getCGIDTO
-
                                 {
-                                    CGIID = c.Cygid.Substring(8) 
-                                }).OrderByDescending(c => c.CGIID)
-                       .Take(1)
-
-                       .ToListAsync();
-
+                                    CGIID = c.Cygid.Substring(8) // Leave it as string for now
+                                })
+                    .ToListAsync();
             if (result.Count == 0)
             {
                 return new List<getCGIDTO> { new getCGIDTO { CGIID = "0" } };
             }
+            // Convert CGIID to integers and order the result
             else
-            return result;
+            {
+                result = result.OrderByDescending(c => int.Parse(c.CGIID)).ToList();
+                return result.Take(1);
+            }
+
         }
 
     }

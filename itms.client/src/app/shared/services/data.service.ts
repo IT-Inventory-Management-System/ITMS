@@ -116,8 +116,8 @@ export class DataService {
     return this.http.post(this.apiUrl + 'Device/updateDeviceStatustoNotassigned', formdata);
   }
 
-  getDevicesCyg(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl + 'Device/getDevices/');
+  getDevicesCyg(locationId: any): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + 'Device/getDevicess/'+locationId);
   }
   getMouseBrand(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl + 'asset/getMouseBrand');
@@ -130,6 +130,18 @@ export class DataService {
   }
   postMouse(formData: any): Observable<any> {
     return this.http.post(this.apiUrl + 'addDevices/AddMouse', formData);
+  }
+
+  getAdminList(locationId: any): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + 'employee/admin-list/'+ locationId);
+  }
+
+  postComments(formData: any): Observable<any> {
+    return this.http.post(this.apiUrl + 'Comments', formData);
+  }
+
+  changeUserRole(userData: any): Observable<any> {
+    return this.http.post(this.apiUrl + 'employee/change-role', userData);
   }
 }
 

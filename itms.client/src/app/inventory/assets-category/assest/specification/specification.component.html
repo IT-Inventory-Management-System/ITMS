@@ -21,7 +21,7 @@
     </div>
     <div class="button-container">
 
-      <button class="custom-button" type="button" *ngIf="!isArchived && deviceDetails?.status?.type!=='Discarded'" data-toggle="modal" data-target="#exampleModal">
+      <button class="custom-button" type="button" *ngIf="!isArchived && deviceDetails?.status?.type!=='Discarded'" data-toggle="modal" data-target="#exampleModa">
         <img src="../../assets/icons/archive.svg" />
         Archive
       </button>
@@ -30,8 +30,10 @@
         Unarchive
       </button>
     </div>
+    
   </div>
-  <div class="age mb-3">
+
+  <div class="age">
     <span class="half-asset">
       <img class="asset-image" src="../../assets/icons/assetAge.svg" />
       <span class="asset-age">Asset Age</span>
