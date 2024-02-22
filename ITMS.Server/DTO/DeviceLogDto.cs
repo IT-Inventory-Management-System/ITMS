@@ -85,5 +85,17 @@ public class CategoryTypeWithCategoriesDTO
 }
 
 
+//public class logDTO
+//{
+//    public Guid DeviceId { get; set; }
+//    public Guid createdBy { get; set; }
+//    public Guid updatedbyBy { get; set; }
+//    public DateTime CreatedAt { get; set;}
+//    public DateTime updatedAt { get; set; }
+//    public Guid actionId { get; set; }
 
+
+
+
+//}
 

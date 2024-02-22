@@ -29,6 +29,12 @@ namespace itms.server.controllers
             return await _getDeviceService.listDevices(locationId);
         }
 
+        [HttpGet("getAllComments/{deviceId}")]
+        public async Task<IEnumerable<getcommentDTO>> listAllComments(Guid deviceId)
+        {
+            return await _getDeviceService.listAllComments(deviceId);
+        }
+
         [HttpGet("checkDeviceStatus")]
         public async Task<IActionResult> checkDeviceStatus(string CYGID)
         {
@@ -156,7 +162,7 @@ namespace itms.server.controllers
             catch (Exception ex)
             {
                 // Log or handle the exception as needed
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                return BadRequest(ex);
             }
         }
     

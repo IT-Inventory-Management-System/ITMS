@@ -104,6 +104,8 @@ import { AssignRoleModalComponent } from './manage-access/assign-role-modal/assi
 import { ActivityLogComponent } from './activity-log/activity-log.component';
 import { ActivityPanelComponent } from './history/activity-panel/activity-panel.component';
 import { AdminPanelComponent } from './history/admin-panel/admin-panel.component';
+import { AddMonitorFormComponent } from './add-asset/add-monitor-form/add-monitor-form.component';
+import { AddMonitorBrandFormComponent } from './add-asset/add-monitor-form/add-monitor-brand-form/add-monitor-brand-form.component';
 
 
 
@@ -208,7 +210,10 @@ import { AdminPanelComponent } from './history/admin-panel/admin-panel.component
     AssignRoleModalComponent,
     ActivityLogComponent,
     ActivityPanelComponent,
-    AdminPanelComponent
+    AdminPanelComponent,
+    AssignRoleModalComponent,
+    AddMonitorFormComponent,
+    AddMonitorBrandFormComponent
 
 
   ],
