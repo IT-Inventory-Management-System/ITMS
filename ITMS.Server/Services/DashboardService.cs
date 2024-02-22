@@ -350,79 +350,110 @@ namespace ITMS.Server.Services
             //    UpdatedOn = (DateTime)dl.DeviceLog.UpdatedAtUtc
             //}).ToList();
 
-            var indiaDeviceLogs = GetLogsForLocation("India", 10);
-            var usaDeviceLogs = GetLogsForLocation("USA", 10);
+            //var indiaDeviceLogs = GetLogsForLocation("India", 10);
+            //var usaDeviceLogs = GetLogsForLocation("USA", 10);
 
-            return indiaDeviceLogs.Concat(usaDeviceLogs).ToList();
+            // return indiaDeviceLogs.Concat(usaDeviceLogs).ToList();'
+            return null;
         }
 
-       public List<Logs> GetLogsForLocation(string locationName, int takeCount)
+       public List<Logs> GetLogsForLocation(Guid locationName, int takeCount)
         {
-            var deviceLogs = (from dl in _context.DevicesLogs
-                    join d in _context.Devices on dl.DeviceId equals d.Id into deviceGroup
-                    from device in deviceGroup.DefaultIfEmpty()
+            var deviceLogs = _context.DevicesLogs
+                             .Include(dl => dl.UpdatedByNavigation)
+                             .Include(dl => dl.Action)
+                             .Where(dl => dl.DeviceId != null ? dl.Device.LocationId == locationName : dl.SoftwareAllocationNavigation.LocationId == locationName)
+                             .Select(s => new Logs
+                             {
+                                 CYGID = s.DeviceId!=null?s.Device.Cygid:null,
 
-                    join l in _context.Locations on device.LocationId equals l.Id into locationGroup
-                    from location in locationGroup.DefaultIfEmpty()
+                                 UpdatedBy = s.UpdatedByNavigation.FirstName+" "+ s.UpdatedByNavigation.LastName != null? s.UpdatedByNavigation.LastName:null,
 
-                    join dm in _context.DeviceModel on device.DeviceModelId equals dm.Id into deviceModelGroup
-                    from deviceModel in deviceModelGroup.DefaultIfEmpty()
+                                 SubmittedTo = s.RecievedBy != null ? _context.Employees
+                                              .Where(e => (e.Id == s.RecievedBy) && (s.DeviceId != null ? s.Device.LocationId == locationName : s.SoftwareAllocationNavigation.LocationId == locationName))
+                                              .Select(e => e.FirstName + " " + e.LastName)
+                                              .FirstOrDefault() : null,
 
-                    join c in _context.Categories on deviceModel.CategoryId equals c.Id into categoryGroup
-                    from category in categoryGroup.DefaultIfEmpty()
+                                 AssignedTo = s.EmployeeId!= null? _context.Employees
+                                              .Where(e => (e.Id == s.EmployeeId) && (s.DeviceId!=null?s.Device.LocationId == locationName:s.SoftwareAllocationNavigation.LocationId==locationName))
+                                              .Select(e => e.FirstName + " " + e.LastName)
+                                              .FirstOrDefault():
+                                              null,
 
-                    join e in _context.Employees on dl.EmployeeId equals e.Id into employeeGroup
-                    from employee in employeeGroup.DefaultIfEmpty()
+                                 SoftwareName = s.SoftwareAllocation != null? s.SoftwareAllocationNavigation.Software.SoftwareName:null,
 
-                    join a in _context.ActionTables on dl.ActionId equals a.Id into actionGroup
-                    from action in actionGroup.DefaultIfEmpty()
+                                 Category = s.DeviceId != null? s.Device.DeviceModel.Category.Name : null,
+                                 Action = s.Action.ActionName,
+                                 UpdatedOn = s.UpdatedAtUtc,
 
-                    where location != null && location.Location1 == locationName
-
-                    orderby dl.UpdatedAtUtc descending
-                    select new
-                    {
-                        DeviceLog = dl,
-                        Device = device,
-                        DeviceModel = deviceModel,
-                        Category = category,
-                        Employee = employee,
-                        Action = action,
-                        Location = location,
-                    })
-                   .Take(takeCount)
-                   .ToList();
-
-            var logsList = deviceLogs.Select(dl => new Logs
-            {
-                UpdatedBy = _context.Employees
-              .Where(e => e.Id == dl.DeviceLog.AssignedBy && dl.DeviceLog.AssignedBy != null)
-              .Select(e => e.FirstName + " " + e.LastName)
-              .FirstOrDefault(),
-
-                CYGID = dl.Device?.Cygid,
-
-                Category = dl.Device?.DeviceModel?.Category?.Name,
-
-                SubmittedTo = _context.Employees
-              .Where(e => e.Id == dl.DeviceLog.RecievedBy && dl.DeviceLog.RecievedBy != null)
-              .Select(e => e.FirstName + e.LastName)
-              .FirstOrDefault(),
-
-                AssignedTo = _context.Employees
-              .Where(e => e.Id == dl.DeviceLog.EmployeeId)
-              .Select(e => e.FirstName + " " + e.LastName)
-              .FirstOrDefault(),
-
-                Action = dl.Action?.ActionName,
-
-                UpdatedOn = (DateTime)dl.DeviceLog.UpdatedAtUtc,
-
-                Location = locationName
-            }).ToList();
+                             }).ToList();
 
 
-            return logsList;
+            //var deviceLogs = (from dl in _context.DevicesLogs
+            //        join d in _context.Devices on dl.DeviceId equals d.Id into deviceGroup
+            //        from device in deviceGroup.DefaultIfEmpty()
+
+            //        join l in _context.Locations on device.LocationId equals l.Id into locationGroup
+            //        from location in locationGroup.DefaultIfEmpty()
+
+            //        join dm in _context.DeviceModel on device.DeviceModelId equals dm.Id into deviceModelGroup
+            //        from deviceModel in deviceModelGroup.DefaultIfEmpty()
+
+            //        join c in _context.Categories on deviceModel.CategoryId equals c.Id into categoryGroup
+            //        from category in categoryGroup.DefaultIfEmpty()
+
+            //        join e in _context.Employees on dl.EmployeeId equals e.Id into employeeGroup
+            //        from employee in employeeGroup.DefaultIfEmpty()
+
+            //        join a in _context.ActionTables on dl.ActionId equals a.Id into actionGroup
+            //        from action in actionGroup.DefaultIfEmpty()
+
+            //        where location != null && location.Location1 == locationName
+
+            //        orderby dl.UpdatedAtUtc descending
+            //        select new
+            //        {
+            //            DeviceLog = dl,
+            //            Device = device,
+            //            DeviceModel = deviceModel,
+            //            Category = category,
+            //            Employee = employee,
+            //            Action = action,
+            //            Location = location,
+            //        })
+            //       .Take(takeCount)
+            //       .ToList();
+
+            //var logsList = deviceLogs.Select(dl => new Logs
+            //{
+            //    UpdatedBy = _context.Employees
+            //  .Where(e => e.Id == dl.DeviceLog.AssignedBy && dl.DeviceLog.AssignedBy != null)
+            //  .Select(e => e.FirstName + " " + e.LastName)
+            //  .FirstOrDefault(),
+
+            //    CYGID = dl.Device?.Cygid,
+
+            //    Category = dl.Device?.DeviceModel?.Category?.Name,
+
+            //    SubmittedTo = _context.Employees
+            //  .Where(e => e.Id == dl.DeviceLog.RecievedBy && dl.DeviceLog.RecievedBy != null)
+            //  .Select(e => e.FirstName + e.LastName)
+            //  .FirstOrDefault(),
+
+            //    AssignedTo = _context.Employees
+            //  .Where(e => e.Id == dl.DeviceLog.EmployeeId)
+            //  .Select(e => e.FirstName + " " + e.LastName)
+            //  .FirstOrDefault(),
+
+            //    Action = dl.Action?.ActionName,
+
+            //    UpdatedOn = (DateTime)dl.DeviceLog.UpdatedAtUtc,
+
+            //    Location = locationName
+            //}).ToList();
+
+
+            return deviceLogs;
         }
     }
 }

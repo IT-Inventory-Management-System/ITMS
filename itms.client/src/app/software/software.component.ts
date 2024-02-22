@@ -4,7 +4,6 @@ import { ColDef } from 'ag-grid-community';
 import * as XLSX from 'xlsx';
 import { LocationService } from '../shared/services/location.service';
 import { SelectedCountryService } from '../shared/services/selected-country.service';
-import * as _ from 'lodash';
 
 @Component({
   selector: 'app-software',
