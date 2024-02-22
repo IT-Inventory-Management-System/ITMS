@@ -22,7 +22,14 @@ export class DataService {
   private buttonClickedSource = new Subject<void>();
   buttonClicked$ = this.buttonClickedSource.asObservable();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.buttonClicked$.subscribe(() => {
+      // Call getComments whenever the button is clicked
+      if (this.DeviceDetails && this.DeviceDetails.id) {
+        this.getAllComments(this.DeviceDetails.id);
+      }
+    });
+  }
 
   getCategories(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl + 'Device/categories');
@@ -142,6 +149,10 @@ export class DataService {
 
   changeUserRole(userData: any): Observable<any> {
     return this.http.post(this.apiUrl + 'employee/change-role', userData);
+  }
+
+  getAllComments(deviceId: any): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + 'Device/getAllComments/' + deviceId);
   }
 }
 

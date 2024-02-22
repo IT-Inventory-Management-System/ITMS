@@ -17,7 +17,13 @@ export class NewCommentsComponent {
   ngOnInit(): void {
     this.createForm();
     this.setCreatedBy();
-    this.deviceDetails();
+    /*this.deviceDetails();*/
+    this.dataService.buttonClicked$.subscribe(() => {
+      // Call getComments whenever the button is clicked
+      if (this.dataService.DeviceDetails && this.dataService.DeviceDetails.id) {
+        this.getComments(this.dataService.DeviceDetails.id);
+      }
+    });
   }
   createForm() {
     this.deviceForm = this.fb.group({
@@ -39,7 +45,6 @@ export class NewCommentsComponent {
 
   onSubmit() {
     this.deviceForm.get('createdAtUtc')?.setValue(new Date().toISOString());
-    this.setCreatedBy();
     this.deviceForm.get('deviceId')?.setValue(this.dataService.DeviceDetails?.id);
     if (this.deviceForm.get('description')?.value) {
       if (this.deviceForm.valid) {
@@ -47,6 +52,7 @@ export class NewCommentsComponent {
         this.dataService.postComments(this.deviceForm.value).subscribe(
           response => {
             console.log('Post successful', response);
+            //this.getComments();
             this.deviceForm.reset();
             this.setCreatedBy();
             this.toastr.success("Comment added successfully");
@@ -58,6 +64,18 @@ export class NewCommentsComponent {
         );
       }
     } 
+  }
+
+  getComments(deviceId: any) {
+    this.dataService.getAllComments(deviceId).subscribe(
+      (data) => {
+        console.log("comments : " , data);
+        // Process comments data as needed
+      },
+      error => {
+        console.error('Error fetching comments: ', error);
+      }
+    );
   }
 
   get deviceDetails() {
