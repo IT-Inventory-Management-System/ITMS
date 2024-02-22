@@ -10,7 +10,8 @@ public interface IUserListService
     Task<IEnumerable<UserListDTO>> GetUserDevicesAsync(Guid locationId);
 
     Task<UserListDTO> GetFirstUserAsync();
-    Task<IEnumerable<AdminListDTO>> GetAdminList();
+    Task<IEnumerable<AdminListDTO>> GetAdminList(Guid locationId);
+    Task ChangeUserRoleAsync(Guid userId, string newRole);
 }
 public class UserListService : IUserListService
 {
@@ -69,22 +70,53 @@ public class UserListService : IUserListService
         return user;
     }
 
-    public async Task<IEnumerable<AdminListDTO>> GetAdminList()
+    public async Task<IEnumerable<AdminListDTO>> GetAdminList(Guid locationId)
     {
         var adminList = await _context.Employees
-            .Join(_context.Roles, e => e.RoleId, r => r.Id, (e, r) => new AdminListDTO
-            {
-                Id = e.Id,
-                Cgiid = e.Cgiid,
-                FirstName = e.FirstName,
-                LastName = e.LastName,
-                Role = r.Name,
-                LocationId = e.LocationId
-            })
-            .Where(dto => dto.Role == "Admin" || dto.Role == "Superadmin")
-            .ToListAsync();
+        .Join(_context.Roles, e => e.RoleId, r => r.Id, (e, r) => new AdminListDTO
+        {
+            Id = e.Id,
+            Cgiid = e.Cgiid,
+            FirstName = e.FirstName,
+            LastName = e.LastName,
+            Role = r.Name,
+            LocationId = e.LocationId
+        })
+        .Where(dto => (dto.Role == "Admin" || dto.Role == "Superadmin") && dto.LocationId == locationId)
+        .ToListAsync();
 
         return adminList;
+    }
+
+    public async Task ChangeUserRoleAsync(Guid userId, string newRoleName)
+    {
+        try
+        {
+           
+            var user = await _context.Employees.FindAsync(userId);
+
+            //if (user == null)
+            //{
+            //    // Handle the case where the user with the specified userId is not found
+            //    throw new NotFoundException($"User with ID {userId} not found.");
+            //}
+
+            var newRole = await _context.Roles.FirstOrDefaultAsync(r => r.Name == newRoleName);
+
+            //if (newRole == null)
+            //{
+            //    // Handle the case where the role with the specified newRoleName is not found
+            //    throw new NotFoundException($"Role with Name {newRoleName} not found.");
+            //}
+
+            user.Role = newRole;
+
+            await _context.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            throw new ApplicationException($"Error changing user role: {ex.Message}", ex);
+        }
     }
 
 }

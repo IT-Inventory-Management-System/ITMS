@@ -27,7 +27,7 @@
     <img class="sidebar-icon" src="../../assets/icons/Users.svg" alt="Sidebar Image" />
     <span *ngIf="!isCollapsed">User</span>
   </div>
-  <div class="content" routerLink="" (click)="highlightIcon('Logs')" [ngClass]="{'selected': isIconSelected('Logs')}">
+  <div class="content" routerLink="/history" (click)="highlightIcon('Logs')" [ngClass]="{'selected': isIconSelected('Logs')}">
     <img class="sidebar-icon" src="../../assets/icons/Logs.svg" alt="Sidebar Image" />
     <span *ngIf="!isCollapsed">Activity Logs</span>
   </div>

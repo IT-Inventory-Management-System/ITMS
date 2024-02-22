@@ -14,10 +14,11 @@ export class AssignRoleModalComponent {
   userDataList: any[] = [];
   locationId: string = '';
   selectedRole: string = 'Admin';
+  selectedUser: any;
 
   superAdminPermissions: { permissionName: string; permissionDescription: string; }[] = [
     {
-      permissionName: 'Add Assets',
+      permissionName: 'Add Assets', 
       permissionDescription: 'Has the authority to add laptops, software, and accessories in inventory.',
     },
     {
@@ -95,6 +96,24 @@ export class AssignRoleModalComponent {
 
   roleSelector() {
     console.log(this.selectedRole);
+  }
+
+  changeRole() {
+
+    const userData = {
+      userId: this.selectedUser,
+      newRole: this.selectedRole
+    };
+
+    console.log(userData);
+
+    this.dataService.changeUserRole(userData).subscribe(
+      (response) => {
+        console.log(response);
+      },
+      (error) => {
+        console.log("User not found");
+      });
   }
 
 
