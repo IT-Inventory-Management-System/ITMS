@@ -36,19 +36,27 @@
               <img src="../../../../assets/icons/laptop-solid 2 (1).svg" />
               Assign Assets
             </div>
-            <div class="dropdown-both dropdown-btn exit-process-text" (click)="isOptionsVisible = !isOptionsVisible"  data-bs-toggle="modal"  data-bs-target="#confirmationModal">
+            <div class="dropdown-both dropdown-btn exit-process-text" (click)="isOptionsVisible = !isOptionsVisible" data-bs-toggle="modal" data-bs-target="#confirmationModal">
               <img src="../../../../assets/icons/Clip path group.svg" />
               Initiate Exit Process
             </div>
           </div>
         </div>
-        <app-assign-asset></app-assign-asset>
-        <div class="assign" data-bs-toggle="modal" data-bs-target="#assignAssetModal"><button class="assign-button"><img src="../../assets/icons/Add.svg" /><div class="ass">Assign</div></button></div>
+
+        <!--<app-assign-asset></app-assign-asset>
+      <div class="assign" data-bs-toggle="modal" data-bs-target="#assignAssetModal"><button class="assign-button"><img src="../../assets/icons/Add.svg" /><div class="ass">Assign</div></button></div>-->
         <!--<app-sample-modal [userId]="userDetails?.id" [firstName]="userDetails?.firstName" [lastName]="userDetails?.lastName" [cgiid]="userDetails?.cgiid"></app-sample-modal>-->
       </div>
 
     </div>
-
+    <div class="revoke-alert">
+      <img src="../../assets/icons/Vector-red.svg" />
+      <p>Exit process initiated and all the assets information has been sent to the user.</p>
+      <div class="btn btn-revoke" data-bs-toggle="modal" data-bs-target="#revokeAllModal">
+        <img src="../../assets/icons/Revoke.svg" />
+        <p class="revoke-btn-text">Revoke all items</p>
+      </div>
+    </div>
 
 
     <div class="buttons">
@@ -86,37 +94,37 @@
 
     <!--<div class="assigned">
 
-    <div class="buttons">
+  <div class="buttons">
 
-    <button class="item1">
+  <button class="item1">
 
-    <div class="laptop">Laptop</div>
+  <div class="laptop">Laptop</div>
 
-    </button>
+  </button>
 
-    <button class="item2">
+  <button class="item2">
 
-    <div class="software">Software
+  <div class="software">Software
 
-            </div>
+          </div>
 
-    </button>
+  </button>
 
-    <button class="item3">
+  <button class="item3">
 
-    <div class="accessories">Accessories</div>
+  <div class="accessories">Accessories</div>
 
-    </button>
+  </button>
 
-    </div>
+  </div>
 
-        <app-laptop-details [userId]="userDetails.id"></app-laptop-details>
+      <app-laptop-details [userId]="userDetails.id"></app-laptop-details>
 
-    <app-software-details></app-software-details>
+  <app-software-details></app-software-details>
 
-    <app-accessories-details></app-accessories-details>
+  <app-accessories-details></app-accessories-details>
 
-      </div>-->
+    </div>-->
 
 
   </div>
