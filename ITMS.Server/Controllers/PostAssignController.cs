@@ -36,14 +36,9 @@ namespace ITMS.Server.Controllers
                 if (!string.IsNullOrEmpty(postAssignAssetDTO.CYGID) && !string.IsNullOrEmpty(postAssignAssetDTO.SoftwareId))
                 {
                     await _postAssignAsset.UpdateDeviceAsync(postAssignAssetDTO.CYGID, postAssignAssetDTO);
-                    await _postAssignAsset.UpdateSoftwareAsync(postAssignAssetDTO.SoftwareId, postAssignAssetDTO);
 
                     var device = await _deviceService.CheckDeviceStatus(postAssignAssetDTO.CYGID);
-                    var software = await _softwareService.getSoftwareAllocationId(postAssignAssetDTO.SoftwareId);
-
                     var deviceId = device.FirstOrDefault().Id;
-                    var softwareId = software.FirstOrDefault().Id;
-
                     PostDeviceLogDTO postDeviceLogDTO = new PostDeviceLogDTO()
                     {
                         DeviceId = deviceId,
@@ -52,8 +47,10 @@ namespace ITMS.Server.Controllers
                         CreatedBy = postAssignAssetDTO.AssignedBy,
                         UpdatedBy = postAssignAssetDTO.AssignedBy,
                     };
+                    await _postAssignAsset.UpdateDeviceLogAsync(postDeviceLogDTO);
 
-                    Guid newDeviceLogId = await _postAssignAsset.UpdateDeviceLogAsync(postDeviceLogDTO);
+                    var LogDeviceResult = await _postAssignAsset.ListDeviceLog(deviceId);
+                    var deviceLogID = LogDeviceResult.FirstOrDefault().Id;
 
                     if (!string.IsNullOrEmpty(postAssignAssetDTO.DeviceComment))
                     {
@@ -61,23 +58,54 @@ namespace ITMS.Server.Controllers
                         {
                             Description = postAssignAssetDTO.DeviceComment,
                             DeviceId = deviceId,
-                            SoftwareAllocationId = softwareId,
-                            CreatedBy = postAssignAssetDTO.AssignedBy
+                            CreatedBy = postAssignAssetDTO.AssignedBy,
+                            DevicelogId = deviceLogID
                         };
 
-                        await _postAssignAsset.UpdateDeviceComment(deviceCommentDTO, newDeviceLogId);
+                        await _postAssignAsset.UpdateDeviceComment(deviceCommentDTO);
+
+                        var Comments = await _postAssignAsset.ListComment(deviceLogID);
+                        var commentID = Comments.FirstOrDefault().Id;
+                        await _postAssignAsset.UpdateCommentIDLogAsync(deviceLogID, commentID);
                     }
+
+
+                    await _postAssignAsset.UpdateSoftwareAsync(postAssignAssetDTO.SoftwareId, postAssignAssetDTO);
+
+                    var software = await _softwareService.getSoftwareAllocationId(postAssignAssetDTO.SoftwareId);
+                    var softwareId = software.FirstOrDefault().Id;
+
+                    PostDeviceLogDTO postSoftwareLogDTO = new PostDeviceLogDTO()
+                    {
+                        SoftwareAllocationId = softwareId,
+                        EmployeeId = postAssignAssetDTO.AssignedTo,
+                        AssignedBy = postAssignAssetDTO.AssignedBy,
+                        CreatedBy = postAssignAssetDTO.AssignedBy,
+                        UpdatedBy = postAssignAssetDTO.AssignedBy,
+                    };
+
+                    await _postAssignAsset.UpdateSoftwareLogAsync(postSoftwareLogDTO);
+
+                    var LogSoftwareResult = await _postAssignAsset.ListDeviceLog(softwareId);
+                    var SoftwareLogID = LogSoftwareResult.FirstOrDefault().Id;
+
                     if (!string.IsNullOrEmpty(postAssignAssetDTO.SoftwareComment))
                     {
                         PostCommentDTO softwareCommentDTO = new PostCommentDTO()
                         {
                             Description = postAssignAssetDTO.SoftwareComment,
-                            DeviceId = deviceId,
                             SoftwareAllocationId = softwareId,
                             CreatedBy = postAssignAssetDTO.AssignedBy,
+                            DevicelogId = SoftwareLogID
                         };
 
-                        await _postAssignAsset.UpdateSoftwareComment(softwareCommentDTO, newDeviceLogId);
+                        await _postAssignAsset.UpdateSoftwareComment(softwareCommentDTO);
+
+                        var Comments = await _postAssignAsset.ListComment(SoftwareLogID);
+                        var commentID = Comments.FirstOrDefault().Id;
+
+                        await _postAssignAsset.UpdateCommentIDLogAsync(SoftwareLogID, commentID);
+
                     }
 
                     return Results.Ok("Device and Software allocated successfully");
@@ -99,19 +127,27 @@ namespace ITMS.Server.Controllers
                         UpdatedBy = postAssignAssetDTO.AssignedBy,
                     };
 
-                    Guid newDeviceLogId = await _postAssignAsset.UpdateDeviceLogAsync(postDeviceLogDTO);
+                    await _postAssignAsset.UpdateDeviceLogAsync(postDeviceLogDTO);
+
+                    var LogDeviceResult = await _postAssignAsset.ListDeviceLog(deviceId);
+                    var deviceLogID = LogDeviceResult.FirstOrDefault().Id;
 
                     if (!string.IsNullOrEmpty(postAssignAssetDTO.DeviceComment))
                     {
-                    PostCommentDTO deviceCommentDTO = new PostCommentDTO()
-                    {
-                        Description = postAssignAssetDTO.DeviceComment,
-                        DeviceId = deviceId,
-                        CreatedBy = postAssignAssetDTO.AssignedBy,
-                    };
+                        PostCommentDTO deviceCommentDTO = new PostCommentDTO()
+                        {
+                            Description = postAssignAssetDTO.DeviceComment,
+                            DeviceId = deviceId,
+                            CreatedBy = postAssignAssetDTO.AssignedBy,
+                            DevicelogId = deviceLogID
+                        };
 
-                    await _postAssignAsset.UpdateDeviceComment(deviceCommentDTO, newDeviceLogId);
-                }
+                        await _postAssignAsset.UpdateDeviceComment(deviceCommentDTO);
+                        var Comments = await _postAssignAsset.ListComment(deviceLogID);
+                        var commentID = Comments.FirstOrDefault().Id;
+
+                        await _postAssignAsset.UpdateCommentIDLogAsync(deviceLogID, commentID);
+                    }
 
                     return Results.Ok("Device allocated successfully");
                 }
@@ -122,6 +158,20 @@ namespace ITMS.Server.Controllers
                     var software = await _softwareService.getSoftwareAllocationId(postAssignAssetDTO.SoftwareId);
                     var softwareId = software.FirstOrDefault().Id;
 
+                    PostDeviceLogDTO postSoftwareLogDTO = new PostDeviceLogDTO()
+                    {
+                        SoftwareAllocationId = softwareId,
+                        EmployeeId = postAssignAssetDTO.AssignedTo,
+                        AssignedBy = postAssignAssetDTO.AssignedBy,
+                        CreatedBy = postAssignAssetDTO.AssignedBy,
+                        UpdatedBy = postAssignAssetDTO.AssignedBy,
+                    };
+
+                    await _postAssignAsset.UpdateDeviceLogAsync(postSoftwareLogDTO);
+
+                    var LogSoftwareResult = await _postAssignAsset.ListDeviceLog(softwareId);
+                    var SoftwareLogID = LogSoftwareResult.FirstOrDefault().Id;
+
                     if (!string.IsNullOrEmpty(postAssignAssetDTO.SoftwareComment))
                     {
                         PostCommentDTO softwareCommentDTO = new PostCommentDTO()
@@ -129,9 +179,15 @@ namespace ITMS.Server.Controllers
                             Description = postAssignAssetDTO.SoftwareComment,
                             SoftwareAllocationId = softwareId,
                             CreatedBy = postAssignAssetDTO.AssignedBy,
+                            DevicelogId = SoftwareLogID
                         };
 
-                        //await _postAssignAsset.UpdateSoftwareComment(softwareCommentDTO);
+                        await _postAssignAsset.UpdateSoftwareComment(softwareCommentDTO);
+
+                        var Comments = await _postAssignAsset.ListComment(SoftwareLogID);
+                        var commentID = Comments.FirstOrDefault().Id;
+
+                        await _postAssignAsset.UpdateCommentIDLogAsync(SoftwareLogID, commentID);
                     }
                     return Results.Ok("Software allocated successfully");
                 }

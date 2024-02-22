@@ -27,6 +27,7 @@ export class UserDetailsComponent {
   showUserDetails() {
 
   }
+  isOptionsVisible: boolean = false;
 
   
 
