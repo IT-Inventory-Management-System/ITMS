@@ -48,6 +48,11 @@ namespace ITMS.Server.DTO
         public int AssignedUSA { get; set; }
     }
 
+    public class Getlocation
+    {
+       public string? locationid { get; set; }
+    }
+
     public class Logs
     {
         public string? UpdatedBy { get; set; }

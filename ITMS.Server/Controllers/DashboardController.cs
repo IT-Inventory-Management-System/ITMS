@@ -55,9 +55,9 @@ namespace ITMS.Server.Controllers
         }
 
         [HttpPost("logs")]
-        public ActionResult<IEnumerable<Logs>> GetLogs([FromBody] Guid country)
+        public ActionResult<IEnumerable<Logs>> GetLogs([FromBody] Getlocation country)
         {
-            var history = _dashboardService.GetLogsForLocation(country, 1);
+            var history = _dashboardService.GetLogsForLocation(Guid.Parse(country.locationid), 1);
             return Ok(history);
         }
 
