@@ -85,7 +85,7 @@ public class DeviceLogService
                         });
                     }
                     var deviceLogInfo = devicesLogInfoList.FirstOrDefault(log => log.Id == devicelogId);
-                    deviceLogInfo.Comments = commentDtos;
+                    //deviceLogInfo.Comments = commentDtos;
                 }
 
                 return devicesLogInfoList.Select(devicesLogInfo => FormatDevicelogDto(devicesLogInfo));

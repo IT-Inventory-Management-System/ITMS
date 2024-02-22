@@ -39,7 +39,6 @@ export class NewCommentsComponent {
 
   onSubmit() {
     this.deviceForm.get('createdAtUtc')?.setValue(new Date().toISOString());
-    this.setCreatedBy();
     this.deviceForm.get('deviceId')?.setValue(this.dataService.DeviceDetails?.id);
     if (this.deviceForm.get('description')?.value) {
       if (this.deviceForm.valid) {
