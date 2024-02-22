@@ -14,5 +14,16 @@ namespace ITMS.Server.DTO
         
     }
 
+    public class AdminListDTO
+    {
+        public Guid Id { get; set; }
+        public string Cgiid { get; set; }
+        public string FirstName { get; set; }
+        public string? LastName { get; set; }
+        public string Role { get; set; }
+        public Guid LocationId { get; set; }
+    }
+
+
 }
 

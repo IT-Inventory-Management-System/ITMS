@@ -17,12 +17,13 @@ public class DeviceLogController : ControllerBase
     [HttpGet("devices/{locationId}")]
     public async Task<IActionResult> GetDeviceHistory(Guid locationId)
     {
+
         try
         {
             var deviceHistory = await _deviceLogService.GetDevicesAsync(locationId);
             return Ok(deviceHistory);
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             // Log the exception or handle it appropriately
             return StatusCode(500, "Internal Server Error");

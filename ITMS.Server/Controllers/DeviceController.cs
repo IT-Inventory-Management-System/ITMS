@@ -23,10 +23,10 @@ namespace itms.server.controllers
             _getDeviceService = getDeviceService;
         }
 
-        [HttpGet("getDevices")]
-        public async Task<IEnumerable<GetDeviceDTO>> listDevices()
+        [HttpGet("getDevicess/{locationId}")]
+        public async Task<IEnumerable<GetDeviceDTO>> listDevices(Guid locationId)
         {
-            return await _getDeviceService.listDevices();
+            return await _getDeviceService.listDevices(locationId);
         }
 
         [HttpGet("checkDeviceStatus")]

@@ -1,0 +1,66 @@
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content assign-role-modal">
+      <div class="assign-role-heading">
+        <span>Assign Role</span>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="assign-role-content-outer">
+        <div class="assign-role-content-inner">
+          <div class="assign-user">
+            <span>User</span>
+            <ng-select placeholder="Select User">
+              <ng-option *ngFor="let value of userDataList" [value]="value.id">
+                <div class="option">
+                  <ngx-avatars name="{{value.firstName}} {{value.lastName}}" [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="33"></ngx-avatars>
+                  <div class="name-id">
+                    <span class="option-name">{{value.firstName}} {{value.lastName}}</span>
+                    <span class="option-id">{{value.cgiid}}</span>
+                  </div>
+                </div>
+              </ng-option>
+            </ng-select>
+          </div>
+          <div class="role-selector">
+            <div class="role-selector-heading"><span>Select Role</span></div>
+            <div class="role-radio">
+              <input type="radio" name="role-name" id="adminRadio" value="Admin" [(ngModel)]="selectedRole" (change)="roleSelector()" />
+              <label for="adminRadio">Admin</label>
+              <input type="radio" name="role-name" id="superAdminRadio" value="Superadmin" [(ngModel)]="selectedRole" (change)="roleSelector()" />
+              <label for="superAdminRadio">Super Admin</label>
+            </div>
+            <div class="role-permissions">
+              <div class="permission-heading">
+                <span>PERMISSIONS</span>
+              </div>
+              <div *ngIf="selectedRole == 'Admin'" class="permissions-body">
+                <div *ngFor="let permission of adminPermissions" >
+                  <div class="permission-card">
+                    <span class="permission-title">{{permission.permissionName}}</span>
+                    <span class="permission-description">{{permission.permissionDescription}}</span>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="selectedRole == 'Superadmin'" class="permissions-body">
+                <div *ngFor="let permission of superAdminPermissions" >
+                  <div class="permission-card">
+                    <span class="permission-title">{{permission.permissionName}}</span>
+                    <span class="permission-description">{{permission.permissionDescription}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="assign-role-button">
+            <button class="cancel-button" data-bs-dismiss="modal">
+               <span>Cancel</span>
+            </button>
+            <button class="save-button">
+              <span>Save</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
