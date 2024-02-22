@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { DataService } from '../../shared/services/data.service';
 import { AdminDetailService } from '../../shared/services/admin-detail.service';
+import { SelectedCountryService } from '../../shared/services/selected-country.service';
 
 @Component({
   selector: 'app-admin-list-panel',
@@ -10,16 +11,37 @@ import { AdminDetailService } from '../../shared/services/admin-detail.service';
 export class AdminListPanelComponent {
 
   adminList: any[] = [];
-
-  constructor(private dataService: DataService, private adminDetailService: AdminDetailService) { }
+  locationId: string = '';
+  constructor(private dataService: DataService, private adminDetailService: AdminDetailService, private selectedCountryService: SelectedCountryService) { }
 
   ngOnInit(): void {
-    this.loadAdminList();
+    this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
+      localStorage.setItem('selectedCountry', selectedCountry);
+      this.getUserLocation();
+    });
+    //this.loadAdminList(); 
 
   }
 
+  getUserLocation() {
+    this.dataService.getLocation().subscribe(
+      (data) => {
+        for (var i = 0; i < data.length; i++) {
+          if (data[i].type == localStorage.getItem('selectedCountry')) {
+            this.locationId = data[i].id;
+            //alert(this.locationId);
+            this.loadAdminList();
+            break;
+          }
+        }
+      },
+      (error) => {
+        console.log("User not found");
+      });
+  }
+
   loadAdminList() {
-    this.dataService.getAdminList().subscribe(
+    this.dataService.getAdminList(this.locationId).subscribe(
       (data) => {
         this.adminList = data;
         this.adminDetailService.setSelectedAdmin(this.adminList[0]);

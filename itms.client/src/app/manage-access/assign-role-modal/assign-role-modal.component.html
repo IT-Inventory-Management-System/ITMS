@@ -9,7 +9,7 @@
         <div class="assign-role-content-inner">
           <div class="assign-user">
             <span>User</span>
-            <ng-select placeholder="Select User">
+            <ng-select placeholder="Select User" [(ngModel)]="selectedUser">
               <ng-option *ngFor="let value of userDataList" [value]="value.id">
                 <div class="option">
                   <ngx-avatars name="{{value.firstName}} {{value.lastName}}" [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="33"></ngx-avatars>
@@ -55,7 +55,7 @@
             <button class="cancel-button" data-bs-dismiss="modal">
                <span>Cancel</span>
             </button>
-            <button class="save-button">
+            <button type="submit" class="save-button" (click)="changeRole()" data-bs-dismiss="modal">
               <span>Save</span>
             </button>
           </div>

@@ -132,12 +132,16 @@ export class DataService {
     return this.http.post(this.apiUrl + 'addDevices/AddMouse', formData);
   }
 
-  getAdminList(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl + 'employee/admin-list');
+  getAdminList(locationId: any): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + 'employee/admin-list/'+ locationId);
   }
 
   postComments(formData: any): Observable<any> {
     return this.http.post(this.apiUrl + 'Comments', formData);
+  }
+
+  changeUserRole(userData: any): Observable<any> {
+    return this.http.post(this.apiUrl + 'employee/change-role', userData);
   }
 }
 

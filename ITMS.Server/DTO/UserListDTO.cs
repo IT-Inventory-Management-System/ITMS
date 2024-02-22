@@ -24,6 +24,12 @@ namespace ITMS.Server.DTO
         public Guid LocationId { get; set; }
     }
 
+    public class ChangeRoleDTO
+    {
+        public string UserId { get; set; }
+        public string NewRole { get; set; }
+    }
+
 
 }
 
