@@ -88,41 +88,6 @@ namespace ITMS.Server.Controllers
             List<IEnumerable<SoftwarePage>> allData = GetSoftware(attri.IsArchived);
 
             return _softwarepageService.CardFilter(allData, attri);
-
-//            List<IEnumerable<SoftwarePage>> filteredData = new List<IEnumerable<SoftwarePage>>();
-
-//            if (attri.location == "India")
-//            {
-//                var India = allData[0].Where(s =>
-//                     //(string.IsNullOrEmpty(attri.inStock) || (attri.inStock == "Low In Stock" && s.inStock <= 1) || (attri.inStock == "In Stock" && s.inStock > 1) || (attri.inStock == "Out Of Stock" && s.inStock == 0)) &&
-//                     (attri.selectedType.Count == 0 || attri.selectedType.Contains(s.type)) &&
-//                   (attri.From == null ||s.purchaseDates.Any(pd => DateOnly.FromDateTime((DateTime)pd) >= attri.From)) &&
-//(attri.To == null || s.purchaseDates.Any(pd => DateOnly.FromDateTime((DateTime)pd) <= attri.To))
-//                ).ToList();
-
-//                filteredData.Add(India);
-//                filteredData.Add(allData[1]);
-//            }
-//            else
-//            {
-//                var USA = allData[1].Where(s =>
-//    // (string.IsNullOrEmpty(attri.inStock) || (attri.inStock == "Low In Stock" && s.inStock <= 1) || (attri.inStock == "In Stock" && s.inStock > 1) || (attri.inStock == "Out Of Stock" && s.inStock == 0)) &&
-//     (attri.selectedType.Count == 0 || attri.selectedType.Contains(s.type)) && 
-//     (attri.From == null || s.purchaseDates.Any(pd => DateOnly.FromDateTime((DateTime)pd) >= attri.From)) &&
-//(attri.To == null || s.purchaseDates.Any(pd => DateOnly.FromDateTime((DateTime)pd) <= attri.To))
-
-// ).ToList();
-
-
-
-//                filteredData.Add(allData[0]);
-//                filteredData.Add(USA);
-//            }
-
-//            return filteredData;
-
-
-
         }
 
         [HttpGet("selected")]
