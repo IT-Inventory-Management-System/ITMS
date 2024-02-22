@@ -47,6 +47,7 @@ export class NewCommentsComponent {
           response => {
             console.log('Post successful', response);
             this.deviceForm.reset();
+            this.setCreatedBy();
             this.toastr.success("Comment added successfully");
           },
           error => {
