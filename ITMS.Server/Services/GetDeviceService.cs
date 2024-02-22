@@ -77,23 +77,22 @@ namespace ITMS.Server.Services
         public async Task<IEnumerable<getcommentDTO>> listAllComments(Guid deviceId)
         {
 
-            var result = await(from d in _context.Comments
-                               join deviceLog in _context.DevicesLogs on d.DeviceLogId equals deviceLog.Id into deviceLogGroup
-                               from deviceLog in deviceLogGroup.DefaultIfEmpty()
-                               where deviceLog.DeviceId == deviceId  
-                               orderby d.CreatedAtUtc ascending
-                               select new getcommentDTO
-                               {
-                                   Description = d.Description,
-                                   CreatedAtUtc = d.CreatedAtUtc,
-                                   ActionId = deviceLog.ActionId,
-                                   EmployeeId = deviceLog.EmployeeId,
-                                   AssignedBy = deviceLog.AssignedBy,
-                                   ReceivedBy = deviceLog.RecievedBy
-                               }
-                               ).ToListAsync();
+            var result = await (from d in _context.Comments
+                                join deviceLog in _context.DevicesLogs on d.DeviceLogId equals deviceLog.Id into deviceLogGroup
+                                from deviceLog in deviceLogGroup.DefaultIfEmpty()
+                                where d.DeviceId == deviceId
+                                orderby d.CreatedAtUtc ascending
+                                select new getcommentDTO
+                                {
+                                    CreatedAtUtc = d.CreatedAtUtc,
+                                    CreatedBy = d.CreatedBy,
+                                    EmployeeId = deviceLog != null ? deviceLog.EmployeeId : null,
+                                    Description = d.Description,
+                                    ReceivedBy = deviceLog != null ? deviceLog.RecievedBy : null,
+                                    AssignedBy = deviceLog != null ? deviceLog.AssignedBy : null,
+                                    ActionId = deviceLog != null ? deviceLog.ActionId : null,
+                                }).ToListAsync();
             return result;
-
 
 
         }
