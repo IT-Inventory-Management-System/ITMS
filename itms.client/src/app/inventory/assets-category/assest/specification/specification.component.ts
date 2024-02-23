@@ -12,6 +12,8 @@ import { ArchiveModalComponent } from '../specification/archive-modal/archive-mo
 export class SpecificationComponent {
   @Input() isArchived: any;
 
+ 
+  selectedOption: string = 'Active'; // Initially selected option
 
 
   constructor(private dataService: DataService) { }
@@ -24,6 +26,22 @@ export class SpecificationComponent {
   }
 
  
-  
+
+  handleSelectionChange(selectedOption: string) {
+    const archiveModal = document.getElementById('exampleModa');
+    const unarchiveModal = document.getElementById('unarchive');
+
+    if (selectedOption === 'Archive' && archiveModal) {
+      archiveModal.classList.add('show');
+      archiveModal.style.display = 'block';
+    } else if (selectedOption === 'Unarchive' && unarchiveModal) {
+      unarchiveModal.classList.add('show');
+      unarchiveModal.style.display = 'block';
+    }
+  }
+ 
+  handleModalClosed() {
+  this.selectedOption = 'Active';
+}
 
 }

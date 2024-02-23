@@ -175,7 +175,7 @@ namespace itms.server.controllers
 
             if (result)
             {
-                return Ok($"Device with cygid {archiveDto.Cygid} status updated to Not Assigned.");
+                return Ok(result);
             }
             else
             {
