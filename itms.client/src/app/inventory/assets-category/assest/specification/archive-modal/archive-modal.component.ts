@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DataService } from '../../../../../shared/services/data.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Guid } from 'guid-typescript';
+//import { Guid } from 'guid-typescript';
 
 @Component({
   selector: 'app-archive-modal',
