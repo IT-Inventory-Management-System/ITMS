@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-revoke-all',
@@ -7,7 +7,14 @@ import { Component } from '@angular/core';
 })
 export class RevokeAllComponent {
   currentStep = 1;
-
+  @Input() userId: any;
+  @Input() firstName: any;
+  @Input() lastName: any;
+  @Input() cgiid: any;
+  @Input() laptopDetails: any;
+  @Input() accessoriesDetails: any;
+  @Input() softwareDetails: any;
+  
   getStepIcon(step: number): string {
     switch (step) {
       case 1:
@@ -67,4 +74,9 @@ export class RevokeAllComponent {
     }
   }
 
+  dismissModal() {
+    
+    this.currentStep = 1;
+   
+  }
 }

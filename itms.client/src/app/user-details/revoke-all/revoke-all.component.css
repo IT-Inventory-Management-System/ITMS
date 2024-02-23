@@ -384,17 +384,7 @@ app-assign-accessories {
   /* Add any additional styles for greyscale steps */
 }
 
-.modal-footer {
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-  position: absolute; /* Set position to absolute */
-  /*bottom: 1px;*/ /* Adjust the distance from the bottom */
-  right: 1px; /* Adjust the distance from the right */
-  margin: 0; /* Reset margin */
-  border: none; /* Remove border */
-  background-color: transparent;
-}
+
 
 .button-container {
   display: flex;
@@ -559,3 +549,10 @@ app-assign-accessories {
     background-color: rgba(40, 81, 158, 0.7);
     cursor: not-allowed;
   }
+
+.greyed-out {
+  background-color: #dcdcdc; /* Grey background */
+  color: #a9a9a9; /* Grey text */
+  border: 1px solid #dcdcdc; /* Grey border */
+  cursor: not-allowed; /* Disabled cursor */
+}
