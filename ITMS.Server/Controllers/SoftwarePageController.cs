@@ -119,7 +119,21 @@ namespace ITMS.Server.Controllers
             }
         }
 
-     [HttpPost("archive")]
+        [HttpPost("filterTable")]
+        public List<TablePage> FilterTable([FromBody] filterDto attri)
+        {
+            List<TablePage> allData = GetSoftwares(attri.location);
+            
+            
+            List<TablePage> filteredData = allData.Where(s =>
+     (string.IsNullOrEmpty(attri.type) || s.type == attri.type) &&
+     (attri.From == null || DateOnly.FromDateTime((DateTime)s.purchasedDate) >= attri.From) &&
+(attri.To == null || DateOnly.FromDateTime((DateTime)s.purchasedDate) <= attri.To)).ToList();
+
+            return filteredData;
+        }
+
+        [HttpPost("archive")]
 public IActionResult Archive([FromBody] SoftwareUpdateDto dto)
 {
     if (!ModelState.IsValid)
