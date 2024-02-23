@@ -2,7 +2,7 @@
 <app-assign-asset></app-assign-asset>
 <app-exit-process (initiateExitProcess)="onInitiateExitProcess(userDetails.id)" [laptopDetails]="laptopDetails"[accessoriesDetails]="accessoriesDetails" [userId]="userDetails?.id" [firstName]="userDetails?.firstName" [lastName]="userDetails?.lastName" [cgiid]="userDetails?.cgiid"></app-exit-process>
 <app-confirmation-modal [userId]="userDetails?.id" [firstName]="userDetails?.firstName" [lastName]="userDetails?.lastName" [cgiid]="userDetails?.cgiid"></app-confirmation-modal>
-
+<app-revoke-all></app-revoke-all>
 <div class="page-container">
 
   <div class="row-container">
@@ -40,7 +40,7 @@
             </div>
 
             <div class="dropdown-both dropdown-btn exit-process-text" *ngIf="!showAssignAsset" (click)="isOptionsVisible = !isOptionsVisible;onRetrieveExitProcess(userDetails.id)">
-              
+
               Retrieve Exit Process
             </div>
 
