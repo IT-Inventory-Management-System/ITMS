@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DataService } from '../../../../../shared/services/data.service';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-unrchivemodal',
@@ -9,34 +10,56 @@ import { Router } from '@angular/router';
 })
 export class UnrchivemodalComponent {
   @Input() cygid: any;
+  deviceForm: FormGroup;
+  UserId: any;
+  @Output() modalClosed = new EventEmitter<void>(); 
 
-  constructor(private dataService: DataService, private router: Router) { }
+  userDataJSON: any;
+  constructor(private dataService: DataService, private router: Router, private fb: FormBuilder) { }
+  ngOnInit(): void {
+    this.createForm();
+    this.userDataJSON = localStorage.getItem('user');
+    var userData = JSON.parse(this.userDataJSON);
+
+     this.UserId = userData.id;
+
+  }
+
+  createForm() {
+    this.deviceForm = this.fb.group({
+      cygid: [''],
+      createdBy: [''],
+      updatedBy: [''],
+      description: [''],
+    });
+  }
 
   onclick() {
-    const archiveDto = {
-      cygid: this.cygid
-    };
-    console.log('archive' + archiveDto);
+    this.deviceForm.get('cygid')?.setValue(this.cygid);
+    this.deviceForm.get('createdBy')?.setValue(this.UserId);
+    this.deviceForm.get('updatedBy')?.setValue(this.UserId);
+    console.log(this.deviceForm.value);
 
-    this.dataService.UpdateDeviceStatusToNotAssigned(archiveDto)
-
+    this.dataService.UpdateDeviceStatusToNotAssigned(this.deviceForm.value)
       .subscribe(response => {
         if (response) {
-          console.log(`Device with cygid ${archiveDto.cygid} status updated to Not Assigned.`);
-
-
-
-
-
+          console.log("posted successfully");
         } else {
-          console.error(`Device with cygid ${archiveDto.cygid} not found or status update failed.`);
-          // Handle the case where the device is not found or status update fails
+          console.error("error in posting data");
         }
       }, error => {
         console.error('Error updating status', error);
-        // Handle the error
       });
     window.location.reload();
+  }
+  closemodal() {
+    const archiveModal = document.getElementById('unarchive');
+    if (archiveModal)
+      archiveModal.style.display = 'none';
+    this.deviceForm.get('description')?.setValue('');
+
+    this.modalClosed.emit(); // Assuming you have a method in dataService to set the selected option
+
   }
 
 }
