@@ -85,6 +85,7 @@ namespace ITMS.Server.Controllers
         [HttpPost("filter")]
         public List<IEnumerable<SoftwarePage>> Filter([FromBody] filterDto attri)
         {
+
             List<IEnumerable<SoftwarePage>> allData = GetSoftware(attri.IsArchived);
 
             return _softwarepageService.CardFilter(allData, attri);
@@ -106,7 +107,6 @@ namespace ITMS.Server.Controllers
         }
 
         [HttpGet("softwarestable")]
-        [HttpGet("softwarestable")]
         public List<TablePage> GetSoftwares([FromQuery] String country)
         {
             try
@@ -124,11 +124,11 @@ namespace ITMS.Server.Controllers
         public List<TablePage> FilterTable([FromBody] filterDto attri)
         {
             List<TablePage> allData = GetSoftwares(attri.location);
-            
-            
+
+
             List<TablePage> filteredData = allData.Where(s =>
      (attri.selectedType.Count == 0 || attri.selectedType.Contains(s.type)) &&
-     (string.IsNullOrEmpty(attri.IsArchived) || (attri.IsArchived=="Active" && s.isArchived==false) || (attri.IsArchived == "Archived" && s.isArchived == true)) &&
+     ((attri.IsArchived == false && s.isArchived == false) || (attri.IsArchived == true && s.isArchived == true)) &&
      (attri.From == null || DateOnly.FromDateTime((DateTime)s.purchasedDate) >= attri.From) &&
 (attri.To == null || DateOnly.FromDateTime((DateTime)s.purchasedDate) <= attri.To)).ToList();
 
