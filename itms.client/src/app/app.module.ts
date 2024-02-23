@@ -92,7 +92,7 @@ import { AccordionComponent } from './shared/components/accordion/accordion.comp
 import { AccordionItemComponent } from './shared/components/accordion/accordion-item/accordion-item.component';
 import { ConfirmationModalComponent } from './exit-process/confirmation-modal/confirmation-modal.component';
 import { SampleModalComponent } from './sample-modal/sample-modal.component';
-import { RevokeAllComponent } from './revoke-all/revoke-all.component';
+import { RevokeAllComponent } from './user-details/revoke-all/revoke-all.component';
 
 
 
