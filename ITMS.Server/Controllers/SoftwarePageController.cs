@@ -106,16 +106,17 @@ namespace ITMS.Server.Controllers
         }
 
         [HttpGet("softwarestable")]
-        public ActionResult<IEnumerable<Softwares>> GetSoftwares([FromQuery] String country)
+        [HttpGet("softwarestable")]
+        public List<TablePage> GetSoftwares([FromQuery] String country)
         {
             try
             {
                 var software = _softwarepageService.GettableSoftwares(country);
-                return Ok(software);
+                return software;
             }
             catch (Exception ex)
             {
-                return BadRequest($"Error: {ex.Message}");
+                return null;
             }
         }
 
@@ -126,7 +127,8 @@ namespace ITMS.Server.Controllers
             
             
             List<TablePage> filteredData = allData.Where(s =>
-     (string.IsNullOrEmpty(attri.type) || s.type == attri.type) &&
+     (attri.selectedType.Count == 0 || attri.selectedType.Contains(s.type)) &&
+     (string.IsNullOrEmpty(attri.IsArchived) || (attri.IsArchived=="Active" && s.isArchived==false) || (attri.IsArchived == "Archived" && s.isArchived == true)) &&
      (attri.From == null || DateOnly.FromDateTime((DateTime)s.purchasedDate) >= attri.From) &&
 (attri.To == null || DateOnly.FromDateTime((DateTime)s.purchasedDate) <= attri.To)).ToList();
 
