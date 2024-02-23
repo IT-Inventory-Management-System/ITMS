@@ -66,7 +66,7 @@ public class DeviceLogController : ControllerBase
     }
     //, 
     [HttpPost("employeeLog")]
-    public IActionResult GetDevicesLogs([FromBody] adminHistoryParamsDTO adminHistoryParams)
+    public List<returnSingleLog> GetDevicesLogs([FromBody] adminHistoryParamsDTO adminHistoryParams)
     {
         var employeeId = Guid.Parse(adminHistoryParams.employeeId);
         var locationName = Guid.Parse(adminHistoryParams.locationName);
@@ -76,7 +76,7 @@ public class DeviceLogController : ControllerBase
             .Where(dl => (dl.UpdatedBy == employeeId) &&(dl.DeviceId != null ? dl.Device.LocationId == locationName : dl.SoftwareAllocationNavigation.LocationId == locationName))
             .OrderByDescending(dl => dl.UpdatedAtUtc)
             .GroupBy(dl => dl.UpdatedAtUtc.Date)
-                          .Select(dl => new 
+                          .Select(dl => new returnSingleLog
                           {
                               UpdatedDate = dl.Key,
                               Logs = dl.Select(s => new singleLog
@@ -105,7 +105,18 @@ public class DeviceLogController : ControllerBase
                           })
        .ToList();
 
-        return Ok(groupedLogs);
+        return groupedLogs;
     }
 
+    [HttpPost("filterEmployeeLog")]
+    public List<returnSingleLog> FilterDevicesLogs([FromBody] filterDateadminHistoryParamsDTO filterParams)
+    {
+        adminHistoryParamsDTO allDataParams = new adminHistoryParamsDTO() { employeeId= filterParams.employeeId, locationName = filterParams.locationName };
+        List<returnSingleLog> allData = GetDevicesLogs(allDataParams);
+
+        allData = allData.Where(ud => DateOnly.FromDateTime((DateTime)ud.UpdatedDate) == filterParams.Date).ToList();
+
+
+        return allData;
+    }
 }

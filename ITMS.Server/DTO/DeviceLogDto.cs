@@ -103,4 +103,15 @@ public class adminHistoryParamsDTO
 
 }
 
+public class returnSingleLog
+{
+    public DateTime? UpdatedDate { get; set; }
+    public IEnumerable<singleLog> Logs { get; set; }
+}
 
+public class filterDateadminHistoryParamsDTO
+{
+    public DateOnly Date { get; set; }
+    public string employeeId { get; set; }
+    public string locationName { get; set; }
+}
