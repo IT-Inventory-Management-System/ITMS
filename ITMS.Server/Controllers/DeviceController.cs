@@ -30,7 +30,7 @@ namespace itms.server.controllers
         }
 
         [HttpGet("getAllComments/{deviceId}")]
-        public async Task<IEnumerable<getcommentDTO>> listAllComments(Guid deviceId)
+        public async Task<IEnumerable<getComments>> listAllComments(Guid deviceId)
         {
             return await _getDeviceService.listAllComments(deviceId);
         }
