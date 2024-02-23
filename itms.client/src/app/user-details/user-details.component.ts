@@ -17,10 +17,11 @@ export class UserDetailsComponent {
   showAssignAsset: boolean = true;
 
   constructor(private displayingDetailsService: DisplayDetailsService, private employeeService: EmployeeService) {
-   
+    this.resetDropdown();
   }
 
   ngOnInit(): void {
+    
     this.showUserDetails();
 
     if (this.userDetails) {
@@ -46,11 +47,12 @@ export class UserDetailsComponent {
 
   isOptionsVisible: boolean = false;
 
-  
-
   //CHANGES
   selectedItem: string = 'laptop';
-
+  resetDropdown() {
+    this.isOptionsVisible = false;
+    this.showAssignAsset = true;
+  }
  
 
   selectItem(item: string) {
