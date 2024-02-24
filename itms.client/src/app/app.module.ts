@@ -93,6 +93,10 @@ import { AccordionComponent } from './shared/components/accordion/accordion.comp
 import { AccordionItemComponent } from './shared/components/accordion/accordion-item/accordion-item.component';
 import { ConfirmationModalComponent } from './exit-process/confirmation-modal/confirmation-modal.component';
 import { SampleModalComponent } from './sample-modal/sample-modal.component';
+import { RevokeAllComponent } from './user-details/revoke-all/revoke-all.component';
+import { LaptopAllRevokeComponent } from './user-details/laptop-all-revoke/laptop-all-revoke.component';
+import { AccessoriesAllRevokeComponent } from './user-details/accessories-all-revoke/accessories-all-revoke.component';
+import { SoftwareAllRevokeComponent } from './user-details/software-all-revoke/software-all-revoke.component';
 
 
 
@@ -182,6 +186,10 @@ import { SampleModalComponent } from './sample-modal/sample-modal.component';
     AccordionItemComponent,
     ConfirmationModalComponent,
     SampleModalComponent,
+    RevokeAllComponent,
+    LaptopAllRevokeComponent,
+    AccessoriesAllRevokeComponent,
+    SoftwareAllRevokeComponent,
 
 
 
