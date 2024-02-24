@@ -223,3 +223,7 @@
     margin: 1rem 0rem 0rem 18rem;
     gap:1rem;
 }
+
+.img{
+    display:none;
+}
