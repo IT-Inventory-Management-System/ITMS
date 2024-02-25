@@ -2,6 +2,7 @@
 using ITMS.Server.Models;
 using LibNoise.Modifier;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace ITMS.Server.Services
 {
@@ -22,6 +23,11 @@ namespace ITMS.Server.Services
         {
             foreach (PutNewUsers singleUser in listOfUsers)
             {
+                if (string.IsNullOrEmpty(singleUser.Cgiid))
+                {
+                    continue;
+                }
+                else { 
                 Employee employee = new Employee();
                 employee.FirstName = singleUser.FirstName;
                 employee.LastName = singleUser.LastName;
@@ -34,6 +40,7 @@ namespace ITMS.Server.Services
                 employee.UpdatedAtUtc = DateTime.UtcNow;
                 employee.LocationId = Guid.Parse("4F687C11-F0FC-4F5A-9B2F-DAAE538A9F53");
                 _context.Employees.Add(employee);
+                }
             }
             _context.SaveChanges();
             return;

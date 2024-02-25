@@ -46,6 +46,11 @@ export class AddUserComponent implements OnInit {
   }
 
   previous(): void {
+    if (this.idx <= 1) {
+      this.idx--;
+      this.previousDisabled = true;
+      return;
+    }
     if (this.idx == this.curr) {
       this.list.push(this.userForm);
     }
@@ -56,12 +61,16 @@ export class AddUserComponent implements OnInit {
   cancel(): void {
     this.previousDisabled = true;
     this.idx = 0;
+    this.curr = 0;
     this.list = [];
     this.res = [];
   }
 
   addNew(): void {
-    this.list.push(this.userForm);
+    if (this.idx == this.curr) {
+      this.list.push(this.userForm);
+    }
+    this.previousDisabled = false;
     this.curr++;
     this.idx = this.curr;
     this.addUserForm();
@@ -69,8 +78,9 @@ export class AddUserComponent implements OnInit {
 
   addAnother(): void {
     if (this.idx != this.curr) {
-      this.idx = this.curr;
-      this.userForm = this.list[this.curr];
+      //this.idx = this.curr;
+      this.addNew();
+      //this.userForm = this.list[this.curr];
     } else {
       this.addNew();
       this.addAnotherClicked = true;
@@ -102,6 +112,7 @@ export class AddUserComponent implements OnInit {
     this.ngOnInit();
     this.addUserForm();
     this.idx = 0;
+    this.curr = 0;
     this.userAddedCount = 0;
 
   }
