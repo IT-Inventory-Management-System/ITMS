@@ -147,7 +147,7 @@ export class LaptopRevokeComponent {
 
     console.log('Comment DTO:', commentDto);
 
-    this.commentService.addComment(commentDto).subscribe(
+    this.commentService.addRevokeComment(commentDto).subscribe(
       (response) => {
 
         console.log(response);

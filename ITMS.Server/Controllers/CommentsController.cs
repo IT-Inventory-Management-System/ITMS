@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ITMS.Server.Models;
 using ITMS.Server.Services;
 using ITMS.Server.DTO;
+using log4net.Core;
 
 namespace ITMS.Server.Controllers
 {
@@ -11,7 +12,7 @@ namespace ITMS.Server.Controllers
     public class CommentsController : ControllerBase
     {
         private readonly ICommentService _commentService;
-        
+
         public CommentsController(ICommentService commentService)
         {
             _commentService = commentService;
@@ -22,7 +23,22 @@ namespace ITMS.Server.Controllers
         {
             try
             {
-                var addedComment = _commentService.AddComment(commentDto);
+                _commentService.AddComment(commentDto);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex);
+            }
+        }
+        [HttpPost("AddRevokeComment")]
+        public IActionResult AddRevokeComment([FromBody] UserCommentHistory commentDto)
+        {
+            try
+            {
+                var addedComment = _commentService.AddRevokeComment(commentDto);
               
                 return Ok(addedComment);
             }
@@ -60,7 +76,7 @@ namespace ITMS.Server.Controllers
             }
             catch (Exception ex)
             {
-                
+
                 return StatusCode(500, new { Message = "Internal Server Error" });
             }
         }

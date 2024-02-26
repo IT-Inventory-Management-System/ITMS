@@ -499,7 +499,7 @@ public class DeviceService
             {
                 // Find the "discarded" status from the database
                 var discardedStatus = await _context.Statuses.FirstOrDefaultAsync(s => s.Type == "discarded");
-
+                //var action = await _context.ActionTables.FirstOrDefaultAsync(s => s.ActionName == "Archived");
                 if (discardedStatus != null)
                 {
                     // Update the status to discarded
@@ -507,7 +507,27 @@ public class DeviceService
 
                     // Set IsArchived to true (1)
                     device.IsArchived = true;
+                    //DevicesLog oldlog = new DevicesLog
+                    //{
+                    //    DeviceId = device.Id,
+                    //    CreatedBy= Guid.Parse("61972141-6C7F-4628-95BC-797216BF3B86"),
+                    //    UpdatedBy=Guid.Parse("61972141-6C7F-4628-95BC-797216BF3B86"),
+                    //    UpdatedAtUtc= DateTime.UtcNow,
+                    //    CreatedAtUtc= DateTime.UtcNow,
+                    //    ActionId=action?.Id
 
+                    //};
+                    //_context.DevicesLogs.Add(oldlog);
+
+                    //Comment addArchiveComment = new Comment
+                    //{
+                    //    Description="hy yaush!",
+                    //    DeviceLogId=oldlog.Id,
+                    //    DeviceId=device.Id,
+                    //    CreatedAtUtc=DateTime.UtcNow,
+                    //    CreatedBy= Guid.Parse("61972141-6C7F-4628-95BC-797216BF3B86")
+                    //};
+                    //_context.Comments.Add(addArchiveComment);
                     // Save the changes
                     await _context.SaveChangesAsync();
 

@@ -69,7 +69,7 @@ namespace ITMS.Server.Controllers
                         DeviceLogId = software.DeviceLogId,
                         ActionId = software.ActionId,
                     };
-                    var taskResult = _UserRecievedBy.RevokeAll(false, receivedByDTO.UserId, revokeAllServiceDTO);
+                    var taskResult = _UserRecievedBy.RevokeAll(true, receivedByDTO.UserId, revokeAllServiceDTO);
 
                     // Wait for the task to complete
                     await taskResult;

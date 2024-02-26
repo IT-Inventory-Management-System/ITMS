@@ -84,6 +84,8 @@ import { NewCommentsComponent } from './shared/components/new-comments/new-comme
 import { SingleCommentComponent } from './shared/components/new-comments/single-comment/single-comment.component';
 import { AgGridModule } from 'ag-grid-angular';
 import { TableViewComponent } from './shared/components/table-view/table-view.component';
+import { AssignLaptopCommentComponent } from './assign-asset/assign-laptop-comment/assign-laptop-comment.component';
+import { AssignSoftwareCommentComponent } from './assign-asset/assign-software-comment/assign-software-comment.component';
 import { LaptopRevokeComponent } from './user-details/laptop-revoke/laptop-revoke.component';
 import { AccessoriesRevokeComponent } from './user-details/accessories-revoke/accessories-revoke.component';
 import { SoftwareRevokeComponent } from './user-details/software-revoke/software-revoke.component';
@@ -97,6 +99,25 @@ import { RevokeAllComponent } from './user-details/revoke-all/revoke-all.compone
 import { LaptopAllRevokeComponent } from './user-details/laptop-all-revoke/laptop-all-revoke.component';
 import { AccessoriesAllRevokeComponent } from './user-details/accessories-all-revoke/accessories-all-revoke.component';
 import { SoftwareAllRevokeComponent } from './user-details/software-all-revoke/software-all-revoke.component';
+import { FilterComponent } from './software/filter/filter.component';
+import { LastdateComponent } from './software/lastdate/lastdate.component';
+import { ArchivesoftwareComponent } from './software/archivesoftware/archivesoftware.component';
+import { AccessoriesComponent } from './accessories/accessories.component';
+import { AccesoriesnameComponent } from './accessories/accesoriesname/accesoriesname.component';
+import { AssignhistoryComponent } from './accessories/assignhistory/assignhistory.component';
+import { MyCellComponent } from './shared/components/my-cell/my-cell.component';
+import { ManageAccessComponent } from './manage-access/manage-access.component';
+import { AdminListPanelComponent } from './manage-access/admin-list-panel/admin-list-panel.component';
+import { AdminPermissionsPanelComponent } from './manage-access/admin-permissions-panel/admin-permissions-panel.component';
+import { AdminNameCardComponent } from './shared/components/admin-name-card/admin-name-card.component';
+import { AssignRoleModalComponent } from './manage-access/assign-role-modal/assign-role-modal.component';
+import { ActivityLogComponent } from './activity-log/activity-log.component';
+import { ActivityPanelComponent } from './history/activity-panel/activity-panel.component';
+import { AdminPanelComponent } from './history/admin-panel/admin-panel.component';
+import { AddMonitorFormComponent } from './add-asset/add-monitor-form/add-monitor-form.component';
+import { AddMonitorBrandFormComponent } from './add-asset/add-monitor-form/add-monitor-brand-form/add-monitor-brand-form.component';
+import { AssignAccessoryCommentComponent } from './assign-asset/assign-accessory-comment/assign-accessory-comment.component';
+import { AccessoryBrandySearchBoxComponent } from './assign-asset/accessory-brandy-search-box/accessory-brandy-search-box.component';
 
 
 
@@ -157,7 +178,8 @@ import { SoftwareAllRevokeComponent } from './user-details/software-all-revoke/s
     UnrchivemodalComponent,
     ArchiveModalComponent,
     AddAssetComponent,
-
+    FilterComponent,
+    LastdateComponent,
     LaptopSearchBoxComponent,
     SoftwareSearchBoxComponent,
     SoftwareVersionSearchBoxComponent,
@@ -177,6 +199,10 @@ import { SoftwareAllRevokeComponent } from './user-details/software-all-revoke/s
     NewCommentsComponent,
     SingleCommentComponent,
     TableViewComponent,
+    AssignLaptopCommentComponent,
+    AssignSoftwareCommentComponent,
+
+    TableViewComponent,
     LaptopRevokeComponent,
     AccessoriesRevokeComponent,
     SoftwareRevokeComponent,
@@ -191,6 +217,31 @@ import { SoftwareAllRevokeComponent } from './user-details/software-all-revoke/s
     AccessoriesAllRevokeComponent,
     SoftwareAllRevokeComponent,
 
+    AccordionItemComponent,
+    ArchivesoftwareComponent,
+    AccessoriesComponent,
+    AccesoriesnameComponent,
+    AssignhistoryComponent,
+    //FilterComponent,
+    //LastdateComponent,
+
+
+    AccordionItemComponent,
+    MyCellComponent,
+    ManageAccessComponent,
+    AdminListPanelComponent,
+    AdminPermissionsPanelComponent,
+    AdminNameCardComponent,
+    AssignRoleModalComponent,
+    ActivityLogComponent,
+    ActivityPanelComponent,
+    AdminPanelComponent,
+    AssignRoleModalComponent,
+    AddMonitorFormComponent,
+    AddMonitorBrandFormComponent,
+    AccordionItemComponent,
+    AssignAccessoryCommentComponent,
+    AccessoryBrandySearchBoxComponent
 
 
   ],

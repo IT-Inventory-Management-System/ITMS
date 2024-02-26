@@ -9,7 +9,9 @@ namespace ITMS.Server.Services
 {
     public interface ICommentService
     {
-        CommentDto AddComment(UserCommentHistory commentDto); 
+        void AddComment(UserCommentHistory commentDto);
+        CommentDto AddRevokeComment(UserCommentHistory commentDto);
+
         void RevokeAllAddComment(UserCommentHistory commentDto);
 
         CommentDto AddSoftwareComment(UserSoftwareCommentHistory commentDto);
@@ -24,10 +26,23 @@ namespace ITMS.Server.Services
         {
             _context = context;
         }
+        public void AddComment(UserCommentHistory commentDto)
+        {
+            Comment addcomment = new Comment
+            {
+                DeviceId = commentDto.DeviceId,
+                CreatedBy = commentDto.CreatedBy,
+                CreatedAtUtc = DateTime.UtcNow,
+                Description = commentDto.Description,
 
 
+            };
+            _context.Comments.Add(addcomment);
+            _context.SaveChanges();
+        }
 
-        public CommentDto AddComment(UserCommentHistory commentDto)
+
+        public CommentDto AddRevokeComment(UserCommentHistory commentDto)
         {
             System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(System.Threading.Thread.CurrentThread.CurrentCulture.Name);
 

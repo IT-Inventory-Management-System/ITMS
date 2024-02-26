@@ -1,0 +1,127 @@
+.permissions-panel-container {
+  display: flex;
+  padding: 1rem;
+  width: 50.8125rem;
+  height:100%;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+  flex: 1 0 0;
+  align-self: stretch;
+  border-radius: 0.5rem;
+  background: #FFF;
+  box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.15);
+}
+
+.permissions-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-self: stretch;
+  height: 2.4375rem;
+}
+
+.admin-name {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.75rem;
+  height: 100%;
+}
+
+.admin-name-id {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+}
+
+.name {
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.id {
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.status-toggle {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.5rem;
+  align-self: stretch;
+}
+
+.status-toggle span {
+  color: #848486;
+  font-family: Roboto;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.toggle-input input {
+  outline: none;
+  background-color: #34C759;
+  border: none;
+}
+
+.permissions-panel-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /*gap: 1.25rem;*/
+  align-self: stretch;
+  background: #FFF;
+}
+
+.permission-card {
+  display: flex;
+  padding: 1rem;
+  align-items: flex-start;
+  gap: 1rem;
+  align-self: stretch;
+  border-radius: 0.375rem;
+  border: 1px solid var(--Secondary-Light-Gray, #E9ECEB);
+  background: #FFF;
+}
+
+.permission-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.3125rem;
+  flex: 1 0 0;
+}
+
+.permission-title {
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.permission-description {
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.st {
+  border: 1px solid black;
+}

@@ -43,6 +43,9 @@ export class EmployeeService {
   addComment(commentDto: any): Observable<any> {
     return this.http.post<any>(this.apiUrl + 'Comments', commentDto);
   }
+  addRevokeComment(commentDto: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl + 'Comments/AddRevokeComment', commentDto);
+  }
 
   addSoftwareComment(commentDto: any): Observable<any> {
     return this.http.post<any>(this.apiUrl + 'Comments/AddSoftwareComment', commentDto);
