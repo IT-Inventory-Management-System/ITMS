@@ -183,18 +183,34 @@ namespace itms.server.controllers
         }
     }
 
-        [HttpPost("getAllAccessories")]
-        public List<allAccessoriesDTO> GetAllAccessories([FromBody] singleAccessoriesBodyDTO accessoryDto)
+
+     [HttpPost("getAllAccessories")]
+     public List<allAccessoriesDTO> GetAllAccessories(Guid locationId, bool IsArchived)
         {
-            return _deviceService.GetAllAccessories(accessoryDto.locationId);
+            List<allAccessoriesDTO> allData = _deviceService.GetAllAccessories(locationId);
+            if (IsArchived == true)
+            {
+                allData = allData.Where(d => d.IsArchived == true).ToList();
+            }
+            return allData;
         }
 
-        //[HttpPost("getSingleAccessories")]
-        //public List<allAccessoriesDTO> GetSingleAccessories(Guid singleAccessoriesBodyDTO)
-        //{
-        //    return _deviceService.GetAllAccessories(locationId);
-        //}
+        [HttpPost("filterAccessories")]
+        public List<allAccessoriesDTO> FilterAccessories(filterAccessoriesBodyDTO filter)
+        {
+            List<allAccessoriesDTO> allData = GetAllAccessories(filter.locationId, filter.IsArchived);
+
+            return _deviceService.GetFilterAccessories(allData,filter);
+        }
+
+        [HttpPost("singleHistoryAccessory")]
+        public List<historySingleAccessory> singleHistoryAccessory(Guid locationId,string CYGID)
+        {
+            List<historySingleAccessory> history = _deviceService.singleHistory(locationId,CYGID);
+
+            return history;
+        }
     }
 }
 
-    
+
