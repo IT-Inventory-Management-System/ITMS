@@ -582,7 +582,7 @@ public class DeviceService
             .Include(d => d.StatusNavigation)
             .Include(d => d.DeviceModel)
               .ThenInclude(dm => dm.Category)
-             .Where(d => d.LocationId == locationId)
+             .Where(d => (d.DeviceModel.Category.Name != "Laptop")&& ((d.DeviceModel.Category.Name != "Software")) && (d.LocationId == locationId))
             .Select(d => new allAccessoriesDTO
             {
                 Brand = d.DeviceModel.Brand,
