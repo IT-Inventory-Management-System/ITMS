@@ -2,10 +2,10 @@
   <div class="list-search-bar">
     <div class="list-search-bar-input">
       <img src="../../../assets/icons/manage-access/search-icon.svg" />
-      <input type="text" placeholder="Search Admin"/>
+      <input type="text" placeholder="Search Admin" [(ngModel)]="filterName"/>
     </div>
   </div>
   <div class="admin-list">
-    <app-admin-name-card *ngFor="let adminDetail of adminList; let i = index" [adminDetail]="adminDetail" [index]="i"></app-admin-name-card>
+    <app-admin-name-card *ngFor="let adminDetail of adminList | filterSearchList : filterName; let i = index" [adminDetail]="adminDetail" [index]="i"></app-admin-name-card>
   </div>
 </div>

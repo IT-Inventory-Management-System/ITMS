@@ -40,7 +40,7 @@
       <app-devices #appDevices [isArchived]="isArchived" [selectedItem]="selectedItem"></app-devices>
     </div>
     <div class="middle-container">
-      <app-specification [isArchived]="isArchived"></app-specification>
+      <app-specification [isArchived]="isArchived" (modelClicked)="showModelTable($event)"></app-specification>
     </div>
     <div class="right-container">
       <app-assign-history></app-assign-history>

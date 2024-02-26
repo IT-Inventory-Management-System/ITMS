@@ -11,7 +11,7 @@
     </div>
     <span class="heading">Model</span>
 
-    <span class="values">
+    <span class="values" (click)="handleClick(deviceDetails.deviceModel.deviceName)">
       {{deviceDetails?.deviceModel?.deviceName}}
 
       <img class="specimage" src="../../assets/icons/spec-info.svg" />
