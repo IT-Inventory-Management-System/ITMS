@@ -1,7 +1,7 @@
 <div class="Accesories" (click)="onClick()">
   <div class="inner-accesories ">
     <div class="name-icon ">
-      <img src="../../../assets/icons/Accessories/Mouse.svg" />
+      <img [src]="getAccessoryIconPath(accessories.category)" />
       <span class="namediv">{{accessories.brand}}</span>
     </div>
     <div class="Cgi ">
