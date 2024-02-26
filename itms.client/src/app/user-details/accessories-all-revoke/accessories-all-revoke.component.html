@@ -43,40 +43,37 @@
   <div class="accessory-recieved">
 
     <p>Item Received <span class="star">*</span></p>
-    <input type="radio" id="receivedYes{{i}}" name="accessoryReceived{{i}}" value="Yes" (click)="showYesReasonOptions(i)">
+    <input type="radio" id="receivedYes{{i}}" name="accessoryReceived{{i}}" [checked]="isReceivedYes(accessory, i)" value="Yes" (click)="showYesReasonOptions(i)">
     <label for="receivedYes{{i}}">Yes</label>
 
-    <input type="radio" id="receivedNo{{i}}" name="accessoryReceived{{i}}" value="No" (click)="showNoReasonOptions(i)">
+    <input type="radio" id="receivedNo{{i}}" name="accessoryReceived{{i}}" [checked]="isReceivedNo(accessory, i)" value="No" (click)="showNoReasonOptions(i)">
     <label for="receivedNo{{i}}">No</label>
   </div>
 
   <div *ngIf="showYesReason[i]" class="reason-options">
     <p>Condition <span class="star">*</span></p>
     <div>
-      <input type="radio" id="perfect{{i}}" name="reasonOptions{{i}}" value="Perfect">
+      <input type="radio" id="perfect{{i}}" name="reasonOptions{{i}}" [checked]="isReasonSelected('Perfect', i)" value="Perfect" (change)="handleReasonSelection('Perfect', i)">
       <label for="perfect{{i}}">Perfect</label>
 
-      <input type="radio" id="unassignable{{i}}" name="reasonOptions{{i}}" value="Unassignable">
+      <input type="radio" id="unassignable{{i}}" name="reasonOptions{{i}}" [checked]="isReasonSelected('Unassignable', i)" value="Unassignable" (change)="handleReasonSelection('Unassignable', i)">
       <label for="unassignable{{i}}">Unassignable</label>
     </div>
   </div>
-
   <div *ngIf="showNoReason[i]" class="reason-options">
     <p>Reason <span class="star">*</span></p>
     <div>
-      <input type="radio" id="submittedLater{{i}}" name="reasonOptions{{i}}" value="Submitted Later">
+      <input type="radio" id="submittedLater{{i}}" name="reasonOptions{{i}}" [checked]="isReasonSelected('Submitted Later', i)" value="Submitted Later" (change)="handleReasonSelection('Submitted Later', i)">
       <label for="submittedLater{{i}}">Will be submitted later</label>
 
-      <input type="radio" id="lostNotReceived{{i}}" name="reasonOptions{{i}}" value="Lost/Not Received" class="lost">
+      <input type="radio" id="lostNotReceived{{i}}" name="reasonOptions{{i}}" [checked]="isReasonSelected('Lost/Not Received', i)" value="Lost/Not Received" class="lost" (change)="handleReasonSelection('Lost/Not Received', i)">
       <label for="lostNotReceived{{i}}">Lost/Not Recieved</label>
     </div>
   </div>
 
-
-
   <div class="comment-box">
     <p>Comment <span class="star">*</span></p>
-    <input type="text" class="input-box" [(ngModel)]="accessory.newComment" placeholder="Type Here..." />
+    <input type="text" class="input-box" placeholder="Type Here..."  (input)="setDeviceComment($event, i)"/>
   </div>
 
 

@@ -39,7 +39,6 @@ export class LaptopRevokeComponent {
       }
     )
   }
-
   saveCommentAndFetchComments() {
     const SubmitLater = (document.getElementById('submittedLater') as HTMLInputElement)?.checked;
     const Unassignable = (document.getElementById('unassignable') as HTMLInputElement)?.checked;

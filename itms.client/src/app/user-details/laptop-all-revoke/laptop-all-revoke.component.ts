@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, Input } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-laptop-all-revoke',
@@ -10,35 +11,147 @@ export class LaptopAllRevokeComponent {
   @Input() firstName: any;
   @Input() lastName: any;
   @Input() cgiid: any;
-  @Input() laptopDetails: any;
+  @Input() laptopDetails: any[];
+  @Input() revokeAllForm: FormGroup;
 
   selectedReason: any; 
-
-  newComment: string = '';
-  comments: any;
-
+  //newComment: string = '';
+  //comments: any;
   showYesReason: boolean[] = []; 
   showNoReason: boolean[] = [];
 
+  constructor(private formBuilder: FormBuilder, private cdr: ChangeDetectorRef) { }
+
   ngOnInit() {
-   
-    if (this.laptopDetails) {
+    console.log(this.revokeAllForm);
+  }
+  ngOnDestroy() {
+    console.log(this.revokeAllForm);
+  }
+  ngOnChanges() {
+    if (this.laptopDetails && this.revokeAllForm) {
+      console.log(this.laptopDetails);
+      //console.log(this.)
       for (let i = 0; i < this.laptopDetails.length; i++) {
         this.showYesReason[i] = false;
         this.showNoReason[i] = false;
       }
+      this.initializeLaptopFormArray();
     }
   }
 
+  initializeLaptopFormArray() {
+    const laptopArray = this.revokeAllForm.get('Laptop') as FormArray;
+    //laptopArray.clear();
+    if (laptopArray.length === 0) {
+      this.laptopDetails.forEach((laptop: any) => {
+        laptopArray.push(this.createLaptopFormGroup(laptop));
+      });
+    }
+    console.log(laptopArray);
+  }
+
+  createLaptopFormGroup(laptop: any) {
+    return this.formBuilder.group({
+      deviceLogId: [laptop.deviceLogId],
+      actionId: [null],
+      deviceComment: [null]
+    });
+  }
 
   showYesReasonOptions(index: number) {
-    this.showYesReason[index] = !this.showYesReason[index];
+    this.showYesReason[index] = true;
     this.showNoReason[index] = false;
+    //this.cdr.detectChanges(); 
   }
 
   showNoReasonOptions(index: number) {
-    this.showNoReason[index] = !this.showNoReason[index];
+    this.showNoReason[index] = true;
     this.showYesReason[index] = false;
+    //this.cdr.detectChanges(); 
   }
 
+  handleReasonSelection(reason: string, index: number) {
+    const laptopArray = this.revokeAllForm.get('Laptop') as FormArray;
+    const laptopFormGroup = laptopArray.at(index) as FormGroup;
+    switch (reason) {
+      case 'Perfect':
+        laptopFormGroup.patchValue({ actionId: '5b6200c2-f960-446d-8943-0f89336126d2' });
+        break;
+      case 'Unassignable':
+        laptopFormGroup.patchValue({ actionId: '5b6200c2-f960-446d-8943-0f89336126d2' });
+        break;
+      case 'Submitted Later':
+        laptopFormGroup.patchValue({ actionId: '9412ce34-dba4-40b2-9ff9-de60b8987529' });
+        break;
+      case 'Lost/Not Received':
+        laptopFormGroup.patchValue({ actionId: '13e8fba9-7c8c-4d83-9f7c-4a91a82eae66' });
+        break;
+      default:
+        break;
+    }
+  }
+
+  isReasonSelected(reason: string, index: number): boolean {
+    const laptopArray = this.revokeAllForm.get('Laptop') as FormArray;
+    const laptopFormGroup = laptopArray.at(index) as FormGroup;
+
+    // Check if actionId matches the selected reason
+    switch (reason) {
+      case 'Perfect':
+        return laptopFormGroup.value.actionId === '5b6200c2-f960-446d-8943-0f89336126d2';
+      case 'Unassignable':
+        return laptopFormGroup.value.actionId === '5b6200c2-f960-446d-8943-0f89336126d2';
+      case 'Submitted Later':
+        return laptopFormGroup.value.actionId === '9412ce34-dba4-40b2-9ff9-de60b8987529';
+      case 'Lost/Not Received':
+        return laptopFormGroup.value.actionId === '13e8fba9-7c8c-4d83-9f7c-4a91a82eae66';
+      default:
+        return false;
+    }
+  }
+
+  isReceivedYes(laptop: any, index: number): boolean {
+    const laptopArray = this.revokeAllForm.get('Laptop') as FormArray;
+    const laptopFormGroup = laptopArray.at(index) as FormGroup;
+    const receivedYes = laptopFormGroup.value.actionId === '5b6200c2-f960-446d-8943-0f89336126d2';
+    //if (receivedYes) {
+    //  this.showYesReason[index] = true; // Update the showYesReason array
+    //  this.showNoReason[index] = false;
+    //}
+    return receivedYes;
+  }
+
+  isReceivedNo(laptop: any, index: number): boolean {
+    const laptopArray = this.revokeAllForm.get('Laptop') as FormArray;
+    const laptopFormGroup = laptopArray.at(index) as FormGroup;
+    const receivedNo= laptopFormGroup.value.actionId === '13e8fba9-7c8c-4d83-9f7c-4a91a82eae66' ||
+      laptopFormGroup.value.actionId === '9412ce34-dba4-40b2-9ff9-de60b8987529';
+    //if (receivedNo) {
+    //  this.showYesReason[index] = true; // Update the showYesReason array
+    //  this.showNoReason[index] = false;
+    //}
+    return receivedNo;
+  }
+
+  getDeviceComment(index: number): string {
+    const laptopArray = this.revokeAllForm.get('Laptop') as FormArray;
+    const laptopFormGroup = laptopArray.at(index) as FormGroup;
+    return laptopFormGroup.value.deviceComment;
+  }
+
+  setDeviceComment(event: any, index: number) {
+    const laptopArray = this.revokeAllForm.get('Laptop') as FormArray;
+    const laptopFormGroup = laptopArray.at(index) as FormGroup;
+    const val = event.target.value;
+    laptopFormGroup.patchValue({ deviceComment: val });
+  }
 }
+   /*
+actionName:"Assigned"
+id:"9412ce34-dba4-40b2-9ff9-de60b8987529"
+actionName:"Lost"
+id:"13e8fba9-7c8c-4d83-9f7c-4a91a82eae66"
+actionName:"Submitted"
+id:"5b6200c2-f960-446d-8943-0f89336126d2"
+   */

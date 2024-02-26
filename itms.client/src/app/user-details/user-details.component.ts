@@ -18,18 +18,16 @@ export class UserDetailsComponent {
 
   constructor(private displayingDetailsService: DisplayDetailsService, private employeeService: EmployeeService) {
     this.resetDropdown();
+
   }
 
-  ngOnInit(): void {
-    
+  ngOnInit(): void {    
     this.showUserDetails();
-
     if (this.userDetails) {
       this.userDetails.forEach((user: { id: string | number; }) => {
         this.showRevokeAlert[user.id] = false;
       });
     }
-    
   }
   showUserDetails() {
 

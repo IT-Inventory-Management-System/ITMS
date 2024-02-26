@@ -9,7 +9,8 @@ namespace ITMS.Server.Services
 {
     public interface ICommentService
     {
-        CommentDto AddComment(UserCommentHistory commentDto);
+        CommentDto AddComment(UserCommentHistory commentDto); 
+        void RevokeAllAddComment(UserCommentHistory commentDto);
 
         CommentDto AddSoftwareComment(UserSoftwareCommentHistory commentDto);
 
@@ -68,6 +69,36 @@ namespace ITMS.Server.Services
             };
 
             return addedComment;
+        }
+
+        public void RevokeAllAddComment(UserCommentHistory commentDto)
+        {
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(System.Threading.Thread.CurrentThread.CurrentCulture.Name);
+
+            Comment commentEntity = new Comment
+            {
+                Description = commentDto.Description,
+                CreatedBy = commentDto.CreatedBy,
+                CreatedAtUtc = DateTime.Now,
+                DeviceId = commentDto.DeviceId,
+                DeviceLogId = commentDto.DeviceLogId
+            };
+
+
+            var createdByEntity = _context.Employees
+                .Where(e => e.Id == commentDto.CreatedBy)
+                .FirstOrDefault();
+
+
+            if (createdByEntity != null)
+            {
+                commentEntity.CreatedByNavigation = createdByEntity;
+            }
+
+
+            _context.Comments.Add(commentEntity);
+            _context.SaveChanges();
+
         }
 
 

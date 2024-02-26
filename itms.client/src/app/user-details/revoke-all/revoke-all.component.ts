@@ -1,4 +1,6 @@
 import { Component, Input } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { EmployeeService } from '../../shared/services/Employee.service';
 
 @Component({
   selector: 'app-revoke-all',
@@ -14,7 +16,28 @@ export class RevokeAllComponent {
   @Input() laptopDetails: any;
   @Input() accessoriesDetails: any;
   @Input() softwareDetails: any;
-  
+
+  revokeAllForm: FormGroup;
+  actionsArray: any[] = [];
+
+  constructor(private formBuilder: FormBuilder, private revokeAllService: EmployeeService, private actionService: EmployeeService) {
+    this.revokeAllForm = this.formBuilder.group({
+      userid: [null, Validators.required],
+      Laptop: this.formBuilder.array([]),
+      Software: this.formBuilder.array([]),
+      Accessory: this.formBuilder.array([]),
+    });
+    this.actionService.getActions().subscribe(
+      (actions) => {
+        this.actionsArray = actions;
+        console.log(this.actionsArray);
+      },
+      (error) => {
+        console.error('Error fetching actions:', error);
+      }
+    )
+  }
+
   getStepIcon(step: number): string {
     switch (step) {
       case 1:
@@ -64,8 +87,6 @@ export class RevokeAllComponent {
     return `${progress}%`;
   }
 
-
-
   getButtonText(): string {
     if (this.currentStep === 3) {
       return 'Save';
@@ -74,9 +95,30 @@ export class RevokeAllComponent {
     }
   }
 
+  saveAndDismiss() {
+    this.saveData();
+    this.dismissModal();
+  }
+
   dismissModal() {
-    
     this.currentStep = 1;
-   
+  }
+
+  saveData() {
+    const formData = this.revokeAllForm.value;
+    const storedUser = localStorage.getItem("user");
+    if (storedUser !== null) {
+      formData.userid = JSON.parse(storedUser).id;
+    }
+    console.log(formData);
+    this.revokeAllService.revokeAll(formData).subscribe(
+      (response) => {
+        console.log('Data saved successfully', response);
+        this.revokeAllForm.reset();
+      },
+      (error) => {
+        console.error('Error occurred while saving data', error);
+      }
+    );
   }
 }
