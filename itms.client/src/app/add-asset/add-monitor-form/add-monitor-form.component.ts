@@ -9,12 +9,16 @@ export class AddMonitorFormComponent {
   currentStep: number = 1;
   ifChecked: boolean = false;
   ifCheck: boolean = false;
-
+  iCheck: boolean = false;
 
   toggleDeviceDetailsForm() {
     this.ifChecked = !this.ifChecked;
   }
   toggleDeviceDetails() {
     this.ifCheck = !this.ifCheck;
+  }
+
+  toggleDevice() {
+    this.iCheck = !this.iCheck;
   }
 }

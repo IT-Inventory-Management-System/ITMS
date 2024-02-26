@@ -188,7 +188,21 @@ namespace itms.server.controllers
             return StatusCode(500, $"Internal server error: {ex.Message}");
         }
     }
-}
+        [HttpGet("DeviceModels/{DeviceModelId}")]
+        public async Task<IActionResult> GetDeviceModels(Guid DeviceModelId, [FromQuery] Guid location)
+        {
+            try
+            {
+                var deviceHistory = await _deviceService.GetDeviceModels(DeviceModelId, location);
+                return Ok(deviceHistory);
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
+    }
 }
 
     

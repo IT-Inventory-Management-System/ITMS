@@ -94,15 +94,15 @@
       </div>
       <div *ngIf="currentStep === 2" class="app-id-input custom-container">
         <div *ngFor="let ele of counterValues; let i = index" class="outer-input">
-
-            <div class="serial-number-input ">
-              <label for="serialNumber">Serial Number<span class="required">*</span></label>
-              <input type="text" id="serialNumber" name="serialNumber" (input)="updateSerialNumber(i, $event)" placeholder="Enter Serial No."/>
-            </div>
-            <div class="cyg-id-input">
-              <label for="cygId">CYG ID.<span class="required">*</span></label>
-              <input type="text" id="cygId" name="cygId" (input)="updateCygId(i, $event)" placeholder="Enter CYG ID"/>
-            </div>
+          <span>{{ele}}.</span>
+          <div class="serial-number-input ">
+            <label for="serialNumber">Serial Number<span class="required">*</span></label>
+            <input type="text" id="serialNumber" name="serialNumber" (input)="updateSerialNumber(i, $event)" placeholder="Enter Serial No." />
+          </div>
+          <div class="cyg-id-input">
+            <label for="cygId">CYG ID.<span class="required">*</span></label>
+            <input type="text" id="cygId" name="cygId" (input)="updateCygId(i, $event)" placeholder="Enter CYG ID" />
+          </div>
 
 
         </div>

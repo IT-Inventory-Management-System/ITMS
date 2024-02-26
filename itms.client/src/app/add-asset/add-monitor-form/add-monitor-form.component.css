@@ -117,7 +117,7 @@
 :host {
   display: contents;
 }
-/*.mouse-radio-button {
+.mouse-button {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -125,42 +125,9 @@
   align-self: stretch;
   margin-bottom: 1.25rem;
   width: 26.4375rem;
+  height:6.61851rem;
 }
 
-.mouse-label {
-  color: var(--Primary-Gray, #343435);
-  font-family: Roboto;
-  font-size: 0.8125rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  margin-bottom: 0.385rem;
-}
-
-.mouse-input {
-  display: flex;
-  align-items: flex-start;
-  gap: 9.4rem;
-}
-
-  .mouse-input input {
-    display: flex;
-    align-items: center;
-    gap: 0.375rem;
-  }
-
-  .mouse-input label {
-    position: relative;
-    padding-top: 1px;
-    padding-left: 25px;
-    cursor: pointer;
-    color: var(--Primary-Gray, #343435);
-    font-family: Roboto;
-    font-size: 0.875rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-  }*/
 
   
 
@@ -173,9 +140,8 @@
 }
 .add-device-check {
   display: flex;
-  align-items: flex-end;
-  gap: 0.5rem;
-  margin-bottom: 1.25rem;
+  flex-direction:column;
+  gap: 0.15rem;
 }
 
   .add-device-check input {
@@ -201,3 +167,51 @@
       font-weight: 400;
       line-height: normal;
     }
+.mouse-model-input {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 0.5rem;
+  align-self: stretch;
+  margin-bottom: 0.5rem;
+  width: 33.875rem;
+}
+
+.mouse-model-select {
+  display: flex;
+  align-items: flex-end;
+  gap: 1.25rem;
+}
+
+.select-mouse-dropdown {
+  display: flex;
+  width: 33.875rem;
+  height: 3.8125rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.375rem;
+}
+
+  .select-mouse-dropdown label, .select-mouse-dropdown placeholder {
+    color: var(--Primary-Gray, #343435);
+    font-family: Roboto;
+    font-size: 0.8125rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+
+  .select-mouse-dropdown ng-select {
+    width: 100%;
+    border-radius: 0.25rem;
+    background: #FFF;
+  }
+
+::ng-deep .ng-select .ng-select-container, ::ng-deep .ng-select.ng-select-single .ng-select-container {
+  min-height: 2.5rem;
+}
+
+.select-device-dropdown placeholder {
+  opacity: 0.5;
+}

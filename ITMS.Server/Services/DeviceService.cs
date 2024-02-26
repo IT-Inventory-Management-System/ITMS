@@ -16,6 +16,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Xml.Schema;
 
 public class DeviceService
 
@@ -608,4 +609,34 @@ public class DeviceService
             throw;
         }
     }
+
+    public async Task<List<GetDeviceModelDTO>> GetDeviceModels(Guid DeviceModelId, Guid location)
+    {
+        var deviceModels = await _context.DeviceModel
+            .Join(
+                _context.Ostypes,
+                device => device.Os,
+                osType => osType.Id,
+                (device, osType) => new { Device = device, OSType = osType }
+            )
+            .Where(deviceOs => deviceOs.Device.Id == DeviceModelId)
+            .Select(log => new GetDeviceModelDTO
+            {
+                brand = log.Device.Brand,
+                Ram = log.Device.Ram,
+                Storage=log.Device.Storage,
+                Processor=log.Device.Processor,
+                OS = log.OSType.Osname,
+                total = _context.Devices.Count(device => device.DeviceModelId == DeviceModelId && device.LocationId == location) ,
+                assigned = _context.Devices.Count(device => device.DeviceModelId == DeviceModelId && device.AssignedTo != null && device.LocationId == location),
+                inventory = _context.Devices.Count(device => device.DeviceModelId == DeviceModelId && device.LocationId == location) -
+                        _context.Devices.Count(device => device.DeviceModelId == DeviceModelId && device.AssignedTo != null && device.LocationId == location)
+
+            })
+            .ToListAsync();
+
+        return deviceModels;
+    }
+
+
 }
