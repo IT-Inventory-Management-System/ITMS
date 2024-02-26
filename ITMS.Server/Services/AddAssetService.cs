@@ -12,6 +12,8 @@ namespace ITMS.Server.Services
         Task<IEnumerable<GetBrandDTO>> getMouseBrand();
         
             Task<IEnumerable<getCGIDTO>> getCGIID();
+        Task<IEnumerable<getLaptopIds>> getlaptopIds();
+
 
     }
     public class AddAssetService : IAddAssetService
@@ -97,6 +99,23 @@ namespace ITMS.Server.Services
                 result = result.OrderByDescending(c => int.Parse(c.CGIID)).ToList();
                 return result.Take(1);
             }
+
+        }
+
+        public async Task <IEnumerable<getLaptopIds>> getlaptopIds()
+        {
+            var result = await (
+        from device in _context.Devices
+        join deviceModel in _context.DeviceModel on device.DeviceModelId equals deviceModel.Id
+        join category in _context.Categories on deviceModel.CategoryId equals category.Id
+        where category.Name == "Laptop" // Replace "Laptop" with the actual category name you're looking for
+        select new getLaptopIds
+        {
+            CYGID = device.Cygid,
+            SerialNumber = device.SerialNumber
+        }
+    ).ToListAsync();
+            return result;
 
         }
 

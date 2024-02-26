@@ -62,7 +62,8 @@ namespace ITMS.Server.Controllers
             var uniqueSoftwareModels = await _deviceService.GetSoftwareModelsAsync();
             return Ok(uniqueSoftwareModels);
         }
-      
+
+
 
 
         [HttpPost("add-software")]
