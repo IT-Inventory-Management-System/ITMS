@@ -13,8 +13,12 @@ export class SoftwareAllRevokeComponent {
   @Input() cgiid: any;
   @Input() softwareDetails: any;
   @Input() revokeAllForm: FormGroup;
+  @Input() actionsArray: any[];
+  SubmittedAction: any;
   constructor(private formBuilder: FormBuilder) { }
-
+  ngOnInit() {
+     this.SubmittedAction = this.actionsArray.find(a => a.actionName === 'Submitted' || a.actionName === 'submitted');
+   }
   ngOnChanges() {
     if (this.softwareDetails && this.revokeAllForm)
       this.initializeSoftwareFormArray();
@@ -35,7 +39,7 @@ export class SoftwareAllRevokeComponent {
     return this.formBuilder.group({
       deviceLogId: [software.deviceLogId],
       softwareAllocationId: [software.softwareAllocationId],
-      actionId: '5b6200c2-f960-446d-8943-0f89336126d2',
+      actionId: this.SubmittedAction.id,
     });
   }
 }

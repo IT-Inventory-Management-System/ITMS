@@ -12,9 +12,13 @@ export class LaptopAllRevokeComponent {
   @Input() lastName: any;
   @Input() cgiid: any;
   @Input() laptopDetails: any[];
+  @Input() actionsArray: any[];
   @Input() revokeAllForm: FormGroup;
 
-  selectedReason: any; 
+  selectedReason: any;
+  lostAction: any;
+  SubmittedAction: any;
+  SubmitLaterAction: any;
   //newComment: string = '';
   //comments: any;
   showYesReason: boolean[] = []; 
@@ -23,6 +27,9 @@ export class LaptopAllRevokeComponent {
   constructor(private formBuilder: FormBuilder, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
+    this.lostAction = this.actionsArray.find(a => a.actionName === 'Lost' || a.actionName === 'lost');
+    this.SubmittedAction = this.actionsArray.find(a => a.actionName === 'Submitted' || a.actionName === 'submitted');
+    this.SubmitLaterAction = this.actionsArray.find(a => a.actionName === 'Assigned' || a.actionName === 'assigned');
     console.log(this.revokeAllForm);
   }
   ngOnDestroy() {
@@ -76,16 +83,16 @@ export class LaptopAllRevokeComponent {
     const laptopFormGroup = laptopArray.at(index) as FormGroup;
     switch (reason) {
       case 'Perfect':
-        laptopFormGroup.patchValue({ actionId: '5b6200c2-f960-446d-8943-0f89336126d2' });
+        laptopFormGroup.patchValue({ actionId: this.SubmittedAction.id });
         break;
       case 'Unassignable':
-        laptopFormGroup.patchValue({ actionId: '5b6200c2-f960-446d-8943-0f89336126d2' });
+        laptopFormGroup.patchValue({ actionId: this.SubmittedAction.id });
         break;
       case 'Submitted Later':
-        laptopFormGroup.patchValue({ actionId: '9412ce34-dba4-40b2-9ff9-de60b8987529' });
+        laptopFormGroup.patchValue({ actionId: this.SubmitLaterAction.id });
         break;
       case 'Lost/Not Received':
-        laptopFormGroup.patchValue({ actionId: '13e8fba9-7c8c-4d83-9f7c-4a91a82eae66' });
+        laptopFormGroup.patchValue({ actionId: this.lostAction.id });
         break;
       default:
         break;
@@ -99,13 +106,13 @@ export class LaptopAllRevokeComponent {
     // Check if actionId matches the selected reason
     switch (reason) {
       case 'Perfect':
-        return laptopFormGroup.value.actionId === '5b6200c2-f960-446d-8943-0f89336126d2';
+        return laptopFormGroup.value.actionId === this.SubmittedAction.id;
       case 'Unassignable':
-        return laptopFormGroup.value.actionId === '5b6200c2-f960-446d-8943-0f89336126d2';
+        return laptopFormGroup.value.actionId === this.SubmittedAction.id;
       case 'Submitted Later':
-        return laptopFormGroup.value.actionId === '9412ce34-dba4-40b2-9ff9-de60b8987529';
+        return laptopFormGroup.value.actionId === this.SubmitLaterAction.id;
       case 'Lost/Not Received':
-        return laptopFormGroup.value.actionId === '13e8fba9-7c8c-4d83-9f7c-4a91a82eae66';
+        return laptopFormGroup.value.actionId === this.lostAction.id;
       default:
         return false;
     }
@@ -114,7 +121,7 @@ export class LaptopAllRevokeComponent {
   isReceivedYes(laptop: any, index: number): boolean {
     const laptopArray = this.revokeAllForm.get('Laptop') as FormArray;
     const laptopFormGroup = laptopArray.at(index) as FormGroup;
-    const receivedYes = laptopFormGroup.value.actionId === '5b6200c2-f960-446d-8943-0f89336126d2';
+    const receivedYes = laptopFormGroup.value.actionId === this.SubmittedAction.id;
     //if (receivedYes) {
     //  this.showYesReason[index] = true; // Update the showYesReason array
     //  this.showNoReason[index] = false;
@@ -125,8 +132,8 @@ export class LaptopAllRevokeComponent {
   isReceivedNo(laptop: any, index: number): boolean {
     const laptopArray = this.revokeAllForm.get('Laptop') as FormArray;
     const laptopFormGroup = laptopArray.at(index) as FormGroup;
-    const receivedNo= laptopFormGroup.value.actionId === '13e8fba9-7c8c-4d83-9f7c-4a91a82eae66' ||
-      laptopFormGroup.value.actionId === '9412ce34-dba4-40b2-9ff9-de60b8987529';
+    const receivedNo = laptopFormGroup.value.actionId === this.SubmitLaterAction.id ||
+      laptopFormGroup.value.actionId === this.lostAction.id;
     //if (receivedNo) {
     //  this.showYesReason[index] = true; // Update the showYesReason array
     //  this.showNoReason[index] = false;

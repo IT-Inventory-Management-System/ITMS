@@ -13,7 +13,11 @@ export class AccessoriesAllRevokeComponent {
   @Input() cgiid: any;
   @Input() accessoriesDetails: any;
   @Input() revokeAllForm: FormGroup;
-
+  
+  @Input() actionsArray: any[];
+  lostAction: any;
+  SubmittedAction: any;
+  SubmitLaterAction: any;
   selectedReason: any;
 
   //newComment: string = '';
@@ -21,6 +25,11 @@ export class AccessoriesAllRevokeComponent {
 
   showYesReason: boolean[] = [];
   showNoReason: boolean[] = [];
+  ngOnInit() {
+    this.lostAction = this.actionsArray.find(a => a.actionName === 'Lost' || a.actionName === 'lost');
+    this.SubmittedAction = this.actionsArray.find(a => a.actionName === 'Submitted' || a.actionName === 'submitted');
+    this.SubmitLaterAction = this.actionsArray.find(a => a.actionName === 'Assigned' || a.actionName === 'assigned');
+  }
   constructor(private formBuilder: FormBuilder) { }
   ngOnChanges() {
     if (this.accessoriesDetails && this.revokeAllForm) {
@@ -65,16 +74,16 @@ export class AccessoriesAllRevokeComponent {
     const accessoryFormGroup = accessoryArray.at(index) as FormGroup;
     switch (reason) {
       case 'Perfect':
-        accessoryFormGroup.patchValue({ actionId: '5b6200c2-f960-446d-8943-0f89336126d2' });
+        accessoryFormGroup.patchValue({ actionId: this.SubmittedAction.id });
         break;
       case 'Unassignable':
-        accessoryFormGroup.patchValue({ actionId: '5b6200c2-f960-446d-8943-0f89336126d2' });
+        accessoryFormGroup.patchValue({ actionId: this.SubmittedAction.id });
         break;
       case 'Submitted Later':
-        accessoryFormGroup.patchValue({ actionId: '9412ce34-dba4-40b2-9ff9-de60b8987529' });
+        accessoryFormGroup.patchValue({ actionId: this.SubmitLaterAction.id });
         break;
       case 'Lost/Not Received':
-        accessoryFormGroup.patchValue({ actionId: '13e8fba9-7c8c-4d83-9f7c-4a91a82eae66' });
+        accessoryFormGroup.patchValue({ actionId: this.lostAction.id });
         break;
       default:
         break;
@@ -88,13 +97,13 @@ export class AccessoriesAllRevokeComponent {
     // Check if actionId matches the selected reason
     switch (reason) {
       case 'Perfect':
-        return accessoryFormGroup.value.actionId === '5b6200c2-f960-446d-8943-0f89336126d2';
+        return accessoryFormGroup.value.actionId === this.SubmittedAction.id;
       case 'Unassignable':
-        return accessoryFormGroup.value.actionId === '5b6200c2-f960-446d-8943-0f89336126d2';
+        return accessoryFormGroup.value.actionId === this.SubmittedAction.id;
       case 'Submitted Later':
-        return accessoryFormGroup.value.actionId === '9412ce34-dba4-40b2-9ff9-de60b8987529';
+        return accessoryFormGroup.value.actionId === this.SubmitLaterAction.id;
       case 'Lost/Not Received':
-        return accessoryFormGroup.value.actionId === '13e8fba9-7c8c-4d83-9f7c-4a91a82eae66';
+        return accessoryFormGroup.value.actionId === this.lostAction.id;
       default:
         return false;
     }
@@ -103,7 +112,7 @@ export class AccessoriesAllRevokeComponent {
   isReceivedYes(laptop: any, index: number): boolean {
     const accessoryArray = this.revokeAllForm.get('Accessory') as FormArray;
     const accessoryFormGroup = accessoryArray.at(index) as FormGroup;
-    const receivedYes = accessoryFormGroup.value.actionId === '5b6200c2-f960-446d-8943-0f89336126d2';
+    const receivedYes = accessoryFormGroup.value.actionId === this.SubmittedAction.id;
     //if (receivedYes) {
     //  this.showYesReason[index] = true; // Update the showYesReason array
     //  this.showNoReason[index] = false;
@@ -114,8 +123,8 @@ export class AccessoriesAllRevokeComponent {
   isReceivedNo(laptop: any, index: number): boolean {
     const accessoryArray = this.revokeAllForm.get('Accessory') as FormArray;
     const accessoryFormGroup = accessoryArray.at(index) as FormGroup;
-    const receivedNo = accessoryFormGroup.value.actionId === '13e8fba9-7c8c-4d83-9f7c-4a91a82eae66' ||
-      accessoryFormGroup.value.actionId === '9412ce34-dba4-40b2-9ff9-de60b8987529';
+    const receivedNo = accessoryFormGroup.value.actionId === this.SubmitLaterAction.id ||
+      accessoryFormGroup.value.actionId === this.lostAction.id;
     //if (receivedNo) {
     //  this.showYesReason[index] = true; // Update the showYesReason array
     //  this.showNoReason[index] = false;
