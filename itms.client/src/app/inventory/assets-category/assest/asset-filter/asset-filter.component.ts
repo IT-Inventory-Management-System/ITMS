@@ -8,9 +8,11 @@ import { DataService } from '../../../../shared/services/data.service';
 })
 export class AssetFilterComponent {
 
-  deviceStatus: string[] = ["Assigned", "Available", "Both"];
+  deviceStatus: string[] = ["Assigned", "Available", "Archive"];
   operatingSystem: string[] = ["Windows", "Mac"];
-  uniqueProcessor: any[] = []; 
+  uniqueProcessor: any[] = [];
+  from: '';
+  to: '';
 
   constructor(private dataService: DataService) {
     this.dataService.getUniqueProcessor().subscribe(
@@ -22,27 +24,35 @@ export class AssetFilterComponent {
       })
   }
 
-  selectedCheckboxes: { [key: string]: string[] } = {
+  selectedCheckboxes: { [key: string]: any } = {
     operatingSystem: [],
     deviceStatus: [],
     uniqueProcessor: [],
+    fromDate: '',
+    toDate: ''
   };
 
   checked: string = "";
 
-  toggleCheckbox(value: string, category:string) {
+  toggleCheckbox(value: any, category:string) {
     // Implement logic to handle checkbox state for each status
-    const categoryCheckboxes = this.selectedCheckboxes[category];
-    const index = categoryCheckboxes.indexOf(value);
-
-    if (index === -1) {
-      // Checkbox was checked, add to the selected list
-      categoryCheckboxes.push(value);
-      this.checked = value;
+    if (category === 'fromDate' || category === 'toDate') {
+      // Handle date filters
+      this.selectedCheckboxes[category] = value;
     } else {
-      // Checkbox was unchecked, remove from the selected list
-      categoryCheckboxes.splice(index, 1);
-      this.checked = "";
+      // Handle checkbox categories
+      const categoryCheckboxes = this.selectedCheckboxes[category];
+      const index = categoryCheckboxes.indexOf(value);
+
+      if (index === -1) {
+        // Checkbox was checked, add to the selected list
+        categoryCheckboxes.push(value);
+        this.checked = value;
+      } else {
+        // Checkbox was unchecked, remove from the selected list
+        categoryCheckboxes.splice(index, 1);
+        this.checked = "";
+      }
     }
 
     // Log the selected values (you can use this.selectedCheckboxes for further processing)

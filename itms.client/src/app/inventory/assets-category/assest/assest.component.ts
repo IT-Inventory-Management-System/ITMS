@@ -23,7 +23,7 @@ export class AssestComponent {
   deviceData: any[] = [];
   rowData: any[] = [];
   searchValue: string = '';
-
+  selectedModel: any;
 
 
   @ViewChild('appDevices') appDevices: DevicesComponent;
@@ -201,10 +201,80 @@ export class AssestComponent {
 
   }
 
-
   showModelTable(modelName: string) {
     console.log(modelName);
-   // this.modelClicked.emit(modelName);
+    this.selectedModel = modelName;
+    this.selectedView = 'table';
+    // this.modelClicked.emit(modelName);
+  }
+
+  deviceModelColDefs: ColDef[] = [
+    {
+      field: "SNo",
+      resizable: false,
+      suppressMovable: true,
+      width: 65
+    },
+    {
+      field: "Brand",
+      resizable: false,
+      width: 117,
+      suppressMovable: true
+    },
+    {
+      field: "Operating System",
+      width: 144,
+      resizable: false,
+      suppressMovable: true,
+    },
+    {
+      field: "Processor",
+      width: 350,
+      resizable: false,
+      suppressMovable: true,
+    },
+    {
+      field: "Ram (GB)",
+      width: 120,
+      resizable: false,
+      suppressMovable: true,
+    },
+    {
+      field: "Storage",
+      width: 103,
+      resizable: false,
+      suppressMovable: true,
+    },
+    /*{ field: "# Stock Count", width: 125, resizable: false, suppressMovable: true, },*/
+    {
+      field: "# Total",
+      width: 100,
+      resizable: false,
+      suppressMovable: true,
+    },
+    {
+      field: "# Assigned",
+      width: 109,
+      resizable: false,
+      suppressMovable: true,
+    },
+    {
+      field: "# Inventory",
+      width: 142,
+      resizable: false,
+      suppressMovable: true,
+    },
+    { field: "Stock Status", pinned: 'right', cellStyle: { 'border': 'none' }, width: 122, resizable: false, suppressMovable: true, }
+
+  ];
+
+  modelRowData: any[] = [
+    { SNo: 1, Brand: 'Samsung', 'Operating System': 'Android', Processor: 'Snapdragon 865', 'Ram (GB)': 8, Storage: '256GB', '# Total': 10, '# Assigned': 5, '# Inventory': 5, 'Stock Status': 'In Stock' },
+    { SNo: 2, Brand: 'Apple', 'Operating System': 'iOS', Processor: 'A14 Bionic', 'Ram (GB)': 6, Storage: '128GB', '# Total': 15, '# Assigned': 10, '# Inventory': 5, 'Stock Status': 'Low Stock' },
+    // Add more sample data as needed
+  ];
+  setModelrowdef() {
+
   }
 
 }

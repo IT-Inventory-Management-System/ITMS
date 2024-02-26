@@ -47,6 +47,10 @@
     </div>
 </div>
 
-<div *ngIf="selectedView === 'table'">
+<div *ngIf="selectedView === 'table'&& selectedModel==null">
   <app-table-view [rowData]="rowData" [colDefs]="colDefs" [searchValue]="searchValue"></app-table-view>
+</div>
+
+<div *ngIf="selectedView === 'table' && selectedModel!=null">
+  <app-table-view [rowData]="modelRowData" [colDefs]="deviceModelColDefs" [searchValue]="searchValue"></app-table-view>
 </div>
