@@ -93,11 +93,31 @@ namespace ITMS.Server.DTO
         public string? CYGID { get; set; }
         public string? Status { get; set; }
         public bool? IsWired { get; set; }
+        public bool? IsArchived { get; set; }
+        public bool? AssignedTo { get; set; }
         public string? Category { get; set; }
         public int? Qty { get; set; }
+        public DateTime? PurchaseDate { get; set; }
+        public DateTime? WarrantyDate { get; set; }
     }
 
-    public class singleAccessoriesBodyDTO
+    public class filterAccessoriesBodyDTO
     {
+        public string? Category { get; set; }
+        public String? IsWired { get; set; }
+        public string? Availability { get; set; }
+        public List<string>? selectedStock { get; set; }
+        public bool IsArchived { get; set; }
+        public Guid locationId { get; set; }
+    }
+
+    public class historySingleAccessory
+    {
+        public string? empName { get; set;}
+        public string? CYGID { get; set; }
+        public string? AssignedBy { get; set; }
+        public string? AssignedDate { get; set; }
+        public string? RecievedBy { get; set; }
+        public string? RecievedDate { get; set; }
     }
 }
