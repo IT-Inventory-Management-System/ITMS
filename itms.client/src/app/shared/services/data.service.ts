@@ -149,5 +149,8 @@ export class DataService {
     return this.http.post<any | null>(this.apiUrl + 'Device/getAllAccessories', dto );
   }
 
+  FilterAccessories(body: any): Observable<any | null> {
+    return this.http.post<any | null>(this.apiUrl + 'Device/filterAccessories', body);
+  }
 }
 

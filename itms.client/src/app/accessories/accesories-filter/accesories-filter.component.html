@@ -11,26 +11,10 @@
   </div>
   <div class="Accesories-type">
     <span class="Accesories-type-text">Accessories Type</span>
-    <ng-select class="ng-selectclass"   [clearable]="false" [searchable]="false"  placeholder="Select Accessories Type">
-      <ng-option [value]="'Mouse'">
-
-        Mouse
-      </ng-option>
-      <ng-option [value]="'Keyboard'">
-        Keyboard
-      </ng-option>
-
-
-      <ng-option value="Mouse & Keyboard Combo">
-
-        Mouse & Keyboard Combo
-      </ng-option>
-      <!--<ng-option value="Unarchive">
-      <img class="asset-image" src="../../../../../assets/icons/Assets/unarchive.svg" />
-
-      Unarchive
-
-    </ng-option>-->
+    <ng-select class="ng-selectclass" [clearable]="false" [searchable]="false" placeholder="Select Accessories Type" [(ngModel)]="selectedAccessoryType" (change)="dropDownSelect()">
+      <ng-option [value]="'Mouse'">Mouse</ng-option>
+      <ng-option [value]="'Keyboard'">Keyboard</ng-option>
+      <ng-option [value]="'Mouse & Keyboard Combo'">Mouse & Keyboard Combo</ng-option>
     </ng-select>
   </div>
   <div class="criteria">
@@ -42,10 +26,10 @@
       <app-accordion-item title="Type">
         <div class="filter-checkbox-outer">
           <div *ngFor="let status of Type" class="filter-checkbox">
-            <input class="filter-checkbox-input" type="checkbox" id="{{status}}" [checked]="isSelectedType(status)" (change)="toggleCheckboxType(status)">
+            <input class="filter-checkbox-input" type="radio" name="type" id="{{status}}" (change)="toggleCheckboxType(status)">
             <label class="filter-checkbox-label" for="{{status}}">
-              <img *ngIf="isSelectedType(status)" src="../../../../../assets/icons/checkbox-checked.svg" />
-              <img *ngIf="!isSelectedType(status)" src="../../../../../assets/icons/checkbox-unchecked.svg" />
+              <img *ngIf="selectedType === status" src="../../../../../assets/icons/checkbox-checked.svg" />
+              <img *ngIf="selectedType !== status" src="../../../../../assets/icons/checkbox-unchecked.svg" />
               <span>{{status}}</span>
             </label>
           </div>
@@ -76,7 +60,7 @@
         </div>
       </app-accordion-item>
 
-   
+
 
     </app-accordion>
 
