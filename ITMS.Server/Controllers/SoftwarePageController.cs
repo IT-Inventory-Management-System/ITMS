@@ -128,7 +128,7 @@ namespace ITMS.Server.Controllers
 
             List<TablePage> filteredData = allData.Where(s =>
      (attri.selectedType.Count == 0 || attri.selectedType.Contains(s.type)) &&
-     ((attri.IsArchived == false && s.isArchived == false) || (attri.IsArchived == true && s.isArchived == true)) &&
+     (string.IsNullOrEmpty(attri.tableArchived) ||(attri.tableArchived == "Active" && s.isArchived == false) || (attri.tableArchived == "Archive" && s.isArchived == true)) &&
      (attri.From == null || DateOnly.FromDateTime((DateTime)s.purchasedDate) >= attri.From) &&
 (attri.To == null || DateOnly.FromDateTime((DateTime)s.purchasedDate) <= attri.To)).ToList();
 

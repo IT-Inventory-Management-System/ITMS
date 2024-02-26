@@ -34,6 +34,7 @@ export class FilterComponent implements OnInit {
       this.selectedLocation = selectedCountry;
       this.selectedTypes = [];
       this.selectedStock = [];
+      this.stat = '',
       this.from = null;
       this.to = null;
       if (this.toInput) {
