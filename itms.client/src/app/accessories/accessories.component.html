@@ -58,7 +58,9 @@
           </div>
         </div>
 
-        <app-accesoriesname></app-accesoriesname>
+        <div *ngFor="let accessory of accessories">
+          <app-accesoriesname [accessories]="accessory"></app-accesoriesname>
+        </div>
       
 
 

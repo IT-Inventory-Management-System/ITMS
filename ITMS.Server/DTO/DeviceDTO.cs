@@ -99,5 +99,6 @@ namespace ITMS.Server.DTO
 
     public class singleAccessoriesBodyDTO
     {
+        public Guid locationId { get; set; }
     }
 }

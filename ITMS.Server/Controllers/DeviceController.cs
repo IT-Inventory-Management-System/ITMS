@@ -183,11 +183,10 @@ namespace itms.server.controllers
         }
     }
 
-
-     [HttpPost("getAllAccessories")]
-     public List<allAccessoriesDTO> GetAllAccessories(Guid locationId)
+        [HttpPost("getAllAccessories")]
+        public List<allAccessoriesDTO> GetAllAccessories([FromBody] singleAccessoriesBodyDTO accessoryDto)
         {
-            return _deviceService.GetAllAccessories(locationId);
+            return _deviceService.GetAllAccessories(accessoryDto.locationId);
         }
 
         //[HttpPost("getSingleAccessories")]
