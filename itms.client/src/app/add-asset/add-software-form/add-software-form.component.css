@@ -382,3 +382,8 @@ input[type='password'] {
 
 }
 
+.software_version{
+    width:33.875rem;
+    margin-top:1.25rem;
+    margin-bottom:1.25rem;
+}

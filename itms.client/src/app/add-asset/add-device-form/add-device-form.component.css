@@ -604,7 +604,7 @@ form{
   border-radius: 0.25rem;
   border: 1px solid var(--Secondary-Gray, #B2B2B3);
   background: #FFF;
-  width:22rem;
+  width:21rem;
 }
 
 
@@ -653,4 +653,25 @@ form{
   pointer-events: none;
   opacity: 0.6;
   cursor: not-allowed;
+}
+.sno {
+  color: #000;
+  font-family: Roboto;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-bottom:1rem;
+}
+.error{
+    display:flex;
+    flex-direction:column;
+}
+.error_text {
+  color: var(--Adhoc-Red, #CC1A07);
+  font-family: Roboto;
+  font-size: 0.8125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }

@@ -154,5 +154,10 @@ export class DataService {
   getAllComments(deviceId: any): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl + 'Device/getAllComments/' + deviceId);
   }
+
+  getLaptopIDs(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + 'asset/getLaptopIDs');
+  }
+
 }
 
