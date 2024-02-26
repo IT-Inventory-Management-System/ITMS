@@ -12,6 +12,8 @@ export class AdminListPanelComponent {
 
   adminList: any[] = [];
   locationId: string = '';
+  filterName: string = '';
+
   constructor(private dataService: DataService, private adminDetailService: AdminDetailService, private selectedCountryService: SelectedCountryService) { }
 
   ngOnInit(): void {

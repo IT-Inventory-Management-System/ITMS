@@ -1,10 +1,12 @@
-<div class="modal fade " id="filterModal">
+<div class="modal fade " id="filterModal" tabindex="-1" role="dialog" aria-labelledby="filterModalLabel" aria-hidden="true">
   <div class="filtersection">
     <div class="tab">
       <div class="filtertab">
         <img src="../../../../../assets/icons/filter-icon.svg" />
         <div class="filtertext">Filter</div>
-        <img src="../../../assets/icons/Close.svg" style="margin-left:14rem;" data-bs-dismiss="modal" />
+        <button type="button" class="close" data-dismiss="modal">
+          <img src="../../../assets/icons/Close.svg" style="margin-left:14rem;" data-bs-dismiss="modal" />
+        </button>
       </div>
     </div>
 
@@ -87,3 +89,26 @@
 
 </div>
 
+
+<!-- Modal -->
+<!--<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>User: John Doe</p>
+        <p>Assigned Laptop: XYZ123</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button (click)="captureModalContent()">Send Email</button>
+
+      </div>
+    </div>
+  </div>
+</div>-->

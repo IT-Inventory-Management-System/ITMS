@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver, ElementRef, Input, OnInit, Output, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, ComponentFactoryResolver, ElementRef, Input, OnInit, Output, ViewChild, ViewContainerRef, EventEmitter } from '@angular/core';
 import { DataService } from '../../../../shared/services/data.service';
 import { ArchiveModalComponent } from '../specification/archive-modal/archive-modal.component';
 
@@ -11,6 +11,7 @@ import { ArchiveModalComponent } from '../specification/archive-modal/archive-mo
 
 export class SpecificationComponent {
   @Input() isArchived: any;
+  @Output() modelClicked = new EventEmitter<string>();
 
  
   selectedOption: string = 'Active'; // Initially selected option
@@ -18,7 +19,10 @@ export class SpecificationComponent {
 
   constructor(private dataService: DataService) { }
 
-
+  selectModel(modelName: string) {
+    console.log(modelName);
+    this.modelClicked.emit(modelName);
+  }
  
   get deviceDetails() {
     //console.log(this.isArchived);

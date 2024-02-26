@@ -6,6 +6,8 @@ import { ColDef } from 'ag-grid-community';
 import * as XLSX from 'xlsx';
 import { MyCellComponent } from '../../../shared/components/my-cell/my-cell.component';
 import { SelectedCountryService } from '../../../shared/services/selected-country.service';
+import { formatDate } from '@angular/common';
+
 
 @Component({
   selector: 'app-assest',
@@ -99,13 +101,13 @@ export class AssestComponent {
         "Serial No": this.deviceData[i].serialNumber,
         "CYG ID": this.deviceData[i].cygid,
         /*"# Stock Count": '-',*/
-        "Date of Purchase": this.deviceData[i].purchasedDate,
+        "Date of Purchase": formatDate(this.deviceData[i].purchasedDate, 'dd-MM-yyyy', 'en-US'),
         //"# Total": '-',
         //"# Assigned": '-',
         //"# Inventory": '-',
-        "Warranty (in Years)": this.deviceData[i].warrantyDate,
+        "Warranty (in Years)": this.calculateWarrantyYear(this.deviceData[i].warrantyDate),
         "Assigned To": this.deviceData[i].assignedToName,
-        "Assigned Date": this.deviceData[i].assignedDate,
+        "Assigned Date": this.deviceData[i].assignedDate ? formatDate(this.deviceData[i].assignedDate, 'dd-MM-yyyy', 'en-US') : '',
         "Device Status": this.deviceData[i].status,
         "Action": '-',
         //"Stock Status": '-'
@@ -163,4 +165,46 @@ export class AssestComponent {
 
     XLSX.writeFile(wb, this.filename);
   }
+
+  calculateWarrantyYear(warrantyDateString: string): string {
+    const warrantyDate = new Date(warrantyDateString);
+    const currentDate = new Date();
+
+    const yearsDifference = currentDate.getFullYear() - warrantyDate.getFullYear();
+    const monthsDifference = currentDate.getMonth() - warrantyDate.getMonth();
+
+    let remainingYears = -1*yearsDifference;
+    let remainingMonths = monthsDifference;
+
+    if (monthsDifference < 0) {
+      remainingYears--;
+      remainingMonths += 12;
+    }
+
+    if (remainingMonths != 0) {
+      if (remainingYears == 1 && remainingMonths == 1)
+        return `${remainingYears} year ${remainingMonths} month`;
+      else if (remainingYears == 1)
+        return `${remainingYears} year ${remainingMonths} months`;
+      else if (remainingMonths == 1)
+        return `${remainingYears} years ${remainingMonths} month`;
+      else
+        return `${remainingYears} years ${remainingMonths} months`;
+    }
+    else {
+      if (remainingYears == 1)
+        return `${remainingYears} year`;
+      else
+        return `${remainingYears} years`;
+    }
+      
+
+  }
+
+
+  showModelTable(modelName: string) {
+    console.log(modelName);
+   // this.modelClicked.emit(modelName);
+  }
+
 }
