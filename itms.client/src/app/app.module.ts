@@ -221,7 +221,7 @@ import { AccessoryBrandySearchBoxComponent } from './assign-asset/accessory-bran
     AdminPanelComponent,
     AssignRoleModalComponent,
     AddMonitorFormComponent,
-    AddMonitorBrandFormComponent
+    AddMonitorBrandFormComponent,
     AccordionItemComponent,
     AssignAccessoryCommentComponent,
     AccessoryBrandySearchBoxComponent
