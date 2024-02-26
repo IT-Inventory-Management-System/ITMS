@@ -104,6 +104,7 @@ import { AssignRoleModalComponent } from './manage-access/assign-role-modal/assi
 import { ActivityLogComponent } from './activity-log/activity-log.component';
 import { ActivityPanelComponent } from './history/activity-panel/activity-panel.component';
 import { AdminPanelComponent } from './history/admin-panel/admin-panel.component';
+import { AccesoriesFilterComponent } from './accessories/accesories-filter/accesories-filter.component';
 
 
 
@@ -208,7 +209,8 @@ import { AdminPanelComponent } from './history/admin-panel/admin-panel.component
     AssignRoleModalComponent,
     ActivityLogComponent,
     ActivityPanelComponent,
-    AdminPanelComponent
+    AdminPanelComponent,
+    AccesoriesFilterComponent
 
 
   ],

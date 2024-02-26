@@ -1,0 +1,99 @@
+<div class="modal fade " id="accesoriesfilterModal">
+  <div class="filtersection">
+    <div class="tab">
+      <div class="filtertab">
+        <img src="../../../assets/icons/Software/Filter-black.svg" />
+        <div class="filtertext">Filter</div>
+        <img src="../../../assets/icons/Close.svg" style="margin-left:14rem;" data-bs-dismiss="modal" />
+      </div>
+    </div>
+
+  </div>
+  <div class="Accesories-type">
+    <span class="Accesories-type-text">Accessories Type</span>
+    <ng-select class="ng-selectclass"   [clearable]="false" [searchable]="false"  placeholder="Select Accessories Type">
+      <ng-option [value]="'Mouse'">
+
+        Mouse
+      </ng-option>
+      <ng-option [value]="'Keyboard'">
+        Keyboard
+      </ng-option>
+
+
+      <ng-option value="Mouse & Keyboard Combo">
+
+        Mouse & Keyboard Combo
+      </ng-option>
+      <!--<ng-option value="Unarchive">
+      <img class="asset-image" src="../../../../../assets/icons/Assets/unarchive.svg" />
+
+      Unarchive
+
+    </ng-option>-->
+    </ng-select>
+  </div>
+  <div class="criteria">
+    <div class="criteria-text">
+      <span class="text">Refine the assets by implementing specific criteria.</span>
+    </div>
+
+    <app-accordion>
+      <app-accordion-item title="Type">
+        <div class="filter-checkbox-outer">
+          <div *ngFor="let status of Type" class="filter-checkbox">
+            <input class="filter-checkbox-input" type="checkbox" id="{{status}}" [checked]="isSelectedType(status)" (change)="toggleCheckboxType(status)">
+            <label class="filter-checkbox-label" for="{{status}}">
+              <img *ngIf="isSelectedType(status)" src="../../../../../assets/icons/checkbox-checked.svg" />
+              <img *ngIf="!isSelectedType(status)" src="../../../../../assets/icons/checkbox-unchecked.svg" />
+              <span>{{status}}</span>
+            </label>
+          </div>
+        </div>
+      </app-accordion-item>
+      <app-accordion-item title="Brand">
+        <div class="filter-checkbox-outer">
+          <div *ngFor="let status of Brand" class="filter-checkbox">
+            <input class="filter-checkbox-input" type="checkbox" id="{{status}}" (change)="toggleCheckboxStatus(status)">
+            <label class="filter-checkbox-label" for="{{status}}">
+              <img *ngIf="stat === status" src="../../../../../assets/icons/checkbox-checked.svg" />
+              <img *ngIf="stat !== status" src="../../../../../assets/icons/checkbox-unchecked.svg" />
+              <span>{{status}}</span>
+            </label>
+          </div>
+        </div>
+      </app-accordion-item>
+      <app-accordion-item title="StockStatus">
+        <div class="filter-checkbox-outer">
+          <div *ngFor="let status of StockStatus" class="filter-checkbox">
+            <input class="filter-checkbox-input" type="checkbox" id="{{status}}" [checked]="isSelectedStock(status)" (change)="toggleCheckboxStock(status)">
+            <label class="filter-checkbox-label" for="{{status}}">
+              <img *ngIf="isSelectedStock(status)" src="../../../../../assets/icons/checkbox-checked.svg" />
+              <img *ngIf="!isSelectedStock(status)" src="../../../../../assets/icons/checkbox-unchecked.svg" />
+              <span>{{status}}</span>
+            </label>
+          </div>
+        </div>
+      </app-accordion-item>
+
+   
+
+    </app-accordion>
+
+  </div>
+  <div class="filter-footer">
+    <div class="save-cancel-button">
+      <button type="button" class="filter-cancel-button" data-bs-dismiss="modal"><span>Cancel</span></button>
+      <button type="button" class="filter-save-button" (click)="Apply()" data-bs-dismiss="modal"><span>Apply</span></button>
+    </div>
+  </div>
+
+
+
+
+
+  <div class="modal-dialog">
+  </div>
+
+
+</div>
