@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { DataService } from '../shared/services/data.service';
 import { SelectedCountryService } from '../shared/services/selected-country.service';
+import { ColDef } from 'ag-grid-community';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-accessories',
@@ -9,6 +11,8 @@ import { SelectedCountryService } from '../shared/services/selected-country.serv
 })
 export class AccessoriesComponent {
   locationId: string = '';
+  rowData: any[] = [];
+  searchValue: string = '';
 
     selectedOption: string = 'Active'; // Initially selected option
 
@@ -122,6 +126,7 @@ export class AccessoriesComponent {
     this.dataService.getAllAccessories(dto)
       .subscribe(accessories => {
         this.accessories = accessories;
+        this.setRowData();
         console.log('Accessories', this.accessories); // Do something with the data
       });
   }
@@ -139,6 +144,60 @@ export class AccessoriesComponent {
       unarchiveModal.classList.add('show');
       unarchiveModal.style.display = 'block';
     }
+  }
+
+
+
+
+
+
+  setRowData() {
+    this.rowData = [];
+    for (var i = 0; i < this.accessories.length; i++) {
+
+      let statusHTML = '';
+      if (this.accessories[i].status === 'Assigned') {
+        statusHTML = '<div class="assigned-status">Assigned</div>';
+      } else if (this.accessories[i].status === 'Not Assigned') {
+        statusHTML = '<div class="not-assigned-status">Not Assigned</div>';
+      }
+
+      this.rowData[i] = {
+        "SNo": i + 1,
+        "Device": this.accessories[i].category,
+        "Device ID": this.accessories[i].cygid,
+        "Type": this.accessories[i].isWired ? "Wireless" : "Wired",
+        "Brand": this.accessories[i].brand,
+        "Accessories Status": this.accessories[i].status,
+       
+
+      }
+
+    }
+  }
+
+
+  colDefs: ColDef[] = [
+    {
+      field: "SNo",
+      resizable: false,
+      suppressMovable: true,
+      width: 65
+    },
+    { field: "Device", resizable: false, width: 220, suppressMovable: true },
+    { field: "Device ID", width: 220, resizable: false, suppressMovable: true },
+    { field: "Type", width: 220, resizable: false, suppressMovable: true, },
+    { field: "Brand", width: 220, resizable: false, suppressMovable: true, },
+   { field: "Accessories Status", width: 222, resizable: false, suppressMovable: true, },
+ ];
+  filename = 'ExcelSheet.xlsx';
+  exporttoexcel() {
+    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.rowData);
+
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    XLSX.writeFile(wb, this.filename);
   }
 
 

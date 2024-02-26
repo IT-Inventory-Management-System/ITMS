@@ -1,3 +1,6 @@
+<app-accesories-filter></app-accesories-filter>
+
+
 <div class="Accesories-details ">
   <div class="software-heading  ">
     <div class="software-title ">
@@ -27,15 +30,15 @@
         <div class="search-bar" *ngIf="selectedView === 'table'">
           <img src="../../../assets/icons/Software/Search.svg" />
 
-          <input type="text" id="filter-text-box" placeholder="Search"  />
+          <input type="text" id="filter-text-box" placeholder="Search" [(ngModel)]="searchValue" />
         </div>
         <div class="export-button" *ngIf="selectedView === 'table'">
-          <button>
+          <button (click)="exporttoexcel()">
             <img src="../../../../assets/icons/Software/excel-icon.svg" />
             <span>Export to Excel</span>
           </button>
         </div>
-        <div class="filter-button" data-bs-toggle="modal" data-bs-target="#filterModal">
+        <div class="filter-button" data-bs-toggle="modal" data-bs-target="#accesoriesfilterModal">
           <button>
             <img src="../../../../assets/icons/Software/filter-icon.svg" />
             <span>Filter</span>
@@ -52,8 +55,8 @@
           <div class="input">
             <div class="input-frame">
               <img src="../../../assets/icons/Software/Search.svg" />
-              <input class="input-text" placeholder="Search By Brand "[(ngModel)]="filterValue" (input)="applyAccessoryFilter($event)"/>
-                    
+              <input class="input-text" placeholder="Search By Brand " [(ngModel)]="filterValue" (input)="applyAccessoryFilter($event)" />
+
             </div>
           </div>
         </div>
@@ -61,7 +64,7 @@
         <div *ngFor="let accessory of filteredAccessories ? filteredAccessories : accessories">
           <app-accesoriesname [accessories]="accessory" (cardClicked)="onCardClicked($event)"></app-accesoriesname>
         </div>
-      
+
 
 
 
@@ -75,16 +78,16 @@
       </div>
       <div class="specification-div  ">
         <!--<div class="status-archive ">
-    <div class="status-div">
-      <div class="status-text">Status</div>
-      <div class="status-active">Active</div>
-    </div>
-    <div class="status-archive-div" data-bs-toggle="modal" data-bs-target="#exampleModal">
-      <img src="../../../assets/icons/Software/Archive button.svg" />
-      <div class="archivebutton-text">Archive</div>
+          <div class="status-div">
+            <div class="status-text">Status</div>
+            <div class="status-active">Active</div>
+          </div>
+          <div class="status-archive-div" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <img src="../../../assets/icons/Software/Archive button.svg" />
+            <div class="archivebutton-text">Archive</div>
 
-    </div>
-  </div>-->
+          </div>
+        </div>-->
         <div class="spec-card  ">
           <div class="status-container">
             <div class="status-info">
@@ -95,29 +98,33 @@
 
 
         </div>
-        <ng-select (change)="handleSelectionChange($event)" [(ngModel)]="selectedOption">
+        <ng-select class="ng-selectclass" (change)="handleSelectionChange($event)" [(ngModel)]="selectedOption" [clearable]="false" [searchable]="false">
           <ng-option [value]="'Active'">
             <img class="asset-image" src="../../../../../assets/icons/Assets/active.svg" />
 
             Active
           </ng-option>
-          <!--<ng-option [value]="'Unassignable'">Unassignable</ng-option>-->
+          <ng-option [value]="'Unassignable'">
+            <img class="asset-image" src="../../../../../assets/icons/Assets/unassignable.svg" />
+            Unassignable
+          </ng-option>
 
-          <ng-option  value="Archive">
+
+          <ng-option value="Archive">
             <img class="asset-image" src="../../../../../assets/icons/Assets/archive.svg" />
 
             Archive
           </ng-option>
-          <ng-option  value="Unarchive">
-            <img class="asset-image" src="../../../../../assets/icons/Assets/unarchive.svg" />
+          <!--<ng-option value="Unarchive">
+    <img class="asset-image" src="../../../../../assets/icons/Assets/unarchive.svg" />
 
-            Unarchive
+    Unarchive
 
-          </ng-option>
+  </ng-option>-->
         </ng-select>
 
 
-     
+
 
 
 
@@ -222,7 +229,7 @@
 
 
   <div *ngIf="selectedView === 'table'">
-    <app-table-view ></app-table-view>
+    <app-table-view [rowData]="rowData" [colDefs]="colDefs" [searchValue]="searchValue"></app-table-view>
   </div>
 
 
