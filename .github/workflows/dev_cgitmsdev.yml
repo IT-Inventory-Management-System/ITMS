@@ -54,4 +54,4 @@ jobs:
           app-name: 'CGITMSDev'
           slot-name: 'Production'
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_3EEC0C04BD414BB6B0C83E7B3742B20D }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_43523998DECC4EE8A1D61791E2C6C644 }}
