@@ -15,6 +15,7 @@ export class AccessoriesComponent {
   searchValue: string = '';
 
     selectedOption: string = 'Active'; // Initially selected option
+  //selectedLocation: any = "India";
 
   selectedView: string = 'card';
   accessories: any[];
@@ -22,6 +23,14 @@ export class AccessoriesComponent {
   filterValue: string = '';
   singleSelected: any[];
   isArchived: boolean = false;
+
+  archivedAttributes: any = {
+    location: '',
+    selectedType: [],
+    selectedStock: [],
+    tableArchived: '',
+    selectedAccessoryType: ''
+  }
 
   applyAccessoryFilter(event: Event) {
     this.filterValue = (event.target as HTMLInputElement).value;
@@ -146,6 +155,39 @@ export class AccessoriesComponent {
     }
   }
 
+
+  onApplyClicked(eventData: any): void {
+    //console.log("event data", eventData);
+
+    const body: any = {
+      location: this.locationId,
+      IsArchived: this.isArchived,
+      selectedType: eventData.selectedType,
+      selectedStock: eventData.selectedStock,
+      tableArchived: eventData.stat,
+      selectedAccessoryType: eventData.selectedAccessoryType,
+    }
+    console.log("body", body);
+    this.archivedAttributes.selectedType = eventData.selectedType;
+    this.archivedAttributes.selectedStock = eventData.selectedStock;
+    this.archivedAttributes.tableArchived = eventData.stat;
+    this.archivedAttributes.selectedAccessoryType = eventData.selectedAccessoryType;
+
+    this.dataService.FilterAccessories(body).subscribe(
+      (result: any | null) => {
+        if (result) {
+          this.accessories = result;
+          this.setRowData();
+          console.log('Accessories', this.accessories);
+        } else {
+          console.log('No software found for parameters:', body);
+        }
+      },
+      error => {
+        console.error('Error updating software archive status:', error);
+      }
+    );
+  }
 
 
 
