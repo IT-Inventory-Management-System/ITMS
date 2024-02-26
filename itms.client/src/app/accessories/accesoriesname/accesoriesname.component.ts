@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-accesoriesname',
@@ -8,5 +8,13 @@ import { Component, Input } from '@angular/core';
 export class AccesoriesnameComponent {
 
   @Input() accessories: any
+
+  @Output() cardClicked: EventEmitter<any> = new EventEmitter<any>();
+  onClick(): void {
+
+    this.cardClicked.emit({
+      CYGID: this.accessories.cygid
+    });
+  }
 
 }

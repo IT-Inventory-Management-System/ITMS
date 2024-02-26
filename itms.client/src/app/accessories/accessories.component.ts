@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { DataService } from '../shared/services/data.service';
 import { SelectedCountryService } from '../shared/services/selected-country.service';
 
-
 @Component({
   selector: 'app-accessories',
   templateUrl: './accessories.component.html',
@@ -17,6 +16,8 @@ export class AccessoriesComponent {
   accessories: any[];
   filteredAccessories: any[]
   filterValue: string = '';
+  singleSelected: any[];
+  isArchived: boolean = false;
 
   applyAccessoryFilter(event: Event) {
     this.filterValue = (event.target as HTMLInputElement).value;
@@ -30,8 +31,60 @@ export class AccessoriesComponent {
 
   }
 
-  
+  onCardClicked(eventData: any): void {
+    console.log(eventData);
+    this.singleSelected = this.accessories.filter(a => a.cygid === eventData.CYGID);
+    console.log(this.singleSelected);
+  }
 
+  calculateYearDifference(startDate: string | null, endDate: string | null): number {
+    if (!startDate || !endDate) {
+      return 0;
+    }
+
+    const startYear = parseInt(startDate);
+    const endYear = parseInt(endDate);
+    return endYear - startYear;
+  }
+
+  calculateYear(startDate: string | null): number {
+    if (!startDate) {
+      return 0;
+    }
+
+    const startYear = parseInt(startDate);
+    const presentYear = new Date().getFullYear();
+    return presentYear - startYear;
+  }
+
+  calculateMonth(startDate: string | null): number {
+    if (!startDate) {
+      return 0;
+    }
+
+    const startMonth = parseInt(startDate, 10); 
+    const presentMonth = new Date().getMonth() + 1;
+    return presentMonth - startMonth;
+  }
+
+  calculateMonthDifference(startDate: string | null, endDate: string | null): number {
+    if (!startDate || !endDate) {
+      return 0;
+    }
+
+    const startMnth = parseInt(startDate);
+    const endMnth = parseInt(endDate);
+    return endMnth - startMnth;
+  }
+
+  Archived() {
+    if (this.isArchived == true) {
+      this.isArchived = false;
+    } else {
+      this.isArchived = true;
+    }
+    this.getAllAccessories(this.isArchived);
+  }
 
   ngOnInit(): void {
     this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
@@ -49,7 +102,7 @@ export class AccessoriesComponent {
           if (data[i].type == localStorage.getItem('selectedCountry')) {
             this.locationId = data[i].id;
             //alert(this.locationId);
-            this.getAllAccessories();
+            this.getAllAccessories(this.isArchived);
             break;
           }
         }
@@ -60,10 +113,10 @@ export class AccessoriesComponent {
   }
 
 
-  getAllAccessories(): void {
+  getAllAccessories(arh: boolean): void {
     const dto = {
-      locationId: this.locationId, // Assuming this.locationId is the locationId
-      isArchived: false, // Set IsArchived as needed
+      locationId: this.locationId,
+      isArchived: arh, 
     };
 
     this.dataService.getAllAccessories(dto)
