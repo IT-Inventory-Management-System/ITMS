@@ -54,7 +54,7 @@ namespace ITMS.Server.DTO
     public class DeviceModelDto
     {
 
-        
+
         public string? Processor { get; set; }
 
         public string? DeviceName { get; set; }
@@ -62,7 +62,7 @@ namespace ITMS.Server.DTO
 
         public string? Storage { get; set; }
 
-        
+
     }
 
     public class OsTypeDto
@@ -87,4 +87,17 @@ namespace ITMS.Server.DTO
         public string Name { get; set; }
     }
 
+    public class allAccessoriesDTO
+    {
+        public string? Brand { get; set; }
+        public string? CYGID { get; set; }
+        public string? Status { get; set; }
+        public bool? IsWired { get; set; }
+        public string? Category { get; set; }
+        public int? Qty { get; set; }
+    }
+
+    public class singleAccessoriesBodyDTO
+    {
+    }
 }

@@ -182,7 +182,20 @@ namespace itms.server.controllers
             return StatusCode(500, $"Internal server error: {ex.Message}");
         }
     }
-}
+
+
+     [HttpPost("getAllAccessories")]
+     public List<allAccessoriesDTO> GetAllAccessories(Guid locationId)
+        {
+            return _deviceService.GetAllAccessories(locationId);
+        }
+
+        //[HttpPost("getSingleAccessories")]
+        //public List<allAccessoriesDTO> GetSingleAccessories(Guid singleAccessoriesBodyDTO)
+        //{
+        //    return _deviceService.GetAllAccessories(locationId);
+        //}
+    }
 }
 
     

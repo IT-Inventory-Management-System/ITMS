@@ -575,4 +575,22 @@ public class DeviceService
             throw;
         }
     }
+
+    public List<allAccessoriesDTO> GetAllAccessories(Guid locationId)
+    {
+        return _context.Devices
+            .Include(d => d.StatusNavigation)
+            .Include(d => d.DeviceModel)
+              .ThenInclude(dm => dm.Category)
+             .Where(d => d.LocationId == locationId)
+            .Select(d => new allAccessoriesDTO
+            {
+                Brand = d.DeviceModel.Brand,
+                CYGID = d.Cygid,
+                Status = d.StatusNavigation.Type,
+                Category = d.DeviceModel.Category.Name,
+                IsWired = d.DeviceModel.IsWired,
+                Qty = _context.Devices.Count(c => c.DeviceModelId == d.DeviceModel.Id)
+            }).ToList();
+    }
 }
