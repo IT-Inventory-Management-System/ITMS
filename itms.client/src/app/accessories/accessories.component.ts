@@ -162,10 +162,10 @@ export class AccessoriesComponent {
     const body: any = {
       location: this.locationId,
       IsArchived: this.isArchived,
-      selectedType: eventData.selectedType,
+      IsWired: eventData.selectedType,
       selectedStock: eventData.selectedStock,
-      tableArchived: eventData.stat,
-      selectedAccessoryType: eventData.selectedAccessoryType,
+      Availability: eventData.stat,
+      Category: eventData.selectedAccessoryType,
     }
     console.log("body", body);
     this.archivedAttributes.selectedType = eventData.selectedType;
@@ -173,20 +173,22 @@ export class AccessoriesComponent {
     this.archivedAttributes.tableArchived = eventData.stat;
     this.archivedAttributes.selectedAccessoryType = eventData.selectedAccessoryType;
 
-    this.dataService.FilterAccessories(body).subscribe(
-      (result: any | null) => {
-        if (result) {
-          this.accessories = result;
-          this.setRowData();
-          console.log('Accessories', this.accessories);
-        } else {
-          console.log('No software found for parameters:', body);
+    if (this.locationId !== '') {
+      this.dataService.FilterAccessories(body).subscribe(
+        (result: any | null) => {
+          if (result) {
+            this.accessories = result;
+            this.setRowData();
+            console.log('Accessories', this.accessories);
+          } else {
+            console.log('No software found for parameters:', body);
+          }
+        },
+        error => {
+          console.error('Error updating software archive status:', error);
         }
-      },
-      error => {
-        console.error('Error updating software archive status:', error);
-      }
-    );
+      );
+    }
   }
 
 

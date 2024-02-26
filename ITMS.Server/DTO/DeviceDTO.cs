@@ -88,7 +88,7 @@ namespace ITMS.Server.DTO
     }
 
     public class locationaccesoryDTO{
-                public Guid locationId { get; set; }
+        public Guid locationId { get; set; }
         public bool? IsArchived { get; set; }
 
 
@@ -112,11 +112,11 @@ namespace ITMS.Server.DTO
     public class filterAccessoriesBodyDTO
     {
         public string? Category { get; set; }
-        public String? IsWired { get; set; }
+        public string? IsWired { get; set; }
         public string? Availability { get; set; }
         public List<string>? selectedStock { get; set; }
-        public bool IsArchived { get; set; }
-        public Guid locationId { get; set; }
+        public bool? IsArchived { get; set; }
+        public Guid location { get; set; }
     }
 
     public class historySingleAccessory

@@ -200,8 +200,8 @@ namespace itms.server.controllers
         {
             locationaccesoryDTO getData = new locationaccesoryDTO()
             {
-                locationId = filter.locationId,
-                IsArchived = filter.IsArchived,
+             locationId = filter.location,
+             IsArchived = filter.IsArchived,
             };
             List<allAccessoriesDTO> allData = GetAllAccessories(getData);
 
