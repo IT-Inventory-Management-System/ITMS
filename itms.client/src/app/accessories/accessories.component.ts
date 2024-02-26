@@ -11,11 +11,26 @@ import { SelectedCountryService } from '../shared/services/selected-country.serv
 export class AccessoriesComponent {
   locationId: string = '';
 
+    selectedOption: string = 'Active'; // Initially selected option
 
   selectedView: string = 'card';
-    accessories: any;
+  accessories: any[];
+  filteredAccessories: any[]
+  filterValue: string = '';
 
-  constructor(private dataService: DataService, private selectedCountryService: SelectedCountryService) { }
+  applyAccessoryFilter(event: Event) {
+    this.filterValue = (event.target as HTMLInputElement).value;
+    this.filteredAccessories = this.accessories.filter((accessory) =>
+      accessory.brand.toLowerCase().includes(this.filterValue.toLowerCase())
+    );
+  }
+
+  constructor(private dataService: DataService, private selectedCountryService: SelectedCountryService) {
+    this.filteredAccessories = this.accessories;
+
+  }
+
+  
 
 
   ngOnInit(): void {
@@ -58,6 +73,20 @@ export class AccessoriesComponent {
       });
   }
 
+
+
+  handleSelectionChange(selectedOption: string) {
+    const archiveModal = document.getElementById('exampleModa');
+    const unarchiveModal = document.getElementById('unarchive');
+
+    if (selectedOption === 'Archive' && archiveModal) {
+      archiveModal.classList.add('show');
+      archiveModal.style.display = 'block';
+    } else if (selectedOption === 'Unarchive' && unarchiveModal) {
+      unarchiveModal.classList.add('show');
+      unarchiveModal.style.display = 'block';
+    }
+  }
 
 
 }

@@ -52,13 +52,13 @@
           <div class="input">
             <div class="input-frame">
               <img src="../../../assets/icons/Software/Search.svg" />
-              <input class="input-text" placeholder="Search By Brand "   />
+              <input class="input-text" placeholder="Search By Brand "[(ngModel)]="filterValue" (input)="applyAccessoryFilter($event)"/>
                     
             </div>
           </div>
         </div>
 
-        <div *ngFor="let accessory of accessories">
+        <div *ngFor="let accessory of filteredAccessories ? filteredAccessories : accessories">
           <app-accesoriesname [accessories]="accessory"></app-accesoriesname>
         </div>
       
@@ -95,7 +95,7 @@
 
 
         </div>
-        <ng-select >
+        <ng-select (change)="handleSelectionChange($event)" [(ngModel)]="selectedOption">
           <ng-option [value]="'Active'">
             <img class="asset-image" src="../../../../../assets/icons/Assets/active.svg" />
 
@@ -115,6 +115,10 @@
 
           </ng-option>
         </ng-select>
+
+
+     
+
 
 
         <div class="AssetAge">

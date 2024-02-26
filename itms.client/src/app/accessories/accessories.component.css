@@ -405,7 +405,7 @@
   align-self: stretch;
   overflow-y: scroll;
 }
-
+/*
 .status-text {
   color: var(--Adhoc-Grey, #6D6D6D);
   font-family: Roboto;
@@ -422,15 +422,15 @@
   font-style: normal;
   font-weight: 500;
   line-height: normal;
-}
+}*/
 
-.status-div {
+/*.status-div {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 0.25rem;
-}
-
+}*/
+/*
 .status-archive {
   display: flex;
   justify-content: space-between;
@@ -458,7 +458,7 @@
   font-weight: 500;
   line-height: normal;
 }
-
+*/
 .AssetAge {
   border-radius: 0.25rem;
   border: 1px solid var(--Secondary-Light-Gray, #E9ECEB);
