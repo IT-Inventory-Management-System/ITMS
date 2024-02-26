@@ -29,8 +29,10 @@ export class SoftwareComponent implements OnInit {
   expiringtag: boolean = false;
   searchValue: string = '';
   archivedAttributes: any = {
+    location:'',
     selectedType: [],
     selectedStock: [],
+    tableArchived:'',
     from: '',
     to: '',
   }
@@ -95,9 +97,11 @@ export class SoftwareComponent implements OnInit {
       IsArchived: this.isArchived,
       selectedType: eventData.selectedTypes,
       selectedStock: eventData.selectedStock,
+      tableArchived: eventData.stat,
     }
     this.archivedAttributes.selectedType = eventData.selectedTypes;
     this.archivedAttributes.selectedStock = eventData.selectedStock;
+    this.archivedAttributes.tableArchived = eventData.stat;
 
     if (fromDate !== null) {
       body.From = fromDate;
@@ -107,13 +111,30 @@ export class SoftwareComponent implements OnInit {
       body.To = toDate;
       this.archivedAttributes.to = toDate;
     }
-    console.log("archivedAttributes",this.archivedAttributes);
+    console.log("archivedAttributes", this.archivedAttributes);
+
 
     this.softwareService.FilterSoftware(body).subscribe(
       (result: any | null) => {
         if (result) {
           this.softwaresData = result;
           this.filteredSoftware = this.softwaresData;
+        } else {
+          console.log('No software found for parameters:', body);
+        }
+      },
+      error => {
+        console.error('Error updating software archive status:', error);
+      }
+    );
+
+    this.softwareService.FilterSoftwareTable(body).subscribe(
+      (result: any | null) => {
+        if (result) {
+          this.softwarestableData = result;
+
+          console.log("tabel", this.softwarestableData);
+          this.setRowData();
         } else {
           console.log('No software found for parameters:', body);
         }
@@ -228,7 +249,7 @@ export class SoftwareComponent implements OnInit {
     } else {
       this.isArchived = true;
     }
-    if (this.archivedAttributes.type == '' && this.archivedAttributes.body == '' && this.archivedAttributes.from == '' && this.archivedAttributes.to == '') {
+    if (this.archivedAttributes.selectedType.length === 0 && this.archivedAttributes.selectedStock.length === 0 && this.archivedAttributes.from === '' && this.archivedAttributes.to === '') {
       this.getSoftwaresData(this.isArchived);
     } else {
       this.onApplyClicked(this.archivedAttributes);

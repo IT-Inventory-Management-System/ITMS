@@ -126,6 +126,7 @@ namespace ITMS.Server.DTO
         public string location { get; set; }
         public List<string?> selectedStock { get; set; }
         public bool IsArchived { get; set; }
+        public string? tableArchived { get; set; }
         public List<string?> selectedType { get; set; }
         public DateOnly? From { get; set; }
         public DateOnly? To { get; set; }
