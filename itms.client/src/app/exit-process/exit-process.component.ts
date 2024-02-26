@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output, ElementRef, ViewChild } from '@angular/core';
 import html2canvas from 'html2canvas';
 
+
 @Component({
   selector: 'app-exit-process',
   templateUrl: './exit-process.component.html',
@@ -14,7 +15,109 @@ export class ExitProcessComponent {
   @Input() laptopDetails: any;
   @Input() accessoriesDetails: any;
   @Output() initiateExitProcess: EventEmitter<void> = new EventEmitter<void>();
-  //@ViewChild('emailContent') emailContent: ElementRef;
+  @ViewChild('emailContent') emailContent: ElementRef;
+  cont: any;
+
+
+
+  onInitiateExitProcess() {
+    //var emailTo = 'abc@abc.com';
+    //var emailSubject = 'Exit Process Initiated';
+    //this.cont = `To: ${emailTo}\n`;
+    //this.cont += `Subject: ${emailSubject}\n`;
+    //this.cont += 'X-Unsent:1' + '\n';
+    //this.cont += 'Content-Type: multipart/mixed; boundary=--boundary_text_string' + '\n';
+    //this.cont += '\n';
+    //this.cont += '----boundary_text_string_start' + '\n';
+    //this.cont += 'Content-Type: text/html; charset=UTF-8' + '\n';
+    //this.cont += '\n';
+    //console.log(this.emailContent.nativeElement.InnerHTML);
+    //this.cont += emailBody;
+    //this.cont += '\n\n';
+    //this.cont += '----boundary_text_string_end--';
+    //console.log(this.cont);
+    //var blobData = new Blob([this.cont], { type: 'text/plain' });
+    //var a = document.createElement('a');
+    //a.href = window.URL.createObjectURL(blobData);
+    //a.download = `${this.firstName}-${this.lastName}-ExitProcess.eml`;
+    //a.click();
+    const modalContent = document.querySelector('.email') as HTMLElement;
+
+    html2canvas(modalContent).then(canvas => {
+      const imageData = canvas.toDataURL();
+      this.sendEmail(imageData);
+    });
+
+    this.initiateExitProcess.emit();
+    //html2canvas(this.emailContent.nativeElement).then(canvas => {
+    //  const imageData = canvas.toDataURL(); // Convert canvas to base64 image data
+    //  //this.insertImage(imageData);
+    //  this.openEmailClient(imageData);
+    //});
+
+  }
+  sendEmail(imageData: string) {
+    const userEmail = 'User.1@cginfinity.com';
+    const subject = 'Exit Process Information';
+    const body = 'Please find the attached information about your assigned items.';
+
+    const base64Image = imageData.split(',')[1];
+
+    const img = new Image();
+    img.src = imageData;
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+
+      // Resize the canvas to desired dimensions
+      const maxWidth = 600; // Maximum width for the resized image
+      const maxHeight = 500; // Maximum height for the resized image
+      let width = img.width;
+      let height = img.height;
+
+      if (width > maxWidth) {
+        height *= maxWidth / width;
+        width = maxWidth;
+      }
+
+      if (height > maxHeight) {
+        width *= maxHeight / height;
+        height = maxHeight;
+      }
+
+      canvas.width = width;
+      canvas.height = height;
+
+      // Draw the image on the canvas with the resized dimensions
+      ctx?.drawImage(img, 0, 0, width, height);
+
+      // Convert the canvas to base64 data URL
+      const resizedImageData = canvas.toDataURL('image/png');
+
+      // Create a blob from the resized image data
+      const byteCharacters = atob(resizedImageData.split(',')[1]);
+      const byteNumbers = new Array(byteCharacters.length);
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      const blob = new Blob([byteArray], { type: 'image/png' });
+
+      // Create a link element to trigger the download of the resized image
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'assigned_items.png';
+      link.click();
+
+      // Create the mailto link with the resized image attached
+      const mailtoLink = `mailto:${userEmail}?subject=${encodeURIComponent(subject)}&body=${body}&attachment=assigned_items.png`;
+
+      // Redirect to the mail client
+      window.location.href = mailtoLink;
+    };
+  }
+
+
   //@ViewChild('imagePlaceholder') imagePlaceholder: ElementRef;
 
   //isEmailContentHidden: any;
@@ -27,15 +130,6 @@ export class ExitProcessComponent {
   //toggleEmailContent() {
   //  this.isEmailContentHidden = !this.isEmailContentHidden;
   //}
-  onInitiateExitProcess() {
-    //html2canvas(this.emailContent.nativeElement).then(canvas => {
-    //  const imageData = canvas.toDataURL(); // Convert canvas to base64 image data
-    //  //this.insertImage(imageData);
-    //  this.openEmailClient(imageData);
-    //});
-    this.initiateExitProcess.emit();
-  }
-
 
   //insertImage(imageData: string) {
   //  const img = new Image();

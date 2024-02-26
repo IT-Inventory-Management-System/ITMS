@@ -241,8 +241,7 @@ import { AccessoryBrandySearchBoxComponent } from './assign-asset/accessory-bran
     AddMonitorBrandFormComponent,
     AccordionItemComponent,
     AssignAccessoryCommentComponent,
-    AccessoryBrandySearchBoxComponent
-
+    AccessoryBrandySearchBoxComponent,
 
   ],
   imports: [

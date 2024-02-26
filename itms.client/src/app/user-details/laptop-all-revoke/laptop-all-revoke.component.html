@@ -42,10 +42,10 @@
   <div class="device-recieved">
 
     <p>Item Received <span class="star">*</span></p>
-    <input type="radio" id="receivedYes{{i}}" name="deviceReceived{{i}}" [checked]="isReceivedYes(laptop, i)" value="Yes" (change)="showYesReasonOptions(i)">
+    <input type="radio" id="receivedYes{{i}}" name="deviceReceived{{i}}" value="Yes" (change)="showYesReasonOptions(i)">
     <label for="receivedYes{{i}}">Yes</label>
 
-    <input type="radio" id="receivedNo{{i}}" name="deviceReceived{{i}}" [checked]="isReceivedNo(laptop, i)" value="No" (change)="showNoReasonOptions(i)">
+    <input type="radio" id="receivedNo{{i}}" name="deviceReceived{{i}}" value="No" (change)="showNoReasonOptions(i)">
     <label for="receivedNo{{i}}">No</label>
   </div>
 
