@@ -143,5 +143,11 @@ export class DataService {
   changeUserRole(userData: any): Observable<any> {
     return this.http.post(this.apiUrl + 'employee/change-role', userData);
   }
+
+
+  getAllAccessories(locationId: string): Observable<any | null> {
+    return this.http.post<any | null>(this.apiUrl + 'Device/getAllAccessories', { locationId });
+  }
+
 }
 

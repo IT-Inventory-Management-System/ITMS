@@ -254,7 +254,7 @@ namespace ITMS.Server.Services
                              {
                                  CYGID = s.DeviceId!=null?s.Device.Cygid:null,
 
-                                 UpdatedBy = s.UpdatedByNavigation.FirstName+" "+ s.UpdatedByNavigation.LastName != null? s.UpdatedByNavigation.LastName:null,
+                                 UpdatedBy = s.UpdatedByNavigation.FirstName + " " + s.UpdatedByNavigation.LastName != null ? s.UpdatedByNavigation.LastName : null,
 
                                  SubmittedTo = s.RecievedBy != null ? _context.Employees
                                               .Where(e => (e.Id == s.RecievedBy) && (s.DeviceId != null ? s.Device.LocationId == locationName : s.SoftwareAllocationNavigation.LocationId == locationName))
