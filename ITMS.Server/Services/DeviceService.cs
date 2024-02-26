@@ -632,9 +632,21 @@ public class DeviceService
 
     public List<historySingleAccessory> singleHistory(Guid locationId, string CYGID)
     {
-        return null;
-        //return _context.DevicesLogs
-        //       .Include(dl => dl.Device)
+
+        return _context.DevicesLogs
+               .Include(dl => dl.Device)
+               .Include(dl => dl.Employee)
+               .Include(dl => dl.AssignedByNavigation)
+               .Where(dl => (dl.Device.LocationId== locationId) && (dl.Device.Cygid == CYGID))
+               .Select(dl => new historySingleAccessory
+               {
+                   empName = dl.Employee.FirstName+" "+ dl.Employee.LastName,
+                   CYGID = dl.Employee.Cgiid,
+                   AssignedBy = dl.AssignedByNavigation.FirstName+" "+ dl.AssignedByNavigation.LastName,
+                  // AssignedDate = dl.AssignedDate,
+                   
+
+               }).ToList();
 
     }
 }
