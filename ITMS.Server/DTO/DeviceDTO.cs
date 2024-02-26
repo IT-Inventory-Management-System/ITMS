@@ -96,4 +96,16 @@ namespace ITMS.Server.DTO
         public Guid? UpdatedBy { get; set; }
         public string? Description { get; set; }
     }
+
+    public class GetDeviceModelDTO
+    {
+        public string brand { get; set; }
+        public string OS { get; set; }
+        public string Processor { get; set; }
+        public string Ram { get; set; }
+        public string Storage { get; set; }
+        public int total { get; set; }
+        public int assigned { get; set; }
+        public int inventory { get; set; }
+    }
 }
