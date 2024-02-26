@@ -185,10 +185,10 @@ namespace itms.server.controllers
 
 
      [HttpPost("getAllAccessories")]
-     public List<allAccessoriesDTO> GetAllAccessories(Guid locationId, bool IsArchived)
+     public List<allAccessoriesDTO> GetAllAccessories([FromBody] locationaccesoryDTO dto)
         {
-            List<allAccessoriesDTO> allData = _deviceService.GetAllAccessories(locationId);
-            if (IsArchived == true)
+            List<allAccessoriesDTO> allData = _deviceService.GetAllAccessories(dto.locationId);
+            if (dto.IsArchived == true)
             {
                 allData = allData.Where(d => d.IsArchived == true).ToList();
             }
@@ -198,9 +198,14 @@ namespace itms.server.controllers
         [HttpPost("filterAccessories")]
         public List<allAccessoriesDTO> FilterAccessories(filterAccessoriesBodyDTO filter)
         {
-            List<allAccessoriesDTO> allData = GetAllAccessories(filter.locationId, filter.IsArchived);
+            locationaccesoryDTO getData = new locationaccesoryDTO()
+            {
+                locationId = filter.locationId,
+                IsArchived = filter.IsArchived,
+            };
+            List<allAccessoriesDTO> allData = GetAllAccessories(getData);
 
-            return _deviceService.GetFilterAccessories(allData,filter);
+            return _deviceService.GetFilterAccessories(allData, filter);
         }
 
         [HttpPost("singleHistoryAccessory")]

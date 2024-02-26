@@ -87,6 +87,14 @@ namespace ITMS.Server.DTO
         public string Name { get; set; }
     }
 
+    public class locationaccesoryDTO{
+                public Guid locationId { get; set; }
+        public bool? IsArchived { get; set; }
+
+
+
+    }
+
     public class allAccessoriesDTO
     {
         public string? Brand { get; set; }

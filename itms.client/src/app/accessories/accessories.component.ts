@@ -46,13 +46,18 @@ export class AccessoriesComponent {
 
 
   getAllAccessories(): void {
-    const locationId = this.locationId; // Provide the locationId
-    this.dataService.getAllAccessories(locationId)
+    const dto = {
+      locationId: this.locationId, // Assuming this.locationId is the locationId
+      isArchived: false, // Set IsArchived as needed
+    };
+
+    this.dataService.getAllAccessories(dto)
       .subscribe(accessories => {
         this.accessories = accessories;
-        console.log('Accesories',this.accessories); // Do something with the data
+        console.log('Accessories', this.accessories); // Do something with the data
       });
   }
+
 
 
 }

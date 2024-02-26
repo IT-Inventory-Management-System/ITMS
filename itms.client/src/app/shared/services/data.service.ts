@@ -145,8 +145,8 @@ export class DataService {
   }
 
 
-  getAllAccessories(locationId: string): Observable<any | null> {
-    return this.http.post<any | null>(this.apiUrl + 'Device/getAllAccessories', { locationId });
+  getAllAccessories(dto:any): Observable<any | null> {
+    return this.http.post<any | null>(this.apiUrl + 'Device/getAllAccessories', dto );
   }
 
 }
