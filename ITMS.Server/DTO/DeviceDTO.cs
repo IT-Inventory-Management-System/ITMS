@@ -116,8 +116,8 @@ namespace ITMS.Server.DTO
         public string? empName { get; set;}
         public string? CYGID { get; set; }
         public string? AssignedBy { get; set; }
-        public string? AssignedDate { get; set; }
+        public DateTime? AssignedDate { get; set; }
         public string? RecievedBy { get; set; }
-        public string? RecievedDate { get; set; }
+        public DateTime? RecievedDate { get; set; }
     }
 }

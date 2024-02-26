@@ -638,14 +638,15 @@ public class DeviceService
                .Include(dl => dl.Employee)
                .Include(dl => dl.AssignedByNavigation)
                .Where(dl => (dl.Device.LocationId== locationId) && (dl.Device.Cygid == CYGID))
+               .OrderBy(dl => dl.UpdatedAtUtc)
                .Select(dl => new historySingleAccessory
                {
                    empName = dl.Employee.FirstName+" "+ dl.Employee.LastName,
                    CYGID = dl.Employee.Cgiid,
                    AssignedBy = dl.AssignedByNavigation.FirstName+" "+ dl.AssignedByNavigation.LastName,
-                  // AssignedDate = dl.AssignedDate,
-                   
-
+                   AssignedDate = dl.AssignedDate,
+                   RecievedBy = dl.RecievedBy == null? null: _context.Employees.Where(e => e.Id == dl.RecievedBy).Select(e => e.FirstName+" "+e.LastName).FirstOrDefault(),
+                   RecievedDate = dl.RecievedBy == null ? null : dl.RecievedDate,
                }).ToList();
 
     }
