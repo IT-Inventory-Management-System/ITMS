@@ -74,17 +74,48 @@
         <span class="Accesories-summary">Mouse Detail</span>
       </div>
       <div class="specification-div  ">
-        <div class="status-archive ">
-          <div class="status-div">
-            <div class="status-text">Status</div>
-            <div class="status-active">Active</div>
-          </div>
-          <div class="status-archive-div" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            <img src="../../../assets/icons/Software/Archive button.svg" />
-            <div class="archivebutton-text">Archive</div>
+        <!--<div class="status-archive ">
+    <div class="status-div">
+      <div class="status-text">Status</div>
+      <div class="status-active">Active</div>
+    </div>
+    <div class="status-archive-div" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      <img src="../../../assets/icons/Software/Archive button.svg" />
+      <div class="archivebutton-text">Archive</div>
 
+    </div>
+  </div>-->
+        <div class="spec-card  ">
+          <div class="status-container">
+            <div class="status-info">
+              <span class="status-label">Status</span>
+
+            </div>
           </div>
+
+
         </div>
+        <ng-select >
+          <ng-option [value]="'Active'">
+            <img class="asset-image" src="../../../../../assets/icons/Assets/active.svg" />
+
+            Active
+          </ng-option>
+          <!--<ng-option [value]="'Unassignable'">Unassignable</ng-option>-->
+
+          <ng-option  value="Archive">
+            <img class="asset-image" src="../../../../../assets/icons/Assets/archive.svg" />
+
+            Archive
+          </ng-option>
+          <ng-option  value="Unarchive">
+            <img class="asset-image" src="../../../../../assets/icons/Assets/unarchive.svg" />
+
+            Unarchive
+
+          </ng-option>
+        </ng-select>
+
 
         <div class="AssetAge">
           <div class="AssetAgeFrame">
