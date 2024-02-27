@@ -22,12 +22,12 @@ export class AccesoriesnameComponent {
     let iconFileName = '';
 
     // Determine the icon file name based on the category
-    switch (category) {
-      case 'Mouse':
+    switch (category.toLowerCase()) {
+      case 'mouse':
         iconFileName = 'Mouse.svg';
         break;
-      case 'Keyboard':
-        iconFileName = 'Keyboard.svg';
+      case 'keyboard':
+        iconFileName = 'keyboard.svg';
         break;
       // Add more cases for other categories as needed
       default:
@@ -35,6 +35,7 @@ export class AccesoriesnameComponent {
         iconFileName = 'Ellipse.svg';
         break;
     }
+
 
     // Return the full path to the icon file
     return `../../../assets/icons/Accessories/${iconFileName}`;
