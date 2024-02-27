@@ -57,13 +57,13 @@
         <div class="filter-checkbox-outer">
           <div class="date-filter-outer">
             <div class="date-filter">
-              <input type="text" placeholder="From Date" onfocus="(this.type='date')" onblur="(this.type='text')" />
+              <input type="text" placeholder="From Date" onfocus="(this.type='date')" onblur="(this.type='text')" [(ngModel)]="from" (change)="toggleCheckbox(from, 'fromDate')"/>
               <img src="../../../../../assets/icons/calendar.svg" />
             </div>
           </div>
           <div class="date-filter-outer">
             <div class="date-filter">
-              <input type="text" placeholder="To Date" onfocus="(this.type='date')" onblur="(this.type='text')" />
+              <input type="text" placeholder="To Date" onfocus="(this.type='date')" onblur="(this.type='text')" [(ngModel)]="to" (change)="toggleCheckbox(to, 'toDate')"/>
               <img src="../../../../../assets/icons/calendar.svg" />
             </div>
           </div>
