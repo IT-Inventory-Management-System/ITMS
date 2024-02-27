@@ -184,11 +184,11 @@ export class SoftwareComponent implements OnInit {
         console.error('Error updating software archive status:', error);
       }
     );
-    if (this.archivedAttributes.selectedType.length === 0 && this.archivedAttributes.selectedStock.length === 0 && this.archivedAttributes.from === '' && this.archivedAttributes.to === '') {
-      this.getSoftwaresData(this.isArchived);
-    } else {
-      this.onApplyClicked(this.archivedAttributes);
-    }
+    //if (this.archivedAttributes.selectedType.length === 0 && this.archivedAttributes.selectedStock.length === 0 && this.archivedAttributes.from === '' && this.archivedAttributes.to === '') {
+    //  this.getSoftwaresData(this.isArchived);
+    //} else {
+    //  this.onApplyClicked(this.archivedAttributes);
+    //}
   }
 
 
