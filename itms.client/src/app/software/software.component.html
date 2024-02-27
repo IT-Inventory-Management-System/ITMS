@@ -90,7 +90,8 @@
             <div class="status-active">{{ singlesoftware?.isArchived ?'Archived':'Active' }}</div>
           </div>
           <div class="status-archive-div" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            <img src="../../../assets/icons/Software/Archive button.svg" />
+            <img  [src]="singlesoftware?.isArchived ? '../../assets/icons/Software/unarchive.svg' : '../../assets/icons/Software/archive.svg'" />
+
             <div class="archivebutton-text">{{ singlesoftware?.isArchived ?'Unarchive':'Archive' }}</div>
 
           </div>
