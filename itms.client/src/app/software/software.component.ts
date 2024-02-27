@@ -23,6 +23,8 @@ export class SoftwareComponent implements OnInit {
   softwarehistory: any = null;
   archive: any;
   isArchived: boolean = false;
+  userDataJSON: any;
+  UserId: any;
 
   filteredSoftware: any[][] = [[], []];
   filterValues: string = '';
@@ -151,6 +153,7 @@ export class SoftwareComponent implements OnInit {
 
     // Prepare the data for the request body
     const body = {
+      userid: this.UserId,
       name: this.singlesoftware?.name || "", // If name is not available, provide an empty string
       version: this.singlesoftware?.version || "", // If version is not available, provide an empty string
       type: this.singlesoftware?.type || "", // If type is not available, provide an empty string
@@ -227,6 +230,14 @@ export class SoftwareComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.userDataJSON = localStorage.getItem('user');
+
+    // Parse the JSON string back into an object
+    var userData = JSON.parse(this.userDataJSON);
+
+    // Access the 'id' property of the userData object
+    this.UserId = userData.id;
+    console.log("adminid", this.UserId);
     this.getSoftwaresData(false);
     
     //this.filteredSoftware = this.softwaresData;

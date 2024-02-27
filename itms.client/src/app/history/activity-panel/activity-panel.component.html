@@ -38,10 +38,14 @@
         <div class="detail-section">
           <span class="time">{{ log.updatedOn | date: 'hh:mm a' }}</span>
           <span class="detail">
-            <span class="cyg-name">{{log.cygid}}</span> has been
+            <span class="cyg-name" *ngIf="log.cygid">{{log.cygid}}</span>
+            <span class="cyg-name" *ngIf="log.softwareName">{{log.softwareName}}</span> has been
             <span *ngIf="log.action === 'create'">created</span>
             <span *ngIf="log.action === 'update'">updated</span>
             <span *ngIf="log.action === 'delete'">deleted</span>
+            <span *ngIf="log.action === 'Archive'">Archived</span>
+            <span *ngIf="log.action === 'Unarchive'">Unarchived</span>
+
             by <span class="cyg-name">{{ log.updatedBy }}</span>
           </span>
         </div>

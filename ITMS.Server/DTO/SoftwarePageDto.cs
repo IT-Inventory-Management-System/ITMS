@@ -174,7 +174,7 @@ namespace ITMS.Server.DTO
         public string Version { get; set; }
         public string Type { get; set; }
         public bool IsArchived { get; set; }
-
+    public Guid  userid {  get; set; }
         public string location { get; set; }
     }
 
