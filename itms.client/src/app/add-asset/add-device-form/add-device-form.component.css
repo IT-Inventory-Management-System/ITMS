@@ -201,11 +201,12 @@
   display: flex;
   align-items: flex-end;
   gap: 1.25rem;
+  width:35.875rem;
 }
 
 .select-device-dropdown {
   display: flex;
-  width: 23.4375rem;
+  width: 35.8375rem;
   height: 3.8125rem;
   flex-direction: column;
   align-items: flex-start;
@@ -278,7 +279,7 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 0.375rem;
-  flex: 1 0 0;
+  width: 12.3125rem;
 }
 
 .purchase-date-section input {
@@ -292,6 +293,7 @@
   border: 1px solid var(--Secondary-Gray, #B2B2B3);
   background: #FFF;
   position: relative;
+  width:12.3125rem;
 }
 
 input[type='date']::-webkit-calendar-picker-indicator {
@@ -310,7 +312,7 @@ input[type='date']::-webkit-calendar-picker-indicator {
 .purchase-date-section img {
   margin-left: 10px; /* Adjust the value to set the space between input and icon */
   cursor: pointer;
-  transform: translate(1700%,-230%);
+  transform: translate(1250%,-220%);
 }
 
 .warranty-date-section {
@@ -318,7 +320,7 @@ input[type='date']::-webkit-calendar-picker-indicator {
   flex-direction: column;
   align-items: flex-start;
   gap: 0.375rem;
-  flex: 1 0 0;
+  width:17.3125rem;
 }
 
 .warranty-date-section label {
@@ -674,4 +676,18 @@ form{
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+}
+.qtydate {
+  display: flex;
+  width: 35.875rem;
+  align-items: flex-start;
+  gap: 1.25rem;
+}
+.quantity-select {
+  display: flex;
+  width: 9.1875rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.375rem;
+  flex-shrink: 0;
 }
