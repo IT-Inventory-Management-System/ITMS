@@ -11,7 +11,7 @@
   </div>
   <div class="Accesories-type">
     <span class="Accesories-type-text">Accessories Type</span>
-    <ng-select class="ng-selectclass" [clearable]="false" [searchable]="false" placeholder="Select Accessories Type" [(ngModel)]="selectedAccessoryType" (change)="dropDownSelect()">
+    <ng-select class="ng-selectclass" [clearable]="false" [searchable]="false" placeholder="Select Accessories Type" [(ngModel)]="Category" (change)="dropDownSelect()">
       <ng-option [value]="'Mouse'">Mouse</ng-option>
       <ng-option [value]="'Keyboard'">Keyboard</ng-option>
       <ng-option [value]="'Mouse & Keyboard Combo'">Mouse & Keyboard Combo</ng-option>
@@ -28,8 +28,8 @@
           <div *ngFor="let status of Type" class="filter-checkbox">
             <input class="filter-checkbox-input" type="radio" name="type" id="{{status}}" (change)="toggleCheckboxType(status)">
             <label class="filter-checkbox-label" for="{{status}}">
-              <img *ngIf="selectedType === status" src="../../../../../assets/icons/checkbox-checked.svg" />
-              <img *ngIf="selectedType !== status" src="../../../../../assets/icons/checkbox-unchecked.svg" />
+              <img *ngIf="IsWired === status" src="../../../../../assets/icons/checkbox-checked.svg" />
+              <img *ngIf="IsWired !== status" src="../../../../../assets/icons/checkbox-unchecked.svg" />
               <span>{{status}}</span>
             </label>
           </div>
@@ -40,8 +40,8 @@
           <div *ngFor="let status of Brand" class="filter-checkbox">
             <input class="filter-checkbox-input" type="checkbox" id="{{status}}" (change)="toggleCheckboxStatus(status)">
             <label class="filter-checkbox-label" for="{{status}}">
-              <img *ngIf="stat === status" src="../../../../../assets/icons/checkbox-checked.svg" />
-              <img *ngIf="stat !== status" src="../../../../../assets/icons/checkbox-unchecked.svg" />
+              <img *ngIf="Availability === status" src="../../../../../assets/icons/checkbox-checked.svg" />
+              <img *ngIf="Availability !== status" src="../../../../../assets/icons/checkbox-unchecked.svg" />
               <span>{{status}}</span>
             </label>
           </div>

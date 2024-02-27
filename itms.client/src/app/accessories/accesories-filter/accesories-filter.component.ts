@@ -17,12 +17,12 @@ export class AccesoriesFilterComponent {
   @Output() applyClicked: EventEmitter<any> = new EventEmitter<any>();
 
 
-  stat: string = "";
+  Availability: string = "";
   selectedStock: string[] = [];
   selectedLocation: any = '';
-  selectedType: string = '';
+  IsWired: string = '';
 
-  selectedAccessoryType: string = '';
+  Category: string = '';
 
   constructor(private selectedCountryService: SelectedCountryService) { }
 
@@ -30,26 +30,26 @@ export class AccesoriesFilterComponent {
     this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
       localStorage.setItem('selectedCountry', selectedCountry);
       this.selectedLocation = selectedCountry;
-      this.selectedType = '';
+      this.IsWired = '';
       this.selectedStock = [];
-      this.stat = '',
+      this.Availability = '',
       this.Apply();
     });
 
   }
 
   toggleCheckboxType(status: string) {
-    this.selectedType = (this.selectedType === status) ? "" : status;
-    console.log(this.selectedType);
+    this.IsWired = (this.IsWired === status) ? "" : status;
+    console.log(this.IsWired);
   }
 
   toggleCheckboxStatus(status: string) {
-    this.stat = (this.stat === status) ? "" : status;
-    console.log(this.stat);
+    this.Availability = (this.Availability === status) ? "" : status;
+    console.log(this.Availability);
   }
 
   dropDownSelect() {
-    console.log(this.selectedAccessoryType); 
+    console.log(this.Category); 
   }
 
   isSelectedStock(status: string): boolean {
@@ -66,10 +66,10 @@ export class AccesoriesFilterComponent {
  
   Apply() {
     this.applyClicked.emit({
-      selectedType: this.selectedType,
-      stat: this.stat,
+      IsWired: this.IsWired,
+      Availability: this.Availability,
       selectedStock: this.selectedStock,
-      selectedAccessoryType: this.selectedAccessoryType,
+      Category: this.Category,
     });
   }
 
