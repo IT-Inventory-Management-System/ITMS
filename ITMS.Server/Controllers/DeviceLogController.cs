@@ -36,17 +36,18 @@ public class DeviceLogController : ControllerBase
     }
 
     [HttpGet("devicesloginfo/{cygid}")]
-    public async Task<IActionResult> GetDevicesLogInfo(string cygid)
+    public async Task<IEnumerable<DevicelogDto>> GetDevicesLogInfo(string cygid)
     {
         try
         {
             var devicesLogInfo = await _deviceLogService.GetDevicesLogInfoAsync(cygid);
-            return Ok(devicesLogInfo);
+            return devicesLogInfo;
         }
         catch (Exception ex)
         {
             // Log the exception or handle it appropriately
-            return StatusCode(500, "Internal Server Error");
+            // return StatusCode(500, "Internal Server Error");
+            return new List<DevicelogDto>();
         }
     }
 
@@ -66,11 +67,17 @@ public class DeviceLogController : ControllerBase
     }
 
     [HttpPost("filterDevices")]
-    public Task<IActionResult> FiltterCard([FromBody] FilterDTO filterInput)
+    public List<DevicelogDto> FiltterCard([FromBody] FilterDTO filterInput)
     {
 
-        Task<IActionResult> filterDevices = GetDeviceHistory(filterInput.locationId);
-        //filterDevices = filterDevices.Where(d => (filterInput.deviceStatus.Count == 0 || filterInput.deviceStatus.Contains(d.status)));
+        Task<List<DevicelogDto>> filterDevices = GetDeviceHistory(filterInput.locationId);
+        filterDevices = filterDevices.Where(d =>
+        (string.IsNullOrEmpty(filterInput.deviceStatus) || (filterInput.deviceStatus == "Available" && d.status == "Not Assigned") || (filterInput.deviceStatus == "Assigned" && d.status == "Assigned")) &&
+        (filterInput.operatingSystem.Count == 0|| filterInput.operatingSystem.Contains(d.OperatingSystem)) &&
+        (filterInput.uniqueProcessor.Count == 0 || filterInput.uniqueProcessor.Contains(d.processor)) &&
+        (filterInput.fromDate == null || ((DateOnly.FromDateTime((DateTime)d.purchaseDate) >= filterInput.fromDate)) &&
+        (filterInput.toDate == null ||  ((DateOnly.FromDateTime((DateTime)d.purchaseDate) <= filterInput.toDate))
+        ).ToList();
 
         return filterDevices;
     }
