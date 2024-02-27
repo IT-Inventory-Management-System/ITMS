@@ -222,7 +222,7 @@
 
       </div>
       <div class="history-cards">
-        <app-assignhistory></app-assignhistory>
+        <app-assignhistory  *ngFor="let history of historydata" [historydata]="history"></app-assignhistory>
       </div>
     </div>
   </div>

@@ -30,6 +30,8 @@ export class AccessoriesComponent {
     Availability: '',
     Category: ''
   }
+    historydata: any;
+    cygid: any;
 
   applyAccessoryFilter(event: Event) {
     this.filterValue = (event.target as HTMLInputElement).value;
@@ -44,9 +46,15 @@ export class AccessoriesComponent {
   }
 
   onCardClicked(eventData: any): void {
+    this.cygid = eventData.CYGID;
+
+    console.log("cyg", this.cygid);
     console.log(eventData);
     this.singleSelected = this.accessories.filter(a => a.cygid === eventData.CYGID);
     console.log(this.singleSelected);
+    this.singleHistoryAccessory(this.locationId, this.cygid);
+
+
   }
 
   calculateYearDifference(startDate: string | null, endDate: string | null): number {
@@ -129,6 +137,8 @@ export class AccessoriesComponent {
   }
 
 
+
+
   getAllAccessories(arh: boolean): void {
     const dto = {
       locationId: this.locationId,
@@ -141,6 +151,24 @@ export class AccessoriesComponent {
         this.setRowData();
         console.log('Accessories', this.accessories); // Do something with the data
       });
+  }
+
+  singleHistoryAccessory(locationId: any, cygid: any): void {
+    const dto = {
+      locationId: locationId,
+      cygid: cygid
+    };
+
+    this.dataService.singleHistoryAccessory(dto)
+      .subscribe(
+        (history) => {
+          this.historydata = history;
+  console.log('History Data', history); 
+        },
+        (error) => {
+          console.error('Error fetching history data:', error);
+        }
+      );
   }
 
 

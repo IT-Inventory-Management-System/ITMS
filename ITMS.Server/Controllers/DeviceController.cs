@@ -209,9 +209,9 @@ namespace itms.server.controllers
         }
 
         [HttpPost("singleHistoryAccessory")]
-        public List<historySingleAccessory> singleHistoryAccessory(Guid locationId,string CYGID)
+        public List<historySingleAccessory> singleHistoryAccessory([FromBody] locationaccesoryDTO dto)
         {
-            List<historySingleAccessory> history = _deviceService.singleHistory(locationId,CYGID);
+            List<historySingleAccessory> history = _deviceService.singleHistory(dto.locationId,dto.CYGID);
 
             return history;
         }

@@ -152,5 +152,11 @@ export class DataService {
   FilterAccessories(body: any): Observable<any | null> {
     return this.http.post<any | null>(this.apiUrl + 'Device/filterAccessories', body);
   }
+
+  singleHistoryAccessory(dto: any): Observable<any | null> {
+    return this.http.post<any | null>(this.apiUrl + 'Device/singleHistoryAccessory', dto);
+  }
+
+
 }
 

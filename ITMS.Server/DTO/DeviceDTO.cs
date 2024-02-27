@@ -91,6 +91,7 @@ namespace ITMS.Server.DTO
         public Guid locationId { get; set; }
         public bool? IsArchived { get; set; }
 
+        public string? CYGID { get; set; }
 
 
     }
