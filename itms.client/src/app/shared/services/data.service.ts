@@ -159,5 +159,10 @@ export class DataService {
     return this.http.get<any[]>(this.apiUrl + 'asset/getLaptopIDs');
   }
 
+  getDeviceModelData(inputData: any): Observable<any> {
+    console.log(inputData);
+    return this.http.post(this.apiUrl + 'Device/DeviceModels', inputData);
+  }
+
 }
 

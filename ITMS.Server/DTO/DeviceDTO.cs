@@ -108,4 +108,11 @@ namespace ITMS.Server.DTO
         public int assigned { get; set; }
         public int inventory { get; set; }
     }
+
+    public class DeviceModelInputDTO
+    {
+        public string deviceModelId { get; set; }
+        public string locationId { get; set; }
+
+    }
 }

@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { DataService } from '../../../shared/services/data.service';
 import { FormsModule } from '@angular/forms';
 import { DevicesComponent } from './devices/devices.component';
@@ -24,6 +24,7 @@ export class AssestComponent {
   rowData: any[] = [];
   searchValue: string = '';
   selectedModel: any;
+  selectedFilter : any;
 
 
   @ViewChild('appDevices') appDevices: DevicesComponent;
@@ -202,19 +203,11 @@ export class AssestComponent {
   }
 
   showModelTable(modelName: string) {
-    console.log(modelName);
     this.selectedModel = modelName;
-    this.selectedView = 'table';
-    // this.modelClicked.emit(modelName);
+    this.loadModelData();
   }
 
   deviceModelColDefs: ColDef[] = [
-    {
-      field: "SNo",
-      resizable: false,
-      suppressMovable: true,
-      width: 65
-    },
     {
       field: "Brand",
       resizable: false,
@@ -268,13 +261,48 @@ export class AssestComponent {
 
   ];
 
-  modelRowData: any[] = [
-    { SNo: 1, Brand: 'Samsung', 'Operating System': 'Android', Processor: 'Snapdragon 865', 'Ram (GB)': 8, Storage: '256GB', '# Total': 10, '# Assigned': 5, '# Inventory': 5, 'Stock Status': 'In Stock' },
-    { SNo: 2, Brand: 'Apple', 'Operating System': 'iOS', Processor: 'A14 Bionic', 'Ram (GB)': 6, Storage: '128GB', '# Total': 15, '# Assigned': 10, '# Inventory': 5, 'Stock Status': 'Low Stock' },
-    // Add more sample data as needed
-  ];
-  setModelrowdef() {
+  modelRowDef: any[] = [];
+  
+  loadModelData() {
 
+    const inputObject = {
+      deviceModelId: this.selectedModel,
+      locationId: this.locationId
+    }
+
+    this.deviceService.getDeviceModelData(inputObject).subscribe(
+
+      (data) => {
+        console.log('Model Data : ', data);
+        this.setModelRowDef(data[0]);
+        this.selectedView = 'table';
+      },
+      (error) => {
+        console.error('Error fetching device model data', error);
+      }
+    );
   }
+
+  setModelRowDef(modelData: any) {
+    this.modelRowDef[0] = {
+      'Brand': modelData.brand,
+      'Operating System': modelData.os,
+      'Processor': modelData.processor,
+      'Ram (GB)': modelData.ram,
+      Storage: modelData.storage,
+      '# Total': modelData.total,
+      '# Assigned': modelData.assigned,
+      '# Inventory': modelData.inventory,
+      'Stock Status': modelData.inventory <= 2 ? (modelData.inventory == 0 ? 'Out of Stock' : 'Low In Stock') : 'In Stock'
+    }
+
+    console.log(this.modelRowDef);
+  }
+
+  showFilter(filter: any) {
+    console.log(filter);
+    this.selectedFilter = filter
+  }
+
 
 }

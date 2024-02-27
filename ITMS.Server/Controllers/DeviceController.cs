@@ -188,12 +188,15 @@ namespace itms.server.controllers
             return StatusCode(500, $"Internal server error: {ex.Message}");
         }
     }
-        [HttpGet("DeviceModels/{DeviceModelId}")]
-        public async Task<IActionResult> GetDeviceModels(Guid DeviceModelId, [FromQuery] Guid location)
+        [HttpPost("DeviceModels")]
+        public async Task<IActionResult> GetDeviceModels([FromBody] DeviceModelInputDTO deviceModelInput)
         {
+            var deviceModelId = Guid.Parse(deviceModelInput.deviceModelId);
+            var locationId = Guid.Parse(deviceModelInput.locationId);
+
             try
             {
-                var deviceHistory = await _deviceService.GetDeviceModels(DeviceModelId, location);
+                var deviceHistory = await _deviceService.GetDeviceModels(deviceModelId, locationId);
                 return Ok(deviceHistory);
             }
             catch (Exception ex)

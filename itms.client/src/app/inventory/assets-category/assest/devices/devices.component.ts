@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { DataService } from '../../../../shared/services/data.service';
 import { FilterSearchListPipe } from '../../../../filter-search-list.pipe';
 import { SelectedCountryService } from '../../../../shared/services/selected-country.service';
@@ -17,6 +17,7 @@ export class DevicesComponent implements OnInit{
   searchdevice: any; 
   locationId: string = '';
   loading: boolean = true;
+  @Input() filterData: any;
 
   constructor(private dataService: DataService, private selectedCountryService: SelectedCountryService) {
   }
@@ -45,10 +46,12 @@ export class DevicesComponent implements OnInit{
       localStorage.setItem('selectedCountry', selectedCountry);
       this.getDeviceLocation();
     });
-
-   
-   
   }
+
+  //ngOnChanges(changes: SimpleChanges) {
+  //  console.log(changes['filterData'].currentValue);
+  //}
+
 
 
   showDevices() {

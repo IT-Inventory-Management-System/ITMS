@@ -19,6 +19,8 @@ export class DevicesListComponent implements OnInit {
   isselectedDevice: boolean = false;
   selectedDeviceId: string | null = null;
   locationId: string = '';
+  @Input() filterData: any;
+
 
   // Static variable to store the selected device ID
   private static selectedDeviceId: string | null = null;

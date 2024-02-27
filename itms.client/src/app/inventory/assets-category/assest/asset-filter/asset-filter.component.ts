@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { DataService } from '../../../../shared/services/data.service';
 
 @Component({
@@ -8,11 +8,19 @@ import { DataService } from '../../../../shared/services/data.service';
 })
 export class AssetFilterComponent {
 
-  deviceStatus: string[] = ["Assigned", "Available", "Archive"];
+  deviceStatus: string[] = ["Assigned", "Available"];
   operatingSystem: string[] = ["Windows", "Mac"];
   uniqueProcessor: any[] = [];
   from: '';
   to: '';
+
+  @Output() applyFilter = new EventEmitter<any>();
+
+  handleClick() {
+    this.applyFilter.emit(this.selectedCheckboxes);
+    console.log();
+  }
+
 
   constructor(private dataService: DataService) {
     this.dataService.getUniqueProcessor().subscribe(
@@ -56,6 +64,6 @@ export class AssetFilterComponent {
     }
 
     // Log the selected values (you can use this.selectedCheckboxes for further processing)
-    console.log("Selected Checkboxes:", this.selectedCheckboxes);
+    //console.log("Selected Checkboxes:", this.selectedCheckboxes);
   }
 }
