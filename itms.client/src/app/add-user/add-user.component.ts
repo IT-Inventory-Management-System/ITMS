@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { EmployeeService } from '../shared/services/Employee.service';
+import { DataService } from '../shared/services/data.service';
 
 
 @Component({
@@ -14,6 +15,7 @@ export class AddUserComponent implements OnInit {
   previousDisabled: boolean = true;
   addAnotherClicked: boolean = false;
   userAddedCount = 0;
+  locationId: string = '';
 
   curr: any = 0;
   idx: any = 0;
@@ -22,10 +24,32 @@ export class AddUserComponent implements OnInit {
   userForm: FormGroup;
   //userForm: FormGroup[] = [];
 
-  constructor(private formBuilder: FormBuilder, private empService: EmployeeService) { }
+  constructor(private formBuilder: FormBuilder, private empService: EmployeeService, private deviceService: DataService) { }
 
+
+  getDeviceLocation() {
+    this.deviceService.getLocation().subscribe(
+      (data) => {
+        for (var i = 0; i < data.length; i++) {
+          if (data[i].type == localStorage.getItem('selectedCountry')) {
+            this.locationId = data[i].id;
+            this.deviceService.locationId = this.locationId;
+            alert(this.locationId);
+            break;
+          }
+        }
+      },
+      (error) => {
+        console.log("User not found");
+      });
+  }
+
+ 
+   
   ngOnInit(): void {
     this.addUserForm();
+    this.getDeviceLocation();
+  
   }
 
 
