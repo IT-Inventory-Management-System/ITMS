@@ -14,8 +14,7 @@ export class AccessoriesComponent {
   rowData: any[] = [];
   searchValue: string = '';
 
-    selectedOption: string = 'Active'; // Initially selected option
-  //selectedLocation: any = "India";
+    selectedOption: string = 'Active';
 
   selectedView: string = 'card';
   accessories: any[];
@@ -26,10 +25,10 @@ export class AccessoriesComponent {
 
   archivedAttributes: any = {
     location: '',
-    selectedType: [],
+    IsWired: '',
     selectedStock: [],
-    tableArchived: '',
-    selectedAccessoryType: ''
+    Availability: '',
+    Category: ''
   }
 
   applyAccessoryFilter(event: Event) {
@@ -96,7 +95,11 @@ export class AccessoriesComponent {
     } else {
       this.isArchived = true;
     }
-    this.getAllAccessories(this.isArchived);
+    if (this.archivedAttributes.IsWired === '' && this.archivedAttributes.selectedStock.length === 0 && this.archivedAttributes.Availability === '' && this.archivedAttributes.Category === '') {
+      this.getAllAccessories(this.isArchived);
+    } else {
+      this.onApplyClicked(this.archivedAttributes);
+    }
   }
 
   ngOnInit(): void {
@@ -157,36 +160,45 @@ export class AccessoriesComponent {
 
 
   onApplyClicked(eventData: any): void {
-    //console.log("event data", eventData);
-
     const body: any = {
       location: this.locationId,
       IsArchived: this.isArchived,
-      selectedType: eventData.selectedType,
+      IsWired: eventData.IsWired,
       selectedStock: eventData.selectedStock,
-      tableArchived: eventData.stat,
-      selectedAccessoryType: eventData.selectedAccessoryType,
+      Availability: eventData.Availability,
+      Category: eventData.selectedAccessoryType,
     }
-    console.log("body", body);
-    this.archivedAttributes.selectedType = eventData.selectedType;
-    this.archivedAttributes.selectedStock = eventData.selectedStock;
-    this.archivedAttributes.tableArchived = eventData.stat;
-    this.archivedAttributes.selectedAccessoryType = eventData.selectedAccessoryType;
-
-    this.dataService.FilterAccessories(body).subscribe(
-      (result: any | null) => {
-        if (result) {
-          this.accessories = result;
-          this.setRowData();
-          console.log('Accessories', this.accessories);
-        } else {
-          console.log('No software found for parameters:', body);
+    
+    console.log("eventData", eventData);
+    if (eventData.IsWired !== undefined) { 
+      this.archivedAttributes.IsWired = eventData.IsWired;
+    }
+    if (eventData.selectedStock.length !== 0) {
+      this.archivedAttributes.selectedStock = eventData.selectedStock;
+    }
+    if (eventData.Availability !== undefined) {
+      this.archivedAttributes.Availability = eventData.Availability;
+    }
+    if (eventData.Category !== undefined) {
+      this.archivedAttributes.Category = eventData.Category;
+    }
+    
+    if (this.locationId !== '') {
+      this.dataService.FilterAccessories(body).subscribe(
+        (result: any | null) => {
+          if (result) {
+            this.accessories = result;
+            this.setRowData();
+            console.log('Accessories', this.accessories);
+          } else {
+            console.log('No software found for parameters:', body);
+          }
+        },
+        error => {
+          console.error('Error updating software archive status:', error);
         }
-      },
-      error => {
-        console.error('Error updating software archive status:', error);
-      }
-    );
+      );
+    }
   }
 
 
