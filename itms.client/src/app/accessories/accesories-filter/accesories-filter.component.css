@@ -1,4 +1,9 @@
-
+@media screen and (min-width: 2560px) {
+  #accesoriesfilterModal {
+    margin-left: 100rem !important;
+    margin-top: 9rem !important;
+  }
+}
 
 #accesoriesfilterModal {
   border-radius: 0.25rem;
