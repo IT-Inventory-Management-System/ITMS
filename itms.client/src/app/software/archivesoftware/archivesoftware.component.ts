@@ -12,9 +12,6 @@ export class ArchivesoftwareComponent {
   isarchivedclicked: boolean = false;
   @Input() singlesoftware: any = null;
  
-  
-
- 
 
   @Output() archiveClicked: EventEmitter<any> = new EventEmitter<any>();
  

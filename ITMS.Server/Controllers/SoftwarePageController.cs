@@ -149,7 +149,7 @@ public IActionResult Archive([FromBody] SoftwareUpdateDto dto)
         return NotFound("Software not found.");
     }
 
-    return Ok("Software archive status updated successfully.");
+    return Ok();
 }
 
 

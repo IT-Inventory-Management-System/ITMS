@@ -4,6 +4,8 @@ import { ColDef } from 'ag-grid-community';
 import * as XLSX from 'xlsx';
 import { LocationService } from '../shared/services/location.service';
 import { SelectedCountryService } from '../shared/services/selected-country.service';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-software',
@@ -86,7 +88,7 @@ export class SoftwareComponent implements OnInit {
  
 
 
-  constructor(private softwareService: SoftwareService, private LocationService: LocationService, private selectedCountryService: SelectedCountryService) { }
+  constructor(private softwareService: SoftwareService, private LocationService: LocationService, private selectedCountryService: SelectedCountryService, private toastr: ToastrService) { }
 
   onApplyClicked(eventData: any): void {
     console.log
@@ -163,7 +165,7 @@ export class SoftwareComponent implements OnInit {
     console.log("body", body);
 
 
-
+    this.toastr.success("Data posted successfully");
     // Call the service method with the prepared body
     this.softwareService.UpdateSoftwareArchiveStatus(body).subscribe(
       (result: any | null) => {
@@ -171,9 +173,11 @@ export class SoftwareComponent implements OnInit {
           // Handle the result here
           this.singlesoftware = result;
           console.log('Single software:', this.singlesoftware);
+          this.toastr.success("Data posted successfully");
         } else {
           // Handle case when no software is found
           console.log('No software found for parameters:', body);
+          this.toastr.error("Error in posting data");
         }
       },
       error => {
