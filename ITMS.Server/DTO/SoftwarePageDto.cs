@@ -132,6 +132,15 @@ namespace ITMS.Server.DTO
         public DateOnly? To { get; set; }
     }
 
+    public class filter
+    {
+        public List<string?> selectedStock { get; set; }
+        public List<string?> selectedStock { get; set; }
+        public List<string?> selectedStock { get; set; }
+        public DateOnly? From { get; set; }
+        public DateOnly? To { get; set; }
+    }
+
     public class Pur_Qty_Exp
     {
         public DateTime? PurchaseDates { get; set; }
