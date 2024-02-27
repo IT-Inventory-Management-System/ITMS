@@ -34,4 +34,9 @@ export class AdminDetailService {
     return this.http.post<any | null>(this.apiUrl + 'DeviceLog/employeeLog', params );
   }
 
+  getFilteredLogs(body: any): Observable<any | null> {
+
+
+    return this.http.post<any | null>(this.apiUrl + 'DeviceLog/filterEmployeeLog', body);
+  }
 }
