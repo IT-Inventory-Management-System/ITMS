@@ -1,4 +1,5 @@
 // Controllers/DeviceLogController.cs
+using ITMS.Server.DTO;
 using ITMS.Server.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -63,6 +64,17 @@ public class DeviceLogController : ControllerBase
             return StatusCode(500, new { Message = "Internal Server Error" });
         }
     }
+
+    [HttpPost("filterDevices")]
+    public Task<IActionResult> FiltterCard([FromBody] FilterDTO filterInput)
+    {
+
+        Task<IActionResult> filterDevices = GetDeviceHistory(filterInput.locationId);
+        //filterDevices = filterDevices.Where(d => (filterInput.deviceStatus.Count == 0 || filterInput.deviceStatus.Contains(d.status)));
+
+        return filterDevices;
+    }
+
 
     //[HttpPost("employeeLog")]
     //public IActionResult GetDevicesLogs(Guid employeeId, string location)

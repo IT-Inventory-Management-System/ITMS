@@ -16,18 +16,20 @@ public class DevicelogDto
     public string AssignedBy { get; set; }
     public string FormattedAssignedDate { get; set; }
     public DateTime? AssignedDate { get; set; }
-    
+
     public string RecievedBy { get; set; }
     public DateTime? RecievedDate { get; set; }
-    public string  AssignedTo { get;  set; }
+    public string AssignedTo { get; set; }
 
     public string Model { get; set; }
 
-    public bool ? IsArchived { get; set; }
+    public bool? IsArchived { get; set; }
 
     public List<Comment> Comments { get; set; } = new List<Comment>();
 
-    public OperatingDto OperatingSystem { get; set; }
+    public string? OperatingSystem { get; set; }
+    public DateTime? purchaseDate { get; set; }
+    public string? processor {get; set;}
 
 }
 
@@ -82,6 +84,18 @@ public class CategoryTypeWithCategoriesDTO
     public List<CategoryDTO> Categories { get; set; }
 
     public int Priority { get; set; }
+}
+
+
+public class FilterDTO
+{
+    public List<string?> deviceStatus { get; set; }
+    public List<string?> operatingSystem { get; set; }
+    public List<string?> uniqueProcessor { get; set; }
+    public DateOnly? fromDate { get; set; }
+    public DateOnly? toDate { get; set; }
+    public Guid locationId { get; set; }
+
 }
 
 

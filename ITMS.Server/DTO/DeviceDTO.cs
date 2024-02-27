@@ -1,6 +1,8 @@
 ﻿
 using FSharp.Data.Runtime.StructuralTypes;
 using Org.BouncyCastle.Utilities;
+using static Azure.Core.HttpHeader;
+using System.Runtime.InteropServices;
 
 namespace ITMS.Server.DTO
 {
@@ -115,4 +117,6 @@ namespace ITMS.Server.DTO
         public string locationId { get; set; }
 
     }
+
+
 }

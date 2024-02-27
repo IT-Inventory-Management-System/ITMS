@@ -34,10 +34,9 @@ public class DeviceLogService
                     Id = device.Id,
                     Cygid = device.Cygid,
                     status = status.Type,
-                    OperatingSystem = new OperatingDto
-                    {
-                        Osname = device.DeviceModel.OsNavigation.Osname
-                    }
+                    OperatingSystem = device.DeviceModel.OsNavigation.Osname,
+                    purchaseDate = device.PurchasedDate,
+                    processor = device.DeviceModel.Processor
                 }
             )
             .ToListAsync();
