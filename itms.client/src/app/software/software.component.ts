@@ -115,7 +115,7 @@ export class SoftwareComponent implements OnInit {
       body.To = toDate;
       this.archivedAttributes.to = toDate;
     }
-    console.log("archivedAttributes", this.archivedAttributes);
+   // console.log("archivedAttributes", this.archivedAttributes);
 
 
     this.softwareService.FilterSoftware(body).subscribe(
@@ -137,7 +137,7 @@ export class SoftwareComponent implements OnInit {
         if (result) {
           this.softwarestableData = result;
 
-          console.log("tabel", this.softwarestableData);
+        //  console.log("tabel", this.softwarestableData);
           this.setRowData();
         } else {
           console.log('No software found for parameters:', body);
@@ -151,7 +151,7 @@ export class SoftwareComponent implements OnInit {
 
 
   onarchiveclicked(eventData: any): void {
-    console.log("archiveeventdata", eventData);
+   // console.log("archiveeventdata", eventData);
 
     // Prepare the data for the request body
     const body = {
@@ -162,7 +162,7 @@ export class SoftwareComponent implements OnInit {
       isArchived: !this.singlesoftware?.isArchived, // Assuming eventData is a boolean value
       location: this.archive?.location || "" // If location is not available, provide an empty string
     };
-    console.log("body", body);
+  //  console.log("body", body);
 
 
     this.toastr.success("Data posted successfully");
@@ -172,7 +172,7 @@ export class SoftwareComponent implements OnInit {
         if (result) {
           // Handle the result here
           this.singlesoftware = result;
-          console.log('Single software:', this.singlesoftware);
+       //   console.log('Single software:', this.singlesoftware);
           this.toastr.success("Data posted successfully");
         } else {
           // Handle case when no software is found
@@ -209,7 +209,7 @@ export class SoftwareComponent implements OnInit {
         if (result) {
           // Handle the result here
           this.singlesoftware = result;
-          console.log('Single software :', this.singlesoftware);
+         // console.log('Single software :', this.singlesoftware);
 
         } else {
           console.log('No software found for parameters:', parameters);
@@ -223,7 +223,7 @@ export class SoftwareComponent implements OnInit {
     this.softwareService.GetHistory(parameters).subscribe(
       (result: any | null) => {
         if (result) {
-          console.log(' software history:', result);
+       //   console.log(' software history:', result);
           this.softwarehistory = result;
           console.log(' software history:', this.softwarehistory);
 
@@ -245,7 +245,7 @@ export class SoftwareComponent implements OnInit {
 
     // Access the 'id' property of the userData object
     this.UserId = userData.id;
-    console.log("adminid", this.UserId);
+   // console.log("adminid", this.UserId);
     this.getSoftwaresData(false);
     
     //this.filteredSoftware = this.softwaresData;
@@ -253,7 +253,7 @@ export class SoftwareComponent implements OnInit {
       localStorage.setItem('selectedCountry', selectedCountry);
       this.selectedLocation = selectedCountry;
       this.onVariableChanged();
-      console.log(this.selectedLocation);
+     // console.log(this.selectedLocation);
       this.getSoftwaretabledata(this.selectedLocation);
     });
 
@@ -281,7 +281,7 @@ export class SoftwareComponent implements OnInit {
     this.softwareService.GetSoftware(arch).subscribe(
       data => {
         this.softwaresData = data;
-        console.log(this.softwaresData);
+      //  console.log(this.softwaresData);
         this.filteredSoftware = this.softwaresData;
       },
       error => {
@@ -318,7 +318,7 @@ export class SoftwareComponent implements OnInit {
       data => {
         this.softwarestableData = data;
         
-        console.log("tabel", this.softwarestableData);
+      //  console.log("tabel", this.softwarestableData);
         this.setRowData();
         //console.log('Row Data', this.rowData);
 

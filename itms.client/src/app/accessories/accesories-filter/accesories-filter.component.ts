@@ -40,16 +40,16 @@ export class AccesoriesFilterComponent {
 
   toggleCheckboxType(status: string) {
     this.IsWired = (this.IsWired === status) ? "" : status;
-    console.log(this.IsWired);
+    //console.log(this.IsWired);
   }
 
   toggleCheckboxStatus(status: string) {
     this.Availability = (this.Availability === status) ? "" : status;
-    console.log(this.Availability);
+   // console.log(this.Availability);
   }
 
   dropDownSelect() {
-    console.log(this.Category); 
+    //console.log(this.Category); 
   }
 
   isSelectedStock(status: string): boolean {

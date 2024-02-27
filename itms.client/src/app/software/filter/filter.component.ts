@@ -74,7 +74,7 @@ export class FilterComponent implements OnInit {
 
   toggleCheckboxStatus(status: string) {
     this.stat = (this.stat === status) ? "" : status;
-    console.log(this.stat);
+   // console.log(this.stat);
   }
 
   toggleInputType(type: string) {
@@ -87,7 +87,7 @@ export class FilterComponent implements OnInit {
   toggleCheckboxFrom(value: string) {
     this.from = new Date(value);
     const formattedDate = this.from.toISOString().split('T')[0];
-    console.log(formattedDate);
+   // console.log(formattedDate);
   }
 
   toggleInputTypeTo(type: string) {
@@ -100,7 +100,7 @@ export class FilterComponent implements OnInit {
   toggleCheckboxTo(value: string) {
     this.to = new Date(value);
     const formattedDate = this.to.toISOString().split('T')[0];
-    console.log(formattedDate);
+   // console.log(formattedDate);
   }
 
   Apply() {

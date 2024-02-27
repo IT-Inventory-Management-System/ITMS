@@ -16,7 +16,7 @@ export class ArchivesoftwareComponent {
   @Output() archiveClicked: EventEmitter<any> = new EventEmitter<any>();
  
   onarchive() {
-    console.log(this.isarchivedclicked);
+    //console.log(this.isarchivedclicked);
     this.isarchivedclicked = true;
     
     this.archiveClicked.emit(this.isarchivedclicked);

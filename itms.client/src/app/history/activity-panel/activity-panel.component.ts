@@ -1,6 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { AdminDetailService } from '../../shared/services/admin-detail.service';
-import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-activity-panel',
@@ -23,14 +22,14 @@ export class ActivityPanelComponent {
   toggleCheckboxTo(value: string) {
     this.purchseDate = new Date(value);
     const formattedDate = this.purchseDate.toISOString().split('T')[0];
-    console.log(formattedDate);
+   // console.log(formattedDate);
     this.filteredLogs(this.selectedAdmin.id, this.selectedAdmin.locationId, formattedDate);
   }
 
   ngOnInit() {
     this.adminDetailService.selectedAdmin$.subscribe((admin) => {
       this.selectedAdmin = admin;
-      console.log("selectedadmin", this.selectedAdmin);
+     // console.log("selectedadmin", this.selectedAdmin);
       this.getAdminLogs(admin.id, admin.locationId);
     });
   }
@@ -41,10 +40,10 @@ export class ActivityPanelComponent {
       employeeId: employeeId,
       date: filterdate
     };
-    console.log("REQUEST BODY : ", body);
+   // console.log("REQUEST BODY : ", body);
     this.adminDetailService.getFilteredLogs(body).subscribe(
       data => {
-        console.log("ADMIN LOGS : ", data);
+      //  console.log("ADMIN LOGS : ", data);
         this.admindata = data;
       },
       error => {
@@ -59,10 +58,10 @@ export class ActivityPanelComponent {
       locationName : locationId,
       employeeId: employeeId
     };
-    console.log("REQUEST BODY : ", body);
+   // console.log("REQUEST BODY : ", body);
     this.adminDetailService.getLogs(employeeId, locationId).subscribe(
       data => {
-        console.log("ADMIN LOGS : ", data);
+      //  console.log("ADMIN LOGS : ", data);
         this.admindata = data;
       },
       error => {

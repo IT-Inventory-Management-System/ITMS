@@ -48,10 +48,10 @@ export class AccessoriesComponent {
   onCardClicked(eventData: any): void {
     this.cygid = eventData.CYGID;
 
-    console.log("cyg", this.cygid);
-    console.log(eventData);
+   // console.log("cyg", this.cygid);
+    //console.log(eventData);
     this.singleSelected = this.accessories.filter(a => a.cygid === eventData.CYGID);
-    console.log(this.singleSelected);
+  //  console.log(this.singleSelected);
     this.singleHistoryAccessory(this.locationId, this.cygid);
 
 
@@ -149,7 +149,7 @@ export class AccessoriesComponent {
       .subscribe(accessories => {
         this.accessories = accessories;
         this.setRowData();
-        console.log('Accessories', this.accessories); // Do something with the data
+       // console.log('Accessories', this.accessories); // Do something with the data
       });
   }
 
@@ -163,7 +163,7 @@ export class AccessoriesComponent {
       .subscribe(
         (history) => {
           this.historydata = history;
-  console.log('History Data', history); 
+ // console.log('History Data', history); 
         },
         (error) => {
           console.error('Error fetching history data:', error);
@@ -197,7 +197,7 @@ export class AccessoriesComponent {
       Category: eventData.Category,
     }
     
-    console.log("eventData", eventData);
+   // console.log("eventData", eventData);
     if (eventData.IsWired !== undefined) { 
       this.archivedAttributes.IsWired = eventData.IsWired;
     }
@@ -217,7 +217,7 @@ export class AccessoriesComponent {
           if (result) {
             this.accessories = result;
             this.setRowData();
-            console.log('Accessories', this.accessories);
+          //  console.log('Accessories', this.accessories);
           } else {
             console.log('No software found for parameters:', body);
           }
