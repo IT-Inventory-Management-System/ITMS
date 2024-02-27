@@ -26,7 +26,7 @@
       <app-accordion-item title="Type">
         <div class="filter-checkbox-outer">
           <div *ngFor="let status of Type" class="filter-checkbox">
-            <input class="filter-checkbox-input" type="radio" name="type" id="{{status}}" (change)="toggleCheckboxType(status)">
+            <input class="filter-checkbox-input" type="checkbox" name="type" id="{{status}}" (change)="toggleCheckboxType(status)">
             <label class="filter-checkbox-label" for="{{status}}">
               <img *ngIf="IsWired === status" src="../../../../../assets/icons/checkbox-checked.svg" />
               <img *ngIf="IsWired !== status" src="../../../../../assets/icons/checkbox-unchecked.svg" />

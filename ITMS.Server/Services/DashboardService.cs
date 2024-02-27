@@ -274,7 +274,7 @@ namespace ITMS.Server.Services
                                  Action = s.Action.ActionName,
                                  UpdatedOn = s.UpdatedAtUtc,
 
-                             }).ToList();
+                             }).OrderByDescending(group => group.UpdatedOn).ToList();
 
 
             return deviceLogs;

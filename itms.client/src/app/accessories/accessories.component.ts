@@ -194,7 +194,7 @@ export class AccessoriesComponent {
       IsWired: eventData.IsWired,
       selectedStock: eventData.selectedStock,
       Availability: eventData.Availability,
-      Category: eventData.selectedAccessoryType,
+      Category: eventData.Category,
     }
     
     console.log("eventData", eventData);
