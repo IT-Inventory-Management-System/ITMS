@@ -105,7 +105,7 @@ public class DeviceLogController : ControllerBase
                                   Action = s.Action.ActionName,
                                   UpdatedOn = s.UpdatedAtUtc,
                               })
-                          })
+                          }).OrderByDescending(group => group.UpdatedDate)
        .ToList();
 
         return groupedLogs;

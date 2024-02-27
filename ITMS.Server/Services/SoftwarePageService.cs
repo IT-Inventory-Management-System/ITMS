@@ -198,10 +198,15 @@ namespace ITMS.Server.Services
                 && sa.Version == g.Key.Version
                 && sa.Location.Location1 == country
                 && sa.AssignedTo == null),
-        purchaseDates = _context.SoftwareAllocations.Where(sa => sa.Software.SoftwareName == g.Key.SoftwareName
-                && sa.Version == g.Key.Version
-                && sa.Location.Location1 == country).Select(sa => sa.PurchasedDate).OrderBy(pd => pd).Distinct().ToList(),
-    })
+        purchaseDates = _context.SoftwareAllocations
+    .Where(sa => sa.Software.SoftwareName == g.Key.SoftwareName
+                 && sa.Version == g.Key.Version
+                 && sa.Location.Location1 == country)
+    .Select(sa => sa.PurchasedDate)
+    .OrderByDescending(pd => pd)
+    .Distinct()
+    .ToList(),
+        })
     .ToList();
 
 
