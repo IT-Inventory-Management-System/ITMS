@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AdminDetailService } from '../../shared/services/admin-detail.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-activity-panel',
@@ -11,6 +12,7 @@ export class ActivityPanelComponent {
     admindata: any;
 
   constructor(private adminDetailService: AdminDetailService) { }
+
 
   ngOnInit() {
     this.adminDetailService.selectedAdmin$.subscribe((admin) => {
