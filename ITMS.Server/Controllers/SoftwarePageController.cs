@@ -138,10 +138,10 @@ namespace ITMS.Server.Controllers
         [HttpPost("archive")]
 public IActionResult Archive([FromBody] SoftwareUpdateDto dto)
 {
-    if (!ModelState.IsValid)
-    {
-        return BadRequest(ModelState);
-    }
+    //if (!ModelState.IsValid)
+    //{
+    //    return BadRequest(ModelState);
+    //}
 
     bool updateResult = _softwarepageService.UpdateSoftwareArchiveStatus(dto);
     if (!updateResult)
@@ -149,7 +149,7 @@ public IActionResult Archive([FromBody] SoftwareUpdateDto dto)
         return NotFound("Software not found.");
     }
 
-    return Ok();
+    return Ok(updateResult);
 }
 
 
