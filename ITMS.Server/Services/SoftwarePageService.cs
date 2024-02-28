@@ -420,9 +420,9 @@ namespace ITMS.Server.Services
                 {
                     SoftwareAllocation = allocation.Id,
                     ActionId = actionId,
-                    CreatedAtUtc=DateTime.UtcNow,
+                    CreatedAtUtc=DateTime.Now,
                     CreatedBy= dto.userid,
-                    UpdatedAtUtc= DateTime.UtcNow,
+                    UpdatedAtUtc= DateTime.Now,
                     UpdatedBy= dto.userid,
                 };
 

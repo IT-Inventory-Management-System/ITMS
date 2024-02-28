@@ -107,7 +107,7 @@ public class DeviceLogController : ControllerBase
                                   Category = s.DeviceId != null ? s.Device.DeviceModel.Category.Name : null,
                                   Action = s.Action.ActionName,
                                   UpdatedOn = s.UpdatedAtUtc,
-                              })
+                              }).OrderByDescending(l => l.UpdatedOn).ToList()
                           }).OrderByDescending(group => group.UpdatedDate)
        .ToList();
 
