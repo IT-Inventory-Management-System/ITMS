@@ -110,6 +110,7 @@ export class FilterComponent implements OnInit {
       selectedStock: this.selectedStock,
       from: this.from,
       to: this.to,
+      filter: true,
     });
   }
 }

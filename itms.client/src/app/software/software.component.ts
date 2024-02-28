@@ -34,11 +34,13 @@ export class SoftwareComponent implements OnInit {
   searchValue: string = '';
   archivedAttributes: any = {
     location:'',
-    selectedType: [],
+    selectedTypes: [],
     selectedStock: [],
     tableArchived:'',
     from: '',
     to: '',
+    stat: '',
+    filter:false
   }
 
   //onCardClicked(eventData: any): void {
@@ -103,10 +105,11 @@ export class SoftwareComponent implements OnInit {
       selectedStock: eventData.selectedStock,
       tableArchived: eventData.stat,
     }
-    this.archivedAttributes.selectedType = eventData.selectedTypes;
-    this.archivedAttributes.selectedStock = eventData.selectedStock;
-    this.archivedAttributes.tableArchived = eventData.stat;
-
+    if (eventData.filter == true) {
+      this.archivedAttributes.selectedTypes = eventData.selectedTypes;
+      this.archivedAttributes.selectedStock = eventData.selectedStock;
+      this.archivedAttributes.tableArchived = eventData.stat;
+    }
     if (fromDate !== null) {
       body.From = fromDate;
       this.archivedAttributes.from = fromDate;
@@ -268,7 +271,7 @@ export class SoftwareComponent implements OnInit {
     } else {
       this.isArchived = true;
     }
-    if (this.archivedAttributes.selectedType.length === 0 && this.archivedAttributes.selectedStock.length === 0 && this.archivedAttributes.from === '' && this.archivedAttributes.to === '') {
+    if (this.archivedAttributes.selectedTypes.length === 0 && this.archivedAttributes.selectedStock.length === 0 && this.archivedAttributes.from === '' && this.archivedAttributes.to === '') {
       this.getSoftwaresData(this.isArchived);
     } else {
       this.onApplyClicked(this.archivedAttributes);
