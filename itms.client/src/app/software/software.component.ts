@@ -165,13 +165,13 @@ export class SoftwareComponent implements OnInit {
   //  console.log("body", body);
 
 
-    this.toastr.success("Data posted successfully");
+    //this.toastr.success("Data posted successfully");
     // Call the service method with the prepared body
     this.softwareService.UpdateSoftwareArchiveStatus(body).subscribe(
       (result: any | null) => {
         if (result) {
           // Handle the result here
-          this.singlesoftware = result;
+       //   this.singlesoftware = result;
        //   console.log('Single software:', this.singlesoftware);
           this.toastr.success("Data posted successfully");
         } else {
