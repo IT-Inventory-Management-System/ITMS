@@ -13,6 +13,7 @@
 
     public class PutNewUsers
     {
+        public string Location { get; set; }
         public string Cgiid { get; set; } = null!;
 
         public string FirstName { get; set; } = null!;

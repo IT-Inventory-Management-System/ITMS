@@ -2,6 +2,7 @@ import { Component, OnInit,Input } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { EmployeeService } from '../shared/services/Employee.service';
 import { DataService } from '../shared/services/data.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -26,7 +27,7 @@ export class AddUserComponent implements OnInit {
   userForm: FormGroup;
   //userForm: FormGroup[] = [];
 
-  constructor(private formBuilder: FormBuilder, private empService: EmployeeService, private deviceService: DataService) { }
+  constructor(private formBuilder: FormBuilder, private empService: EmployeeService, private deviceService: DataService, private toastr: ToastrService) { }
 
 
   getDeviceLocation() {
@@ -134,10 +135,12 @@ export class AddUserComponent implements OnInit {
     if (this.res.length > 0) {
       this.empService.postUsers(this.res).subscribe(
         response => {
-          console.log('Post successful', response);         
+          console.log('Post successful', response);
+          this.toastr.success("Data posted successfully");
         },
         error => {
           console.error('Error posting data', error);
+          this.toastr.error("Error in posting data");
         }
       );
     }
