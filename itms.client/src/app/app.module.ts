@@ -82,6 +82,8 @@ import { NewCommentsComponent } from './shared/components/new-comments/new-comme
 import { SingleCommentComponent } from './shared/components/new-comments/single-comment/single-comment.component';
 import { AgGridModule } from 'ag-grid-angular';
 import { TableViewComponent } from './shared/components/table-view/table-view.component';
+import { AssignLaptopCommentComponent } from './assign-asset/assign-laptop-comment/assign-laptop-comment.component';
+import { AssignSoftwareCommentComponent } from './assign-asset/assign-software-comment/assign-software-comment.component';
 import { LaptopRevokeComponent } from './user-details/laptop-revoke/laptop-revoke.component';
 import { AccessoriesRevokeComponent } from './user-details/accessories-revoke/accessories-revoke.component';
 import { SoftwareRevokeComponent } from './user-details/software-revoke/software-revoke.component';
@@ -104,6 +106,11 @@ import { AssignRoleModalComponent } from './manage-access/assign-role-modal/assi
 import { ActivityLogComponent } from './activity-log/activity-log.component';
 import { ActivityPanelComponent } from './history/activity-panel/activity-panel.component';
 import { AdminPanelComponent } from './history/admin-panel/admin-panel.component';
+import { AddMonitorFormComponent } from './add-asset/add-monitor-form/add-monitor-form.component';
+import { AddMonitorBrandFormComponent } from './add-asset/add-monitor-form/add-monitor-brand-form/add-monitor-brand-form.component';
+import { AssignAccessoryCommentComponent } from './assign-asset/assign-accessory-comment/assign-accessory-comment.component';
+import { AccessoryBrandySearchBoxComponent } from './assign-asset/accessory-brandy-search-box/accessory-brandy-search-box.component';
+import { CommonModule } from '@angular/common';
 import { AccesoriesFilterComponent } from './accessories/accesories-filter/accesories-filter.component';
 
 
@@ -185,6 +192,10 @@ import { AccesoriesFilterComponent } from './accessories/accesories-filter/acces
     NewCommentsComponent,
     SingleCommentComponent,
     TableViewComponent,
+    AssignLaptopCommentComponent,
+    AssignSoftwareCommentComponent,
+
+    TableViewComponent,
     LaptopRevokeComponent,
     AccessoriesRevokeComponent,
     SoftwareRevokeComponent,
@@ -213,7 +224,14 @@ import { AccesoriesFilterComponent } from './accessories/accesories-filter/acces
     ActivityLogComponent,
     ActivityPanelComponent,
     AdminPanelComponent,
-    AccesoriesFilterComponent
+    AssignRoleModalComponent,
+    AddMonitorFormComponent,
+    AddMonitorBrandFormComponent,
+    AccordionItemComponent,
+    AssignAccessoryCommentComponent,
+    AccessoryBrandySearchBoxComponent,
+    AdminPanelComponent,
+    AccesoriesFilterComponent,
 
 
   ],

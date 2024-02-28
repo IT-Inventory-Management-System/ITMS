@@ -72,6 +72,7 @@ export class DevicesListComponent implements OnInit {
         console.log(data);
         this.deviceService.DeviceDetails = this.DeviceInfo;
         this.getDeviceLogs(this.deviceService.DeviceDetails.cygid);
+        this.deviceService.triggerButtonClick();
       },
       (error) => {
         console.error('Error fetching device info:', error);

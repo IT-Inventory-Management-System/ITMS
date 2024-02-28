@@ -12,7 +12,6 @@ namespace ITMS.Server.ViewModel
 
         public byte[] SoftwareThumbnail { get; set; }
        
-        public string? Version { get; set; }
 
         public Guid CreatedBy { get; set; }
 

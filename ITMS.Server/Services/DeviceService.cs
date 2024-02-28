@@ -16,6 +16,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Xml.Schema;
 using System.Web.Mvc;
 
 public class DeviceService
@@ -481,7 +482,7 @@ public class DeviceService
         return processorList;
     }
 
-    public async Task<bool> UpdateDeviceStatusToDiscarded(ArchiveDto archiveDto)
+    public async Task<bool> UpdateDeviceStatusToDiscarded(ArchivedoneDto archiveDto)
     {
         try
         {
@@ -500,7 +501,7 @@ public class DeviceService
             {
                 // Find the "discarded" status from the database
                 var discardedStatus = await _context.Statuses.FirstOrDefaultAsync(s => s.Type == "discarded");
-
+                var action = await _context.ActionTables.FirstOrDefaultAsync(s => s.ActionName == "Archived");
                 if (discardedStatus != null)
                 {
                     // Update the status to discarded
@@ -508,9 +509,30 @@ public class DeviceService
 
                     // Set IsArchived to true (1)
                     device.IsArchived = true;
+                    DevicesLog oldlog = new DevicesLog
+                    {
+                        DeviceId = device.Id,
+                    CreatedBy=archiveDto.CreatedBy, // Updated to use value from frontend
+                        UpdatedBy = archiveDto.UpdatedBy,
+                        UpdatedAtUtc = DateTime.UtcNow,
+                        CreatedAtUtc = DateTime.UtcNow,
+                        ActionId = action?.Id
 
-                    // Save the changes
+                    };
+                    _context.DevicesLogs.Add(oldlog);
                     await _context.SaveChangesAsync();
+
+                    Comment addArchiveComment = new Comment
+                    {
+                        Description = archiveDto.Description,
+                        DeviceLogId = oldlog.Id,
+                        DeviceId = device.Id,
+                        CreatedAtUtc = DateTime.UtcNow,
+                        CreatedBy = archiveDto.CreatedBy,
+                    };
+                    _context.Comments.Add(addArchiveComment);
+                    //Save the changes
+                   await _context.SaveChangesAsync();
 
                     return true;
                 }
@@ -533,7 +555,7 @@ public class DeviceService
         }
     }
 
-    public async Task<bool> UpdateDeviceStatusToNotAssigned(ArchiveDto archiveDto)
+    public async Task<bool> UpdateDeviceStatusToNotAssigned(ArchivedoneDto archiveDto)
     {
         try
         {
@@ -547,6 +569,7 @@ public class DeviceService
             {
                 // Find the "discarded" status from the database
                 var discardedStatus = await _context.Statuses.FirstOrDefaultAsync(s => s.Type == "not Assigned");
+                var action = await _context.ActionTables.FirstOrDefaultAsync(s => s.ActionName == "UnArchived");
 
                 if (discardedStatus != null)
                 {
@@ -557,6 +580,17 @@ public class DeviceService
                     device.IsArchived = false;
 
                     // Save the changes
+                    DevicesLog oldlog = new DevicesLog
+                    {
+                        DeviceId = device.Id,
+                        CreatedBy = archiveDto.CreatedBy, // Updated to use value from frontend
+                        UpdatedBy = archiveDto.UpdatedBy,
+                        UpdatedAtUtc = DateTime.UtcNow,
+                        CreatedAtUtc = DateTime.UtcNow,
+                        ActionId = action?.Id
+
+                    };
+                    _context.DevicesLogs.Add(oldlog);
                     await _context.SaveChangesAsync();
 
                     return true;
@@ -575,6 +609,34 @@ public class DeviceService
         {
             throw;
         }
+    }
+
+    public async Task<List<GetDeviceModelDTO>> GetDeviceModels(Guid DeviceModelId, Guid location)
+    {
+        var deviceModels = await _context.DeviceModel
+            .Join(
+                _context.Ostypes,
+                device => device.Os,
+                osType => osType.Id,
+                (device, osType) => new { Device = device, OSType = osType }
+            )
+            .Where(deviceOs => deviceOs.Device.Id == DeviceModelId)
+            .Select(log => new GetDeviceModelDTO
+            {
+                brand = log.Device.Brand,
+                Ram = log.Device.Ram,
+                Storage=log.Device.Storage,
+                Processor=log.Device.Processor,
+                OS = log.OSType.Osname,
+                total = _context.Devices.Count(device => device.DeviceModelId == DeviceModelId && device.LocationId == location) ,
+                assigned = _context.Devices.Count(device => device.DeviceModelId == DeviceModelId && device.AssignedTo != null && device.LocationId == location),
+                inventory = _context.Devices.Count(device => device.DeviceModelId == DeviceModelId && device.LocationId == location) -
+                        _context.Devices.Count(device => device.DeviceModelId == DeviceModelId && device.AssignedTo != null && device.LocationId == location)
+
+            })
+            .ToListAsync();
+
+        return deviceModels;
     }
 
     public List<allAccessoriesDTO> GetAllAccessories(Guid locationId)
@@ -662,4 +724,6 @@ public class DeviceService
 
 
     }
+
+
 }

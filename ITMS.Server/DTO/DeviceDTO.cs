@@ -1,6 +1,8 @@
 ﻿
 using FSharp.Data.Runtime.StructuralTypes;
 using Org.BouncyCastle.Utilities;
+using static Azure.Core.HttpHeader;
+using System.Runtime.InteropServices;
 
 namespace ITMS.Server.DTO
 {
@@ -80,12 +82,42 @@ namespace ITMS.Server.DTO
     public class ArchiveDto
     {
         public string? Cygid { get; set; }
+
+      
     }
 
     public class ProcessorDto
     {
         public string Name { get; set; }
     }
+    public class ArchivedoneDto
+    {
+        public string? Cygid { get; set; }
+
+        public Guid CreatedBy { get; set; }
+        public Guid? UpdatedBy { get; set; }
+        public string? Description { get; set; }
+    }
+
+    public class GetDeviceModelDTO
+    {
+        public string brand { get; set; }
+        public string OS { get; set; }
+        public string Processor { get; set; }
+        public string Ram { get; set; }
+        public string Storage { get; set; }
+        public int total { get; set; }
+        public int assigned { get; set; }
+        public int inventory { get; set; }
+    }
+
+    public class DeviceModelInputDTO
+    {
+        public string deviceModelId { get; set; }
+        public string locationId { get; set; }
+
+    }
+
 
     public class locationaccesoryDTO{
         public Guid locationId { get; set; }

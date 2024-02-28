@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using ITMS.Server.Models;
 using ITMS.Server.DTO;
+using static Azure.Core.HttpHeader;
+using System.Runtime.InteropServices;
 
 
 namespace itms.server.controllers
@@ -27,6 +29,12 @@ namespace itms.server.controllers
         public async Task<IEnumerable<GetDeviceDTO>> listDevices(Guid locationId)
         {
             return await _getDeviceService.listDevices(locationId);
+        }
+
+        [HttpGet("getAllComments/{deviceId}")]
+        public async Task<IEnumerable<getComments>> listAllComments(Guid deviceId)
+        {
+            return await _getDeviceService.listAllComments(deviceId);
         }
 
         [HttpGet("checkDeviceStatus")]
@@ -138,7 +146,7 @@ namespace itms.server.controllers
         }
 
         [HttpPost("updateDeviceStatus")]
-        public async Task<IActionResult> UpdateDeviceStatus([FromBody]ArchiveDto archiveDto)
+        public async Task<IActionResult> UpdateDeviceStatus([FromBody] ArchivedoneDto archiveDto)
         {
             try
             {
@@ -156,36 +164,53 @@ namespace itms.server.controllers
             catch (Exception ex)
             {
                 // Log or handle the exception as needed
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpPost("updateDeviceStatustoNotassigned")]
+        public async Task<IActionResult> UpdateDeviceStatustoNotassigned([FromBody] ArchivedoneDto archiveDto)
+        {
+            try
+            {
+                var result = await _deviceService.UpdateDeviceStatusToNotAssigned(archiveDto);
+
+                if (result)
+                {
+                    return Ok(result);
+                }
+                else
+                {
+                    return NotFound($"Device with cygid {archiveDto.Cygid} not found or status update failed.");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception as needed
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
-    
-    [HttpPost("updateDeviceStatustoNotassigned")]
-    public async Task<IActionResult> UpdateDeviceStatustoNotassigned([FromBody] ArchiveDto archiveDto)
-    {
-        try
-        {
-            var result = await _deviceService.UpdateDeviceStatusToNotAssigned(archiveDto);
 
-            if (result)
+        [HttpPost("DeviceModels")]
+        public async Task<IActionResult> GetDeviceModels([FromBody] DeviceModelInputDTO deviceModelInput)
+        {
+            var deviceModelId = Guid.Parse(deviceModelInput.deviceModelId);
+            var locationId = Guid.Parse(deviceModelInput.locationId);
+
+            try
             {
-                return Ok($"Device with cygid {archiveDto.Cygid} status updated to Not Assigned.");
+                var deviceHistory = await _deviceService.GetDeviceModels(deviceModelId, locationId);
+                return Ok(deviceHistory);
             }
-            else
+            catch (Exception ex)
             {
-                return NotFound($"Device with cygid {archiveDto.Cygid} not found or status update failed.");
+
+                return StatusCode(500, "Internal Server Error");
             }
         }
-        catch (Exception ex)
-        {
-            // Log or handle the exception as needed
-            return StatusCode(500, $"Internal server error: {ex.Message}");
-        }
-    }
 
-
-     [HttpPost("getAllAccessories")]
-     public List<allAccessoriesDTO> GetAllAccessories([FromBody] locationaccesoryDTO dto)
+        [HttpPost("getAllAccessories")]
+        public List<allAccessoriesDTO> GetAllAccessories([FromBody] locationaccesoryDTO dto)
         {
             List<allAccessoriesDTO> allData = _deviceService.GetAllAccessories(dto.locationId);
             if (dto.IsArchived == true)
@@ -200,22 +225,22 @@ namespace itms.server.controllers
         {
             locationaccesoryDTO getData = new locationaccesoryDTO()
             {
-             locationId = filter.location,
-             IsArchived = filter.IsArchived,
+                locationId = filter.location,
+                IsArchived = filter.IsArchived,
             };
             List<allAccessoriesDTO> allData = GetAllAccessories(getData);
 
             return _deviceService.GetFilterAccessories(allData, filter);
         }
 
+
         [HttpPost("singleHistoryAccessory")]
         public List<historySingleAccessory> singleHistoryAccessory([FromBody] locationaccesoryDTO dto)
         {
-            List<historySingleAccessory> history = _deviceService.singleHistory(dto.locationId,dto.CYGID);
+            List<historySingleAccessory> history = _deviceService.singleHistory(dto.locationId, dto.CYGID);
 
             return history;
         }
     }
+
 }
-
-

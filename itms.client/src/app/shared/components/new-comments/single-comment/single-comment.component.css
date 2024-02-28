@@ -12,7 +12,17 @@
   justify-content: center;
   align-items: center;
   border-radius: 1.875rem;
+}
+
+.icon-assigned {
   background: var(--Other-Green, #2DC26B);
+}
+
+.icon-recieved {
+  background: #E55F5F;
+}
+.icon-default {
+  background: var(--Secondary-Blue, #74D1EA);
 }
 
 .recieved {

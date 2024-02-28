@@ -1,0 +1,68 @@
+<div class="add-monitor-outer-container">
+  <div class="add-monitor-header">
+    <span>Add Monitor</span>
+  </div>
+  <div class="add-mouse-content overflow-auto">
+    <div class="stepper-container">
+      <div class="stepper-stepper">
+        <div class="stepper-stepper1">
+
+          <img *ngIf="currentStep === 1" src="../../../assets/icons/monitor-blue.svg" />
+          <img *ngIf="currentStep === 2 || currentStep===3" src="../../../assets/icons/completed.svg" />
+          <span class="stepper-text"><span>Monitor Detail</span></span>
+        </div>
+        <img src="../../../assets/icons/Vector 16 (Stroke).svg" />
+        <div class="stepper-stepper2">
+          <img *ngIf="currentStep === 1" src="../../../assets/icons/serial Number.svg" />
+          <img *ngIf="currentStep === 2" src="../../../assets/icons/DeviceId_blue.svg" />
+          <span class="stepper-text2"><span>Device ID</span></span>
+        </div>
+      </div>
+    </div>
+    <form>
+      <div *ngIf="currentStep === 1">
+        <div>
+          <div class="mouse-button">
+            <label class="mouse-label">Display Port Type<span class="required">*</span></label>
+            <div class="add-device-check">
+              <input class="form-check-input" type="checkbox" id="addDetailsCheckbox" (change)="toggleDeviceDetailsForm()">
+
+              <label class="form-check-label" for="addDetailsCheckbox">
+                <img *ngIf="ifChecked == false" src="../../../assets/icons/checkbox-unchecked.svg" />
+                <img *ngIf="ifChecked == true" src="../../../assets/icons/checkbox-checked.svg" />
+                <span>HDMI</span>
+              </label>
+              <input class="form-check-input" type="checkbox" id="addDetails" (change)=" toggleDeviceDetails()">
+
+              <label class="form-check-label" for="addDetails">
+                <img *ngIf="ifCheck == false" src="../../../assets/icons/checkbox-unchecked.svg" />
+                <img *ngIf="ifCheck == true" src="../../../assets/icons/checkbox-checked.svg" />
+                <span>VGA</span>
+              </label>
+              <input class="form-check-input" type="checkbox" id="addDetail" (change)=" toggleDevice()">
+
+              <label class="form-check-label" for="addDetail">
+                <img *ngIf="iCheck == false" src="../../../assets/icons/checkbox-unchecked.svg" />
+                <img *ngIf="iCheck == true" src="../../../assets/icons/checkbox-checked.svg" />
+                <span>DVI</span>
+              </label>
+            </div>
+            <div class="mouse-model-input" >
+              <div class="mouse-model-select">
+                <div class="select-mouse-dropdown">
+                  <label for="MouseBrand">Brand <span class="required">*</span></label>
+                  <ng-select formControlName="deviceModelId" placeholder="Select Device Brand">
+
+                    <ng-option  >
+                    </ng-option>
+                  </ng-select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+ 
+</div>

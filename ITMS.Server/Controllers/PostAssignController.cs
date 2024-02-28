@@ -49,8 +49,8 @@ namespace ITMS.Server.Controllers
                     };
                     await _postAssignAsset.UpdateDeviceLogAsync(postDeviceLogDTO);
 
-                    var LogDeviceResult = await _postAssignAsset.ListDeviceLog(deviceId);
-                    var deviceLogID = LogDeviceResult.FirstOrDefault().Id;
+                    var deviceLogID = await _postAssignAsset.GetLatestDeviceLogId(deviceId);
+
 
                     if (!string.IsNullOrEmpty(postAssignAssetDTO.DeviceComment))
                     {
@@ -86,9 +86,7 @@ namespace ITMS.Server.Controllers
 
                     await _postAssignAsset.UpdateSoftwareLogAsync(postSoftwareLogDTO);
 
-                    var LogSoftwareResult = await _postAssignAsset.ListDeviceLog(softwareId);
-                    var SoftwareLogID = LogSoftwareResult.FirstOrDefault().Id;
-
+                    var SoftwareLogID = await _postAssignAsset.GetLatestDeviceLogId(softwareId);
                     if (!string.IsNullOrEmpty(postAssignAssetDTO.SoftwareComment))
                     {
                         PostCommentDTO softwareCommentDTO = new PostCommentDTO()
@@ -129,8 +127,7 @@ namespace ITMS.Server.Controllers
 
                     await _postAssignAsset.UpdateDeviceLogAsync(postDeviceLogDTO);
 
-                    var LogDeviceResult = await _postAssignAsset.ListDeviceLog(deviceId);
-                    var deviceLogID = LogDeviceResult.FirstOrDefault().Id;
+                    var deviceLogID = await _postAssignAsset.GetLatestDeviceLogId(deviceId);
 
                     if (!string.IsNullOrEmpty(postAssignAssetDTO.DeviceComment))
                     {
@@ -169,8 +166,7 @@ namespace ITMS.Server.Controllers
 
                     await _postAssignAsset.UpdateDeviceLogAsync(postSoftwareLogDTO);
 
-                    var LogSoftwareResult = await _postAssignAsset.ListDeviceLog(softwareId);
-                    var SoftwareLogID = LogSoftwareResult.FirstOrDefault().Id;
+                    var SoftwareLogID = await _postAssignAsset.GetLatestDeviceLogId(softwareId);
 
                     if (!string.IsNullOrEmpty(postAssignAssetDTO.SoftwareComment))
                     {

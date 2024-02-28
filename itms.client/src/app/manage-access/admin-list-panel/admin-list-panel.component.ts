@@ -7,11 +7,13 @@ import { SelectedCountryService } from '../../shared/services/selected-country.s
   selector: 'app-admin-list-panel',
   templateUrl: './admin-list-panel.component.html',
   styleUrls: ['./admin-list-panel.component.css']
-})
+}) 
 export class AdminListPanelComponent {
 
   adminList: any[] = [];
   locationId: string = '';
+  filterName: string = '';
+
   constructor(private dataService: DataService, private adminDetailService: AdminDetailService, private selectedCountryService: SelectedCountryService) { }
 
   ngOnInit(): void {

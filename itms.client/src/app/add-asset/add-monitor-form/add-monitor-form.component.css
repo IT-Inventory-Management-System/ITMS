@@ -1,0 +1,217 @@
+.add-monitor-outer-container {
+  display: flex;
+  padding-right: 1rem;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1rem;
+  flex: 1 0 0;
+  align-self: stretch;
+}
+
+.add-monitor-header {
+  align-self: stretch;
+}
+
+  .add-monitor-header span {
+    color: var(--Primary-Gray, #343435);
+    font-family: Roboto;
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+
+
+.stepper-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.stepper-stepper {
+  gap: 16px;
+  width: 100%;
+  height: auto;
+  display: flex;
+  padding: 16px 0;
+  align-self: stretch;
+  align-items: center;
+  flex-shrink: 0;
+  border-color: rgba(233, 236, 235, 1);
+  border-style: solid;
+  border-width: 1.0680030584335327px;
+  border-radius: 4.272012233734131px;
+  justify-content: center;
+  background-color: rgba(249, 249, 249, 1);
+}
+
+.stepper-stepper1 {
+  gap: 4.272012233734131px;
+  height: 51.26414489746094px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  flex-direction: column;
+}
+
+.stepper-laptopsolid {
+  width: 24px;
+  height: 24px;
+}
+
+.stepper-text {
+  color: var(--dl-color-primary-gray);
+  height: auto;
+  font-size: 14px;
+  text-align: center;
+  font-family: Roboto;
+  font-weight: 600;
+  line-height: normal;
+  font-stretch: normal;
+  text-decoration: none;
+}
+
+.stepper-vector16-stroke {
+  width: 131px;
+  height: 1px;
+}
+
+.stepper-stepper2 {
+  gap: 4.272012233734131px;
+  height: 51.26414489746094px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  flex-direction: column;
+}
+
+.stepper-serial-number {
+  width: 24px;
+  height: 24px;
+}
+
+.stepper-text2 {
+  color: var(--dl-color-secondary-gray);
+  height: auto;
+  font-size: 14px;
+  text-align: center;
+  font-family: Roboto;
+  font-weight: 600;
+  line-height: normal;
+  font-stretch: normal;
+  text-decoration: none;
+}
+
+.add-mouse-content {
+  display: flex;
+  height: 34.6875rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.25rem;
+  flex-shrink: 0;
+  align-self: stretch;
+}
+
+
+:host {
+  display: contents;
+}
+.mouse-button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.375rem;
+  align-self: stretch;
+  margin-bottom: 1.25rem;
+  width: 26.4375rem;
+  height:6.61851rem;
+}
+
+
+  
+
+
+
+  
+
+.required {
+  color: var(--Other-Red, #E03E2D);
+}
+.add-device-check {
+  display: flex;
+  flex-direction:column;
+  gap: 0.15rem;
+}
+
+  .add-device-check input {
+    display: none;
+  }
+
+  .add-device-check label img {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .add-device-check label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+    .add-device-check label span {
+      color: var(--Primary-Gray, #343435);
+      font-family: Roboto;
+      font-size: 0.875rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+.mouse-model-input {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 0.5rem;
+  align-self: stretch;
+  margin-bottom: 0.5rem;
+  width: 33.875rem;
+}
+
+.mouse-model-select {
+  display: flex;
+  align-items: flex-end;
+  gap: 1.25rem;
+}
+
+.select-mouse-dropdown {
+  display: flex;
+  width: 33.875rem;
+  height: 3.8125rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.375rem;
+}
+
+  .select-mouse-dropdown label, .select-mouse-dropdown placeholder {
+    color: var(--Primary-Gray, #343435);
+    font-family: Roboto;
+    font-size: 0.8125rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+
+  .select-mouse-dropdown ng-select {
+    width: 100%;
+    border-radius: 0.25rem;
+    background: #FFF;
+  }
+
+::ng-deep .ng-select .ng-select-container, ::ng-deep .ng-select.ng-select-single .ng-select-container {
+  min-height: 2.5rem;
+}
+
+.select-device-dropdown placeholder {
+  opacity: 0.5;
+}

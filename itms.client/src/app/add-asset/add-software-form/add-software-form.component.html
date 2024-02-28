@@ -5,10 +5,10 @@
   <div class="main_content">
     <div class="top_field">
       <label for="inlineFormSelectPref" placeholder="Enter Software Name " class="required-field software_name">Software Name </label>
-      <ng-select *ngIf="dropdownValues" placeholder="Select Software Name" (change)="dynamicChanges($event)" >
+      <ng-select *ngIf="dropdownValues" placeholder="Select Software Name" (change)="dynamicChanges($event)">
 
         <ng-option *ngFor="let value of dropdownValues" [value]="value?.typeName + '@' + value?.id">
-          {{ value.softwareName }}
+          {{ value.softwareName }} - {{value.typeName}}
         </ng-option>
       </ng-select>
 
@@ -35,7 +35,10 @@
     <div class="alert" role="alert" [style.display]="isFormOpen ? 'none' : 'block'">
       <img src="../../../assets/icons/Vector.svg" class="alert-icon" alt="alert icon">&nbsp; This software type is {{selectedTypeName}}
     </div>
-
+    <div class="software_version">
+      <label for="name" class="form-label required-field">Software Version </label>
+      <input type="text" class="form-control " placeholder="Enter Software Version" formControlName="version" (focus)="hideErrorMessage()" required>
+    </div>
 
     <div *ngIf="selectedTypeName === 'Validity'">
 
@@ -141,7 +144,7 @@
           <input [type]=" showPassword ? 'text': 'password' " class="form-control" placeholder="Enter Activation Key" formControlName="activationKey" (focus)="hideErrorMessage()">
           <div class="input-group-append">
 
-            <div class="toggle_hide_password" >
+            <div class="toggle_hide_password">
               <img src="../../../assets/icons/Eye.svg" class="eye-icon" alt="eye icon" (click)="togglePassword()" *ngIf="!showPassword">
               <i (click)="togglePassword()" class="fa-solid fa-eye-slash" *ngIf="showPassword" style="font-size:0.875rem; opacity:0.5;"></i>
             </div>

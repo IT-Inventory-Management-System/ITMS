@@ -29,7 +29,7 @@ namespace ITMS.Server.Services
             {
                 DeviceId= commentDto.DeviceId,
                 CreatedBy= commentDto.CreatedBy,
-                CreatedAtUtc= commentDto.CreatedAtUtc,
+                CreatedAtUtc= DateTime.UtcNow, 
                 Description= commentDto.Description,
 
               

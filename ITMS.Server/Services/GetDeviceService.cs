@@ -1,5 +1,6 @@
 ﻿using ITMS.Server.DTO;
 using ITMS.Server.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace ITMS.Server.Services
@@ -7,7 +8,9 @@ namespace ITMS.Server.Services
     public interface IGetDeviceService
     {
         Task<IEnumerable<GetDeviceDTO>> listDevices(Guid locationId);
+        Task<IEnumerable<getComments>> listAllComments(Guid deviceId);
         Task<IEnumerable<GetDeviceDTO>> CheckDeviceStatus(String CYGID);
+
     }
 
     public class GetDeviceService: IGetDeviceService
@@ -58,6 +61,8 @@ namespace ITMS.Server.Services
             return result;
         }
 
+
+
         public async Task<IEnumerable<GetDeviceDTO>> CheckDeviceStatus(String CYGID)
         {
             var result = await (from d in _context.Devices
@@ -70,6 +75,59 @@ namespace ITMS.Server.Services
                                 }).ToListAsync();
             return result;
         }
+
+        public async Task<IEnumerable<getComments>> listAllComments(Guid deviceId)
+        {
+
+            var result = await (
+               from comment in _context.Comments
+               join deviceLog in _context.DevicesLogs on comment.DeviceLogId equals deviceLog.Id into deviceLogGroup
+               from deviceLog in deviceLogGroup.DefaultIfEmpty()
+               where comment.DeviceId == deviceId
+               orderby comment.CreatedAtUtc ascending
+               select new
+               {
+                   Comment = comment,
+                   DeviceLog = deviceLog
+               }
+           ).ToListAsync();
+           
+            var groupedComments = result.GroupBy(r => r.Comment.CreatedAtUtc.Date)
+                .Select(group => new getComments
+                {
+                    UpdatedDate = group.Key,
+                    Comments = group.Select(item => new singleComment
+                    {
+                        CreatedAtUtc = item.Comment.CreatedAtUtc,
+                        CreatedBy = item.Comment.CreatedBy != null ? _context.Employees
+                            .Where(e => e.Id == item.Comment.CreatedBy)
+                            .Select(e => e.FirstName + " " + e.LastName)
+                            .FirstOrDefault() : null,
+                        AssignedTo = item.DeviceLog != null ?  _context.Employees
+                            .Where(e => e.Id == item.DeviceLog.EmployeeId)
+                            .Select(e => e.FirstName + " " + e.LastName)
+                            .FirstOrDefault() : null,
+                        Description = item.Comment.Description,
+                        ReceivedBy = item.DeviceLog != null ? _context.Employees
+                            .Where(e => e.Id == item.DeviceLog.RecievedBy)
+                            .Select(e => e.FirstName + " " + e.LastName)
+                            .FirstOrDefault() : null,
+                        AssignedBy = item.DeviceLog != null ? _context.Employees
+                            .Where(e => e.Id == item.DeviceLog.AssignedBy)
+                            .Select(e => e.FirstName + " " + e.LastName)
+                            .FirstOrDefault() : null,
+                        ActionId = item.DeviceLog != null ? _context.ActionTables
+                            .Where(e => e.Id == item.DeviceLog.ActionId)
+                            .Select(action => action.ActionName)
+                            .FirstOrDefault() : null,
+                    }).ToList()
+                });
+
+            return groupedComments;
+
+
+        }
+
     }
 }
 
