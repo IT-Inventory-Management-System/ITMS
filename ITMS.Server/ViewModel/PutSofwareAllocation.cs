@@ -19,5 +19,8 @@
         public DateTime? AssignedDate { get; set; }
 
         public Guid LocationId { get; set; }
+        public string? Version { get; set; }
+        public bool? isArchived { get; set; }
+
     }
 }

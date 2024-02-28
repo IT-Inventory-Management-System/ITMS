@@ -1,5 +1,5 @@
-<app-archive-modal [cygid]="deviceDetails?.cygid"></app-archive-modal>
-<app-unrchivemodal [cygid]="deviceDetails?.cygid"></app-unrchivemodal>
+<app-archive-modal [cygid]="deviceDetails?.cygid" (modalClosed)="handleModalClosed()"></app-archive-modal>
+<app-unrchivemodal [cygid]="deviceDetails?.cygid" (modalClosed)="handleModalClosed()"></app-unrchivemodal>
 
 <div class="spec">
   <div class="mb-3 specification" *ngIf="!isArchived">
@@ -12,35 +12,41 @@
 
 
 
-  <div class="spec-card mb-3 ">
+  <div class="spec-card  ">
     <div class="status-container">
       <div class="status-info">
         <span class="status-label">Status</span>
-        <!--<span class="status-value">{{deviceDetails?.status?.type}}</span>-->
+       
       </div>
     </div>
-    <!--<div class="button-container">
+  
 
-      <button class="custom-button" type="button" *ngIf="!isArchived && deviceDetails?.status?.type!=='Discarded'" data-toggle="modal" data-target="#exampleModa">
-        <img src="../../assets/icons/archive.svg" />
-        Archive
-      </button>
-      <button class="custom-button" *ngIf="deviceDetails?.status?.type === 'Discarded' " data-toggle="modal" data-target="#unarchive">
-        <img src="../../assets/icons/archive.svg" />
-        Unarchive
-      </button>
-    </div>-->
-    
   </div>
-  <ng-select>
-    <ng-option>Archieve</ng-option>
-    <ng-option>Unassignable</ng-option>
-    <ng-option>Unarchieve</ng-option>
+  <ng-select (change)="handleSelectionChange($event)" [(ngModel)]="selectedOption">
+    <ng-option [value]="'Active'">
+      <img class="asset-image" src="../../../../../assets/icons/Assets/active.svg" />
+
+      Active
+    </ng-option>
+    <!--<ng-option [value]="'Unassignable'">Unassignable</ng-option>-->
+
+    <ng-option *ngIf="!isArchived && deviceDetails?.status?.type!=='Discarded'" value="Archive">
+      <img class="asset-image" src="../../../../../assets/icons/Assets/archive.svg" />
+
+      Archive
+    </ng-option>
+    <ng-option *ngIf="deviceDetails?.status?.type === 'Discarded'" value="Unarchive">
+      <img class="asset-image" src="../../../../../assets/icons/Assets/unarchive.svg" />
+
+      Unarchive
+
+    </ng-option>
   </ng-select>
+
 
   <div class="age">
     <span class="half-asset">
-      <img class="asset-image" src="../../assets/icons/assetAge.svg" />
+      <img class="asset-image" src="../../../../../assets/icons/Assets/Asset-age.svg" />
       <span class="asset-age">Asset Age</span>
     </span>
 
@@ -50,7 +56,7 @@
 
 
   <div class="spec-outer">
-    <app-spec-info></app-spec-info>
+    <app-spec-info  (modelClicked)="selectModel($event)"></app-spec-info>
 
   </div>
 </div>

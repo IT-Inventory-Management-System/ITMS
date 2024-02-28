@@ -110,6 +110,7 @@ import { AddMonitorFormComponent } from './add-asset/add-monitor-form/add-monito
 import { AddMonitorBrandFormComponent } from './add-asset/add-monitor-form/add-monitor-brand-form/add-monitor-brand-form.component';
 import { AssignAccessoryCommentComponent } from './assign-asset/assign-accessory-comment/assign-accessory-comment.component';
 import { AccessoryBrandySearchBoxComponent } from './assign-asset/accessory-brandy-search-box/accessory-brandy-search-box.component';
+import { CommonModule } from '@angular/common';
 
 
 

@@ -42,5 +42,11 @@ namespace ITMS.Server.Controllers
             return await _addAssetService.getCGIID();
         }
 
+        [HttpGet("getLaptopIDs")]
+        public async Task<IEnumerable<getLaptopIds>> getlaptopIds()
+        {
+            return await _addAssetService.getlaptopIds();
+        }
+
     }
 }

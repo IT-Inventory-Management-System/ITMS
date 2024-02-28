@@ -2,14 +2,11 @@
   <div class="header_add_new_software">Add New Software</div>
   <form [formGroup]="newSoftwareForm" (ngSubmit)="onSubmit()">
     <div class="row">
-      <div class="col-6">
+      <div class="col-12">
         <label for="name" class="form-label required-field">Software Name </label>
         <input type="text" class="form-control " placeholder="Enter Software Name" formControlName="softwareName"(focus)="hideErrorMessage()" required>
       </div>
-      <div class="col-6">
-        <label for="name" class="form-label required-field">Software Version </label>
-        <input type="text" class="form-control " placeholder="Enter Software Version" formControlName="version" (focus)="hideErrorMessage()" required>
-      </div>
+     
     </div>
 
 

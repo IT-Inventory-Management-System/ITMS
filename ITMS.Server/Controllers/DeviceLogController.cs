@@ -1,4 +1,5 @@
 // Controllers/DeviceLogController.cs
+using ITMS.Server.DTO;
 using ITMS.Server.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -19,33 +20,34 @@ public class DeviceLogController : ControllerBase
     }
 
     [HttpGet("devices/{locationId}")]
-    public async Task<IActionResult> GetDeviceHistory(Guid locationId)
+    public List<DevicelogDto> GetDeviceHistory(Guid locationId)
     {
 
         try
         {
-            var deviceHistory = await _deviceLogService.GetDevicesAsync(locationId);
-            return Ok(deviceHistory);
+            List<DevicelogDto> deviceHistory = _deviceLogService.GetDevicesAsync(locationId);
+            return deviceHistory;
         }
         catch (Exception)
         {
             // Log the exception or handle it appropriately
-            return StatusCode(500, "Internal Server Error");
+            return new List<DevicelogDto>();
         }
     }
 
     [HttpGet("devicesloginfo/{cygid}")]
-    public async Task<IActionResult> GetDevicesLogInfo(string cygid)
+    public async Task<IEnumerable<DevicelogDto>> GetDevicesLogInfo(string cygid)
     {
         try
         {
             var devicesLogInfo = await _deviceLogService.GetDevicesLogInfoAsync(cygid);
-            return Ok(devicesLogInfo);
+            return devicesLogInfo;
         }
         catch (Exception ex)
         {
             // Log the exception or handle it appropriately
-            return StatusCode(500, "Internal Server Error");
+            // return StatusCode(500, "Internal Server Error");
+            return new List<DevicelogDto>();
         }
     }
 
@@ -63,6 +65,23 @@ public class DeviceLogController : ControllerBase
             return StatusCode(500, new { Message = "Internal Server Error" });
         }
     }
+
+    [HttpPost("filterDevices")]
+    public List<DevicelogDto> FiltterCard([FromBody] FilterDTO filterInput)
+    {
+
+        List<DevicelogDto> filterDevices = GetDeviceHistory(filterInput.locationId);
+        filterDevices = filterDevices.Where(d =>
+        (filterInput.deviceStatus.Count == 0|| filterInput.deviceStatus.Contains(d.status)) &&
+        (filterInput.operatingSystem.Count == 0|| filterInput.operatingSystem.Contains(d.OperatingSystem)) &&
+        (filterInput.uniqueProcessor.Count == 0 || filterInput.uniqueProcessor.Contains(d.processor)) &&
+        (filterInput.fromDate == null || ((DateOnly.FromDateTime((DateTime)d.purchaseDate) >= filterInput.fromDate))) &&
+        (filterInput.toDate == null ||  ((DateOnly.FromDateTime((DateTime)d.purchaseDate) <= filterInput.toDate)))
+        ).ToList();
+
+        return filterDevices;
+    }
+
 
     //[HttpPost("employeeLog")]
     //public IActionResult GetDevicesLogs(Guid employeeId, string location)

@@ -131,7 +131,6 @@ public class AddDeviceService : IDeviceService
                 SoftwareTypeId = software.SoftwareTypeId,
                 CategoryId = software.CategoryId,
                 SoftwareThumbnail = software.SoftwareThumbnail,
-                //Version = software.Version,
                 CreatedBy = software.CreatedBy,
                 CreatedAtUtc = software.CreatedAtUtc,
                 UpdatedBy = software.UpdatedBy,
@@ -153,8 +152,10 @@ public class AddDeviceService : IDeviceService
                 softwareAllocationForDb.ExpiryDate = sofwareAllocation.ExpiryDate;
                 softwareAllocationForDb.AssignedTo = sofwareAllocation.AssignedTo;
                 softwareAllocationForDb.AssignedBy = sofwareAllocation.AssignedBy;
+                softwareAllocationForDb.Version= sofwareAllocation.Version;
                 softwareAllocationForDb.AssignedDate = sofwareAllocation.AssignedDate;
                 softwareAllocationForDb.LocationId = sofwareAllocation.LocationId;
+                softwareAllocationForDb.IsArchived = false;
                 _context.SoftwareAllocations.Add(softwareAllocationForDb);
             }
             _context.SaveChanges();

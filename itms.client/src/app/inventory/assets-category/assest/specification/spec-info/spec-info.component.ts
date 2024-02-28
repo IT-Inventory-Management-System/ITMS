@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { DataService } from '../../../../../shared/services/data.service';
 
 @Component({
@@ -9,6 +9,7 @@ import { DataService } from '../../../../../shared/services/data.service';
 export class SpecInfoComponent  {
   @Input() key: string;
   modelCount: number;
+  @Output() modelClicked = new EventEmitter<string>();
 
   constructor(private dataService: DataService, private cdr: ChangeDetectorRef) { }
 
@@ -17,7 +18,10 @@ export class SpecInfoComponent  {
     // Assuming you have a property in your dataService to store the device model name
     /*const deviceModelName = this.dataService.DeviceDetails?.deviceModel?.deviceName;*/
 
-   
+  handleClick(modelno : string) {
+    this.modelClicked.emit(modelno);
+    console.log(modelno);
+  }
     
   
 

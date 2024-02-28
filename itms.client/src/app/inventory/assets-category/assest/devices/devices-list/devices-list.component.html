@@ -1,10 +1,10 @@
 <div class="devices-list-container">
 
   <button #firstButton class="devices-list-container-items" (click)="onDeviceClick(device?.cygid) " [attr.data-name]="device?.cygid">
-    <ng-container *ngIf="device.operatingSystem.osname=='Windows'">
+    <ng-container *ngIf="device.operatingSystem=='Windows'">
       <img src="../../../../../../assets/icons/Assets/windows.svg" />
     </ng-container>
-    <ng-container *ngIf="device.operatingSystem.osname=='Mac'">
+    <ng-container *ngIf="device.operatingSystem=='Mac'">
       <img src="../../../../../../assets/icons/Assets/apple.svg" />
     </ng-container>
     <ng-container *ngIf="device.operatingSystem.osname=='ChromeBook'">
