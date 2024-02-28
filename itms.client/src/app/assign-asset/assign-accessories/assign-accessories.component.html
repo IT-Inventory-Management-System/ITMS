@@ -1,21 +1,28 @@
-<div class="Accessories-Section">
-  <div class="form-fields">
+<div class="Accessories-Section" *ngFor="let accessory of accessories; let i = index">
+  <div class="form-fields" [class.Accessory-Section-bottom-margin]="i !== accessories.length - 1">
     <app-accessories-search-box class="sbox"
                                 [label]="'Accessories'"
                                 [placeholder]="'Select Accessories'"
                                 [AccessoryOptions]="AccessoryOptions"
                                 [assignAssetForm]="assignAssetForm"
-                                (AccessoryOptionSelected)="AccessorySearchBoxOptionSelected($event)">
+                                (AccessoryOptionSelected)="AccessorySearchBoxOptionSelected($event,i)"
+                                [index]=i
+                                (removeAccessory)="removeAccessory($event)">
     </app-accessories-search-box>
-    <div class="comment-subheading">Comment</div>
-    <input class="comment-input-box"
-           required
-           placeholder="Add Comment"
-           [value]="selectedOption"
-           aria-label="Comment"
-           (input)="onInputChangeCommentBox($event)">
+    <app-accessory-brandy-search-box class="sbox"
+                                     [label]="'Brand'"
+                                     [placeholder]="'Select Brand'"
+                                     [AccessoryBrandOptions]="BrandOptions[i]"
+                                     (AccessoryBrandOptionSelected)=" AccessoryBrandSearchBoxOptionSelected($event,i)"
+                                     [assignAssetForm]="assignAssetForm">
+    </app-accessory-brandy-search-box>
+
+    <app-assign-accessory-comment class="sbox"
+                                  [assignAssetForm]="assignAssetForm"
+                                  [index]="i">
+    </app-assign-accessory-comment>
   </div>
-  <div class="Add-new">
+  <div class="Add-new" *ngIf="i === accessories.length - 1" (click)="addNewAccessory()">
     <img class="add-img" src="../../../../assets/icons/Add.svg" />
     <div class="add-new-text">Add Another Accessories</div>
   </div>

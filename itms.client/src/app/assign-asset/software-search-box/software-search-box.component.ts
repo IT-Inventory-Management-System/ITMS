@@ -12,14 +12,36 @@ export class SoftwareSearchBoxComponent {
   @Input() label: string;
   @Input() placeholder: string;
   @Input() SoftwareOptions: any[] = [];
+  @Input() index: number;
   @Output() SoftwareOptionSelected: EventEmitter<any> = new EventEmitter();
+  @Output() removeSoftware = new EventEmitter<number>();
   uniqueSoftwareNames: any[] = [];
   selectedOption: any;
   private closeFlagSubscription: Subscription;
 
   constructor(private assignDataManagementService: AssignDataManagementService,
     private closeFlagService: CloseFlagService
-) { }
+  ) { }
+
+  ngOnInit(): void {
+    this.closeFlagService.setCloseFlagToFalse();
+    this.selectedOption = this.assignDataManagementService.getState("softwareNames", this.index);
+    this.SoftwareOptionSelected.emit(this.selectedOption);
+    this.UniqueOptions();
+  }
+
+  ngOnDestroy(): void {
+    this.closeFlagSubscription = this.closeFlagService.closeFlag$.subscribe((closeFlag) => {
+      if (!closeFlag) {
+        this.assignDataManagementService.setState("softwareNames", this.selectedOption, this.index);
+      }
+    });
+    this.closeFlagSubscription.unsubscribe();
+  }
+
+  onClearSelection(): void {
+    this.selectedOption = null;
+  }
 
   UniqueOptions(): void {
     const uniqueNamesSet = new Set<string>(this.SoftwareOptions.map(option => option.softwareName));
@@ -30,23 +52,8 @@ export class SoftwareSearchBoxComponent {
     this.SoftwareOptionSelected.emit(option);
   }
 
-  ngOnInit(): void {
-    this.closeFlagService.setCloseFlagToFalse();
-    this.selectedOption = this.assignDataManagementService.getState("softwareName");
-    this.SoftwareOptionSelected.emit(this.selectedOption);
-    this.UniqueOptions();
-  }
 
-  ngOnDestroy(): void {
-    this.closeFlagSubscription = this.closeFlagService.closeFlag$.subscribe((closeFlag) => {
-      if (!closeFlag) {
-        this.assignDataManagementService.setState("softwareName", this.selectedOption);
-      }
-    });
-    this.closeFlagSubscription.unsubscribe();
-  }
-
-  setSaveStateOnDestroy(): void {
-    this.selectedOption = null;
+  emitRemoveSoftware(): void {
+    this.removeSoftware.emit(this.index);
   }
 }

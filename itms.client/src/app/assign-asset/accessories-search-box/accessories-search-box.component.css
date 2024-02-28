@@ -5,6 +5,14 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  width: 100%;
+}
+.close-button {
+  flex-shrink: 0;
+  border: 0;
+  background-color: #FFF;
+  padding: 0;
+  margin-left: 77.3%;
 }
 
 .ng-select.custom {

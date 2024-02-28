@@ -14,48 +14,47 @@ export class AccessoriesSearchBoxComponent {
   @Input() placeholder: string;
   @Input() AccessoryOptions: any[] = [];
   @Input() assignAssetForm: FormGroup;
+  @Input() index: number;
   @Output() AccessoryOptionSelected: EventEmitter<any> = new EventEmitter();
+  @Output() removeAccessory = new EventEmitter<number>();
+
+  uniqueAccessoryNames: any[] = [];
   selectedOption: any;
   private closeFlagSubscription: Subscription;
 
   constructor(private assignDataManagementService: AssignDataManagementService,
     private closeFlagService: CloseFlagService
-) { }
-
-  onSelectOption(option: any): void {
-    this.AccessoryOptionSelected.emit(option);
-    if (option.assignedTo && 'assignedTo' in option && option.assignedTo) {
-      this.selectedOption = null;
-      this.assignAssetForm.get('selectedAccessory')?.setValue(null);
-    }
-    else {
-      this.selectedOption = option;
-      this.assignAssetForm.get('selectedAccessory')?.setValue(option.id);
-    }
-  }
-  onClearSelection(): void {
-    this.assignAssetForm.get('selectedAccessory')?.setValue(null);
-  }
+  ) { }
 
   ngOnInit(): void {
     this.closeFlagService.setCloseFlagToFalse();
-    this.selectedOption = this.assignDataManagementService.getState("accessory");
+    this.selectedOption = this.assignDataManagementService.getState("accessoriesName", this.index);
     this.AccessoryOptionSelected.emit(this.selectedOption);
+    this.UniqueOptions();
   }
 
   ngOnDestroy(): void {
     this.closeFlagSubscription = this.closeFlagService.closeFlag$.subscribe((closeFlag) => {
       if (!closeFlag) {
-        this.assignDataManagementService.setState("accessory", this.selectedOption);
-      } 
+        this.assignDataManagementService.setState("accessoriesName", this.selectedOption, this.index);
+      }
     });
     this.closeFlagSubscription.unsubscribe();
   }
 
-  setSaveStateOnDestroy(): void {
+  onClearSelection(): void {
     this.selectedOption = null;
   }
-  resetComponentState(): void {
-    this.selectedOption = null;
+  UniqueOptions(): void {
+    const uniqueNamesSet = new Set<string>(this.AccessoryOptions.map(option => option.name));
+    this.uniqueAccessoryNames = Array.from(uniqueNamesSet);
+  }
+
+  onSelectOption(option: any): void {
+    this.AccessoryOptionSelected.emit(option);
+  }
+
+  emitRemoveSoftware(): void {
+    this.removeAccessory.emit(this.index);
   }
 }

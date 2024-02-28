@@ -51,34 +51,6 @@
   font-weight: 600;
   line-height: normal;
 }
-.comment-subheading {
-  color: var(--Primary-Gray, #343435);
-  font-family: Roboto;
-  font-size: 0.8125rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-}
-
-.comment-input-box {
-  display: flex;
-  padding: 0.5rem 0.75rem;
-  align-items: flex-start;
-  gap: 6.625rem;
-  flex: 1 0 0;
-  align-self: stretch;
-  border-radius: 0.25rem;
-  border: 1px solid var(--Secondary-Gray, #B2B2B3);
-  background: var(--Primary-White, #FFF);
-}
-
-.comment-input-box::placeholder {
-  flex: 1 0 0;
-  color: var(--Primary-Gray, #343435);
-  font-family: Roboto;
-  font-size: 0.875rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  opacity: 0.5;
+.Accessory-Section-bottom-margin {
+  margin-bottom: 20px;
 }

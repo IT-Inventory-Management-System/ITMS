@@ -82,6 +82,8 @@ import { NewCommentsComponent } from './shared/components/new-comments/new-comme
 import { SingleCommentComponent } from './shared/components/new-comments/single-comment/single-comment.component';
 import { AgGridModule } from 'ag-grid-angular';
 import { TableViewComponent } from './shared/components/table-view/table-view.component';
+import { AssignLaptopCommentComponent } from './assign-asset/assign-laptop-comment/assign-laptop-comment.component';
+import { AssignSoftwareCommentComponent } from './assign-asset/assign-software-comment/assign-software-comment.component';
 import { LaptopRevokeComponent } from './user-details/laptop-revoke/laptop-revoke.component';
 import { AccessoriesRevokeComponent } from './user-details/accessories-revoke/accessories-revoke.component';
 import { SoftwareRevokeComponent } from './user-details/software-revoke/software-revoke.component';
@@ -106,6 +108,8 @@ import { ActivityPanelComponent } from './history/activity-panel/activity-panel.
 import { AdminPanelComponent } from './history/admin-panel/admin-panel.component';
 import { AddMonitorFormComponent } from './add-asset/add-monitor-form/add-monitor-form.component';
 import { AddMonitorBrandFormComponent } from './add-asset/add-monitor-form/add-monitor-brand-form/add-monitor-brand-form.component';
+import { AssignAccessoryCommentComponent } from './assign-asset/assign-accessory-comment/assign-accessory-comment.component';
+import { AccessoryBrandySearchBoxComponent } from './assign-asset/accessory-brandy-search-box/accessory-brandy-search-box.component';
 import { CommonModule } from '@angular/common';
 
 
@@ -187,6 +191,10 @@ import { CommonModule } from '@angular/common';
     NewCommentsComponent,
     SingleCommentComponent,
     TableViewComponent,
+    AssignLaptopCommentComponent,
+    AssignSoftwareCommentComponent,
+
+    TableViewComponent,
     LaptopRevokeComponent,
     AccessoriesRevokeComponent,
     SoftwareRevokeComponent,
@@ -214,7 +222,10 @@ import { CommonModule } from '@angular/common';
     AdminPanelComponent,
     AssignRoleModalComponent,
     AddMonitorFormComponent,
-    AddMonitorBrandFormComponent
+    AddMonitorBrandFormComponent,
+    AccordionItemComponent,
+    AssignAccessoryCommentComponent,
+    AccessoryBrandySearchBoxComponent
 
 
   ],
