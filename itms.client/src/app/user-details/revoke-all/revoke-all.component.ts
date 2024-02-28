@@ -27,8 +27,10 @@ export class RevokeAllComponent {
   ngOnChanges() {
     if (this['laptopDetails'] && Array.isArray(this['laptopDetails']))
       this.filteredLaptopDetails = this['laptopDetails'].filter((laptop: any) => laptop.submitedBy === null);
+    console.log(this.softwareDetails);
     if (this['softwareDetails'] && Array.isArray(this['softwareDetails']))
       this.filteredSoftwareDetails = this['softwareDetails'].filter((software: any) => software.recievedBy === null);
+    console.log(this.filteredSoftwareDetails);
     if (this['accessoriesDetails'] && Array.isArray(this['accessoriesDetails'])) 
       this.filteredAccessoriesDetails = this['accessoriesDetails'].filter((accessory: any) => accessory.submittedBy === null);
   }
