@@ -283,7 +283,7 @@ namespace ITMS.Server.Services
                                          PurchaseDates = s.SoftwareAllocations
                                                          .Where(sa => sa.PurchasedDate != null && sa.Version == parameters.version)
                                                          .GroupBy(sa => new { sa.PurchasedDate, sa.ExpiryDate })
-                                                         .OrderBy(sa => sa.Key.PurchasedDate)
+                                                         .OrderByDescending(sa => sa.Key.PurchasedDate)
                                                          .ThenBy(sa => sa.Key.ExpiryDate)
                                                          .Select(sa => new Pur_Qty_Exp { PurchaseDates = sa.Key.PurchasedDate, ExpiryDates = sa.Key.ExpiryDate, Qty= sa.Count()})
                                                          .ToList(),
