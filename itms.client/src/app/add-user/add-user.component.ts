@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Input } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { EmployeeService } from '../shared/services/Employee.service';
 import { DataService } from '../shared/services/data.service';
@@ -10,6 +10,8 @@ import { DataService } from '../shared/services/data.service';
   styleUrls: ['./add-user.component.css']
 })
 export class AddUserComponent implements OnInit {
+  @Input() selectedLocation: any;
+
   //deviceForm: FormGroup;
   showErrorMessage: boolean = false;
   previousDisabled: boolean = true;
@@ -34,7 +36,7 @@ export class AddUserComponent implements OnInit {
           if (data[i].type == localStorage.getItem('selectedCountry')) {
             this.locationId = data[i].id;
             this.deviceService.locationId = this.locationId;
-            alert(this.locationId);
+            //alert(this.locationId);
             break;
           }
         }
@@ -47,9 +49,9 @@ export class AddUserComponent implements OnInit {
  
    
   ngOnInit(): void {
-    this.addUserForm();
     this.getDeviceLocation();
-  
+    this.addUserForm();
+
   }
 
 
@@ -58,14 +60,14 @@ export class AddUserComponent implements OnInit {
   
 
   addUserForm(): void {
-    // Initialize a new userForm FormGroup and push it to the userForms array
 
     //this.userForm.push(this.createUserForm());
     this.userForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      cgiId: ['', Validators.required]
+      cgiId: ['', Validators.required],
+      //location: [this.locationId]
     });
   }
 
@@ -116,8 +118,16 @@ export class AddUserComponent implements OnInit {
   onSubmit(): void {
     this.addNew();
     for (let i = 0; i < this.list.length; i++) {
-      this.res.push(this.list[i].value);
-      console.log(this.list[i].value);
+      const formValue = this.list[i].value;
+
+      console.log("selected location",this.selectedLocation)
+      const formValueWithLocation = { ...formValue, location: this.selectedLocation };
+
+      this.res.push(formValueWithLocation);
+
+      console.log(formValueWithLocation);
+      //this.res.push(this.list[i].value);
+      //console.log(this.list[i].value);
     }
 
 

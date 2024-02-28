@@ -7,6 +7,7 @@ import { SelectedCountryService } from '../../services/selected-country.service'
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
+  selectedLocation: string = "India";
 
   loggedUser: any;
   constructor(private selectedCountryService: SelectedCountryService) {
@@ -22,5 +23,6 @@ export class NavbarComponent {
     const selectedCountry = event.target.value;
     localStorage.setItem('selectedCountry', selectedCountry);
     this.selectedCountryService.setSelectedCountry(selectedCountry);
+    this.selectedLocation = selectedCountry;
   }
 }
