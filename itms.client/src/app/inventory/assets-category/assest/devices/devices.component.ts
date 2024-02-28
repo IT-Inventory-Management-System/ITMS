@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { DataService } from '../../../../shared/services/data.service';
 import { FilterSearchListPipe } from '../../../../filter-search-list.pipe';
 import { SelectedCountryService } from '../../../../shared/services/selected-country.service';
@@ -17,6 +17,7 @@ export class DevicesComponent implements OnInit{
   searchdevice: any; 
   locationId: string = '';
   loading: boolean = true;
+  @Input() filterData: any;
 
   constructor(private dataService: DataService, private selectedCountryService: SelectedCountryService) {
   }
@@ -45,22 +46,45 @@ export class DevicesComponent implements OnInit{
       localStorage.setItem('selectedCountry', selectedCountry);
       this.getDeviceLocation();
     });
+  }
 
-   
-   
+  ngOnChanges(changes: SimpleChanges) {
+    this.loading = true;
+    this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
+      localStorage.setItem('selectedCountry', selectedCountry);
+      this.getDeviceLocation();
+    });
   }
 
 
+
   showDevices() {
-    this.dataService.getDevices(this.locationId).subscribe(
-      (data) => {
-        this.DeviceData = data;
-        //if (this.selectedItem) {
-        //  this.DeviceData = this.DeviceData.filter(device => device.operatingSystem[0].osname === this.selectedItem);
-        //}
-        //console.log( this.DeviceData)
-        this.loading = false; 
-      });
+
+    if (this.filterData == null) {
+      this.dataService.getDevices(this.locationId).subscribe(
+        (data) => {
+          this.DeviceData = data;
+          this.loading = false;
+        });
+    }
+    else {
+      var filter = {
+        deviceStatus: this.filterData.deviceStatus,
+        operatingSystem: this.filterData.operatingSystem,
+        uniqueProcessor: this.filterData.uniqueProcessor,
+        fromDate: this.filterData.fromDate,
+        toDate: this.filterData.toDat,
+        locationId: this.locationId
+      }
+
+      this.dataService.getFilteredDevices(filter).subscribe(
+        (data) => {
+          this.DeviceData = data;
+          console.log("FILTERED DATA : ", this.DeviceData);
+          this.loading = false;
+        });
+    }
+    
   }
 
   showArchivedDevices() {

@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { DataService } from '../../../shared/services/data.service';
 import { FormsModule } from '@angular/forms';
 import { DevicesComponent } from './devices/devices.component';
@@ -6,6 +6,8 @@ import { ColDef } from 'ag-grid-community';
 import * as XLSX from 'xlsx';
 import { MyCellComponent } from '../../../shared/components/my-cell/my-cell.component';
 import { SelectedCountryService } from '../../../shared/services/selected-country.service';
+import { formatDate } from '@angular/common';
+
 
 @Component({
   selector: 'app-assest',
@@ -21,7 +23,8 @@ export class AssestComponent {
   deviceData: any[] = [];
   rowData: any[] = [];
   searchValue: string = '';
-
+  selectedModel: any;
+  selectedFilter : any;
 
 
   @ViewChild('appDevices') appDevices: DevicesComponent;
@@ -99,13 +102,13 @@ export class AssestComponent {
         "Serial No": this.deviceData[i].serialNumber,
         "CYG ID": this.deviceData[i].cygid,
         /*"# Stock Count": '-',*/
-        "Date of Purchase": this.deviceData[i].purchasedDate,
+        "Date of Purchase": formatDate(this.deviceData[i].purchasedDate, 'dd-MM-yyyy', 'en-US'),
         //"# Total": '-',
         //"# Assigned": '-',
         //"# Inventory": '-',
-        "Warranty (in Years)": this.deviceData[i].warrantyDate,
+        "Warranty (in Years)": this.calculateWarrantyYear(this.deviceData[i].warrantyDate),
         "Assigned To": this.deviceData[i].assignedToName,
-        "Assigned Date": this.deviceData[i].assignedDate,
+        "Assigned Date": this.deviceData[i].assignedDate ? formatDate(this.deviceData[i].assignedDate, 'dd-MM-yyyy', 'en-US') : '',
         "Device Status": this.deviceData[i].status,
         "Action": '-',
         //"Stock Status": '-'
@@ -163,4 +166,143 @@ export class AssestComponent {
 
     XLSX.writeFile(wb, this.filename);
   }
+
+  calculateWarrantyYear(warrantyDateString: string): string {
+    const warrantyDate = new Date(warrantyDateString);
+    const currentDate = new Date();
+
+    const yearsDifference = currentDate.getFullYear() - warrantyDate.getFullYear();
+    const monthsDifference = currentDate.getMonth() - warrantyDate.getMonth();
+
+    let remainingYears = -1*yearsDifference;
+    let remainingMonths = monthsDifference;
+
+    if (monthsDifference < 0) {
+      remainingYears--;
+      remainingMonths += 12;
+    }
+
+    if (remainingMonths != 0) {
+      if (remainingYears == 1 && remainingMonths == 1)
+        return `${remainingYears} year ${remainingMonths} month`;
+      else if (remainingYears == 1)
+        return `${remainingYears} year ${remainingMonths} months`;
+      else if (remainingMonths == 1)
+        return `${remainingYears} years ${remainingMonths} month`;
+      else
+        return `${remainingYears} years ${remainingMonths} months`;
+    }
+    else {
+      if (remainingYears == 1)
+        return `${remainingYears} year`;
+      else
+        return `${remainingYears} years`;
+    }
+      
+
+  }
+
+  showModelTable(modelName: string) {
+    this.selectedModel = modelName;
+    this.loadModelData();
+  }
+
+  deviceModelColDefs: ColDef[] = [
+    {
+      field: "Brand",
+      resizable: false,
+      width: 117,
+      suppressMovable: true
+    },
+    {
+      field: "Operating System",
+      width: 144,
+      resizable: false,
+      suppressMovable: true,
+    },
+    {
+      field: "Processor",
+      width: 350,
+      resizable: false,
+      suppressMovable: true,
+    },
+    {
+      field: "Ram (GB)",
+      width: 120,
+      resizable: false,
+      suppressMovable: true,
+    },
+    {
+      field: "Storage",
+      width: 103,
+      resizable: false,
+      suppressMovable: true,
+    },
+    /*{ field: "# Stock Count", width: 125, resizable: false, suppressMovable: true, },*/
+    {
+      field: "# Total",
+      width: 100,
+      resizable: false,
+      suppressMovable: true,
+    },
+    {
+      field: "# Assigned",
+      width: 109,
+      resizable: false,
+      suppressMovable: true,
+    },
+    {
+      field: "# Inventory",
+      width: 142,
+      resizable: false,
+      suppressMovable: true,
+    },
+    { field: "Stock Status", pinned: 'right', cellStyle: { 'border': 'none' }, width: 122, resizable: false, suppressMovable: true, }
+
+  ];
+
+  modelRowDef: any[] = [];
+  
+  loadModelData() {
+
+    const inputObject = {
+      deviceModelId: this.selectedModel,
+      locationId: this.locationId
+    }
+
+    this.deviceService.getDeviceModelData(inputObject).subscribe(
+
+      (data) => {
+        console.log('Model Data : ', data);
+        this.setModelRowDef(data[0]);
+        this.selectedView = 'table';
+      },
+      (error) => {
+        console.error('Error fetching device model data', error);
+      }
+    );
+  }
+
+  setModelRowDef(modelData: any) {
+    this.modelRowDef[0] = {
+      'Brand': modelData.brand,
+      'Operating System': modelData.os,
+      'Processor': modelData.processor,
+      'Ram (GB)': modelData.ram,
+      Storage: modelData.storage,
+      '# Total': modelData.total,
+      '# Assigned': modelData.assigned,
+      '# Inventory': modelData.inventory,
+      'Stock Status': modelData.inventory <= 2 ? (modelData.inventory == 0 ? 'Out of Stock' : 'Low In Stock') : 'In Stock'
+    }
+
+    console.log(this.modelRowDef);
+  }
+
+  showFilter(filter: any) {
+    console.log(filter);
+    this.selectedFilter = filter
+  }
+
+
 }

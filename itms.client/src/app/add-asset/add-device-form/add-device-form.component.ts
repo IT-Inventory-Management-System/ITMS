@@ -31,6 +31,7 @@ export class AddDeviceFormComponent implements OnInit {
 
   ngOnInit(): void {
     //console.log('selectedos : ', this.selectedOS);
+    this.getlaptopids();
     this.loadDropdownValues();
     this.loadDeviceData();
     this.createForm();
@@ -64,6 +65,8 @@ export class AddDeviceFormComponent implements OnInit {
   get cygIds() {
     return this.addDeviceForm.get('cygIdsList') as FormArray;
   }
+
+
 
   updateSerialNumber(index: number, event: Event) {
     this.hideErrorMessage();
@@ -123,6 +126,19 @@ export class AddDeviceFormComponent implements OnInit {
       },
       (error) => {
         console.log("User not found");
+      });
+  }
+
+  getlaptopids() {
+    this.dataService.getLaptopIDs().subscribe(
+      (data) => {
+
+        console.log(data);
+        
+
+      },
+      (error) => {
+        console.log(error);
       });
   }
 

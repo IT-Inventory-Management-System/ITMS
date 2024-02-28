@@ -293,3 +293,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   font-weight: 600;
   line-height: normal;
 }
+
+
+.close{
+   border: none;
+   background: none;
+   outline: none;
+}
