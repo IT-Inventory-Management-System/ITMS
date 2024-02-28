@@ -11,7 +11,7 @@ public partial class SoftwareAllocation
 
     public string? ActivationKey { get; set; }
 
-    public bool? IsArchived { get; set; }
+   
 
     public DateTime? PurchasedDate { get; set; }
 

@@ -8,7 +8,7 @@
 
         public DateTime CreatedAtUtc { get; set; }
 
-        public Guid? DeviceId { get; set; }
+        public Guid DeviceId { get; set; }
 
         public Guid? SoftwareAllocationId { get; set; }
 

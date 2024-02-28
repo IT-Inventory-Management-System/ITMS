@@ -10,8 +10,6 @@ namespace ITMS.Server.Services
             Task<IEnumerable<GetEmployeeDTO>> getAllEmployeeBasicDetails();
         Task<IEnumerable<GetAccessories>> getAccessories();
         Task<IEnumerable<GetBrandDTO>> getMouseBrand();
-        
-            Task<IEnumerable<getCGIDTO>> getCGIID();
 
     }
     public class AddAssetService : IAddAssetService
@@ -54,50 +52,10 @@ namespace ITMS.Server.Services
                               select new GetBrandDTO
                              
                               {
-                                  Id= c.Id,
                                   brand= c.Brand,
                                   iswired = c.IsWired
                               }).ToListAsync();
             return result;
-        }
-        public async Task<IEnumerable<getCGIDTO>> getCGIID()
-        {
-            //    var result = await (from c in _context.Devices
-            //                        where c.Cygid.StartsWith("CGI-MOU")
-            //                        select new getCGIDTO
-            //                        {
-            //                            CGIID = int.Parse(c.Cygid.Substring(8))  // Convert to integer
-            //                        })
-            //              .OrderByDescending(c => c.CGIID)
-            //              .Take(1)
-            //              .ToListAsync();
-
-
-            //    if (result.Count == 0)
-            //    {
-            //        return new List<getCGIDTO> { new getCGIDTO { CGIID = 0 } };
-            //    }
-            //    else
-            //    return result;
-
-            var result = await (from c in _context.Devices
-                                where c.Cygid.StartsWith("CGI-MOU")
-                                select new getCGIDTO
-                                {
-                                    CGIID = c.Cygid.Substring(8) // Leave it as string for now
-                                })
-                    .ToListAsync();
-            if (result.Count == 0)
-            {
-                return new List<getCGIDTO> { new getCGIDTO { CGIID = "0" } };
-            }
-            // Convert CGIID to integers and order the result
-            else
-            {
-                result = result.OrderByDescending(c => int.Parse(c.CGIID)).ToList();
-                return result.Take(1);
-            }
-
         }
 
     }

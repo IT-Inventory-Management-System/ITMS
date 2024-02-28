@@ -1,4 +1,4 @@
-.specc1{
+.specc {
   display: flex;
   padding: 0.625rem;
   flex-direction: column;
@@ -8,21 +8,13 @@
   border-radius: 0.25rem;
   border: 1px solid var(--Secondary-Light-Gray, #E9ECEB);
   background: var(--Primary-White, #FFF);
-  width:10.0625rem;
-  height:5.375rem;
-  
+  overflow-y:auto;
 }
 .rectangle {
   width: 1.25rem;
   height: 1.25rem;
   border-radius: 0.25rem;
-  border:1px solid black;
-  padding:0rem;
-}
-img {
-  width: 1.25rem;
-  height: 1.25rem;
- 
+  background: var(--Secondary-Light-Blue, #B8DDE1);
 }
 .heading {
   color: var(--Adhoc-Grey, #6D6D6D);
@@ -31,8 +23,6 @@ img {
   font-style: normal;
   font-weight: 500;
   line-height: normal;
-  margin-bottom:0.1rem;
-  
 }
 .values {
   color: var(--Primary-Blue, #28519E);
@@ -41,19 +31,16 @@ img {
   font-style: normal;
   font-weight: 600;
   line-height: normal;
-  
 }
 .specimage {
   width: 1rem;
   height: 1rem;
 }
 .value {
-  color: var(--Primary-Gray, #343435);
-  font-family: Roboto;
-  font-size: 0.875rem;
-  font-style: normal;
   font-weight: 500;
-  line-height: normal;
+  border-radius: 0.25rem;
+  
+  background: var(--Primary-White, #FFF);
 }
 
 .model-count {
@@ -63,23 +50,4 @@ img {
   font-style: normal;
   font-weight: 1000;
   line-height: normal;
-}
-.outer-first-container {
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-  align-self: stretch;
-  margin-bottom:1rem;
-}
-.specc {
-  display: flex;
-  padding: 0.625rem;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.375rem;
-  align-self: stretch;
-  border-radius: 0.25rem;
-  border: 1px solid var(--Secondary-Light-Gray, #E9ECEB);
-  background: var(--Primary-White, #FFF);
-  margin-bottom:1rem;
 }

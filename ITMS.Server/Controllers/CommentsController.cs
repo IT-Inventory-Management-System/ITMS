@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using ITMS.Server.Models;
 using ITMS.Server.Services;
 using ITMS.Server.DTO;
-using log4net.Core;
 
 namespace ITMS.Server.Controllers
 {
@@ -23,14 +22,14 @@ namespace ITMS.Server.Controllers
         {
             try
             {
-               _commentService.AddComment(commentDto);
+                var addedComment = _commentService.AddComment(commentDto);
               
-                return Ok();
+                return Ok(addedComment);
             }
             catch (Exception ex)
             {
                 
-                return BadRequest(ex);
+                return StatusCode(500, new { Message = "Internal Server Error" });
             }
         }
 

@@ -10,8 +10,6 @@ import { AddAssetComponent } from './add-asset/add-asset.component';
 import { DevicesListComponent } from './inventory/assets-category/assest/devices/devices-list/devices-list.component';
 import { DevicesComponent } from './inventory/assets-category/assest/devices/devices.component';
 import { SoftwareComponent } from './software/software.component';
-import { AccessoriesComponent } from './accessories/accessories.component';
-import { ManageAccessComponent } from './manage-access/manage-access.component';
 
 
 const routes: Routes = [
@@ -20,11 +18,9 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'category', component: CategoryComponent },
   { path: 'inventory', component: InventoryComponent },
-  { path: 'accessories', component: AccessoriesComponent },
   { path: 'employee', component: EmployeeComponent },
   { path: 'software', component: SoftwareComponent },
   { path: 'history', component: HistoryComponent },
-  { path: 'manage-access', component: ManageAccessComponent },
   { path: 'add-asset', component: AddAssetComponent },
   { path: 'assign-asset', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'api/Device/:cygId', component: InventoryComponent },

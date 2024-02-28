@@ -9,12 +9,8 @@
     </p>
   </div>
   <div class="Device-text">
-    <div *ngIf="logsData.softwareName">
-      <span class="cyg">{{logsData.softwareName}}</span> has been {{ logsData.action }} by  <span class="user-name">{{ logsData.updatedBy }}</span>
-    </div>
-    <div *ngIf="logsData.cygid">
-      Device <span class="cyg">{{ logsData.cygid }}</span> {{ logsData.category }} has been {{ logsData.action }} by <span class="user-name">{{ logsData.assignedTo }}</span>
-    </div>
+
+    Device <span class="cyg">{{logsData.cygid}}</span> {{logsData.category}} has been {{logsData.action}} to <span class="user-name">{{logsData.assignedTo}}</span>
 
   </div>
 </div>

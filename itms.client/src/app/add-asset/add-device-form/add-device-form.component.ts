@@ -20,8 +20,6 @@ export class AddDeviceFormComponent implements OnInit {
   warrantyMonth: number;
   warrantyYear: number;
   deviceData: any[] = [];
-  locationId: string = '';
-
  
   constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService) {
     this.dropdownValues = [];
@@ -94,22 +92,7 @@ export class AddDeviceFormComponent implements OnInit {
         console.log("User not found");
       });
   }
-  getDeviceLocation() {
-    this.dataService.getLocation().subscribe(
-      (data) => {
-        for (var i = 0; i < data.length; i++) {
-          if (data[i].type == localStorage.getItem('selectedCountry')) {
-            this.locationId = data[i].id;
-            //alert(this.locationId);
-            this.loadDeviceData();
-            break;
-          }
-        }
-      },
-      (error) => {
-        console.log("User not found");
-      });
-  }
+
   setlocationId() {
     this.dataService.getLocation().subscribe(
       (data) => {
@@ -162,7 +145,7 @@ export class AddDeviceFormComponent implements OnInit {
   }
 
   loadDeviceData() {
-    this.dataService.getDevicesCyg(this.locationId).subscribe(
+    this.dataService.getDevicesCyg().subscribe(
       (data) => {
         this.deviceData = data;
       },

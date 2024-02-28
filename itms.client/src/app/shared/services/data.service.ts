@@ -63,10 +63,6 @@ export class DataService {
   getOs(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl + 'Device/get-ostype');
   }
-
-  getUniqueProcessor(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl + 'Device/get-unique-processors');
-  }
  
   getSoftwares(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl + 'addDevices/software-models');
@@ -116,47 +112,9 @@ export class DataService {
     return this.http.post(this.apiUrl + 'Device/updateDeviceStatustoNotassigned', formdata);
   }
 
-  getDevicesCyg(locationId: any): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl + 'Device/getDevicess/'+locationId);
+  getDevicesCyg(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + 'Device/getDevices/');
   }
-  getMouseBrand(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl + 'asset/getMouseBrand');
-  }
-  postMouseBrand(formData: any): Observable<any> {
-    return this.http.post(this.apiUrl + 'addDevices/AddMouseModel', formData);
-  }
-  getCGIID(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl + 'asset/getCGIID');
-  }
-  postMouse(formData: any): Observable<any> {
-    return this.http.post(this.apiUrl + 'addDevices/AddMouse', formData);
-  }
-
-  getAdminList(locationId: any): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl + 'employee/admin-list/'+ locationId);
-  }
-
-  postComments(formData: any): Observable<any> {
-    return this.http.post(this.apiUrl + 'Comments', formData);
-  }
-
-  changeUserRole(userData: any): Observable<any> {
-    return this.http.post(this.apiUrl + 'employee/change-role', userData);
-  }
-
-
-  getAllAccessories(dto:any): Observable<any | null> {
-    return this.http.post<any | null>(this.apiUrl + 'Device/getAllAccessories', dto );
-  }
-
-  FilterAccessories(body: any): Observable<any | null> {
-    return this.http.post<any | null>(this.apiUrl + 'Device/filterAccessories', body);
-  }
-
-  singleHistoryAccessory(dto: any): Observable<any | null> {
-    return this.http.post<any | null>(this.apiUrl + 'Device/singleHistoryAccessory', dto);
-  }
-
 
 }
 

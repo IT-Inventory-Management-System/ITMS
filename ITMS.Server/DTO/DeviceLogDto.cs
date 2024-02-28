@@ -7,7 +7,6 @@ public class DevicelogDto
 {
     public Guid Id { get; set; }
     public string? Cygid { get; set; }
-    public string? status { get; set; }
 
     public Guid DeviceId { get; set; }
     public Guid UserId { get; set; }
@@ -39,7 +38,7 @@ public class OperatingDto
 public class CommentDto
 {
     public Guid Id { get; set; }
-    public Guid? DeviceLogId { get; set; }
+    public Guid DeviceLogId { get; set; }
     public string Description { get; set; }
     public string CreatedBy { get; set; }
 
@@ -84,34 +83,6 @@ public class CategoryTypeWithCategoriesDTO
     public int Priority { get; set; }
 }
 
-public class singleLog
-{
-    public string? UpdatedBy { get; set; }
-    public string? CYGID { get; set; }
-    public string? Category { get; set; }
-    public string? SubmittedTo { get; set; }
-    public string? AssignedTo { get; set; }
-    public string? Action { get; set; }
-    public DateTime? UpdatedOn { get; set; }
-    public string? SoftwareName { get; set; }
-}
 
-public class adminHistoryParamsDTO
-{
-    public string employeeId { get; set; }
-    public string locationName { get; set; }
 
-}
 
-public class returnSingleLog
-{
-    public DateTime? UpdatedDate { get; set; }
-    public IEnumerable<singleLog> Logs { get; set; }
-}
-
-public class filterDateadminHistoryParamsDTO
-{
-    public DateOnly Date { get; set; }
-    public string employeeId { get; set; }
-    public string locationName { get; set; }
-}

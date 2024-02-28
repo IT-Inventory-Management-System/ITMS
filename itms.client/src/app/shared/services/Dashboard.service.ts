@@ -23,7 +23,7 @@ export class DashboardService {
     return this.http.get<any[]>(this.apiUrl + 'Dashboard/primary');
   }
 
-  GetLogs(body:any): Observable<any | null> {
-    return this.http.post<any|null>(this.apiUrl + 'Dashboard/logs',body);
+  GetLogs(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + 'Dashboard/logs');
   }
 }

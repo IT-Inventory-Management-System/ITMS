@@ -1,15 +1,14 @@
-<div class="outer-first-container">
-  <div class="specc1 ">
-    <div class="d-flex">
-      
+<div class=" col-md-12 d-flex ">
+  <div class="specc col-md-5 mb-3">
+    <div class="col-md-12 d-flex">
+      <span class="rectangle col-md-6">
         <!-- Content for the left span -->
-        <img  src="../../../../../../assets/icons/Assets/Model.svg"/>
-      
+      </span>
       <span class="model-count ms-auto" *ngIf="modelCount !== undefined">
         {{ modelCount }}
       </span>
     </div>
-    <span class="heading">Model</span>
+    <p class="heading">Model</p>
 
     <span class="values">
       {{deviceDetails?.deviceModel?.deviceName}}
@@ -19,88 +18,87 @@
 
 
   </div>
-  <div class="specc1">
-    <div class="d-flex">
-      <img src="../../../../../../assets/icons/Assets/serialnumber.svg" />
+  <div class="specc col-md-5 mb-3 mx-2">
+    <span class="rectangle ">
+
+    </span>
 
 
-    </div>
-    <span class="heading">Serial No.</span>
-
+    <p class="heading">Serial No.</p>
     <span class="value">{{deviceDetails?.serialNumber}}</span>
 
 
   </div>
 
 
+
+</div>
+<div class="specc col-md-12 mb-3">
+  <span class="rectangle ">
+
+  </span>
+
+
+
+
+  <p class="heading">Processor</p>
+  <span class="value" >{{deviceDetails?.deviceModel?.processor}}</span>
+
+ 
 </div>
 
-<div class="specc">
-  <div class="d-flex">
-    <img src="../../../../../../assets/icons/Assets/processor.svg" />
+<div class=" col-md-12 d-flex ">
+  <div class="specc col-md-5 mb-3">
+    <span class="rectangle ">
 
+    </span>
+
+
+
+    <p class="heading">RAM</p>
+    <span class="value">{{deviceDetails?.deviceModel?.ram}}</span>
+
+  
+  </div>
+  <div class="specc col-md-5 mb-3 mx-2">
+    <span class="rectangle ">
+
+    </span>
+
+
+    <p class="heading">Storage</p>
+    <span class="value">{{deviceDetails?.deviceModel?.storage}}</span>
 
   </div>
 
 
-    <span class="heading">Processor</span>
-    <span class="value">{{deviceDetails?.deviceModel?.processor}}</span>
+
+</div>
+<div class=" col-md-12 d-flex ">
+  <div class="specc col-md-5 mb-3">
+    <span class="rectangle ">
+
+    </span>
+
+
+    <p class="heading">Date of Purchase</p>
+    <span class="value">{{ getFormattedPurchasedDate() }}</span>
 
 
   </div>
+  <div class="specc col-md-5 mb-3 mx-2">
+    <span class="rectangle ">
 
-  <div class="outer-first-container">
-    <div class="specc1">
-      <div class="d-flex">
-        <img src="../../../../../../assets/icons/Assets/ram.svg" />
+    </span>
 
-
-      </div>
-
-      <span class="heading">RAM</span>
-      <span class="value">{{deviceDetails?.deviceModel?.ram}}</span>
-
-
-    </div>
-    <div class="specc1">
-      <div class="d-flex">
-        <img src="../../../../../../assets/icons/Assets/storage.svg" />
-
-      </div>
-
-      <span class="heading">Storage</span>
-      <span class="value">{{deviceDetails?.deviceModel?.storage}}</span>
-
-    </div>
-
-
+    <p class="heading">Warranty Year</p>
+    <span class="value">{{deviceDetails?.warrantyRemaining}}</span>
 
   </div>
-  <div class="outer-first-container">
-    <div class="specc1">
-      <div class="d-flex">
-        <img src="../../../../../../assets/icons/Assets/calender.svg" />
-
-      </div>
-
-      <span class="heading">Date of Purchase</span>
-      <span class="value">{{ getFormattedPurchasedDate() }}</span>
-
-
-    </div>
-    <div class="specc1">
-      <div class="d-flex">
-        <img src="../../../../../../assets/icons/Assets/calender.svg" />
-
-      </div>
-      <span class="heading">Warranty Year</span>
-      <span class="value">{{deviceDetails?.warrantyRemaining}}</span>
-
-    </div>
 
 
 
-  </div>
+</div>
 
 
 
