@@ -1,5 +1,5 @@
 ﻿// Models/LoginRequestModel.cs
-namespace ITMS.Server.Models
+namespace ITMS.Server.DTO
 {
     public class LoginRequestDto
     {
