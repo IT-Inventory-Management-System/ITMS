@@ -44,9 +44,9 @@
           </div>
         </div>
 
-        <app-laptop-all-revoke *ngIf="currentStep === 1" [actionsArray]="actionsArray" [revokeAllForm]="revokeAllForm" [laptopDetails]="laptopDetails" [userId]="userId" [firstName]="firstName" [lastName]="lastName" [cgiid]="cgiid"></app-laptop-all-revoke>
-        <app-accessories-all-revoke *ngIf="currentStep === 3" [actionsArray]="actionsArray" [revokeAllForm]="revokeAllForm" [accessoriesDetails] ="accessoriesDetails" [userId]="userId" [firstName]="firstName" [lastName]="lastName" [cgiid]="cgiid"></app-accessories-all-revoke>
-        <app-software-all-revoke *ngIf="currentStep === 2" [actionsArray]="actionsArray" [revokeAllForm]="revokeAllForm" [softwareDetails]="softwareDetails"  [userId]="userId" [firstName]="firstName" [lastName]="lastName" [cgiid]="cgiid"></app-software-all-revoke>
+        <app-laptop-all-revoke *ngIf="currentStep === 1" [actionsArray]="actionsArray" [revokeAllForm]="revokeAllForm" [laptopDetails]="filteredLaptopDetails" [userId]="userId" [firstName]="firstName" [lastName]="lastName" [cgiid]="cgiid"></app-laptop-all-revoke>
+        <app-accessories-all-revoke *ngIf="currentStep === 3" [actionsArray]="actionsArray" [revokeAllForm]="revokeAllForm" [accessoriesDetails] ="filteredAccessoriesDetails" [userId]="userId" [firstName]="firstName" [lastName]="lastName" [cgiid]="cgiid"></app-accessories-all-revoke>
+        <app-software-all-revoke *ngIf="currentStep === 2" [actionsArray]="actionsArray" [revokeAllForm]="revokeAllForm" [softwareDetails]="filteredSoftwareDetails"  [userId]="userId" [firstName]="firstName" [lastName]="lastName" [cgiid]="cgiid"></app-software-all-revoke>
        
 
 

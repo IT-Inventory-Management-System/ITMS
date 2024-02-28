@@ -159,7 +159,7 @@ namespace ITMS.Server.Services
                             Description = revokeDevice.DeviceComment,
                             CreatedBy = userId,
                             CreatedAtUtc = DateTime.UtcNow,
-                            DeviceId = revokeDevice.DeviceLogId,
+                            DeviceId = deviceLog.DeviceId.HasValue ? deviceLog.DeviceId.Value : Guid.Empty,
                             DeviceLogId = newDeviceLog.Id,
                         };
                         _commentService.RevokeAllAddComment(commentDto);

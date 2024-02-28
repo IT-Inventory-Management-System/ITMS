@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EmployeeService } from '../../shared/services/Employee.service';
 
@@ -19,7 +19,19 @@ export class RevokeAllComponent {
 
   revokeAllForm: FormGroup;
   actionsArray: any[] = [];
+  filteredLaptopDetails: any;
+  filteredAccessoriesDetails: any;
+  filteredSoftwareDetails: any;
 
+  // Filter the details in ngOnChanges lifecycle hook
+  ngOnChanges() {
+    if (this['laptopDetails'] && Array.isArray(this['laptopDetails']))
+      this.filteredLaptopDetails = this['laptopDetails'].filter((laptop: any) => laptop.submitedBy === null);
+    if (this['softwareDetails'] && Array.isArray(this['softwareDetails']))
+      this.filteredSoftwareDetails = this['softwareDetails'].filter((software: any) => software.recievedBy === null);
+    if (this['accessoriesDetails'] && Array.isArray(this['accessoriesDetails'])) 
+      this.filteredAccessoriesDetails = this['accessoriesDetails'].filter((accessory: any) => accessory.submittedBy === null);
+  }
   constructor(private formBuilder: FormBuilder, private revokeAllService: EmployeeService, private actionService: EmployeeService) {
     this.revokeAllForm = this.formBuilder.group({
       userid: [null, Validators.required],

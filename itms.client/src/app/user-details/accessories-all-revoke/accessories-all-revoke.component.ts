@@ -13,7 +13,6 @@ export class AccessoriesAllRevokeComponent {
   @Input() cgiid: any;
   @Input() accessoriesDetails: any;
   @Input() revokeAllForm: FormGroup;
-  
   @Input() actionsArray: any[];
   lostAction: any;
   SubmittedAction: any;
@@ -33,6 +32,7 @@ export class AccessoriesAllRevokeComponent {
   constructor(private formBuilder: FormBuilder) { }
   ngOnChanges() {
     if (this.accessoriesDetails && this.revokeAllForm) {
+      console.log(this.accessoriesDetails);
         for (let i = 0; i < this.accessoriesDetails.length; i++) {
           this.showYesReason[i] = false;
           this.showNoReason[i] = false;

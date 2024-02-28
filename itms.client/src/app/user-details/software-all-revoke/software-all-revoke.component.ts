@@ -21,6 +21,7 @@ export class SoftwareAllRevokeComponent {
    }
   ngOnChanges() {
     if (this.softwareDetails && this.revokeAllForm)
+      console.log(this.softwareDetails);
       this.initializeSoftwareFormArray();
   }
 
