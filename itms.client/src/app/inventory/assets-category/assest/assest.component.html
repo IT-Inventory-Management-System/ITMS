@@ -1,3 +1,4 @@
+<app-asset-filter></app-asset-filter>
 
 
 <div class="asset-header">
@@ -17,7 +18,7 @@
       </label>
     </div>
     <div class="search-bar" *ngIf="selectedView === 'table'">
-
+      <input type="text" id="filter-text-box" placeholder="Filter" [(ngModel)]="searchValue"  (input)="onFilterTextBoxChanged()" />
     </div>
     <div class="export-button" *ngIf="selectedView === 'table'">
       <button (click)="exporttoexcel()">
@@ -26,28 +27,26 @@
       </button>
     </div>
     <div class="filter-button">
-      <button>
+      <button data-toggle="modal" data-target="#filterModal">
         <img src="../../../../assets/icons/filter-icon.svg" />
         <span>Filter</span>
       </button>
     </div>
   </div>
 </div>
-    
+
 <div class="assetcolumns" *ngIf="selectedView === 'card'">
-  <div class="col-md-12 d-flex">
-    <div class="col-md-3 ">
-      <app-devices #appDevices [isArchived]="isArchived" [selectedItem]="selectedItem" (deviceDataChange)="onDeviceDataChange($event)"></app-devices>
+    <div class="left-container">
+      <app-devices #appDevices [isArchived]="isArchived" [selectedItem]="selectedItem"></app-devices>
     </div>
-    <div class="col-md-4 mx-2">
+    <div class="middle-container">
       <app-specification [isArchived]="isArchived"></app-specification>
     </div>
-    <div class="col-md-5 ">
+    <div class="right-container">
       <app-assign-history></app-assign-history>
     </div>
-  </div>
 </div>
 
 <div *ngIf="selectedView === 'table'">
-  <app-table-view [rowData]="rowData" [colDefs]="colDefs"></app-table-view>
+  <app-table-view [rowData]="rowData" [colDefs]="colDefs" [searchValue]="searchValue"></app-table-view>
 </div>

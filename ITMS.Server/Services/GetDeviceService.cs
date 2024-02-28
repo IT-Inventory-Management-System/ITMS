@@ -6,7 +6,7 @@ namespace ITMS.Server.Services
 {
     public interface IGetDeviceService
     {
-        Task<IEnumerable<GetDeviceDTO>> listDevices();
+        Task<IEnumerable<GetDeviceDTO>> listDevices(Guid locationId);
         Task<IEnumerable<GetDeviceDTO>> CheckDeviceStatus(String CYGID);
     }
 
@@ -18,15 +18,22 @@ namespace ITMS.Server.Services
             _context = context;
             
         }
-        public async Task<IEnumerable<GetDeviceDTO>> listDevices()
+        public async Task<IEnumerable<GetDeviceDTO>> listDevices(Guid locationId)
         {
             var result = await (from d in _context.Devices
+                               .Where(log => log.LocationId == locationId)
+
                                 join dm in _context.DeviceModel
                                 on d.DeviceModelId equals dm.Id
                                 join os in _context.Ostypes
                                 on dm.Os equals os.Id
+                                join st in _context.Statuses
+                                on d.Status equals st.Id
+                                join emp in _context.Employees
+                                on d.AssignedTo equals emp.Id into employeeGroup
+                                from emp in employeeGroup.DefaultIfEmpty()
                                 select new GetDeviceDTO
-                                {
+                                {   Id = d.Id,
                                     Cygid = d.Cygid,
                                     AssignedTo = d.AssignedTo,
                                     RecievedBy = d.RecievedBy,
@@ -37,8 +44,14 @@ namespace ITMS.Server.Services
                                     Processor = dm.Processor,
                                     Os = os.Osname,
                                     Ram = dm.Ram,
-                                    Storage = dm.Storage,  
+                                    Storage = dm.Storage,
+                                    SerialNumber = d.SerialNumber,
                                     LocationId = d.LocationId,
+                                    PurchasedDate = d.PurchasedDate,
+                                    WarrantyDate = d.WarrantyDate,
+                                    AssignedDate = d.AssignedDate,
+                                    AssignedToName = emp != null ? emp.FirstName + ' ' + emp.LastName : "",
+                                    Status = st.Type,
                                    
                                 }
                              ).ToListAsync();

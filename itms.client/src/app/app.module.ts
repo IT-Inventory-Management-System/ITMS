@@ -86,6 +86,26 @@ import { LaptopRevokeComponent } from './user-details/laptop-revoke/laptop-revok
 import { AccessoriesRevokeComponent } from './user-details/accessories-revoke/accessories-revoke.component';
 import { SoftwareRevokeComponent } from './user-details/software-revoke/software-revoke.component';
 import { AddUserComponent } from './add-user/add-user.component';
+import { AddMouseBrandFormComponent } from './add-asset/add-mouse-form/add-mouse-brand-form/add-mouse-brand-form.component';
+import { AssetFilterComponent } from './inventory/assets-category/assest/asset-filter/asset-filter.component';
+import { AccordionComponent } from './shared/components/accordion/accordion.component';
+import { AccordionItemComponent } from './shared/components/accordion/accordion-item/accordion-item.component';
+import { FilterComponent } from './software/filter/filter.component';
+import { LastdateComponent } from './software/lastdate/lastdate.component';
+import { ArchivesoftwareComponent } from './software/archivesoftware/archivesoftware.component';
+import { AccessoriesComponent } from './accessories/accessories.component';
+import { AccesoriesnameComponent } from './accessories/accesoriesname/accesoriesname.component';
+import { AssignhistoryComponent } from './accessories/assignhistory/assignhistory.component';
+import { MyCellComponent } from './shared/components/my-cell/my-cell.component';
+import { ManageAccessComponent } from './manage-access/manage-access.component';
+import { AdminListPanelComponent } from './manage-access/admin-list-panel/admin-list-panel.component';
+import { AdminPermissionsPanelComponent } from './manage-access/admin-permissions-panel/admin-permissions-panel.component';
+import { AdminNameCardComponent } from './shared/components/admin-name-card/admin-name-card.component';
+import { AssignRoleModalComponent } from './manage-access/assign-role-modal/assign-role-modal.component';
+import { ActivityLogComponent } from './activity-log/activity-log.component';
+import { ActivityPanelComponent } from './history/activity-panel/activity-panel.component';
+import { AdminPanelComponent } from './history/admin-panel/admin-panel.component';
+import { AccesoriesFilterComponent } from './accessories/accesories-filter/accesories-filter.component';
 
 
 
@@ -146,7 +166,8 @@ import { AddUserComponent } from './add-user/add-user.component';
     UnrchivemodalComponent,
     ArchiveModalComponent,
     AddAssetComponent,
-
+    FilterComponent,
+    LastdateComponent,
     LaptopSearchBoxComponent,
     SoftwareSearchBoxComponent,
     SoftwareVersionSearchBoxComponent,
@@ -168,8 +189,30 @@ import { AddUserComponent } from './add-user/add-user.component';
     LaptopRevokeComponent,
     AccessoriesRevokeComponent,
     SoftwareRevokeComponent,
+    AddMouseBrandFormComponent,
+    AssetFilterComponent,
+    AccordionComponent,
+    AccordionItemComponent,
+    ArchivesoftwareComponent,
+    AccessoriesComponent,
+    AccesoriesnameComponent,
+    AssignhistoryComponent,
+    //FilterComponent,
+    //LastdateComponent,
+
     AddUserComponent,
 
+    AccordionItemComponent,
+    MyCellComponent,
+    ManageAccessComponent,
+    AdminListPanelComponent,
+    AdminPermissionsPanelComponent,
+    AdminNameCardComponent,
+    AssignRoleModalComponent,
+    ActivityLogComponent,
+    ActivityPanelComponent,
+    AdminPanelComponent,
+    AccesoriesFilterComponent
 
 
   ],

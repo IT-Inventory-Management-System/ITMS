@@ -23,10 +23,10 @@ namespace itms.server.controllers
             _getDeviceService = getDeviceService;
         }
 
-        [HttpGet("getDevices")]
-        public async Task<IEnumerable<GetDeviceDTO>> listDevices()
+        [HttpGet("getDevicess/{locationId}")]
+        public async Task<IEnumerable<GetDeviceDTO>> listDevices(Guid locationId)
         {
-            return await _getDeviceService.listDevices();
+            return await _getDeviceService.listDevices(locationId);
         }
 
         [HttpGet("checkDeviceStatus")]
@@ -130,6 +130,12 @@ namespace itms.server.controllers
             return Ok(statusList);
         }
 
+        [HttpGet("get-unique-processors")]
+        public ActionResult<IEnumerable<ProcessorDto>> GetUniqueProcessors()
+        {
+            var processors = _deviceService.GetUniqueProcessors();
+            return Ok(processors);
+        }
 
         [HttpPost("updateDeviceStatus")]
         public async Task<IActionResult> UpdateDeviceStatus([FromBody]ArchiveDto archiveDto)
@@ -176,7 +182,40 @@ namespace itms.server.controllers
             return StatusCode(500, $"Internal server error: {ex.Message}");
         }
     }
-}
+
+
+     [HttpPost("getAllAccessories")]
+     public List<allAccessoriesDTO> GetAllAccessories([FromBody] locationaccesoryDTO dto)
+        {
+            List<allAccessoriesDTO> allData = _deviceService.GetAllAccessories(dto.locationId);
+            if (dto.IsArchived == true)
+            {
+                allData = allData.Where(d => d.IsArchived == true).ToList();
+            }
+            return allData;
+        }
+
+        [HttpPost("filterAccessories")]
+        public List<allAccessoriesDTO> FilterAccessories(filterAccessoriesBodyDTO filter)
+        {
+            locationaccesoryDTO getData = new locationaccesoryDTO()
+            {
+             locationId = filter.location,
+             IsArchived = filter.IsArchived,
+            };
+            List<allAccessoriesDTO> allData = GetAllAccessories(getData);
+
+            return _deviceService.GetFilterAccessories(allData, filter);
+        }
+
+        [HttpPost("singleHistoryAccessory")]
+        public List<historySingleAccessory> singleHistoryAccessory([FromBody] locationaccesoryDTO dto)
+        {
+            List<historySingleAccessory> history = _deviceService.singleHistory(dto.locationId,dto.CYGID);
+
+            return history;
+        }
+    }
 }
 
-    
+

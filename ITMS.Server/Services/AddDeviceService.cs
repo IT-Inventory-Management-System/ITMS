@@ -193,6 +193,8 @@ public class AddDeviceService : IDeviceService
             inventoriesItem.UpdatedAtUtc = DateTime.UtcNow;
             inventoriesItem.IsArchived = mouseModel.isArchived;
             inventoriesItem.LocationId = mouseModel.locationId;
+            inventoriesItem.PurchasedDate = mouseModel.purchaseddate;
+            inventoriesItem.WarrantyDate = mouseModel.warrantydate;
             _context.Devices.Add(inventoriesItem);
 
         }

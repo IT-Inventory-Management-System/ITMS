@@ -68,6 +68,7 @@ export class DevicesListComponent implements OnInit {
     this.deviceService.getDevicesInfo(cygid).subscribe(
       (data) => {
         this.DeviceInfo = data;
+        
         console.log(data);
         this.deviceService.DeviceDetails = this.DeviceInfo;
         this.getDeviceLogs(this.deviceService.DeviceDetails.cygid);

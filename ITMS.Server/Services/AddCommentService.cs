@@ -9,7 +9,7 @@ namespace ITMS.Server.Services
 {
     public interface ICommentService
     {
-        CommentDto AddComment(UserCommentHistory commentDto);
+        void AddComment(UserCommentHistory commentDto);
         IEnumerable<Comment> GetComments(Guid deviceId);
     }
     public class AddCommentService : ICommentService
@@ -23,48 +23,19 @@ namespace ITMS.Server.Services
 
 
 
-        public CommentDto AddComment(UserCommentHistory commentDto)
+        public void AddComment(UserCommentHistory commentDto)
         {
-            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(System.Threading.Thread.CurrentThread.CurrentCulture.Name);
-
-            Comment commentEntity = new Comment
+            Comment addcomment = new Comment
             {
-                Description = commentDto.Description,
-                CreatedBy = commentDto.CreatedBy,
-                CreatedAtUtc = DateTime.Now,
-                DeviceId = commentDto.DeviceId,
-                DeviceLogId = commentDto.DeviceLogId
+                DeviceId= commentDto.DeviceId,
+                CreatedBy= commentDto.CreatedBy,
+                CreatedAtUtc= commentDto.CreatedAtUtc,
+                Description= commentDto.Description,
+
+              
             };
-
-           
-            var createdByEntity = _context.Employees
-                .Where(e => e.Id == commentDto.CreatedBy)
-                .FirstOrDefault();
-
-           
-            if (createdByEntity != null)
-            {
-                commentEntity.CreatedByNavigation = createdByEntity;
-            }
-
-            
-            _context.Comments.Add(commentEntity);
+            _context.Comments.Add(addcomment);
             _context.SaveChanges();
-
-
-            CommentDto addedComment = new CommentDto
-            {
-                Id = commentEntity.Id,
-                DeviceLogId = commentEntity.DeviceLogId,
-                DeviceId = commentEntity.DeviceId,
-                Description = commentEntity.Description,
-                CreatedBy = commentEntity.CreatedByNavigation != null
-                                ? $"{commentEntity.CreatedByNavigation.FirstName} {commentEntity.CreatedByNavigation.LastName}"
-                                : null,
-                CreatedAt = commentEntity.CreatedAtUtc,
-            };
-
-            return addedComment;
         }
 
         public IEnumerable<Comment> GetComments(Guid deviceId)

@@ -1,0 +1,88 @@
+.Accesories {
+  border-radius: 0.25rem;
+  background: var(--Primary-Pure-White, #FFF);
+  border: 1px solid var(--secondary-Light-Grey, #E9ECEB);
+  display: flex;
+  padding: 0.625rem 0.75rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.625rem;
+  align-self: stretch;
+  width: 19.1875rem;
+  height: 3.6875rem;
+}
+
+.inner-accesories {
+  display: flex;
+  justify-content: space-between;
+  flex-direction:column;
+  align-items: flex-start;
+  align-self: stretch;
+  width: 17.6875rem;
+  height: 2.4375rem;
+}
+
+.name-icon {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  align-self: stretch;
+  width: 17.6875rem;
+  height: 1.5rem;
+}
+
+.namediv {
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.Cgi {
+  padding: 0rem 2.125rem;
+  align-items: flex-start;
+  height: 0.9375rem;
+  width: 17.6875rem;
+}
+
+.cgi-number {
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 0.8125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+
+.st{
+    border:1px solid black;
+}
+
+
+
+
+
+
+.available {
+  border-radius: 0.25rem;
+  background: #CEF0DC;
+  display: flex;
+  height: 1.75rem;
+  padding: 0.4375rem 0.625rem;
+  align-items: center;
+  gap: 0.625rem;
+  margin-top: 0.375rem;
+  margin-left: 7rem;
+}
+
+.available-text {
+  color: #0D542A;
+  font-family: Roboto;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.25rem; /* 142.857% */
+}

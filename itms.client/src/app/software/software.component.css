@@ -2,7 +2,21 @@
 #button2 {
   display: none;
 }*/
+#filter-text-box {
+  border: none; /* Remove border */
+  outline: none; /* Remove outline */
+}
 
+  #filter-text-box:focus {
+    border: none; /* Remove border when input is focused */
+    outline: none; /* Remove outline when input is focused */
+  }
+.software-details {
+  @media screen and (min-width: 2560px) {
+    transform: translateX(50%);
+  }
+}
+  
 
 
 .software-details {
@@ -13,6 +27,11 @@
   gap: 1rem;
   flex-shrink: 0;
   margin-top:2rem;
+}
+
+.input-text {
+  border: none;
+  outline: none; /* Remove the outline when focused */
 }
 
 .software-heading {
@@ -304,6 +323,7 @@
   align-items: flex-start;
   gap: 1rem;
   align-self: stretch;
+  overflow-y: scroll;
 }
 
 .text-field {
@@ -652,6 +672,78 @@
   box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.15);
 }
 
+
+
+.dateofpurchase {
+  border-radius: 0.25rem;
+  border: 1px solid var(--Secondary-Light-Gray, #E9ECEB);
+  background: var(--Primary-White, #FFF);
+  display: flex;
+  padding: 0.625rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.375rem;
+  align-self: stretch;
+}
+
+.lastdate-text {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.375rem;
+  align-self: stretch;
+}
+
+.calendar-icon-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0.5rem;
+  flex: 1 0 0;
+}
+
+.calendar-icon {
+  display: flex;
+  width: 1.25rem;
+  height: 1.25rem;
+  padding: 0.0625rem 0.125rem 0.125rem 0.125rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.last-date-heading {
+  color: var(--Adhoc-Grey, #6D6D6D);
+  font-family: Roboto;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.number {
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+
+.last-date-div {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.375rem;
+}
+
+.last-date {
+  color: var(--Primary-Blue, #28519E);
+  font-family: Roboto;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
 .history-comment{
   display: flex;
   justify-content: space-between;
@@ -696,3 +788,7 @@
   align-self: stretch;
 }
 
+
+.st{
+    border:1px solid black;
+}

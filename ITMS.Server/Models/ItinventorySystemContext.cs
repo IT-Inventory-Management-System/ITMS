@@ -190,7 +190,7 @@ public partial class ItinventorySystemContext : DbContext
 
             entity.ToTable("DeviceModel");
 
-           // entity.HasIndex(e => e.ModelNo, "UQ__DeviceMo__E8D6B556E7687B1D").IsUnique();
+            //entity.HasIndex(e => e.ModelNo, "UQ__DeviceMo__E8D6B556E7687B1D").IsUnique();
 
             entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
             entity.Property(e => e.Brand).HasMaxLength(255);
@@ -417,6 +417,7 @@ public partial class ItinventorySystemContext : DbContext
             entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
             entity.Property(e => e.ActivationKey).HasMaxLength(255);
             entity.Property(e => e.AssignedDate).HasColumnType("datetime");
+            entity.Property(e => e.IsArchived).HasColumnName("isArchived");
             entity.Property(e => e.ExpiryDate).HasColumnType("date");
             entity.Property(e => e.LocationId).HasColumnName("locationId");
             entity.Property(e => e.PurchasedDate).HasColumnType("date");
