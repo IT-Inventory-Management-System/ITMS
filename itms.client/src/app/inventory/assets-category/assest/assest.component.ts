@@ -67,7 +67,7 @@ export class AssestComponent {
     }
   }
 
-
+  
   loadDeviceData() {
     this.deviceService.getDevicesCyg(this.locationId).subscribe(
       
@@ -110,7 +110,6 @@ export class AssestComponent {
         "Assigned To": this.deviceData[i].assignedToName,
         "Assigned Date": this.deviceData[i].assignedDate ? formatDate(this.deviceData[i].assignedDate, 'dd-MM-yyyy', 'en-US') : '',
         "Device Status": this.deviceData[i].status,
-        "Action": '-',
         //"Stock Status": '-'
       }
 
@@ -153,7 +152,6 @@ export class AssestComponent {
     { field: "Assigned To", width: 140, resizable: false, suppressMovable: true, },
     { field: "Assigned Date", width: 129, resizable: false, suppressMovable: true, },
     { field: "Device Status", width: 119, resizable: false, suppressMovable: true, pinned: 'right', cellRenderer: MyCellComponent },
-    { field: "Action", width: 83, resizable: false, suppressMovable: true, },
     /* { field: "Stock Status", pinned: 'right', cellStyle: { 'border': 'none' }, width: 122, resizable: false, suppressMovable: true, }*/
 
   ];
@@ -304,5 +302,8 @@ export class AssestComponent {
     this.selectedFilter = filter
   }
 
+  toggleView() {
+    this.selectedModel = null;
+  }
 
 }

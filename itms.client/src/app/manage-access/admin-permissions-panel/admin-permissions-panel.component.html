@@ -10,7 +10,7 @@
     <div class="status-toggle">
       <span>Status</span>
       <div class="form-check form-switch toggle-input">
-        <input class="form-check-input" type="checkbox" checked>
+        <input class="form-check-input" type="checkbox" [(ngModel)]="isToggleChecked" data-toggle="modal" data-target="#revokeRoleModal" >
       </div>
     </div>
   </div>
@@ -21,6 +21,35 @@
         <span class="permission-title">{{permission.permissionName}}</span>
         <span class="permission-description">{{permission.permissionDescription}}</span>
       </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Revoke Permission Modal -->
+<div class="modal fade" id="revokeRoleModal" tabindex="-1" role="dialog" aria-labelledby="revokeRoleModalLabel" aria-hidden="true" (hidden)="handleModalClose()">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="revoke-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="handleModalClose()">
+          <img src="../../../assets/icons/manage-access/modal-close-icon.svg" />
+        </button>
+      </div>
+      <div class="revoke-content">
+        <img src="../../../assets/icons/manage-access/alert.svg" />
+        <div class="revoke-message">
+          You are revoking {{ selectedAdmin?.role }} permissions from ‘{{ selectedAdmin?.firstName }} {{ selectedAdmin?.lastName }}'.
+          <br />Are you sure?
+        </div>
+        <div class="revoke-buttons">
+          <button type="button" class="no-button" data-dismiss="modal" (click)="handleModalClose()"><span>No</span></button>
+          <button type="button" class="yes-button" data-dismiss="modal" (click)="changeRole()"><span>Yes, Revoke</span></button>
+        </div>
+      </div>
+      <!--<div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="handleModalClose()">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>-->
     </div>
   </div>
 </div>

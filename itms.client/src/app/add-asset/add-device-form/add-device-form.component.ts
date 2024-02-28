@@ -45,7 +45,7 @@ export class AddDeviceFormComponent implements OnInit {
       deviceModelId: [null, Validators.required],
       isChecked: [true],
       qty: [0, Validators.required],
-      purchasedOn: ['', Validators.required],
+      purchasedOn: [null, Validators.required],
       warrantyDate: [null, Validators.required],
       serialNumberList: this.fb.array([]),
       cygIdsList: this.fb.array([]),
@@ -97,6 +97,11 @@ export class AddDeviceFormComponent implements OnInit {
         console.log("User not found");
       });
   }
+
+  setPurchaseDate(event : any) {
+    this.addDeviceForm.get('purchasedOn')?.setValue(event.target.value);
+  }
+
   getDeviceLocation() {
     this.dataService.getLocation().subscribe(
       (data) => {
@@ -308,7 +313,8 @@ export class AddDeviceFormComponent implements OnInit {
     var isQuantity = this.counterValue > 0;
     var isPurchasedOn = this.addDeviceForm.get('purchasedOn')?.value != '';
     var isWarrantyDate = this.addDeviceForm.get('warrantyDate')?.value != null;
-    console.log(isDeviceId && isQuantity && isPurchasedOn && isWarrantyDate);
+    console.log(this.addDeviceForm.value);
+    console.log("check : ", isDeviceId && isQuantity && isPurchasedOn && isWarrantyDate);
     return isDeviceId && isQuantity && isPurchasedOn && isWarrantyDate;
   }
 

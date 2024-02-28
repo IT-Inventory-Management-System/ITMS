@@ -3,10 +3,10 @@
 
 <div class="asset-header">
   <div class="btn-group toggle-button" role="group" aria-label="Basic radio toggle button group">
-    <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked [(ngModel)]="selectedView" value="card">
+    <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked [(ngModel)]="selectedView" value="card" (change)="toggleView()">
     <label class="btn btn-outline-primary custom-label" for="btnradio1"><span>Card View</span></label>
 
-    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" [(ngModel)]="selectedView" value="table">
+    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" [(ngModel)]="selectedView" value="table" (change)="toggleView()">
     <label class="btn btn-outline-primary custom-label" for="btnradio2"><span>Table View</span></label>
   </div>
 
