@@ -183,6 +183,9 @@ export class DataService {
     return this.http.post<any | null>(this.apiUrl + 'Device/singleHistoryAccessory', dto);
   }
 
+  getAllAccessoriesComment(deviceId: any): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + 'Device/getAllComments/' + deviceId);
+  }
 
 }
 

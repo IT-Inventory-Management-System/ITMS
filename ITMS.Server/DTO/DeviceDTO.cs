@@ -130,6 +130,7 @@ namespace ITMS.Server.DTO
 
     public class allAccessoriesDTO
     {
+        public Guid? accessoryId { get; set; }
         public string? Brand { get; set; }
         public string? CYGID { get; set; }
         public string? Status { get; set; }

@@ -13,6 +13,7 @@ import { formatDate } from '@angular/common';
 export class NewCommentsComponent {
   deviceForm: FormGroup;
   commentsData: any[] = [];
+  @Input() accessoryId: any;
  
   constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService) {
 
@@ -28,6 +29,20 @@ export class NewCommentsComponent {
       }
     });
   }
+
+  ngOnChanges() {
+    this.dataService.getAllAccessoriesComment(this.accessoryId).subscribe(
+      (data) => {
+        this.commentsData = data;
+        console.log("Accessory comments : ", this.commentsData);
+        this.changeDateFormat();
+      },
+      error => {
+        console.error('Error fetching comments: ', error);
+      }
+    );
+  }
+
   createForm() {
     this.deviceForm = this.fb.group({
       description: [''],

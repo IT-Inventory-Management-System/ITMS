@@ -658,6 +658,7 @@ public class DeviceService
                 WarrantyDate = d.WarrantyDate,
                 IsArchived = d.IsArchived,
                 AssignedTo = d.AssignedTo == null ? false : true,
+                accessoryId = d.Id
             }).ToList();
     }
 

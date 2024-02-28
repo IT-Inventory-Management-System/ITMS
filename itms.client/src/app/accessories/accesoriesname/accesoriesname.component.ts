@@ -13,7 +13,8 @@ export class AccesoriesnameComponent {
   onClick(): void {
 
     this.cardClicked.emit({
-      CYGID: this.accessories.cygid
+      CYGID: this.accessories.cygid,
+      accessoryId: this.accessories.accessoryId
     });
   }
 

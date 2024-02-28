@@ -22,7 +22,7 @@ export class AccessoriesComponent {
   filterValue: string = '';
   singleSelected: any[];
   isArchived: boolean = false;
-
+  accessoryId : any;
   archivedAttributes: any = {
     location: '',
     IsWired: '',
@@ -53,7 +53,8 @@ export class AccessoriesComponent {
     this.singleSelected = this.accessories.filter(a => a.cygid === eventData.CYGID);
   //  console.log(this.singleSelected);
     this.singleHistoryAccessory(this.locationId, this.cygid);
-
+    this.accessoryId = eventData.accessoryId;
+    console.log(this.accessoryId)
 
   }
 
