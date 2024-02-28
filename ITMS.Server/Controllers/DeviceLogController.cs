@@ -20,18 +20,18 @@ public class DeviceLogController : ControllerBase
     }
 
     [HttpGet("devices/{locationId}")]
-    public async Task<IActionResult> GetDeviceHistory(Guid locationId)
+    public List<DevicelogDto> GetDeviceHistory(Guid locationId)
     {
 
         try
         {
-            var deviceHistory = await _deviceLogService.GetDevicesAsync(locationId);
-            return Ok(deviceHistory);
+            List<DevicelogDto> deviceHistory = _deviceLogService.GetDevicesAsync(locationId);
+            return deviceHistory;
         }
         catch (Exception)
         {
             // Log the exception or handle it appropriately
-            return StatusCode(500, "Internal Server Error");
+            return new List<DevicelogDto>();
         }
     }
 
@@ -70,13 +70,13 @@ public class DeviceLogController : ControllerBase
     public List<DevicelogDto> FiltterCard([FromBody] FilterDTO filterInput)
     {
 
-        Task<List<DevicelogDto>> filterDevices = GetDeviceHistory(filterInput.locationId);
+        List<DevicelogDto> filterDevices = GetDeviceHistory(filterInput.locationId);
         filterDevices = filterDevices.Where(d =>
-        (string.IsNullOrEmpty(filterInput.deviceStatus) || (filterInput.deviceStatus == "Available" && d.status == "Not Assigned") || (filterInput.deviceStatus == "Assigned" && d.status == "Assigned")) &&
+        (filterInput.deviceStatus.Count == 0|| filterInput.deviceStatus.Contains(d.status)) &&
         (filterInput.operatingSystem.Count == 0|| filterInput.operatingSystem.Contains(d.OperatingSystem)) &&
         (filterInput.uniqueProcessor.Count == 0 || filterInput.uniqueProcessor.Contains(d.processor)) &&
-        (filterInput.fromDate == null || ((DateOnly.FromDateTime((DateTime)d.purchaseDate) >= filterInput.fromDate)) &&
-        (filterInput.toDate == null ||  ((DateOnly.FromDateTime((DateTime)d.purchaseDate) <= filterInput.toDate))
+        (filterInput.fromDate == null || ((DateOnly.FromDateTime((DateTime)d.purchaseDate) >= filterInput.fromDate))) &&
+        (filterInput.toDate == null ||  ((DateOnly.FromDateTime((DateTime)d.purchaseDate) <= filterInput.toDate)))
         ).ToList();
 
         return filterDevices;

@@ -160,8 +160,13 @@ export class DataService {
   }
 
   getDeviceModelData(inputData: any): Observable<any> {
-    console.log(inputData);
+    //console.log(inputData);
     return this.http.post(this.apiUrl + 'Device/DeviceModels', inputData);
+  }
+
+  getFilteredDevices(selectedFilters: any): Observable<any> {
+   // console.log(inputData);
+    return this.http.post(this.apiUrl + 'DeviceLog/filterDevices', selectedFilters);
   }
 
 }

@@ -48,22 +48,43 @@ export class DevicesComponent implements OnInit{
     });
   }
 
-  //ngOnChanges(changes: SimpleChanges) {
-  //  console.log(changes['filterData'].currentValue);
-  //}
+  ngOnChanges(changes: SimpleChanges) {
+    this.loading = true;
+    this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
+      localStorage.setItem('selectedCountry', selectedCountry);
+      this.getDeviceLocation();
+    });
+  }
 
 
 
   showDevices() {
-    this.dataService.getDevices(this.locationId).subscribe(
-      (data) => {
-        this.DeviceData = data;
-        //if (this.selectedItem) {
-        //  this.DeviceData = this.DeviceData.filter(device => device.operatingSystem[0].osname === this.selectedItem);
-        //}
-        //console.log( this.DeviceData)
-        this.loading = false; 
-      });
+
+    if (this.filterData == null) {
+      this.dataService.getDevices(this.locationId).subscribe(
+        (data) => {
+          this.DeviceData = data;
+          this.loading = false;
+        });
+    }
+    else {
+      var filter = {
+        deviceStatus: this.filterData.deviceStatus,
+        operatingSystem: this.filterData.operatingSystem,
+        uniqueProcessor: this.filterData.uniqueProcessor,
+        fromDate: this.filterData.fromDate,
+        toDate: this.filterData.toDat,
+        locationId: this.locationId
+      }
+
+      this.dataService.getFilteredDevices(filter).subscribe(
+        (data) => {
+          this.DeviceData = data;
+          console.log("FILTERED DATA : ", this.DeviceData);
+          this.loading = false;
+        });
+    }
+    
   }
 
   showArchivedDevices() {

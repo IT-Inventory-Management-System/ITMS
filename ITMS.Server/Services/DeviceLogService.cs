@@ -18,9 +18,9 @@ public class DeviceLogService
         _context = context;
     }
 
-    public async Task<List<DevicelogDto>> GetDevicesAsync(Guid locationId)
+    public List<DevicelogDto> GetDevicesAsync(Guid locationId)
     {
-        var deviceHistory = await _context.Devices
+        var deviceHistory = _context.Devices
             .Include(log => log.DeviceModel)
             .ThenInclude(model => model.Category)
             .Where(log => log.LocationId == locationId && log.DeviceModel.Category.Name == "Laptop")
@@ -39,7 +39,7 @@ public class DeviceLogService
                     processor = device.DeviceModel.Processor
                 }
             )
-            .ToListAsync();
+            .ToList();
 
         return deviceHistory;
     }

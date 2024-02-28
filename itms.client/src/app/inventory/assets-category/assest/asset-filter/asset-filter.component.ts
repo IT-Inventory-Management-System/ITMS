@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, ChangeDetectorRef } from '@angular/core';
 import { DataService } from '../../../../shared/services/data.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { DataService } from '../../../../shared/services/data.service';
 })
 export class AssetFilterComponent {
 
-  deviceStatus: string[] = ["Assigned", "Available"];
+  deviceStatus: string[] = ["Assigned", "Not Assigned"];
   operatingSystem: string[] = ["Windows", "Mac"];
   uniqueProcessor: any[] = [];
   from: '';
@@ -18,11 +18,12 @@ export class AssetFilterComponent {
 
   handleClick() {
     this.applyFilter.emit(this.selectedCheckboxes);
+    this.changeDetectorRef.detectChanges();
     console.log();
   }
 
 
-  constructor(private dataService: DataService) {
+  constructor(private dataService: DataService, private changeDetectorRef: ChangeDetectorRef) {
     this.dataService.getUniqueProcessor().subscribe(
       (data) => {
         this.uniqueProcessor = data;  
