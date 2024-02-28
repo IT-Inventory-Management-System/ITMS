@@ -13,7 +13,7 @@ namespace ITMS.Server.Services
         Task UpdateDeviceLogAsync(PostDeviceLogDTO devicelogDto);
         Task UpdateSoftwareLogAsync(PostDeviceLogDTO devicelogDto);
         Task UpdateCommentIDLogAsync(Guid? DeviceLogID, Guid? CommentId);
-        Task<IEnumerable<GetDeviceLogDTO>> ListDeviceLog(Guid id);
+        Task<Guid> GetLatestDeviceLogId(Guid id);
         Task<IEnumerable<Comment>> ListComment(Guid? DeviceLogID);
 
         //Task UpdateAccessoriesAsync(string Id, PostAssignAssetDTO accessories);
@@ -33,23 +33,18 @@ namespace ITMS.Server.Services
                                 where c.DeviceLogId == DeviceLogID
                                 select new Comment
                                 {
-                                    Id = c.Id,
-                                    DeviceId = c.DeviceId,
-                                    SoftwareAllocation = c.SoftwareAllocation
+                                    Id = c.Id
                                 }).ToListAsync();
 
             return result;
         }
-        public async Task<IEnumerable<GetDeviceLogDTO>> ListDeviceLog(Guid id)
+        public async Task<Guid> GetLatestDeviceLogId(Guid id)
         {
-            var result = await (from dl in _context.DevicesLogs
-                                where dl.DeviceId == id || dl.SoftwareAllocation == id
-                                select new GetDeviceLogDTO
-                                {
-                                    Id = dl.Id,
-                                    DeviceId = dl.DeviceId,
-                                    SoftwareAllocationID = dl.SoftwareAllocation
-                                }).ToListAsync();
+            var result = await _context.DevicesLogs
+                .Where(dl => dl.DeviceId == id || dl.SoftwareAllocation == id)
+                .OrderByDescending(dl => dl.CreatedAtUtc)
+                .Select(dl => dl.Id)
+                .FirstOrDefaultAsync();
 
             return result;
         }
