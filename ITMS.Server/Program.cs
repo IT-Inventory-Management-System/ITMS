@@ -42,6 +42,7 @@ builder.Services.AddScoped<ICommentService, AddCommentService>();
 builder.Services.AddScoped<SoftwarePageService>();
 
 builder.Services.AddScoped<IPostAssignAsset, PostAssignAsset>();
+builder.Services.AddScoped<IGetAccessoryService, GetAccessoriesService>();
 
 builder.Services.AddCors(options =>
 {
