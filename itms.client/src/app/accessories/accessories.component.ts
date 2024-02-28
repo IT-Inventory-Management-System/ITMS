@@ -164,7 +164,7 @@ export class AccessoriesComponent {
       .subscribe(
         (history) => {
           this.historydata = history;
- // console.log('History Data', history); 
+  console.log('History Data', history); 
         },
         (error) => {
           console.error('Error fetching history data:', error);
