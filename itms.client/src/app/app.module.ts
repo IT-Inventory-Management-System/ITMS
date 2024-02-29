@@ -112,6 +112,7 @@ import { AssignAccessoryCommentComponent } from './assign-asset/assign-accessory
 import { AccessoryBrandySearchBoxComponent } from './assign-asset/accessory-brandy-search-box/accessory-brandy-search-box.component';
 import { CommonModule } from '@angular/common';
 import { AddUserComponent } from './add-user/add-user.component';
+import { AccesoriesFilterComponent } from './accessories/accesories-filter/accesories-filter.component';
 
 
 
@@ -211,6 +212,9 @@ import { AddUserComponent } from './add-user/add-user.component';
     //LastdateComponent,
 
 
+
+
+
     AccordionItemComponent,
     MyCellComponent,
     ManageAccessComponent,
@@ -227,6 +231,8 @@ import { AddUserComponent } from './add-user/add-user.component';
     AccordionItemComponent,
     AssignAccessoryCommentComponent,
     AccessoryBrandySearchBoxComponent,
+    AdminPanelComponent,
+    AccesoriesFilterComponent,
     AddUserComponent
 
 

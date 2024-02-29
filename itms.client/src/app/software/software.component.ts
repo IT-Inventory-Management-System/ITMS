@@ -4,6 +4,8 @@ import { ColDef } from 'ag-grid-community';
 import * as XLSX from 'xlsx';
 import { LocationService } from '../shared/services/location.service';
 import { SelectedCountryService } from '../shared/services/selected-country.service';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-software',
@@ -23,16 +25,22 @@ export class SoftwareComponent implements OnInit {
   softwarehistory: any = null;
   archive: any;
   isArchived: boolean = false;
+  userDataJSON: any;
+  UserId: any;
 
   filteredSoftware: any[][] = [[], []];
   filterValues: string = '';
   expiringtag: boolean = false;
   searchValue: string = '';
   archivedAttributes: any = {
-    type: '',
-    stock: '',
+    location:'',
+    selectedTypes: [],
+    selectedStock: [],
+    tableArchived:'',
     from: '',
     to: '',
+    stat: '',
+    filter:false
   }
 
   //onCardClicked(eventData: any): void {
@@ -82,24 +90,25 @@ export class SoftwareComponent implements OnInit {
  
 
 
-  constructor(private softwareService: SoftwareService, private LocationService: LocationService, private selectedCountryService: SelectedCountryService) { }
+  constructor(private softwareService: SoftwareService, private LocationService: LocationService, private selectedCountryService: SelectedCountryService, private toastr: ToastrService) { }
 
   onApplyClicked(eventData: any): void {
     console.log
-      (eventData);
+      ("event data", eventData);
     const fromDate = eventData.from ? eventData.from.toISOString().split('T')[0] : ''; // Convert From Date to string
     const toDate = eventData.to ? eventData.to.toISOString().split('T')[0] : '';
+
     const body:any = {
       location: this.selectedLocation,
       IsArchived: this.isArchived,
+      selectedType: eventData.selectedTypes,
+      selectedStock: eventData.selectedStock,
+      tableArchived: eventData.stat,
     }
-    if (eventData.type !== '') {
-      body.type = eventData.type;
-      this.archivedAttributes.type = eventData.type;
-    }
-    if (eventData.stock !== '') {
-      body.inStock = eventData.stock;
-      this.archivedAttributes.stock = eventData.stock;
+    if (eventData.filter == true) {
+      this.archivedAttributes.selectedTypes = eventData.selectedTypes;
+      this.archivedAttributes.selectedStock = eventData.selectedStock;
+      this.archivedAttributes.tableArchived = eventData.stat;
     }
     if (fromDate !== null) {
       body.From = fromDate;
@@ -109,7 +118,8 @@ export class SoftwareComponent implements OnInit {
       body.To = toDate;
       this.archivedAttributes.to = toDate;
     }
-    console.log("archivedAttributes",this.archivedAttributes);
+   // console.log("archivedAttributes", this.archivedAttributes);
+
 
     this.softwareService.FilterSoftware(body).subscribe(
       (result: any | null) => {
@@ -124,33 +134,15 @@ export class SoftwareComponent implements OnInit {
         console.error('Error updating software archive status:', error);
       }
     );
-  }
 
-
-  onarchiveclicked(eventData: any): void {
-    console.log("archiveeventdata", eventData);
-
-    // Prepare the data for the request body
-    const body = {
-      name: this.singlesoftware?.name || "", // If name is not available, provide an empty string
-      version: this.singlesoftware?.version || "", // If version is not available, provide an empty string
-      type: this.singlesoftware?.type || "", // If type is not available, provide an empty string
-      isArchived: !this.singlesoftware?.isArchived, // Assuming eventData is a boolean value
-      location: this.archive?.location || "" // If location is not available, provide an empty string
-    };
-    console.log("body", body);
-
-
-
-    // Call the service method with the prepared body
-    this.softwareService.UpdateSoftwareArchiveStatus(body).subscribe(
+    this.softwareService.FilterSoftwareTable(body).subscribe(
       (result: any | null) => {
         if (result) {
-          // Handle the result here
-          this.singlesoftware = result;
-          console.log('Single software:', this.singlesoftware);
+          this.softwarestableData = result;
+
+        //  console.log("tabel", this.softwarestableData);
+          this.setRowData();
         } else {
-          // Handle case when no software is found
           console.log('No software found for parameters:', body);
         }
       },
@@ -158,7 +150,48 @@ export class SoftwareComponent implements OnInit {
         console.error('Error updating software archive status:', error);
       }
     );
+  }
 
+
+  onarchiveclicked(eventData: any): void {
+   // console.log("archiveeventdata", eventData);
+
+    // Prepare the data for the request body
+    const body = {
+      userid: this.UserId,
+      name: this.singlesoftware?.name || "", // If name is not available, provide an empty string
+      version: this.singlesoftware?.version || "", // If version is not available, provide an empty string
+      type: this.singlesoftware?.type || "", // If type is not available, provide an empty string
+      isArchived: !this.singlesoftware?.isArchived, // Assuming eventData is a boolean value
+      location: this.archive?.location || "" // If location is not available, provide an empty string
+    };
+  //  console.log("body", body);
+
+
+    //this.toastr.success("Data posted successfully");
+    // Call the service method with the prepared body
+    this.softwareService.UpdateSoftwareArchiveStatus(body).subscribe(
+      (result: any | null) => {
+        if (result) {
+          // Handle the result here
+       //   this.singlesoftware = result;
+       //   console.log('Single software:', this.singlesoftware);
+          this.toastr.success("Data posted successfully");
+        } else {
+          // Handle case when no software is found
+          console.log('No software found for parameters:', body);
+          this.toastr.error("Error in posting data");
+        }
+      },
+      error => {
+        console.error('Error updating software archive status:', error);
+      }
+    );
+    //if (this.archivedAttributes.selectedType.length === 0 && this.archivedAttributes.selectedStock.length === 0 && this.archivedAttributes.from === '' && this.archivedAttributes.to === '') {
+    //  this.getSoftwaresData(this.isArchived);
+    //} else {
+    //  this.onApplyClicked(this.archivedAttributes);
+    //}
   }
 
 
@@ -179,7 +212,7 @@ export class SoftwareComponent implements OnInit {
         if (result) {
           // Handle the result here
           this.singlesoftware = result;
-          console.log('Single software :', this.singlesoftware);
+         // console.log('Single software :', this.singlesoftware);
 
         } else {
           console.log('No software found for parameters:', parameters);
@@ -193,7 +226,7 @@ export class SoftwareComponent implements OnInit {
     this.softwareService.GetHistory(parameters).subscribe(
       (result: any | null) => {
         if (result) {
-          console.log(' software history:', result);
+       //   console.log(' software history:', result);
           this.softwarehistory = result;
           console.log(' software history:', this.softwarehistory);
 
@@ -208,6 +241,14 @@ export class SoftwareComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.userDataJSON = localStorage.getItem('user');
+
+    // Parse the JSON string back into an object
+    var userData = JSON.parse(this.userDataJSON);
+
+    // Access the 'id' property of the userData object
+    this.UserId = userData.id;
+   // console.log("adminid", this.UserId);
     this.getSoftwaresData(false);
     
     //this.filteredSoftware = this.softwaresData;
@@ -215,7 +256,7 @@ export class SoftwareComponent implements OnInit {
       localStorage.setItem('selectedCountry', selectedCountry);
       this.selectedLocation = selectedCountry;
       this.onVariableChanged();
-      console.log(this.selectedLocation);
+     // console.log(this.selectedLocation);
       this.getSoftwaretabledata(this.selectedLocation);
     });
 
@@ -230,7 +271,7 @@ export class SoftwareComponent implements OnInit {
     } else {
       this.isArchived = true;
     }
-    if (this.archivedAttributes.type == '' && this.archivedAttributes.body == '' && this.archivedAttributes.from == '' && this.archivedAttributes.to == '') {
+    if (this.archivedAttributes.selectedTypes.length === 0 && this.archivedAttributes.selectedStock.length === 0 && this.archivedAttributes.from === '' && this.archivedAttributes.to === '') {
       this.getSoftwaresData(this.isArchived);
     } else {
       this.onApplyClicked(this.archivedAttributes);
@@ -243,7 +284,7 @@ export class SoftwareComponent implements OnInit {
     this.softwareService.GetSoftware(arch).subscribe(
       data => {
         this.softwaresData = data;
-        console.log(this.softwaresData);
+      //  console.log(this.softwaresData);
         this.filteredSoftware = this.softwaresData;
       },
       error => {
@@ -280,7 +321,7 @@ export class SoftwareComponent implements OnInit {
       data => {
         this.softwarestableData = data;
         
-        console.log("tabel", this.softwarestableData);
+      //  console.log("tabel", this.softwarestableData);
         this.setRowData();
         //console.log('Row Data', this.rowData);
 

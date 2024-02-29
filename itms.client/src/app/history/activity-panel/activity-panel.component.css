@@ -103,6 +103,7 @@
   align-items: flex-start;
   gap: 1.25rem;
   align-self: stretch;
+  overflow-y: scroll;
 }
 
 .logs-details {
@@ -115,6 +116,7 @@
   align-items: flex-start;
   gap: 1.25rem;
   align-self: stretch;
+  
 }
 
 .date {
@@ -122,6 +124,7 @@
   justify-content: flex-end;
   align-items: flex-start;
   gap: 0.25rem;
+  
 }
 
 .date-text {
@@ -147,6 +150,7 @@
   align-items: flex-start;
   gap: 0.5rem;
   align-self: stretch;
+  
 }
 
 .time {
@@ -156,6 +160,7 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  
 }
 
 .detail {
@@ -165,8 +170,8 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  margin-left:1rem;
- 
+  margin-left: 1rem;
+  
 }
 .cyg-name {
   color: var(--Primary-Blue, #28519E);

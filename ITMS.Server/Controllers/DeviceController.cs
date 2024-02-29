@@ -167,29 +167,30 @@ namespace itms.server.controllers
                 return BadRequest(ex);
             }
         }
-    
-    [HttpPost("updateDeviceStatustoNotassigned")]
-    public async Task<IActionResult> UpdateDeviceStatustoNotassigned([FromBody] ArchivedoneDto archiveDto)
-    {
-        try
-        {
-            var result = await _deviceService.UpdateDeviceStatusToNotAssigned(archiveDto);
 
-            if (result)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return NotFound($"Device with cygid {archiveDto.Cygid} not found or status update failed.");
-            }
-        }
-        catch (Exception ex)
+        [HttpPost("updateDeviceStatustoNotassigned")]
+        public async Task<IActionResult> UpdateDeviceStatustoNotassigned([FromBody] ArchivedoneDto archiveDto)
         {
-            // Log or handle the exception as needed
-            return StatusCode(500, $"Internal server error: {ex.Message}");
+            try
+            {
+                var result = await _deviceService.UpdateDeviceStatusToNotAssigned(archiveDto);
+
+                if (result)
+                {
+                    return Ok(result);
+                }
+                else
+                {
+                    return NotFound($"Device with cygid {archiveDto.Cygid} not found or status update failed.");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception as needed
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
-    }
+
         [HttpPost("DeviceModels")]
         public async Task<IActionResult> GetDeviceModels([FromBody] DeviceModelInputDTO deviceModelInput)
         {
@@ -208,7 +209,38 @@ namespace itms.server.controllers
             }
         }
 
-    }
-}
+        [HttpPost("getAllAccessories")]
+        public List<allAccessoriesDTO> GetAllAccessories([FromBody] locationaccesoryDTO dto)
+        {
+            List<allAccessoriesDTO> allData = _deviceService.GetAllAccessories(dto.locationId);
+            if (dto.IsArchived == true)
+            {
+                allData = allData.Where(d => d.IsArchived == true).ToList();
+            }
+            return allData;
+        }
 
-    
+        [HttpPost("filterAccessories")]
+        public List<allAccessoriesDTO> FilterAccessories(filterAccessoriesBodyDTO filter)
+        {
+            locationaccesoryDTO getData = new locationaccesoryDTO()
+            {
+                locationId = filter.location,
+                IsArchived = filter.IsArchived,
+            };
+            List<allAccessoriesDTO> allData = GetAllAccessories(getData);
+
+            return _deviceService.GetFilterAccessories(allData, filter);
+        }
+
+
+        [HttpPost("singleHistoryAccessory")]
+        public List<historySingleAccessory> singleHistoryAccessory([FromBody] locationaccesoryDTO dto)
+        {
+            List<historySingleAccessory> history = _deviceService.singleHistory(dto.locationId, dto.CYGID);
+
+            return history;
+        }
+    }
+
+}

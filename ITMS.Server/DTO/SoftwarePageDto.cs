@@ -124,9 +124,10 @@ namespace ITMS.Server.DTO
     }
     public class filterDto{
         public string location { get; set; }
-        public string? inStock { get; set; }
+        public List<string?> selectedStock { get; set; }
         public bool IsArchived { get; set; }
-        public string? type { get; set; }
+        public string? tableArchived { get; set; }
+        public List<string?> selectedType { get; set; }
         public DateOnly? From { get; set; }
         public DateOnly? To { get; set; }
     }
@@ -173,7 +174,7 @@ namespace ITMS.Server.DTO
         public string Version { get; set; }
         public string Type { get; set; }
         public bool IsArchived { get; set; }
-
+    public Guid  userid {  get; set; }
         public string location { get; set; }
     }
 
