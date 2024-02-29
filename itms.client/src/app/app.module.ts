@@ -111,6 +111,7 @@ import { AddMonitorBrandFormComponent } from './add-asset/add-monitor-form/add-m
 import { AssignAccessoryCommentComponent } from './assign-asset/assign-accessory-comment/assign-accessory-comment.component';
 import { AccessoryBrandySearchBoxComponent } from './assign-asset/accessory-brandy-search-box/accessory-brandy-search-box.component';
 import { CommonModule } from '@angular/common';
+import { AddUserComponent } from './add-user/add-user.component';
 import { AccesoriesFilterComponent } from './accessories/accesories-filter/accesories-filter.component';
 
 
@@ -232,6 +233,8 @@ import { AccesoriesFilterComponent } from './accessories/accesories-filter/acces
     AccessoryBrandySearchBoxComponent,
     AdminPanelComponent,
     AccesoriesFilterComponent,
+    AccessoryBrandySearchBoxComponent,
+    AddUserComponent
 
 
   ],
