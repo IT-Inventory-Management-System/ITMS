@@ -23,12 +23,14 @@
               <span class="firstname"> First Name*</span>
               <div class="first-input">
                 <input class="first-input-text" placeholder="First Name" formControlName="firstName" />
+                <div class="form-text text-danger" *ngIf="userForm.get('firstName')?.errors?.['required'] && userForm.get('firstName')?.touched">First Name is Required</div>
               </div>
             </div>
             <div class="first">
               <span class="firstname"> Last Name*</span>
               <div class="first-input">
                 <input formControlName="lastName" class="first-input-text" placeholder="Last Name" />
+                <div class="form-text text-danger" *ngIf="userForm.get('lastName')?.errors?.['required'] && userForm.get('lastName')?.touched">Last Name is Required</div>
               </div>
             </div>
           </div>
@@ -38,12 +40,16 @@
         <span class="email-text">Email Id*</span>
         <div class="email-input">
           <input formControlName="email" class="email-input-text" placeholder="Enter Email ID" />
+          <div class="form-text text-danger" *ngIf="userForm.get('email')?.errors?.['required'] && (userForm.get('email')?.touched||userForm.get('email')?.dirty)">Email is Required</div>
+          <div class="form-text text-danger" *ngIf="userForm.get('email')?.errors?.['email'] && (userForm.get('email')?.touched||userForm.get('email')?.dirty)">Email is Invalid</div>
+
         </div>
       </div>
       <div class="cgi">
         <span class="cgi-text">CGI ID*</span>
         <div class="input-cgi">
           <input formControlName="cgiId" class="cgi-input-text" placeholder="Enter CGI ID" />
+          <div class="form-text text-danger" *ngIf="userForm.get('cgiId')?.errors?.['required'] && userForm.get('cgiId')?.touched">CGIID is Required</div>
         </div>
       </div>
     </div>
@@ -51,12 +57,12 @@
       <button class="previous-btn" [disabled]="previousDisabled" (click)="previous()"><span>Previous</span></button>
       <div class="cancle-add">
         <button class="cancel-button" (click)="cancel()" data-bs-dismiss="modal"><span>Cancel</span></button>
-        <button class="btn btn-primary addanother" (click)="addAnother()"><span>Add Another</span></button>
-        <button class="btn btn-primary addclose" (click)="onSubmit()" data-bs-dismiss="modal"><span>Add & Close</span></button>
+        <button class="btn btn-primary addanother" (click)="addAnother()" [disabled]="userForm.invalid"><span>Add Another</span></button>
+        <button class="btn btn-primary addclose" (click)="onSubmit()" data-bs-dismiss="modal" [disabled]="userForm.invalid"><span>Add & Close</span></button>
       </div>
     </div>
   </form>
-  <!--</div>-->
+  <!--</div>[disabled]="userForm.invalid"-->
 
 
 
