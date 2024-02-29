@@ -1,4 +1,5 @@
-﻿using ITMS.Server.Models;
+﻿using ITMS.Server.DTO;
+using ITMS.Server.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace ITMS.Server.Services
@@ -15,6 +16,37 @@ namespace ITMS.Server.Services
         {
             _context = context;
         }
+        //NAMAN
+
+        public void PutUsers(List<PutNewUsers> listOfUsers)
+        {
+            foreach (PutNewUsers singleUser in listOfUsers)
+            {
+                if (string.IsNullOrEmpty(singleUser.Cgiid))
+                {
+                    continue;
+                }
+                else
+                {
+                    Employee employee = new Employee();
+                    employee.FirstName = singleUser.FirstName;
+                    employee.LastName = singleUser.LastName;
+                    employee.Email = singleUser.Email;
+                    employee.Cgiid = singleUser.Cgiid;
+                    employee.RoleId = _context.Roles.FirstOrDefault(s => s.Name == "User").Id;
+                    employee.CreatedBy = singleUser.CreatedBy;
+                    employee.CreatedAtUtc = DateTime.UtcNow;
+                    employee.UpdatedBy = singleUser.UpdatedBy;
+                    employee.UpdatedAtUtc = DateTime.UtcNow;
+                    employee.LocationId = _context.Locations.FirstOrDefault(l => l.Location1 == singleUser.Location).Id;
+                    //Guid.Parse("4F687C11-F0FC-4F5A-9B2F-DAAE538A9F53");
+                    _context.Employees.Add(employee);
+                }
+            }
+            _context.SaveChanges();
+            return;
+        }
+
 
         public DevicelogDto GetDevices(Guid id)
         {
@@ -27,6 +59,9 @@ namespace ITMS.Server.Services
                     .ToList();
                 return null;
             }
+
+
+
 
 //public class EmployeeService
 //{

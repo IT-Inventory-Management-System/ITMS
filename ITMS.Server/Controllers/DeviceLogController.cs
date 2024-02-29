@@ -1,10 +1,12 @@
 // Controllers/DeviceLogController.cs
 using ITMS.Server.DTO;
 using ITMS.Server.Models;
+using ITMS.Server.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
+using static adminHistoryParamsDTO;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -65,7 +67,53 @@ public class DeviceLogController : ControllerBase
             return StatusCode(500, new { Message = "Internal Server Error" });
         }
     }
+    
 
+    [HttpPost("employeeLog")]
+    public List<returnSingleLog> GetDevicesLogs([FromBody] adminHistoryParamsDTO adminHistoryParams)
+    {
+        var employeeId = Guid.Parse(adminHistoryParams.employeeId);
+        var locationName = Guid.Parse(adminHistoryParams.locationName);
+
+        var groupedLogs = _context.DevicesLogs
+            .Include(dl => dl.UpdatedByNavigation)
+            .Where(dl => (dl.UpdatedBy == employeeId) &&(dl.DeviceId != null ? dl.Device.LocationId == locationName : dl.SoftwareAllocationNavigation.LocationId == locationName))
+            .OrderByDescending(dl => dl.UpdatedAtUtc)
+            .GroupBy(dl => dl.UpdatedAtUtc.Date)
+                          .Select(dl => new returnSingleLog
+                          {
+                              UpdatedDate = dl.Key,
+                              Logs = dl.Select(s => new singleLog
+                              {
+                                  CYGID = s.DeviceId != null ? s.Device.Cygid : null,
+
+                                  //UpdatedBy = s.UpdatedByNavigation.FirstName + " " + s.UpdatedByNavigation.LastName != null ? s.UpdatedByNavigation.LastName : null,
+                                  UpdatedBy = s.UpdatedByNavigation != null && s.UpdatedByNavigation.FirstName != null
+              ? s.UpdatedByNavigation.FirstName + " " + (s.UpdatedByNavigation.LastName != null ? s.UpdatedByNavigation.LastName : "")
+              : null,
+
+                                  SubmittedTo = s.RecievedBy != null ? _context.Employees
+                                              .Where(e => (e.Id == s.RecievedBy) && (s.DeviceId != null ? s.Device.LocationId == locationName : s.SoftwareAllocationNavigation.LocationId == locationName))
+                                              .Select(e => e.FirstName + " " + e.LastName)
+                                              .FirstOrDefault() : null,
+
+                                  AssignedTo = s.EmployeeId != null ? _context.Employees
+                                              .Where(e => (e.Id == s.EmployeeId) && (s.DeviceId != null ? s.Device.LocationId == locationName : s.SoftwareAllocationNavigation.LocationId == locationName))
+                                              .Select(e => e.FirstName + " " + e.LastName)
+                                              .FirstOrDefault() :
+                                              null,
+
+                                  SoftwareName = s.SoftwareAllocation != null ? s.SoftwareAllocationNavigation.Software.SoftwareName : null,
+                                  Category = s.DeviceId != null ? s.Device.DeviceModel.Category.Name : null,
+                                  Action = s.Action.ActionName,
+                                  UpdatedOn = s.UpdatedAtUtc,
+                              }).OrderByDescending(l => l.UpdatedOn).ToList()
+                          }).OrderByDescending(group => group.UpdatedDate)
+       .ToList();
+
+        return groupedLogs;
+    }                            
+    
     [HttpPost("filterDevices")]
     public List<DevicelogDto> FiltterCard([FromBody] FilterDTO filterInput)
     {
@@ -92,29 +140,17 @@ public class DeviceLogController : ControllerBase
     //        .OrderBy(dl => dl.CreatedAtUtc) // Assuming logs are ordered by CreatedAtUtc
     //        .ToList();
 
-    //    // Group the logs by date
-    //    var groupedLogs = devicesLogs.GroupBy(dl => dl.CreatedAtUtc.Date);
+                               
 
-    //    // Create a list to hold the formatted logs
-    //    var formattedLogs = new List<string>();
+    [HttpPost("filterEmployeeLog")]
+    public List<returnSingleLog> FilterDevicesLogs([FromBody] filterDateadminHistoryParamsDTO filterParams)
+    {
+        adminHistoryParamsDTO allDataParams = new adminHistoryParamsDTO() { employeeId= filterParams.employeeId, locationName = filterParams.locationName };
+        List<returnSingleLog> allData = GetDevicesLogs(allDataParams);
 
-    //    // Format each group of logs
-    //    foreach (var group in groupedLogs)
-    //    {
-    //        // Format the date
-    //        string formattedDate = group.Key.ToString("MM-dd-yyyy");
-    //        formattedLogs.Add(formattedDate);
+        allData = allData.Where(ud => DateOnly.FromDateTime((DateTime)ud.UpdatedDate) == filterParams.Date).ToList();
 
-    //        // Format each log entry
-    //        foreach (var logEntry in group)
-    //        {
-    //            string formattedTime = logEntry.CreatedAtUtc.ToString("hh:mm tt");
-    //            //string logInfo = $"{formattedTime}\n{logEntry.Device.DeviceModel.DeviceName} has been {logEntry.Action.ActionName.ToLower()} by {logEntry.AssignedByNavigation.FullName}";
-    //            formattedLogs.Add(logInfo);
-    //        }
-    //    }
 
-    //    return Ok(formattedLogs);
-    //}
-
+        return allData;
+    }
 }

@@ -9,6 +9,7 @@
   border: 1px solid var(--Secondary-Gray, #B2B2B3);
   background: var(--Primary-White, #FFF);
   text-align:left;
+  height:5.1875rem;
 }
 
  
@@ -24,17 +25,19 @@
   align-items: flex-start;
   gap: 0.5rem;
   align-self: stretch;
+  width:17.6875rem;
+  height:2.375rem;
 }
 
 .software-icon {
-  border-radius: 0.27rem;
-  background: var(--Primary-White, #FFF);
   display: flex;
   width: 1.5rem;
   height: 1.5rem;
   padding: 0.16669rem;
   justify-content: center;
   align-items: center;
+  border-radius: 0.27rem;
+  background: #E4EAEE;
 }
 
 .softwarename {
@@ -45,9 +48,9 @@
   font-weight: 500;
   line-height: normal;
   flex: 1 0 0;
-  padding-left:0.5rem;
+  height: 2.375rem;
+  width: 100%;
 }
-
 .type {
   display: flex;
   padding-left: 2rem;

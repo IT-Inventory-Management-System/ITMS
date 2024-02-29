@@ -32,4 +32,8 @@ export class EmployeeService {
   getComments(deviceId: any): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl + 'Comments/' + deviceId);
   }
+
+  postUsers(FormGroup: any[]): Observable<any> {
+    return this.http.post<any>(this.apiUrl + 'employee/AddUsers', FormGroup);
+  }
 }

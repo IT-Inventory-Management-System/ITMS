@@ -12,10 +12,14 @@ namespace ITMS.Server.Controllers
     {
         private readonly ItinventorySystemContext _context;
         private readonly IUserListService _userListService;
-        public EmployeeController(ItinventorySystemContext context, IUserListService userListService)
+      
+        private readonly EmployeeService _employeeService;
+
+        public EmployeeController(ItinventorySystemContext context, IUserListService userListService, EmployeeService employeeService)
         {
             _context = context;
             _userListService = userListService;
+            _employeeService = employeeService;
         }
         [HttpGet("basicdetails/{locationId}")]
         public async Task<IEnumerable<UserListDTO>> GetUserDevicesAsync(Guid locationId)
@@ -49,6 +53,14 @@ namespace ITMS.Server.Controllers
                 // Handle exceptions and return appropriate response
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Error: {ex.Message}");
             }
+        }
+
+
+        [HttpPost("AddUsers")]
+        public void PutNewUsers(List<PutNewUsers> listOfUsers)
+        {
+            _employeeService.PutUsers(listOfUsers);
+            return;
         }
 
     }

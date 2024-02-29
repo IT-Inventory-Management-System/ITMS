@@ -198,10 +198,15 @@ namespace ITMS.Server.Services
                 && sa.Version == g.Key.Version
                 && sa.Location.Location1 == country
                 && sa.AssignedTo == null),
-        purchaseDates = _context.SoftwareAllocations.Where(sa => sa.Software.SoftwareName == g.Key.SoftwareName
-                && sa.Version == g.Key.Version
-                && sa.Location.Location1 == country).Select(sa => sa.PurchasedDate).Distinct().ToList(),
-    })
+        purchaseDates = _context.SoftwareAllocations
+    .Where(sa => sa.Software.SoftwareName == g.Key.SoftwareName
+                 && sa.Version == g.Key.Version
+                 && sa.Location.Location1 == country)
+    .Select(sa => sa.PurchasedDate)
+    .OrderByDescending(pd => pd)
+    .Distinct()
+    .ToList(),
+        })
     .ToList();
 
 
@@ -278,7 +283,7 @@ namespace ITMS.Server.Services
                                          PurchaseDates = s.SoftwareAllocations
                                                          .Where(sa => sa.PurchasedDate != null && sa.Version == parameters.version)
                                                          .GroupBy(sa => new { sa.PurchasedDate, sa.ExpiryDate })
-                                                         .OrderBy(sa => sa.Key.PurchasedDate)
+                                                         .OrderByDescending(sa => sa.Key.PurchasedDate)
                                                          .ThenBy(sa => sa.Key.ExpiryDate)
                                                          .Select(sa => new Pur_Qty_Exp { PurchaseDates = sa.Key.PurchasedDate, ExpiryDates = sa.Key.ExpiryDate, Qty= sa.Count()})
                                                          .ToList(),
@@ -365,24 +370,63 @@ namespace ITMS.Server.Services
 
 
 
+        //public bool UpdateSoftwareArchiveStatus(SoftwareUpdateDto dto)
+        //{
+        //    var softwareAllocations = _context.SoftwareAllocations
+        //        .Where(sa => sa.Software.SoftwareName == dto.Name &&
+        //                     sa.Version == dto.Version &&
+        //                     sa.Software.SoftwareType.TypeName == dto.Type &&
+        //                     sa.Location.Location1==dto.location) 
+
+
+
+        //        .ToList();
+
+        //    if (softwareAllocations.Count == 0)
+        //        return false; // No matching software allocations found
+
+        //    foreach (var allocation in softwareAllocations)
+        //    {
+        //        allocation.IsArchived = dto.IsArchived;
+        //    }
+
+        //    _context.SaveChanges();
+        //    return true; // Update successful
+        //}
+
+
         public bool UpdateSoftwareArchiveStatus(SoftwareUpdateDto dto)
         {
             var softwareAllocations = _context.SoftwareAllocations
                 .Where(sa => sa.Software.SoftwareName == dto.Name &&
                              sa.Version == dto.Version &&
                              sa.Software.SoftwareType.TypeName == dto.Type &&
-                             sa.Location.Location1==dto.location) 
-                             
-
-                             
+                             sa.Location.Location1 == dto.location)
                 .ToList();
 
             if (softwareAllocations.Count == 0)
                 return false; // No matching software allocations found
 
+            // Determine the action ID based on whether the software is being archived or unarchived
+            Guid actionId = dto.IsArchived ? _context.ActionTables.FirstOrDefault(a => a.ActionName == "Archive").Id :
+                                              _context.ActionTables.FirstOrDefault(a => a.ActionName == "Unarchive").Id;
+
             foreach (var allocation in softwareAllocations)
             {
                 allocation.IsArchived = dto.IsArchived;
+
+                // Create a new entry in the DeviceLog table
+                var deviceLogEntry = new DevicesLog
+                {
+                    SoftwareAllocation = allocation.Id,
+                    ActionId = actionId,
+                    CreatedAtUtc=DateTime.Now,
+                    CreatedBy= dto.userid,
+                    UpdatedAtUtc= DateTime.Now,
+                    UpdatedBy= dto.userid,
+                };
+
+                _context.DevicesLogs.Add(deviceLogEntry);
             }
 
             _context.SaveChanges();
@@ -390,6 +434,85 @@ namespace ITMS.Server.Services
         }
 
 
+
+
+        public List<IEnumerable<SoftwarePage>> CardFilter(List<IEnumerable<SoftwarePage>> allData, filterDto attri)
+        {
+            List<IEnumerable<SoftwarePage>> filteredData = new List<IEnumerable<SoftwarePage>>();
+
+            if (attri.location == "India")
+            {
+                List<SoftwarePage> India = allData[0].Where(s =>
+                     //(string.IsNullOrEmpty(attri.inStock) || (attri.inStock == "Low In Stock" && s.inStock <= 1) || (attri.inStock == "In Stock" && s.inStock > 1) || (attri.inStock == "Out Of Stock" && s.inStock == 0)) &&
+                     (attri.selectedType.Count == 0 || attri.selectedType.Contains(s.type)) &&
+                   (attri.From == null || s.purchaseDates.Any(pd => DateOnly.FromDateTime((DateTime)pd) >= attri.From)) &&
+(attri.To == null || s.purchaseDates.Any(pd => DateOnly.FromDateTime((DateTime)pd) <= attri.To))
+                ).ToList();
+
+                India = India.Where(s =>
+                {
+                    if (attri.selectedStock == null || attri.selectedStock.Count == 0)
+                        return true; 
+
+                    foreach (var stockOption in attri.selectedStock)
+                    {
+                        if (string.IsNullOrEmpty(stockOption))
+                            continue; 
+
+                        if ((stockOption == "Low In Stock" && s.inStock <= 1) ||
+                            (stockOption == "In Stock" && s.inStock > 1) ||
+                            (stockOption == "Out Of Stock" && s.inStock == 0))
+                        {
+                            return true; 
+                        }
+                    }
+
+                    return false; 
+                }).ToList();
+
+                filteredData.Add(India);
+                filteredData.Add(allData[1]);
+            }
+            else
+            {
+                var USA = allData[1].Where(s =>
+     (attri.selectedType.Count == 0 || attri.selectedType.Contains(s.type)) &&
+     (attri.From == null || s.purchaseDates.Any(pd => DateOnly.FromDateTime((DateTime)pd) >= attri.From)) &&
+(attri.To == null || s.purchaseDates.Any(pd => DateOnly.FromDateTime((DateTime)pd) <= attri.To))
+
+ ).ToList();
+
+                USA = USA.Where(s =>
+                {
+                    if (attri.selectedStock == null || attri.selectedStock.Count == 0)
+                        return true; 
+
+                    foreach (var stockOption in attri.selectedStock)
+                    {
+                        if (string.IsNullOrEmpty(stockOption))
+                            continue; 
+
+                        if ((stockOption == "Low In Stock" && s.inStock <= 1) ||
+                            (stockOption == "In Stock" && s.inStock > 1) ||
+                            (stockOption == "Out Of Stock" && s.inStock == 0))
+                        {
+                            return true; 
+                        }
+                    }
+
+                    return false; 
+                }).ToList();
+
+                filteredData.Add(allData[0]);
+                filteredData.Add(USA);
+            }
+
+            return filteredData;
+
+        }
+
+
     }
+
 
 }

@@ -7,7 +7,7 @@
           <!--<span aria-hidden="true">&times;</span>-->
           <img src="../../../../../../assets/icons/Close.svg" />
         </button>
-        <img class="archive-img" src="../../assets/icons/ArchiveModal.svg" />
+        <img class="archive-img" [src]="singlesoftware?.isArchived ? '../../assets/icons/UnarchiveModal.svg' : '../../assets/icons/ArchiveModal.svg'" />
 
         <div class="modal-title archive_item_heading" id="exampleModalLabel">{{ singlesoftware?.isArchived ?'Unarchive':'Archive' }} Item </div>
         <div class="modal-body ">
