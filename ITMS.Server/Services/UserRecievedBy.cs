@@ -12,6 +12,8 @@ namespace ITMS.Server.Services
         Task<EmployeeDTO?> UpdateReceivedBy(RecievedByDTO receivedByDTO);
         Task<EmployeeDTO?> RevokeAll(bool isSoftware,Guid userId, RevokeAllServiceDTO receivedByDTO);
 
+        Task RevokeAll(bool isSoftware,Guid userId, RevokeAllServiceDTO receivedByDTO);
+        Task UpdateExitProcessInitiated(UpdateExitProcessInitiated dto);
     }
 
     public class UserRecievedBy : IUserRecievedBy
@@ -198,6 +200,28 @@ namespace ITMS.Server.Services
             catch (Exception ex)
             {
                 Console.WriteLine($"Error updating received by: {ex.Message}");
+                throw;
+            }
+        }
+        public async Task UpdateExitProcessInitiated(UpdateExitProcessInitiated dto)
+        {
+            try
+            {
+                var employee = await _context.Employees.FindAsync(dto.EmployeeId);
+
+                if (employee != null)
+                {
+                    employee.ExitProcessInitiated = dto.ExitProcessInitiated;
+                    await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    throw new ArgumentException("Employee not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
                 throw;
             }
         }

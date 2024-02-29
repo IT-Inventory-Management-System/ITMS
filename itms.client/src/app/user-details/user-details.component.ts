@@ -16,14 +16,18 @@ export class UserDetailsComponent {
   showRevokeAlert: { [userId: string]: boolean } = {};
   showAssignAsset: boolean = true;
 
-  constructor(private displayingDetailsService: DisplayDetailsService, private employeeService: EmployeeService) {
+  constructor(private updateExitProcessInitiationService: EmployeeService, private displayingDetailsService: DisplayDetailsService, private employeeService: EmployeeService) {
     this.resetDropdown();
-
   }
 
-  ngOnInit(): void {    
+  ngOnChanges() {
+    console.log(this.userDetails);
+  }
+
+  ngOnInit(): void {
     this.showUserDetails();
     if (this.userDetails) {
+      console.log(this.userDetails);
       this.userDetails.forEach((user: { id: string | number; }) => {
         this.showRevokeAlert[user.id] = false;
       });
@@ -34,13 +38,14 @@ export class UserDetailsComponent {
   }
 
   onInitiateExitProcess(userId: string) {
-    this.showRevokeAlert[userId] = true;
+    this.userDetails.exitProcessInitiated= true;
     this.showAssignAsset = false; 
   }
 
   onRetrieveExitProcess(userId: string) {
-    this.showRevokeAlert[userId] = false;
-    this.showAssignAsset = true; 
+    this.userDetails.exitProcessInitiated = false;
+    this.showAssignAsset = true;
+    this.updateExitProcessInitiation();
   }
 
   isOptionsVisible: boolean = false;
@@ -55,6 +60,23 @@ export class UserDetailsComponent {
 
   selectItem(item: string) {
     this.selectedItem = item;
+  }
+  updateExitProcessInitiation() {
+    const body = {
+      employeeId: this.userDetails.id,
+      exitProcessInitiated: false
+    };
+
+    this.updateExitProcessInitiationService.UpdateExitProcessInitiation(body).subscribe(
+      response => {
+        console.log('Exit process updated successfully:', response);
+        // Handle success, if needed
+      },
+      error => {
+        console.error('Error updating exit process:', error);
+        // Handle error
+      }
+    );
   }
 }
   

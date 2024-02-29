@@ -1,6 +1,6 @@
 
 <app-assign-asset></app-assign-asset>
-<app-exit-process (initiateExitProcess)="onInitiateExitProcess(userDetails.id)" [laptopDetails]="laptopDetails"[accessoriesDetails]="accessoriesDetails" [userId]="userDetails?.id" [firstName]="userDetails?.firstName" [lastName]="userDetails?.lastName" [cgiid]="userDetails?.cgiid"></app-exit-process>
+<app-exit-process (initiateExitProcess)="onInitiateExitProcess(userDetails.id)" [laptopDetails]="laptopDetails"[accessoriesDetails]="accessoriesDetails" [userId]="userDetails?.id" [firstName]="userDetails?.firstName" [lastName]="userDetails?.lastName" [cgiid]="userDetails?.cgiid"  [userEmail]="userDetails?.email"></app-exit-process>
 <app-confirmation-modal [userId]="userDetails?.id" [firstName]="userDetails?.firstName" [lastName]="userDetails?.lastName" [cgiid]="userDetails?.cgiid"></app-confirmation-modal>
 <app-revoke-all [laptopDetails]="laptopDetails"[accessoriesDetails]="accessoriesDetails" [softwareDetails]="softwareDetails" [userId]="userDetails?.id" [firstName]="userDetails?.firstName" [lastName]="userDetails?.lastName" [cgiid]="userDetails?.cgiid"></app-revoke-all>
 <div class="page-container">
@@ -31,10 +31,10 @@
             <img src="../../../../assets/icons/Chevron down.svg" />
           </button>
 
-          
+
           <div *ngIf="isOptionsVisible" class="additional-options position-absolute">
 
-            <div class="dropdown-both dropdown-btn"  [ngClass]="{ 'disabled': !showAssignAsset }" [attr.disabled]="!showAssignAsset ? true : null" (click)="isOptionsVisible = !isOptionsVisible" data-bs-toggle="modal" data-bs-target="#assignAssetModal">
+            <div class="dropdown-both dropdown-btn" [ngClass]="{ 'disabled': !showAssignAsset }" [attr.disabled]="!showAssignAsset ? true : null" (click)="isOptionsVisible = !isOptionsVisible" data-bs-toggle="modal" data-bs-target="#assignAssetModal">
               <img src="../../../../assets/icons/laptop-solid 2 (1).svg" />
               Assign Assets
             </div>
@@ -57,8 +57,9 @@
 
     </div>
 
-    <div class="revoke-alert" *ngIf="showRevokeAlert[userDetails?.id]">
-      <img class="alert-revoke-img" src="../../assets/icons/Vector-red.svg"/>
+    <!--    <div class="revoke-alert" *ngIf="showRevokeAlert[userDetails?.id]">-->
+    <div class="revoke-alert" *ngIf="userDetails?.exitProcessInitiated || showRevokeAlert[userDetails?.id]">
+      <img class="alert-revoke-img" src="../../assets/icons/Vector-red.svg" />
       <p class="exit-pro-text">Exit process initiated and all the assets information has<br /> been sent to the user.</p>
       <div class="btn btn-revoke" data-bs-toggle="modal" data-bs-target="#revokeAllModal">
         <img src="../../assets/icons/Revoke.svg" />

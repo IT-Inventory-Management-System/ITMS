@@ -16,14 +16,14 @@ export class SoftwareAllRevokeComponent {
   @Input() actionsArray: any[];
   SubmittedAction: any;
   constructor(private formBuilder: FormBuilder) { }
-  ngOnInit() {
-     this.SubmittedAction = this.actionsArray.find(a => a.actionName === 'Submitted' || a.actionName === 'submitted');
-   }
   ngOnChanges() {
-    if (this.softwareDetails && this.revokeAllForm)
-      console.log(this.softwareDetails);
+    console.log(this.softwareDetails);
+    console.log(this.actionsArray);
+    if (this.softwareDetails && this.revokeAllForm && this.actionsArray) {
+      this.SubmittedAction = this.actionsArray.find(a => a.actionName === 'Submitted' || a.actionName === 'submitted');
       this.initializeSoftwareFormArray();
-  }
+    }
+    }
 
   initializeSoftwareFormArray() {
     const SoftwareArray = this.revokeAllForm.get('Software') as FormArray;

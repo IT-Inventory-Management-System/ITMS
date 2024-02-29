@@ -10,8 +10,9 @@ namespace ITMS.Server.DTO
             public String FirstName { get; set; } = null!;
             public String? LastName { get; set; }
             public Guid LocationId { get; set; }
+            public string? Email { get; set; }
+            public bool? ExitProcessInitiated { get; set; }
 
-        
     }
 
     public class AdminListDTO

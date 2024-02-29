@@ -31,9 +31,7 @@ export class LaptopAllRevokeComponent {
   
     console.log(this.revokeAllForm);
   }
-  ngOnDestroy() {
-    console.log(this.revokeAllForm);
-  }
+
   ngOnChanges() {
     if (this.laptopDetails && this.revokeAllForm) {
       console.log(this.laptopDetails);
@@ -58,7 +56,6 @@ export class LaptopAllRevokeComponent {
         laptopArray.push(this.createLaptopFormGroup(laptop));
       });
     }
-    console.log(laptopArray);
   }
 
   createLaptopFormGroup(laptop: any) {
