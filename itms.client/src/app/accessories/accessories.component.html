@@ -1,5 +1,8 @@
 <app-accesories-filter (applyClicked)="onApplyClicked($event)"></app-accesories-filter>
 <app-new-comments [accessoryId]="accessoryId"></app-new-comments>
+<app-archive-modal [cygid]="cygid" (modalClosed)="handleModalClosed()"></app-archive-modal>
+<app-unrchivemodal [cygid]="cygid" (modalClosed)="handleModalClosed()"></app-unrchivemodal>
+
 
 
 <div class="Accesories-details ">
@@ -101,10 +104,17 @@
           </ng-option>
 
 
-          <ng-option value="Archive">
+          <ng-option *ngIf="singleSelected && singleSelected[0]?.isArchived === false" value="Archive">
             <img class="asset-image" src="../../../../../assets/icons/Assets/archive.svg" />
 
             Archive
+          </ng-option>
+
+          <ng-option *ngIf="singleSelected && singleSelected[0]?.isArchived === true" value="Unarchive">
+            <img class="asset-image" src="../../../../../assets/icons/Assets/unarchive.svg" />
+
+            Unarchive
+
           </ng-option>
 
         </ng-select>
