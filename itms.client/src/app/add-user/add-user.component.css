@@ -13,6 +13,9 @@
   display:none;
 }
 
+.required {
+  color: var(--Other-Red, #E03E2D);
+}
 
 /*
 .Add-user {
