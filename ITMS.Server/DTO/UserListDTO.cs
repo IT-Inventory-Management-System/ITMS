@@ -11,6 +11,7 @@ namespace ITMS.Server.DTO
             public String? LastName { get; set; }
             public Guid LocationId { get; set; }
             public string? Email { get; set; }
+            public bool? ExitProcessInitiated { get; set; }
 
     }
 

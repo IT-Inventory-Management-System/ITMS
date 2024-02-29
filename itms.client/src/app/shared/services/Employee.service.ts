@@ -38,7 +38,6 @@ export class EmployeeService {
     const body = { deviceLogId, receivedByUserId, ActionId };
     console.log(body);
     return this.http.post<any>(this.apiUrl + 'RecievedBy', body);
-
   }
   addComment(commentDto: any): Observable<any> {
     return this.http.post<any>(this.apiUrl + 'Comments', commentDto);
@@ -57,5 +56,8 @@ export class EmployeeService {
 
   revokeAll(body: any) {
     return this.http.post<any>(this.apiUrl + 'RecievedBy/RevokeAll', body);
+  }
+  UpdateExitProcessInitiation(body: any) {
+    return this.http.post<any>(this.apiUrl + 'RecievedBy/updateExitProcessInitiation', body);
   }
 }

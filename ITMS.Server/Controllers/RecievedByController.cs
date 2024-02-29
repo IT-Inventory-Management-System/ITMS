@@ -114,6 +114,19 @@ namespace ITMS.Server.Controllers
                 return StatusCode(500, "Internal Server Error");
             }
         }
+        [HttpPost("updateExitProcessInitiation")]
+        public async Task<IActionResult> UpdateExitProcess([FromBody] UpdateExitProcessInitiated dto)
+        {
+            try
+            {
+                await _UserRecievedBy.UpdateExitProcessInitiated(dto);
+                return Ok("Exit process updated successfully.");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred: {ex.Message}");
+            }
+        }
 
     }
 }

@@ -30,14 +30,10 @@ export class LaptopAllRevokeComponent {
     this.lostAction = this.actionsArray.find(a => a.actionName === 'Lost' || a.actionName === 'lost');
     this.SubmittedAction = this.actionsArray.find(a => a.actionName === 'Submitted' || a.actionName === 'submitted');
     this.SubmitLaterAction = this.actionsArray.find(a => a.actionName === 'Assigned' || a.actionName === 'assigned');
-    console.log(this.revokeAllForm);
   }
-  ngOnDestroy() {
-    console.log(this.revokeAllForm);
-  }
+
   ngOnChanges() {
     if (this.laptopDetails && this.revokeAllForm) {
-      console.log(this.laptopDetails);
       //console.log(this.)
       for (let i = 0; i < this.laptopDetails.length; i++) {
         this.showYesReason[i] = false;
@@ -55,7 +51,6 @@ export class LaptopAllRevokeComponent {
         laptopArray.push(this.createLaptopFormGroup(laptop));
       });
     }
-    console.log(laptopArray);
   }
 
   createLaptopFormGroup(laptop: any) {

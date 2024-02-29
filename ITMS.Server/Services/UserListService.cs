@@ -36,6 +36,7 @@ public class UserListService : IUserListService
                                 LastName = e.LastName,
                                 LocationId = e.LocationId,
                                 Email=e.Email,
+                                ExitProcessInitiated = e.ExitProcessInitiated,
                             }).ToListAsync();
         
         return result;

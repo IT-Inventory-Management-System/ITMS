@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output, ElementRef, ViewChild, SimpleChanges } from '@angular/core';
 import html2canvas from 'html2canvas';
-
+import { EmployeeService } from '../shared/services/Employee.service';
 
 @Component({
   selector: 'app-exit-process',
@@ -19,6 +19,8 @@ export class ExitProcessComponent {
   @ViewChild('emailContent') emailContent: ElementRef;
   cont: any;
   ToEmail: any;
+  constructor(private updateExitProcessInitiationService: EmployeeService) { }
+
 
   ngOnChanges() {
     this.ToEmail = this.userEmail; // Update ToEmail when userEmail changes
@@ -54,14 +56,33 @@ export class ExitProcessComponent {
         this.sendEmail(imageData);
       });
     }
+    //call function making post request to change exitProcessInitiated of this.userId to true
 
     this.initiateExitProcess.emit();
+    this.updateExitProcessInitiation();
     //html2canvas(this.emailContent.nativeElement).then(canvas => {
     //  const imageData = canvas.toDataURL(); // Convert canvas to base64 image data
     //  //this.insertImage(imageData);
     //  this.openEmailClient(imageData);
     //});
 
+  }
+  updateExitProcessInitiation() {
+    const body = {
+      employeeId: this.userId,
+      exitProcessInitiated: true 
+    };
+    console.log(body);
+    this.updateExitProcessInitiationService.UpdateExitProcessInitiation(body).subscribe(
+      response => {
+        console.log('Exit process updated successfully:', response.message);
+        // Handle success
+      },
+      error => {
+        console.error('Error updating exit process:', error);
+        // Handle error
+      }
+    );
   }
   sendEmail(imageData: string) {
     const subject = 'Exit Process Information';
