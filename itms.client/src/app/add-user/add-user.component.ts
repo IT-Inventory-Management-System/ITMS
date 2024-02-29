@@ -117,8 +117,10 @@ export class AddUserComponent implements OnInit {
   }
 
   onSubmit(): void {
+    
     this.addNew();
     for (let i = 0; i < this.list.length; i++) {
+      console.log(this.list[i].get("firstName"));
       const formValue = this.list[i].value;
 
       console.log("selected location", this.selectedLocation)
@@ -153,4 +155,5 @@ export class AddUserComponent implements OnInit {
     this.userAddedCount = 0;
 
   }
+
 }
