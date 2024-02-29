@@ -233,7 +233,6 @@ import { AccesoriesFilterComponent } from './accessories/accesories-filter/acces
     AccessoryBrandySearchBoxComponent,
     AdminPanelComponent,
     AccesoriesFilterComponent,
-    AccessoryBrandySearchBoxComponent,
     AddUserComponent
 
 
