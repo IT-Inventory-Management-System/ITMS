@@ -1,23 +1,27 @@
-<div class="Accesories" (click)="onClick()">
-  <div class="inner-accesories ">
-    <div class="name-icon ">
-      <img [src]="getAccessoryIconPath(accessories.category)" />
-      <span class="namediv">{{accessories.brand}}</span>
-      <div *ngIf="accessories?.assignedTo === false" class="available">
-        <span class="available-text">Available</span>
+<div class="Accesories " (click)="onClick()">
+  <div class="inner-accesories  ">
+    <div class="name-icon  ">
+      <div class="name ">
+        <img [src]="getAccessoryIconPath(accessories.category)" />
+        <span class="namediv">{{accessories.brand}}</span>
+      </div>
+      <div class="Cgi">
+        <span class="cgi-number ">{{accessories.cygid}}</span>
+
       </div>
     </div>
-
-    <div class="Cgi ">
-      <span class="cgi-number ">{{accessories.cygid}}</span>
-
+    <div *ngIf="accessories?.assignedTo === false" class="available ">
+      <span class="available-text">Available</span>
     </div>
 
-   
+  </div>
+
 
   </div>
- 
 
-</div>
+
+
+  
+  
 
 

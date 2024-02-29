@@ -14,21 +14,29 @@
 
 .inner-accesories {
   display: flex;
-  justify-content: space-between;
-  flex-direction:column;
+ /* justify-content: space-between;
+  flex-direction:column;*/
   align-items: flex-start;
   align-self: stretch;
   width: 17.6875rem;
   height: 2.4375rem;
 }
 
-.name-icon {
+.name {
   display: flex;
   align-items: center;
   gap: 0.625rem;
   align-self: stretch;
-  width: 17.6875rem;
   height: 1.5rem;
+}
+
+.name-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1 0 0;
+  width: 12.8125rem;
+  height: 2.4375rem;
 }
 
 .namediv {
@@ -41,10 +49,13 @@
 }
 
 .Cgi {
+  display: flex;
   padding: 0rem 2.125rem;
   align-items: flex-start;
+  gap: 0.625rem;
+  align-self: stretch;
   height: 0.9375rem;
-  width: 17.6875rem;
+  width: 12.8125rem;
 }
 
 .cgi-number {
@@ -74,15 +85,13 @@
   padding: 0.4375rem 0.625rem;
   align-items: center;
   gap: 0.625rem;
-  margin-top: 0.375rem;
-  margin-left: 7rem;
 }
 
 .available-text {
-  color: #0D542A;
-  font-family: Roboto;
-  font-size: 0.875rem;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 1.25rem; /* 142.857% */
+ color: #0D542A;
+font-family: Roboto;
+font-size: 0.875rem;
+font-style: normal;
+font-weight: 600;
+line-height: 1.25rem; /* 142.857% */
 }
