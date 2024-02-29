@@ -58,6 +58,7 @@ export class NewCommentsComponent {
             //this.getComments();
             this.deviceForm.reset();
             this.setCreatedBy();
+            this.getComments(this.dataService.DeviceDetails.id);
             this.toastr.success("Comment added successfully");
           },
           error => {

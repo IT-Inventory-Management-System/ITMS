@@ -18,7 +18,8 @@
       </label>
     </div>
     <div class="search-bar" *ngIf="selectedView === 'table'">
-      <input type="text" id="filter-text-box" placeholder="Filter" [(ngModel)]="searchValue"  (input)="onFilterTextBoxChanged()" />
+      <img src="../../../../assets/icons/Assets/search.svg" />
+      <input type="text" id="filter-text-box" placeholder="Search" [(ngModel)]="searchValue"  (input)="onFilterTextBoxChanged()" />
     </div>
     <div class="export-button" *ngIf="selectedView === 'table'">
       <button (click)="exporttoexcel()">
