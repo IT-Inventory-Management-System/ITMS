@@ -46,6 +46,7 @@ builder.Services.AddScoped<EmployeeService>();
 
 
 builder.Services.AddScoped<IPostAssignAsset, PostAssignAsset>();
+builder.Services.AddScoped<IGetAccessoryService, GetAccessoriesService>();
 
 builder.Services.AddCors(options =>
 {
