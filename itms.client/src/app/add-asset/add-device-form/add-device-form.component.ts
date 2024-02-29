@@ -12,6 +12,8 @@ import { ToastrService } from 'ngx-toastr';
 export class AddDeviceFormComponent implements OnInit {
 
   addDeviceForm: FormGroup;
+  currentCygIdIndex: number | null = null;
+
   // cygIds: FormArray;
   errorMessage: string;
   showErrorMessage = false;
@@ -21,7 +23,7 @@ export class AddDeviceFormComponent implements OnInit {
   warrantyYear: number;
   deviceData: any[] = [];
   locationId: string = '';
-
+  showExistMessage: boolean = false;
  
   constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService) {
     this.dropdownValues = [];
@@ -33,11 +35,12 @@ export class AddDeviceFormComponent implements OnInit {
     //console.log('selectedos : ', this.selectedOS);
     this.getlaptopids();
     this.loadDropdownValues();
-    this.loadDeviceData();
+    //this.loadDeviceData();
     this.createForm();
     this.setCreatedBy();
     this.setlocationId();
     this.setStatus();
+
   }
 
   createForm() {
@@ -77,14 +80,14 @@ export class AddDeviceFormComponent implements OnInit {
   updateCygId(index: number, event: Event) {
     this.hideErrorMessage();
     const value = (event.target as HTMLInputElement).value;
-    if (this.validateCygId(value) == true) {
+    if (this.validateCygId(value, index)) {
       this.cygIds.at(index).setValue(value);
+      this.currentCygIdIndex = null; // Reset the current index
+    } else {
+      this.showExistMessage = true;
+      this.errorMessage = 'CYG Id already exists or is repeated in current quantity.';
+      this.currentCygIdIndex = index; // Set the current index
     }
-    else {
-      this.showErrorMessage = true;
-      this.errorMessage = 'CYG Id already exists.';
-    }
-    
   }
 
   setCreatedBy() {
@@ -109,7 +112,7 @@ export class AddDeviceFormComponent implements OnInit {
           if (data[i].type == localStorage.getItem('selectedCountry')) {
             this.locationId = data[i].id;
             //alert(this.locationId);
-            this.loadDeviceData();
+            this.getlaptopids();
             break;
           }
         }
@@ -137,8 +140,9 @@ export class AddDeviceFormComponent implements OnInit {
   getlaptopids() {
     this.dataService.getLaptopIDs().subscribe(
       (data) => {
+        this.deviceData = data;
 
-        console.log(data);
+        console.log(this.deviceData);
         
 
       },
@@ -182,16 +186,16 @@ export class AddDeviceFormComponent implements OnInit {
     );
   }
 
-  loadDeviceData() {
-    this.dataService.getDevicesCyg(this.locationId).subscribe(
-      (data) => {
-        this.deviceData = data;
-      },
-      (error) => {
-        console.error('Error fetching device data', error);
-      }
-    );
-  }
+  //loadDeviceData() {
+  //  this.dataService.getDevicesCyg(this.locationId).subscribe(
+  //    (data) => {
+  //      this.deviceData = data;
+  //    },
+  //    (error) => {
+  //      console.error('Error fetching device data', error);
+  //    }
+  //  );
+  //}
 
   updateWarrantyDate() {
     const month = this.warrantyMonth;
@@ -218,16 +222,18 @@ export class AddDeviceFormComponent implements OnInit {
     return isValid;
   }
 
-  validateCygId(cygid : string) : boolean {
+  validateCygId(cygid: string, currentIndex: number): boolean {
+    const cygIdsArray = this.cygIds.controls.map((control) => control.value);
 
-    for (var i = 0; i < this.deviceData.length; i++) {
-      if (this.deviceData[i].cygid == cygid) {
-        return false;
-      }
-    }
+    // Check if CYG ID already exists in the database
+    const isExisting = this.deviceData.some((device) => device.cygid === cygid);
 
-    return true;
+    // Check if CYG ID is repeated within the current quantity
+    const isRepeated = cygIdsArray.filter((id, index) => id === cygid && index !== currentIndex).length > 0;
+
+    return !isExisting && !isRepeated;
   }
+
 
   onSubmit() {
 
@@ -362,5 +368,26 @@ export class AddDeviceFormComponent implements OnInit {
   onFormSubmitted() {
     this.showDeviceDetailsForm = false;
     this.ngOnInit();
+  }
+  checkShowErrorMessage() {
+    if (this.addDeviceForm.get('deviceModelId')?.value) {
+      this.showErrorMessage = false;
+    } else {
+      this.showErrorMessage = true;
+    }
+  }
+  checkShowError() {
+    if (this.addDeviceForm.get('purchasedOn')?.value) {
+      this.showErrorMessage = false;
+    } else {
+      this.showErrorMessage = true;
+    }
+  }
+  checkMonth() {
+    if (this.addDeviceForm.get('warrantyMonth')?.value) {
+      this.showErrorMessage = false;
+    } else {
+      this.showErrorMessage = true;
+    }
   }
  }

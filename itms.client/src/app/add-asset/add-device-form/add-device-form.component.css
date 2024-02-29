@@ -733,3 +733,45 @@ form{
   font-weight: 500;
   line-height: 1rem; /* 133.333% */
 }
+
+.error-alert-box1 {
+  display: flex;
+  padding: 0.5rem 0.75rem;
+  align-items: flex-start;
+  gap: 0.5rem;
+  align-self: stretch;
+  border-radius: 0.25rem;
+  border: 1px solid var(--Adhoc-Red, #CC1A07);
+  background: #FFE8E8;
+  margin-bottom:1rem;
+}
+.error-textarea {
+  border: 1px solid red;
+}
+.error-textare {
+  border-radius: 0.25rem;
+  border: 1px solid red;
+  width:8.79rem;
+  height:2.7rem;
+}
+
+
+.date-input-container {
+  height: 2.58rem;
+  border-radius: 0.25rem;
+}
+.month {
+  width: 8.40625rem;
+  border-radius: 0.25rem;
+}
+.cyg-id{
+    width:21.1rem;
+    border-radius:0.25rem;
+    height:2.6rem;
+}
+
+.cyg-idd{
+  width: 21.17rem;
+  border-radius: 0.25rem;
+  height: 2.6rem;
+}
