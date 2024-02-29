@@ -1,4 +1,6 @@
 <app-assign-asset></app-assign-asset>
+<app-add-user [selectedLocation]="selectedLocation"></app-add-user>
+
 <nav class="navbar navbar-expand-lg my-navbar">
   <div class="container-fluid">
     <a class="navbar-brand" routerLink="/dashboard">
@@ -22,21 +24,59 @@
           </div>
         </div>
       </ul>
-      <div class="nav-icons position-relative">
-        <button class="dropdown-main add-asset" (click)="isOptionsVisible = !isOptionsVisible">
-          Manage Assets
+
+
+
+
+      <div class="nav-icons position-relative  ">
+        <button class="dropdown-main add-asset " (click)="isOptionsVisible = !isOptionsVisible">
+          Quick Actions
           <img src="../../../../assets/icons/Chevron down.svg" />
         </button>
 
-        <div *ngIf="isOptionsVisible" class="additional-options position-absolute">
+        <div *ngIf="isOptionsVisible" class="additional-options position-absolute  ">
+          <div class="users">
+            <span class="user-text">ASSETS</span>
+          </div>
           <div class="dropdown-both dropdown-btn" (click)="isOptionsVisible = !isOptionsVisible" routerLink="/add-asset">
             <img class="dropdown-icn" src="../../../../assets/icons/laptop-solid 2.svg" />
             Add Assets
           </div>
-          <div class="dropdown-both dropdown-btn" (click)="isOptionsVisible = !isOptionsVisible"  data-bs-toggle="modal" data-bs-target="#assignAssetModal">
+          <div class="dropdown-both dropdown-btn" (click)="isOptionsVisible = !isOptionsVisible" data-bs-toggle="modal" data-bs-target="#assignAssetModal">
             <img src="../../../../assets/icons/laptop-solid 2 (1).svg" />
             Assign Assets
           </div>
+
+          <div class="users">
+            <span class="user-text">USERS</span>
+          </div>
+
+          <div class="dropdown-both dropdown-btn" (click)="isOptionsVisible = !isOptionsVisible">
+            <img src="../../../../assets/icons/uploadcsv.svg" />
+            Upload User Detail CSV
+          </div>
+
+
+          <div class="dropdown-both dropdown-btn" (click)="isOptionsVisible = !isOptionsVisible" data-bs-toggle="modal" data-bs-target="#UserModal">
+            <img src="../../../../assets/icons/laptop-solid 2 (1).svg" />
+            Add User Manually
+          </div>
+
+
+
+          <!--<div class="users">
+            <span class="user-text">Users</span>
+          </div>
+          <div class="upload-csv">
+            <img class="dropdown-icn" src="../../../../assets/icons/uploadcsv.svg" />
+            <span class="uploadcsv-text">Upload User Details CSV</span>
+
+          </div>
+          <div class="upload-csv">
+            <img class="dropdown-icn" src="../../../../assets/icons/Add.svg" />
+            <span class="uploadcsv-text" data-bs-toggle="modal" data-bs-target="#UserModal" >Add User Manually</span>
+
+          </div>-->
         </div>
         <div class="avatar-dropdown">
           <ngx-avatars name="{{loggedUser.firstName}} {{loggedUser.lastName}}" [textSizeRatio]=2.7 bgColor="#b8dde1" fgColor="#264f9d" [round]="true"></ngx-avatars>
@@ -44,4 +84,3 @@
         </div>
       </div>
     </div>
-

@@ -111,6 +111,7 @@ import { AddMonitorBrandFormComponent } from './add-asset/add-monitor-form/add-m
 import { AssignAccessoryCommentComponent } from './assign-asset/assign-accessory-comment/assign-accessory-comment.component';
 import { AccessoryBrandySearchBoxComponent } from './assign-asset/accessory-brandy-search-box/accessory-brandy-search-box.component';
 import { CommonModule } from '@angular/common';
+import { AddUserComponent } from './add-user/add-user.component';
 
 
 
@@ -225,7 +226,8 @@ import { CommonModule } from '@angular/common';
     AddMonitorBrandFormComponent,
     AccordionItemComponent,
     AssignAccessoryCommentComponent,
-    AccessoryBrandySearchBoxComponent
+    AccessoryBrandySearchBoxComponent,
+    AddUserComponent
 
 
   ],
