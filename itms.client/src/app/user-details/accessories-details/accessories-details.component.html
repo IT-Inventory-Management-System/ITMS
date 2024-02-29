@@ -21,6 +21,14 @@
 
     </div>
 
+    <div *ngIf="(accessory.actionName === 'Unassignable' || accessory.actionName === 'unassignable') && accessory.submittedBy != null" class="received-tag">
+
+      <div class="received-tag-info">
+        <img src="../../../assets/icons/ReceivedVector.svg" class="recieved-image" />RECEIVED
+      </div>
+
+    </div>
+
     <div *ngIf="(accessory.actionName === 'Lost' || accessory.actionName === 'lost') && accessory.submittedBy != null" class="lost-tag">
 
       <div class="lost-tag-info">
@@ -44,7 +52,7 @@
 
 
 
-    <div class="col-md-12 pp" [ngClass]="{'fade-container': (accessory.actionName === 'Lost' || accessory.actionName === 'lost' || accessory.actionName === 'Submitted' || accessory.actionName === 'submitted')}">
+    <div class="col-md-12 pp" [ngClass]="{'fade-container': (accessory.actionName === 'Lost' || accessory.actionName === 'lost' || accessory.actionName === 'Submitted' || accessory.actionName === 'submitted'|| accessory.actionName === 'Unassignable' || accessory.actionName === 'unassignable')}">
 
 
       <div class="row user-detail">

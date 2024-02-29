@@ -73,7 +73,7 @@
 
   <div class="comment-box">
     <p>Comment <span class="star">*</span></p>
-    <input type="text" class="input-box" placeholder="Type Here..."  (input)="setDeviceComment($event, i)"/>
+    <input type="text" class="input-box" placeholder="Type Here..." [(ngModel)]="accessory.comment"  (input)="setDeviceComment($event, i)"/>
   </div>
 
 

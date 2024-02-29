@@ -22,10 +22,18 @@
 
     </div>
 
+    <div *ngIf="(laptop.actionName === 'Unassignable' || laptop.actionName === 'unassignable') && laptop.submitedBy != null" class="received-tag">
+
+      <div class="received-tag-info">
+        <img src="../../../assets/icons/ReceivedVector.svg" class="recieved-image" />RECEIVED
+      </div>
+
+    </div>
+
     <div *ngIf="(laptop.actionName === 'Lost' || laptop.actionName === 'lost') && laptop.submitedBy != null" class="lost-tag">
 
       <div class="lost-tag-info">
-       LOST
+        LOST
       </div>
 
     </div>
@@ -49,12 +57,12 @@
     </div>
   </div>-->
 
-    <div *ngIf= "(laptop.actionName === 'Assigned' || laptop.actionName === 'assigned') ||  laptop.submitedBy === null " class="laptop-revoke-button">
+    <div *ngIf="(laptop.actionName === 'Assigned' || laptop.actionName === 'assigned') ||  laptop.submitedBy === null " class="laptop-revoke-button">
       <app-laptop-revoke [laptopDetails]="laptop" [userId]="userId" [firstName]="firstName" [lastName]="lastName" [cgiid]="cgiid"></app-laptop-revoke>
     </div>
 
 
-    <div class="col-md-12 pp" [ngClass]="{'fade-container': (laptop.actionName === 'Lost' || laptop.actionName === 'lost' || laptop.actionName === 'Submitted' || laptop.actionName === 'submitted')}">
+    <div class="col-md-12 pp" [ngClass]="{'fade-container': (laptop.actionName === 'Lost' || laptop.actionName === 'lost' || laptop.actionName === 'Submitted' || laptop.actionName === 'submitted' || laptop.actionName === 'Unassignable' || laptop.actionName === 'unassignable')}">
 
 
       <div class="row user-detail">

@@ -10,7 +10,7 @@ namespace ITMS.Server.Services
     public interface IUserRecievedBy
     {
         Task<EmployeeDTO?> UpdateReceivedBy(RecievedByDTO receivedByDTO);
-        Task RevokeAll(bool isSoftware,Guid userId, RevokeAllServiceDTO receivedByDTO);
+        Task<EmployeeDTO?> RevokeAll(bool isSoftware,Guid userId, RevokeAllServiceDTO receivedByDTO);
 
     }
 
@@ -118,7 +118,7 @@ namespace ITMS.Server.Services
                 throw;
             }
         }
-        public async Task RevokeAll(bool isSoftware,Guid userId, RevokeAllServiceDTO revokeDevice)
+        public async Task<EmployeeDTO?> RevokeAll(bool isSoftware,Guid userId, RevokeAllServiceDTO revokeDevice)
         {
             try
             {
@@ -164,6 +164,35 @@ namespace ITMS.Server.Services
                         };
                         _commentService.RevokeAllAddComment(commentDto);
                     }
+
+                    var actionName = await _context.ActionTables
+                      .Where(a => a.Id == newDeviceLog.ActionId)
+                      .Select(a => a.ActionName)
+                      .FirstOrDefaultAsync();
+
+                    var firstName = await _context.Employees
+                         .Where(e => e.Id == newDeviceLog.RecievedBy)
+                         .Select(e => e.FirstName)
+                         .FirstOrDefaultAsync();
+
+                    var lastName = await _context.Employees
+                         .Where(e => e.Id == newDeviceLog.RecievedBy)
+                         .Select(e => e.LastName)
+                         .FirstOrDefaultAsync();
+
+                    return new EmployeeDTO
+                    {
+                        deviceLogId = newDeviceLog.Id,
+                        FirstName = firstName,
+                        LastName = lastName,
+                        RecievedDate = newDeviceLog.RecievedDate,// Include the RecievedDate
+                        ActionName = actionName // Include ActionName
+
+                    };
+                }
+                else
+                {
+                    return null;
                 }
             }
             catch (Exception ex)

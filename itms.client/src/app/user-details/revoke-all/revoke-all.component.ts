@@ -1,4 +1,4 @@
-import { Component, Input, SimpleChanges } from '@angular/core';
+import { Component, Input, SimpleChanges, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EmployeeService } from '../../shared/services/Employee.service';
 
@@ -16,6 +16,7 @@ export class RevokeAllComponent {
   @Input() laptopDetails: any;
   @Input() accessoriesDetails: any;
   @Input() softwareDetails: any;
+  
 
   revokeAllForm: FormGroup;
   actionsArray: any[] = [];
@@ -32,7 +33,7 @@ export class RevokeAllComponent {
     if (this['accessoriesDetails'] && Array.isArray(this['accessoriesDetails'])) 
       this.filteredAccessoriesDetails = this['accessoriesDetails'].filter((accessory: any) => accessory.submittedBy === null);
   }
-  constructor(private formBuilder: FormBuilder, private revokeAllService: EmployeeService, private actionService: EmployeeService) {
+  constructor(private formBuilder: FormBuilder, private revokeAllService: EmployeeService, private actionService: EmployeeService, private employeeService: EmployeeService) {
     this.revokeAllForm = this.formBuilder.group({
       userid: [null, Validators.required],
       Laptop: this.formBuilder.array([]),
@@ -125,7 +126,77 @@ export class RevokeAllComponent {
     console.log(formData);
     this.revokeAllService.revokeAll(formData).subscribe(
       (response) => {
-        console.log('Data saved successfully', response);
+       // console.log("user id is: ", this.userId);
+       // console.log("response of recent is :", response);
+
+        // Set laptop details
+        console.log("the recent response is ",response);
+        console.log("laptop details is:", response.laptopResults);
+       
+
+        
+        if (response && response.laptopResults && response.laptopResults.length > 0) {
+          for (let i = 0; i < response.laptopResults.length; i++) {
+            const laptop = response.laptopResults[i];
+            console.log("First Name:", laptop.firstName);
+
+            // Assuming this.laptopDetails is an array of objects and each object already exists
+            if (this.laptopDetails.length > i) {
+              // Update existing fields at the corresponding index
+              this.laptopDetails[i].submitedBy = `${laptop.firstName} ${laptop.lastName}`;
+              this.laptopDetails[i].submitedByDate = laptop.recievedDate;
+              this.laptopDetails[i].actionName = laptop.actionName;
+            } else {
+              console.log("No corresponding laptop in laptopDetails array.");
+            }
+          }
+        } else {
+          console.log("No laptop results found.");
+        }
+      
+
+        // Set accessories details
+        console.log("accessories result is :", response.accessoryResults);
+        if (response && response.accessoryResults && response.accessoryResults.length > 0) {
+          for (let i = 0; i < response.accessoryResults.length; i++) {
+            const accessory = response.accessoryResults[i];
+            console.log("First Name:", accessory.firstName);
+
+            // Assuming this.laptopDetails is an array of objects and each object already exists
+            if (this.accessoriesDetails.length > i) {
+              // Update existing fields at the corresponding index
+              this.accessoriesDetails[i].submittedBy = `${accessory.firstName} ${accessory.lastName}`;
+              this.accessoriesDetails[i].submittedByDate = accessory.recievedDate;
+              this.accessoriesDetails[i].actionName = accessory.actionName;
+            } else {
+              console.log("No corresponding accessory in accessoryDetails array.");
+            }
+          }
+        } else {
+          console.log("No accessory results found.");
+        }
+
+        if (response && response.softwareResults && response.softwareResults.length > 0) {
+          for (let i = 0; i < response.softwareResults.length; i++) {
+            const software = response.softwareResults[i];
+            console.log("First Name:", software.firstName);
+
+            // Assuming this.laptopDetails is an array of objects and each object already exists
+            if (this.softwareDetails.length > i) {
+              // Update existing fields at the corresponding index
+              this.softwareDetails[i].recievedBy = `${software.firstName} ${software.lastName}`;
+              this.softwareDetails[i].recievedByDate = software.recievedDate;
+              this.softwareDetails[i].actionName = software.actionName;
+            } else {
+              console.log("No corresponding software in softwareDetails array.");
+            }
+          }
+        } else {
+          console.log("No software results found.");
+        }
+
+       
+        //console.log('Data saved successfully', response);
         this.revokeAllForm.reset();
       },
       (error) => {

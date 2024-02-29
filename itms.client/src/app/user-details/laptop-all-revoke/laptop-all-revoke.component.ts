@@ -18,6 +18,7 @@ export class LaptopAllRevokeComponent {
   selectedReason: any;
   lostAction: any;
   SubmittedAction: any;
+  SubmittedActionUnassign: any;
   SubmitLaterAction: any;
   //newComment: string = '';
   //comments: any;
@@ -27,9 +28,7 @@ export class LaptopAllRevokeComponent {
   constructor(private formBuilder: FormBuilder, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
-    this.lostAction = this.actionsArray.find(a => a.actionName === 'Lost' || a.actionName === 'lost');
-    this.SubmittedAction = this.actionsArray.find(a => a.actionName === 'Submitted' || a.actionName === 'submitted');
-    this.SubmitLaterAction = this.actionsArray.find(a => a.actionName === 'Assigned' || a.actionName === 'assigned');
+  
     console.log(this.revokeAllForm);
   }
   ngOnDestroy() {
@@ -38,6 +37,10 @@ export class LaptopAllRevokeComponent {
   ngOnChanges() {
     if (this.laptopDetails && this.revokeAllForm) {
       console.log(this.laptopDetails);
+      this.lostAction = this.actionsArray.find(a => a.actionName === 'Lost' || a.actionName === 'lost');
+      this.SubmittedAction = this.actionsArray.find(a => a.actionName === 'Submitted' || a.actionName === 'submitted');
+      this.SubmittedActionUnassign = this.actionsArray.find(a => a.actionName === 'Unassignable' || a.actionName === 'unassignable');
+      this.SubmitLaterAction = this.actionsArray.find(a => a.actionName === 'Assigned' || a.actionName === 'assigned');
       //console.log(this.)
       for (let i = 0; i < this.laptopDetails.length; i++) {
         this.showYesReason[i] = false;
@@ -81,18 +84,42 @@ export class LaptopAllRevokeComponent {
   handleReasonSelection(reason: string, index: number) {
     const laptopArray = this.revokeAllForm.get('Laptop') as FormArray;
     const laptopFormGroup = laptopArray.at(index) as FormGroup;
+    console.log(this.SubmittedAction);
+    console.log(this.actionsArray);
+   // console.log("reason is: ", reason);
+    //const selectedAction = this.actionsArray.find(action => action.actionName === reason);
+    //console.log(selectedAction);
+    //console.log(this.actionsArray);
+
+
+    //if (selectedAction) {
+    //  laptopFormGroup.patchValue({ actionId: selectedAction.id }); // Set actionId
+    //}
+
     switch (reason) {
       case 'Perfect':
-        laptopFormGroup.patchValue({ actionId: this.SubmittedAction.id });
+        if (this.SubmittedAction) {
+          console.log(this.SubmittedAction.id);
+          laptopFormGroup.patchValue({ actionId: this.SubmittedAction.id });
+        }
         break;
       case 'Unassignable':
-        laptopFormGroup.patchValue({ actionId: this.SubmittedAction.id });
+        if (this.SubmittedActionUnassign) {
+          console.log(this.SubmittedActionUnassign.id);
+          laptopFormGroup.patchValue({ actionId: this.SubmittedActionUnassign.id });
+        }
         break;
       case 'Submitted Later':
-        laptopFormGroup.patchValue({ actionId: this.SubmitLaterAction.id });
+        if (this.SubmitLaterAction) {
+          console.log(this.SubmitLaterAction.id);
+          laptopFormGroup.patchValue({ actionId: this.SubmitLaterAction.id });
+        }
         break;
       case 'Lost/Not Received':
-        laptopFormGroup.patchValue({ actionId: this.lostAction.id });
+        if (this.lostAction) {
+          console.log(this.lostAction.id);
+          laptopFormGroup.patchValue({ actionId: this.lostAction.id });
+        }
         break;
       default:
         break;
@@ -106,13 +133,13 @@ export class LaptopAllRevokeComponent {
     // Check if actionId matches the selected reason
     switch (reason) {
       case 'Perfect':
-        return laptopFormGroup.value.actionId === this.SubmittedAction.id;
+        return this.SubmittedAction && laptopFormGroup.value.actionId === this.SubmittedAction.id;
       case 'Unassignable':
-        return laptopFormGroup.value.actionId === this.SubmittedAction.id;
+        return this.SubmittedActionUnassign && laptopFormGroup.value.actionId === this.SubmittedActionUnassign.id;
       case 'Submitted Later':
-        return laptopFormGroup.value.actionId === this.SubmitLaterAction.id;
+        return this.SubmitLaterAction && laptopFormGroup.value.actionId === this.SubmitLaterAction.id;
       case 'Lost/Not Received':
-        return laptopFormGroup.value.actionId === this.lostAction.id;
+        return this.lostAction && laptopFormGroup.value.actionId === this.lostAction.id;
       default:
         return false;
     }
@@ -121,7 +148,7 @@ export class LaptopAllRevokeComponent {
   isReceivedYes(laptop: any, index: number): boolean {
     const laptopArray = this.revokeAllForm.get('Laptop') as FormArray;
     const laptopFormGroup = laptopArray.at(index) as FormGroup;
-    const receivedYes = laptopFormGroup.value.actionId === this.SubmittedAction.id;
+    const receivedYes = laptopFormGroup.value.actionId === this.SubmittedAction?.id || laptopFormGroup.value.actionId === this.SubmittedActionUnassign?.id;
     //if (receivedYes) {
     //  this.showYesReason[index] = true; // Update the showYesReason array
     //  this.showNoReason[index] = false;
@@ -132,8 +159,8 @@ export class LaptopAllRevokeComponent {
   isReceivedNo(laptop: any, index: number): boolean {
     const laptopArray = this.revokeAllForm.get('Laptop') as FormArray;
     const laptopFormGroup = laptopArray.at(index) as FormGroup;
-    const receivedNo = laptopFormGroup.value.actionId === this.SubmitLaterAction.id ||
-      laptopFormGroup.value.actionId === this.lostAction.id;
+    const receivedNo = laptopFormGroup.value.actionId === this.SubmitLaterAction?.id ||
+      laptopFormGroup.value.actionId === this.lostAction?.id;
     //if (receivedNo) {
     //  this.showYesReason[index] = true; // Update the showYesReason array
     //  this.showNoReason[index] = false;

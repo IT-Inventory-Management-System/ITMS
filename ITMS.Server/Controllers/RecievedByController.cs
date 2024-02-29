@@ -1,4 +1,5 @@
 ﻿using ITMS.Server.DTO;
+using ITMS.Server.Models;
 using ITMS.Server.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -39,6 +40,10 @@ namespace ITMS.Server.Controllers
         {
            try
             {
+                List<object> laptopResults = new List<object>(); // List to store laptop task results
+                List<object> softwareResults = new List<object>(); // List to store software task results
+                List<object> accessoryResults = new List<object>(); // List to store accessory task results
+
                 foreach (var laptop in receivedByDTO.Laptop)
                 {
                     RevokeAllServiceDTO revokeAllServiceDTO = new RevokeAllServiceDTO
@@ -47,13 +52,13 @@ namespace ITMS.Server.Controllers
                         ActionId = laptop.ActionId,
                         DeviceComment = laptop.DeviceComment
                     };
-                    var taskResult = _UserRecievedBy.RevokeAll(false,receivedByDTO.UserId ,revokeAllServiceDTO);
+                    var taskResult = await _UserRecievedBy.RevokeAll(false,receivedByDTO.UserId ,revokeAllServiceDTO);
 
                     // Wait for the task to complete
-                    await taskResult;
+                    //await taskResult;
                     if (taskResult != null)
                     {
-                        // Handle success
+                        laptopResults.Add(taskResult);
                     }
                     else
                     {
@@ -69,13 +74,13 @@ namespace ITMS.Server.Controllers
                         DeviceLogId = software.DeviceLogId,
                         ActionId = software.ActionId,
                     };
-                    var taskResult = _UserRecievedBy.RevokeAll(true, receivedByDTO.UserId, revokeAllServiceDTO);
+                    var taskResult = await _UserRecievedBy.RevokeAll(true, receivedByDTO.UserId, revokeAllServiceDTO);
 
                     // Wait for the task to complete
-                    await taskResult;
+                   // await taskResult;
                     if (taskResult != null)
                     {
-                        // Handle success
+                        softwareResults.Add(taskResult);
                     }
                     else
                     {
@@ -92,13 +97,13 @@ namespace ITMS.Server.Controllers
                         ActionId = accessory.ActionId,
                         DeviceComment = accessory.DeviceComment
                     };
-                    var taskResult = _UserRecievedBy.RevokeAll(false,receivedByDTO.UserId, revokeAllServiceDTO);
+                    var taskResult = await _UserRecievedBy.RevokeAll(false,receivedByDTO.UserId, revokeAllServiceDTO);
 
                     // Wait for the task to complete
-                    await taskResult;
+                   // await taskResult;
                     if (taskResult != null)
                     {
-                        // Handle success
+                        accessoryResults.Add(taskResult);
                     }
                     else
                     {
@@ -107,7 +112,13 @@ namespace ITMS.Server.Controllers
                 }
 
                 // All updates were successful
-                return Ok(new { message = "All updates were successful" });
+                return Ok(new
+                {
+                    message = "All updates were successful",
+                    LaptopResults = laptopResults,
+                    SoftwareResults = softwareResults,
+                    AccessoryResults = accessoryResults
+                });
             }
             catch (Exception ex)
             {
