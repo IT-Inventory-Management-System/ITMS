@@ -15,7 +15,7 @@ namespace ITMS.Server.Services
         {
             _context = context;
         }
-
+        //NAMAN
         public DevicelogDto GetDevices(Guid id)
         {
             try
