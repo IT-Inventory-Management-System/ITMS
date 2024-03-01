@@ -1,8 +1,12 @@
 
 <app-assign-asset></app-assign-asset>
-<app-exit-process (initiateExitProcess)="onInitiateExitProcess(userDetails.id)" [laptopDetails]="laptopDetails"[accessoriesDetails]="accessoriesDetails" [userId]="userDetails?.id" [firstName]="userDetails?.firstName" [lastName]="userDetails?.lastName" [cgiid]="userDetails?.cgiid"  [userEmail]="userDetails?.email"></app-exit-process>
+<app-exit-process (initiateExitProcess)="onInitiateExitProcess(userDetails.id)" [laptopDetails]="laptopDetails" [accessoriesDetails]="accessoriesDetails" [userId]="userDetails?.id" [firstName]="userDetails?.firstName" [lastName]="userDetails?.lastName" [cgiid]="userDetails?.cgiid" [userEmail]="userDetails?.email"></app-exit-process>
 <app-confirmation-modal [userId]="userDetails?.id" [firstName]="userDetails?.firstName" [lastName]="userDetails?.lastName" [cgiid]="userDetails?.cgiid"></app-confirmation-modal>
-<app-revoke-all [laptopDetails]="laptopDetails"[accessoriesDetails]="accessoriesDetails" [softwareDetails]="softwareDetails" [userId]="userDetails?.id" [firstName]="userDetails?.firstName" [lastName]="userDetails?.lastName" [cgiid]="userDetails?.cgiid"></app-revoke-all>
+<app-revoke-all [laptopDetails]="laptopDetails" [accessoriesDetails]="accessoriesDetails" [softwareDetails]="softwareDetails" [userId]="userDetails?.id" [firstName]="userDetails?.firstName" [lastName]="userDetails?.lastName" [cgiid]="userDetails?.cgiid"></app-revoke-all>
+
+
+
+
 <div class="page-container">
 
   <div class="row-container">
@@ -67,6 +71,10 @@
       </div>
     </div>
 
+    <div class="archive-alert">
+      <img class="archive-alert-img" src="../../assets/icons/Vector-black.svg" />
+      <p class="archive-text-days">The exit process has been completed successfully. The user will be auto-archived after 30 days.</p>
+    </div>
 
     <div class="buttons">
 
@@ -103,37 +111,37 @@
 
     <!--<div class="assigned">
 
-  <div class="buttons">
+    <div class="buttons">
 
-  <button class="item1">
+    <button class="item1">
 
-  <div class="laptop">Laptop</div>
+    <div class="laptop">Laptop</div>
 
-  </button>
+    </button>
 
-  <button class="item2">
+    <button class="item2">
 
-  <div class="software">Software
+    <div class="software">Software
 
-          </div>
+            </div>
 
-  </button>
+    </button>
 
-  <button class="item3">
+    <button class="item3">
 
-  <div class="accessories">Accessories</div>
+    <div class="accessories">Accessories</div>
 
-  </button>
+    </button>
 
-  </div>
+    </div>
 
-      <app-laptop-details [userId]="userDetails.id"></app-laptop-details>
+        <app-laptop-details [userId]="userDetails.id"></app-laptop-details>
 
-  <app-software-details></app-software-details>
+    <app-software-details></app-software-details>
 
-  <app-accessories-details></app-accessories-details>
+    <app-accessories-details></app-accessories-details>
 
-    </div>-->
+      </div>-->
 
 
   </div>

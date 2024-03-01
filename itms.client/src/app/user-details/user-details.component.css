@@ -385,3 +385,78 @@
   pointer-events: none;
   color: grey;
 }
+
+.archive-alert {
+  width: 97%;
+  height: 32px;
+  margin-top: 0.6rem;
+  border-radius: 4px;
+  border: 1px solid #2DC26B;
+ padding: 8px 8px 8px 8px;
+  background-color: #EAF6E4;
+  gap:10rem;
+ 
+}
+
+.archive-text-days {
+  margin-top: -1.7rem;
+  margin-left: 1.5rem;
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+.archive-alert-img {
+  margin-bottom: 0.9rem;
+}
+
+
+/*.archive-users {
+  width: 187px;
+  height: 24px;
+  gap: 76px;
+  margin-top: -2.5rem;
+}
+
+.archive-checkbox {
+  display: none;
+}
+
+.archive-text-heading {
+  position: relative;
+  cursor: pointer;
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: 0em;
+  text-align: left;
+  padding-left: 25px;
+}
+
+  .archive-text-heading:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 18px;
+    height: 18px;
+    border: 1px solid #28519E;
+    background-color: transparent;
+  }
+
+.archive-checkbox:checked + .archive-text-heading:before {
+  background-color: #28519E;
+  content: '\2713';
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: white;
+  font-size: 14px;
+  line-height: 18px;
+  text-align: center;
+}
+*/
