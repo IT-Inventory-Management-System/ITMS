@@ -12,6 +12,7 @@ namespace ITMS.Server.DTO
             public Guid LocationId { get; set; }
             public string? Email { get; set; }
             public bool? ExitProcessInitiated { get; set; }
+            public bool? isArchived { get; set; }
 
     }
 

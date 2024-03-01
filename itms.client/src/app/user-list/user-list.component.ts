@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DisplayDetailsService } from '../shared/services/display-details.service';
 import { DataService } from '../shared/services/data.service';
 import { SelectedCountryService } from '../shared/services/selected-country.service';
@@ -19,8 +19,24 @@ export class UserListComponent implements OnInit {
   loading: boolean = true;
 
 
+  @Input() showArchiveUsers: any;
+
+
   @Output() userDetailsClicked: EventEmitter<any> = new EventEmitter<any>();
-  //@Output() loadingStateChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  ngOnChanges() {
+    if (this.showArchiveUsers) {
+      this.showUserListData();
+    }
+  }
+ 
+  //@Output() showArchiveUsersChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  //onArchiveCheckboxChange(): void {
+  //  this.showArchiveUsers = !this.showArchiveUsers;
+  //  this.showArchiveUsersChanged.emit(this.showArchiveUsers);
+  //  this.showUserListData();
+  //}
 
   showUserDetails(userDetails: any, index: number) {
    
@@ -68,23 +84,29 @@ export class UserListComponent implements OnInit {
   }
  
   showUserListData() {
-   // this.loadingStateChanged.emit(true); 
+  
     console.log(this.locationId);
     this.displayingDetailsService.getshowUserListData(this.locationId).subscribe(
       (data) => {
-        console.log(data);
-        this.displayingData = data;
+        if (this.showArchiveUsers) {
+          this.displayingData = data.filter(user => user.isArchived === 1);
+        }
+        else {
+          this.displayingData = data.filter(user => user.isArchived === 0);
+        }
+
+        console.log("user list data is:", data);
         this.displayingData = data.sort((a, b) => a.cgiid.localeCompare(b.cgiid));
         console.log(this.displayingData);
         this.loading = false;
         if (this.displayingData.length > 0) {
           this.showUserDetails(this.displayingData[0], 0);
         }
-        //this.loadingStateChanged.emit(false); 
+       
       },
       (error) => {
         console.log('Error in API request : ', error);
-        //this.loadingStateChanged.emit(false); 
+       
       }
     );
   }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { EmployeeService } from '../shared/services/Employee.service';
 
 @Component({
@@ -14,6 +14,10 @@ export class EmployeeComponent {
   laptopDetails: any;
   softwareDetails: any;
   accessoriesDetails: any;
+  //archive users
+  showArchiveUsers: boolean = false;
+
+
   constructor(private employeeService: EmployeeService) {
 
   }
@@ -42,8 +46,12 @@ export class EmployeeComponent {
       );
   }
 
-  
   setLoadingState(isLoading: boolean) {
     this.isLoading = isLoading;
+  }
+
+  onShowArchiveUsersChanged(event: any): void {
+    const checked = event.target.checked;
+    this.showArchiveUsers = checked;
   }
 }
