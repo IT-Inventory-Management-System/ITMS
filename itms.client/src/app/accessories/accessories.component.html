@@ -65,8 +65,8 @@
           </div>
         </div>
 
-        <div *ngFor="let accessory of filteredAccessories ? filteredAccessories : accessories">
-          <app-accesoriesname [accessories]="accessory" (cardClicked)="onCardClicked($event)"></app-accesoriesname>
+        <div *ngFor="let accessory of filteredAccessories ? filteredAccessories : accessories; let i = index">
+          <app-accesoriesname [accessories]="accessory" [isSelected]="selectedAccessoryIndex === i" (cardClicked)="onCardClicked($event, i)"></app-accesoriesname>
         </div>
 
 
@@ -93,10 +93,19 @@
 
         </div>
         <ng-select class="ng-selectclass" (change)="handleSelectionChange($event)" [(ngModel)]="selectedOption" [clearable]="false" [searchable]="false">
-          <ng-option [value]="'Active'">
-            <img class="asset-image" src="../../../../../assets/icons/Assets/active.svg" />
+          <!--<ng-option [value]="'Active'">
+    <img class="asset-image" src="../../../../../assets/icons/Assets/active.svg" />
 
+    Active
+  </ng-option>-->
+          <ng-option *ngIf="!(singleSelected && singleSelected[0]?.isArchived)" [value]="'Active'">
+            <img class="asset-image" src="../../../../../assets/icons/Assets/active.svg" />
             Active
+          </ng-option>
+
+          <ng-option *ngIf="singleSelected && singleSelected[0]?.isArchived" [value]="'Archived'">
+            <img class="asset-image" src="../../../../../assets/icons/Assets/archive.svg" />
+            Archived
           </ng-option>
           <ng-option [value]="'Unassignable'">
             <img class="asset-image" src="../../../../../assets/icons/Assets/unassignable.svg" />
@@ -104,8 +113,8 @@
           </ng-option>
 
 
-          <ng-option *ngIf="singleSelected && singleSelected[0]?.isArchived === false" value="Archive">
-            <img class="asset-image" src="../../../../../assets/icons/Assets/archive.svg" />
+          <ng-option *ngIf="singleSelected && singleSelected[0]?.isArchived === false" value="Archive"  [disabled]="singleSelected[0]?.assignedTo">
+            <img class="asset-image" src="../../../../../assets/icons/Assets/archive.svg"/>
 
             Archive
           </ng-option>

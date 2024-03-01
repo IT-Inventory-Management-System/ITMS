@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, SimpleChanges } from '@angular/core';
 import { DataService } from '../shared/services/data.service';
 import { SelectedCountryService } from '../shared/services/selected-country.service';
 import { ColDef } from 'ag-grid-community';
@@ -10,11 +10,13 @@ import * as XLSX from 'xlsx';
   styleUrls: ['./accessories.component.css']
 })
 export class AccessoriesComponent {
+  selectedAccessoryIndex: number = 0;
+
   locationId: string = '';
   rowData: any[] = [];
   searchValue: string = '';
 
-    selectedOption: string = 'Active';
+    selectedOption: string;
 
   selectedView: string = 'card';
   accessories: any[];
@@ -42,21 +44,34 @@ export class AccessoriesComponent {
 
   constructor(private dataService: DataService, private selectedCountryService: SelectedCountryService) {
     this.filteredAccessories = this.accessories;
+  
 
   }
 
-  onCardClicked(eventData: any): void {
+  onCardClicked(eventData: any, index: number): void {
+    if (this.selectedAccessoryIndex === index) {
+      this.selectedAccessoryIndex = -1; // Deselect the card if it's already selected
+    } else {
+      this.selectedAccessoryIndex = index; // Select the clicked card
+    }
+   
     this.cygid = eventData.CYGID;
 
-   // console.log("cyg", this.cygid);
-    //console.log(eventData);
+    // console.log("cyg", this.cygid);
+    // console.log(eventData);
     this.singleSelected = this.accessories.filter(a => a.cygid === eventData.CYGID);
     console.log(this.singleSelected);
     this.singleHistoryAccessory(this.locationId, this.cygid);
     this.accessoryId = eventData.accessoryId;
     console.log(this.accessoryId)
-
+    if (this.singleSelected[0]?.isArchived) {
+      this.selectedOption = 'Archived';
+    } else {
+      this.selectedOption = 'Active';
+    }
   }
+
+
 
   calculateYearDifference(startDate: string | null, endDate: string | null): number {
     if (!startDate || !endDate) {
@@ -109,6 +124,7 @@ export class AccessoriesComponent {
     } else {
       this.onApplyClicked(this.archivedAttributes);
     }
+    this.selectedAccessoryIndex = 0;
   }
 
   ngOnInit(): void {
@@ -116,8 +132,8 @@ export class AccessoriesComponent {
       localStorage.setItem('selectedCountry', selectedCountry);
       this.getUserLocation();
     });
-    //this.loadAdminList(); 
-
+  
+    //this.loadAdminList();
   }
 
   getUserLocation() {
@@ -149,8 +165,12 @@ export class AccessoriesComponent {
     this.dataService.getAllAccessories(dto)
       .subscribe(accessories => {
         this.accessories = accessories;
+        this.singleSelected = [this.accessories[0]];
         this.setRowData();
-       // console.log('Accessories', this.accessories); // Do something with the data
+        console.log('Accessories', [this.accessories[0]]);
+        this.singleHistoryAccessory(this.locationId, this.accessories[0].cygid);
+        this.selectedOption = this.accessories[0].isArchived ? 'Archived' : 'Active';
+        this.cygid = this.accessories[0].cygid
       });
   }
 
@@ -228,6 +248,7 @@ export class AccessoriesComponent {
         }
       );
     }
+    this.selectedAccessoryIndex = 0;
   }
 
 
@@ -251,7 +272,7 @@ export class AccessoriesComponent {
         "Device ID": this.accessories[i].cygid,
         "Type": this.accessories[i].isWired ? "Wireless" : "Wired",
         "Brand": this.accessories[i].brand,
-        "Accessories Status": this.accessories[i].status,
+        "Accessories Status": this.accessories[i].isArchived?"Archived":"Active",
        
 
       }
@@ -284,7 +305,7 @@ export class AccessoriesComponent {
   }
 
   handleModalClosed() {
-    this.selectedOption = 'Active';
+    
   }
 
 }
