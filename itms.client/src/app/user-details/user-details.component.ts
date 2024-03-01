@@ -13,8 +13,10 @@ export class UserDetailsComponent {
   @Input() laptopDetails: any;
   @Input() softwareDetails: any;
   @Input() accessoriesDetails: any;
+  archiveBanner: boolean=false;
   showRevokeAlert: { [userId: string]: boolean } = {};
   showAssignAsset: boolean = true;
+  storedUser: any;
 
   constructor(private updateExitProcessInitiationService: EmployeeService, private displayingDetailsService: DisplayDetailsService, private employeeService: EmployeeService) {
     this.resetDropdown();
@@ -22,6 +24,7 @@ export class UserDetailsComponent {
 
   ngOnChanges() {
     console.log(this.userDetails);
+    this.archiveBannerFunction();
   }
 
   ngOnInit(): void {
@@ -33,8 +36,22 @@ export class UserDetailsComponent {
       });
     }
   }
+  archiveBannerFunction() {
+    this.archiveBanner = this.userDetails.isArchived === true && this.calculateDaysDifference(this.userDetails.updatedAtUtc) < 30;
+  }
+  calculateDaysDifference(updatedAtUtc: string): number {
+    const currentDate = new Date();
+    const updatedAt = new Date(updatedAtUtc);
+    const differenceInTime = currentDate.getTime() - updatedAt.getTime();
+    const differenceInDays = differenceInTime / (1000 * 3600 * 24); // Convert milliseconds to days
+    return Math.abs(Math.round(differenceInDays)); // Return absolute value of days
+  }
+
   showUserDetails() {
 
+  }
+  changeArchiveBanner(value: boolean) {
+    this.archiveBanner = value;
   }
 
   onInitiateExitProcess(userId: string) {
@@ -62,8 +79,10 @@ export class UserDetailsComponent {
     this.selectedItem = item;
   }
   updateExitProcessInitiation() {
+     this.storedUser = localStorage.getItem("user");
     const body = {
       employeeId: this.userDetails.id,
+      updatedBy: JSON.parse(this.storedUser).id,
       exitProcessInitiated: false
     };
 

@@ -26,19 +26,30 @@ export class UserListComponent implements OnInit {
   @Output() userDetailsClicked: EventEmitter<any> = new EventEmitter<any>();
 
   ngOnChanges() {
-    if (this.showArchiveUsers)
+    if (this.showArchiveUsers || !this.showArchiveUsers)
       this.filterAndSort();
   }
 
   filterAndSort() {
-      this.filteredDisplayingData = this.displayingData.filter(user => user.isArchived == this.showArchiveUsers);
-
+    if (this.showArchiveUsers) 
+      this.filteredDisplayingData = this.displayingData.filter(user => user.isArchived === true && this.calculateDaysDifference(user.updatedAtUtc) > 30);
+    else 
+      this.filteredDisplayingData = this.displayingData.filter(user => user.isArchived === false || (user.isArchived === true &&  this.calculateDaysDifference(user.updatedAtUtc) < 30));
     this.filteredDisplayingData.sort((a, b) => a.cgiid.localeCompare(b.cgiid));
     this.loading = false;
     if (this.filteredDisplayingData.length > 0) {
       this.showUserDetails(this.filteredDisplayingData[0], 0);
     }
   }
+
+  calculateDaysDifference(updatedAtUtc: string): number {
+    const currentDate = new Date();
+    const updatedAt = new Date(updatedAtUtc);
+    const differenceInTime = currentDate.getTime() - updatedAt.getTime();
+    const differenceInDays = differenceInTime / (1000 * 3600 * 24); // Convert milliseconds to days
+    return Math.abs(Math.round(differenceInDays)); // Return absolute value of days
+  }
+
  
   //@Output() showArchiveUsersChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
 

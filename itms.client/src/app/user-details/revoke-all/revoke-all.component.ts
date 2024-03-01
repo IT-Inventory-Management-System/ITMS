@@ -1,4 +1,4 @@
-import { Component, Input, SimpleChanges, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, SimpleChanges, ChangeDetectorRef, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EmployeeService } from '../../shared/services/Employee.service';
 
@@ -16,6 +16,8 @@ export class RevokeAllComponent {
   @Input() laptopDetails: any;
   @Input() accessoriesDetails: any;
   @Input() softwareDetails: any;
+  @Output() changeArchiveBanner: EventEmitter<boolean> = new EventEmitter<boolean>();
+
   variable1: boolean = true; 
   variable2: boolean = false; 
   variable3: boolean = true; 
@@ -50,6 +52,7 @@ export class RevokeAllComponent {
   constructor(private formBuilder: FormBuilder, private revokeAllService: EmployeeService, private actionService: EmployeeService, private employeeService: EmployeeService) {
     this.revokeAllForm = this.formBuilder.group({
       userid: [null, Validators.required],
+      archiveUserId: [null, Validators.required],
       Laptop: this.formBuilder.array([]),
       Software: this.formBuilder.array([]),
       Accessory: this.formBuilder.array([]),
@@ -132,18 +135,22 @@ export class RevokeAllComponent {
   }
 
   saveData() {
+    this.changeArchiveBanner.emit(true);
     const formData = this.revokeAllForm.value;
     const storedUser = localStorage.getItem("user");
-    if (storedUser !== null) {
+    if (storedUser !== null) 
       formData.userid = JSON.parse(storedUser).id;
-    }
+    if (this.userId)
+      formData.archiveUserId = this.userId;
     console.log(formData);
+
     this.revokeAllService.revokeAll(formData).subscribe(
       (response) => {
        // console.log("user id is: ", this.userId);
        // console.log("response of recent is :", response);
 
         // Set laptop details
+
         console.log("the recent response is ",response);
         console.log("laptop details is:", response.laptopResults);
        

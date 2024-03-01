@@ -2,7 +2,7 @@
 <app-assign-asset></app-assign-asset>
 <app-exit-process (initiateExitProcess)="onInitiateExitProcess(userDetails.id)" [laptopDetails]="laptopDetails" [accessoriesDetails]="accessoriesDetails" [userId]="userDetails?.id" [firstName]="userDetails?.firstName" [lastName]="userDetails?.lastName" [cgiid]="userDetails?.cgiid" [userEmail]="userDetails?.email"></app-exit-process>
 <app-confirmation-modal [userId]="userDetails?.id" [firstName]="userDetails?.firstName" [lastName]="userDetails?.lastName" [cgiid]="userDetails?.cgiid"></app-confirmation-modal>
-<app-revoke-all [laptopDetails]="laptopDetails" [accessoriesDetails]="accessoriesDetails" [softwareDetails]="softwareDetails" [userId]="userDetails?.id" [firstName]="userDetails?.firstName" [lastName]="userDetails?.lastName" [cgiid]="userDetails?.cgiid"></app-revoke-all>
+<app-revoke-all [laptopDetails]="laptopDetails" [accessoriesDetails]="accessoriesDetails" [softwareDetails]="softwareDetails" [userId]="userDetails?.id" [firstName]="userDetails?.firstName" [lastName]="userDetails?.lastName" [cgiid]="userDetails?.cgiid" (changeArchiveBanner)="changeArchiveBanner($event)"></app-revoke-all>
 
 
 
@@ -30,7 +30,7 @@
         </div>
         <div class="nav-icons position-relative">
 
-          <button class="dropdown-main add-asset" (click)="isOptionsVisible = !isOptionsVisible">
+          <button class="dropdown-main add-asset" [ngClass]="{ 'disabled': archiveBanner }"  (click)="isOptionsVisible = !isOptionsVisible">
             Action
             <img src="../../../../assets/icons/Chevron down.svg" />
           </button>
@@ -62,7 +62,7 @@
     </div>
 
     <!--    <div class="revoke-alert" *ngIf="showRevokeAlert[userDetails?.id]">-->
-    <div class="revoke-alert" *ngIf="userDetails?.exitProcessInitiated || showRevokeAlert[userDetails?.id]">
+    <div class="revoke-alert" *ngIf="(userDetails?.exitProcessInitiated || showRevokeAlert[userDetails?.id]) && !archiveBanner">
       <img class="alert-revoke-img" src="../../assets/icons/Vector-red.svg" />
       <p class="exit-pro-text">Exit process initiated and all the assets information has<br /> been sent to the user.</p>
       <div class="btn btn-revoke" data-bs-toggle="modal" data-bs-target="#revokeAllModal">
@@ -71,7 +71,7 @@
       </div>
     </div>
 
-    <div class="archive-alert">
+    <div class="archive-alert" *ngIf="archiveBanner ">
       <img class="archive-alert-img" src="../../assets/icons/Vector-black.svg" />
       <p class="archive-text-days">The exit process has been completed successfully. The user will be auto-archived after 30 days.</p>
     </div>

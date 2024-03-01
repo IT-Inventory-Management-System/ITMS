@@ -38,6 +38,7 @@ public class UserListService : IUserListService
                                 Email=e.Email,
                                 ExitProcessInitiated = e.ExitProcessInitiated,
                                 isArchived = e.IsArchived,
+                                UpdatedAtUtc = e.UpdatedAtUtc,
                             }).ToListAsync();
         
         return result;

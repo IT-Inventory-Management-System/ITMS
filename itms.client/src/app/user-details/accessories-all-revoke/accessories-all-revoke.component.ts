@@ -28,13 +28,9 @@ export class AccessoriesAllRevokeComponent {
   showYesReason: boolean[] = [];
   showNoReason: boolean[] = [];
   ngOnInit() {
-    if (!this.accessoriesDetails) {
+    if (!this.accessoriesDetails.length) {
       this.saveBtn.emit(false);
     }
-    this.lostAction = this.actionsArray.find(a => a.actionName === 'Lost' || a.actionName === 'lost');
-    this.SubmittedAction = this.actionsArray.find(a => a.actionName === 'Submitted' || a.actionName === 'submitted');
-    this.SubmittedActionUnassign = this.actionsArray.find(a => a.actionName === 'Unassignable' || a.actionName === 'unassignable');
-    this.SubmitLaterAction = this.actionsArray.find(a => a.actionName === 'Assigned' || a.actionName === 'assigned');
   }
   constructor(private formBuilder: FormBuilder) { }
   ngOnChanges() {
@@ -42,6 +38,10 @@ export class AccessoriesAllRevokeComponent {
       if (this.accessoriesDetails.length)
         this.saveBtn.emit(true);
       console.log(this.accessoriesDetails);
+      this.lostAction = this.actionsArray.find(a => a.actionName === 'Lost' || a.actionName === 'lost');
+      this.SubmittedAction = this.actionsArray.find(a => a.actionName === 'Submitted' || a.actionName === 'submitted');
+      this.SubmittedActionUnassign = this.actionsArray.find(a => a.actionName === 'Unassignable' || a.actionName === 'unassignable');
+      this.SubmitLaterAction = this.actionsArray.find(a => a.actionName === 'Assigned' || a.actionName === 'assigned');
         for (let i = 0; i < this.accessoriesDetails.length; i++) {
           this.showYesReason[i] = false;
           this.showNoReason[i] = false;

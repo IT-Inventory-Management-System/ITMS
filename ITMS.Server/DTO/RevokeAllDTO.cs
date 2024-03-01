@@ -3,6 +3,7 @@
     public class RevokeAllDTO
     {
         public Guid UserId { get; set; }
+        public Guid archiveUserId { get; set; }
         public List<LaptopRevokeDTO> Laptop { get; set; }
         public List<SoftwareRevokeDTO> Software { get; set; }
         public List<AccessoryRevokeDTO> Accessory { get; set; }

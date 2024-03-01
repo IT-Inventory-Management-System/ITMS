@@ -50,9 +50,11 @@ namespace ITMS.Server.Controllers
                     {
                         DeviceLogId = laptop.DeviceLogId,
                         ActionId = laptop.ActionId,
-                        DeviceComment = laptop.DeviceComment
+                        DeviceComment = laptop.DeviceComment,
+                        userId= receivedByDTO.UserId,
+
                     };
-                    var taskResult = await _UserRecievedBy.RevokeAll(false,receivedByDTO.UserId ,revokeAllServiceDTO);
+                    var taskResult = await _UserRecievedBy.RevokeAll(false, revokeAllServiceDTO);
 
                     // Wait for the task to complete
                     //await taskResult;
@@ -73,8 +75,9 @@ namespace ITMS.Server.Controllers
                     {
                         DeviceLogId = software.DeviceLogId,
                         ActionId = software.ActionId,
+                        userId = receivedByDTO.UserId,
                     };
-                    var taskResult = await _UserRecievedBy.RevokeAll(true, receivedByDTO.UserId, revokeAllServiceDTO);
+                    var taskResult = await _UserRecievedBy.RevokeAll(true, revokeAllServiceDTO);
 
                     // Wait for the task to complete
                    // await taskResult;
@@ -95,9 +98,10 @@ namespace ITMS.Server.Controllers
                     {
                         DeviceLogId = accessory.DeviceLogId,
                         ActionId = accessory.ActionId,
-                        DeviceComment = accessory.DeviceComment
+                        DeviceComment = accessory.DeviceComment,
+                        userId = receivedByDTO.UserId,
                     };
-                    var taskResult = await _UserRecievedBy.RevokeAll(false,receivedByDTO.UserId, revokeAllServiceDTO);
+                    var taskResult = await _UserRecievedBy.RevokeAll(false, revokeAllServiceDTO);
 
                     // Wait for the task to complete
                    // await taskResult;
@@ -111,6 +115,7 @@ namespace ITMS.Server.Controllers
                     }
                 }
 
+                await _UserRecievedBy.ArchiveEmployee(receivedByDTO.UserId, receivedByDTO.archiveUserId);
                 // All updates were successful
                 return Ok(new
                 {

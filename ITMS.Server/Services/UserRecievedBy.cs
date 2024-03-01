@@ -10,9 +10,10 @@ namespace ITMS.Server.Services
     public interface IUserRecievedBy
     {
         Task<EmployeeDTO?> UpdateReceivedBy(RecievedByDTO receivedByDTO);
-        Task<EmployeeDTO?> RevokeAll(bool isSoftware,Guid userId, RevokeAllServiceDTO receivedByDTO);
+        Task<EmployeeDTO?> RevokeAll(bool isSoftware, RevokeAllServiceDTO receivedByDTO);
 
-        
+        Task ArchiveEmployee(Guid employeeId, Guid updatedByUserId);
+
         Task UpdateExitProcessInitiated(UpdateExitProcessInitiated dto);
     }
 
@@ -120,7 +121,7 @@ namespace ITMS.Server.Services
                 throw;
             }
         }
-        public async Task<EmployeeDTO?> RevokeAll(bool isSoftware,Guid userId, RevokeAllServiceDTO revokeDevice)
+        public async Task<EmployeeDTO?> RevokeAll(bool isSoftware,RevokeAllServiceDTO revokeDevice)
         {
             try
             {
@@ -136,13 +137,13 @@ namespace ITMS.Server.Services
                         DeviceId = deviceLog.DeviceId,
                         EmployeeId = deviceLog.EmployeeId,
                         AssignedBy = deviceLog.AssignedBy,
-                        RecievedBy = userId,
+                        RecievedBy = revokeDevice.userId,
                         AssignedDate = deviceLog.AssignedDate,
                         RecievedDate = DateTime.UtcNow,
                         AllotedDate = deviceLog.AllotedDate,
                         CreatedBy = deviceLog.CreatedBy,
                         CreatedAtUtc = DateTime.UtcNow,
-                        UpdatedBy = userId, 
+                        UpdatedBy = revokeDevice.userId, 
                         UpdatedAtUtc = DateTime.UtcNow,
                         ActionId = revokeDevice.ActionId,
                         SoftwareAllocation = deviceLog.SoftwareAllocation,
@@ -159,7 +160,7 @@ namespace ITMS.Server.Services
                         UserCommentHistory commentDto = new UserCommentHistory
                         {
                             Description = revokeDevice.DeviceComment,
-                            CreatedBy = userId,
+                            CreatedBy = revokeDevice.userId,
                             CreatedAtUtc = DateTime.UtcNow,
                             DeviceId = deviceLog.DeviceId.HasValue ? deviceLog.DeviceId.Value : Guid.Empty,
                             DeviceLogId = newDeviceLog.Id,
@@ -214,6 +215,8 @@ namespace ITMS.Server.Services
                 if (employee != null)
                 {
                     employee.ExitProcessInitiated = dto.ExitProcessInitiated;
+                    employee.UpdatedBy = dto.updatedBy;
+                    employee.UpdatedAtUtc = DateTime.UtcNow;
                     await _context.SaveChangesAsync();
                 }
                 else
@@ -224,6 +227,30 @@ namespace ITMS.Server.Services
             catch (Exception ex)
             {
                 Console.WriteLine($"An error occurred: {ex.Message}");
+                throw;
+            }
+        }
+
+        public async Task ArchiveEmployee(Guid UserId, Guid archiveUserId)
+        {
+            try
+            {
+                var employee = await _context.Employees.FindAsync(archiveUserId);
+                if (employee != null)
+                {
+                    employee.UpdatedBy = UserId;
+                    employee.UpdatedAtUtc = DateTime.UtcNow;
+                    employee.IsArchived = true;
+                    await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    throw new ArgumentException("Employee not found");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating employee details: {ex.Message}");
                 throw;
             }
         }
