@@ -17,6 +17,7 @@ export class UserListComponent implements OnInit {
   selectedUserIndex: number = 0;
   locationId: string = '';
   loading: boolean = true;
+  filteredDisplayingData: any[] = [];
 
 
   @Input() showArchiveUsers: any;
@@ -25,8 +26,17 @@ export class UserListComponent implements OnInit {
   @Output() userDetailsClicked: EventEmitter<any> = new EventEmitter<any>();
 
   ngOnChanges() {
-    if (this.showArchiveUsers) {
-      this.showUserListData();
+    if (this.showArchiveUsers)
+      this.filterAndSort();
+  }
+
+  filterAndSort() {
+      this.filteredDisplayingData = this.displayingData.filter(user => user.isArchived == this.showArchiveUsers);
+
+    this.filteredDisplayingData.sort((a, b) => a.cgiid.localeCompare(b.cgiid));
+    this.loading = false;
+    if (this.filteredDisplayingData.length > 0) {
+      this.showUserDetails(this.filteredDisplayingData[0], 0);
     }
   }
  
@@ -40,16 +50,16 @@ export class UserListComponent implements OnInit {
 
   showUserDetails(userDetails: any, index: number) {
    
-    this.displayingData.forEach(user => {
+    this.filteredDisplayingData.forEach(user => {
       user.isSelected = false;
     });
 
   
-    const originalIndex = this.displayingData.findIndex(user => user.cgiid === userDetails.cgiid);
+    const originalIndex = this.filteredDisplayingData.findIndex(user => user.cgiid === userDetails.cgiid);
 
     if (originalIndex !== -1) {
-      this.displayingData[originalIndex].isSelected = true;
-      this.userDetailsClicked.emit(this.displayingData[originalIndex]);
+      this.filteredDisplayingData[originalIndex].isSelected = true;
+      this.userDetailsClicked.emit(this.filteredDisplayingData[originalIndex]);
     }
     
   }
@@ -88,25 +98,11 @@ export class UserListComponent implements OnInit {
     console.log(this.locationId);
     this.displayingDetailsService.getshowUserListData(this.locationId).subscribe(
       (data) => {
-        if (this.showArchiveUsers) {
-          this.displayingData = data.filter(user => user.isArchived === 1);
-        }
-        else {
-          this.displayingData = data.filter(user => user.isArchived === 0);
-        }
-
-        console.log("user list data is:", data);
-        this.displayingData = data.sort((a, b) => a.cgiid.localeCompare(b.cgiid));
-        console.log(this.displayingData);
-        this.loading = false;
-        if (this.displayingData.length > 0) {
-          this.showUserDetails(this.displayingData[0], 0);
-        }
-       
+        this.displayingData = data;
+        this.filterAndSort();       
       },
       (error) => {
         console.log('Error in API request : ', error);
-       
       }
     );
   }
