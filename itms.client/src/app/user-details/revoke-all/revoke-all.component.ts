@@ -136,16 +136,16 @@ export class RevokeAllComponent {
 
         
         if (response && response.laptopResults && response.laptopResults.length > 0) {
-          for (let i = 0; i < response.laptopResults.length; i++) {
-            const laptop = response.laptopResults[i];
+          for (const laptop of response.laptopResults) {
             console.log("First Name:", laptop.firstName);
 
-            // Assuming this.laptopDetails is an array of objects and each object already exists
-            if (this.laptopDetails.length > i) {
-              // Update existing fields at the corresponding index
-              this.laptopDetails[i].submitedBy = `${laptop.firstName} ${laptop.lastName}`;
-              this.laptopDetails[i].submitedByDate = laptop.recievedDate;
-              this.laptopDetails[i].actionName = laptop.actionName;
+            
+            const correspondingLaptop = this.laptopDetails.find((l: any) => l.deviceId === laptop.deviceId);
+            if (correspondingLaptop) {
+              
+              correspondingLaptop.submitedBy = `${laptop.firstName} ${laptop.lastName}`;
+              correspondingLaptop.submitedByDate = laptop.recievedDate;
+              correspondingLaptop.actionName = laptop.actionName;
             } else {
               console.log("No corresponding laptop in laptopDetails array.");
             }
@@ -158,35 +158,36 @@ export class RevokeAllComponent {
         // Set accessories details
         console.log("accessories result is :", response.accessoryResults);
         if (response && response.accessoryResults && response.accessoryResults.length > 0) {
-          for (let i = 0; i < response.accessoryResults.length; i++) {
-            const accessory = response.accessoryResults[i];
+          for (const accessory of response.accessoryResults) {
             console.log("First Name:", accessory.firstName);
 
-            // Assuming this.laptopDetails is an array of objects and each object already exists
-            if (this.accessoriesDetails.length > i) {
-              // Update existing fields at the corresponding index
-              this.accessoriesDetails[i].submittedBy = `${accessory.firstName} ${accessory.lastName}`;
-              this.accessoriesDetails[i].submittedByDate = accessory.recievedDate;
-              this.accessoriesDetails[i].actionName = accessory.actionName;
+
+            const correspondingAccessory = this.accessoriesDetails.find((a: any) => a.deviceId === accessory.deviceId);
+            if (correspondingAccessory) {
+
+              correspondingAccessory.submittedBy = `${accessory.firstName} ${accessory.lastName}`;
+              correspondingAccessory.submittedByDate = accessory.recievedDate;
+              correspondingAccessory.actionName = accessory.actionName;
             } else {
-              console.log("No corresponding accessory in accessoryDetails array.");
+              console.log("No corresponding accessory in accessoriesDetails array.");
             }
           }
         } else {
           console.log("No accessory results found.");
         }
 
+        console.log("software result is :", response.softwareResults);
         if (response && response.softwareResults && response.softwareResults.length > 0) {
-          for (let i = 0; i < response.softwareResults.length; i++) {
-            const software = response.softwareResults[i];
+          for (const software of response.softwareResults) {
             console.log("First Name:", software.firstName);
 
-            // Assuming this.laptopDetails is an array of objects and each object already exists
-            if (this.softwareDetails.length > i) {
-              // Update existing fields at the corresponding index
-              this.softwareDetails[i].recievedBy = `${software.firstName} ${software.lastName}`;
-              this.softwareDetails[i].recievedByDate = software.recievedDate;
-              this.softwareDetails[i].actionName = software.actionName;
+
+            const correspondingSoftware = this.softwareDetails.find((s: any) => s.softwareAllocationId === software.softwareAllocationId);
+            if (correspondingSoftware) {
+
+              correspondingSoftware.recievedBy = `${software.firstName} ${software.lastName}`;
+              correspondingSoftware.recievedByDate = software.recievedDate;
+              correspondingSoftware.actionName = software.actionName;
             } else {
               console.log("No corresponding software in softwareDetails array.");
             }
