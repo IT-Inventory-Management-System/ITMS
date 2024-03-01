@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class DisplayDetailsService {
 
-  private apiUrl = 'https://localhost:7283/api/';
+  private apiUrl = 'https://www.itmsbackend.somee.com/api/';
   searchText: any;
     
   constructor(private http: HttpClient) { }
