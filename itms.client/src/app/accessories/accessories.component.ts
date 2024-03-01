@@ -48,7 +48,12 @@ export class AccessoriesComponent {
 
   }
 
-  onCardClicked(eventData: any): void {
+  onCardClicked(eventData: any, index: number): void {
+    if (this.selectedAccessoryIndex === index) {
+      this.selectedAccessoryIndex = -1; // Deselect the card if it's already selected
+    } else {
+      this.selectedAccessoryIndex = index; // Select the clicked card
+    }
    
     this.cygid = eventData.CYGID;
 
