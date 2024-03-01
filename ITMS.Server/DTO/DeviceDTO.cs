@@ -124,8 +124,6 @@ namespace ITMS.Server.DTO
         public bool? IsArchived { get; set; }
 
         public string? CYGID { get; set; }
-
-
     }
 
     public class allAccessoriesDTO
