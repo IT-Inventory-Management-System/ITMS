@@ -127,6 +127,7 @@ export class AccessoriesComponent {
     } else {
       this.onApplyClicked(this.archivedAttributes);
     }
+    this.selectedAccessoryIndex = 0;
   }
 
   ngOnInit(): void {
@@ -247,6 +248,7 @@ export class AccessoriesComponent {
         }
       );
     }
+    this.selectedAccessoryIndex = 0;
   }
 
 
