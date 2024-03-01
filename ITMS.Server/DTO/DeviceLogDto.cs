@@ -98,6 +98,24 @@ public class FilterDTO
 
 }
 
+public class historySingleDevice
+{
+    public string? empName { get; set; }
+    public string? CGIID { get; set; }
+    public string? AssignedBy { get; set; }
+    public DateTime? AssignedDate { get; set; }
+    public string? RecievedBy { get; set; }
+    public DateTime? RecievedDate { get; set; }
+}
+
+public class locationDeviceDTO
+{
+    public Guid locationId { get; set; }
+    public string? CYGID { get; set; }
+
+
+}
+
 
 //public class logDTO
 //{

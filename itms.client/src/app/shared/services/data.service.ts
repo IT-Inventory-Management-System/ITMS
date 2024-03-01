@@ -47,8 +47,8 @@ export class DataService {
     return this.http.get<any[]>(this.apiUrl + 'Device/' + deviceId);
   }
 
-  getUserInfo(deviceId: string): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl + 'DeviceLog/devicesloginfo/' + deviceId);
+  getUserInfo(inputData: any): Observable<any> {
+    return this.http.post(this.apiUrl + 'DeviceLog/singleHistoryDevice' , inputData);
   }
 
   postDeviceModel(formData: any): Observable<any> {
