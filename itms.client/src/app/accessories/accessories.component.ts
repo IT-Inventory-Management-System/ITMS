@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, SimpleChanges } from '@angular/core';
 import { DataService } from '../shared/services/data.service';
 import { SelectedCountryService } from '../shared/services/selected-country.service';
 import { ColDef } from 'ag-grid-community';
@@ -71,6 +71,8 @@ export class AccessoriesComponent {
     }
   }
 
+
+
   calculateYearDifference(startDate: string | null, endDate: string | null): number {
     if (!startDate || !endDate) {
       return 0;
@@ -130,6 +132,7 @@ export class AccessoriesComponent {
       localStorage.setItem('selectedCountry', selectedCountry);
       this.getUserLocation();
     });
+  
     //this.loadAdminList();
   }
 
@@ -165,7 +168,9 @@ export class AccessoriesComponent {
         this.singleSelected = [this.accessories[0]];
         this.setRowData();
         console.log('Accessories', [this.accessories[0]]);
-        this.singleHistoryAccessory(this.locationId,this.accessories[0].cygid);
+        this.singleHistoryAccessory(this.locationId, this.accessories[0].cygid);
+        this.selectedOption = this.accessories[0].isArchived ? 'Archived' : 'Active';
+        this.cygid = this.accessories[0].cygid
       });
   }
 
@@ -267,7 +272,7 @@ export class AccessoriesComponent {
         "Device ID": this.accessories[i].cygid,
         "Type": this.accessories[i].isWired ? "Wireless" : "Wired",
         "Brand": this.accessories[i].brand,
-        "Accessories Status": this.accessories[i].isArchied?"Archived":"Active",
+        "Accessories Status": this.accessories[i].isArchived?"Archived":"Active",
        
 
       }
