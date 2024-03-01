@@ -10,6 +10,8 @@ import * as XLSX from 'xlsx';
   styleUrls: ['./accessories.component.css']
 })
 export class AccessoriesComponent {
+  selectedAccessoryIndex: number = 0;
+
   locationId: string = '';
   rowData: any[] = [];
   searchValue: string = '';
@@ -45,11 +47,27 @@ export class AccessoriesComponent {
 
   }
 
-  onCardClicked(eventData: any): void {
+  //onCardClicked(eventData: any, index: number): void {
+  //  if (this.selectedAccessoryIndex === index) {
+  //    this.selectedAccessoryIndex = -1; // Deselect the card if it's already selected
+  //  } else {
+  //    this.selectedAccessoryIndex = index; // Select the clicked card
+  //  }
+  //}
+
+
+  onCardClicked(eventData: any,index: number): void {
+
+    if (this.selectedAccessoryIndex === index) {
+      this.selectedAccessoryIndex = -1; // Deselect the card if it's already selected
+    } else {
+      this.selectedAccessoryIndex = index; // Select the clicked card
+    }
+
     this.cygid = eventData.CYGID;
 
-   // console.log("cyg", this.cygid);
-    //console.log(eventData);
+    // console.log("cyg", this.cygid);
+    // console.log(eventData);
     this.singleSelected = this.accessories.filter(a => a.cygid === eventData.CYGID);
     console.log(this.singleSelected);
     this.singleHistoryAccessory(this.locationId, this.cygid);
@@ -116,8 +134,7 @@ export class AccessoriesComponent {
       localStorage.setItem('selectedCountry', selectedCountry);
       this.getUserLocation();
     });
-    //this.loadAdminList(); 
-
+    //this.loadAdminList();
   }
 
   getUserLocation() {
@@ -149,8 +166,10 @@ export class AccessoriesComponent {
     this.dataService.getAllAccessories(dto)
       .subscribe(accessories => {
         this.accessories = accessories;
+        this.singleSelected = [this.accessories[0]];
         this.setRowData();
-       // console.log('Accessories', this.accessories); // Do something with the data
+        console.log('Accessories', [this.accessories[0]]);
+        this.singleHistoryAccessory(this.locationId,this.accessories[0].cygid);
       });
   }
 
