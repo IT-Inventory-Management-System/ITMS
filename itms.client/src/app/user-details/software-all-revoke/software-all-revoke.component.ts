@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
@@ -14,6 +14,7 @@ export class SoftwareAllRevokeComponent {
   @Input() softwareDetails: any;
   @Input() revokeAllForm: FormGroup;
   @Input() actionsArray: any[];
+  @Output() nextBtn: EventEmitter<boolean> = new EventEmitter<boolean>();
   SubmittedAction: any;
   constructor(private formBuilder: FormBuilder) { }
   ngOnChanges() {

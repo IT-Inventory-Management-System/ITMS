@@ -16,13 +16,27 @@ export class RevokeAllComponent {
   @Input() laptopDetails: any;
   @Input() accessoriesDetails: any;
   @Input() softwareDetails: any;
+  variable1: boolean = true; 
+  variable2: boolean = false; 
+  variable3: boolean = true; 
   
-
   revokeAllForm: FormGroup;
   actionsArray: any[] = [];
   filteredLaptopDetails: any;
   filteredAccessoriesDetails: any;
   filteredSoftwareDetails: any;
+
+  onVariable1Change(value: boolean) {
+    this.variable1 = value;
+  }
+
+  onVariable2Change(value: boolean) {
+    this.variable2 = value;
+  }
+
+  onVariable3Change(value: boolean) {
+    this.variable3 = value;
+  }
 
   // Filter the details in ngOnChanges lifecycle hook
   ngOnChanges() {

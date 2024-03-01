@@ -11,8 +11,6 @@ namespace ITMS.Server.Services
     {
         Task<EmployeeDTO?> UpdateReceivedBy(RecievedByDTO receivedByDTO);
         Task<EmployeeDTO?> RevokeAll(bool isSoftware,Guid userId, RevokeAllServiceDTO receivedByDTO);
-
-        Task RevokeAll(bool isSoftware,Guid userId, RevokeAllServiceDTO receivedByDTO);
         Task UpdateExitProcessInitiated(UpdateExitProcessInitiated dto);
     }
 

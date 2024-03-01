@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
@@ -14,6 +14,8 @@ export class AccessoriesAllRevokeComponent {
   @Input() accessoriesDetails: any;
   @Input() revokeAllForm: FormGroup;
   @Input() actionsArray: any[];
+  @Output() saveBtn: EventEmitter<boolean> = new EventEmitter<boolean>();
+
   lostAction: any;
   SubmittedAction: any;
   SubmittedActionUnassign: any;
@@ -51,6 +53,8 @@ export class AccessoriesAllRevokeComponent {
         accessoryArray.push(this.createAccessoryFormGroup(accessory));
       });
     }
+    if (!this.accessoriesDetails)
+      this.saveBtn.emit(false);
     console.log(accessoryArray);
   }
 
@@ -60,6 +64,20 @@ export class AccessoriesAllRevokeComponent {
       actionId: [null],
       deviceComment: [null]
     });
+  }
+
+  checkIfSomethingIsMissing() {
+    const accessoryArray = this.revokeAllForm.get('Accessory') as FormArray;
+    for (let i = 0; i < accessoryArray.length; i++) {
+      const accessoryFormGroup = accessoryArray.at(i) as FormGroup;
+      const actionId = accessoryFormGroup.get('actionId')?.value;
+      const deviceComment = accessoryFormGroup.get('deviceComment')?.value;
+      if (!actionId || !deviceComment) {
+        this.saveBtn.emit(true);
+        return;
+      }
+    }
+    this.saveBtn.emit(false);
   }
 
   showYesReasonOptions(index: number) {
@@ -98,6 +116,7 @@ export class AccessoriesAllRevokeComponent {
       default:
         break;
     }
+    this.checkIfSomethingIsMissing();
   }
 
   isReasonSelected(reason: string, index: number): boolean {
@@ -153,5 +172,6 @@ export class AccessoriesAllRevokeComponent {
     const accessoryFormGroup = accessoryArray.at(index) as FormGroup;
     const val = event.target.value;
     accessoryFormGroup.patchValue({ deviceComment: val });
+    this.checkIfSomethingIsMissing();
   }
 }

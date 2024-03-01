@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
@@ -14,6 +14,8 @@ export class LaptopAllRevokeComponent {
   @Input() laptopDetails: any[];
   @Input() actionsArray: any[];
   @Input() revokeAllForm: FormGroup;
+  @Output() nextBtn: EventEmitter<boolean> = new EventEmitter<boolean>();
+
 
   selectedReason: any;
   lostAction: any;
@@ -28,12 +30,12 @@ export class LaptopAllRevokeComponent {
   constructor(private formBuilder: FormBuilder, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
-  
     console.log(this.revokeAllForm);
   }
 
   ngOnChanges() {
     if (this.laptopDetails && this.revokeAllForm) {
+      this.nextBtn.emit(true);
       console.log(this.laptopDetails);
       this.lostAction = this.actionsArray.find(a => a.actionName === 'Lost' || a.actionName === 'lost');
       this.SubmittedAction = this.actionsArray.find(a => a.actionName === 'Submitted' || a.actionName === 'submitted');
@@ -66,6 +68,19 @@ export class LaptopAllRevokeComponent {
     });
   }
 
+  checkIfSomethingIsMissing() {
+    const LaptopArray = this.revokeAllForm.get('Laptop') as FormArray;
+    for (let i = 0; i < LaptopArray.length; i++) {
+      const accessoryFormGroup = LaptopArray.at(i) as FormGroup;
+      const actionId = accessoryFormGroup.get('actionId')?.value;
+      const deviceComment = accessoryFormGroup.get('deviceComment')?.value;
+      if (!actionId || !deviceComment) {
+        this.nextBtn.emit(true);
+        return;
+      }
+    }
+    this.nextBtn.emit(false);
+  }
   showYesReasonOptions(index: number) {
     this.showYesReason[index] = true;
     this.showNoReason[index] = false;
@@ -121,6 +136,7 @@ export class LaptopAllRevokeComponent {
       default:
         break;
     }
+    this.checkIfSomethingIsMissing();
   }
 
   isReasonSelected(reason: string, index: number): boolean {
@@ -176,13 +192,6 @@ export class LaptopAllRevokeComponent {
     const laptopFormGroup = laptopArray.at(index) as FormGroup;
     const val = event.target.value;
     laptopFormGroup.patchValue({ deviceComment: val });
+    this.checkIfSomethingIsMissing();
   }
 }
-   /*
-actionName:"Assigned"
-id:"9412ce34-dba4-40b2-9ff9-de60b8987529"
-actionName:"Lost"
-id:"13e8fba9-7c8c-4d83-9f7c-4a91a82eae66"
-actionName:"Submitted"
-id:"5b6200c2-f960-446d-8943-0f89336126d2"
-   */
