@@ -1,4 +1,4 @@
-<div class="Accesories " (click)="onClick()">
+<div class="Accesories " [ngClass]="{ 'selected': isSelected }" (click)="onClick()">
   <div class="inner-accesories  ">
     <div class="name-icon  ">
       <div class="name ">

@@ -720,7 +720,7 @@ public class DeviceService
              .Select(e => e.FirstName + " " + e.LastName)
              .FirstOrDefault(),
          RecievedDate = group.FirstOrDefault().RecievedBy == null ? null : group.FirstOrDefault().RecievedDate
-     })
+     }).OrderByDescending(group => group.AssignedDate)
      .ToList();
 
 

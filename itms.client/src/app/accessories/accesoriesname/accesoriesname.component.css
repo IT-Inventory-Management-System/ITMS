@@ -12,6 +12,11 @@
   height: 3.6875rem;
 }
 
+.selected {
+  border: 2px solid blue; /* Example border styling */
+  background-color: lightblue; /* Example background color */
+}
+
 .inner-accesories {
   display: flex;
  /* justify-content: space-between;

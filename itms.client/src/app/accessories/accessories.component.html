@@ -65,8 +65,8 @@
           </div>
         </div>
 
-        <div *ngFor="let accessory of filteredAccessories ? filteredAccessories : accessories">
-          <app-accesoriesname [accessories]="accessory" (cardClicked)="onCardClicked($event)"></app-accesoriesname>
+        <div *ngFor="let accessory of filteredAccessories ? filteredAccessories : accessories; let i = index">
+          <app-accesoriesname [accessories]="accessory" [isSelected]="selectedAccessoryIndex === i" (cardClicked)="onCardClicked($event, i)"></app-accesoriesname>
         </div>
 
 

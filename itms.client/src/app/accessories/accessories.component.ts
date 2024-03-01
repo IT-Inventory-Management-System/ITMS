@@ -10,6 +10,8 @@ import * as XLSX from 'xlsx';
   styleUrls: ['./accessories.component.css']
 })
 export class AccessoriesComponent {
+  selectedAccessoryIndex: number = 0;
+
   locationId: string = '';
   rowData: any[] = [];
   searchValue: string = '';
@@ -50,8 +52,8 @@ export class AccessoriesComponent {
    
     this.cygid = eventData.CYGID;
 
-   // console.log("cyg", this.cygid);
-    //console.log(eventData);
+    // console.log("cyg", this.cygid);
+    // console.log(eventData);
     this.singleSelected = this.accessories.filter(a => a.cygid === eventData.CYGID);
     console.log(this.singleSelected);
     this.singleHistoryAccessory(this.locationId, this.cygid);
@@ -115,6 +117,7 @@ export class AccessoriesComponent {
     } else {
       this.onApplyClicked(this.archivedAttributes);
     }
+    this.selectedAccessoryIndex = 0;
   }
 
   ngOnInit(): void {
@@ -122,8 +125,7 @@ export class AccessoriesComponent {
       localStorage.setItem('selectedCountry', selectedCountry);
       this.getUserLocation();
     });
-    //this.loadAdminList(); 
-
+    //this.loadAdminList();
   }
 
   getUserLocation() {
@@ -155,8 +157,10 @@ export class AccessoriesComponent {
     this.dataService.getAllAccessories(dto)
       .subscribe(accessories => {
         this.accessories = accessories;
+        this.singleSelected = [this.accessories[0]];
         this.setRowData();
-       // console.log('Accessories', this.accessories); // Do something with the data
+        console.log('Accessories', [this.accessories[0]]);
+        this.singleHistoryAccessory(this.locationId,this.accessories[0].cygid);
       });
   }
 
@@ -234,6 +238,7 @@ export class AccessoriesComponent {
         }
       );
     }
+    this.selectedAccessoryIndex = 0;
   }
 
 

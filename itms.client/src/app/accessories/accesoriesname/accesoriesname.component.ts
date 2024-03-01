@@ -8,16 +8,20 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class AccesoriesnameComponent {
 
   @Input() accessories: any
+  @Input() isSelected: boolean = false;
+
 
   @Output() cardClicked: EventEmitter<any> = new EventEmitter<any>();
-  onClick(): void {
+  //onClick(): void {
+  //  this.cardClicked.emit();
+  //}
 
+  onClick(): void {
     this.cardClicked.emit({
       CYGID: this.accessories.cygid,
       accessoryId: this.accessories.accessoryId
     });
   }
-
 
   getAccessoryIconPath(category: string): string {
     let iconFileName = '';
