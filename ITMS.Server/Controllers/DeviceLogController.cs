@@ -82,8 +82,8 @@ public class DeviceLogController : ControllerBase
         return filterDevices;
     }
 
-    [HttpPost("singleHistoryAccessory")]
-    public List<historySingleDevice> singleHistoryAccessory([FromBody] locationDeviceDTO dto)
+    [HttpPost("singleHistoryDevice")]
+    public List<historySingleDevice> singleHistoryDevice([FromBody] locationDeviceDTO dto)
     {
         List<historySingleDevice> history = _deviceLogService.singleHistory(dto.locationId, dto.CYGID);
 

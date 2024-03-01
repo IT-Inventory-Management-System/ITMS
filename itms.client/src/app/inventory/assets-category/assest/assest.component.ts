@@ -26,7 +26,7 @@ export class AssestComponent {
   selectedModel: any;
   selectedFilter : any;
 
-
+  
   @ViewChild('appDevices') appDevices: DevicesComponent;
   constructor(private deviceService: DataService, private dataService: DataService, private selectedCountryService: SelectedCountryService) { }
   getDeviceLocation() {

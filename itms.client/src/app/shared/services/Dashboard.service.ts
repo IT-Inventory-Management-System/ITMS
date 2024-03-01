@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class DashboardService {
 
-  private apiUrl = 'https://www.itmsbackend.somee.com/api/';
+  private apiUrl = 'https://localhost:7283/api/';
 
   constructor(private http: HttpClient) { }
   GetAccessories(): Observable<any[]> {

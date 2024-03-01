@@ -1,7 +1,7 @@
 <div *ngIf="devicelog && devicelog.length > 0">
 
   <div class="comment-card " *ngFor="let device of devicelog; let i = index">
-    <ng-container *ngIf="i === 0">
+    <ng-container *ngIf="device.recievedBy == null">
       <div class="status-outer">
         <div class="status">
           <app-currentdevice></app-currentdevice>
@@ -12,10 +12,10 @@
 
     <div class="user-details">
       <div class="user">
-        <ngx-avatars name={{device.employeeName}} [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="31"></ngx-avatars>
+        <ngx-avatars name={{device.empName}} [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="31"></ngx-avatars>
         <div class="user-name">
           <span class="name">
-            {{device.employeeName}}
+            {{device.empName}}
           </span>
           <span class="cgy">
             {{device.cgiid}}
@@ -36,7 +36,7 @@
             {{device.assignedBy}}
           </span>
           <div>
-            {{device.formattedAssignedDate}}
+            {{device.assignedDate}}
           </div>
         </div>
       </div>
@@ -46,6 +46,9 @@
           <span class="inforight">
             {{device.recievedBy}}
 
+          </span>
+          <span>
+            {{device.recievedDate}}
           </span>
         </div>
       </div>

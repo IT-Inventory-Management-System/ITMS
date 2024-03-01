@@ -251,14 +251,14 @@ public class DeviceLogService
      .GroupBy(dl => new
      {
          empName = dl.Employee.FirstName + " " + dl.Employee.LastName,
-         CYGID = dl.Employee.Cgiid,
+         CGIID = dl.Employee.Cgiid,
          AssignedBy = dl.AssignedByNavigation.FirstName + " " + dl.AssignedByNavigation.LastName,
          AssignedDate = dl.AssignedDate
      })
      .Select(group => new historySingleDevice
      {
          empName = group.Key.empName,
-         CYGID = group.Key.CYGID,
+         CGIID = group.Key.CGIID,
          AssignedBy = group.Key.AssignedBy,
          AssignedDate = group.Key.AssignedDate,
          RecievedBy = group.FirstOrDefault().RecievedBy == null ? null : _context.Employees

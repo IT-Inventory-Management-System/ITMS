@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class SoftwareService {
 
-  private apiUrl = 'https://www.itmsbackend.somee.com/api/';
+  private apiUrl = 'https://localhost:7283/api/';
 
   constructor(private http: HttpClient) { }
   GetSoftware(arch: boolean): Observable<any[]> {

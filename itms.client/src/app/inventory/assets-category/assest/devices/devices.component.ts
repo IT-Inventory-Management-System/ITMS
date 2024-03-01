@@ -48,13 +48,13 @@ export class DevicesComponent implements OnInit{
     });
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    this.loading = true;
-    this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
-      localStorage.setItem('selectedCountry', selectedCountry);
-      this.getDeviceLocation();
-    });
-  }
+  //ngOnChanges(changes: SimpleChanges) {
+  //  this.loading = true;
+  //  this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
+  //    localStorage.setItem('selectedCountry', selectedCountry);
+  //    this.getDeviceLocation();
+  //  });
+  //}
 
 
 

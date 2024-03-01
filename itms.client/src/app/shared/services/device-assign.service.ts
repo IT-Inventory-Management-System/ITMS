@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class DeviceAssignService {
-  private apiUrl = 'https://www.itmsbackend.somee.com/api/';
+  private apiUrl = 'https://localhost:7283/api/';
 
   constructor(private http: HttpClient) { }
 
