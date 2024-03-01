@@ -13,6 +13,8 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./software.component.css']
 })
 export class SoftwareComponent implements OnInit {
+  selectedAccessoryIndex: number = 0;
+
   allSoftwareData: any[];
   selectedView: string = 'card';
   softwaresData: any[][] = [[], []]; // Define softwaresData array
@@ -196,7 +198,13 @@ export class SoftwareComponent implements OnInit {
 
 
 
-  onCardClicked(eventData: any): void {
+  onCardClicked(eventData: any, index: number): void {
+    if (this.selectedAccessoryIndex === index) {
+      this.selectedAccessoryIndex = -1; // Deselect the card if it's already selected
+    } else {
+      this.selectedAccessoryIndex = index; // Select the clicked card
+    }
+
     this.expiringtag = true;
     const parameters = {
       name: eventData.name,
