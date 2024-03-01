@@ -51,7 +51,7 @@ export class AccessoriesComponent {
    // console.log("cyg", this.cygid);
     //console.log(eventData);
     this.singleSelected = this.accessories.filter(a => a.cygid === eventData.CYGID);
-  //  console.log(this.singleSelected);
+    console.log(this.singleSelected);
     this.singleHistoryAccessory(this.locationId, this.cygid);
     this.accessoryId = eventData.accessoryId;
     console.log(this.accessoryId)
@@ -283,5 +283,8 @@ export class AccessoriesComponent {
     XLSX.writeFile(wb, this.filename);
   }
 
+  handleModalClosed() {
+    this.selectedOption = 'Active';
+  }
 
 }
