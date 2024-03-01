@@ -113,6 +113,7 @@ import { AccessoryBrandySearchBoxComponent } from './assign-asset/accessory-bran
 import { CommonModule } from '@angular/common';
 import { AddUserComponent } from './add-user/add-user.component';
 import { AccesoriesFilterComponent } from './accessories/accesories-filter/accesories-filter.component';
+import { AddUserCsvComponent } from './add-user-csv/add-user-csv.component';
 
 
 
@@ -233,7 +234,8 @@ import { AccesoriesFilterComponent } from './accessories/accesories-filter/acces
     AccessoryBrandySearchBoxComponent,
     AdminPanelComponent,
     AccesoriesFilterComponent,
-    AddUserComponent
+    AddUserComponent,
+    AddUserCsvComponent
 
 
   ],
