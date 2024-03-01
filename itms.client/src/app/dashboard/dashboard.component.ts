@@ -366,7 +366,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
       localStorage.setItem('selectedCountry', selectedCountry);
       this.selectedLocation = selectedCountry;
-     // console.log(this.selectedLocation);
+     console.log(this.selectedLocation);
       this.getUserLocation();
 
     });
@@ -490,7 +490,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
    // console.log("body",body);
     this.dashboardService.GetLogs(body).subscribe(
       data => {
-      //  console.log(data);
+       console.log(data);
         this.logsData = data;
         this.setLastUpdated();
       },

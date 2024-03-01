@@ -2,14 +2,13 @@
 {
     public class PostAssignAssetDTO
     {
-        public string? DeviceCYGID { get; set; }
-        public string? AccessoryCYGID { get; set; }
-        public string? SoftwareId { get; set; }
-        public Guid? AssignedTo { get; set; }
+        public List<string?> DeviceCYGIDs { get; set; }
+        public List<string?> SoftwareIds { get; set; }
+        public List<string?> AccessoryCYGIDs { get; set; }
+        public Guid AssignedTo { get; set; }
         public Guid AssignedBy { get; set; }
-        public string? DeviceComment { get; set; }
-        public string? SoftwareComment { get; set; }
-        public string? AccessoryComment { get; set; }
-
+        public List<string?> DeviceComments { get; set; }
+        public List<string?> SoftwareComments { get; set; }
+        public List<string?> AccessoryComments { get; set; }
     }
 }
