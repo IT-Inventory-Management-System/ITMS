@@ -37,6 +37,7 @@ public class UserListService : IUserListService
                                 LocationId = e.LocationId,
                                 Email=e.Email,
                                 ExitProcessInitiated = e.ExitProcessInitiated,
+                                isArchived = e.IsArchived,
                             }).ToListAsync();
         
         return result;
