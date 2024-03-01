@@ -93,10 +93,19 @@
 
         </div>
         <ng-select class="ng-selectclass" (change)="handleSelectionChange($event)" [(ngModel)]="selectedOption" [clearable]="false" [searchable]="false">
-          <ng-option [value]="'Active'">
-            <img class="asset-image" src="../../../../../assets/icons/Assets/active.svg" />
+          <!--<ng-option [value]="'Active'">
+    <img class="asset-image" src="../../../../../assets/icons/Assets/active.svg" />
 
+    Active
+  </ng-option>-->
+          <ng-option *ngIf="!(singleSelected && singleSelected[0]?.isArchived)" [value]="'Active'">
+            <img class="asset-image" src="../../../../../assets/icons/Assets/active.svg" />
             Active
+          </ng-option>
+
+          <ng-option *ngIf="singleSelected && singleSelected[0]?.isArchived" [value]="'Archived'">
+            <img class="asset-image" src="../../../../../assets/icons/Assets/archive.svg" />
+            Archived
           </ng-option>
           <ng-option [value]="'Unassignable'">
             <img class="asset-image" src="../../../../../assets/icons/Assets/unassignable.svg" />

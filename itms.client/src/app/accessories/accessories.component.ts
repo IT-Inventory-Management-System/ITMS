@@ -14,7 +14,7 @@ export class AccessoriesComponent {
   rowData: any[] = [];
   searchValue: string = '';
 
-    selectedOption: string = 'Active';
+    selectedOption: string;
 
   selectedView: string = 'card';
   accessories: any[];
@@ -42,10 +42,12 @@ export class AccessoriesComponent {
 
   constructor(private dataService: DataService, private selectedCountryService: SelectedCountryService) {
     this.filteredAccessories = this.accessories;
+  
 
   }
 
   onCardClicked(eventData: any): void {
+   
     this.cygid = eventData.CYGID;
 
    // console.log("cyg", this.cygid);
@@ -55,7 +57,11 @@ export class AccessoriesComponent {
     this.singleHistoryAccessory(this.locationId, this.cygid);
     this.accessoryId = eventData.accessoryId;
     console.log(this.accessoryId)
-
+    if (this.singleSelected[0]?.isArchived) {
+      this.selectedOption = 'Archived';
+    } else {
+      this.selectedOption = 'Active';
+    }
   }
 
   calculateYearDifference(startDate: string | null, endDate: string | null): number {
@@ -251,7 +257,7 @@ export class AccessoriesComponent {
         "Device ID": this.accessories[i].cygid,
         "Type": this.accessories[i].isWired ? "Wireless" : "Wired",
         "Brand": this.accessories[i].brand,
-        "Accessories Status": this.accessories[i].status,
+        "Accessories Status": this.accessories[i].isArchied?"Archived":"Active",
        
 
       }
@@ -284,7 +290,7 @@ export class AccessoriesComponent {
   }
 
   handleModalClosed() {
-    this.selectedOption = 'Active';
+    
   }
 
 }
