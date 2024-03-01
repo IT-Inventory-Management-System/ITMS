@@ -130,7 +130,7 @@
               <div [class.error-textarea]="showErrorMessage && !serialNumbers.controls[i].value" class="cyg-id">
                 <input type="text" id="serialNumber" name="serialNumber" (input)="updateSerialNumber(i, $event)" placeholder="Enter Serial No." />
               </div>
-              <span class="error_text">
+              <span *ngIf=" showExistMessage  && invalidSerialIndices.includes(i)" class="error_text">
                 <img src="../../../assets/icons/error.svg" />
                 This serial number already exists.
               </span>
@@ -141,7 +141,7 @@
             <div [class.error-textarea]="showErrorMessage && !cygIds.controls[i].value" class="cyg-idd">
               <input type="text" id="cygId" name="cygId" (input)="updateCygId(i, $event)" placeholder="Enter CYG ID" />
             </div>
-            <span *ngIf=" showExistMessage  && i === currentCygIdIndex" class="error_text">
+            <span *ngIf=" showExistMessage  &&   invalidCygIndices.includes(i)" class="error_text">
               <img src="../../../assets/icons/error.svg" />
               This CYG ID already exists.
             </span>

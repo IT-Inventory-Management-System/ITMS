@@ -13,6 +13,7 @@ export class AddDeviceFormComponent implements OnInit {
 
   addDeviceForm: FormGroup;
   currentCygIdIndex: number | null = null;
+  currentSerialIndex: number | null = null;
 
   // cygIds: FormArray;
   errorMessage: string;
@@ -24,7 +25,8 @@ export class AddDeviceFormComponent implements OnInit {
   deviceData: any[] = [];
   locationId: string = '';
   showExistMessage: boolean = false;
- 
+  invalidSerialIndices: number[] = [];
+  invalidCygIndices: number[] = [];
   constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService) {
     this.dropdownValues = [];
   }
@@ -36,6 +38,7 @@ export class AddDeviceFormComponent implements OnInit {
     this.getlaptopids();
     this.loadDropdownValues();
     //this.loadDeviceData();
+
     this.createForm();
     this.setCreatedBy();
     this.setlocationId();
@@ -74,21 +77,48 @@ export class AddDeviceFormComponent implements OnInit {
   updateSerialNumber(index: number, event: Event) {
     this.hideErrorMessage();
     const value = (event.target as HTMLInputElement).value;
-    this.serialNumbers.at(index).setValue(value);
-  }
 
+    if (this.validateSerialno(value, index)) {
+      // Remove index from the invalidSerialIndices array if it exists
+      const invalidIndexIndex = this.invalidSerialIndices.indexOf(index);
+      if (invalidIndexIndex !== -1) {
+        this.invalidSerialIndices.splice(invalidIndexIndex, 1);
+      }
+
+      this.serialNumbers.at(index).setValue(value);
+    } else {
+      // Add index to the invalidSerialIndices array if it's not already there
+      if (!this.invalidSerialIndices.includes(index)) {
+        this.invalidSerialIndices.push(index);
+      }
+
+      this.showExistMessage = true;
+      this.errorMessage = 'CYG Id already exists or is repeated in current quantity.';
+    }
+  }
   updateCygId(index: number, event: Event) {
     this.hideErrorMessage();
     const value = (event.target as HTMLInputElement).value;
+
     if (this.validateCygId(value, index)) {
+      // Remove index from the invalidCygIndices array if it exists
+      const invalidIndexIndex = this.invalidCygIndices.indexOf(index);
+      if (invalidIndexIndex !== -1) {
+        this.invalidCygIndices.splice(invalidIndexIndex, 1);
+      }
+
       this.cygIds.at(index).setValue(value);
-      this.currentCygIdIndex = null; // Reset the current index
     } else {
+      // Add index to the invalidCygIndices array if it's not already there
+      if (!this.invalidCygIndices.includes(index)) {
+        this.invalidCygIndices.push(index);
+      }
+
       this.showExistMessage = true;
       this.errorMessage = 'CYG Id already exists or is repeated in current quantity.';
-      this.currentCygIdIndex = index; // Set the current index
     }
   }
+
 
   setCreatedBy() {
     this.dataService.getFirstUser().subscribe(
@@ -208,29 +238,33 @@ export class AddDeviceFormComponent implements OnInit {
     }
   }
 
-  checkSerialNumber(): boolean {
-    const serialNumbersArray = this.serialNumbers.controls.map((control) => control.value);
-    const isValid = serialNumbersArray.every((serialNumber) => serialNumber.trim() !== '');
+ checkSerialNumber(): boolean {
+  const serialNumbersArray = this.serialNumbers.controls.map((control) => control.value);
+  const isExisting = serialNumbersArray.some(serialNumber => this.deviceData.some(device => device.serialNumber === serialNumber));
+  const isValid = serialNumbersArray.every((serialNumber) => serialNumber.trim() !== '' && !isExisting);
 
-    return isValid;
-  }
+  return isValid;
+}
 
-  checkCygIds(): boolean {
-    const cygIdsArray = this.cygIds.controls.map((control) => control.value);
-    const isValid = cygIdsArray.every((cygId) => cygId.trim() !== '');
+checkCygIds(): boolean {
+  const cygIdsArray = this.cygIds.controls.map((control) => control.value);
+  const isExisting = cygIdsArray.some(cygId => this.deviceData.some(device => device.cygId === cygId));
+  const isValid = cygIdsArray.every((cygId) => cygId.trim() !== '' && !isExisting);
 
-    return isValid;
-  }
+  return isValid;
+}
 
   validateCygId(cygid: string, currentIndex: number): boolean {
     const cygIdsArray = this.cygIds.controls.map((control) => control.value);
-
-    // Check if CYG ID already exists in the database
     const isExisting = this.deviceData.some((device) => device.cygid === cygid);
-
-    // Check if CYG ID is repeated within the current quantity
     const isRepeated = cygIdsArray.filter((id, index) => id === cygid && index !== currentIndex).length > 0;
+    return !isExisting && !isRepeated;
+  }
 
+  validateSerialno(serialNumber: string, currentIndex: number): boolean {
+    const serialNumbersArray = this.serialNumbers.controls.map((control) => control.value);
+    const isExisting = this.deviceData.some(device => device.serialNumber === serialNumber);
+    const isRepeated = serialNumbersArray.filter((number, index) => number === serialNumber && index !== currentIndex).length > 0;
     return !isExisting && !isRepeated;
   }
 
