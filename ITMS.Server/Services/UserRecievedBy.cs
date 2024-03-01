@@ -11,6 +11,8 @@ namespace ITMS.Server.Services
     {
         Task<EmployeeDTO?> UpdateReceivedBy(RecievedByDTO receivedByDTO);
         Task<EmployeeDTO?> RevokeAll(bool isSoftware,Guid userId, RevokeAllServiceDTO receivedByDTO);
+
+        
         Task UpdateExitProcessInitiated(UpdateExitProcessInitiated dto);
     }
 
@@ -183,6 +185,8 @@ namespace ITMS.Server.Services
                     return new EmployeeDTO
                     {
                         deviceLogId = newDeviceLog.Id,
+                        deviceId = newDeviceLog.DeviceId,
+                        softwareAllocationId = newDeviceLog.SoftwareAllocation,
                         FirstName = firstName,
                         LastName = lastName,
                         RecievedDate = newDeviceLog.RecievedDate,// Include the RecievedDate
