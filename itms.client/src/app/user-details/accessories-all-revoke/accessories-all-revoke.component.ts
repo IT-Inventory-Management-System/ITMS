@@ -28,6 +28,9 @@ export class AccessoriesAllRevokeComponent {
   showYesReason: boolean[] = [];
   showNoReason: boolean[] = [];
   ngOnInit() {
+    if (!this.accessoriesDetails) {
+      this.saveBtn.emit(false);
+    }
     this.lostAction = this.actionsArray.find(a => a.actionName === 'Lost' || a.actionName === 'lost');
     this.SubmittedAction = this.actionsArray.find(a => a.actionName === 'Submitted' || a.actionName === 'submitted');
     this.SubmittedActionUnassign = this.actionsArray.find(a => a.actionName === 'Unassignable' || a.actionName === 'unassignable');
@@ -36,6 +39,8 @@ export class AccessoriesAllRevokeComponent {
   constructor(private formBuilder: FormBuilder) { }
   ngOnChanges() {
     if (this.accessoriesDetails && this.revokeAllForm) {
+      if (this.accessoriesDetails.length)
+        this.saveBtn.emit(true);
       console.log(this.accessoriesDetails);
         for (let i = 0; i < this.accessoriesDetails.length; i++) {
           this.showYesReason[i] = false;

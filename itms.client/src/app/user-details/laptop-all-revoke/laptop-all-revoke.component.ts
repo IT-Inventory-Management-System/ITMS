@@ -30,12 +30,16 @@ export class LaptopAllRevokeComponent {
   constructor(private formBuilder: FormBuilder, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
+    if (!this.laptopDetails) {
+      this.nextBtn.emit(false);
+    }
     console.log(this.revokeAllForm);
   }
 
   ngOnChanges() {
     if (this.laptopDetails && this.revokeAllForm) {
-      this.nextBtn.emit(true);
+      if (this.laptopDetails.length)
+        this.nextBtn.emit(true);
       console.log(this.laptopDetails);
       this.lostAction = this.actionsArray.find(a => a.actionName === 'Lost' || a.actionName === 'lost');
       this.SubmittedAction = this.actionsArray.find(a => a.actionName === 'Submitted' || a.actionName === 'submitted');
@@ -58,6 +62,7 @@ export class LaptopAllRevokeComponent {
         laptopArray.push(this.createLaptopFormGroup(laptop));
       });
     }
+
   }
 
   createLaptopFormGroup(laptop: any) {

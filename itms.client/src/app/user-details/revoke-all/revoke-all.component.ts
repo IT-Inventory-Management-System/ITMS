@@ -18,7 +18,7 @@ export class RevokeAllComponent {
   @Input() softwareDetails: any;
   variable1: boolean = true; 
   variable2: boolean = false; 
-  variable3: boolean = false; 
+  variable3: boolean = true; 
   
   revokeAllForm: FormGroup;
   actionsArray: any[] = [];

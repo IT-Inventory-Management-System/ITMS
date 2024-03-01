@@ -45,8 +45,8 @@
         </div>
 
         <app-laptop-all-revoke *ngIf="currentStep === 1" (nextBtn)="onVariable1Change($event)" [actionsArray]="actionsArray" [revokeAllForm]="revokeAllForm" [laptopDetails]="filteredLaptopDetails" [userId]="userId" [firstName]="firstName" [lastName]="lastName" [cgiid]="cgiid"></app-laptop-all-revoke>
-        <app-accessories-all-revoke *ngIf="currentStep === 3" (nextBtn)="onVariable2Change" [actionsArray]="actionsArray" [revokeAllForm]="revokeAllForm" [accessoriesDetails]="filteredAccessoriesDetails" [userId]="userId" [firstName]="firstName" [lastName]="lastName" [cgiid]="cgiid"></app-accessories-all-revoke>
-        <app-software-all-revoke *ngIf="currentStep === 2" (saveBtn)="onVariable3Change" [actionsArray]="actionsArray" [revokeAllForm]="revokeAllForm" [softwareDetails]="filteredSoftwareDetails" [userId]="userId" [firstName]="firstName" [lastName]="lastName" [cgiid]="cgiid"></app-software-all-revoke>
+        <app-accessories-all-revoke *ngIf="currentStep === 3" (saveBtn)="onVariable3Change($event)" [actionsArray]="actionsArray" [revokeAllForm]="revokeAllForm" [accessoriesDetails]="filteredAccessoriesDetails" [userId]="userId" [firstName]="firstName" [lastName]="lastName" [cgiid]="cgiid"></app-accessories-all-revoke>
+        <app-software-all-revoke *ngIf="currentStep === 2" (nextBtn)="onVariable2Change" [actionsArray]="actionsArray" [revokeAllForm]="revokeAllForm" [softwareDetails]="filteredSoftwareDetails" [userId]="userId" [firstName]="firstName" [lastName]="lastName" [cgiid]="cgiid"></app-software-all-revoke>
 
 
 
