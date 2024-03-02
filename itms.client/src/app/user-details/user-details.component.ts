@@ -1,7 +1,7 @@
 
 import { EmployeeService } from '../shared/services/Employee.service';
 import { DisplayDetailsService } from '../shared/services/display-details.service';
-import { Component, Input } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-user-details',
@@ -22,9 +22,19 @@ export class UserDetailsComponent {
     this.resetDropdown();
   }
 
-  ngOnChanges() {
-    console.log(this.userDetails);
-    this.archiveBannerFunction();
+  //CHANGED HERE 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['userDetails']) {
+      this.resetDropdown(); //THIS IS THE CHANGE
+      this.archiveBannerFunction();
+      this.showUserDetails();
+      if (this.userDetails) {
+        console.log(this.userDetails);
+        this.userDetails.forEach((user: { id: string | number; }) => {
+          this.showRevokeAlert[user.id] = false;
+        });
+      }
+    }
   }
 
   ngOnInit(): void {

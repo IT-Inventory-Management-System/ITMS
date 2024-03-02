@@ -385,17 +385,20 @@
   pointer-events: none;
   color: grey;
 }
-
+.Actiondisabled {
+  background-color: #B2B2B3;
+  color: white;
+  pointer-events: none;
+}
 .archive-alert {
   width: 97%;
   height: 32px;
   margin-top: 0.6rem;
   border-radius: 4px;
   border: 1px solid #2DC26B;
- padding: 8px 8px 8px 8px;
+  padding: 8px 8px 8px 8px;
   background-color: #EAF6E4;
-  gap:10rem;
- 
+  gap: 10rem;
 }
 
 .archive-text-days {

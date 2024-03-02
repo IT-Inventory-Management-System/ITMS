@@ -22,18 +22,21 @@
           </div>
         </div>
         <div class="device-details">
+          <div class="details-subheading">
+            Assigned Laptop
+          </div>
           <div *ngFor="let laptop of laptopDetails">
             <div *ngIf="laptop.submitedBy === null">
-              <div class="details-subheading">
-                Assigned Laptop
-              </div>
+
               <div class="details">
                 <div class="device-model">
                   <div class="details-icon"><img src="../../assets/icons/laptop-small.svg" /></div>
                   <div class="details-text">{{laptop.model}}</div>
                 </div>
                 <div class="device-model">
-                  <div class="details-icon"><img src="../../assets/icons/Windows-small.svg"></div>
+                  <div class="details-icon"><img *ngIf="laptop.osName === 'Windows'" src="../../assets/icons/Windows-small.svg">
+                    <img *ngIf="laptop.osName === 'Mac'" src="../../assets/icons/apple.svg">
+                  </div>
                   <div class="details-text">{{laptop.osName}}</div>
                 </div>
                 <div class="device-model">
@@ -50,21 +53,35 @@
                     <div class="details-text">{{laptop.storage}}</div>
                   </div>
                 </div>
+                <div class="accessories-details-text-assigned">
+                  <span>Assigned on:</span>
+                  <span class="date">{{laptop.assignedDate | date: 'MM-dd-yyyy'}}</span>
+                </div>
               </div>
 
             </div>
           </div>
+          <div class="details-subheading">
+            Assigned Accessories
+          </div>
           <div *ngFor="let accessory of accessoriesDetails">
             <div *ngIf="accessory.submittedBy === null">
               <div class="accessories-details">
-                <div class="details-subheading">
-                  Assigned Accessories
-                </div>
+
                 <div class="accessories-model-details">
                   <div class="accessories-model">
-                    <div class="details-icon"><img src="../../assets/icons/bag-small.svg"></div>
+                    <div class="details-icon">
+                      <img *ngIf="accessory.categoryName === 'Mouse'" src="../../assets/icons/mouse-small.svg">
+                      <img *ngIf="accessory.categoryName === 'Keyboard'" src="../../assets/icons/keyboard-small.svg">
+                      <img *ngIf="accessory.categoryName === 'Bag'" src="../../assets/icons/bag-blue.svg">
+                      <img *ngIf="accessory.categoryName === 'Connector(Texas Instruments)'" src="../../assets/icons/HdmiCable.svg">
+
+                    </div>
                     <div class="accessories-details-text">{{accessory.categoryName}}</div>
-                    <div class="accessories-details-text">{{accessory.assignedDate | date: 'MM-dd-yyyy'}}</div>
+                    <div class="accessories-details-text-assigned">
+                      <span>Assigned on:</span>
+                      <span class="date">{{accessory.assignedDate | date: 'MM-dd-yyyy'}}</span>
+                    </div>
                   </div>
                 </div>
               </div>
