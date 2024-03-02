@@ -7,3 +7,4 @@
         public bool ExitProcessInitiated { get; set; }
     }
 }
+ 

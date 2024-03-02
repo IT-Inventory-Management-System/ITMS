@@ -136,7 +136,7 @@ namespace ITMS.Server.Controllers
             try
             {
                 await _UserRecievedBy.UpdateExitProcessInitiated(dto);
-                return Ok("Exit process updated successfully.");
+                return Ok(new { message = "Exit process updated successfully." });
             }
             catch (Exception ex)
             {

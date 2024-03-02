@@ -19,6 +19,7 @@ export class ExitProcessComponent {
   @ViewChild('emailContent') emailContent: ElementRef;
   cont: any;
   ToEmail: any;
+  storedUser: any;
   constructor(private updateExitProcessInitiationService: EmployeeService) { }
 
 
@@ -68,8 +69,11 @@ export class ExitProcessComponent {
 
   }
   updateExitProcessInitiation() {
+    this.storedUser = localStorage.getItem("user");
+
     const body = {
       employeeId: this.userId,
+      updatedBy: JSON.parse(this.storedUser).id,
       exitProcessInitiated: true 
     };
     console.log(body);
