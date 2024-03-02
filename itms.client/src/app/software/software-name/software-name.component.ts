@@ -10,18 +10,20 @@ export class SoftwareNameComponent {
   @Input() softwareData: any;
   @Input() selectedLocation: any;
   @Input() isArchived: any;
- 
+  @Input() isSelected: boolean = false;
+
 
 
   @Output() cardClicked: EventEmitter<any> = new EventEmitter<any>();
   onClick(): void {
-
-    this.cardClicked.emit({
-      name: this.softwareData.name,
-      version: this.softwareData.version,
-      type: this.softwareData.type,
-      location: this.selectedLocation
-    });
+    if (!this.isSelected) {
+      this.cardClicked.emit({
+        name: this.softwareData.name,
+        version: this.softwareData.version,
+        type: this.softwareData.type,
+        location: this.selectedLocation
+      });
+    }
   }
 }
 

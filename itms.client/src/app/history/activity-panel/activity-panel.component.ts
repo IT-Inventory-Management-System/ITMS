@@ -61,7 +61,7 @@ export class ActivityPanelComponent {
    // console.log("REQUEST BODY : ", body);
     this.adminDetailService.getLogs(employeeId, locationId).subscribe(
       data => {
-      //  console.log("ADMIN LOGS : ", data);
+       console.log("ADMIN LOGS : ", data);
         this.admindata = data;
       },
       error => {

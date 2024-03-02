@@ -63,17 +63,20 @@
         </div>
 
 
-        <div class="sub-category " *ngFor="let software of filteredSoftware? selectedLocation === 'India' ? filteredSoftware[0]:filteredSoftware[1] : selectedLocation === 'India' ? softwaresData[0] : softwaresData[1]">
-
-          <!--<div *ngIf="(isArchived==true && software.isArchived==1)||(isArchived==false && (software.isArchived==0||software.isArchived==null))">-->
+        <div class="sub-category" *ngFor="let software of filteredSoftware ? (selectedLocation === 'India' ? filteredSoftware[0] : filteredSoftware[1]) : (selectedLocation === 'India' ? softwaresData[0] : softwaresData[1]); let i = index">
           <ng-container *ngIf="passesFilter(software)">
-            <app-software-name  [softwareData]="software"  [selectedLocation]="selectedLocation" (cardClicked)="onCardClicked($event)" [isArchived]="isArchived"></app-software-name>
-                    </ng-container>
-
-            <!--</div>-->
+            <app-software-name [softwareData]="software"
+                               [selectedLocation]="selectedLocation"
+                               [isSelected]="selectedAccessoryIndex === i"
+                               (cardClicked)="onCardClicked($event, i)"
+                               [isArchived]="isArchived">
+            </app-software-name>
+          </ng-container>
         </div>
 
-     
+
+
+
 
 
       </div>

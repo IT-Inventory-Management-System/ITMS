@@ -17,10 +17,12 @@ export class AccesoriesnameComponent {
   //}
 
   onClick(): void {
-    this.cardClicked.emit({
-      CYGID: this.accessories.cygid,
-      accessoryId: this.accessories.accessoryId
-    });
+    if (!this.isSelected) {
+      this.cardClicked.emit({
+        CYGID: this.accessories.cygid,
+        accessoryId: this.accessories.accessoryId
+      });
+    }
   }
 
   getAccessoryIconPath(category: string): string {

@@ -238,6 +238,9 @@ export class AccessoriesComponent {
           if (result) {
             this.accessories = result;
             this.setRowData();
+            this.singleSelected = [this.accessories[0]];
+            console.log('Accessories', [this.accessories[0]]);
+            this.singleHistoryAccessory(this.locationId, this.accessories[0].cygid);
           //  console.log('Accessories', this.accessories);
           } else {
             console.log('No software found for parameters:', body);
