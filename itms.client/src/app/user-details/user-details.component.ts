@@ -28,12 +28,12 @@ export class UserDetailsComponent {
       this.resetDropdown(); //THIS IS THE CHANGE
       this.archiveBannerFunction();
       this.showUserDetails();
-      if (this.userDetails) {
-        console.log(this.userDetails);
-        this.userDetails.forEach((user: { id: string | number; }) => {
-          this.showRevokeAlert[user.id] = false;
-        });
-      }
+      //if (this.userDetails) {
+      //  console.log(this.userDetails);
+      //  this.userDetails.forEach((user: { id: string | number; }) => {
+      //    this.showRevokeAlert[user.id] = false;
+      //  });
+      //}
     }
   }
 
