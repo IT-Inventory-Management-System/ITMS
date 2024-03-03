@@ -18,6 +18,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Xml.Schema;
 using System.Web.Mvc;
+using MiNET.Blocks;
 
 public class DeviceService
 
@@ -149,7 +150,7 @@ public class DeviceService
                 Ram = device.DeviceModel?.Ram,
 
                 Storage = device.DeviceModel?.Storage,
-
+                
             },
 
             modelCount = modelCount,
@@ -208,25 +209,27 @@ public class DeviceService
     }
 
     public async Task<List<DevicelogDto>> GetArchivedCygIdsAsync(Guid locationId)
-
     {
 
-        var archivedCygIds = await _context.Devices
-            .Where(log => log.LocationId == locationId)
-
+        var archivedCygIds = _context.Devices
+            .Include(log => log.DeviceModel)
+            .ThenInclude(model => model.Category)
+            .Where(log => log.LocationId == locationId && log.DeviceModel.Category.Name == "Laptop" && log.IsArchived == true)
             .OrderBy(log => log.Cygid)
-
-            .Where(log => log.IsArchived == true)
-
-            .Select(log => new DevicelogDto
-
-            {
-
-                Cygid = log.Cygid
-
-            })
-
-            .ToListAsync();
+            .Join(
+                _context.Statuses,
+                device => device.Status,
+                status => status.Id,
+                (device, status) => new DevicelogDto
+                {
+                    Id = device.Id,
+                    Cygid = device.Cygid,
+                    status = status.Type,
+                    OperatingSystem = device.DeviceModel.OsNavigation.Osname,
+                    
+                }
+            )
+            .ToList();
 
         return archivedCygIds;
 

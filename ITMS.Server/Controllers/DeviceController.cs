@@ -24,11 +24,11 @@ namespace itms.server.controllers
             _deviceService = deviceService;
             _getDeviceService = getDeviceService;
         }
-
+        
         [HttpGet("getDevicess/{locationId}")]
-        public async Task<IEnumerable<GetDeviceDTO>> listDevices(Guid locationId)
+        public List<GetDeviceDTO> listDevices(Guid locationId)
         {
-            return await _getDeviceService.listDevices(locationId);
+            return _getDeviceService.listDevices(locationId);
         }
 
         [HttpGet("getAllComments/{deviceId}")]
@@ -240,6 +240,23 @@ namespace itms.server.controllers
             List<historySingleAccessory> history = _deviceService.singleHistory(dto.locationId, dto.CYGID);
 
             return history;
+        }
+
+
+        [HttpPost("filterDevices")]
+        public List<GetDeviceDTO> FiltterCard([FromBody] FilterDTO filterInput)
+        {
+
+            List<GetDeviceDTO> filterDevices = listDevices(filterInput.locationId);
+            filterDevices = filterDevices.Where(d =>
+            (filterInput.deviceStatus.Count == 0|| filterInput.deviceStatus.Contains(d.Status)) &&
+            (filterInput.operatingSystem.Count == 0|| filterInput.operatingSystem.Contains(d.Os)) &&
+            (filterInput.uniqueProcessor.Count == 0 || filterInput.uniqueProcessor.Contains(d.Processor)) &&
+            (filterInput.fromDate == null || ((DateOnly.FromDateTime((DateTime)d.PurchasedDate) >= filterInput.fromDate))) &&
+            (filterInput.toDate == null ||  ((DateOnly.FromDateTime((DateTime)d.PurchasedDate) <= filterInput.toDate)))
+            ).ToList();
+
+            return filterDevices;
         }
     }
 

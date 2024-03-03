@@ -7,7 +7,7 @@ namespace ITMS.Server.Services
 {
     public interface IGetDeviceService
     {
-        Task<IEnumerable<GetDeviceDTO>> listDevices(Guid locationId);
+        List<GetDeviceDTO> listDevices(Guid locationId);
         Task<IEnumerable<getComments>> listAllComments(Guid deviceId);
         Task<IEnumerable<GetDeviceDTO>> CheckDeviceStatus(String CYGID);
 
@@ -21,9 +21,9 @@ namespace ITMS.Server.Services
             _context = context;
             
         }
-        public async Task<IEnumerable<GetDeviceDTO>> listDevices(Guid locationId)
+        public List<GetDeviceDTO> listDevices(Guid locationId)
         {
-            var result = await (from d in _context.Devices
+            var result =        (from d in _context.Devices
                                .Where(log => log.LocationId == locationId)
 
                                 join dm in _context.DeviceModel
@@ -57,7 +57,7 @@ namespace ITMS.Server.Services
                                     Status = st.Type,
                                    
                                 }
-                             ).ToListAsync();
+                             ).ToList();
             return result;
         }
 

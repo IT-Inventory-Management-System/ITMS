@@ -1,0 +1,46 @@
+.status-outer {
+  display: flex;
+  width: 6.5625rem;
+  height: 1.75rem;
+  padding: 0.4375rem 0rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  border-radius: 0.25rem;
+  margin-top: 3px;
+}
+
+.status-outer span {
+  color: #CC1A07;
+  leading-trim: both;
+  text-edge: cap;
+  font-family: Roboto;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.low {
+  background: #FFE8E8;
+}
+
+.low span {
+  color: #CC1A07;
+}
+
+.in {
+  background: #CEF0DC;
+}
+
+.in span {
+  color: #0D542A;
+}
+
+.out {
+  background: #FCE6FC;
+}
+
+.out span {
+  color: #800080;
+}
