@@ -13,6 +13,7 @@ import { DataService } from '../../shared/services/data.service';
   styleUrls: ['./accessory-brandy-search-box.component.css']
 })
 export class AccessoryBrandySearchBoxComponent {
+  @Input() selectedId: any;
   @Input() label: string;
   @Input() placeholder: string;
   @Input() AccessoryBrandOptions: any[] = [];
@@ -21,7 +22,7 @@ export class AccessoryBrandySearchBoxComponent {
   @Input() index: number;
   @Output() AccessoryBrandOptionSelected: EventEmitter<any> = new EventEmitter();
   locationId: any;
-
+  uniqueBrandsArray: any[] = [];
   selectedOption: any;
   private closeFlagSubscription: Subscription;
 
@@ -36,6 +37,7 @@ export class AccessoryBrandySearchBoxComponent {
   onSelectOption(option: any): void {
     //console.log(this.AccessoryBrandOptions);
     const data = { option: option, index: this.index };
+    alert(option);
     this.AccessoryBrandOptionSelected.emit(data);
   }
   onClearSelection(): void {
@@ -69,11 +71,25 @@ export class AccessoryBrandySearchBoxComponent {
     this.closeFlagSubscription.unsubscribe();
   }
 
+  ngOnChanges() {
+
+    if (this.selectedId != null)
+      this.getAccessoriesDetails();
+  }
+
   getAccessoriesDetails() {
-    this.deviceAssignService.getAccessoriesDetails(this.locationId).subscribe(
+
+    const input = {
+      categoryName: this.selectedId,
+      locationId: this.locationId
+    }
+
+    this.deviceAssignService.getAccessoriesDetails(input).subscribe(
       (data: any[]) => {
         this.AccessoryBrands = data;
-        this.AccessoryBrands = this.AccessoryBrands.filter(item => item.assignedTo === null);
+        const uniqueBrandsSet = new Set(this.AccessoryBrands.map(item => item.brand));
+        this.uniqueBrandsArray = Array.from(uniqueBrandsSet);
+
         console.log(this.AccessoryBrands);
       },
       (error: any) => {
@@ -88,7 +104,8 @@ export class AccessoryBrandySearchBoxComponent {
         for (var i = 0; i < data.length; i++) {
           if (data[i].type == localStorage.getItem('selectedCountry')) {
             this.locationId = data[i].id;
-            this.getAccessoriesDetails();
+            if (this.selectedId != null)
+              this.getAccessoriesDetails();
             break;
           }
         }

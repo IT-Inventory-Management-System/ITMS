@@ -23,11 +23,11 @@ export class DeviceAssignService {
     return this.http.get<any[]>(this.apiUrl + `Device/getDevicess/` + locationId);
   }
   getAccessories(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl + `asset/getAccessories`);
+    return this.http.get<any[]>(this.apiUrl + `Accessories/GetAccessoriesList`);
   }
 
-  getAccessoriesDetails(locationId :any): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl + `Accessories/GetAccessoriesDetails/` + locationId);
+  getAccessoriesDetails(input :any): Observable<any[]> {
+    return this.http.post<any[]>(this.apiUrl + `Accessories/GetAccessoriesDetails` , input);
   }
 
   saveAssignment(assignmentData: any): Observable<any> {

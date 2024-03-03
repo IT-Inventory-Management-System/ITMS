@@ -39,10 +39,13 @@ namespace ITMS.Server.Controllers
             return await _getAccessoryService.listAccessories();
         }
 
-        [HttpGet("GetAccessoriesDetails/{locationId}")]
-        public async Task<IEnumerable<getMouseDetailsDTO>> getMouseDetails(Guid locationId,Guid catId)
+        [HttpPost("GetAccessoriesDetails")]
+        public async Task<IEnumerable<getMouseDetailsDTO>> getMouseDetails([FromBody] accessoryInputDTO inputDTO)
         {
-            return await _getAccessoryService.getMouseDetails(locationId,catId);
+            var locationId = inputDTO.locationId;
+            var catName = inputDTO.categoryName;
+
+            return await _getAccessoryService.getMouseDetails(locationId,catName);
 
         }
 

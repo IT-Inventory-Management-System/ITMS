@@ -13,6 +13,7 @@
     <app-accessory-brandy-search-box class="sbox"
                                      [label]="'Brand'"
                                      [placeholder]="'Select Brand'"
+                                     [selectedId]="selectedId"
                                      [AccessoryBrandOptions]="BrandOptions[i]"
                                      (AccessoryBrandOptionSelected)=" AccessoryBrandSearchBoxOptionSelected($event,i)"
                                      [assignAssetForm]="assignAssetForm">

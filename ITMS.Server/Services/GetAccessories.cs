@@ -10,7 +10,7 @@ namespace ITMS.Server.Services
     {
 
         Task<IEnumerable<getAccessoriesDTO>> listAccessories();
-        Task<IEnumerable<getMouseDetailsDTO>> getMouseDetails(Guid locationId, Guid c);
+        Task<IEnumerable<getMouseDetailsDTO>> getMouseDetails(Guid locationId, string c);
         
     }
     public class GetAccessoriesService : IGetAccessoryService
@@ -34,12 +34,12 @@ namespace ITMS.Server.Services
                                 }).ToListAsync();
             return result;
         }
-        public async Task<IEnumerable<getMouseDetailsDTO>> getMouseDetails(Guid locationId, Guid catId)
+        public async Task<IEnumerable<getMouseDetailsDTO>> getMouseDetails(Guid locationId, string catName)
         {
             var result = await (from c in _context.DeviceModel
                                 join cat in _context.Categories
                                 on c.CategoryId equals cat.Id
-                                where cat.Id == catId
+                                where cat.Name.ToLower() == catName.ToLower()
                                 join d in _context.Devices
                                 on c.Id equals d.DeviceModelId
                                 where d.LocationId == locationId &&
