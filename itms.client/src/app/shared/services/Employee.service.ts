@@ -54,6 +54,10 @@ export class EmployeeService {
     return this.http.get<any[]>(this.apiUrl + 'Comments/' + deviceId);
   }
 
+  postUsers(FormGroup: any[]): Observable<any> {
+    return this.http.post<any>(this.apiUrl + 'employee/AddUsers', FormGroup);
+  }
+
   revokeAll(body: any) {
     return this.http.post<any>(this.apiUrl + 'RecievedBy/RevokeAll', body);
   }

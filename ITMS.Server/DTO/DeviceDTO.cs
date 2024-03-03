@@ -1,6 +1,8 @@
 ﻿
 using FSharp.Data.Runtime.StructuralTypes;
 using Org.BouncyCastle.Utilities;
+using static Azure.Core.HttpHeader;
+using System.Runtime.InteropServices;
 
 namespace ITMS.Server.DTO
 {
@@ -54,7 +56,7 @@ namespace ITMS.Server.DTO
     public class DeviceModelDto
     {
 
-        
+
         public string? Processor { get; set; }
 
         public string? DeviceName { get; set; }
@@ -62,7 +64,7 @@ namespace ITMS.Server.DTO
 
         public string? Storage { get; set; }
 
-        
+
     }
 
     public class OsTypeDto
@@ -80,11 +82,82 @@ namespace ITMS.Server.DTO
     public class ArchiveDto
     {
         public string? Cygid { get; set; }
+
+      
     }
 
     public class ProcessorDto
     {
         public string Name { get; set; }
     }
+    public class ArchivedoneDto
+    {
+        public string? Cygid { get; set; }
 
+        public Guid CreatedBy { get; set; }
+        public Guid? UpdatedBy { get; set; }
+        public string? Description { get; set; }
+    }
+
+    public class GetDeviceModelDTO
+    {
+        public string brand { get; set; }
+        public string OS { get; set; }
+        public string Processor { get; set; }
+        public string Ram { get; set; }
+        public string Storage { get; set; }
+        public int total { get; set; }
+        public int assigned { get; set; }
+        public int inventory { get; set; }
+    }
+
+    public class DeviceModelInputDTO
+    {
+        public string deviceModelId { get; set; }
+        public string locationId { get; set; }
+
+    }
+
+
+    public class locationaccesoryDTO{
+        public Guid locationId { get; set; }
+        public bool? IsArchived { get; set; }
+
+        public string? CYGID { get; set; }
+    }
+
+    public class allAccessoriesDTO
+    {
+        public Guid? accessoryId { get; set; }
+        public string? Brand { get; set; }
+        public string? CYGID { get; set; }
+        public string? Status { get; set; }
+        public bool? IsWired { get; set; }
+        public bool? IsArchived { get; set; }
+        public bool? AssignedTo { get; set; }
+        public string? Category { get; set; }
+        public int? Qty { get; set; }
+        public DateTime? PurchaseDate { get; set; }
+        public DateTime? WarrantyDate { get; set; }
+    }
+
+    public class filterAccessoriesBodyDTO
+    {
+        public string? Category { get; set; }
+        public string? IsWired { get; set; }
+        public string? Availability { get; set; }
+        public List<string>? selectedStock { get; set; }
+        public bool? IsArchived { get; set; }
+        public Guid location { get; set; }
+    }
+
+    public class historySingleAccessory
+    {
+        public string? empName { get; set;}
+        public string? CYGID { get; set; }
+        public string? AssignedBy { get; set; }
+        public DateTime? AssignedDate { get; set; }
+        public string? RecievedBy { get; set; }
+        public DateTime? RecievedDate { get; set; }
+    }
 }

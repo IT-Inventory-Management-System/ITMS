@@ -2,18 +2,18 @@
 
   <div *ngIf="softwareData.version!=null">
     <!--<div *ngIf="(isArchived==true && version.isArchived==1)||(isArchived==false && (version.isArchived==0||version.isArchived==null))">-->
-    <button class="software-name"  (click)="onClick()">
-      <div class="icon-name ">
-        <div class="software-icon ">
+    <button class="software-name"  [ngClass]="{ 'selected': isSelected }" (click)="onClick()">
+      <div class="icon-name  ">
+        <div class="software-icon  ">
           <img *ngIf="softwareData.softwareThumbnail" [src]="'data:image/png;base64,' + softwareData.softwareThumbnail" alt="Software Image" />
           <!--<img src="../../../assets/icons/Software/Microsoft.svg" />-->
         </div>
-        <div class="softwarename ">
-          {{ softwareData.name}}
-        </div>
+        <span class="softwarename  ">
+           {{ softwareData.name}}
+        </span>
       </div>
-      <div class="type ">
-        <div class="versiondiv" >
+      <div class="type  ">
+        <div class="versiondiv " >
           <div class="versiondiv-text">
             Version {{ softwareData.version }}
           </div>

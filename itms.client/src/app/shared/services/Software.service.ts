@@ -44,5 +44,8 @@ export class SoftwareService {
     return this.http.post<any | null>(this.apiUrl + 'SoftwarePage/filter', body);
   }
 
+  FilterSoftwareTable(body: any): Observable<any | null> {
+    return this.http.post<any | null>(this.apiUrl + 'SoftwarePage/filterTable', body);
+  }
 
 }

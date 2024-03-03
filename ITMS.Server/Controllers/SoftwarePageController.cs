@@ -85,45 +85,10 @@ namespace ITMS.Server.Controllers
         [HttpPost("filter")]
         public List<IEnumerable<SoftwarePage>> Filter([FromBody] filterDto attri)
         {
-            var allData = GetSoftware(attri.IsArchived);
 
-            List<IEnumerable<SoftwarePage>> filteredData = new List<IEnumerable<SoftwarePage>>();
+            List<IEnumerable<SoftwarePage>> allData = GetSoftware(attri.IsArchived);
 
-            if (attri.location == "India")
-            {
-                var India = allData[0].Where(s =>
-                    (string.IsNullOrEmpty(attri.inStock) || (attri.inStock == "Low In Stock" && s.inStock <= 1) || (attri.inStock == "In Stock" && s.inStock > 1) || (attri.inStock == "Out Of Stock" && s.inStock == 0)) &&
-                    (string.IsNullOrEmpty(attri.type) || s.type == attri.type) &&
-                   (attri.From == null ||s.purchaseDates.Any(pd => DateOnly.FromDateTime((DateTime)pd) >= attri.From)) &&
-(attri.To == null || s.purchaseDates.Any(pd => DateOnly.FromDateTime((DateTime)pd) <= attri.To))
-                ).ToList();
-
-                filteredData.Add(India);
-                filteredData.Add(allData[1]);
-            }
-            else
-            {
-                var USA = allData[1].Where(s =>
-     (string.IsNullOrEmpty(attri.inStock) || (attri.inStock == "Low In Stock" && s.inStock <= 1) || (attri.inStock == "In Stock" && s.inStock > 1) || (attri.inStock == "Out Of Stock" && s.inStock == 0)) &&
-     (string.IsNullOrEmpty(attri.type) || s.type == attri.type) && 
-     (attri.From == null || s.purchaseDates.Any(pd => DateOnly.FromDateTime((DateTime)pd) >= attri.From)) &&
-(attri.To == null || s.purchaseDates.Any(pd => DateOnly.FromDateTime((DateTime)pd) <= attri.To))
-
- ).ToList();
-
-
-
-                filteredData.Add(allData[0]);
-                filteredData.Add(USA);
-            }
-
-            return filteredData;
-
-
-
-            //}
-
-            return filteredData;
+            return _softwarepageService.CardFilter(allData, attri);
         }
 
         [HttpGet("selected")]
@@ -142,20 +107,35 @@ namespace ITMS.Server.Controllers
         }
 
         [HttpGet("softwarestable")]
-        public ActionResult<IEnumerable<Softwares>> GetSoftwares([FromQuery] String country)
+        public List<TablePage> GetSoftwares([FromQuery] String country)
         {
             try
             {
                 var software = _softwarepageService.GettableSoftwares(country);
-                return Ok(software);
+                return software;
             }
             catch (Exception ex)
             {
-                return BadRequest($"Error: {ex.Message}");
+                return null;
             }
         }
 
-     [HttpPost("archive")]
+        [HttpPost("filterTable")]
+        public List<TablePage> FilterTable([FromBody] filterDto attri)
+        {
+            List<TablePage> allData = GetSoftwares(attri.location);
+
+
+            List<TablePage> filteredData = allData.Where(s =>
+     (attri.selectedType.Count == 0 || attri.selectedType.Contains(s.type)) &&
+     (string.IsNullOrEmpty(attri.tableArchived) ||(attri.tableArchived == "Active" && s.isArchived == false) || (attri.tableArchived == "Archive" && s.isArchived == true)) &&
+     (attri.From == null || DateOnly.FromDateTime((DateTime)s.purchasedDate) >= attri.From) &&
+(attri.To == null || DateOnly.FromDateTime((DateTime)s.purchasedDate) <= attri.To)).ToList();
+
+            return filteredData;
+        }
+
+        [HttpPost("archive")]
 public IActionResult Archive([FromBody] SoftwareUpdateDto dto)
 {
     if (!ModelState.IsValid)
@@ -169,7 +149,7 @@ public IActionResult Archive([FromBody] SoftwareUpdateDto dto)
         return NotFound("Software not found.");
     }
 
-    return Ok("Software archive status updated successfully.");
+    return Ok(updateResult);
 }
 
 

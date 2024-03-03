@@ -16,7 +16,7 @@ export class AdminNameCardComponent {
 
   ngOnInit() {
     this.adminDetailService.selectedCardIndex$.subscribe(selectedIndex => {
-      console.log('indx ', this.index, 'select ', selectedIndex)
+    //  console.log('indx ', this.index, 'select ', selectedIndex)
       this.isSelected = this.index === selectedIndex;
     });
   }

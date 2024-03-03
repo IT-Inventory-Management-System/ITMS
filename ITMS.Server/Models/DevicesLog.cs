@@ -29,7 +29,7 @@ public partial class DevicesLog
 
     public Guid? UpdatedBy { get; set; }
 
-    public DateTime? UpdatedAtUtc { get; set; }
+    public DateTime UpdatedAtUtc { get; set; }
 
     public Guid? ActionId { get; set; }
     public Guid? SoftwareAllocation { get; set; }

@@ -8,31 +8,24 @@
     <div class="line-head"></div>
   </div>
 
-  <div class="body">
+  <div *ngFor="let value of commentsData" class="body">
     <div class="date-body">
       <div class="line-date"></div>
       <div class="date">
-        <img class="cal" src="../../../../assets/icons/calender.svg"/>
-        05-11-2024
+        <img class="cal" src="../../../../assets/icons/calender.svg" />
+        {{ value.updatedDate }}
       </div>
       <div class="line-date"></div>
     </div>
 
     <div class="upper-comment">
-      <app-single-comment></app-single-comment>
-      <app-single-comment></app-single-comment>
-      <app-single-comment></app-single-comment>
-      <app-single-comment></app-single-comment>
-      <app-single-comment></app-single-comment>
-      <app-single-comment></app-single-comment>
-      <app-single-comment></app-single-comment>
-
+      <app-single-comment *ngFor="let comment of value.comments" [commentDetails] ="comment"></app-single-comment>
     </div>
   </div>
 
   <form class="input-comment" [formGroup]="deviceForm">
       <input type="text" class="cbox" placeholder="Add Comment..."  formControlName="description"/>
-      <button class="submit-button" data-bs-dismiss="modal" (click)="onSubmit()">Save</button>
+      <button class="submit-button" (click)="onSubmit()">Save</button>
   </form>
 
 

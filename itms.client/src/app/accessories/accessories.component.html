@@ -1,3 +1,10 @@
+<app-accesories-filter (applyClicked)="onApplyClicked($event)"></app-accesories-filter>
+<app-new-comments [accessoryId]="accessoryId"></app-new-comments>
+<app-archive-modal [cygid]="cygid" (modalClosed)="handleModalClosed()"></app-archive-modal>
+<app-unrchivemodal [cygid]="cygid" (modalClosed)="handleModalClosed()"></app-unrchivemodal>
+
+
+
 <div class="Accesories-details ">
   <div class="software-heading  ">
     <div class="software-title ">
@@ -19,7 +26,7 @@
 
       <div class="filter-section">
         <div class="justify-content-end form-check rightSide" *ngIf="selectedView === 'card'">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" (click)="Archived()">
           <label class="form-check-label" for="flexCheckDefault">
             Show Archive Assets Only
           </label>
@@ -27,15 +34,15 @@
         <div class="search-bar" *ngIf="selectedView === 'table'">
           <img src="../../../assets/icons/Software/Search.svg" />
 
-          <input type="text" id="filter-text-box" placeholder="Search"  />
+          <input type="text" id="filter-text-box" placeholder="Search" [(ngModel)]="searchValue" />
         </div>
         <div class="export-button" *ngIf="selectedView === 'table'">
-          <button>
+          <button (click)="exporttoexcel()">
             <img src="../../../../assets/icons/Software/excel-icon.svg" />
             <span>Export to Excel</span>
           </button>
         </div>
-        <div class="filter-button" data-bs-toggle="modal" data-bs-target="#filterModal">
+        <div class="filter-button" data-bs-toggle="modal" data-bs-target="#accesoriesfilterModal">
           <button>
             <img src="../../../../assets/icons/Software/filter-icon.svg" />
             <span>Filter</span>
@@ -52,14 +59,16 @@
           <div class="input">
             <div class="input-frame">
               <img src="../../../assets/icons/Software/Search.svg" />
-              <input class="input-text" placeholder="Search By Brand "   />
-                    
+              <input class="input-text" placeholder="Search By Brand " [(ngModel)]="filterValue" (input)="applyAccessoryFilter($event)" />
+
             </div>
           </div>
         </div>
 
-        <app-accesoriesname></app-accesoriesname>
-      
+        <div *ngFor="let accessory of filteredAccessories ? filteredAccessories : accessories; let i = index">
+          <app-accesoriesname [accessories]="accessory" [isSelected]="selectedAccessoryIndex === i" (cardClicked)="onCardClicked($event, i)"></app-accesoriesname>
+        </div>
+
 
 
 
@@ -72,17 +81,57 @@
         <span class="Accesories-summary">Mouse Detail</span>
       </div>
       <div class="specification-div  ">
-        <div class="status-archive ">
-          <div class="status-div">
-            <div class="status-text">Status</div>
-            <div class="status-active">Active</div>
-          </div>
-          <div class="status-archive-div" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            <img src="../../../assets/icons/Software/Archive button.svg" />
-            <div class="archivebutton-text">Archive</div>
 
+        <div class="spec-card  ">
+          <div class="status-container">
+            <div class="status-info">
+              <span class="status-label">Status</span>
+
+            </div>
           </div>
+
+
         </div>
+        <ng-select class="ng-selectclass" (change)="handleSelectionChange($event)" [(ngModel)]="selectedOption" [clearable]="false" [searchable]="false">
+          <!--<ng-option [value]="'Active'">
+    <img class="asset-image" src="../../../../../assets/icons/Assets/active.svg" />
+
+    Active
+  </ng-option>-->
+          <ng-option *ngIf="!(singleSelected && singleSelected[0]?.isArchived)" [value]="'Active'">
+            <img class="asset-image" src="../../../../../assets/icons/Assets/active.svg" />
+            Active
+          </ng-option>
+
+          <ng-option *ngIf="singleSelected && singleSelected[0]?.isArchived" [value]="'Archived'">
+            <img class="asset-image" src="../../../../../assets/icons/Assets/archive.svg" />
+            Archived
+          </ng-option>
+          <ng-option [value]="'Unassignable'">
+            <img class="asset-image" src="../../../../../assets/icons/Assets/unassignable.svg" />
+            Unassignable
+          </ng-option>
+
+
+          <ng-option *ngIf="singleSelected && singleSelected[0]?.isArchived === false" value="Archive"  [disabled]="singleSelected[0]?.assignedTo">
+            <img class="asset-image" src="../../../../../assets/icons/Assets/archive.svg"/>
+
+            Archive
+          </ng-option>
+
+          <ng-option *ngIf="singleSelected && singleSelected[0]?.isArchived === true" value="Unarchive">
+            <img class="asset-image" src="../../../../../assets/icons/Assets/unarchive.svg" />
+
+            Unarchive
+
+          </ng-option>
+
+        </ng-select>
+
+
+
+
+
 
         <div class="AssetAge">
           <div class="AssetAgeFrame">
@@ -90,7 +139,7 @@
             <span class="Assettext">Asset Age</span>
 
           </div>
-          <span class="agenumber">2.3 Years</span>
+          <span *ngIf="singleSelected && singleSelected[0]" class="agenumber"> {{ calculateYear(singleSelected[0].purchaseDate | date: 'yyyy') }}.{{ calculateMonth(singleSelected[0].purchaseDate | date: 'MM') }} Years</span>
         </div>
         <div class="type-brand ">
           <div class="type-brand1 ">
@@ -99,7 +148,7 @@
                 <div class="type-icon-text-inner">
                   <img src="../../../assets/icons/Accessories/typeicon.svg" />
                   <span class="type-text">Type</span>
-                  <span class="type-name">Wired</span>
+                  <span *ngIf="singleSelected && singleSelected[0]" class="type-name">{{ singleSelected[0].isWired ? 'Wired' : 'Wireless' }}</span>
 
                 </div>
               </div>
@@ -109,10 +158,10 @@
                 <div class="type-icon-text-inner">
                   <img src="../../../assets/icons/Accessories/brand.svg" />
                   <span class="type-text">Brand</span>
-                  <span class="type-name">Dell</span>
+                  <span *ngIf="singleSelected && singleSelected[0]" class="type-name">{{ singleSelected[0].brand}}</span>
 
                 </div>
-                <span class="brand-number">100</span>
+                <span *ngIf="singleSelected && singleSelected[0]" class="brand-number">{{ singleSelected[0].qty}}</span>
 
               </div>
             </div>
@@ -126,7 +175,7 @@
                 <div class="type-icon-text-inner">
                   <img src="../../assets/icons/Accessories/calendar.svg" />
                   <span class="type-text">Date Of Purchase</span>
-                  <span class="type-name">12-12-2023</span>
+                  <span *ngIf="singleSelected && singleSelected[0]" class="type-name">{{ singleSelected[0].purchaseDate | date: 'dd-MM-yyyy' }}</span>
 
                 </div>
               </div>
@@ -136,27 +185,16 @@
                 <div class="type-icon-text-inner">
                   <img src="../../assets/icons/Accessories/calendar.svg" />
                   <span class="type-text">Warranty Year</span>
-                  <span class="type-name">1 Year 2 Months</span>
-
+                  <span *ngIf="singleSelected && singleSelected[0]" class="type-name">
+                    {{ calculateYearDifference(singleSelected[0].purchaseDate | date: 'yyyy', singleSelected[0].warrantyDate| date: 'yyyy') }} Year {{ calculateMonthDifference(singleSelected[0].purchaseDate | date: 'MM', singleSelected[0].warrantyDate| date: 'MM') }} Months
+                  </span>
                 </div>
-                <span class="brand-number">100</span>
+                <!--<span class="brand-number">100</span>-->
 
               </div>
             </div>
           </div>
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
       </div>
     </div>
 
@@ -165,26 +203,23 @@
         <div class="history-heading">
           Assign History
         </div>
-        <!--<div class="comment-heading" data-bs-toggle="modal" data-bs-target="#exampleModal">
-          <img src="../../../assets/icons/Software/Comment.svg" />
-          <span class="comment-text">Comments</span>
+        <button class="button-customize" data-bs-toggle="modal" data-bs-target="#exampleModal">
 
+          <img src="../../../../../assets/icons/Assets/Comment.svg" />
+          <span class="comments_text"> Comments </span>
+          <img src="../../../../../assets/icons/Assets/Chevron.svg" />
 
-          <img src="../../../assets/icons/Software/Chevron.svg" />
-
-
-        </div>-->
-
+        </button>
       </div>
-      <div class="history-cards">
-        <app-assignhistory></app-assignhistory>
+      <div *ngIf="historydata" class="history-cards">
+        <app-assignhistory *ngFor="let history of historydata" [historydata]="history"></app-assignhistory>
       </div>
     </div>
   </div>
 
 
   <div *ngIf="selectedView === 'table'">
-    <app-table-view ></app-table-view>
+    <app-table-view [rowData]="rowData" [colDefs]="colDefs" [searchValue]="searchValue"></app-table-view>
   </div>
 
 

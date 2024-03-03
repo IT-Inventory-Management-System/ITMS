@@ -1,4 +1,4 @@
-<app-asset-filter></app-asset-filter>
+<app-asset-filter (applyFilter)="showFilter($event)"></app-asset-filter>
 
 
 <div class="asset-header">
@@ -37,16 +37,20 @@
 
 <div class="assetcolumns" *ngIf="selectedView === 'card'">
     <div class="left-container">
-      <app-devices #appDevices [isArchived]="isArchived" [selectedItem]="selectedItem"></app-devices>
+      <app-devices #appDevices [isArchived]="isArchived" [selectedItem]="selectedItem" [filterData] ="selectedFilter"></app-devices>
     </div>
     <div class="middle-container">
-      <app-specification [isArchived]="isArchived"></app-specification>
+      <app-specification [isArchived]="isArchived" (modelClicked)="showModelTable($event)"></app-specification>
     </div>
     <div class="right-container">
       <app-assign-history></app-assign-history>
     </div>
 </div>
 
-<div *ngIf="selectedView === 'table'">
+<div *ngIf="selectedView === 'table'&& selectedModel==null">
   <app-table-view [rowData]="rowData" [colDefs]="colDefs" [searchValue]="searchValue"></app-table-view>
+</div>
+
+<div *ngIf="selectedView === 'table' && selectedModel!=null">
+  <app-table-view [rowData]="modelRowDef" [colDefs]="deviceModelColDefs" [searchValue]="searchValue"></app-table-view>
 </div>
