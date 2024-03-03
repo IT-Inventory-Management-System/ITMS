@@ -35,6 +35,10 @@ public class UserListService : IUserListService
                                 FirstName = e.FirstName,
                                 LastName = e.LastName,
                                 LocationId = e.LocationId,
+                                Email=e.Email,
+                                ExitProcessInitiated = e.ExitProcessInitiated,
+                                isArchived = e.IsArchived,
+                                UpdatedAtUtc = e.UpdatedAtUtc,
                             }).ToListAsync();
         
         return result;

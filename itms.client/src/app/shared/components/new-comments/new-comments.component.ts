@@ -13,6 +13,7 @@ import { formatDate } from '@angular/common';
 export class NewCommentsComponent {
   deviceForm: FormGroup;
   commentsData: any[] = [];
+  @Input() accessoryId: any;
  
   constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService) {
 
@@ -28,6 +29,11 @@ export class NewCommentsComponent {
       }
     });
   }
+
+  ngOnChanges() {
+    this.getAccessorryComment();
+  }
+
   createForm() {
     this.deviceForm = this.fb.group({
       description: [''],
@@ -47,27 +53,53 @@ export class NewCommentsComponent {
   }
 
   onSubmit() {
-    this.deviceForm.get('createdAtUtc')?.setValue(new Date().toISOString());
-    this.deviceForm.get('deviceId')?.setValue(this.dataService.DeviceDetails?.id);
-    if (this.deviceForm.get('description')?.value) {
-      if (this.deviceForm.valid) {
-        console.log(this.deviceForm.value);
-        this.dataService.postComments(this.deviceForm.value).subscribe(
-          response => {
-            console.log('Post successful', response);
-            //this.getComments();
-            this.deviceForm.reset();
-            this.setCreatedBy();
-            this.getComments(this.dataService.DeviceDetails.id);
-            this.toastr.success("Comment added successfully");
-          },
-          error => {
-            console.error('Error posting data', error);
-            this.toastr.error("Error in posting comment")
-          }
-        );
+    if (this.accessoryId == null) {
+      this.deviceForm.get('createdAtUtc')?.setValue(new Date().toISOString());
+      this.deviceForm.get('deviceId')?.setValue(this.dataService.DeviceDetails?.id);
+      if (this.deviceForm.get('description')?.value) {
+        if (this.deviceForm.valid) {
+          console.log(this.deviceForm.value);
+          this.dataService.postComments(this.deviceForm.value).subscribe(
+            response => {
+              console.log('Post successful', response);
+              //this.getComments();
+              this.deviceForm.reset();
+              this.setCreatedBy();
+              this.getComments(this.dataService.DeviceDetails.id);
+              this.toastr.success("Comment added successfully");
+            },
+            error => {
+              console.error('Error posting data', error);
+              this.toastr.error("Error in posting comment")
+            }
+          );
+        }
       }
-    } 
+    }
+    else {
+      this.deviceForm.get('createdAtUtc')?.setValue(new Date().toISOString());
+      this.deviceForm.get('deviceId')?.setValue(this.accessoryId);
+      if (this.deviceForm.get('description')?.value) {
+        if (this.deviceForm.valid) {
+          console.log(this.deviceForm.value);
+          this.dataService.postComments(this.deviceForm.value).subscribe(
+            response => {
+              console.log('Post successful', response);
+              //this.getComments();
+              this.deviceForm.reset();
+              this.setCreatedBy();
+              this.getAccessorryComment();
+              this.toastr.success("Comment added successfully");
+            },
+            error => {
+              console.error('Error posting data', error);
+              this.toastr.error("Error in posting comment")
+            }
+          );
+        }
+      } 
+    }
+    
   }
 
   getComments(deviceId: any) {
@@ -98,6 +130,19 @@ export class NewCommentsComponent {
         this.commentsData[i].comments[j].createdAtUtc = formatDate(time, 'hh:mm a', 'en-US');
       }
     }
+  }
+
+  getAccessorryComment() {
+    this.dataService.getAllAccessoriesComment(this.accessoryId).subscribe(
+      (data) => {
+        this.commentsData = data;
+        console.log("Accessory comments : ", this.commentsData);
+        this.changeDateFormat();
+      },
+      error => {
+        console.error('Error fetching comments: ', error);
+      }
+    );
   }
 
 }

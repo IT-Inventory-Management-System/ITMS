@@ -2,6 +2,7 @@
 using ITMS.Server.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Asn1.Ocsp;
 using Org.BouncyCastle.Crypto.Prng.Drbg;
 using System;
 using System.Text;
@@ -32,7 +33,7 @@ namespace ITMS.Server.Services
                     {
                         DeviceLogId = log.Id,
                         DeviceId = log.DeviceId,
-
+                        cygid = log.Device.Cygid, //new change in accessories
                         DeviceName = log.Device.DeviceModel.DeviceName,
                         Brand = log.Device.DeviceModel.Brand,
                         ModelNo = log.Device.DeviceModel.ModelNo,
@@ -52,7 +53,16 @@ namespace ITMS.Server.Services
                             .Where(employee => employee.Id == log.RecievedBy)
                             .Select(employee => $"{employee.FirstName} {employee.LastName}")
                             .FirstOrDefault(),
-                        SubmittedByDate = log.RecievedDate
+                        SubmittedByDate = log.RecievedDate,
+                        ActionName = _context.ActionTables
+                               .Where(action => action.Id == log.ActionId)
+                               .Select(action => $"{action.ActionName}")
+                               .FirstOrDefault(),
+                        UpdatedBy = _context.Employees
+                               .Where(employee => employee.Id == log.UpdatedBy)
+                               .Select(employee => $"{employee.FirstName} {employee.LastName}")
+                               .FirstOrDefault(),
+                        UpdatedAtUtc = log.UpdatedAtUtc
                     })
                     .ToList();
 

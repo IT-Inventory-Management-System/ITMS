@@ -1,6 +1,7 @@
 ﻿using ITMS.Server.DTO;
 using ITMS.Server.Models;
 using Microsoft.EntityFrameworkCore;
+using MiNET.Blocks;
 
 namespace ITMS.Server.Services
 {
@@ -67,6 +68,7 @@ namespace ITMS.Server.Services
                     .Include(dl => dl.SoftwareAllocationNavigation)
                         .ThenInclude(sa => sa.Software)
                             .ThenInclude(s => s.SoftwareType)
+                             .OrderByDescending(log => log.AssignedDate)
                     .Select(dl => new UserSoftwareHistory
                     {
                         DeviceLogId = dl.Id,
@@ -92,17 +94,15 @@ namespace ITMS.Server.Services
                             .Select(employee => $"{employee.FirstName} {employee.LastName}")
                             .FirstOrDefault(),
                         RecievedByDate = dl.RecievedDate,
-
-                        Comments = dl.Comments.Select(c => new CommentDto
-                        {
-                            Id = c.Id,
-                            Description = c.Description,
-                            CreatedBy = _dbContext.Employees
-                                .Where(employee => employee.Id == c.CreatedBy)
-                                .Select(employee => $"{employee.FirstName} {employee.LastName}")
-                                .FirstOrDefault(),
-                            CreatedAt = c.CreatedAtUtc
-                        }).ToList()
+                        ActionName = _dbContext.ActionTables
+                               .Where(action => action.Id == dl.ActionId)
+                               .Select(action => $"{action.ActionName}")
+                               .FirstOrDefault(),
+                        UpdatedBy = _dbContext.Employees
+                               .Where(employee => employee.Id == dl.UpdatedBy)
+                               .Select(employee => $"{employee.FirstName} {employee.LastName}")
+                               .FirstOrDefault(),
+                        UpdatedAtUtc = dl.UpdatedAtUtc
                     })
                     .ToList();
 

@@ -4,6 +4,7 @@ import { FormGroup } from '@angular/forms';
 import { LocationService } from '../shared/services/location.service';
 import { SelectedCountryService } from '../shared/services/selected-country.service';
 import { DataService } from '../shared/services/data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -74,6 +75,17 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     );
   }
 
+  redirectToAccessoriesPage(): void {
+    this.router.navigate(['/accessories']); // Adjust the route according to your app's routing configuration
+  }
+  redirectToSoftwarePage(): void {
+    this.router.navigate(['/software']);
+  }
+
+  redirectToActivityLog(): void {
+    this.router.navigate(['/history']);
+
+  }
   
 
   applyAccessoryFilter(event: Event) {
@@ -83,7 +95,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     );
   }
 
-  constructor(private dashboardService: DashboardService, private cdr: ChangeDetectorRef, private elementRef: ElementRef, private LocationService: LocationService, private selectedCountryService: SelectedCountryService,private dataService: DataService) {
+  constructor(private dashboardService: DashboardService, private cdr: ChangeDetectorRef, private elementRef: ElementRef, private LocationService: LocationService, private selectedCountryService: SelectedCountryService, private dataService: DataService, private router: Router) {
     this.filteredAccessories = this.accessoriesData;
     this.filteredSoftware = this.softwaresData;
   }
@@ -354,7 +366,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
       localStorage.setItem('selectedCountry', selectedCountry);
       this.selectedLocation = selectedCountry;
-      console.log(this.selectedLocation);
+     console.log(this.selectedLocation);
       this.getUserLocation();
 
     });
@@ -366,7 +378,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         for (var i = 0; i < data.length; i++) {
           if (data[i].type == localStorage.getItem('selectedCountry')) {
             this.locationid = data[i].id;
-            console.log(this.locationid);
+           // console.log(this.locationid);
             this.getLogsData(this.locationid);
             break;
           }
@@ -475,10 +487,10 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   getLogsData(locationid: any): void {
     const body = { locationid: locationid };
-    console.log("body",body);
+   // console.log("body",body);
     this.dashboardService.GetLogs(body).subscribe(
       data => {
-        console.log(data);
+       console.log(data);
         this.logsData = data;
         this.setLastUpdated();
       },

@@ -4,6 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AvatarModule } from 'ngx-avatars';
 import { HttpClientModule } from '@angular/common/http';
+import { DatePipe } from '@angular/common';
 import { CategoryComponent } from './category/category.component';
 import { InventoryComponent } from './inventory/inventory.component';
 import { LicenseComponent } from './license/license.component';
@@ -75,6 +76,7 @@ import { LaptopSearchBoxComponent } from './assign-asset/laptop-search-box/lapto
 import { SoftwareSearchBoxComponent } from './assign-asset/software-search-box/software-search-box.component';
 import { AddAssetComponent } from './add-asset/add-asset.component';
 import { AddMouseFormComponent } from './add-asset/add-mouse-form/add-mouse-form.component';
+import { ExitProcessComponent } from './exit-process/exit-process.component';
 import { SoftwareComponent } from './software/software.component';
 import { SoftwareAssignHistoryComponent } from './software/software-assign-history/software-assign-history.component';
 import { SoftwareNameComponent } from './software/software-name/software-name.component';
@@ -91,6 +93,12 @@ import { AddMouseBrandFormComponent } from './add-asset/add-mouse-form/add-mouse
 import { AssetFilterComponent } from './inventory/assets-category/assest/asset-filter/asset-filter.component';
 import { AccordionComponent } from './shared/components/accordion/accordion.component';
 import { AccordionItemComponent } from './shared/components/accordion/accordion-item/accordion-item.component';
+import { ConfirmationModalComponent } from './exit-process/confirmation-modal/confirmation-modal.component';
+import { SampleModalComponent } from './sample-modal/sample-modal.component';
+import { RevokeAllComponent } from './user-details/revoke-all/revoke-all.component';
+import { LaptopAllRevokeComponent } from './user-details/laptop-all-revoke/laptop-all-revoke.component';
+import { AccessoriesAllRevokeComponent } from './user-details/accessories-all-revoke/accessories-all-revoke.component';
+import { SoftwareAllRevokeComponent } from './user-details/software-all-revoke/software-all-revoke.component';
 import { FilterComponent } from './software/filter/filter.component';
 import { LastdateComponent } from './software/lastdate/lastdate.component';
 import { ArchivesoftwareComponent } from './software/archivesoftware/archivesoftware.component';
@@ -111,6 +119,9 @@ import { AddMonitorBrandFormComponent } from './add-asset/add-monitor-form/add-m
 import { AssignAccessoryCommentComponent } from './assign-asset/assign-accessory-comment/assign-accessory-comment.component';
 import { AccessoryBrandySearchBoxComponent } from './assign-asset/accessory-brandy-search-box/accessory-brandy-search-box.component';
 import { CommonModule } from '@angular/common';
+import { AddUserComponent } from './add-user/add-user.component';
+import { AccesoriesFilterComponent } from './accessories/accesories-filter/accesories-filter.component';
+import { AddUserCsvComponent } from './add-user-csv/add-user-csv.component';
 import { RevokeRoleModalComponent } from './manage-access/admin-permissions-panel/revoke-role-modal/revoke-role-modal.component';
 
 
@@ -186,6 +197,7 @@ import { RevokeRoleModalComponent } from './manage-access/admin-permissions-pane
     UnrchivemodalComponent,
     CommentCardComponent,
     AddMouseFormComponent,
+    ExitProcessComponent,
     SoftwareComponent,
     SoftwareAssignHistoryComponent,
     SoftwareNameComponent,
@@ -203,12 +215,23 @@ import { RevokeRoleModalComponent } from './manage-access/admin-permissions-pane
     AssetFilterComponent,
     AccordionComponent,
     AccordionItemComponent,
+    ConfirmationModalComponent,
+    SampleModalComponent,
+    RevokeAllComponent,
+    LaptopAllRevokeComponent,
+    AccessoriesAllRevokeComponent,
+    SoftwareAllRevokeComponent,
+
+    AccordionItemComponent,
     ArchivesoftwareComponent,
     AccessoriesComponent,
     AccesoriesnameComponent,
     AssignhistoryComponent,
     //FilterComponent,
     //LastdateComponent,
+
+
+
 
 
     AccordionItemComponent,
@@ -227,8 +250,14 @@ import { RevokeRoleModalComponent } from './manage-access/admin-permissions-pane
     AccordionItemComponent,
     AssignAccessoryCommentComponent,
     AccessoryBrandySearchBoxComponent,
-    RevokeRoleModalComponent
+    AdminPanelComponent,
+    AccesoriesFilterComponent,
+    AddUserComponent,
+    AddUserCsvComponent,
+    AccessoryBrandySearchBoxComponent,
+    RevokeRoleModalComponent,
 
+    AccessoryBrandySearchBoxComponent,
 
   ],
   imports: [
@@ -244,7 +273,7 @@ import { RevokeRoleModalComponent } from './manage-access/admin-permissions-pane
     NgSelectModule,
     AgGridModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

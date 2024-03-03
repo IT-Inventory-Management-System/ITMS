@@ -48,6 +48,7 @@ public class CommentDto
    
     public DateTime CreatedAt { get; set; }
     public Guid? DeviceId { get; set; }
+    public Guid? SoftwareAllocationId { get; set; } //new
 }
 
 public class DeviceAddComment
@@ -116,18 +117,37 @@ public class locationDeviceDTO
 
 }
 
+public class singleLog
+{
+    public string? UpdatedBy { get; set; }
+    public string? CYGID { get; set; }
+    public string? Category { get; set; }
+    public string? SubmittedTo { get; set; }
+    public string? AssignedTo { get; set; }
+    public string? Action { get; set; }
+    public DateTime UpdatedOn { get; set; }
+    public string? SoftwareName { get; set; }
+}
 
-//public class logDTO
-//{
-//    public Guid DeviceId { get; set; }
-//    public Guid createdBy { get; set; }
-//    public Guid updatedbyBy { get; set; }
-//    public DateTime CreatedAt { get; set;}
-//    public DateTime updatedAt { get; set; }
-//    public Guid actionId { get; set; }
+public class adminHistoryParamsDTO
+{
+    public string employeeId { get; set; }
+    public string locationName { get; set; }
 
 
 
+    public class returnSingleLog
+    {
+        public DateTime? UpdatedDate { get; set; }
+        public IEnumerable<singleLog> Logs { get; set; }
+    }
 
-//}
+    public class filterDateadminHistoryParamsDTO
+    {
+        public DateOnly Date { get; set; }
+        public string employeeId { get; set; }
+        public string locationName { get; set; }
+    }
 
+
+}

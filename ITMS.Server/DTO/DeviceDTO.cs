@@ -56,7 +56,7 @@ namespace ITMS.Server.DTO
     public class DeviceModelDto
     {
 
-        
+
         public string? Processor { get; set; }
 
         public string? DeviceName { get; set; }
@@ -64,7 +64,7 @@ namespace ITMS.Server.DTO
 
         public string? Storage { get; set; }
 
-        
+
     }
 
     public class OsTypeDto
@@ -119,4 +119,45 @@ namespace ITMS.Server.DTO
     }
 
 
+    public class locationaccesoryDTO{
+        public Guid locationId { get; set; }
+        public bool? IsArchived { get; set; }
+
+        public string? CYGID { get; set; }
+    }
+
+    public class allAccessoriesDTO
+    {
+        public Guid? accessoryId { get; set; }
+        public string? Brand { get; set; }
+        public string? CYGID { get; set; }
+        public string? Status { get; set; }
+        public bool? IsWired { get; set; }
+        public bool? IsArchived { get; set; }
+        public bool? AssignedTo { get; set; }
+        public string? Category { get; set; }
+        public int? Qty { get; set; }
+        public DateTime? PurchaseDate { get; set; }
+        public DateTime? WarrantyDate { get; set; }
+    }
+
+    public class filterAccessoriesBodyDTO
+    {
+        public string? Category { get; set; }
+        public string? IsWired { get; set; }
+        public string? Availability { get; set; }
+        public List<string>? selectedStock { get; set; }
+        public bool? IsArchived { get; set; }
+        public Guid location { get; set; }
+    }
+
+    public class historySingleAccessory
+    {
+        public string? empName { get; set;}
+        public string? CYGID { get; set; }
+        public string? AssignedBy { get; set; }
+        public DateTime? AssignedDate { get; set; }
+        public string? RecievedBy { get; set; }
+        public DateTime? RecievedDate { get; set; }
+    }
 }

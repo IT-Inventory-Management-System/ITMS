@@ -1,4 +1,10 @@
 
+<app-assign-asset></app-assign-asset>
+<app-exit-process (initiateExitProcess)="onInitiateExitProcess(userDetails.id)" [laptopDetails]="laptopDetails" [accessoriesDetails]="accessoriesDetails" [userId]="userDetails?.id" [firstName]="userDetails?.firstName" [lastName]="userDetails?.lastName" [cgiid]="userDetails?.cgiid" [userEmail]="userDetails?.email"></app-exit-process>
+<app-confirmation-modal [userId]="userDetails?.id" [firstName]="userDetails?.firstName" [lastName]="userDetails?.lastName" [cgiid]="userDetails?.cgiid"></app-confirmation-modal>
+<app-revoke-all [laptopDetails]="laptopDetails" [accessoriesDetails]="accessoriesDetails" [softwareDetails]="softwareDetails" [userId]="userDetails?.id" [firstName]="userDetails?.firstName" [lastName]="userDetails?.lastName" [cgiid]="userDetails?.cgiid" (changeArchiveBanner)="changeArchiveBanner($event)"></app-revoke-all>
+
+
 
 
 <div class="page-container">
@@ -22,14 +28,53 @@
           </div>
 
         </div>
-        <app-assign-asset></app-assign-asset>
-        <div class="assign" data-bs-toggle="modal" data-bs-target="#assignAssetModal"><button class="assign-button"><img src="../../assets/icons/Add.svg" /><div class="ass">Assign</div></button></div>
+        <div class="nav-icons position-relative">
+
+          <button class="dropdown-main add-asset" [ngClass]="{ 'Actiondisabled': archiveBanner }"  (click)="isOptionsVisible = !isOptionsVisible">
+            Action
+            <img src="../../../../assets/icons/Chevron down.svg" />
+          </button>
+
+
+          <div *ngIf="isOptionsVisible" class="additional-options position-absolute">
+
+            <div class="dropdown-both dropdown-btn" [ngClass]="{ 'disabled': !showAssignAsset || userDetails?.exitProcessInitiated }" [attr.disabled]="!showAssignAsset ? true : null" (click)="isOptionsVisible = !isOptionsVisible" data-bs-toggle="modal" data-bs-target="#assignAssetModal">
+              <img src="../../../../assets/icons/laptop-solid 2 (1).svg" />
+              Assign Assets
+            </div>
+
+            <div class="dropdown-both dropdown-btn exit-process-text" *ngIf="!showAssignAsset || userDetails?.exitProcessInitiated" (click)="isOptionsVisible = !isOptionsVisible;onRetrieveExitProcess(userDetails.id)">
+
+              Retrieve Exit Process
+            </div>
+
+            <div class="dropdown-both dropdown-btn exit-process-text" *ngIf="showAssignAsset && !userDetails?.exitProcessInitiated" (click)="isOptionsVisible = !isOptionsVisible" data-bs-toggle="modal" data-bs-target="#confirmationModal">
+              <img src="../../../../assets/icons/Clip path group.svg" />
+              Initiate Exit Process
+            </div>
+
+          </div>
+
+        </div>
 
       </div>
 
     </div>
 
+    <!--    <div class="revoke-alert" *ngIf="showRevokeAlert[userDetails?.id]">-->
+    <div class="revoke-alert" *ngIf="(userDetails?.exitProcessInitiated || showRevokeAlert[userDetails?.id]) && !archiveBanner">
+      <img class="alert-revoke-img" src="../../assets/icons/Vector-red.svg" />
+      <p class="exit-pro-text">Exit process initiated and all the assets information has<br /> been sent to the user.</p>
+      <div class="btn btn-revoke" data-bs-toggle="modal" data-bs-target="#revokeAllModal">
+        <img src="../../assets/icons/Revoke.svg" />
+        <p class="revoke-btn-text">Revoke all items</p>
+      </div>
+    </div>
 
+    <div class="archive-alert" *ngIf="archiveBanner ">
+      <img class="archive-alert-img" src="../../assets/icons/Vector-black.svg" />
+      <p class="archive-text-days">The exit process has been completed successfully. The user will be auto-archived after 30 days.</p>
+    </div>
 
     <div class="buttons">
 
@@ -55,11 +100,11 @@
 
     <div class="assigned">
 
-      <app-laptop-details *ngIf="selectedItem === 'laptop'" [userId]="userDetails?.id" [firstName]="userDetails?.firstName" [lastName]="userDetails?.lastName" [cgiid]="userDetails?.cgiid" class="asd"></app-laptop-details>
+      <app-laptop-details *ngIf="selectedItem === 'laptop'" [laptopDetails]="laptopDetails" [userId]="userDetails?.id" [firstName]="userDetails?.firstName" [lastName]="userDetails?.lastName" [cgiid]="userDetails?.cgiid" class="asd"></app-laptop-details>
 
-      <app-software-details *ngIf="selectedItem === 'software'" [userId]="userDetails?.id" [firstName]="userDetails?.firstName" [lastName]="userDetails?.lastName" [cgiid]="userDetails?.cgiid" class="asd"></app-software-details>
+      <app-software-details *ngIf="selectedItem === 'software'" [softwareDetails]="softwareDetails" [userId]="userDetails?.id" [firstName]="userDetails?.firstName" [lastName]="userDetails?.lastName" [cgiid]="userDetails?.cgiid" class="asd"></app-software-details>
 
-      <app-accessories-details *ngIf="selectedItem === 'accessories'" [userId]="userDetails?.id" [firstName]="userDetails?.firstName" [lastName]="userDetails?.lastName" [cgiid]="userDetails?.cgiid" class="asd"></app-accessories-details>
+      <app-accessories-details *ngIf="selectedItem === 'accessories'" [accessoriesDetails]="accessoriesDetails" [userId]="userDetails?.id" [firstName]="userDetails?.firstName" [lastName]="userDetails?.lastName" [cgiid]="userDetails?.cgiid" class="asd"></app-accessories-details>
 
     </div>
 

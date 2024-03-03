@@ -1,0 +1,333 @@
+<div class="modal main fade" id="exitProcessModal" role="dialog" tabindex="-1" aria-labelledby="exitProcessModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header ">
+        <h1 class="modal-title">Initiate Exit Process</h1>
+        <button type="button" class="close-button" data-bs-dismiss="modal" aria-label="Close"><img src="../../../../assets/icons/Close.svg" /></button>
+      </div>
+      <div class="modal-body">
+        <div class="alert-box">
+          <div class="alert-image-frame">
+            <img id="alert-image" src="../../assets/icons/Vector-red.svg" />
+          </div>
+          <div class="alert-box-msg">
+            You are initiating the exit process
+          </div>
+        </div>
+        <div class="user-details">
+          <ngx-avatars name="{{firstName}} {{lastName}}" [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="33"></ngx-avatars>
+          <div class="user-name-details">
+            <div class="user-name">{{firstName}} {{lastName}}</div>
+            <div class="user-id">{{cgiid}}</div>
+          </div>
+        </div>
+        <div class="device-details">
+          <div class="details-subheading">
+            Assigned Laptop
+          </div>
+          <div *ngFor="let laptop of laptopDetails">
+            <div *ngIf="laptop.submitedBy === null">
+
+              <div class="details">
+                <div class="device-model">
+                  <div class="details-icon"><img src="../../assets/icons/laptop-small.svg" /></div>
+                  <div class="details-text">{{laptop.model}}</div>
+                </div>
+                <div class="device-model">
+                  <div class="details-icon"><img *ngIf="laptop.osName === 'Windows'" src="../../assets/icons/Windows-small.svg">
+                    <img *ngIf="laptop.osName === 'Mac'" src="../../assets/icons/apple.svg">
+                  </div>
+                  <div class="details-text">{{laptop.osName}}</div>
+                </div>
+                <div class="device-model">
+                  <div class="details-icon"><img src="../../assets/icons/processor.svg"></div>
+                  <div class="details-text">{{laptop.processor}}</div>
+                </div>
+                <div class="same-row-details">
+                  <div class="device-model-same-row">
+                    <div class="details-icon"><img src="../../assets/icons/Storage.svg" /></div>
+                    <div class="details-text">{{laptop.ram}}</div>
+                  </div>
+                  <div class="device-model">
+                    <div class="details-icon-same-row"><img src="../../assets/icons/disk.svg"></div>
+                    <div class="details-text">{{laptop.storage}}</div>
+                  </div>
+                </div>
+                <div class="accessories-details-text-assigned">
+                  <span>Assigned on:</span>
+                  <span class="date">{{laptop.assignedDate | date: 'MM-dd-yyyy'}}</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div class="details-subheading">
+            Assigned Accessories
+          </div>
+          <div *ngFor="let accessory of accessoriesDetails">
+            <div *ngIf="accessory.submittedBy === null">
+              <div class="accessories-details">
+
+                <div class="accessories-model-details">
+                  <div class="accessories-model">
+                    <div class="details-icon">
+                      <img *ngIf="accessory.categoryName === 'Mouse'" src="../../assets/icons/mouse-small.svg">
+                      <img *ngIf="accessory.categoryName === 'Keyboard'" src="../../assets/icons/keyboard-small.svg">
+                      <img *ngIf="accessory.categoryName === 'Bag'" src="../../assets/icons/bag-blue.svg">
+                      <img *ngIf="accessory.categoryName === 'Connector(Texas Instruments)'" src="../../assets/icons/HdmiCable.svg">
+
+                    </div>
+                    <div class="accessories-details-text">{{accessory.categoryName}}</div>
+                    <div class="accessories-details-text-assigned">
+                      <span>Assigned on:</span>
+                      <span class="date">{{accessory.assignedDate | date: 'MM-dd-yyyy'}}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="alert-box-bottom">
+          <img src="../../assets/icons/Vector-black.svg">
+          This information will be sent to the user through an email
+        </div>
+      </div>
+
+
+      <div class="modal-footer">
+        <div class="btn btn-cancel" data-bs-dismiss="modal">Cancel</div>
+        <div class="btn btn-initiate" (click)="onInitiateExitProcess()" data-bs-dismiss="modal">Initiate</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!--<div #imagePlaceholder ></div>-->
+<!--<div class="modal fade" tabindex="-1" id="exitProcessModal" aria-labelledby="exitProcessModal" aria-hidden="true" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Modal body text goes here.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary"  data-bs-dismiss="modal">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>-->
+<!--<div class="modal main fade" id="exitProcessModal" role="dialog" tabindex="-1" aria-labelledby="exitProcessModal" aria-hidden="true" style="border-radius:0.25rem;background:#BFE6FB;">
+
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+
+      <div class="modal-header" style="padding:1rem 1.5rem 0.25rem 1.5rem;">
+        <h1 class="modal-title" style="color:#1E1E1E;font-family:Roboto;font-size:1.125rem;font-style:normal;font-weight:600;line-height:2rem;">Initiate Exit Process</h1>
+        <button type="button" class="close-button" data-bs-dismiss="modal" aria-label="Close" style="border:none;background-color:white;"><img src="../../../../assets/icons/Close.svg" /></button>
+      </div>
+
+      <div class="modal-body" style="padding:1rem 1.5rem;">
+        <div class="alert-box" style="display:flex;padding:0.5rem 0.75rem;align-items:flex-start;gap:0.5rem;align-self:stretch;border-radius:0.25rem;background:#FFE8E8;">
+          <div class="alert-image-frame" style="display:flex;height:1rem;justify-content:center;align-items:center;">
+            <img id="alert-image" src="../../../../assets/icons/Vector.svg" class="alert-image" style="width:0.75rem;height:0.75rem;fill:#CC1A07;">
+          </div>
+          <div class="alert-box-msg" style="color:#CC1A07;font-family:Roboto;font-size:0.875rem;font-style:normal;font-weight:500;line-height:1rem;">You are initiating the exit process</div>
+        </div>
+        <div class="user-details" style="display:flex;flex-direction:row;align-items:center;gap:0.5rem;align-self:stretch;margin:1rem 0rem;">
+          <ngx-avatars name="{{firstName}} {{lastName}}" [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="33"></ngx-avatars>
+          <div class="user-name-details" style="display:flex;flex-direction:column;">
+            <div class="user-name" style="color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:1.125rem;font-style:normal;font-weight:500;line-height:normal;">{{firstName}} {{lastName}}</div>
+            <div class="user-id" style="color:var(--Adhoc-text-gray,#6D6D6D);font-family:Roboto;font-size:0.875rem;font-style:normal;font-weight:400;line-height:normal;">{{cgiid}}</div>
+          </div>
+        </div>
+
+        <div class="device-details" style="display:flex;flex-direction:column;gap:1rem;align-self:stretch;">
+          <div *ngFor="let laptop of laptopDetails">
+            <div *ngIf="laptop.submitedBy === null">
+              <div class="details-subheading" style="color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:0.875rem;font-style:normal;font-weight:700;line-height:normal;margin-bottom:0.5rem;">Assigned Laptop</div>
+              <div class="details" style="display:flex;padding:0.625rem;flex-direction:column;align-items:flex-start;gap:0.75rem;align-self:stretch;border-radius:0.25rem;border:1px solid var(--Secondary-Light-Blue,#B8DDE1);background:#F5F8FE;color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:0.8125rem;font-style:normal;font-weight:500;line-height:normal;margin:0.5rem 0rem 1rem 0rem;">
+                <div class="device-model" style="color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:0.8125rem;font-style:normal;font-weight:500;line-height:normal;display:flex;">
+                  <div class="details-icon" style="width:1rem;height:1rem;"><img src="../../assets/icons/laptop-small.svg" /></div>
+                  <div class="details-text" style="color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:0.8125rem;font-style:normal;font-weight:500;line-height:normal;margin:0.2rem 0rem 0rem 1rem;">{{laptop.model}}</div>
+                </div>
+                <div class="device-model" style="color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:0.8125rem;font-style:normal;font-weight:500;line-height:normal;display:flex;">
+                  <div class="details-icon" style="width:1rem;height:1rem;"><img src="../../assets/icons/Windows-small.svg"></div>
+                  <div class="details-text" style="color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:0.8125rem;font-style:normal;font-weight:500;line-height:normal;margin:0.2rem 0rem 0rem 1rem;">{{laptop.osname}}</div>
+                </div>
+                <div class="device-model" style="color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:0.8125rem;font-style:normal;font-weight:500;line-height:normal;display:flex;">
+                  <div class="details-icon" style="width:1rem;height:1rem;"><img src="../../assets/icons/processor.svg"></div>
+                  <div class="details-text" style="color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:0.8125rem;font-style:normal;font-weight:500;line-height:normal;margin:0.2rem 0rem 0rem 1rem;">{{laptop.processor}}</div>
+                </div>
+                <div class="device-model" style="color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:0.8125rem;font-style:normal;font-weight:500;line-height:normal;display:flex;">
+                  <div class="details-icon" style="width:1rem;height:1rem;"><img src="../../assets/icons/Storage.svg" /></div>
+                  <div class="details-text" style="color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:0.8125rem;font-style:normal;font-weight:500;line-height:normal;margin:0.2rem 0rem 0rem 1rem;">{{laptop.ram}}</div>
+                </div>
+                <div class="device-model" style="color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:0.8125rem;font-style:normal;font-weight:500;line-height:normal;display:flex;">
+                  <div class="details-icon" style="width:1rem;height:1rem;"><img src="../../assets/icons/disk.svg"></div>
+                  <div class="details-text" style="color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:0.8125rem;font-style:normal;font-weight:500;line-height:normal;margin:0.2rem 0rem 0rem 1rem;">{{laptop.storage}}</div>
+                </div>
+              </div>
+            </div>
+          </div>-->
+<!-- Accessories details -->
+<!--<div *ngFor="let accessory of accessoriesDetails">
+  <div *ngIf="accessory.submittedBy === null">-->
+<!-- Accessory Details -->
+<!--<div class="accessories-details" style="display:flex;flex-direction:column;gap:1rem;">
+  <div class="details-subheading" style="color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:0.875rem;font-style:normal;font-weight:700;line-height:normal;margin-bottom:0.5rem;">Assigned Accessories</div>
+  <div class="accessories-model-details" style="display:flex;flex-direction:row;align-items:flex-start;gap:1rem;align-self:stretch;">
+    <div class="accessories-model" style="display:flex;padding:0.625rem;flex-direction:column;align-items:flex-start;gap:0.375rem;flex:1 0 0;border-radius:0.25rem;border:1px solid var(--Secondary-Light-Gray,#E9ECEB);background:var(--Primary-White,#FFF);margin-bottom:1rem;">-->
+<!-- Accessory Model Details -->
+<!--<div class="details-icon" style="width:1rem;height:1rem;"><img src="../../assets/icons/bag-small.svg"></div>
+                    <div class="accessories-details-text" style="color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:0.875rem;font-style:normal;font-weight:500;line-height:normal;margin:0.5rem 0rem;">{{accessory.categoryName}}</div>
+                    <div class="accessories-details-text" style="color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:0.875rem;font-style:normal;font-weight:500;line-height:normal;margin:0.5rem 0rem;">{{accessory.assignedDate | date: 'MM-dd-yyyy'}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="alert-box-bottom" style="display:flex;padding:0.5rem 0.75rem;align-items:flex-start;gap:0.5rem;align-self:stretch;color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:0.75rem;font-style:normal;font-weight:400;line-height:1rem;border-radius:0.25rem;background:#BFE6FB;">
+          <img src="../../assets/icons/Vector.svg">
+          This information will be sent to the user through an email
+        </div>
+
+      </div>
+
+      <div class="modal-footer" style="display:flex;">
+        <div class="btn btn-cancel" data-bs-dismiss="modal" style="display:flex;width:5.75rem;height:2.5rem;padding:0.75rem 0.5rem;justify-content:center;align-items:center;gap:0.5rem;border-radius:0.25rem;border:1px solid #28519E;color:var(--Primary-Blue,#28519E);font-family:Roboto;font-size:1rem;font-style:normal;font-weight:500;line-height:normal;">Cancel</div>
+        <div class="btn btn-initiate" (click)="onInitiateExitProcess()" data-bs-dismiss="modal" style="display:flex;width:5.75rem;height:2.5rem;padding:0.75rem 0.5rem;justify-content:center;align-items:center;gap:0.5rem;border-radius:0.25rem;background:var(--Primary-Blue,#28519E);color:#FFF;font-family:Roboto;font-size:1rem;font-style:normal;font-weight:500;line-height:normal;">Initiate</div>
+      </div>
+
+    </div>
+
+  </div>
+</div>-->
+<!--<div class="modal main fade" id="exitProcessModal" role="dialog" tabindex="-1" aria-labelledby="exitProcessModal" aria-hidden="true" style="border-radius:0.25rem;background:#BFE6FB;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body" style="padding:1rem 1.5rem;">
+        <div class="user-details" style="display:flex;flex-direction:row;align-items:center;gap:0.5rem;align-self:stretch;margin:1rem 0rem;">
+          <ngx-avatars name="{{firstName}} {{lastName}}" [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="33"></ngx-avatars>
+          <div class="user-name-details" style="display:flex;flex-direction:column;">
+            <div class="user-name" style="color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:1.125rem;font-style:normal;font-weight:500;line-height:normal;">{{firstName}} {{lastName}}</div>
+            <div class="user-id" style="color:var(--Adhoc-text-gray,#6D6D6D);font-family:Roboto;font-size:0.875rem;font-style:normal;font-weight:400;line-height:normal;">{{cgiid}}</div>
+          </div>
+        </div>
+        <div class="device-details" style="display:flex;flex-direction:column;gap:1rem;align-self:stretch;">
+          <div *ngFor="let laptop of laptopDetails">
+            <div *ngIf="laptop.submitedBy === null">
+              <div class="details-subheading" style="color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:0.875rem;font-style:normal;font-weight:700;line-height:normal;margin-bottom:0.5rem;">Assigned Laptop</div>
+              <div class="details" style="display:flex;padding:0.625rem;flex-direction:column;align-items:flex-start;gap:0.75rem;align-self:stretch;border-radius:0.25rem;border:1px solid var(--Secondary-Light-Blue,#B8DDE1);background:#F5F8FE;color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:0.8125rem;font-style:normal;font-weight:500;line-height:normal;margin:0.5rem 0rem 1rem 0rem;">
+                <div class="device-model" style="color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:0.8125rem;font-style:normal;font-weight:500;line-height:normal;display:flex;">
+                  <div class="details-icon" style="width:1rem;height:1rem;"><img src="../../assets/icons/laptop-small.svg" /></div>
+                  <div class="details-text" style="color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:0.8125rem;font-style:normal;font-weight:500;line-height:normal;margin:0.2rem 0rem 0rem 1rem;">{{laptop.model}}</div>
+                </div>
+                <div class="device-model" style="color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:0.8125rem;font-style:normal;font-weight:500;line-height:normal;display:flex;">
+                  <div class="details-icon" style="width:1rem;height:1rem;"><img src="../../assets/icons/Windows-small.svg"></div>
+                  <div class="details-text" style="color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:0.8125rem;font-style:normal;font-weight:500;line-height:normal;margin:0.2rem 0rem 0rem 1rem;">{{laptop.osname}}</div>
+                </div>
+                <div class="device-model" style="color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:0.8125rem;font-style:normal;font-weight:500;line-height:normal;display:flex;">
+                  <div class="details-icon" style="width:1rem;height:1rem;"><img src="../../assets/icons/processor.svg"></div>
+                  <div class="details-text" style="color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:0.8125rem;font-style:normal;font-weight:500;line-height:normal;margin:0.2rem 0rem 0rem 1rem;">{{laptop.processor}}</div>
+                </div>
+                <div class="device-model" style="color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:0.8125rem;font-style:normal;font-weight:500;line-height:normal;display:flex;">
+                  <div class="details-icon" style="width:1rem;height:1rem;"><img src="../../assets/icons/Storage.svg" /></div>
+                  <div class="details-text" style="color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:0.8125rem;font-style:normal;font-weight:500;line-height:normal;margin:0.2rem 0rem 0rem 1rem;">{{laptop.ram}}</div>
+                </div>
+                <div class="device-model" style="color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:0.8125rem;font-style:normal;font-weight:500;line-height:normal;display:flex;">
+                  <div class="details-icon" style="width:1rem;height:1rem;"><img src="../../assets/icons/disk.svg"></div>
+                  <div class="details-text" style="color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:0.8125rem;font-style:normal;font-weight:500;line-height:normal;margin:0.2rem 0rem 0rem 1rem;">{{laptop.storage}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngFor="let accessory of accessoriesDetails">
+            <div *ngIf="accessory.submittedBy === null">
+              <div class="accessories-details" style="display:flex;flex-direction:column;gap:1rem;">
+                <div class="details-subheading" style="color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:0.875rem;font-style:normal;font-weight:700;line-height:normal;margin-bottom:0.5rem;">Assigned Accessories</div>
+                <div class="accessories-model-details" style="display:flex;flex-direction:row;align-items:flex-start;gap:1rem;align-self:stretch;">
+                  <div class="accessories-model" style="display:flex;padding:0.625rem;flex-direction:column;align-items:flex-start;gap:0.375rem;flex:1 0 0;border-radius:0.25rem;border:1px solid var(--Secondary-Light-Gray,#E9ECEB);background:var(--Primary-White,#FFF);margin-bottom:1rem;">
+                    <div class="details-icon" style="width:1rem;height:1rem;"><img src="../../assets/icons/bag-small.svg"></div>
+                    <div class="accessories-details-text" style="color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:0.875rem;font-style:normal;font-weight:500;line-height:normal;margin:0.5rem 0rem;">{{accessory.categoryName}}</div>
+                    <div class="accessories-details-text" style="color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:0.875rem;font-style:normal;font-weight:500;line-height:normal;margin:0.5rem 0rem;">{{accessory.assignedDate | date: 'MM-dd-yyyy'}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>-->
+<div style="position:absolute; left:-9999px" class="email">
+  <div #emailContent role="dialog" tabindex="-1" aria-labelledby="exitProcessModal" aria-hidden="true" style="border-radius:0.25rem;background:#BFE6FB;">
+    <div>
+      <div>
+        <div style="padding:1rem 1.5rem;">
+          <div style="display:flex;flex-direction:row;align-items:center;gap:0.5rem;align-self:stretch;margin:1rem 0rem;">
+            <ngx-avatars name="{{this.firstName}} {{this.lastName}}" [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="33"></ngx-avatars>
+            <div style="display:flex;flex-direction:column;">
+              <div style="color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:1.125rem;font-style:normal;font-weight:500;line-height:normal;">{{this.firstName}} {{this.lastName}}</div>
+              <div style="color:var(--Adhoc-text-gray,#6D6D6D);font-family:Roboto;font-size:0.875rem;font-style:normal;font-weight:400;line-height:normal;">{{ cgiid }}</div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:1rem;align-self:stretch;">
+            <div *ngFor="let laptop of laptopDetails">
+              <div *ngIf="laptop.submitedBy === null">
+                <div style="color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:0.875rem;font-style:normal;font-weight:700;line-height:normal;margin-bottom:0.5rem;">Assigned Laptop</div>
+                <div style="display:flex;padding:0.625rem;flex-direction:column;align-items:flex-start;gap:0.75rem;align-self:stretch;border-radius:0.25rem;border:1px solid var(--Secondary-Light-Blue,#B8DDE1);background:#F5F8FE;color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:0.8125rem;font-style:normal;font-weight:500;line-height:normal;margin:0.5rem 0rem 1rem 0rem;">
+                  <div style="color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:0.8125rem;font-style:normal;font-weight:500;line-height:normal;display:flex;">
+                    <div style="width:1rem;height:1rem;"><img src="../../assets/icons/laptop-small.svg"></div>
+                    <div style="color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:0.8125rem;font-style:normal;font-weight:500;line-height:normal;margin:0.2rem 0rem 0rem 1rem;">{{ laptop.model }}</div>
+                  </div>
+                  <div style="color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:0.8125rem;font-style:normal;font-weight:500;line-height:normal;display:flex;">
+                    <div style="width:1rem;height:1rem;"><img src="../../assets/icons/Windows-small.svg"></div>
+                    <div style="color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:0.8125rem;font-style:normal;font-weight:500;line-height:normal;margin:0.2rem 0rem 0rem 1rem;">{{ laptop.osName }}</div>
+                  </div>
+                  <div style="color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:0.8125rem;font-style:normal;font-weight:500;line-height:normal;display:flex;">
+                    <div style="width:1rem;height:1rem;"><img src="../../assets/icons/processor.svg"></div>
+                    <div style="color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:0.8125rem;font-style:normal;font-weight:500;line-height:normal;margin:0.2rem 0rem 0rem 1rem;">{{ laptop.processor }}</div>
+                  </div>
+                  <div style="color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:0.8125rem;font-style:normal;font-weight:500;line-height:normal;display:flex;">
+                    <div style="width:1rem;height:1rem;"><img src="../../assets/icons/Storage.svg" /></div>
+                    <div style="color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:0.8125rem;font-style:normal;font-weight:500;line-height:normal;margin:0.2rem 0rem 0rem 1rem;">{{ laptop.ram }}</div>
+                  </div>
+                  <div style="color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:0.8125rem;font-style:normal;font-weight:500;line-height:normal;display:flex;">
+                    <div style="width:1rem;height:1rem;"><img src="../../assets/icons/disk.svg"></div>
+                    <div style="color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:0.8125rem;font-style:normal;font-weight:500;line-height:normal;margin:0.2rem 0rem 0rem 1rem;">{{ laptop.storage }}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div *ngFor="let accessory of accessoriesDetails">
+              <div *ngIf="accessory.submittedBy === null">
+                <div style="display:flex;flex-direction:column;gap:1rem;">
+                  <div style="color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:0.875rem;font-style:normal;font-weight:700;line-height:normal;margin-bottom:0.5rem;">Assigned Accessories</div>
+                  <div style="display:flex;flex-direction:row;align-items:flex-start;gap:1rem;align-self:stretch;">
+                    <div style="display:flex;padding:0.625rem;flex-direction:column;align-items:flex-start;gap:0.375rem;flex:1 0 0;border-radius:0.25rem;border:1px solid var(--Secondary-Light-Gray,#E9ECEB);background:var(--Primary-White,#FFF);margin-bottom:1rem;">
+                      <div style="width:1rem;height:1rem;"><img src="../../assets/icons/bag-small.svg"></div>
+                      <div style="color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:0.875rem;font-style:normal;font-weight:500;line-height:normal;margin:0.5rem 0rem;">{{ accessory.categoryName }}</div>
+                      <div style="color:var(--Primary-Gray,#343435);font-family:Roboto;font-size:0.875rem;font-style:normal;font-weight:500;line-height:normal;margin:0.5rem 0rem;">{{ accessory.assignedDate | date: 'MM-dd-yyyy' }}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

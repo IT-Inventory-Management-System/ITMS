@@ -169,6 +169,24 @@ export class DataService {
     return this.http.post(this.apiUrl + 'DeviceLog/filterDevices', selectedFilters);
   }
 
+
+
+  getAllAccessories(dto:any): Observable<any | null> {
+    return this.http.post<any | null>(this.apiUrl + 'Device/getAllAccessories', dto );
+  }
+
+  FilterAccessories(body: any): Observable<any | null> {
+    return this.http.post<any | null>(this.apiUrl + 'Device/filterAccessories', body);
+  }
+
+  singleHistoryAccessory(dto: any): Observable<any | null> {
+    return this.http.post<any | null>(this.apiUrl + 'Device/singleHistoryAccessory', dto);
+  }
+
+  getAllAccessoriesComment(deviceId: any): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + 'Device/getAllComments/' + deviceId);
+  }
+
   private deviceListSubject = new BehaviorSubject<any>(null);
   deviceListChanged$ = this.deviceListSubject.asObservable();
 

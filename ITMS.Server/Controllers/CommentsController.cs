@@ -12,7 +12,7 @@ namespace ITMS.Server.Controllers
     public class CommentsController : ControllerBase
     {
         private readonly ICommentService _commentService;
-        
+
         public CommentsController(ICommentService commentService)
         {
             _commentService = commentService;
@@ -23,16 +23,48 @@ namespace ITMS.Server.Controllers
         {
             try
             {
-               _commentService.AddComment(commentDto);
-              
+                _commentService.AddComment(commentDto);
+
                 return Ok();
             }
             catch (Exception ex)
             {
-                
+
                 return BadRequest(ex);
             }
         }
+        [HttpPost("AddRevokeComment")]
+        public IActionResult AddRevokeComment([FromBody] UserCommentHistory commentDto)
+        {
+            try
+            {
+                var addedComment = _commentService.AddRevokeComment(commentDto);
+              
+                return Ok(addedComment);
+            }
+            catch (Exception ex)
+            {
+                
+                return StatusCode(500, new { Message = "Internal Server Error" });
+            }
+        }
+
+        [HttpPost("AddSoftwareComment")]
+        public IActionResult AddSoftwareComment([FromBody] UserSoftwareCommentHistory commentDto)
+        {
+            try
+            {
+                var addedComment = _commentService.AddSoftwareComment(commentDto);
+
+                return Ok(addedComment);
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(500, new { Message = "Internal Server Error" });
+            }
+        }
+
 
         [HttpGet("{deviceId}")]
         public IActionResult GetComments(Guid deviceId)
@@ -44,7 +76,7 @@ namespace ITMS.Server.Controllers
             }
             catch (Exception ex)
             {
-                
+
                 return StatusCode(500, new { Message = "Internal Server Error" });
             }
         }

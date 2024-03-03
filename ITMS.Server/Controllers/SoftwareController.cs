@@ -54,18 +54,18 @@ namespace ITMS.Server.Controllers
         }
 
 
-        [HttpGet("GetUserSoftware/{id}")]
-        public IActionResult GetUserSoftware(Guid id)
-        {
-            try
-            {
-                var softwareList = _softwareService.GetUserSoftware(id);
-                return Ok(softwareList);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+        //[HttpGet("GetUserSoftware/{id}")]
+        //public IActionResult GetUserSoftware(Guid id)
+        //{
+        //    try
+        //    {
+        //        var softwareList = _softwareService.GetUserSoftware(id);
+        //        return Ok(softwareList);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
 
         }
 
@@ -73,4 +73,3 @@ namespace ITMS.Server.Controllers
 
 
     }
-}

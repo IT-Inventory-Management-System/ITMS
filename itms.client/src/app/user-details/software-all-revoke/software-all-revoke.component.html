@@ -1,0 +1,30 @@
+<div class="assigned-software-heading">Assigned Software Detail</div>
+<div *ngFor="let software of softwareDetails">
+  <div class="assigned-software-detail-box">
+
+    <div class="details">
+      <p class="software-name-heading">Software Name</p>
+      <p>{{software.softwareName}}</p>
+      <div class="type">
+        <div class="iconsOfModal">
+          <img src="../../../assets//icons/versionVector.svg" />
+          <p>{{software.version}}</p>
+        </div>
+        <div class="iconsOfModal">
+          <img src="../../../assets/icons/WiredVector.svg" />
+          <p>{{software.typeName}}</p>
+        </div>
+      </div>
+      <div class="iconsOfModal">
+        <img src="../../../assets/icons/CalenderVector.svg" />
+        <p>{{software.assignedDate | date: 'MM-dd-yyyy'}}</p>
+      </div>
+
+      <!--<p>{{software.deviceLogId}}</p>
+  <p>{{software.softwareAllocationId}}</p>-->
+    </div>
+  </div>
+
+
+
+</div>

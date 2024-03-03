@@ -1,7 +1,9 @@
+
 using ITMS.Server.Models;
 using ITMS.Server.Services;
 using Microsoft.EntityFrameworkCore;
 using MiNET.Blocks;
+using static Azure.Core.HttpHeader;
 using static ITMS.Server.Services.GetSoftwareService;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -39,9 +41,15 @@ builder.Services.AddScoped<IGetDeviceService, GetDeviceService>();
 builder.Services.AddScoped<SoftwareService>();
 builder.Services.AddScoped<AccessoriesService>();
 builder.Services.AddScoped<ICommentService, AddCommentService>();
+builder.Services.AddScoped<IUserRecievedBy,  UserRecievedBy>();
+builder.Services.AddScoped<ActionService, ActionService>();
+
 builder.Services.AddScoped<SoftwarePageService>();
+builder.Services.AddScoped<EmployeeService>();
+
 
 builder.Services.AddScoped<IPostAssignAsset, PostAssignAsset>();
+builder.Services.AddScoped<IGetAccessoryService, GetAccessoriesService>();
 
 builder.Services.AddCors(options =>
 {

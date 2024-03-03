@@ -25,7 +25,12 @@ namespace ITMS.Server.DTO
         public DateTime? PurchasedDate { get; set; } //new
         public double DeviceAge { get; set; } //new
 
+        public string ActionName {  get; set; } //new
 
+        public string UpdatedBy { get; set; } //new
+
+        public DateTime? UpdatedAtUtc { get; set; } //new
+        public DateTime? CreatedAtUtc { get; set; }
         public List<CommentDto> Comments { get; set; }
 
 
