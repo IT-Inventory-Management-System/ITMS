@@ -80,13 +80,13 @@ namespace ITMS.Server.Controllers
 
                                 await _postAssignAsset.UpdateDeviceComment(deviceCommentDTO);
 
-                                var Comments = await _postAssignAsset.ListComment(deviceLogID);
-                                var commentID = Comments.FirstOrDefault()?.Id;
+                                //var Comments = await _postAssignAsset.ListComment(deviceLogID);
+                                //var commentID = Comments.FirstOrDefault()?.Id;
 
-                                if (commentID.HasValue)
-                                {
-                                    await _postAssignAsset.UpdateCommentIDLogAsync(deviceLogID, commentID.Value);
-                                }
+                                //if (commentID.HasValue)
+                                //{
+                                //    await _postAssignAsset.UpdateCommentIDLogAsync(deviceLogID, commentID.Value);
+                                //}
                             }
                         }
                     }
@@ -128,13 +128,13 @@ namespace ITMS.Server.Controllers
 
                                 await _postAssignAsset.UpdateSoftwareComment(softwareCommentDTO);
 
-                                var Comments = await _postAssignAsset.ListComment(SoftwareLogID);
-                                var commentID = Comments.FirstOrDefault()?.Id;
+                                //var Comments = await _postAssignAsset.ListComment(SoftwareLogID);
+                                //var commentID = Comments.FirstOrDefault()?.Id;
 
-                                if (commentID.HasValue)
-                                {
-                                    await _postAssignAsset.UpdateCommentIDLogAsync(SoftwareLogID, commentID.Value);
-                                }
+                                //if (commentID.HasValue)
+                                //{
+                                //    await _postAssignAsset.UpdateCommentIDLogAsync(SoftwareLogID, commentID.Value);
+                                //}
                             }
                         }
                     }
@@ -176,13 +176,13 @@ namespace ITMS.Server.Controllers
 
                                 await _postAssignAsset.UpdateDeviceComment(accessoryCommentDTO);
 
-                                var Comments = await _postAssignAsset.ListComment(accessorydeviceLogID);
-                                var commentID = Comments.FirstOrDefault()?.Id;
+                                //var Comments = await _postAssignAsset.ListComment(accessorydeviceLogID);
+                                //var commentID = Comments.FirstOrDefault()?.Id;
 
-                                if (commentID.HasValue)
-                                {
-                                    await _postAssignAsset.UpdateCommentIDLogAsync(accessorydeviceLogID, commentID.Value);
-                                }
+                                //if (commentID.HasValue)
+                                //{
+                                //    await _postAssignAsset.UpdateCommentIDLogAsync(accessorydeviceLogID, commentID.Value);
+                                //}
                             }
                         }
                     }

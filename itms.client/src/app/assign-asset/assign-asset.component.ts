@@ -157,7 +157,6 @@ export class AssignAssetComponent {
     });
     //this.getUsers();
     this.getSoftwares();
-    this.getLaptops();
     this.getAccessories();
   }
 
@@ -172,6 +171,7 @@ export class AssignAssetComponent {
             this.softwares = this.totalSoftwaresData.filter(item => item.locationId === this.locationId);
             this.accessories = this.totalAccessoriesData.filter(item => item.locationId === this.locationId);
             this.getUsers();
+            this.getLaptops();
             break;
           }
         }
@@ -193,7 +193,7 @@ export class AssignAssetComponent {
     );
   }
   getLaptops(): void {
-    this.deviceAssignService.getLaptop().subscribe(
+    this.deviceAssignService.getLaptop(this.locationId).subscribe(
       (data: any[]) => {
         this.totalLaptopsData = data;
         this.laptops = this.totalLaptopsData.filter(item => item.locationId === this.locationId);

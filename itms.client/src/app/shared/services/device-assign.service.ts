@@ -19,12 +19,17 @@ export class DeviceAssignService {
   getSoftwareVersion(SoftwareName: string): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl + `software/getSoftwareVersion?SoftwareName=${encodeURIComponent(SoftwareName)}`)
   }
-  getLaptop(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl + `Device/getDevices`);
+  getLaptop(locationId: any): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + `Device/getDevicess/` + locationId);
   }
   getAccessories(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl + `asset/getAccessories`);
   }
+
+  getAccessoriesDetails(locationId :any): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + `Accessories/GetAccessoriesDetails/` + locationId);
+  }
+
   saveAssignment(assignmentData: any): Observable<any> {
     return this.http.post<any>(this.apiUrl+`add/assignAsset`, assignmentData);
   }
