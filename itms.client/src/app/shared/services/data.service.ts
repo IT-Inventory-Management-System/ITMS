@@ -22,7 +22,14 @@ export class DataService {
   private buttonClickedSource = new Subject<void>();
   buttonClicked$ = this.buttonClickedSource.asObservable();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.buttonClicked$.subscribe(() => {
+      // Call getComments whenever the button is clicked
+      if (this.DeviceDetails && this.DeviceDetails.id) {
+        this.getAllComments(this.DeviceDetails.id);
+      }
+    });
+  }
 
   getCategories(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl + 'Device/categories');
@@ -143,5 +150,42 @@ export class DataService {
   changeUserRole(userData: any): Observable<any> {
     return this.http.post(this.apiUrl + 'employee/change-role', userData);
   }
+
+  getAllComments(deviceId: any): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + 'Device/getAllComments/' + deviceId);
+  }
+
+  getLaptopIDs(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + 'asset/getLaptopIDs');
+  }
+
+  getDeviceModelData(inputData: any): Observable<any> {
+    //console.log(inputData);
+    return this.http.post(this.apiUrl + 'Device/DeviceModels', inputData);
+  }
+
+  getFilteredDevices(selectedFilters: any): Observable<any> {
+   // console.log(inputData);
+    return this.http.post(this.apiUrl + 'DeviceLog/filterDevices', selectedFilters);
+  }
+
+
+
+  getAllAccessories(dto:any): Observable<any | null> {
+    return this.http.post<any | null>(this.apiUrl + 'Device/getAllAccessories', dto );
+  }
+
+  FilterAccessories(body: any): Observable<any | null> {
+    return this.http.post<any | null>(this.apiUrl + 'Device/filterAccessories', body);
+  }
+
+  singleHistoryAccessory(dto: any): Observable<any | null> {
+    return this.http.post<any | null>(this.apiUrl + 'Device/singleHistoryAccessory', dto);
+  }
+
+  getAllAccessoriesComment(deviceId: any): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + 'Device/getAllComments/' + deviceId);
+  }
+
 }
 

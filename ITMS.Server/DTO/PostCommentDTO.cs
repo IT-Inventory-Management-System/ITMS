@@ -26,4 +26,22 @@
         public Guid? ReceivedBy { get; set; }
         public Guid? CreatedBy { get; set; }
     }
+
+    public class singleComment
+    {
+        public string? Description { get; set; }
+        public DateTime CreatedAtUtc { get; set; }
+        public string? ActionId { get; set; }
+        public string? AssignedTo { get; set; }
+        public string? AssignedBy { get; set; }
+        public string? ReceivedBy { get; set; }
+        public string? CreatedBy { get; set; }
+    }
+
+    public class getComments
+    {
+        public DateTime? UpdatedDate { get; set; }
+        public IEnumerable<singleComment> Comments { get; set; }
+    }
+
 }

@@ -56,6 +56,7 @@ export class AddSoftwareFormComponent {
       purchasedDate: [null, Validators.required],
       expiryDate: [null, Validators.required],
       qty: [null, Validators.required],
+      version: [null, Validators.required],
       assignedTo: [null],
       assignedBy: [null],
       assigndate: [null],

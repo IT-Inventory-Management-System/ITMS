@@ -1,5 +1,5 @@
 <div class="modal fade " id="filterModal">
-  <div class="filtersection">
+  <div class="filtersection ">
     <div class="tab">
       <div class="filtertab">
         <img src="../../../assets/icons/Software/Filter-black.svg" />
@@ -18,10 +18,10 @@
       <app-accordion-item title="SoftwareType">
         <div class="filter-checkbox-outer">
           <div *ngFor="let status of SoftwareType" class="filter-checkbox">
-            <input class="filter-checkbox-input" type="checkbox" id="{{status}}" (change)="toggleCheckboxType(status)">
+            <input class="filter-checkbox-input" type="checkbox" id="{{status}}" [checked]="isSelectedType(status)" (change)="toggleCheckboxType(status)">
             <label class="filter-checkbox-label" for="{{status}}">
-              <img *ngIf="type === status" src="../../../../../assets/icons/checkbox-checked.svg" />
-              <img *ngIf="type !== status" src="../../../../../assets/icons/checkbox-unchecked.svg" />
+              <img *ngIf="isSelectedType(status)" src="../../../../../assets/icons/checkbox-checked.svg" />
+              <img *ngIf="!isSelectedType(status)" src="../../../../../assets/icons/checkbox-unchecked.svg" />
               <span>{{status}}</span>
             </label>
           </div>
@@ -30,7 +30,7 @@
       <app-accordion-item title="SoftwareStatus">
         <div class="filter-checkbox-outer">
           <div *ngFor="let status of SoftwareStatus" class="filter-checkbox">
-            <input class="filter-checkbox-input" type="checkbox" id="{{status}}" (change)="toggleCheckboxStatus(status)">
+            <input class="filter-checkbox-input" type="checkbox" id="{{status}}"  (change)="toggleCheckboxStatus(status)">
             <label class="filter-checkbox-label" for="{{status}}">
               <img *ngIf="stat === status" src="../../../../../assets/icons/checkbox-checked.svg" />
               <img *ngIf="stat !== status" src="../../../../../assets/icons/checkbox-unchecked.svg" />
@@ -42,10 +42,10 @@
       <app-accordion-item title="StockStatus">
         <div class="filter-checkbox-outer">
           <div *ngFor="let status of StockStatus" class="filter-checkbox">
-            <input class="filter-checkbox-input" type="checkbox" id="{{status}}" (change)="toggleCheckboxStock(status)">
+            <input class="filter-checkbox-input" type="checkbox" id="{{status}}" [checked]="isSelectedStock(status)" (change)="toggleCheckboxStock(status)">
             <label class="filter-checkbox-label" for="{{status}}">
-              <img *ngIf="stock === status" src="../../../../../assets/icons/checkbox-checked.svg" />
-              <img *ngIf="stock !== status" src="../../../../../assets/icons/checkbox-unchecked.svg" />
+              <img *ngIf="isSelectedStock(status)"  src="../../../../../assets/icons/checkbox-checked.svg" />
+              <img *ngIf="!isSelectedStock(status)" src="../../../../../assets/icons/checkbox-unchecked.svg" />
               <span>{{status}}</span>
             </label>
           </div>
@@ -73,8 +73,8 @@
     </app-accordion>
 
   </div>
-  <div class="filter-footer">
-    <div class="save-cancel-button">
+  <div class="filter-footer ">
+    <div class="save-cancel-button ">
       <button type="button" class="filter-cancel-button" data-bs-dismiss="modal"><span>Cancel</span></button>
       <button type="button" class="filter-save-button" (click)="Apply()" data-bs-dismiss="modal"><span>Apply</span></button>
     </div>

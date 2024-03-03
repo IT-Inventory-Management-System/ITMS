@@ -11,3 +11,9 @@ public class SoftwareModelDTO
     public Guid SoftwareTypeId { get; set; }
     public string TypeName {  get; set; }
 }
+
+public class getLaptopIds
+{
+    public string CYGID { get; set; }
+    public string SerialNumber { get; set; }
+}

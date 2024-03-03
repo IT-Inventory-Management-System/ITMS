@@ -84,7 +84,6 @@ export class AddSoftwareModelComponent {
     this.newSoftwareForm = this.fb.group({
       softwareName: ['', Validators.required],
       softwareTypeId: ['', Validators.required],
-      version: ['', Validators.required],
       softwareThumbnail: [null, Validators.required],
       categoryId: ['', Validators.required],
       createdBy: [''],

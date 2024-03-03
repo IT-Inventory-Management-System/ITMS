@@ -41,7 +41,7 @@ namespace ITMS.Server.Services
                 var assignedAction = await _context.ActionTables
                     .FirstOrDefaultAsync(a => a.ActionName == "Assigned");
 
-
+                //assignedTo and assignedDate == null of device table and statusId of device table not assigned
                 if (deviceLog != null)
                 {
 
@@ -96,7 +96,7 @@ namespace ITMS.Server.Services
                          .Select(e => e.LastName)
                          .FirstOrDefaultAsync();
 
-
+                    
 
 
                     return new EmployeeDTO

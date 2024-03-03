@@ -114,3 +114,11 @@ textarea {
 .required {
   color: var(--Other-Red, #E03E2D);
 }
+.error-message {
+  color: red;
+  font-family: Roboto;
+  font-size: 0.8rem;
+}
+.error-textarea {
+  border: 1px solid red;
+}

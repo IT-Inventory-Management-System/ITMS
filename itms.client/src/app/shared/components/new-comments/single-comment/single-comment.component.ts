@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-single-comment',
@@ -7,4 +7,5 @@ import { Component } from '@angular/core';
 })
 export class SingleCommentComponent {
 
+  @Input() commentDetails: any;
 }

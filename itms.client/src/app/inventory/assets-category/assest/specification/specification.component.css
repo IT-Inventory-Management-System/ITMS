@@ -31,13 +31,14 @@ body {
   align-items: center;
   align-self: stretch;
   justify-content: space-between;
+  margin-bottom:0.3rem;
+  
 }
 
 .status-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap:1rem;
 }
 
 .status-info {
@@ -135,4 +136,13 @@ body {
 
 .spec-outer{
     width:21.125rem;
+}
+ng-select {
+  margin-bottom: 1rem;
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 }

@@ -19,7 +19,7 @@ export class DashboardAssetsComponent {
       return '../../../assets/icons/dashboard/apple.svg';
     } else if (lowerCaseName === 'windows') {
       return '../../../assets/icons/dashboard/windows.svg';
-    } else if (lowerCaseName === 'mobile devices') {
+    } else if (lowerCaseName === 'mobile') {
       return '../../../assets/icons/dashboard/DeviceMobile.svg';
     } else {
       // Default path or handle other cases

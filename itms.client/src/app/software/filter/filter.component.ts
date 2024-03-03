@@ -19,12 +19,12 @@ export class FilterComponent implements OnInit {
   @ViewChild('toInput') toInput!: ElementRef<HTMLInputElement>;
   @ViewChild('fromInput') fromInput!: ElementRef<HTMLInputElement>;
 
-  type: string = "";
   stat: string = "";
-  stock: string = "";
+  selectedStock: string[] = [];
   from: Date | null;
   to: Date | null;
   selectedLocation: any = '';
+  selectedTypes: string[] = [];
 
   constructor(private selectedCountryService: SelectedCountryService) { }
 
@@ -32,8 +32,9 @@ export class FilterComponent implements OnInit {
     this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
       localStorage.setItem('selectedCountry', selectedCountry);
       this.selectedLocation = selectedCountry;
-      this.type = '';
-      this.stock = '';
+      this.selectedTypes = [];
+      this.selectedStock = [];
+      this.stat = '',
       this.from = null;
       this.to = null;
       if (this.toInput) {
@@ -47,23 +48,35 @@ export class FilterComponent implements OnInit {
 
   }
 
+  isSelectedType(status: string): boolean {
+    return this.selectedTypes.includes(status);
+  }
 
+  toggleCheckboxType(status: string): void {
+    if (this.isSelectedType(status)) {
+      this.selectedTypes = this.selectedTypes.filter(type => type !== status);
+    } else {
+      this.selectedTypes.push(status);
+    }
+  }
 
+  isSelectedStock(status: string): boolean {
+    return this.selectedStock.includes(status);
+  }
 
-  toggleCheckboxType(status: string) {
-    this.type = (this.type === status) ? "" : status;
-    console.log(this.type);
+  toggleCheckboxStock(status: string): void {
+    if (this.isSelectedStock(status)) {
+      this.selectedStock = this.selectedStock.filter(stock => stock !== status);
+    } else {
+      this.selectedStock.push(status);
+    }
   }
 
   toggleCheckboxStatus(status: string) {
     this.stat = (this.stat === status) ? "" : status;
-    console.log(this.stat);
+   // console.log(this.stat);
   }
 
-  toggleCheckboxStock(status: string) {
-    this.stock = (this.stock === status) ? "" : status;
-    console.log(this.stock);
-  }
   toggleInputType(type: string) {
     const inputElement = document.querySelector('#from');
     if (inputElement) {
@@ -74,7 +87,7 @@ export class FilterComponent implements OnInit {
   toggleCheckboxFrom(value: string) {
     this.from = new Date(value);
     const formattedDate = this.from.toISOString().split('T')[0];
-    console.log(formattedDate);
+   // console.log(formattedDate);
   }
 
   toggleInputTypeTo(type: string) {
@@ -87,16 +100,17 @@ export class FilterComponent implements OnInit {
   toggleCheckboxTo(value: string) {
     this.to = new Date(value);
     const formattedDate = this.to.toISOString().split('T')[0];
-    console.log(formattedDate);
+   // console.log(formattedDate);
   }
 
   Apply() {
     this.applyClicked.emit({
-      type: this.type,
+      selectedTypes: this.selectedTypes,
       stat: this.stat,
-      stock: this.stock,
+      selectedStock: this.selectedStock,
       from: this.from,
       to: this.to,
+      filter: true,
     });
   }
 }
