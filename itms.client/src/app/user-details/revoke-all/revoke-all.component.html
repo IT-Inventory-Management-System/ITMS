@@ -1,0 +1,66 @@
+<div class="modal main fade" id="revokeAllModal" role="dialog" tabindex="-1" aria-labelledby="exitProcessModal" aria-hidden="true" (hidden.bs.modal)="dismissModal()">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header ">
+        <h1 class="modal-title">Revoke All Items</h1>
+        <button type="button" class="close-button" data-bs-dismiss="modal" aria-label="Close" (click)="dismissModal()"><img src="../../../../assets/icons/Close.svg" /></button>
+      </div>
+      <div class="modal-body">
+        <div class="user-details">
+          <ngx-avatars class="avatar" name="{{firstName}} {{lastName}}" [textSizeRatio]=2.7 bgColor="#b8dde1" fgColor="#264f9d" [round]="true"></ngx-avatars>
+          <div class="user-name-details">
+            <div class="user-name">{{firstName}} {{lastName}}</div>
+            <div class="user-id">{{cgiid}}</div>
+          </div>
+        </div>
+        <div class="stepper-container">
+          <div class="stepper-stepper">
+            <div class="stepper-stepper1">
+              <img *ngIf="currentStep === 1" src="../../../assets/icons/laptop-solid.svg" />
+              <img *ngIf="currentStep > 1" src="../../../assets/icons/completed.svg" />
+              <span class="stepper-text"><span>Laptop</span></span>
+            </div>
+            <img class="vector-img" src="../../../assets/icons/Vector 16 (Stroke).svg" />
+            <div class="stepper-stepper2">
+              <img *ngIf="currentStep === 1" src="../../../../assets/icons/Software-light.svg" />
+              <img *ngIf="currentStep === 2" src="../../../../assets/icons/Software.svg" />
+              <img *ngIf="currentStep > 2" src="../../../assets/icons/completed.svg" />
+              <span class="stepper-text2"><span>Software</span></span>
+            </div>
+            <img class="vector-img" src="../../../assets/icons/Vector 16 (Stroke).svg" />
+            <div class="stepper-stepper1">
+              <img *ngIf="currentStep === 1" src="../../../assets/icons/Accessories-light.svg"/>
+              <img *ngIf="currentStep === 2" src="../../../../assets/icons/Accessories-light.svg" />
+              <img *ngIf="currentStep === 3" src="../../../assets/icons/Accessories.svg" />
+              <img *ngIf="currentStep > 3" src="../../../assets/icons/completed.svg" />
+              <span class="stepper-text"><span>Accessories</span></span>
+            </div>
+          </div>
+        </div>
+        <app-laptop-all-revoke *ngIf="currentStep === 1" (nextBtn)="onVariable1Change($event)" [actionsArray]="actionsArray" [revokeAllForm]="revokeAllForm" [laptopDetails]="filteredLaptopDetails" [userId]="userId" [firstName]="firstName" [lastName]="lastName" [cgiid]="cgiid"></app-laptop-all-revoke>
+        <app-accessories-all-revoke *ngIf="currentStep === 3" (saveBtn)="onVariable3Change($event)" [actionsArray]="actionsArray" [revokeAllForm]="revokeAllForm" [accessoriesDetails]="filteredAccessoriesDetails" [userId]="userId" [firstName]="firstName" [lastName]="lastName" [cgiid]="cgiid"></app-accessories-all-revoke>
+        <app-software-all-revoke *ngIf="currentStep === 2" (nextBtn)="onVariable2Change" [actionsArray]="actionsArray" [revokeAllForm]="revokeAllForm" [softwareDetails]="filteredSoftwareDetails" [userId]="userId" [firstName]="firstName" [lastName]="lastName" [cgiid]="cgiid"></app-software-all-revoke>
+      </div>
+      <div class="modal-footer">
+        <div class="footer">
+          <button type="button" class="btn btn-previous" [ngClass]="{'greyed-out': currentStep === 1}" *ngIf="currentStep >= 1" (click)="previousStep()">Previous</button>
+          <div class="button-container">
+            <button type="button"
+                    class="btn-skip"
+                    data-bs-dismiss="modal"
+                    (click)="dismissModal()">
+              Cancel
+            </button>
+            <button type="button"
+                    class="btn-save"
+                    [attr.data-bs-dismiss]="currentStep === 3 ? 'modal' : null"
+                    (click)="currentStep === 3 ?  saveAndDismiss() : nextStep()"
+                    [disabled]="(currentStep === 1 && variable1) || (currentStep === 2 && variable2) || (currentStep === 3 && variable3)">
+              {{ getButtonText() }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+</div>

@@ -16,12 +16,36 @@
 
     </div>
 
-    <div *ngIf="software.recievedBy === null" class="software-revoke-button">
+    <div *ngIf="(software.actionName === 'Submitted' || software.actionName === 'submitted') && software.recievedBy != null" class="received-tag">
+
+      <div class="received-tag-info">
+        <img src="../../../assets/icons/ReceivedVector.svg" class="recieved-image" />RECEIVED
+      </div>
+
+    </div>
+
+    <div *ngIf="software.actionName === 'Lost' && software.recievedBy != null" class="lost-tag">
+
+      <div class="lost-tag-info">
+        LOST
+      </div>
+
+    </div>
+
+    <div *ngIf="software.actionName === 'Assigned' && software.recievedBy != null" class="submit-later-tag">
+
+      <div class="submit-later-tag-info">
+        NOT SUBMITTED
+      </div>
+
+    </div>
+
+    <div *ngIf="(software.actionName === 'Assigned' || software.actionName === 'assigned')  || software.recievedBy === null" class="software-revoke-button">
       <app-software-revoke [softwareDetails]="software" [userId]="userId" [firstName]="firstName" [lastName]="lastName" [cgiid]="cgiid"></app-software-revoke>
 
     </div>
 
-    <div class="bb">
+    <div class="bb" [ngClass]="{'fade-container': (software.actionName === 'Lost' || software.actionName === 'lost' || software.actionName === 'Submitted' || software.actionName === 'submitted')}">
 
       <div class="row user-detail">
         <div class="user-software">
@@ -30,7 +54,7 @@
           <div class="col-md-6 common-gap-style">
             <div class="expiry">
               <div style="color: var(--Adhoc-Grey, #6D6D6D); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 400; line-height: normal;">Software Name</div>
-              <p *ngIf="software.remainingDays > 0 && software.remainingDays <= 60 && software.typeName == 'Perpetual'"><img src="../../../assets/icons/Warning.svg" alt="Warning" class="warning"/>Expiring in {{software.remainingDays}} days</p>
+              <p *ngIf="software.remainingDays > 0 && software.remainingDays <= 60 && software.typeName == 'Perpetual'"><img src="../../../assets/icons/Warning.svg" alt="Warning" class="warning" />Expiring in {{software.remainingDays}} days</p>
             </div>
             <div class="software-name-container">
               <div style="color: var(--Primary-Blue, #28519E); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 500; line-height: normal;">{{software.softwareName}}</div>

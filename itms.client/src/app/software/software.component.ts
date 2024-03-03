@@ -13,6 +13,8 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./software.component.css']
 })
 export class SoftwareComponent implements OnInit {
+  selectedAccessoryIndex: number = 0;
+
   allSoftwareData: any[];
   selectedView: string = 'card';
   softwaresData: any[][] = [[], []]; // Define softwaresData array
@@ -126,6 +128,13 @@ export class SoftwareComponent implements OnInit {
         if (result) {
           this.softwaresData = result;
           this.filteredSoftware = this.softwaresData;
+          const parameters = {
+            name: result[0][0].name,
+            version: result[0][0].version,
+            location: this.selectedLocation,
+            type: result[0][0].type
+          };
+          this.onCardClicked(parameters, 0);
         } else {
           console.log('No software found for parameters:', body);
         }
@@ -196,7 +205,13 @@ export class SoftwareComponent implements OnInit {
 
 
 
-  onCardClicked(eventData: any): void {
+  onCardClicked(eventData: any, index: number): void {
+    //if (this.selectedAccessoryIndex === index) {
+      //this.selectedAccessoryIndex = -1; // Deselect the card if it's already selected
+    //} else {
+      this.selectedAccessoryIndex = index; // Select the clicked card
+    //}
+
     this.expiringtag = true;
     const parameters = {
       name: eventData.name,
@@ -205,6 +220,7 @@ export class SoftwareComponent implements OnInit {
       type: eventData.type
 
     };
+    console.log("parameters", parameters);
     this.archive = parameters;
 
     this.softwareService.GetSingleSelected(parameters).subscribe(
@@ -284,8 +300,15 @@ export class SoftwareComponent implements OnInit {
     this.softwareService.GetSoftware(arch).subscribe(
       data => {
         this.softwaresData = data;
-      //  console.log(this.softwaresData);
+        console.log(this.softwaresData);
         this.filteredSoftware = this.softwaresData;
+        const parameters = {
+          name: data[0][0].name,
+          version: data[0][0].version,
+          location: this.selectedLocation,
+          type: data[0][0].type
+        };
+        this.onCardClicked(parameters, 0);
       },
       error => {
         console.error('Error fetching software data', error);

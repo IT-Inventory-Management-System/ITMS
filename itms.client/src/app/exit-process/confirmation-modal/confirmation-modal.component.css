@@ -1,0 +1,74 @@
+.modal-content {
+  display: flex;
+  width: 29rem;
+  padding: 2rem;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+.top-image {
+  width: 3.75rem;
+  height: 3.75rem;
+}
+.text {
+  color: var(--Primary-Grey, #343435);
+  text-align: center;
+  leading-trim: both;
+  text-edge: cap;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-family: Roboto;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%; /* 1.5rem */
+}
+.button1 {
+  display: flex;
+  padding: 0.4rem; 
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0.625rem;
+  flex: 1 0 0;
+  align-self: stretch;
+  border-radius: 0.25rem;
+  border: 1px solid var(--Blue, #28519E);
+  background: var(--White, #FFF);
+  width: 12rem;
+  height: 2rem;
+  color: var(--Blue, #28519E);
+  text-align: center;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-family: Roboto;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.25rem; /* 142.857% */
+  align-content: center;
+  margin: 0rem 1rem 0rem 0rem;
+}
+.button2 {
+  display: flex;
+  padding: 0.4rem;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0.625rem;
+  flex: 1 0 0;
+  align-self: stretch;
+  border: none;
+  width: 12rem;
+  height: 2rem;
+  border-radius: 0.25rem;
+  background: var(--Other-Red, #E03E2D);
+  color: var(--White, #FFF);
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-family: Roboto;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.25rem; /* 142.857% */
+}
+.buttons{
+    display:flex;
+    flex-direction:row;
+    cursor:pointer;
+}

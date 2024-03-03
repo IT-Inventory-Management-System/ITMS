@@ -31,6 +31,8 @@ public partial class Employee
 
     public Guid LocationId { get; set; }
 
+    public bool? ExitProcessInitiated { get; set; }
+
     public virtual ICollection<Comment> Comments { get; } = new List<Comment>();
 
     public virtual Employee? CreatedByNavigation { get; set; }
