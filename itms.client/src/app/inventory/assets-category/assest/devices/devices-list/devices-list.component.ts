@@ -2,6 +2,8 @@ import { Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 import { DataService } from '../../../../../shared/services/data.service';
 import { lastValueFrom } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { formatDate } from '@angular/common';
+
 
 @Component({
   selector: 'app-devices-list',
@@ -99,10 +101,20 @@ export class DevicesListComponent implements OnInit {
       });
     }
   }
-
+  
   getDeviceLogs(Cygid: any): void {
-    this.deviceService.getUserInfo(Cygid).subscribe(
+
+    const inputData = {
+      locationId: this.locationId,
+      cygid: Cygid
+    }
+
+    this.deviceService.getUserInfo(inputData).subscribe(
       (logs) => {
+        for (var i = 0; i < logs.length; i++) {
+          logs[i].assignedDate = formatDate(logs[i].assignedDate, 'dd-MM-yyyy', 'en-US');
+          logs[i].recievedDate = logs[i].recievedDate != null ? formatDate(logs[i].recievedDate, 'dd-MM-yyyy', 'en-US') : null;
+        }
         this.deviceService.DeviceLog = logs;
         console.log('Device Logs:', logs);
         console.log(this.deviceService.DeviceLog.id);

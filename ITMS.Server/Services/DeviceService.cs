@@ -500,8 +500,8 @@ public class DeviceService
             if (device.StatusNavigation != null)
             {
                 // Find the "discarded" status from the database
-                var discardedStatus = await _context.Statuses.FirstOrDefaultAsync(s => s.Type == "discarded");
-                var action = await _context.ActionTables.FirstOrDefaultAsync(s => s.ActionName == "Archived");
+                var discardedStatus = await _context.Statuses.FirstOrDefaultAsync(s => s.Type == "Discarded");
+                var action = await _context.ActionTables.FirstOrDefaultAsync(s => s.ActionName == "Archive");
                 if (discardedStatus != null)
                 {
                     // Update the status to discarded
@@ -568,8 +568,8 @@ public class DeviceService
             if (device.StatusNavigation != null)
             {
                 // Find the "discarded" status from the database
-                var discardedStatus = await _context.Statuses.FirstOrDefaultAsync(s => s.Type == "not Assigned");
-                var action = await _context.ActionTables.FirstOrDefaultAsync(s => s.ActionName == "UnArchived");
+                var discardedStatus = await _context.Statuses.FirstOrDefaultAsync(s => s.Type == "Not Assigned");
+                var action = await _context.ActionTables.FirstOrDefaultAsync(s => s.ActionName == "Unarchive");
 
                 if (discardedStatus != null)
                 {

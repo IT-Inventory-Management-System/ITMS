@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { DataService } from '../../shared/services/data.service';
 import { SelectedCountryService } from '../../shared/services/selected-country.service';
 import { DisplayDetailsService } from '../../shared/services/display-details.service';
+import { AdminDetailService } from '../../shared/services/admin-detail.service';
 
 @Component({
   selector: 'app-assign-role-modal',
@@ -9,7 +10,7 @@ import { DisplayDetailsService } from '../../shared/services/display-details.ser
   styleUrls: ['./assign-role-modal.component.css']
 })
 export class AssignRoleModalComponent {
-  constructor(private dataService: DataService, private selectedCountryService: SelectedCountryService, private displayingDetailsService: DisplayDetailsService) { }
+  constructor(private dataService: DataService, private selectedCountryService: SelectedCountryService, private displayingDetailsService: DisplayDetailsService, private adminDetailService: AdminDetailService) { }
 
   userDataList: any[] = [];
   locationId: string = '';
@@ -110,6 +111,7 @@ export class AssignRoleModalComponent {
     this.dataService.changeUserRole(userData).subscribe(
       (response) => {
         console.log(response);
+        this.adminDetailService.notifyAdminListChanged();
       },
       (error) => {
         console.log("User not found");

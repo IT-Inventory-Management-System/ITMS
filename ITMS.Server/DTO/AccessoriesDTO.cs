@@ -54,5 +54,12 @@
         public string Brand { get; set; }
         public bool? iswired { get; set; }
         public string CYGID { get; set; }
+
+    }
+
+    public class accessoryInputDTO
+    {
+        public Guid locationId { get; set; }
+        public string categoryName { get; set; }
     }
 }
