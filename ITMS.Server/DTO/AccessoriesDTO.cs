@@ -54,6 +54,6 @@
         public string Brand { get; set; }
         public bool? iswired { get; set; }
         public string CYGID { get; set; }
-        public Guid? assignedTo { get; set;}
+
     }
 }

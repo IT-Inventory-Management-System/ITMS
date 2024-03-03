@@ -10,7 +10,7 @@ namespace ITMS.Server.Services
     {
 
         Task<IEnumerable<getAccessoriesDTO>> listAccessories();
-        Task<IEnumerable<getMouseDetailsDTO>> getMouseDetails(Guid locationId);
+        Task<IEnumerable<getMouseDetailsDTO>> getMouseDetails(Guid locationId, Guid c);
         
     }
     public class GetAccessoriesService : IGetAccessoryService
@@ -24,6 +24,9 @@ namespace ITMS.Server.Services
         public async Task<IEnumerable<getAccessoriesDTO>> listAccessories()
         {
             var result = await (from c in _context.Categories
+                                join ct in _context.CategoryTypes
+                                 on c.CategoryTypeId equals ct.Id
+                                where (ct.TypeName != "Software" && ct.TypeName!= "Primary Devices")
                                 select new getAccessoriesDTO
                                 {
                                     Id = c.Id,
@@ -31,28 +34,29 @@ namespace ITMS.Server.Services
                                 }).ToListAsync();
             return result;
         }
-        public async Task<IEnumerable<getMouseDetailsDTO>> getMouseDetails(Guid locationId)
+        public async Task<IEnumerable<getMouseDetailsDTO>> getMouseDetails(Guid locationId, Guid catId)
         {
             var result = await (from c in _context.DeviceModel
                                 join cat in _context.Categories
                                 on c.CategoryId equals cat.Id
-                                where cat.Name == "Mouse"
+                                where cat.Id == catId
                                 join d in _context.Devices
                                 on c.Id equals d.DeviceModelId
-                                where d.LocationId == locationId
+                                where d.LocationId == locationId &&
+                                d.AssignedTo == null
+                                && d.IsArchived==false
                                 select new getMouseDetailsDTO
-
                                 {
                                     Id = c.Id,
                                     Brand = c.Brand,
                                     iswired = c.IsWired,
                                     CYGID = d.Cygid,
-                                    assignedTo = d.AssignedTo,
+                                  
                                 }).ToListAsync();
             return result;
-
         }
-    
+
+
     }
 
 }
