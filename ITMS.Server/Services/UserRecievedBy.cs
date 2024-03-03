@@ -41,7 +41,7 @@ namespace ITMS.Server.Services
                 var assignedAction = await _context.ActionTables
                     .FirstOrDefaultAsync(a => a.ActionName == "Assigned");
 
-                //assignedTo and assignedDate == null of device table and statusId of device table not assigned
+                //assignedTo and assignedDate == null of device table and statusId of device table not assigned assigned By null
                 if (deviceLog != null)
                 {
 
