@@ -92,7 +92,7 @@ export class SoftwareRevokeComponent {
             this.softwareDetails.recievedBy = `${firstName} ${lastName}`;
             this.softwareDetails.recievedByDate = `${recievedDate}`;
             this.softwareDetails.actionName = `${actionName}`;
-            this.addNewComment(deviceLogId);
+           // this.addNewComment(deviceLogId);
           }
         },
         (error) => {
@@ -133,32 +133,32 @@ export class SoftwareRevokeComponent {
 
   }
 
-  addNewComment(deviceLogId: any) {
-    console.log('software comment called');
-    const commentDto = {
-      description: this.newComment,
-      createdBy: this.loggedUser.id,
-      createdAtUtc: new Date().toISOString(),
-      softwareAllocationId: this.softwareDetails.softwareAllocationId,
-      deviceLogId: deviceLogId
-    };
+  //addNewComment(deviceLogId: any) {
+  //  console.log('software comment called');
+  //  const commentDto = {
+  //    description: this.newComment,
+  //    createdBy: this.loggedUser.id,
+  //    createdAtUtc: new Date().toISOString(),
+  //    softwareAllocationId: this.softwareDetails.softwareAllocationId,
+  //    deviceLogId: deviceLogId
+  //  };
 
-    console.log('Comment DTO:', commentDto);
+  //  console.log('Comment DTO:', commentDto);
 
-    this.commentService.addSoftwareComment(commentDto).subscribe(
-      (response) => {
+  //  this.commentService.addSoftwareComment(commentDto).subscribe(
+  //    (response) => {
 
-        console.log(response);
-        //this.laptopDetails.comments.unshift(response);
-        //console.log(this.laptopDetails.comments);
-        this.newComment = '';
-      },
-      (error) => {
-        console.error('Error adding comment:', error);
-      }
-    );
-    this.newComment = '';
-  }
+  //      console.log(response);
+  //      //this.laptopDetails.comments.unshift(response);
+  //      //console.log(this.laptopDetails.comments);
+  //      this.newComment = '';
+  //    },
+  //    (error) => {
+  //      console.error('Error adding comment:', error);
+  //    }
+  //  );
+  //  this.newComment = '';
+  //}
 
   //showYesReason: boolean = false;
   //showNoReason: boolean = false;
