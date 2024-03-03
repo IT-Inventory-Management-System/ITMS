@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DisplayDetailsService } from '../shared/services/display-details.service';
 import { DataService } from '../shared/services/data.service';
 import { SelectedCountryService } from '../shared/services/selected-country.service';
@@ -17,23 +17,60 @@ export class UserListComponent implements OnInit {
   selectedUserIndex: number = 0;
   locationId: string = '';
   loading: boolean = true;
+  filteredDisplayingData: any[] = [];
+
+
+  @Input() showArchiveUsers: any;
 
 
   @Output() userDetailsClicked: EventEmitter<any> = new EventEmitter<any>();
-  //@Output() loadingStateChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  ngOnChanges() {
+    if (this.showArchiveUsers || !this.showArchiveUsers)
+      this.filterAndSort();
+  }
+
+  filterAndSort() {
+    if (this.showArchiveUsers) 
+      this.filteredDisplayingData = this.displayingData.filter(user => user.isArchived === true && this.calculateDaysDifference(user.updatedAtUtc) > 30);
+    else 
+      this.filteredDisplayingData = this.displayingData.filter(user => user.isArchived === false || (user.isArchived === true &&  this.calculateDaysDifference(user.updatedAtUtc) < 30));
+    this.filteredDisplayingData.sort((a, b) => a.cgiid.localeCompare(b.cgiid));
+    this.loading = false;
+    if (this.filteredDisplayingData.length > 0) {
+      this.showUserDetails(this.filteredDisplayingData[0], 0);
+    }
+  }
+
+  calculateDaysDifference(updatedAtUtc: string): number {
+    const currentDate = new Date();
+    const updatedAt = new Date(updatedAtUtc);
+    const differenceInTime = currentDate.getTime() - updatedAt.getTime();
+    const differenceInDays = differenceInTime / (1000 * 3600 * 24); // Convert milliseconds to days
+    return Math.abs(Math.round(differenceInDays)); // Return absolute value of days
+  }
+
+ 
+  //@Output() showArchiveUsersChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  //onArchiveCheckboxChange(): void {
+  //  this.showArchiveUsers = !this.showArchiveUsers;
+  //  this.showArchiveUsersChanged.emit(this.showArchiveUsers);
+  //  this.showUserListData();
+  //}
 
   showUserDetails(userDetails: any, index: number) {
    
-    this.displayingData.forEach(user => {
+    this.filteredDisplayingData.forEach(user => {
       user.isSelected = false;
     });
 
   
-    const originalIndex = this.displayingData.findIndex(user => user.cgiid === userDetails.cgiid);
+    const originalIndex = this.filteredDisplayingData.findIndex(user => user.cgiid === userDetails.cgiid);
 
     if (originalIndex !== -1) {
-      this.displayingData[originalIndex].isSelected = true;
-      this.userDetailsClicked.emit(this.displayingData[originalIndex]);
+      this.filteredDisplayingData[originalIndex].isSelected = true;
+      this.userDetailsClicked.emit(this.filteredDisplayingData[originalIndex]);
     }
     
   }
@@ -68,22 +105,15 @@ export class UserListComponent implements OnInit {
   }
  
   showUserListData() {
-   // this.loadingStateChanged.emit(true); 
-
+  
+    console.log(this.locationId);
     this.displayingDetailsService.getshowUserListData(this.locationId).subscribe(
       (data) => {
         this.displayingData = data;
-        this.displayingData = data.sort((a, b) => a.cgiid.localeCompare(b.cgiid));
-        console.log(this.displayingData);
-        this.loading = false;
-        if (this.displayingData.length > 0) {
-          this.showUserDetails(this.displayingData[0], 0);
-        }
-        //this.loadingStateChanged.emit(false); 
+        this.filterAndSort();       
       },
       (error) => {
         console.log('Error in API request : ', error);
-        //this.loadingStateChanged.emit(false); 
       }
     );
   }

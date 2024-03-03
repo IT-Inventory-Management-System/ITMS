@@ -6,5 +6,18 @@
         public Guid CreatedBy { get; set; }
         public DateTime CreatedAtUtc { get; set; } // Add this property
         public Guid DeviceId { get; set; }
+        public Guid DeviceLogId { get; set; } //new property
+    }
+
+    public class UserSoftwareCommentHistory
+    {
+        public string Description { get; set; }
+        public Guid CreatedBy { get; set; }
+        public DateTime CreatedAtUtc { get; set; } // Add this property
+
+        public Guid DeviceLogId { get; set; } //new property
+
+        public Guid SoftwareAllocationId { get; set; } //new
+
     }
 }

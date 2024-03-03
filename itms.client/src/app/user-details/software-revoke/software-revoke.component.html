@@ -10,23 +10,90 @@
   <div class="modal fade" [id]="'exampleModal' + softwareDetails.softwareAllocationId" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
 
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="CloseModal('exampleModal' + softwareDetails.softwareAllocationId)"></button>
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Revoke</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+
         <div class="modal-body">
-          <p>{{cgiid}}</p>
-          <p>{{firstName}}</p>
-          <p>{{lastName}}</p>
-          <p>{{softwareDetails.softwareName}}</p>
-          <p>{{softwareDetails.deviceLogId}}</p>
-          <p>{{softwareDetails.softwareAllocationId}}</p>
-          <p>{{softwareDetails.typeName}}</p>
+
+          <div class="user-details">
+            <ngx-avatars name="{{firstName}} {{lastName}}" [textSizeRatio]=3.4 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="46"></ngx-avatars>
+            <div class="user-firstname-lastname-id">
+              <div class="user-firstname-lastname">{{firstName}} {{lastName}}</div>
+              <div class="user-cgiid">{{cgiid}}</div>
+            </div>
+          </div>
+
+          <div class="assigned-software-detail-box">
+            <div class="assigned-software-heading">Assigned Software Detail</div>
+            <div class="details">
+              <p class="software-name-heading">Software Name</p>
+              <p>{{softwareDetails.softwareName}}</p>
+              <div class="type">
+                <div class="iconsOfModal">
+                  <img src="../../../assets//icons/versionVector.svg" />
+                  <p>{{softwareDetails.version}}</p>
+                </div>
+                <div class="iconsOfModal">
+                  <img src="../../../assets/icons/WiredVector.svg" />
+                  <p>{{softwareDetails.typeName}}</p>
+                </div>
+              </div>
+              <div class="iconsOfModal">
+                <img src="../../../assets/icons/CalenderVector.svg" />
+                <p>{{softwareDetails.assignedDate | date: 'MM-dd-yyyy'}}</p>
+              </div>
+
+              <!--<p>{{softwareDetails.deviceLogId}}</p>
+              <p>{{softwareDetails.softwareAllocationId}}</p>-->
+            </div>
+          </div>
+
+          <!--<div class="software-recieved">
+
+            <p>Item Received <span class="star">*</span></p>
+            <input type="radio" id="receivedYes" name="softwareReceived" value="Yes" (click)="showYesReasonOptions()">
+            <label for="receivedYes">Yes</label>
+
+            <input type="radio" id="receivedNo" name="softwareReceived" value="No" (click)="showNoReasonOptions()">
+            <label for="receivedNo">No</label>
+          </div>
+
+          <div *ngIf="showYesReason" class="reason-options">
+            <p>Condition <span class="star">*</span></p>
+            <div>
+              <input type="radio" id="perfect" name="reasonOptions" value="Perfect" [(ngModel)]="selectedReason">
+              <label for="perfect">Perfect</label>
+
+              <input type="radio" id="unassignable" name="reasonOptions" value="Unassignable" [(ngModel)]="selectedReason">
+              <label for="unassignable">Unassignable</label>
+            </div>
+          </div>
+
+          <div *ngIf="showNoReason" class="reason-options">
+            <p>Reason <span class="star">*</span></p>
+            <div>
+              <input type="radio" id="submittedLater" name="reasonOptions" value="Submitted Later" [(ngModel)]="selectedReason">
+              <label for="submittedLater">Will be submitted later</label>
+
+              <input type="radio" id="lostNotReceived" name="reasonOptions" value="Lost/Not Received" class="lost" [(ngModel)]="selectedReason">
+              <label for="lostNotReceived">Lost/Not Recieved</label>
+            </div>
+          </div>-->
+
+
+          <div class="comment-box">
+            <p>Comment <span class="star">*</span></p>
+            <input type="text" class="input-box" [(ngModel)]="newComment" placeholder="Type Here..." />
+          </div>
+
         </div>
+
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="CloseModal('exampleModal' + softwareDetails.softwareAllocationId)">Close</button>
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+          <button type="button" class="btn CloseButton" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn SubmitButton" data-bs-dismiss="modal" (click) ="saveAndFetchSoftware()">Save changes</button>
         </div>
       </div>
     </div>
