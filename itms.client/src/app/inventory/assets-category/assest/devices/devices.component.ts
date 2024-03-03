@@ -46,6 +46,11 @@ export class DevicesComponent implements OnInit{
       localStorage.setItem('selectedCountry', selectedCountry);
       this.getDeviceLocation();
     });
+
+    this.dataService.deviceListChanged$.subscribe(() => {
+      // Reload or fetch the updated admin list here
+      this.getDeviceLocation();
+    });
   }
 
   //ngOnChanges(changes: SimpleChanges) {
@@ -73,7 +78,7 @@ export class DevicesComponent implements OnInit{
         operatingSystem: this.filterData.operatingSystem,
         uniqueProcessor: this.filterData.uniqueProcessor,
         fromDate: this.filterData.fromDate,
-        toDate: this.filterData.toDat,
+        toDate: this.filterData.toDate,
         locationId: this.locationId
       }
 

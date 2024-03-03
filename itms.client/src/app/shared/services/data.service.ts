@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 type Guid = string;
@@ -167,6 +167,13 @@ export class DataService {
   getFilteredDevices(selectedFilters: any): Observable<any> {
    // console.log(inputData);
     return this.http.post(this.apiUrl + 'DeviceLog/filterDevices', selectedFilters);
+  }
+
+  private deviceListSubject = new BehaviorSubject<any>(null);
+  deviceListChanged$ = this.deviceListSubject.asObservable();
+
+  notifyDeviceListChanged() {
+    this.deviceListSubject.next(null);
   }
 
 }

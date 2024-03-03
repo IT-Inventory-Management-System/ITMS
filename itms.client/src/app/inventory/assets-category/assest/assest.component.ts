@@ -73,7 +73,6 @@ export class AssestComponent {
       
       (data) => {
         console.log(this.locationId);
-        //alert(this.locationId);
         console.log(data);
         this.deviceData = data;
         console.log('All Device Data', data);
@@ -101,16 +100,11 @@ export class AssestComponent {
         "Storage": this.deviceData[i].storage,
         "Serial No": this.deviceData[i].serialNumber,
         "CYG ID": this.deviceData[i].cygid,
-        /*"# Stock Count": '-',*/
         "Date of Purchase": formatDate(this.deviceData[i].purchasedDate, 'dd-MM-yyyy', 'en-US'),
-        //"# Total": '-',
-        //"# Assigned": '-',
-        //"# Inventory": '-',
         "Warranty (in Years)": this.calculateWarrantyYear(this.deviceData[i].warrantyDate),
         "Assigned To": this.deviceData[i].assignedToName,
         "Assigned Date": this.deviceData[i].assignedDate ? formatDate(this.deviceData[i].assignedDate, 'dd-MM-yyyy', 'en-US') : '',
         "Device Status": this.deviceData[i].status,
-        //"Stock Status": '-'
       }
 
     }
