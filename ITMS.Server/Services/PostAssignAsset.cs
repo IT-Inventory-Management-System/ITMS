@@ -7,7 +7,7 @@ namespace ITMS.Server.Services
     public interface IPostAssignAsset
     {
         Task UpdateDeviceAsync(string CYGID, PostAssignAssetDTO device);
-        Task UpdateSoftwareAsync(string SoftwareID, PostAssignAssetDTO software);
+        Guid UpdateSoftwareAsync(singleSoftwareDTO SoftwareID, PostAssignAssetDTO software);
         Task UpdateDeviceComment(PostCommentDTO commentDto);
         Task UpdateSoftwareComment(PostCommentDTO commentDto);
         Task UpdateDeviceLogAsync(PostDeviceLogDTO devicelogDto);
@@ -62,18 +62,22 @@ namespace ITMS.Server.Services
             _context.Devices.Update(entityToUpdate);
             await _context.SaveChangesAsync();
         }
-        public async Task UpdateSoftwareAsync(string SoftwareID, PostAssignAssetDTO software)
+        public Guid UpdateSoftwareAsync(singleSoftwareDTO Software, PostAssignAssetDTO software)
         {
-            var entityToUpdate = _context.SoftwareAllocations.Where(sa => sa.SoftwareId.ToString() == SoftwareID).FirstOrDefault();
+            var entityToUpdate = _context.SoftwareAllocations.Where(sa => (sa.SoftwareId == Guid.Parse(Software.SoftwareId))&&(sa.Version==Software.version)&&(sa.IsArchived==false)).FirstOrDefault();
+
+            //var entityToUpdate = _context.SoftwareAllocations.Where(sa => sa.SoftwareId == Guid.Parse(SoftwareID)).FirstOrDefault();
             if (entityToUpdate == null)
             {
-                throw new KeyNotFoundException($"Software with SoftwareID {SoftwareID} not found.");
+                throw new KeyNotFoundException($"Software with SoftwareID {Software.SoftwareId} not found.");
             }
             entityToUpdate.AssignedBy = software.AssignedBy;
             entityToUpdate.AssignedTo = software.AssignedTo;
             entityToUpdate.AssignedDate = DateTime.UtcNow;
             _context.SoftwareAllocations.Update(entityToUpdate);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
+
+            return entityToUpdate.Id;
         }
         public async Task UpdateDeviceComment(PostCommentDTO commentDto)
         {

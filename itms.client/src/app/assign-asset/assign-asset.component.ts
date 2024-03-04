@@ -132,7 +132,7 @@ export class AssignAssetComponent {
     @Inject(DeviceAssignService) private deviceAssignService: DeviceAssignService) {
     this.assignAssetForm = this.formBuilder.group({
       assignedTo: [null, Validators.required],
-      assignedBy: ['B294E91E-37D6-4E55-8A14-6EA0D4D8DD0E', Validators.required],
+      assignedBy: ['082D1029-ED24-4C6D-B10A-0AFC125EE676', Validators.required],
       cygids: this.formBuilder.array([]),
       softwareIds: this.formBuilder.array([]),
       accessoryIds: this.formBuilder.array([]),
@@ -324,7 +324,7 @@ export class AssignAssetComponent {
 
     const input = {
       deviceCYGIDs: [] as any[],
-      softwareIds: [] as any[],
+      softwareIds: [] as { softwareId: string, version: string }[],
       accessoryCYGIDs: [] as any[],
       assignedTo: this.assignAssetForm?.get('assignedTo')?.value,
       assignedBy: this.assignAssetForm?.get('assignedBy')?.value,
@@ -337,6 +337,7 @@ export class AssignAssetComponent {
     var deviceCommentArray = this.assignAssetForm?.get('deviceComments')?.value;
     var selectedSoftwareIds = this.assignAssetForm?.get('softwareIds')?.value;
     var selectedSoftwareComments = this.assignAssetForm?.get('softwareComments')?.value;
+    console.log("selectedSoftwareComments", selectedSoftwareComments);
 
     for (var i = 0; i < deviceIds.length; i++) {
       if (deviceIds[i].index != null)
@@ -345,12 +346,14 @@ export class AssignAssetComponent {
     }
 
     for (var i = 0; i < selectedSoftwareIds.length; i++) {
-      if (selectedSoftwareIds[i].index != null)
-        input.softwareIds.push(selectedSoftwareIds[i].softwareId)
-        input.softwareComments.push(selectedSoftwareComments[i].deviceComment)
+      if (selectedSoftwareIds[i].index != null) {
+        input.softwareIds.push({ softwareId: selectedSoftwareIds[i].softwareId, version: selectedSoftwareIds[i].softwareversion });
+        input.softwareComments.push(selectedSoftwareComments[i].deviceComment);
+      }
     }
 
-    console.log(input);
+
+    console.log("software ids ",input);
 
     this.deviceAssignService.saveAssignment(input).subscribe(
           (response : any) => {

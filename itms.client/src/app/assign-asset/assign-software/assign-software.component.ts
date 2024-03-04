@@ -113,7 +113,8 @@ export class AssignSoftwareComponent {
 
     softwareIdsArray.push(this.formBuilder.group({
       index: selectedIndex,
-      softwareId: filteredOptions[selectedIndex].id
+      softwareId: filteredOptions[selectedIndex].id,
+      softwareversion: data
     }));
 
     this.formatExpiryDate(selectedIndex);
