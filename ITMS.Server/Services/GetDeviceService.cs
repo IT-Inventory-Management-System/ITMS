@@ -55,7 +55,7 @@ namespace ITMS.Server.Services
                                     AssignedDate = d.AssignedDate,
                                     AssignedToName = emp != null ? emp.FirstName + ' ' + emp.LastName : "",
                                     Status = st.Type,
-                                   
+                                    isArchived = d.IsArchived
                                 }
                              ).ToList();
             return result;

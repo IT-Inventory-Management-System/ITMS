@@ -49,6 +49,7 @@ export class SoftwareSearchBoxComponent {
   }
 
   onSelectOption(option: any): void {
+    console.log(option);
     this.SoftwareOptionSelected.emit(option);
   }
 

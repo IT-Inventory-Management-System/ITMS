@@ -188,7 +188,7 @@ namespace ITMS.Server.Controllers
                     }
                 }
 
-                return Ok("Assets allocated successfully");
+                return Ok(true);
             }
             catch (Exception ex)
             {

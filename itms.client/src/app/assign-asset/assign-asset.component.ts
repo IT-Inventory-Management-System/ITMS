@@ -196,7 +196,9 @@ export class AssignAssetComponent {
     this.deviceAssignService.getLaptop(this.locationId).subscribe(
       (data: any[]) => {
         this.totalLaptopsData = data;
-        this.laptops = this.totalLaptopsData.filter(item => item.locationId === this.locationId);
+        //this.laptops = this.totalLaptopsData.filter(item => item.locationId === this.locationId);
+        this.laptops = this.totalLaptopsData.filter(item => item.isArchived === false);
+
       },
       (error: any) => {
         console.error('Error fetching software details:', error);
@@ -208,6 +210,7 @@ export class AssignAssetComponent {
       (data: any[]) => {
         this.totalSoftwaresData = data;
         this.softwares = this.totalSoftwaresData.filter(item => item.locationId === this.locationId);
+        console.log(this.softwares);
       },
       (error: any) => {
         console.error('Error fetching software details:', error);
@@ -318,11 +321,42 @@ export class AssignAssetComponent {
     //    this.toastr.error('Form is invalid. Cannot save changes.');
     //  }
     // }
-    this.deviceAssignService.saveAssignment(this.assignAssetForm.value).subscribe(
-          (response) => {
+
+    const input = {
+      deviceCYGIDs: [] as any[],
+      softwareIds: [] as any[],
+      accessoryCYGIDs: [] as any[],
+      assignedTo: this.assignAssetForm?.get('assignedTo')?.value,
+      assignedBy: this.assignAssetForm?.get('assignedBy')?.value,
+      deviceComments: [] as any[],
+      softwareComments: [] as any[],
+      accessoryComments: [] as any[]
+    }
+
+    var deviceIds = this.assignAssetForm?.get('cygids')?.value;
+    var deviceCommentArray = this.assignAssetForm?.get('deviceComments')?.value;
+    var selectedSoftwareIds = this.assignAssetForm?.get('softwareIds')?.value;
+    var selectedSoftwareComments = this.assignAssetForm?.get('softwareComments')?.value;
+
+    for (var i = 0; i < deviceIds.length; i++) {
+      if (deviceIds[i].index != null)
+        input.deviceCYGIDs.push(deviceIds[i].cygid)
+        input.deviceComments.push(deviceCommentArray[i].deviceComment)
+    }
+
+    for (var i = 0; i < selectedSoftwareIds.length; i++) {
+      if (selectedSoftwareIds[i].index != null)
+        input.softwareIds.push(selectedSoftwareIds[i].softwareId)
+        input.softwareComments.push(selectedSoftwareComments[i].deviceComment)
+    }
+
+    console.log(input);
+
+    this.deviceAssignService.saveAssignment(input).subscribe(
+          (response : any) => {
             this.closeForm();
             this.assignAssetForm.reset();
-            this.toastr.success('Assignment saved successfully:', response);
+            this.toastr.success('Assignment saved successfully');
           },
           (error) => {
             this.closeForm();
