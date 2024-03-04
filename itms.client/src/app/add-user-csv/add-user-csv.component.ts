@@ -20,6 +20,8 @@ export class AddUserCsvComponent {
   arrayBuffer: any;
   file: File;
   loggedUser: any;
+    fileName: string;
+  csvFileVisible: boolean = false;
 
   constructor(private selectedCountryService: SelectedCountryService, private dataService: DataService, private empService: EmployeeService, private toastr: ToastrService) {
     const storedUser = localStorage.getItem("user");
@@ -65,8 +67,9 @@ export class AddUserCsvComponent {
   onFileSelected(event: any) {
     this.file = event.target.files[0];
     if (this.file) {
+      this.fileName = this.file.name;
+      this.csvFileVisible = !this.csvFileVisible;
       console.log('Selected file:', this.file);
-      this.processData();
     }
   }
 
@@ -110,6 +113,17 @@ export class AddUserCsvComponent {
         this.toastr.error("Error in posting new users");
       }
     );
+  }
+
+  cancle() {
+    this.csvFileVisible = false;
+
+  }
+
+  saveData() {
+    this.processData();
+    this.csvFileVisible = false;
+
   }
 
 }
