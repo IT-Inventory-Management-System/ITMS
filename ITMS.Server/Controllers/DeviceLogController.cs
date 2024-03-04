@@ -148,7 +148,10 @@ public class DeviceLogController : ControllerBase
         adminHistoryParamsDTO allDataParams = new adminHistoryParamsDTO() { employeeId= filterParams.employeeId, locationName = filterParams.locationName };
         List<returnSingleLog> allData = GetDevicesLogs(allDataParams);
 
-        allData = allData.Where(ud => DateOnly.FromDateTime((DateTime)ud.UpdatedDate) == filterParams.Date).ToList();
+        if (filterParams.Date != new DateOnly())
+        {
+            allData = allData.Where(ud => DateOnly.FromDateTime((DateTime)ud.UpdatedDate) == filterParams.Date).ToList();
+        }
 
 
         return allData;
