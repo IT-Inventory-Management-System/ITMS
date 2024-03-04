@@ -58,6 +58,7 @@ namespace ITMS.Server.Services
             entityToUpdate.AssignedBy = device.AssignedBy;
             entityToUpdate.AssignedTo = device.AssignedTo;
             entityToUpdate.AssignedDate = DateTime.UtcNow;
+            entityToUpdate.Status = _context.Statuses.FirstOrDefault(s => s.Type == "Assigned").Id;
             _context.Devices.Update(entityToUpdate);
             await _context.SaveChangesAsync();
         }

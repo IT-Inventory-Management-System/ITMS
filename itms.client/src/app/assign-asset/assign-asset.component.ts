@@ -132,7 +132,7 @@ export class AssignAssetComponent {
     @Inject(DeviceAssignService) private deviceAssignService: DeviceAssignService) {
     this.assignAssetForm = this.formBuilder.group({
       assignedTo: [null, Validators.required],
-      assignedBy: [null, Validators.required],
+      assignedBy: ['B294E91E-37D6-4E55-8A14-6EA0D4D8DD0E', Validators.required],
       cygids: this.formBuilder.array([]),
       softwareIds: this.formBuilder.array([]),
       accessoryIds: this.formBuilder.array([]),
@@ -157,7 +157,6 @@ export class AssignAssetComponent {
     });
     //this.getUsers();
     this.getSoftwares();
-    this.getLaptops();
     this.getAccessories();
   }
 
@@ -172,6 +171,7 @@ export class AssignAssetComponent {
             this.softwares = this.totalSoftwaresData.filter(item => item.locationId === this.locationId);
             this.accessories = this.totalAccessoriesData.filter(item => item.locationId === this.locationId);
             this.getUsers();
+            this.getLaptops();
             break;
           }
         }
@@ -193,7 +193,7 @@ export class AssignAssetComponent {
     );
   }
   getLaptops(): void {
-    this.deviceAssignService.getLaptop().subscribe(
+    this.deviceAssignService.getLaptop(this.locationId).subscribe(
       (data: any[]) => {
         this.totalLaptopsData = data;
         this.laptops = this.totalLaptopsData.filter(item => item.locationId === this.locationId);
@@ -302,35 +302,34 @@ export class AssignAssetComponent {
       return;
     }
 
-    if (this.assignAssetForm.valid) {
-      const assignmentData = this.assignAssetForm.value;
-      assignmentData.assignedBy = AssignedBy;
-      //this.deviceAssignService.saveAssignment(assignmentData).subscribe(
-      //  (response) => {
-      //    this.closeForm();
-      //    this.assignAssetForm.reset();
-      //    this.toastr.success('Assignment saved successfully:', response);
-      //  },
-      //  (error) => {
-      //    this.closeForm();
-      //    this.assignAssetForm.reset();
-      //    this.toastr.error('Error saving assignment:', error);
-      //  }
-      //);
-    } else {
-      const errors = this.assignAssetForm.errors;
+    //if (this.assignAssetForm.valid) {
+    //  const assignmentData = this.assignAssetForm.value;
+    //  assignmentData.assignedBy = AssignedBy;
 
-      if (errors) {
-        for (const key of Object.keys(errors)) {
-          const message = errors[key];
-          this.toastr.error(message);
-        }
-      } else {
-        this.toastr.error('Form is invalid. Cannot save changes.');
-      }
+    //} else {
+    //  const errors = this.assignAssetForm.errors;
 
-      this.closeForm();
-      this.assignAssetForm.reset();
-    }
+    //  if (errors) {
+    //    for (const key of Object.keys(errors)) {
+    //      const message = errors[key];
+    //      this.toastr.error(message);
+    //    }
+    //  } else {
+    //    this.toastr.error('Form is invalid. Cannot save changes.');
+    //  }
+    // }
+    this.deviceAssignService.saveAssignment(this.assignAssetForm.value).subscribe(
+          (response) => {
+            this.closeForm();
+            this.assignAssetForm.reset();
+            this.toastr.success('Assignment saved successfully:', response);
+          },
+          (error) => {
+            this.closeForm();
+            this.assignAssetForm.reset();
+            this.toastr.error('Error saving assignment:', error);
+          }
+        );
+ 
   }
 }

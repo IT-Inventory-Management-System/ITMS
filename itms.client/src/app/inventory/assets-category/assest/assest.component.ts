@@ -26,7 +26,7 @@ export class AssestComponent {
   selectedModel: any;
   selectedFilter : any;
 
-
+  
   @ViewChild('appDevices') appDevices: DevicesComponent;
   constructor(private deviceService: DataService, private dataService: DataService, private selectedCountryService: SelectedCountryService) { }
   getDeviceLocation() {
@@ -67,13 +67,12 @@ export class AssestComponent {
     }
   }
 
-
+  
   loadDeviceData() {
     this.deviceService.getDevicesCyg(this.locationId).subscribe(
       
       (data) => {
         console.log(this.locationId);
-        //alert(this.locationId);
         console.log(data);
         this.deviceData = data;
         console.log('All Device Data', data);
@@ -101,17 +100,11 @@ export class AssestComponent {
         "Storage": this.deviceData[i].storage,
         "Serial No": this.deviceData[i].serialNumber,
         "CYG ID": this.deviceData[i].cygid,
-        /*"# Stock Count": '-',*/
         "Date of Purchase": formatDate(this.deviceData[i].purchasedDate, 'dd-MM-yyyy', 'en-US'),
-        //"# Total": '-',
-        //"# Assigned": '-',
-        //"# Inventory": '-',
         "Warranty (in Years)": this.calculateWarrantyYear(this.deviceData[i].warrantyDate),
         "Assigned To": this.deviceData[i].assignedToName,
         "Assigned Date": this.deviceData[i].assignedDate ? formatDate(this.deviceData[i].assignedDate, 'dd-MM-yyyy', 'en-US') : '',
         "Device Status": this.deviceData[i].status,
-        "Action": '-',
-        //"Stock Status": '-'
       }
 
     }
@@ -153,7 +146,6 @@ export class AssestComponent {
     { field: "Assigned To", width: 140, resizable: false, suppressMovable: true, },
     { field: "Assigned Date", width: 129, resizable: false, suppressMovable: true, },
     { field: "Device Status", width: 119, resizable: false, suppressMovable: true, pinned: 'right', cellRenderer: MyCellComponent },
-    { field: "Action", width: 83, resizable: false, suppressMovable: true, },
     /* { field: "Stock Status", pinned: 'right', cellStyle: { 'border': 'none' }, width: 122, resizable: false, suppressMovable: true, }*/
 
   ];
@@ -304,5 +296,8 @@ export class AssestComponent {
     this.selectedFilter = filter
   }
 
+  toggleView() {
+    this.selectedModel = null;
+  }
 
 }

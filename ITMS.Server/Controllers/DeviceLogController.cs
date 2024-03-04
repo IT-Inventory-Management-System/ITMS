@@ -130,6 +130,13 @@ public class DeviceLogController : ControllerBase
         return filterDevices;
     }
 
+    [HttpPost("singleHistoryDevice")]
+    public List<historySingleDevice> singleHistoryDevice([FromBody] locationDeviceDTO dto)
+    {
+        List<historySingleDevice> history = _deviceLogService.singleHistory(dto.locationId, dto.CYGID);
+
+        return history;
+    }
 
     //[HttpPost("employeeLog")]
     //public IActionResult GetDevicesLogs(Guid employeeId, string location)

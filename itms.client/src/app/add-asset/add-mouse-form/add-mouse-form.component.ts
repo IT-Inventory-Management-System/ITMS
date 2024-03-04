@@ -22,7 +22,7 @@ export class AddMouseFormComponent {
     this.setStatus();
   }
   addDeviceForm: FormGroup;
-
+  showErrorMessage = false;
   dropdownValues: any[] = [];
   currentStep: number = 1;
   laststoredcgi: number;
@@ -87,10 +87,10 @@ export class AddMouseFormComponent {
   }
   createForm() {
     this.addDeviceForm = this.fb.group({
-      deviceModelId: [null],
-      qty: [0],
-      purchaseddate: [''],
-      warrantydate: [null],
+      deviceModelId: [null, Validators.required],
+      qty: [0, Validators.required],
+      purchaseddate: ['', Validators.required],
+      warrantydate: [null, Validators.required],
       deviceId: this.fb.array([]),
       createdBy: [''],
       updatedBy: [''],
@@ -114,11 +114,22 @@ export class AddMouseFormComponent {
       deviceIdArray.removeAt(deviceIdArray.length - 1);
     }
   }
+  nextValidation(): boolean {
+    var isDeviceId = this.addDeviceForm.get('deviceModelId')?.value != null;
+    var isQuantity = this.counterValue > 0;
+    var isPurchasedOn = this.addDeviceForm.get('purchaseddate')?.value != '';
+    var isWarrantyDate = this.addDeviceForm.get('warrantydate')?.value != null;
+    return isDeviceId && isQuantity && isPurchasedOn && isWarrantyDate;
+  }
   next() {
    
-
+    if (this.nextValidation() == true) {
+      this.hideErrorMessage();
       this.currentStep++;
-        
+    }
+    else {
+      this.showErrorMessage = true;
+    }
   
   }
 
@@ -169,7 +180,7 @@ export class AddMouseFormComponent {
     this.addDeviceForm.get('createdAt')?.setValue(new Date().toISOString());
     this.addDeviceForm.get('updatedAt')?.setValue(new Date().toISOString());
 
-
+    if (this.addDeviceForm.valid && this.showErrorMessage == false) {
       console.log(this.addDeviceForm.value);
 
       this.dataService.postMouse(this.addDeviceForm.value).subscribe(
@@ -184,7 +195,11 @@ export class AddMouseFormComponent {
           this.toastr.error("Error in posting data");
         }
       );
+    }
+    else {
+      this.showErrorMessage = this.addDeviceForm.invalid;
 
+    }
 
   }
   pushValueIntoDeviceId(value: string) {
@@ -201,6 +216,9 @@ export class AddMouseFormComponent {
     this.ngOnInit();
 
 
+  }
+  hideErrorMessage() {
+    this.showErrorMessage = false;
   }
 
 }

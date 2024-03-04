@@ -33,8 +33,18 @@ namespace ITMS.Server.Controllers
         {
             try
             {
-                var devices = _userDeviceService.GetDevices(id);
-                return Ok(devices);
+                var laptops = _userDeviceService.GetDevices(id);
+                var software = _userDeviceService.GetUserSoftware(id);
+                var accessories = _userDeviceService.GetUserAccessories(id);
+
+                var result = new
+                {
+                    Laptop = laptops.ToArray(),
+                    Software = software.ToArray(),
+                    Accessories = accessories.ToArray()
+                };
+
+                return Ok(result);
             }
             catch (Exception ex)
             {

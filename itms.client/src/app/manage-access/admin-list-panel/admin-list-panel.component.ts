@@ -21,7 +21,11 @@ export class AdminListPanelComponent {
       localStorage.setItem('selectedCountry', selectedCountry);
       this.getUserLocation();
     });
-    //this.loadAdminList(); 
+    //this.loadAdminList();
+    this.adminDetailService.adminListChanged$.subscribe(() => {
+      // Reload or fetch the updated admin list here
+      this.getUserLocation();
+    });
 
   }
 

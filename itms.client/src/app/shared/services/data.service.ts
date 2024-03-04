@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 type Guid = string;
@@ -47,8 +47,8 @@ export class DataService {
     return this.http.get<any[]>(this.apiUrl + 'Device/' + deviceId);
   }
 
-  getUserInfo(deviceId: string): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl + 'DeviceLog/devicesloginfo/' + deviceId);
+  getUserInfo(inputData: any): Observable<any> {
+    return this.http.post(this.apiUrl + 'DeviceLog/singleHistoryDevice' , inputData);
   }
 
   postDeviceModel(formData: any): Observable<any> {
@@ -185,6 +185,13 @@ export class DataService {
 
   getAllAccessoriesComment(deviceId: any): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl + 'Device/getAllComments/' + deviceId);
+  }
+
+  private deviceListSubject = new BehaviorSubject<any>(null);
+  deviceListChanged$ = this.deviceListSubject.asObservable();
+
+  notifyDeviceListChanged() {
+    this.deviceListSubject.next(null);
   }
 
 }

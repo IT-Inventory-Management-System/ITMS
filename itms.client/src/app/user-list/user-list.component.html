@@ -18,7 +18,7 @@
 
   <ng-template #content>
     <div class="user-name-list">
-      <user-name-list (click)="showUserDetails(userDetails, i)" *ngFor="let userDetails of displayingData | filterSearchList : filterName; let i = index"
+      <user-name-list (click)="showUserDetails(userDetails, i)" *ngFor="let userDetails of filteredDisplayingData | filterSearchList : filterName; let i = index"
                       [cgiid]="userDetails.cgiid"
                       [firstName]="userDetails.firstName"
                       [lastName]="userDetails.lastName"

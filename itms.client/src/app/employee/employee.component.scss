@@ -110,3 +110,86 @@
   /* Shadow */
   box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.15);
 }
+
+/*.archive-users {
+  width: 187px;
+  height: 24px;
+  gap: 76px;*/
+ /*margin-right: 75rem;*/
+/*align-items: flex-end;*/
+/*}*/
+
+.user-heading-archive{
+    display: flex;
+    gap: 70rem;
+}
+
+/*.archive-text-heading {
+  margin-left: 0.5rem;
+}*/
+/*
+.archive-checkbox {
+  width: 18px;
+  height: 18px;
+  top: 3px;
+  left: 3px;
+  background: #28519E;
+}
+*/
+/*.archive-checkbox:checked {
+  background-color: aquamarine;*/ /* Change to whatever color you want when checked */
+/*}*/
+
+
+.archive-users {
+  width: 187px;
+  height: 24px;
+  gap: 76px;
+  margin-left: auto; /* Initially centered */
+}
+
+.archive-checkbox {
+  display: none; 
+}
+
+.archive-text-heading {
+  position: relative;
+ 
+  cursor: pointer;
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: 0em;
+  text-align: left;
+  padding-left: 25px;
+}
+
+.archive-text-heading:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 18px;
+  height: 18px;
+  border: 1px solid #28519E;
+  background-color: transparent;
+}
+
+.archive-checkbox:checked + .archive-text-heading:before {
+  background-color: #28519E;
+  content: '\2713';
+  position: absolute;
+  top: 0;
+  left: 0; 
+  color: white;
+  font-size: 14px;
+  line-height: 18px;
+  text-align: center;
+}
+
+@media (max-width: 600px) { /* Adjust the max-width to your preference */
+  .archive-users {
+   margin-left: 20rem;
+  }
+}

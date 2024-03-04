@@ -19,19 +19,19 @@ namespace ITMS.Server.Controllers
             _getAccessoryService = getAccessoryService;
         }
 
-        [HttpGet("GetUserAccessories/{id}")]
-        public IActionResult GetUserAccessories(Guid id)
-        {
-            try
-            {
-                var accessoriesList = _accessoriesService.GetUserAccessories(id);
-                return Ok(accessoriesList);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+        //[HttpGet("GetUserAccessories/{id}")]
+        //public IActionResult GetUserAccessories(Guid id)
+        //{
+        //    try
+        //    {
+        //        var accessoriesList = _accessoriesService.GetUserAccessories(id);
+        //        return Ok(accessoriesList);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
 
         [HttpGet("GetAccessoriesList")]
         public async Task<IEnumerable<getAccessoriesDTO>> listAccessories()
@@ -39,10 +39,13 @@ namespace ITMS.Server.Controllers
             return await _getAccessoryService.listAccessories();
         }
 
-        [HttpGet("GetAccessoriesDetails")]
-        public async Task<IEnumerable<getMouseDetailsDTO>> getMouseDetails()
+        [HttpPost("GetAccessoriesDetails")]
+        public async Task<IEnumerable<getMouseDetailsDTO>> getMouseDetails([FromBody] accessoryInputDTO inputDTO)
         {
-            return await _getAccessoryService.getMouseDetails();
+            var locationId = inputDTO.locationId;
+            var catName = inputDTO.categoryName;
+
+            return await _getAccessoryService.getMouseDetails(locationId,catName);
 
         }
 
