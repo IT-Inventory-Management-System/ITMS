@@ -39,6 +39,7 @@ namespace ITMS.Server.Services
                     employee.UpdatedBy = singleUser.UpdatedBy;
                     employee.UpdatedAtUtc = DateTime.UtcNow;
                     employee.IsArchived = false;
+                    employee.ExitProcessInitiated = false;
                     employee.LocationId = _context.Locations.FirstOrDefault(l => l.Location1 == singleUser.Location).Id;
                     //Guid.Parse("4F687C11-F0FC-4F5A-9B2F-DAAE538A9F53");
                     _context.Employees.Add(employee);
