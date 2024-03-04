@@ -487,10 +487,10 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   getLogsData(locationid: any): void {
     const body = { locationid: locationid };
-   // console.log("body",body);
+    //console.log("body",body);
     this.dashboardService.GetLogs(body).subscribe(
       data => {
-       console.log(data);
+       console.log("logs",data);
         this.logsData = data;
         this.setLastUpdated();
       },
@@ -503,19 +503,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   setLastUpdated(): void {
     if (this.logsData && this.logsData.length > 0) {
-      for (var i = 0; i < this.logsData.length; i++) {
-        if (this.logsData[i].location == 'India') {
-          this.indTime = this.logsData[i].updatedOn;
-          break;
-        }
-      }
-
-      for (var i = 0; i < this.logsData.length; i++) {
-        if (this.logsData[i].location == 'USA') {
-          this.usaTime = this.logsData[i].updatedOn;
-          break;
-        }
-      }
+        this.indTime = this.logsData[0].updatedOn;
+        this.usaTime = this.logsData[0].updatedOn;
     }
   }
 }

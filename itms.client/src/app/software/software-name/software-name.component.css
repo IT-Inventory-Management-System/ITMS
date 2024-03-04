@@ -12,9 +12,40 @@
   height:5.1875rem;
 }
 
-.selected {
+.selected.software-name {
   background: #E3F3FC;
   border: 1px solid var(--Primary-Blue, #28519E);
+}
+
+  .selected.versiondiv {
+    border-radius: 0.125rem;
+    background: var(--Primary-Royal-Blue, #002C3F);
+  }
+  .selected.versiondiv-text {
+    color: var(--Primary-White, #FFF);
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Roboto;
+    font-size: 0.75rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+
+.selected.typetext {
+  color: var(--Primary-White, #FFF);
+  leading-trim: both;
+  text-edge: cap;
+  font-family: Roboto;
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.selected.subtypename {
+  border-radius: 0.125rem;
+  background: #4977CB;
 }
 
 
