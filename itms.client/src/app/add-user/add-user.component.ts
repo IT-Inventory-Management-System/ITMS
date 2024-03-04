@@ -29,10 +29,10 @@ export class AddUserComponent implements OnInit {
   loggedUser: any;
 
   constructor(private formBuilder: FormBuilder, private empService: EmployeeService, private deviceService: DataService, private toastr: ToastrService) {
-    //const storedUser = localStorage.getItem("user");
-    //if (storedUser !== null) {
-    //  this.loggedUser = JSON.parse(storedUser);
-    //}
+    const storedUser = localStorage.getItem("user");
+    if (storedUser !== null) {
+      this.loggedUser = JSON.parse(storedUser);
+    }
 }
 
 
@@ -75,7 +75,7 @@ export class AddUserComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       cgiId: ['', Validators.required],
       //location: [this.locationId]
-      //loggedUser: [this.loggedUser]
+      CreatedBy: [this.loggedUser.id]
     });
   }
 
