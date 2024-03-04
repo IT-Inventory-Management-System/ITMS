@@ -55,7 +55,7 @@
                     class="btn-save"
                     [attr.data-bs-dismiss]="currentStep === 3 ? 'modal' : null"
                     (click)="currentStep === 3 ?  saveAndDismiss() : nextStep()"
-                    [disabled]="(currentStep === 1 && variable1) || (currentStep === 2 && variable2) || (currentStep === 3 && variable3)">
+                    [disabled]="isButtonDisabled">
               {{ getButtonText() }}
             </button>
           </div>

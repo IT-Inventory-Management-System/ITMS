@@ -20,7 +20,8 @@ export class RevokeAllComponent {
 
   variable1: boolean = true; 
   variable2: boolean = false; 
-  variable3: boolean = true; 
+  variable3: boolean = true;
+  isButtonDisabled: boolean = false; 
   
   revokeAllForm: FormGroup;
   actionsArray: any[] = [];
@@ -30,14 +31,25 @@ export class RevokeAllComponent {
 
   onVariable1Change(value: boolean) {
     this.variable1 = value;
+    this.updateButtonDisabledState();
   }
 
   onVariable2Change(value: boolean) {
     this.variable2 = value;
+    this.updateButtonDisabledState();
   }
 
   onVariable3Change(value: boolean) {
     this.variable3 = value;
+    this.updateButtonDisabledState();
+  }
+  updateButtonDisabledState(): void {
+
+    this.isButtonDisabled = (this.currentStep === 1 && this.variable1) ||
+      (this.currentStep === 2 && this.variable2) ||
+      (this.currentStep === 3 && this.variable3);
+    this.cdr.detectChanges();
+
   }
 
   // Filter the details in ngOnChanges lifecycle hook
@@ -49,7 +61,7 @@ export class RevokeAllComponent {
     if (this['accessoriesDetails'] && Array.isArray(this['accessoriesDetails'])) 
       this.filteredAccessoriesDetails = this['accessoriesDetails'].filter((accessory: any) => accessory.submittedBy === null);
   }
-  constructor(private formBuilder: FormBuilder, private revokeAllService: EmployeeService, private actionService: EmployeeService, private employeeService: EmployeeService) {
+  constructor(private formBuilder: FormBuilder, private revokeAllService: EmployeeService, private actionService: EmployeeService, private employeeService: EmployeeService, private cdr: ChangeDetectorRef) {
     this.revokeAllForm = this.formBuilder.group({
       userid: [null, Validators.required],
       archiveUserId: [null, Validators.required],
@@ -98,18 +110,21 @@ export class RevokeAllComponent {
     if (this.currentStep < 3) {
       this.currentStep++;
     }
+    this.updateButtonDisabledState();
   }
 
   previousStep() {
     if (this.currentStep > 1) {
       this.currentStep--;
     }
+    this.updateButtonDisabledState();
   }
 
   skipStep() {
     if (this.currentStep < 3) {
       this.currentStep += 1;
     }
+    this.updateButtonDisabledState();
   }
 
   getProgressBarWidth(): string {
@@ -132,6 +147,7 @@ export class RevokeAllComponent {
 
   dismissModal() {
     this.currentStep = 1;
+    this.updateButtonDisabledState();
   }
 
   saveData() {
