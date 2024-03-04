@@ -41,6 +41,8 @@
             <span class="cyg-name" *ngIf="log.cygid">{{log.cygid}}</span>
             <span class="cyg-name" *ngIf="log.softwareName">{{log.softwareName}}</span> has been
             <span *ngIf="log.action === 'create'">created</span>
+            <span *ngIf="log.action === 'Assigned'">Assigned</span>
+            <span *ngIf="log.action === 'Submitted'">Submitted</span>
             <span *ngIf="log.action === 'update'">updated</span>
             <span *ngIf="log.action === 'delete'">deleted</span>
             <span *ngIf="log.action === 'Archive'">Archived</span>

@@ -1,41 +1,50 @@
 <div class="modal fade " id="UsercsvModal">
  <div class="header ">
   <span class="uploaduser-text">Upload User Details CSV</span>
-   <img class="close" src="../../assets/icons/Close.svg"  data-bs-dismiss="modal" />
+   <img class="close" src="../../assets/icons/Close.svg"  data-bs-dismiss="modal"  (click)="cancle()" />
   </div>
-  <div class="content">
-    <span class="content-text">
-      To add new user(s), please upload the CSV file.
-      The CSV file should contain the following information for each user:
-    </span>
-    <span class="detail-text">
-      First Name<br />
-      Last Name<br />
-      Corresponding CGI ID<br />
-      Email ID
-    </span>
-    <div class="drag-drop ">
-      <div class="browse-icon ">
-        <div class="upload-icon ">
-          <img src="../../assets/icons/upload-csv.svg" />
+ <div class="content ">
+   <span class="content-text">
+     To add new user(s), please upload the CSV file.
+     The CSV file should contain the following information for each user:
+   </span>
+   <ul class="detail-text">
+     <li>First Name</li>
+     <li> Last Name</li>
+     <li> Corresponding CGI ID</li>
+     <li>  Email ID</li>
+   </ul>
+   <div class="csv-file" *ngIf="csvFileVisible">
+     <div class="inner-csv-file">
+       <div class="file-div">
+         <img src="../../assets/icons/FileCsv.svg" />
+         <span class="file-name">{{ fileName }}</span>
+       </div>
+       <img src="../../assets/icons/User-Csv-close.svg"  (click)="cancle()" />
+     </div>
+   </div>
+   <div class="drag-drop" *ngIf="!csvFileVisible">
+     <div class="browse-icon ">
+       <div class="upload-icon ">
+         <img src="../../assets/icons/upload-csv.svg"/>
 
-        </div>
-        <span class="drag-text">
-          Drag and drop here
-          or click to select a file from your computer
-        </span>
-      </div>
-      <input type="file" style="display: none;" id="fileUpload" (change)="onFileSelected($event)">
+       </div>
+       <span class="drag-text">
+         Drag and drop here
+         or click to select a file from your computer
+       </span>
+     </div>
+     <input type="file" style="display: none;" id="fileUpload" (change)="onFileSelected($event)">
 
-      <button type="button" class="browse-csv-button" (click)="triggerFileInput()">
-        <span class="browse-text">Browse from your computer</span>
-      </button>
-    </div>
-  </div>
+     <button type="button" class="browse-csv-button" (click)="triggerFileInput()">
+       <span class="browse-text">Browse from your computer</span>
+     </button>
+   </div>
+ </div>
   <div class="cancle-save ">
     
-      <button class="cancel-button"  data-bs-dismiss="modal"><span>Cancel</span></button>
-      <button class="btn btn-primary addclose"  data-bs-dismiss="modal" ><span>Save</span></button>
+      <button class="cancel-button"  data-bs-dismiss="modal" (click)="cancle()"><span>Cancel</span></button>
+      <button class="btn btn-primary addclose"  data-bs-dismiss="modal"  (click)="saveData()" ><span>Save</span></button>
   </div>
 
 

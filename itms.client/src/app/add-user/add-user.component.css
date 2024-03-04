@@ -287,6 +287,11 @@ hr {
   background-color: white;
 }
 
+.closebutton{
+    background:none;
+    outline:none;
+    border:none;
+}
 
 .cancle-add {
   display: flex;
