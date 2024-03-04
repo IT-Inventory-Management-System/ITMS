@@ -10,6 +10,7 @@ import { CloseFlagService } from '../../shared/services/close-flag.service';
   styleUrls: ['./assign-accessories.component.css']
 })
 export class AssignAccessoriesComponent {
+  selectedId: any;
   @Input() AccessoryOptions: any[] = [];
   @Input() assignAssetForm: FormGroup;
   @Output() accessoryIdInputChange = new EventEmitter<boolean>();
@@ -65,6 +66,7 @@ export class AssignAccessoriesComponent {
   }
 
   AccessorySearchBoxOptionSelected(event: any, index: number): void {
+    this.selectedId = event; 
     this.SelectedAccessoriesName[index] = event;
     this.filterAccessoryBrands(index);
   }

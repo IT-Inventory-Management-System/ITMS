@@ -122,6 +122,7 @@ import { CommonModule } from '@angular/common';
 import { AddUserComponent } from './add-user/add-user.component';
 import { AccesoriesFilterComponent } from './accessories/accesories-filter/accesories-filter.component';
 import { AddUserCsvComponent } from './add-user-csv/add-user-csv.component';
+import { RevokeRoleModalComponent } from './manage-access/admin-permissions-panel/revoke-role-modal/revoke-role-modal.component';
 
 
 
@@ -252,9 +253,11 @@ import { AddUserCsvComponent } from './add-user-csv/add-user-csv.component';
     AdminPanelComponent,
     AccesoriesFilterComponent,
     AddUserComponent,
-    AddUserCsvComponent
+    AddUserCsvComponent,
+    AccessoryBrandySearchBoxComponent,
+    RevokeRoleModalComponent,
 
-
+    AccessoryBrandySearchBoxComponent,
   ],
   imports: [
     BrowserModule,

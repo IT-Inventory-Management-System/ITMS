@@ -12,6 +12,9 @@ import { ToastrService } from 'ngx-toastr';
 export class AddDeviceFormComponent implements OnInit {
 
   addDeviceForm: FormGroup;
+  currentCygIdIndex: number | null = null;
+  currentSerialIndex: number | null = null;
+
   // cygIds: FormArray;
   errorMessage: string;
   showErrorMessage = false;
@@ -21,8 +24,9 @@ export class AddDeviceFormComponent implements OnInit {
   warrantyYear: number;
   deviceData: any[] = [];
   locationId: string = '';
-
- 
+  showExistMessage: boolean = false;
+  invalidSerialIndices: number[] = [];
+  invalidCygIndices: number[] = [];
   constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService) {
     this.dropdownValues = [];
   }
@@ -33,11 +37,13 @@ export class AddDeviceFormComponent implements OnInit {
     //console.log('selectedos : ', this.selectedOS);
     this.getlaptopids();
     this.loadDropdownValues();
-    this.loadDeviceData();
+    //this.loadDeviceData();
+
     this.createForm();
     this.setCreatedBy();
     this.setlocationId();
     this.setStatus();
+
   }
 
   createForm() {
@@ -45,7 +51,7 @@ export class AddDeviceFormComponent implements OnInit {
       deviceModelId: [null, Validators.required],
       isChecked: [true],
       qty: [0, Validators.required],
-      purchasedOn: ['', Validators.required],
+      purchasedOn: [null, Validators.required],
       warrantyDate: [null, Validators.required],
       serialNumberList: this.fb.array([]),
       cygIdsList: this.fb.array([]),
@@ -71,21 +77,48 @@ export class AddDeviceFormComponent implements OnInit {
   updateSerialNumber(index: number, event: Event) {
     this.hideErrorMessage();
     const value = (event.target as HTMLInputElement).value;
-    this.serialNumbers.at(index).setValue(value);
-  }
 
+    if (this.validateSerialno(value, index)) {
+      // Remove index from the invalidSerialIndices array if it exists
+      const invalidIndexIndex = this.invalidSerialIndices.indexOf(index);
+      if (invalidIndexIndex !== -1) {
+        this.invalidSerialIndices.splice(invalidIndexIndex, 1);
+      }
+
+      this.serialNumbers.at(index).setValue(value);
+    } else {
+      // Add index to the invalidSerialIndices array if it's not already there
+      if (!this.invalidSerialIndices.includes(index)) {
+        this.invalidSerialIndices.push(index);
+      }
+
+      this.showExistMessage = true;
+      this.errorMessage = 'CYG Id already exists or is repeated in current quantity.';
+    }
+  }
   updateCygId(index: number, event: Event) {
     this.hideErrorMessage();
     const value = (event.target as HTMLInputElement).value;
-    if (this.validateCygId(value) == true) {
+
+    if (this.validateCygId(value, index)) {
+      // Remove index from the invalidCygIndices array if it exists
+      const invalidIndexIndex = this.invalidCygIndices.indexOf(index);
+      if (invalidIndexIndex !== -1) {
+        this.invalidCygIndices.splice(invalidIndexIndex, 1);
+      }
+
       this.cygIds.at(index).setValue(value);
+    } else {
+      // Add index to the invalidCygIndices array if it's not already there
+      if (!this.invalidCygIndices.includes(index)) {
+        this.invalidCygIndices.push(index);
+      }
+
+      this.showExistMessage = true;
+      this.errorMessage = 'CYG Id already exists or is repeated in current quantity.';
     }
-    else {
-      this.showErrorMessage = true;
-      this.errorMessage = 'CYG Id already exists.';
-    }
-    
   }
+
 
   setCreatedBy() {
     this.dataService.getFirstUser().subscribe(
@@ -97,6 +130,11 @@ export class AddDeviceFormComponent implements OnInit {
         console.log("User not found");
       });
   }
+
+  setPurchaseDate(event : any) {
+    this.addDeviceForm.get('purchasedOn')?.setValue(event.target.value);
+  }
+
   getDeviceLocation() {
     this.dataService.getLocation().subscribe(
       (data) => {
@@ -104,7 +142,7 @@ export class AddDeviceFormComponent implements OnInit {
           if (data[i].type == localStorage.getItem('selectedCountry')) {
             this.locationId = data[i].id;
             //alert(this.locationId);
-            this.loadDeviceData();
+            this.getlaptopids();
             break;
           }
         }
@@ -132,8 +170,9 @@ export class AddDeviceFormComponent implements OnInit {
   getlaptopids() {
     this.dataService.getLaptopIDs().subscribe(
       (data) => {
+        this.deviceData = data;
 
-        console.log(data);
+        console.log(this.deviceData);
         
 
       },
@@ -177,16 +216,16 @@ export class AddDeviceFormComponent implements OnInit {
     );
   }
 
-  loadDeviceData() {
-    this.dataService.getDevicesCyg(this.locationId).subscribe(
-      (data) => {
-        this.deviceData = data;
-      },
-      (error) => {
-        console.error('Error fetching device data', error);
-      }
-    );
-  }
+  //loadDeviceData() {
+  //  this.dataService.getDevicesCyg(this.locationId).subscribe(
+  //    (data) => {
+  //      this.deviceData = data;
+  //    },
+  //    (error) => {
+  //      console.error('Error fetching device data', error);
+  //    }
+  //  );
+  //}
 
   updateWarrantyDate() {
     const month = this.warrantyMonth;
@@ -199,30 +238,36 @@ export class AddDeviceFormComponent implements OnInit {
     }
   }
 
-  checkSerialNumber(): boolean {
-    const serialNumbersArray = this.serialNumbers.controls.map((control) => control.value);
-    const isValid = serialNumbersArray.every((serialNumber) => serialNumber.trim() !== '');
+ checkSerialNumber(): boolean {
+  const serialNumbersArray = this.serialNumbers.controls.map((control) => control.value);
+  const isExisting = serialNumbersArray.some(serialNumber => this.deviceData.some(device => device.serialNumber === serialNumber));
+  const isValid = serialNumbersArray.every((serialNumber) => serialNumber.trim() !== '' && !isExisting);
 
-    return isValid;
-  }
+  return isValid;
+}
 
-  checkCygIds(): boolean {
+checkCygIds(): boolean {
+  const cygIdsArray = this.cygIds.controls.map((control) => control.value);
+  const isExisting = cygIdsArray.some(cygId => this.deviceData.some(device => device.cygId === cygId));
+  const isValid = cygIdsArray.every((cygId) => cygId.trim() !== '' && !isExisting);
+
+  return isValid;
+}
+
+  validateCygId(cygid: string, currentIndex: number): boolean {
     const cygIdsArray = this.cygIds.controls.map((control) => control.value);
-    const isValid = cygIdsArray.every((cygId) => cygId.trim() !== '');
-
-    return isValid;
+    const isExisting = this.deviceData.some((device) => device.cygid === cygid);
+    const isRepeated = cygIdsArray.filter((id, index) => id === cygid && index !== currentIndex).length > 0;
+    return !isExisting && !isRepeated;
   }
 
-  validateCygId(cygid : string) : boolean {
-
-    for (var i = 0; i < this.deviceData.length; i++) {
-      if (this.deviceData[i].cygid == cygid) {
-        return false;
-      }
-    }
-
-    return true;
+  validateSerialno(serialNumber: string, currentIndex: number): boolean {
+    const serialNumbersArray = this.serialNumbers.controls.map((control) => control.value);
+    const isExisting = this.deviceData.some(device => device.serialNumber === serialNumber);
+    const isRepeated = serialNumbersArray.filter((number, index) => number === serialNumber && index !== currentIndex).length > 0;
+    return !isExisting && !isRepeated;
   }
+
 
   onSubmit() {
 
@@ -308,7 +353,8 @@ export class AddDeviceFormComponent implements OnInit {
     var isQuantity = this.counterValue > 0;
     var isPurchasedOn = this.addDeviceForm.get('purchasedOn')?.value != '';
     var isWarrantyDate = this.addDeviceForm.get('warrantyDate')?.value != null;
-    console.log(isDeviceId && isQuantity && isPurchasedOn && isWarrantyDate);
+    console.log(this.addDeviceForm.value);
+    console.log("check : ", isDeviceId && isQuantity && isPurchasedOn && isWarrantyDate);
     return isDeviceId && isQuantity && isPurchasedOn && isWarrantyDate;
   }
 
@@ -356,5 +402,26 @@ export class AddDeviceFormComponent implements OnInit {
   onFormSubmitted() {
     this.showDeviceDetailsForm = false;
     this.ngOnInit();
+  }
+  checkShowErrorMessage() {
+    if (this.addDeviceForm.get('deviceModelId')?.value) {
+      this.showErrorMessage = false;
+    } else {
+      this.showErrorMessage = true;
+    }
+  }
+  checkShowError() {
+    if (this.addDeviceForm.get('purchasedOn')?.value) {
+      this.showErrorMessage = false;
+    } else {
+      this.showErrorMessage = true;
+    }
+  }
+  checkMonth() {
+    if (this.addDeviceForm.get('warrantyMonth')?.value) {
+      this.showErrorMessage = false;
+    } else {
+      this.showErrorMessage = true;
+    }
   }
  }

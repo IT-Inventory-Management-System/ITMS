@@ -17,6 +17,14 @@ export class AdminDetailService {
   private selectedAdminSubject = new BehaviorSubject<any>(null);
   selectedAdmin$ = this.selectedAdminSubject.asObservable();
 
+  private adminListSubject = new BehaviorSubject<any>(null);
+  adminListChanged$ = this.adminListSubject.asObservable();
+
+  notifyAdminListChanged() {
+    this.adminListSubject.next(null);
+  }
+
+
   setSelectedCardIndex(index: number) {
     this.selectedCardIndexSubject.next(index);
   }

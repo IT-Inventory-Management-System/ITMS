@@ -4,7 +4,10 @@
            [(ngModel)]="selectedOption"
            (change)="onSelectOption($event)"
            (clear)="onClearSelection()">
-  <ng-option class="list-items" *ngFor="let option of AccessoryBrandOptions" [value]="option">
+  <ng-option class="list-items" *ngFor="let option of uniqueBrandsArray" [value]="option">
     {{ option }}
   </ng-option>
 </ng-select>
+
+
+

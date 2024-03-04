@@ -9,13 +9,31 @@
                                 [index]=i
                                 (removeAccessory)="removeAccessory($event)">
     </app-accessories-search-box>
+    
     <app-accessory-brandy-search-box class="sbox"
                                      [label]="'Brand'"
                                      [placeholder]="'Select Brand'"
+                                     [selectedId]="selectedId"
                                      [AccessoryBrandOptions]="BrandOptions[i]"
                                      (AccessoryBrandOptionSelected)=" AccessoryBrandSearchBoxOptionSelected($event,i)"
                                      [assignAssetForm]="assignAssetForm">
     </app-accessory-brandy-search-box>
+    <div class="search-box-subheading type">
+      Mouse Type<span style="color:red">*</span>
+      <div class="os-input">
+        <input type="radio" name="osType" id="windowsRadio" value="Windows">
+        <label for="windowsRadio">Wired</label>
+        <input type="radio" name="osType" id="macRadio" value="Mac">
+        <label for="macRadio">Wireless</label>
+      </div>
+    </div>
+    <div class="search-box-subheading">Device ID<span style="color:red">*</span></div>
+      <!--<ng-select class="custom search-box disabled" placeholder="Device ID" >-->
+        <!--<ng-option class="list-items" *ngFor="let option of AccessoryBrands" [value]="option">
+      {{ option.brand }}
+    </ng-option>-->
+      <!--</ng-select>-->
+    <input  class="custom" disabled placeholder="Device ID"/>
 
     <app-assign-accessory-comment class="sbox"
                                   [assignAssetForm]="assignAssetForm"

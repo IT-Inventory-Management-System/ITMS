@@ -246,7 +246,13 @@ export class AddSoftwareFormComponent {
     this.counterValue2 = 0;
     this.counterValue3 = 0;
   }
-
+  checkShowErrorMessage() {
+    if (this.SoftwareForm.get('softwareId')?.value) {
+      this.showErrorMessage = false;
+    } else {
+      this.showErrorMessage = true;
+    }
+  }
 
 
 }

@@ -83,3 +83,7 @@ img {
   background: var(--Primary-White, #FFF);
   margin-bottom:1rem;
 }
+
+.values{
+    cursor: pointer;
+}

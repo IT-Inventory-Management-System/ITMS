@@ -13,14 +13,14 @@
         </span>
       </div>
       <div class="type  ">
-        <div class="versiondiv " >
-          <div class="versiondiv-text">
+        <div class="versiondiv " [ngClass]="{ 'selected': isSelected }" >
+          <div class="versiondiv-text"  [ngClass]="{ 'selected': isSelected }">
             Version {{ softwareData.version }}
           </div>
         </div>
-        <div class="typename">
-          <div class="subtypename ">
-            <div class="typetext">
+        <div class="typename"  >
+          <div class="subtypename "  [ngClass]="{ 'selected': isSelected }">
+            <div class="typetext"  [ngClass]="{ 'selected': isSelected }">
               {{ softwareData.type }}
             </div>
           </div>

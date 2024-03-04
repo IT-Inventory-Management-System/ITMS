@@ -3,9 +3,17 @@
 <form [formGroup]="SoftwareForm" (ngSubmit)="onSubmit()">
 
   <div class="main_content">
+    <div *ngIf="showErrorMessage" class="error-alert-box1">
+      <div class="error-alert-icon">
+        <img src="../../../assets/icons/info-icon.svg" />
+      </div>
+      <div class="error-alert-message">
+        <span>Highlighted field(s) are mandatory and cannot be blank.</span>
+      </div>
+    </div>
     <div class="top_field">
       <label for="inlineFormSelectPref" placeholder="Enter Software Name " class="required-field software_name">Software Name </label>
-      <ng-select *ngIf="dropdownValues" placeholder="Select Software Name" (change)="dynamicChanges($event)">
+      <ng-select *ngIf="dropdownValues" placeholder="Select Software Name" (change)="dynamicChanges($event);checkShowErrorMessage()" [class.error-textarea]="showErrorMessage && !SoftwareForm.get('softwareId')?.value">
 
         <ng-option *ngFor="let value of dropdownValues" [value]="value?.typeName + '@' + value?.id">
           {{ value.softwareName }} - {{value.typeName}}
@@ -37,7 +45,7 @@
     </div>
     <div class="software_version">
       <label for="name" class="form-label required-field">Software Version </label>
-      <input type="text" class="form-control " placeholder="Enter Software Version" formControlName="version" (focus)="hideErrorMessage()" required>
+      <input type="text" class="form-control " placeholder="Enter Software Version" formControlName="version" (focus)="hideErrorMessage()" required [class.error-textarea]="showErrorMessage && !SoftwareForm.get('version')?.value">
     </div>
 
     <div *ngIf="selectedTypeName === 'Validity'">
@@ -45,14 +53,14 @@
       <div class="row date_container">
         <div class="col-6 purchase-date-section">
           <label for="VPdate" class="form-label required-field">Date of purchase</label>
-
-          <input type="date" class="form-control" id="VPdate" placeholder="12-15-2023" formControlName="purchasedDate" (focus)="hideErrorMessage()" />
-          <img class="calender-icon" src="../../../assets/icons/calendar.svg" />
+            <input type="date" class="form-control" id="VPdate" placeholder="12-15-2023" formControlName="purchasedDate" (focus)="hideErrorMessage()"  [class.error-textarea]="showErrorMessage && !SoftwareForm.get('purchasedDate')?.value"/>
+            <img class="calender-icon" src="../../../assets/icons/calendar.svg" />
+          
         </div>
         <div class="col-6 purchase-date-section">
           <label for="VEdate" class="form-label required-field">Expiry Date</label>
 
-          <input type="date" class="form-control" id="VEdate" placeholder="12-15-2023" formControlName="expiryDate" (focus)="hideErrorMessage()" />
+          <input type="date" class="form-control" id="VEdate" placeholder="12-15-2023" formControlName="expiryDate" (focus)="hideErrorMessage()" [class.error-textarea]="showErrorMessage && !SoftwareForm.get('expiryDate')?.value" />
           <img src="../../../assets/icons/calendar.svg" />
 
         </div>
@@ -63,7 +71,7 @@
 
       <div>
         <label class="form-label">Quantity</label>
-        <div class="quantity-counter">
+        <div class="quantity-counter" [class.error-textare]="showErrorMessage && !SoftwareForm.get('qty')?.value">
           <div class="reduce-button" (click)="decrement();hideErrorMessage()"><img src="../../../assets/icons/reduce-quantity.svg" /></div>
           <span class="counter-value">{{ counterValue }}</span>
           <div class="add-button" (click)="increment();hideErrorMessage()"><img src="../../../assets/icons/add-quantity.svg" /></div>
@@ -75,7 +83,7 @@
         <label class="form-label">Activation Key</label>
 
         <div class="input-group activation_key_container">
-          <input [type]=" showPassword ? 'text': 'password' " class="form-control" placeholder="Enter Activation Key" formControlName="activationKey" (focus)="hideErrorMessage()">
+          <input [type]=" showPassword ? 'text': 'password' " class="form-control" placeholder="Enter Activation Key" formControlName="activationKey" (focus)="hideErrorMessage()" [class.error-textarea]="showErrorMessage && !SoftwareForm.get('activationKey')?.value">
           <div class="input-group-append">
 
             <div class="toggle_hide_password">
@@ -93,21 +101,21 @@
         <div class="col-6 purchase-date-section">
           <label for="Pdate" class="form-label required-field">Date of purchase</label>
 
-          <input type="date" class="form-control" id="Pdate" placeholder="12-15-2023" formControlName="purchasedDate" (focus)="hideErrorMessage()" />
+          <input type="date" class="form-control" id="Pdate" placeholder="12-15-2023" formControlName="purchasedDate" (focus)="hideErrorMessage()"[class.error-textarea]="showErrorMessage && !SoftwareForm.get('purchasedDate')?.value" />
           <img src="../../../assets/icons/calendar.svg" />
 
         </div>
         <div class="col-6 purchase-date-section">
           <label for="Edate" class="form-label required-field">Expiry Date</label>
 
-          <input type="date" class="form-control" id="Edate" placeholder="12-15-2023" formControlName="expiryDate" (focus)="hideErrorMessage()" />
+          <input type="date" class="form-control" id="Edate" placeholder="12-15-2023" formControlName="expiryDate" (focus)="hideErrorMessage()" [class.error-textarea]="showErrorMessage && !SoftwareForm.get('expiryDate')?.value" />
           <img src="../../../assets/icons/calendar.svg" />
 
         </div>
       </div>
       <div>
         <label class="form-label">Quantity</label>
-        <div class="quantity-counter">
+        <div class="quantity-counter" [class.error-textare]="showErrorMessage && !SoftwareForm.get('qty')?.value">
           <div class="reduce-button" (click)="decrement2();hideErrorMessage()"><img src="../../../assets/icons/reduce-quantity.svg" /></div>
           <span class="counter-value">{{ counterValue2 }}</span>
           <div class="add-button" (click)="increment2();hideErrorMessage()"><img src="../../../assets/icons/add-quantity.svg" /></div>
@@ -119,29 +127,30 @@
       <div class="row date_container">
         <div class="col-6 purchase-date-section">
           <label for="PPdate" class="form-label required-field">Date of purchase</label>
-          <input type="date" class="form-control" id="PPdate" placeholder="12-15-2023" formControlName="purchasedDate" (focus)="hideErrorMessage()" />
-          <img src="../../../assets/icons/calendar.svg" />
 
-        </div>
-        <div class="col-6">
+            <input type="date" class="form-control" id="PPdate" placeholder="12-15-2023" formControlName="purchasedDate" (focus)="hideErrorMessage()" [class.error-textarea]="showErrorMessage && !SoftwareForm.get('purchasedDate')?.value" />
+            <img src="../../../assets/icons/calendar.svg" />
 
-          <div>
-            <label class="form-label">Quantity</label>
-            <div class="quantity-counter" style="margin-bottom:0%;">
-              <div class="reduce-button" (click)="decrement3();hideErrorMessage()"><img src="../../../assets/icons/reduce-quantity.svg" /></div>
-              <span class="counter-value">{{ counterValue3 }}</span>
-              <div class="add-button" (click)="increment3();hideErrorMessage()"><img src="../../../assets/icons/add-quantity.svg" /></div>
+          </div>
+          <div class="col-6">
+
+            <div>
+              <label class="form-label">Quantity</label>
+              <div class="quantity-counter" style="margin-bottom:0%;" [class.error-textare]="showErrorMessage && !SoftwareForm.get('qty')?.value">
+                <div class="reduce-button" (click)="decrement3();hideErrorMessage()"><img src="../../../assets/icons/reduce-quantity.svg" /></div>
+                <span class="counter-value">{{ counterValue3 }}</span>
+                <div class="add-button" (click)="increment3();hideErrorMessage()"><img src="../../../assets/icons/add-quantity.svg" /></div>
+              </div>
             </div>
+
           </div>
 
         </div>
-
-      </div>
       <div>
         <label class="form-label">Activation Key</label>
 
         <div class="input-group activation_key_container">
-          <input [type]=" showPassword ? 'text': 'password' " class="form-control" placeholder="Enter Activation Key" formControlName="activationKey" (focus)="hideErrorMessage()">
+          <input [type]=" showPassword ? 'text': 'password' " class="form-control" placeholder="Enter Activation Key" formControlName="activationKey" (focus)="hideErrorMessage()" [class.error-textarea]="showErrorMessage && !SoftwareForm.get('activationKey')?.value">
           <div class="input-group-append">
 
             <div class="toggle_hide_password">
@@ -157,11 +166,7 @@
 
 
   <div class="button_class">
-    <div *ngIf="showErrorMessage" class="alert-box">
-      <div class="alert-box-msg">
-        Fields marked with an asterisk (*) are required.
-      </div>
-    </div>
+  
     <button type="button" class="footer-button" (click)="resetform()"><span>Cancel</span></button>
     <button type="submit" class="footer-save-button"><span>Save</span></button>
 

@@ -13,7 +13,9 @@ export class AddMouseBrandFormComponent {
   @Output() formSubmitted: EventEmitter<void> = new EventEmitter<void>();
   @Input() selectedmedium: string;
   showErrorMessage: boolean = false;
-  errorMessage: string= '';
+  errorMessage: string = '';
+  showMessage = false;
+
   constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService) {
 
   }
@@ -71,14 +73,14 @@ export class AddMouseBrandFormComponent {
   
 
 
-    if (this.deviceForm.valid && this.showErrorMessage==false) {
+    if (this.deviceForm.valid && this.showErrorMessage == false && this.showMessage==false) {
 
       console.log(this.deviceForm.value);
 
       this.dataService.postDeviceModel(this.deviceForm.value).subscribe(
         response => {
           this.formSubmitted.emit();
-          
+
           console.log('Post successful', response);
           this.toastr.success("Data posted successfully");
         },
@@ -87,7 +89,10 @@ export class AddMouseBrandFormComponent {
           this.toastr.error("Error in posting data")
         }
       );
-    } 
+    }
+    else {
+      this.showMessage = true;
+    }
   }
 
   setmedium() {
@@ -137,6 +142,9 @@ export class AddMouseBrandFormComponent {
      
 
     }
+  }
+  hideErrorMessage() {
+    this.showMessage = false;
   }
  
 }

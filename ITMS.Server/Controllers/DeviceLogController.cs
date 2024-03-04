@@ -130,6 +130,13 @@ public class DeviceLogController : ControllerBase
         return filterDevices;
     }
 
+    [HttpPost("singleHistoryDevice")]
+    public List<historySingleDevice> singleHistoryDevice([FromBody] locationDeviceDTO dto)
+    {
+        List<historySingleDevice> history = _deviceLogService.singleHistory(dto.locationId, dto.CYGID);
+
+        return history;
+    }
 
     //[HttpPost("employeeLog")]
     //public IActionResult GetDevicesLogs(Guid employeeId, string location)
@@ -148,7 +155,10 @@ public class DeviceLogController : ControllerBase
         adminHistoryParamsDTO allDataParams = new adminHistoryParamsDTO() { employeeId= filterParams.employeeId, locationName = filterParams.locationName };
         List<returnSingleLog> allData = GetDevicesLogs(allDataParams);
 
-        allData = allData.Where(ud => DateOnly.FromDateTime((DateTime)ud.UpdatedDate) == filterParams.Date).ToList();
+        if (filterParams.Date != new DateOnly())
+        {
+            allData = allData.Where(ud => DateOnly.FromDateTime((DateTime)ud.UpdatedDate) == filterParams.Date).ToList();
+        }
 
 
         return allData;

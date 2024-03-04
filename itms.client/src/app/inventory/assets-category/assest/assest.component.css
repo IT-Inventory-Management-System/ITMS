@@ -209,3 +209,24 @@
   box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.15);
  
 }
+
+.search-bar img {
+  width: 1.068rem;
+  height: 1.068rem;
+}
+
+.search-bar input{
+    width: 100%;
+    border: none;
+    outline: none;
+}
+
+  .search-bar input::placeholder {
+    color: var(--Primary-Gray, #343435);
+    font-family: Roboto;
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    opacity: 0.5;
+  }

@@ -239,4 +239,36 @@ public class DeviceLogService
         return addedComment;
     }
 
+    public List<historySingleDevice> singleHistory(Guid locationId, string CYGID)
+    {
+
+        return _context.DevicesLogs
+     .Include(dl => dl.Device)
+     .Include(dl => dl.Employee)
+     .Include(dl => dl.AssignedByNavigation)
+     .Where(dl => (dl.Device.LocationId == locationId) && (dl.Device.Cygid == CYGID))
+     .OrderBy(dl => dl.UpdatedAtUtc)
+     .GroupBy(dl => new
+     {
+         empName = dl.Employee.FirstName + " " + dl.Employee.LastName,
+         CGIID = dl.Employee.Cgiid,
+         AssignedBy = dl.AssignedByNavigation.FirstName + " " + dl.AssignedByNavigation.LastName,
+         AssignedDate = dl.AssignedDate
+     })
+     .Select(group => new historySingleDevice
+     {
+         empName = group.Key.empName,
+         CGIID = group.Key.CGIID,
+         AssignedBy = group.Key.AssignedBy,
+         AssignedDate = group.Key.AssignedDate,
+         RecievedBy = group.FirstOrDefault().RecievedBy == null ? null : _context.Employees
+             .Where(e => e.Id == group.FirstOrDefault().RecievedBy)
+             .Select(e => e.FirstName + " " + e.LastName)
+             .FirstOrDefault(),
+         RecievedDate = group.FirstOrDefault().RecievedBy == null ? null : group.FirstOrDefault().RecievedDate
+     })
+     .ToList();
+
+
+    }
 }
