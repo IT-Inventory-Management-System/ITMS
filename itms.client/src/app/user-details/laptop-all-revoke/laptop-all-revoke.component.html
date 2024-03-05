@@ -1,5 +1,10 @@
-<div class="assigned-device-heading">Assigned laptop</div>
+<div class="heading-count">
+  <div class="assigned-device-heading">Assigned laptop</div>
+  <div class="laptop-count">Count: {{ laptopDetails?.length }}</div>
+</div>
+
 <div *ngFor="let laptop of laptopDetails; let i = index">
+
   <div class="assigned-device-detail-box">
 
 
@@ -75,7 +80,7 @@
 
   <div class="comment-box">
     <p>Comment <span class="star">*</span></p>
-    <input type="text" class="input-box" placeholder="Type Here..." [(ngModel)]="laptop.comment"  (input)="setDeviceComment($event, i)" />
+    <input type="text" class="input-box" placeholder="Type Here..." [(ngModel)]="laptop.comment" (input)="setDeviceComment($event, i)" />
   </div>
 
 </div>

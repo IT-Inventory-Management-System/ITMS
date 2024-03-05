@@ -105,3 +105,24 @@
   display: flex;
   gap: 8.6rem;
 }
+
+.heading-count {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.assigned-accessory-heading,
+.acccessory-count {
+  margin-top: 0.2rem;
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+.acccessory-count {
+  color: #6D6D6D;
+}
