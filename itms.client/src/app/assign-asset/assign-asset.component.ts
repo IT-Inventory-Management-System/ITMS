@@ -132,7 +132,7 @@ export class AssignAssetComponent {
     @Inject(DeviceAssignService) private deviceAssignService: DeviceAssignService) {
     this.assignAssetForm = this.formBuilder.group({
       assignedTo: [null, Validators.required],
-      assignedBy: ['B294E91E-37D6-4E55-8A14-6EA0D4D8DD0E', Validators.required],
+      assignedBy: [null, Validators.required],
       cygids: this.formBuilder.array([]),
       softwareIds: this.formBuilder.array([]),
       accessoryIds: this.formBuilder.array([]),
@@ -196,7 +196,9 @@ export class AssignAssetComponent {
     this.deviceAssignService.getLaptop(this.locationId).subscribe(
       (data: any[]) => {
         this.totalLaptopsData = data;
-        this.laptops = this.totalLaptopsData.filter(item => item.locationId === this.locationId);
+        //this.laptops = this.totalLaptopsData.filter(item => item.locationId === this.locationId);
+        this.laptops = this.totalLaptopsData.filter(item => item.isArchived === false);
+
       },
       (error: any) => {
         console.error('Error fetching software details:', error);
@@ -208,6 +210,7 @@ export class AssignAssetComponent {
       (data: any[]) => {
         this.totalSoftwaresData = data;
         this.softwares = this.totalSoftwaresData.filter(item => item.locationId === this.locationId);
+        console.log(this.softwares);
       },
       (error: any) => {
         console.error('Error fetching software details:', error);
@@ -289,18 +292,20 @@ export class AssignAssetComponent {
       return;
     }
 
+    this.assignAssetForm.get('assignedBy')?.setValue(AssignedBy);
+
     if (!this.assignAssetForm?.get('assignedTo')?.value) {
       this.toastr.error('Assigned To is required.');
       return;
     }
 
-    const softwareIds = this.assignAssetForm?.get('softwareIds')?.value;
-    const cygids = this.assignAssetForm?.get('cygids')?.value;
+    //const softwareIds = this.assignAssetForm?.get('softwareIds')?.value;
+    //const cygids = this.assignAssetForm?.get('cygids')?.value;
 
-    if (!softwareIds.length && !cygids.length) {
-      this.toastr.error('At least one of Laptop / Software / Accessory must be selected.');
-      return;
-    }
+    //if (!softwareIds.length && !cygids.length) {
+    //  this.toastr.error('At least one of Laptop / Software / Accessory must be selected.');
+    //  return;
+    //}
 
     //if (this.assignAssetForm.valid) {
     //  const assignmentData = this.assignAssetForm.value;
@@ -318,11 +323,53 @@ export class AssignAssetComponent {
     //    this.toastr.error('Form is invalid. Cannot save changes.');
     //  }
     // }
-    this.deviceAssignService.saveAssignment(this.assignAssetForm.value).subscribe(
-          (response) => {
+
+    const input = {
+      deviceCYGIDs: [] as any[],
+      softwareIds: [] as { softwareId: string, version: string }[],
+      accessoryCYGIDs: [] as any[],
+      assignedTo: this.assignAssetForm?.get('assignedTo')?.value,
+      assignedBy: this.assignAssetForm?.get('assignedBy')?.value,
+      deviceComments: [] as any[],
+      softwareComments: [] as any[],
+      accessoryComments: [] as any[]
+    }
+
+    var deviceIds = this.assignAssetForm?.get('cygids')?.value;
+    var deviceCommentArray = this.assignAssetForm?.get('deviceComments')?.value;
+    var selectedSoftwareIds = this.assignAssetForm?.get('softwareIds')?.value;
+    var selectedSoftwareComments = this.assignAssetForm?.get('softwareComments')?.value;
+    console.log("selectedSoftwareComments", selectedSoftwareComments);
+    var accessoryIds = this.assignAssetForm?.get('accessoryIds')?.value;
+    var accessoryCommentArray = this.assignAssetForm?.get('accessoryComments')?.value;
+
+    for (var i = 0; i < deviceIds.length; i++) {
+      if (deviceIds[i].index != null)
+        input.deviceCYGIDs.push(deviceIds[i].cygid)
+        input.deviceComments.push(deviceCommentArray[i].deviceComment)
+    }
+
+    for (var i = 0; i < selectedSoftwareIds.length; i++) {
+      if (selectedSoftwareIds[i].index != null) {
+        input.softwareIds.push({ softwareId: selectedSoftwareIds[i].softwareId, version: selectedSoftwareIds[i].softwareversion });
+        input.softwareComments.push(selectedSoftwareComments[i].deviceComment);
+      }
+    }
+
+    for (var i = 0; i < accessoryIds.length; i++) {
+      if (accessoryIds[i].index != null)
+        input.accessoryCYGIDs.push(accessoryIds[i].accessoryId)
+      input.accessoryComments.push(accessoryCommentArray[i].deviceComment)
+    }
+
+
+    console.log("INPUT DATA : ",input);
+
+    this.deviceAssignService.saveAssignment(input).subscribe(
+          (response : any) => {
             this.closeForm();
             this.assignAssetForm.reset();
-            this.toastr.success('Assignment saved successfully:', response);
+            this.toastr.success('Assignment saved successfully');
           },
           (error) => {
             this.closeForm();

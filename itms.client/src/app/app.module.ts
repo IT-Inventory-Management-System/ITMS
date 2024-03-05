@@ -123,6 +123,8 @@ import { AddUserComponent } from './add-user/add-user.component';
 import { AccesoriesFilterComponent } from './accessories/accesories-filter/accesories-filter.component';
 import { AddUserCsvComponent } from './add-user-csv/add-user-csv.component';
 import { RevokeRoleModalComponent } from './manage-access/admin-permissions-panel/revoke-role-modal/revoke-role-modal.component';
+import { StockStatusCellComponent } from './shared/components/stock-status-cell/stock-status-cell.component';
+import { UnassignableModalComponent } from './inventory/assets-category/assest/specification/unassignable-modal/unassignable-modal.component';
 
 
 
@@ -258,6 +260,9 @@ import { RevokeRoleModalComponent } from './manage-access/admin-permissions-pane
     RevokeRoleModalComponent,
 
     AccessoryBrandySearchBoxComponent,
+      StockStatusCellComponent,
+      UnassignableModalComponent,
+
   ],
   imports: [
     BrowserModule,

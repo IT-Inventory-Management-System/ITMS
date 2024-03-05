@@ -1,5 +1,6 @@
 <app-archive-modal [cygid]="deviceDetails?.cygid" (modalClosed)="handleModalClosed()"></app-archive-modal>
 <app-unrchivemodal [cygid]="deviceDetails?.cygid" (modalClosed)="handleModalClosed()"></app-unrchivemodal>
+<app-unassignable-modal [cygid]="deviceDetails?.cygid" (modalClosed)="handleModalClosed()"></app-unassignable-modal>
 
 <div class="spec">
   <div class="mb-3 specification" *ngIf="!isArchived">
@@ -16,31 +17,45 @@
     <div class="status-container">
       <div class="status-info">
         <span class="status-label">Status</span>
-       
+
       </div>
     </div>
-  
+
 
   </div>
   <ng-select (change)="handleSelectionChange($event)" [(ngModel)]="selectedOption" [clearable]="false" [searchable]="false">
-    <ng-option [value]="'Active'">
+    <ng-option [value]="'Active'" *ngIf="selectedOption === 'Active'">
       <img class="asset-image" src="../../../../../assets/icons/Assets/active.svg" />
 
       Active
     </ng-option>
     <!--<ng-option [value]="'Unassignable'">Unassignable</ng-option>-->
 
-    <ng-option *ngIf="!isArchived && deviceDetails?.status?.type!=='Discarded'" value="Archive">
+    <ng-option *ngIf="!isArchived && deviceDetails?.status?.type!=='Discarded'" value="Archive" [disabled]="deviceDetails?.status?.type=='Assigned'">
       <img class="asset-image" src="../../../../../assets/icons/Assets/archive.svg" />
 
       Archive
     </ng-option>
+
+    <ng-option [value]="'Unassignable'" [disabled]="deviceDetails?.status?.type=='Assigned'">
+      <img class="asset-image" src="../../../../../assets/icons/Assets/unassignable.svg" />
+      Unassignable
+    </ng-option>
+
+
     <ng-option *ngIf="deviceDetails?.status?.type === 'Discarded'" value="Unarchive">
       <img class="asset-image" src="../../../../../assets/icons/Assets/unarchive.svg" />
 
       Unarchive
 
     </ng-option>
+
+    <ng-option [value]="'Archived'" *ngIf="selectedOption === 'Archived'">
+      <img class="asset-image" src="../../../../../assets/icons/Assets/archive.svg" />
+
+      Archived
+    </ng-option>
+
   </ng-select>
 
 

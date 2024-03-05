@@ -38,6 +38,7 @@ export class AssignLaptopCommentComponent {
     this.closeFlagSubscription.unsubscribe();
   }
   onInputChangeCommentBox(event: any): void {
+    console.log(event.target.value);
     this.selectedOption = event.target.value;
     const laptopCommentsArray = this.assignAssetForm.get('deviceComments') as FormArray;
 

@@ -17,12 +17,11 @@ export class AccessoryBrandySearchBoxComponent {
   @Input() label: string;
   @Input() placeholder: string;
   @Input() AccessoryBrandOptions: any[] = [];
-  AccessoryBrands: any[] = [];
   @Input() assignAssetForm: FormGroup;
   @Input() index: number;
   @Output() AccessoryBrandOptionSelected: EventEmitter<any> = new EventEmitter();
   locationId: any;
-  uniqueBrandsArray: any[] = [];
+  @Input() uniqueBrandsArray: any[] = [];
   selectedOption: any;
   private closeFlagSubscription: Subscription;
 
@@ -53,10 +52,10 @@ export class AccessoryBrandySearchBoxComponent {
   }
 
   ngOnInit(): void {
-    this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
-      localStorage.setItem('selectedCountry', selectedCountry);
-      this.getDeviceLocation();
-    });
+    //this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
+    //  localStorage.setItem('selectedCountry', selectedCountry);
+    //  this.getDeviceLocation();
+    //});
     this.closeFlagService.setCloseFlagToFalse();
     this.selectedOption = this.assignDataManagementService.getState("accessoriesBrand", this.index);
     if (this.selectedOption)
@@ -71,49 +70,49 @@ export class AccessoryBrandySearchBoxComponent {
     this.closeFlagSubscription.unsubscribe();
   }
 
-  ngOnChanges() {
+  //ngOnChanges() {
 
-    if (this.selectedId != null)
-      this.getAccessoriesDetails();
-  }
+  //  if (this.selectedId != null)
+  //    this.getAccessoriesDetails();
+  //}
 
-  getAccessoriesDetails() {
+  //getAccessoriesDetails() {
 
-    const input = {
-      categoryName: this.selectedId,
-      locationId: this.locationId
-    }
+  //  const input = {
+  //    categoryName: this.selectedId,
+  //    locationId: this.locationId
+  //  }
 
-    this.deviceAssignService.getAccessoriesDetails(input).subscribe(
-      (data: any[]) => {
-        this.AccessoryBrands = data;
-        const uniqueBrandsSet = new Set(this.AccessoryBrands.map(item => item.brand));
-        this.uniqueBrandsArray = Array.from(uniqueBrandsSet);
+  //  this.deviceAssignService.getAccessoriesDetails(input).subscribe(
+  //    (data: any[]) => {
+  //      this.AccessoryBrands = data;
+  //      const uniqueBrandsSet = new Set(this.AccessoryBrands.map(item => item.brand));
+  //      this.uniqueBrandsArray = Array.from(uniqueBrandsSet);
 
-        console.log(this.AccessoryBrands);
-      },
-      (error: any) => {
-        console.error('Error fetching accessory brand', error);
-      }
-    );
-  }
+  //      console.log(this.AccessoryBrands);
+  //    },
+  //    (error: any) => {
+  //      console.error('Error fetching accessory brand', error);
+  //    }
+  //  );
+  //}
 
-  getDeviceLocation() {
-    this.dataService.getLocation().subscribe(
-      (data) => {
-        for (var i = 0; i < data.length; i++) {
-          if (data[i].type == localStorage.getItem('selectedCountry')) {
-            this.locationId = data[i].id;
-            if (this.selectedId != null)
-              this.getAccessoriesDetails();
-            break;
-          }
-        }
-      },
-      (error) => {
-        console.log("User not found");
-      });
-  }
+  //getDeviceLocation() {
+  //  this.dataService.getLocation().subscribe(
+  //    (data) => {
+  //      for (var i = 0; i < data.length; i++) {
+  //        if (data[i].type == localStorage.getItem('selectedCountry')) {
+  //          this.locationId = data[i].id;
+  //          if (this.selectedId != null)
+  //            this.getAccessoriesDetails();
+  //          break;
+  //        }
+  //      }
+  //    },
+  //    (error) => {
+  //      console.log("User not found");
+  //    });
+  //}
 
 
 

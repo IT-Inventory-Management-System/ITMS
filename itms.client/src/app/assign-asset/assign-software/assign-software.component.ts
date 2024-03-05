@@ -73,7 +73,8 @@ export class AssignSoftwareComponent {
     //console.log(isSoftwareIdEmpty);
     //this.softwareIdInputChange.emit(isSoftwareIdEmpty);
       const allSelected = this.selectedSoftwareNames.every(name => name !== null) &&
-        this.selectedSoftwareVersions.every(version => version !== null && version !== 1);
+      this.selectedSoftwareVersions.every(version => version !== null && version !== 1);
+      console.log(allSelected);
       this.softwareIdInputChange.emit(allSelected);
   }
 
@@ -105,33 +106,23 @@ export class AssignSoftwareComponent {
     const selectedOption = data;
     const selectedIndex = index;
     const softwareIdsArray = this.assignAssetForm.get('softwareIds') as FormArray;
-      const filteredOptions = this.FilteredSoftwaresOptions[selectedIndex].filter(
-        (option: any) => option.version === selectedOption && option.assignedTo === null
-      );
-      const sameSoftwareIdInstances = this.selectedSoftwareVersions.filter(
-        (version: any) => version && version.id === selectedOption.id
-      );
-      const numberOfInstances = sameSoftwareIdInstances.length;
-      if (numberOfInstances < filteredOptions.length && filteredOptions.length > 0) {
-        this.selectedSoftwareVersions[selectedIndex] = filteredOptions[numberOfInstances-1];
-        softwareIdsArray.push(this.formBuilder.group({
-          index: selectedIndex,
-          softwareId: this.selectedSoftwareVersions[selectedIndex].id
-        }));
-        this.formatExpiryDate(selectedIndex);
-      }
-      else {
-        if (filteredOptions.length == 0)
-          this.selectedSoftwareVersions[selectedIndex] = 1;
-        else
-          this.selectedSoftwareVersions[selectedIndex] = null;
-        const index = softwareIdsArray.controls.findIndex(control => control.value.index === selectedIndex);
-        if (index !== -1) {
-          softwareIdsArray.removeAt(index);
-        }
-    }
+
+    const filteredOptions = this.FilteredSoftwaresOptions[selectedIndex].filter(
+      (option: any) => option.version === selectedOption && option.assignedTo === null
+    );
+
+    softwareIdsArray.push(this.formBuilder.group({
+      index: selectedIndex,
+      softwareId: filteredOptions[selectedIndex].id,
+      softwareversion: data
+    }));
+
+    this.formatExpiryDate(selectedIndex);
     this.softwareIdInputChangeFlag();
+
   }
+
+
 
   formatExpiryDate(index: any): void {
     if (!this.selectedSoftwareVersions[index].expiryDate) {

@@ -187,6 +187,10 @@ export class DataService {
     return this.http.get<any[]>(this.apiUrl + 'Device/getAllComments/' + deviceId);
   }
 
+  getFilteredDevicesTable(selectedFilters: any): Observable<any> {
+    return this.http.post(this.apiUrl + 'Device/filterDevices', selectedFilters);
+  }
+
   private deviceListSubject = new BehaviorSubject<any>(null);
   deviceListChanged$ = this.deviceListSubject.asObservable();
 

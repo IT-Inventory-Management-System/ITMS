@@ -7,6 +7,8 @@ import * as XLSX from 'xlsx';
 import { MyCellComponent } from '../../../shared/components/my-cell/my-cell.component';
 import { SelectedCountryService } from '../../../shared/services/selected-country.service';
 import { formatDate } from '@angular/common';
+import { StockStatusCellComponent } from '../../../shared/components/stock-status-cell/stock-status-cell.component';
+import { display } from 'html2canvas/dist/types/css/property-descriptors/display';
 
 
 @Component({
@@ -24,9 +26,9 @@ export class AssestComponent {
   rowData: any[] = [];
   searchValue: string = '';
   selectedModel: any;
-  selectedFilter : any;
+  selectedFilter: any;
 
-  
+
   @ViewChild('appDevices') appDevices: DevicesComponent;
   constructor(private deviceService: DataService, private dataService: DataService, private selectedCountryService: SelectedCountryService) { }
   getDeviceLocation() {
@@ -67,23 +69,43 @@ export class AssestComponent {
     }
   }
 
-  
+
   loadDeviceData() {
-    this.deviceService.getDevicesCyg(this.locationId).subscribe(
-      
-      (data) => {
-        console.log(this.locationId);
-        console.log(data);
-        this.deviceData = data;
-        console.log('All Device Data', data);
-        this.setRowData();
-        console.log('Row Data', this.rowData);
-      },
-      (error) => {
-        console.error('Error fetching device data', error);
+
+    if (this.selectedFilter == null) {
+      this.deviceService.getDevicesCyg(this.locationId).subscribe(
+
+        (data) => {
+          console.log(this.locationId);
+          console.log(data);
+          this.deviceData = data;
+          console.log('All Device Data', data);
+          this.setRowData();
+          console.log('Row Data', this.rowData);
+        },
+        (error) => {
+          console.error('Error fetching device data', error);
+        }
+      );
+    }
+    else {
+      var filter = {
+        deviceStatus: this.selectedFilter?.deviceStatus,
+        operatingSystem: this.selectedFilter.operatingSystem,
+        uniqueProcessor: this.selectedFilter.uniqueProcessor,
+        fromDate: this.selectedFilter.fromDate,
+        toDate: this.selectedFilter.toDate,
+        locationId: this.locationId
       }
-    );
+
+      this.dataService.getFilteredDevicesTable(filter).subscribe(
+        (data) => {
+          this.deviceData = data;
+          console.log("FILTERED DATA : ", this.deviceData);
+          this.setRowData();
+      });
   }
+}
 
   setRowData() {
     
@@ -249,7 +271,7 @@ export class AssestComponent {
       resizable: false,
       suppressMovable: true,
     },
-    { field: "Stock Status", pinned: 'right', cellStyle: { 'border': 'none' }, width: 122, resizable: false, suppressMovable: true, }
+    { field: "Stock Status", pinned: 'right', cellStyle: { 'border': 'none' }, width: 122, resizable: false, suppressMovable: true, cellRenderer: StockStatusCellComponent }
 
   ];
 
@@ -285,15 +307,15 @@ export class AssestComponent {
       '# Total': modelData.total,
       '# Assigned': modelData.assigned,
       '# Inventory': modelData.inventory,
-      'Stock Status': modelData.inventory <= 2 ? (modelData.inventory == 0 ? 'Out of Stock' : 'Low In Stock') : 'In Stock'
+      'Stock Status': modelData.inventory <= 2 ? (modelData.inventory == 0 ? 'Out' : 'Low') : 'In'
     }
 
     console.log(this.modelRowDef);
   }
 
   showFilter(filter: any) {
-    console.log(filter);
     this.selectedFilter = filter
+    this.ngOnInit();
   }
 
   toggleView() {
