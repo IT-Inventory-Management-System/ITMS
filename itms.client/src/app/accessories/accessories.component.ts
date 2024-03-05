@@ -3,6 +3,7 @@ import { DataService } from '../shared/services/data.service';
 import { SelectedCountryService } from '../shared/services/selected-country.service';
 import { ColDef } from 'ag-grid-community';
 import * as XLSX from 'xlsx';
+import { MyCellComponent } from '../shared/components/my-cell/my-cell.component';
 
 @Component({
   selector: 'app-accessories',
@@ -197,7 +198,7 @@ export class AccessoriesComponent {
   handleSelectionChange(selectedOption: string) {
     const archiveModal = document.getElementById('exampleModa');
     const unarchiveModal = document.getElementById('unarchive');
-
+    //console.log(selectedOption);
     if (selectedOption === 'Archive' && archiveModal) {
       archiveModal.classList.add('show');
       archiveModal.style.display = 'block';
@@ -295,7 +296,7 @@ export class AccessoriesComponent {
     { field: "Device ID", width: 220, resizable: false, suppressMovable: true },
     { field: "Type", width: 220, resizable: false, suppressMovable: true, },
     { field: "Brand", width: 220, resizable: false, suppressMovable: true, },
-   { field: "Accessories Status", width: 222, resizable: false, suppressMovable: true, },
+    { field: "Accessories Status", width: 222, resizable: false, suppressMovable: true },
  ];
   filename = 'ExcelSheet.xlsx';
   exporttoexcel() {

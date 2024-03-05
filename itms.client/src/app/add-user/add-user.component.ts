@@ -26,8 +26,14 @@ export class AddUserComponent implements OnInit {
   res: any = [];
   userForm: FormGroup;
   //userForm: FormGroup[] = [];
+  loggedUser: any;
 
-  constructor(private formBuilder: FormBuilder, private empService: EmployeeService, private deviceService: DataService, private toastr: ToastrService) { }
+  constructor(private formBuilder: FormBuilder, private empService: EmployeeService, private deviceService: DataService, private toastr: ToastrService) {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser !== null) {
+      this.loggedUser = JSON.parse(storedUser);
+    }
+}
 
 
   getDeviceLocation() {
@@ -69,6 +75,7 @@ export class AddUserComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       cgiId: ['', Validators.required],
       //location: [this.locationId]
+      CreatedBy: [this.loggedUser.id]
     });
   }
 

@@ -21,8 +21,11 @@ export class ActivityPanelComponent {
   }
   toggleCheckboxTo(value: string) {
     this.purchseDate = new Date(value);
-    const formattedDate = this.purchseDate.toISOString().split('T')[0];
-   // console.log(formattedDate);
+    var formattedDate = '';
+    if (value !== '') {
+      formattedDate = this.purchseDate.toISOString().split('T')[0];
+    }
+    console.log(formattedDate);
     this.filteredLogs(this.selectedAdmin.id, this.selectedAdmin.locationId, formattedDate);
   }
 
@@ -40,7 +43,7 @@ export class ActivityPanelComponent {
       employeeId: employeeId,
       date: filterdate
     };
-   // console.log("REQUEST BODY : ", body);
+    console.log("REQUEST BODY : ", body);
     this.adminDetailService.getFilteredLogs(body).subscribe(
       data => {
       //  console.log("ADMIN LOGS : ", data);

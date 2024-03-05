@@ -1,4 +1,13 @@
-<div class="assigned-software-heading">Assigned Software Detail</div>
+<div class="heading-count">
+  <div class="assigned-software-heading">Assigned Software</div>
+  <div class="software-count">Count: {{ softwareDetails?.length }}</div>
+</div>
+
+<div class="software-alert">
+  <img class ="software-alert-icon" src="../../../assets/icons/Vector-black.svg" />
+  <p class="software-alert-text">All the item below will be revoked</p>
+</div>
+
 <div *ngFor="let software of softwareDetails">
   <div class="assigned-software-detail-box">
 
