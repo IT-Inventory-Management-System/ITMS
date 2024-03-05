@@ -9,7 +9,7 @@ type Guid = string;
   providedIn: 'root'
 })
 export class DataService {
-  private apiUrl = 'https://localhost:7283/api/';
+  private apiUrl = 'https://itimsbackend.somee.com/api/';
 
   DeviceDetails: any;
   DeviceLog: any;
