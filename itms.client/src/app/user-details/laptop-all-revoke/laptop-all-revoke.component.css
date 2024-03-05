@@ -97,3 +97,24 @@
     margin-bottom: 1.2rem;
     height: 19px;
   }
+
+.heading-count {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.assigned-device-heading,
+.laptop-count {
+  margin-top: 0.2rem;
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+.laptop-count {
+  color: #6D6D6D;
+}

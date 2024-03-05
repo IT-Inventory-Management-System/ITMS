@@ -98,3 +98,44 @@
   display: flex;
   gap: 10rem;
 }
+
+.heading-count {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.assigned-software-heading,
+.software-count {
+  margin-top: 0.2rem;
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+.software-count {
+  color: #6D6D6D;
+}
+
+.software-alert {
+  width: 100%;
+  height: 32px;
+  padding: 8px, 12px, 8px, 12px;
+  border-radius: 4px;
+  gap: 8px;
+  background-color: #BFE6FB;
+  color: black;
+}
+
+.software-alert-text{
+    margin-top: -1.2rem;
+    margin-left: 2.5rem;
+}
+
+.software-alert-icon{
+    margin-left: 1rem;
+    margin-top: 0.5rem;
+}

@@ -47,7 +47,12 @@ export class UserDetailsComponent {
     }
   }
   archiveBannerFunction() {
-    this.archiveBanner = this.userDetails.isArchived === true && this.calculateDaysDifference(this.userDetails.updatedAtUtc) < 30;
+    if (this.userDetails && this.userDetails.isArchived !== undefined && this.userDetails.updatedAtUtc) {
+      this.archiveBanner = this.userDetails.isArchived === true && this.calculateDaysDifference(this.userDetails.updatedAtUtc) < 30;
+    } else {
+      
+      this.archiveBanner = false;
+    }
   }
   calculateDaysDifference(updatedAtUtc: string): number {
     const currentDate = new Date();

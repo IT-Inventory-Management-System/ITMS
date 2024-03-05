@@ -258,7 +258,6 @@ import { RevokeRoleModalComponent } from './manage-access/admin-permissions-pane
     RevokeRoleModalComponent,
 
     AccessoryBrandySearchBoxComponent,
-
   ],
   imports: [
     BrowserModule,
