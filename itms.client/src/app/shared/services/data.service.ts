@@ -198,5 +198,9 @@ export class DataService {
     this.deviceListSubject.next(null);
   }
 
+  setDeviceUnassignable(formdata: any): Observable<any> {
+    return this.http.post(this.apiUrl + 'Device/unassignableDevice', formdata);
+  }
+
 }
 

@@ -34,6 +34,7 @@ export class UnassignableModalComponent {
       createdBy: [''],
       updatedBy: [''],
       description: [''],
+      isUnassignable: true
     });
   }
 
@@ -49,21 +50,17 @@ export class UnassignableModalComponent {
 
 
 
-      this.dataService.UpdateDeviceStatusToDiscarded(this.deviceForm.value)
-
-        .subscribe(response => {
+      this.dataService.setDeviceUnassignable(this.deviceForm.value).subscribe(response => {
           if (response) {
-            console.log("posted successfully");
+            console.log("Unassigned Device successfully");
 
           } else {
             console.error("error in posting data");
-            // Handle the case where the device is not found or status update fails
           }
         }
 
           , error => {
             console.error('Error updating status', error);
-            // Handle the error
           });
     }
 
