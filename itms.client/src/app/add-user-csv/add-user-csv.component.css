@@ -45,6 +45,7 @@
   align-items: flex-end;
   gap: 1.25rem;
   align-self: stretch;
+  height:26.3125rem;
 }
 
 
@@ -68,8 +69,47 @@
   font-weight: 500;
   line-height: 1.25rem; /* 142.857% */
   align-self: stretch;
-  margin-top: 1.25rem;
+/*  margin-top: 1rem;
+*/}
+
+.csv-file {
+  display: flex;
+  height: 2.5rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  align-self: stretch;
 }
+
+.inner-csv-file {
+  border-radius: 0.25rem;
+  border: 1px solid var(--Secondary-Gray, #B2B2B3);
+  background: var(--Primary-White, #FFF);
+  display: flex;
+  padding: 0rem 0.5rem;
+  align-items: center;
+  gap: 1rem;
+  flex: 1 0 0;
+  align-self: stretch;
+}
+
+.file-div {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1 0 0;
+}
+
+.file-name {
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.125rem; /* 128.571% */
+}
+
+
 
 .drag-drop {
   border-radius: 0.75rem;
@@ -134,16 +174,19 @@
   justify-content: center;
   align-items: center;
   gap: 0.625rem;
+  border:none;
+  outline:none;
 }
 
 .cancle-save {
+
   display: flex;
   padding: 0rem 1.5rem;
   justify-content: flex-end;
   align-items: flex-start;
   gap: 1rem;
   align-self: stretch;
-  margin-top: 1.25rem;
+  margin-top: 0.65rem;
 }
 
 .cancel-button {

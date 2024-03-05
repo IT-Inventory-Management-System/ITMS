@@ -107,10 +107,10 @@
             <img class="asset-image" src="../../../../../assets/icons/Assets/archive.svg" />
             Archived
           </ng-option>
-          <ng-option [value]="'Unassignable'">
+          <!--<ng-option [value]="'Unassignable'">
             <img class="asset-image" src="../../../../../assets/icons/Assets/unassignable.svg" />
             Unassignable
-          </ng-option>
+          </ng-option>-->
 
 
           <ng-option *ngIf="singleSelected && singleSelected[0]?.isArchived === false" value="Archive"  [disabled]="singleSelected[0]?.assignedTo">
