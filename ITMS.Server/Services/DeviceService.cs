@@ -715,14 +715,19 @@ public class DeviceService
          CYGID = group.Key.CYGID,
          AssignedBy = group.Key.AssignedBy,
          AssignedDate = group.Key.AssignedDate,
-         RecievedBy = group.FirstOrDefault().RecievedBy == null ? null : _context.Employees
-             .Where(e => e.Id == group.FirstOrDefault().RecievedBy)
-             .Select(e => e.FirstName + " " + e.LastName)
-             .FirstOrDefault(),
-         RecievedDate = group.FirstOrDefault().RecievedBy == null ? null : group.FirstOrDefault().RecievedDate
+         RecievedBy = group.OrderByDescending(dl => dl.UpdatedAtUtc)
+                   .Select(dl => dl.RecievedBy)
+                   .FirstOrDefault() == null ? null : _context.Employees
+                       .Where(e => e.Id == group.OrderByDescending(dl => dl.UpdatedAtUtc)
+                       .Select(dl => dl.RecievedBy)
+                       .FirstOrDefault())
+                       .Select(e => e.FirstName + " " + e.LastName)
+                       .FirstOrDefault(),
+         RecievedDate = group.OrderByDescending(dl => dl.UpdatedAtUtc)
+           .Select(dl => dl.RecievedDate)
+           .FirstOrDefault()
      }).OrderByDescending(group => group.AssignedDate)
      .ToList();
-
 
     }
 

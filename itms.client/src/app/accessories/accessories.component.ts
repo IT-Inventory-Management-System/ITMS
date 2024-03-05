@@ -197,7 +197,7 @@ export class AccessoriesComponent {
   handleSelectionChange(selectedOption: string) {
     const archiveModal = document.getElementById('exampleModa');
     const unarchiveModal = document.getElementById('unarchive');
-
+    //console.log(selectedOption);
     if (selectedOption === 'Archive' && archiveModal) {
       archiveModal.classList.add('show');
       archiveModal.style.display = 'block';
