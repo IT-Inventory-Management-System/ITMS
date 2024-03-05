@@ -10,7 +10,7 @@ export class EmployeeService {
   laptopDetails: any;
   softwareDetails: any;
   accessoriesDetails: any;
-  private apiUrl = 'https://localhost:7283/api/';
+  private apiUrl = 'https://itimsbackend.somee.com/api/';
 
   constructor(private http: HttpClient) { }
   //getDevices(id: any): Observable<any[]> {
