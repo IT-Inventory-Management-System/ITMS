@@ -143,6 +143,7 @@
   align-items: flex-start;
   gap: 1rem;
   align-self: stretch;
+  width: 46.8125rem;
 }
 
 .detail-secton {
@@ -150,6 +151,8 @@
   align-items: flex-start;
   gap: 0.5rem;
   align-self: stretch;
+  width:46.8125rem;
+
   
 }
 
@@ -160,7 +163,7 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  
+  display: inline-block;
 }
 
 .detail {
@@ -171,7 +174,7 @@
   font-weight: 400;
   line-height: normal;
   margin-left: 1rem;
-  
+  display: inline-block; /* or inline-flex */
 }
 .cyg-name {
   color: var(--Primary-Blue, #28519E);
