@@ -64,7 +64,7 @@ namespace ITMS.Server.Services
         }
         public Guid UpdateSoftwareAsync(singleSoftwareDTO Software, PostAssignAssetDTO software)
         {
-            var entityToUpdate = _context.SoftwareAllocations.Where(sa => (sa.SoftwareId == Guid.Parse(Software.SoftwareId))&&(sa.Version==Software.version)&&(sa.IsArchived==false)).FirstOrDefault();
+            var entityToUpdate = _context.SoftwareAllocations.Where(sa => (sa.SoftwareId == Guid.Parse(Software.SoftwareId))&&(sa.Version==Software.version)&&(sa.IsArchived==false)&&(sa.AssignedTo==null)).FirstOrDefault();
 
             //var entityToUpdate = _context.SoftwareAllocations.Where(sa => sa.SoftwareId == Guid.Parse(SoftwareID)).FirstOrDefault();
             if (entityToUpdate == null)

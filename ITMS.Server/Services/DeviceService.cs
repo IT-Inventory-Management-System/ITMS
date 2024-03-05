@@ -19,6 +19,7 @@ using System.Web.Http;
 using System.Xml.Schema;
 using System.Web.Mvc;
 using MiNET.Blocks;
+using System.IO.Compression;
 
 public class DeviceService
 
@@ -729,5 +730,119 @@ public class DeviceService
 
     }
 
+    public async Task<bool> UpdateDeviceStatusToUnassignable(UnassignableDto archiveDto)
+    {
+        try
+        {
+            var device = await GetDeviceAsync(archiveDto.Cygid);
+
+            if (device == null)
+                return false;
+
+            if (device.AssignedTo != null)
+            {
+                return false;
+            }
+
+            if (device.StatusNavigation != null)
+            {
+                if(archiveDto.IsUnassignable == true)
+                {
+                    var discardedStatus = await _context.Statuses.FirstOrDefaultAsync(s => s.Type == "Unassignable");
+                    var action = await _context.ActionTables.FirstOrDefaultAsync(s => s.ActionName == "Unassignable");
+                    if (discardedStatus != null)
+                    {
+                        device.StatusNavigation = discardedStatus;
+
+                        //device.IsArchived = true;
+                        DevicesLog oldlog = new DevicesLog
+                        {
+                            DeviceId = device.Id,
+                            CreatedBy=archiveDto.CreatedBy, // Updated to use value from frontend
+                            UpdatedBy = archiveDto.UpdatedBy,
+                            UpdatedAtUtc = DateTime.UtcNow,
+                            CreatedAtUtc = DateTime.UtcNow,
+                            ActionId = action?.Id
+
+                        };
+                        _context.DevicesLogs.Add(oldlog);
+                        await _context.SaveChangesAsync();
+
+                        Comment addArchiveComment = new Comment
+                        {
+                            Description = archiveDto.Description,
+                            DeviceLogId = oldlog.Id,
+                            DeviceId = device.Id,
+                            CreatedAtUtc = DateTime.UtcNow,
+                            CreatedBy = archiveDto.CreatedBy,
+                        };
+                        _context.Comments.Add(addArchiveComment);
+                        //Save the changes
+                        await _context.SaveChangesAsync();
+
+                        return true;
+                    }
+                    else
+                    {
+                        // Log or handle the case where the "discarded" status is not found
+                        return false;
+                    }
+                }
+                else
+                {
+                    var discardedStatus = await _context.Statuses.FirstOrDefaultAsync(s => s.Type == "Not Assigned");
+                    var action = await _context.ActionTables.FirstOrDefaultAsync(s => s.ActionName == "Assignable");
+                    if (discardedStatus != null)
+                    {
+                        device.StatusNavigation = discardedStatus;
+
+                        //device.IsArchived = true;
+                        DevicesLog oldlog = new DevicesLog
+                        {
+                            DeviceId = device.Id,
+                            CreatedBy=archiveDto.CreatedBy, // Updated to use value from frontend
+                            UpdatedBy = archiveDto.UpdatedBy,
+                            UpdatedAtUtc = DateTime.UtcNow,
+                            CreatedAtUtc = DateTime.UtcNow,
+                            ActionId = action?.Id
+
+                        };
+                        _context.DevicesLogs.Add(oldlog);
+                        await _context.SaveChangesAsync();
+
+                        Comment addArchiveComment = new Comment
+                        {
+                            Description = archiveDto.Description,
+                            DeviceLogId = oldlog.Id,
+                            DeviceId = device.Id,
+                            CreatedAtUtc = DateTime.UtcNow,
+                            CreatedBy = archiveDto.CreatedBy,
+                        };
+                        _context.Comments.Add(addArchiveComment);
+                        //Save the changes
+                        await _context.SaveChangesAsync();
+
+                        return true;
+                    }
+                    else
+                    {
+                        // Log or handle the case where the "discarded" status is not found
+                        return false;
+                    }
+                }
+                
+            }
+            else
+            {
+                // Log or handle the case where StatusNavigation is null
+                return false;
+            }
+        }
+        catch (Exception)
+        {
+            // Log or handle the exception as needed
+            throw;
+        }
+    }
 
 }

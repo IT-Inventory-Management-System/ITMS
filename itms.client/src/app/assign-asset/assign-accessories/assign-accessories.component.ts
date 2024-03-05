@@ -2,6 +2,9 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormArray, FormBuilder } from '@angular/forms';
 import { AssignDataManagementService } from '../../shared/services/assign-data-management.service';
 import { CloseFlagService } from '../../shared/services/close-flag.service';
+import { SelectedCountryService } from '../../shared/services/selected-country.service';
+import { DataService } from '../../shared/services/data.service';
+import { DeviceAssignService } from '../../shared/services/device-assign.service';
 
 
 @Component({
@@ -14,7 +17,7 @@ export class AssignAccessoriesComponent {
   @Input() AccessoryOptions: any[] = [];
   @Input() assignAssetForm: FormGroup;
   @Output() accessoryIdInputChange = new EventEmitter<boolean>();
-
+  locationId: any;
   accessories: any[] = [{}];
   SelectedAccessoriesName: any[] = [];
   //SelectedAccessories: any[] = [];
@@ -24,10 +27,17 @@ export class AssignAccessoriesComponent {
   FilteredAccessoryOptions: any[][] = [];
   wire: any[] = [];
   closeFlagSubscription: any;
-
+  AccessoryBrands: any[] = [];
+  uniqueBrandsArray: any[] = [];
+  selectedBrand: any;
+  isWired: any;
+  selectedCygid: string = '';
   constructor(private assignDataManagementService: AssignDataManagementService,
     private formBuilder: FormBuilder,
-    private closeFlagService: CloseFlagService) {
+    private closeFlagService: CloseFlagService,
+    private selectedCountryService: SelectedCountryService,
+    private dataService: DataService,
+    private deviceAssignService: DeviceAssignService) {
     this.closeFlagSubscription = this.closeFlagService.closeFlag$.subscribe(flag => {
       if (flag) {
         this.accessories = [{}];
@@ -46,6 +56,10 @@ export class AssignAccessoriesComponent {
     this.FilteredAccessoryOptions = this.assignDataManagementService.getMultipleInstanceState('FilteredAccessoryOptions') || [];
     this.SelectedAccessoriesData = this.assignDataManagementService.getMultipleInstanceState('SelectedAccessoriesData') || [];
     //this.SelectedAccessories = this.assignDataManagementService.getMultipleInstanceState('SelectedAccessories') || [];
+    this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
+      localStorage.setItem('selectedCountry', selectedCountry);
+      this.getDeviceLocation();
+    });
   }
 
   ngOnDestroy(): void {
@@ -66,7 +80,8 @@ export class AssignAccessoriesComponent {
   }
 
   AccessorySearchBoxOptionSelected(event: any, index: number): void {
-    this.selectedId = event; 
+    this.selectedId = event;
+    this.getAccessoriesDetails();
     this.SelectedAccessoriesName[index] = event;
     this.filterAccessoryBrands(index);
   }
@@ -94,6 +109,7 @@ export class AssignAccessoriesComponent {
   4) when removed should be pushed back to FilteredAccessoryOptions 
    */
   AccessoryBrandSearchBoxOptionSelected(data: any, index: number): void {
+    this.selectedBrand = data.option;
     const selectedOption = data;
     const selectedIndex = index;
     const accessoryIdsArray = this.assignAssetForm.get('accessoryIds') as FormArray;
@@ -153,5 +169,70 @@ export class AssignAccessoriesComponent {
     this.SelectedAccessoriesName.splice(index, 1);
     this.SelectedBrands.splice(index, 1);
     this.accessoryIdInputChangeFlag();
+  }
+
+
+  getAccessoriesDetails() {
+
+    const input = {
+      categoryName: this.selectedId,
+      locationId: this.locationId
+    }
+
+    this.deviceAssignService.getAccessoriesDetails(input).subscribe(
+      (data: any[]) => {
+        this.AccessoryBrands = data;
+        const uniqueBrandsSet = new Set(this.AccessoryBrands.map(item => item.brand));
+        this.uniqueBrandsArray = Array.from(uniqueBrandsSet);
+
+        console.log(this.AccessoryBrands);
+      },
+      (error: any) => {
+        console.error('Error fetching accessory brand', error);
+      }
+    );
+  }
+
+  getDeviceLocation() {
+    this.dataService.getLocation().subscribe(
+      (data) => {
+        for (var i = 0; i < data.length; i++) {
+          if (data[i].type == localStorage.getItem('selectedCountry')) {
+            this.locationId = data[i].id;
+            if (this.selectedId != null)
+              this.getAccessoriesDetails();
+            break;
+          }
+        }
+      },
+      (error) => {
+        console.log("User not found");
+      });
+  }
+
+  setNewAccessoryId() {
+    const selectedBrand = this.selectedBrand;
+    const isWired = this.isWired == 'true'?true:false;
+
+    const filteredBrands = this.AccessoryBrands.filter(
+      accessory => accessory.brand === selectedBrand && accessory.iswired === isWired
+    );
+
+    if (filteredBrands.length > 0) {
+      const selectedCygid = filteredBrands[0].cygid;
+      this.selectedCygid = selectedCygid;
+    } else {
+      this.selectedCygid = 'Not found';
+    }
+
+    if (this.selectedCygid != 'Not found') {
+      const accessoryIdsArray = this.assignAssetForm.get('accessoryIds') as FormArray;
+      accessoryIdsArray.push(this.formBuilder.group({
+        index: 0,
+        accessoryId: this.selectedCygid
+      }));
+    }
+    
+    
   }
 } 

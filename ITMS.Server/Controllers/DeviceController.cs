@@ -258,6 +258,32 @@ namespace itms.server.controllers
 
             return filterDevices;
         }
+
+
+        [HttpPost("unassignableDevice")]
+        public async Task<IActionResult> setDeviceUnassignable([FromBody] UnassignableDto unassignableDto)
+        {
+            try
+            {
+                var result = await _deviceService.UpdateDeviceStatusToUnassignable(unassignableDto);
+
+                if (result)
+                {
+                    return Ok(result);
+                }
+                else
+                {
+                    return Ok();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception as needed
+                return BadRequest(ex);
+            }
+        }
+
+
     }
 
 }

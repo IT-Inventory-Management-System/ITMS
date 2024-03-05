@@ -132,7 +132,7 @@ export class AssignAssetComponent {
     @Inject(DeviceAssignService) private deviceAssignService: DeviceAssignService) {
     this.assignAssetForm = this.formBuilder.group({
       assignedTo: [null, Validators.required],
-      assignedBy: ['082D1029-ED24-4C6D-B10A-0AFC125EE676', Validators.required],
+      assignedBy: [null, Validators.required],
       cygids: this.formBuilder.array([]),
       softwareIds: this.formBuilder.array([]),
       accessoryIds: this.formBuilder.array([]),
@@ -292,18 +292,20 @@ export class AssignAssetComponent {
       return;
     }
 
+    this.assignAssetForm.get('assignedBy')?.setValue(AssignedBy);
+
     if (!this.assignAssetForm?.get('assignedTo')?.value) {
       this.toastr.error('Assigned To is required.');
       return;
     }
 
-    const softwareIds = this.assignAssetForm?.get('softwareIds')?.value;
-    const cygids = this.assignAssetForm?.get('cygids')?.value;
+    //const softwareIds = this.assignAssetForm?.get('softwareIds')?.value;
+    //const cygids = this.assignAssetForm?.get('cygids')?.value;
 
-    if (!softwareIds.length && !cygids.length) {
-      this.toastr.error('At least one of Laptop / Software / Accessory must be selected.');
-      return;
-    }
+    //if (!softwareIds.length && !cygids.length) {
+    //  this.toastr.error('At least one of Laptop / Software / Accessory must be selected.');
+    //  return;
+    //}
 
     //if (this.assignAssetForm.valid) {
     //  const assignmentData = this.assignAssetForm.value;
@@ -338,6 +340,8 @@ export class AssignAssetComponent {
     var selectedSoftwareIds = this.assignAssetForm?.get('softwareIds')?.value;
     var selectedSoftwareComments = this.assignAssetForm?.get('softwareComments')?.value;
     console.log("selectedSoftwareComments", selectedSoftwareComments);
+    var accessoryIds = this.assignAssetForm?.get('accessoryIds')?.value;
+    var accessoryCommentArray = this.assignAssetForm?.get('accessoryComments')?.value;
 
     for (var i = 0; i < deviceIds.length; i++) {
       if (deviceIds[i].index != null)
@@ -352,8 +356,14 @@ export class AssignAssetComponent {
       }
     }
 
+    for (var i = 0; i < accessoryIds.length; i++) {
+      if (accessoryIds[i].index != null)
+        input.accessoryCYGIDs.push(accessoryIds[i].accessoryId)
+      input.accessoryComments.push(accessoryCommentArray[i].deviceComment)
+    }
 
-    console.log("software ids ",input);
+
+    console.log("INPUT DATA : ",input);
 
     this.deviceAssignService.saveAssignment(input).subscribe(
           (response : any) => {
