@@ -9,7 +9,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class AdminDetailService {
   constructor(private http: HttpClient) { }
 
-  private apiUrl = 'https://www.itims-project.somee.com/api/';
+  private apiUrl = 'https://itims-project.somee.com/api/';
 
   private selectedCardIndexSubject = new BehaviorSubject<number>(0);
   selectedCardIndex$ = this.selectedCardIndexSubject.asObservable();
