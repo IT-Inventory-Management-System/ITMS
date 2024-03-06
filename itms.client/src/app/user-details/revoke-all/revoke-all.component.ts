@@ -1,6 +1,7 @@
 import { Component, Input, SimpleChanges, ChangeDetectorRef, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EmployeeService } from '../../shared/services/Employee.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-revoke-all',
@@ -61,7 +62,7 @@ export class RevokeAllComponent {
     if (this['accessoriesDetails'] && Array.isArray(this['accessoriesDetails'])) 
       this.filteredAccessoriesDetails = this['accessoriesDetails'].filter((accessory: any) => accessory.submittedBy === null);
   }
-  constructor(private formBuilder: FormBuilder, private revokeAllService: EmployeeService, private actionService: EmployeeService, private employeeService: EmployeeService, private cdr: ChangeDetectorRef) {
+  constructor(private formBuilder: FormBuilder, private toastr: ToastrService,  private revokeAllService: EmployeeService, private actionService: EmployeeService, private employeeService: EmployeeService, private cdr: ChangeDetectorRef) {
     this.revokeAllForm = this.formBuilder.group({
       userid: [null, Validators.required],
       archiveUserId: [null, Validators.required],
@@ -147,6 +148,7 @@ export class RevokeAllComponent {
 
   dismissModal() {
     this.currentStep = 1;
+    this.revokeAllForm.reset();
     this.updateButtonDisabledState();
   }
 
@@ -236,9 +238,11 @@ export class RevokeAllComponent {
        
         //console.log('Data saved successfully', response);
         this.revokeAllForm.reset();
+        this.toastr.success('Exit Process Successful');
       },
       (error) => {
         console.error('Error occurred while saving data', error);
+        this.toastr.error('Error in Exit Process:', error);
       }
     );
   }

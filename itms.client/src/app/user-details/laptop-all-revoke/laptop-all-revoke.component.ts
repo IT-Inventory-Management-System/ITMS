@@ -30,9 +30,15 @@ export class LaptopAllRevokeComponent {
   constructor(private formBuilder: FormBuilder, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
+    const LaptopArray = this.revokeAllForm.get('Laptop') as FormArray;
+    
     if (!this.laptopDetails) {
       this.nextBtn.emit(false);
     }
+    if (LaptopArray.length != 0) {
+      this.checkIfSomethingIsMissing();
+    }
+
     console.log(this.revokeAllForm);
   }
 
@@ -51,6 +57,11 @@ export class LaptopAllRevokeComponent {
         this.showNoReason[i] = false;
       }
       this.initializeLaptopFormArray();
+    }
+    const LaptopArray = this.revokeAllForm.get('Laptop') as FormArray;
+
+    if ( LaptopArray.length != 0) {
+      this.checkIfSomethingIsMissing();
     }
   }
 

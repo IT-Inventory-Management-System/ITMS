@@ -1,6 +1,6 @@
 <div class="heading-count">
   <div class="assigned-accessory-heading">Assigned Assessories</div>
-  <div class="acccessory-count">Count: {{ accessoriesDetails?.length }}</div>
+  <div class="acccessory-count" *ngIf="accessoriesDetails">Count: {{ accessoriesDetails.length }}</div>
 </div>
 
 <div *ngFor="let accessory of accessoriesDetails; let i = index">
