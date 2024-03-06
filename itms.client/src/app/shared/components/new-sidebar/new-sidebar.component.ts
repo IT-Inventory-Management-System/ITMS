@@ -1,4 +1,5 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-sidebar',
@@ -7,7 +8,8 @@ import { Component, ChangeDetectorRef } from '@angular/core';
 })
 
 export class NewSidebarComponent {
-  
+
+
   isCollapsed = true;
   selectedIcon: string = 'dashboard';
 
@@ -15,7 +17,7 @@ export class NewSidebarComponent {
     this.isCollapsed = !this.isCollapsed;
   }
 
-  constructor(private cdr: ChangeDetectorRef) { }
+  constructor(private cdr: ChangeDetectorRef, private router: Router) { }
 
   highlightIcon(icon: string) {
     this.selectedIcon = icon;
@@ -23,7 +25,7 @@ export class NewSidebarComponent {
   }
 
   isIconSelected(icon: string): boolean {
-    return this.selectedIcon === icon;
+    return this.router.url.toLowerCase().includes(icon.toLowerCase());
   }
 
 }
