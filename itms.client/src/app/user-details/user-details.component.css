@@ -1,29 +1,29 @@
 .row-container {
-  width: 789px;
+  width: 780px;
   align-items: flex-start;
   margin-right: 23rem;
 
 }
-
+/*this one*/
 .page-container {
   display: flex;
   gap: 1rem;
-  /*  background-color: mediumpurple;*/
+   /* background-color: mediumpurple;*/
   height: 43.125rem;
   padding: 1.5rem;
   flex-direction: column;
-  width: 820px;
+  width: 812px;
   border-radius: 0.5rem;
   overflow: hidden;
   box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.15);
 }
-@media (min-width: 1100px) {
+/*@media (min-width: 1600px) {
   .page-container {
-    /*width: 100%;
+    width: 100%;
     align-items: center;
-    min-width: 1200px;*/
+    min-width: 1200px;
   }
-}
+}*/
 
 
   .user-details {
@@ -216,22 +216,25 @@
     padding-left: -1rem;
   }
 
-  .buttons {
-    display: flex;
-    flex-direction: row;
-    display: flex;
-    align-items: flex-start;
-    flex-direction: row;
-    align-self: stretch;
-    border-bottom: 2px #E9ECEB solid;
-    height: 2.5625rem;
-  }
+.buttons {
+  display: flex;
+  flex-direction: row;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
+  align-self: stretch;
+  border-bottom: 2px #E9ECEB solid;
+  height: 41px;
+  width: 757px;
+}
 
 
   .assigned {
     display: flex;
-    height: 37.75rem;
-    min-width: 100%;
+   /* height: 37.75rem;*/
+    width: 775px;
+    height: 185px;
+   /* min-width: 100%;*/
     padding: 0rem 1rem;
     flex-direction: column;
     align-items: flex-start;
@@ -301,6 +304,7 @@
   gap: 0.5rem;
   box-shadow: none;
   border: none;
+  margin-right: 1rem;
 }
 .nav-icons {
   display: flex;
@@ -349,15 +353,15 @@
   border: 1px solid var(--Adhoc-Red, #CC1A07);
   background: var(--Primary-Pure-White, #FFF);
   height: 54px;
-  width: 100%;
+  width: 757px;
   padding: 0.01rem 0.5rem 0.01rem 0.5rem;
   margin-top: 0.5rem;
   border-radius: 0.25rem;
 }
 
 .alert-revoke-button{
-    margin-left: 2.7rem;
-    margin-top:-3.2rem;
+   margin-left:0.5rem;
+    margin-top:-3.3rem;
 }
 
 .btn-revoke {

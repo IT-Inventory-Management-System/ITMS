@@ -47,10 +47,10 @@
   justify-content: center;
 
 
-  @media (min-width: 1600px) {
+/*  @media (min-width: 1600px) {
     width: 100%;
     align-items: center;
-  }
+  }*/
 }
 
 
@@ -97,7 +97,7 @@
   /* Shadow */
   box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.15);
 }
-
+/*and this class*/
 .user-data {
   display: flex;
  
@@ -106,7 +106,7 @@
   align-items: flex-start;
   gap: 1rem;
   border-radius: 0.5rem;
-  width: 820px;
+  width: 812px;
   justify-content:center;
   /*background-color: lightblue;*/
   /* Shadow */
@@ -196,3 +196,12 @@
    margin-left: 20rem;
   }
 }*/
+
+
+/*this change*/
+.user-center{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
