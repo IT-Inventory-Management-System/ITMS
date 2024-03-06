@@ -28,8 +28,12 @@ export class AccessoriesAllRevokeComponent {
   showYesReason: boolean[] = [];
   showNoReason: boolean[] = [];
   ngOnInit() {
+    const accessoryArray = this.revokeAllForm.get('Accessory') as FormArray;
     if (!this.accessoriesDetails.length) {
       this.saveBtn.emit(false);
+    }
+    if (accessoryArray.length != 0) {
+      this.checkIfSomethingIsMissing();
     }
   }
   constructor(private formBuilder: FormBuilder) { }
@@ -42,13 +46,17 @@ export class AccessoriesAllRevokeComponent {
       this.SubmittedAction = this.actionsArray.find(a => a.actionName === 'Submitted' || a.actionName === 'submitted');
       this.SubmittedActionUnassign = this.actionsArray.find(a => a.actionName === 'Unassignable' || a.actionName === 'unassignable');
       this.SubmitLaterAction = this.actionsArray.find(a => a.actionName === 'Assigned' || a.actionName === 'assigned');
-        for (let i = 0; i < this.accessoriesDetails.length; i++) {
-          this.showYesReason[i] = false;
-          this.showNoReason[i] = false;
-        }
+      for (let i = 0; i < this.accessoriesDetails.length; i++) {
+        this.showYesReason[i] = false;
+        this.showNoReason[i] = false;
       }
       this.initializeAccessoryFormArray();
     }
+    const accessoryArray = this.revokeAllForm.get('Accessory') as FormArray;
+    if (accessoryArray.length != 0) {
+      this.checkIfSomethingIsMissing();
+    }
+  }
 
   initializeAccessoryFormArray() {
     const accessoryArray = this.revokeAllForm.get('Accessory') as FormArray;
@@ -146,7 +154,7 @@ export class AccessoriesAllRevokeComponent {
   isReceivedYes(laptop: any, index: number): boolean {
     const accessoryArray = this.revokeAllForm.get('Accessory') as FormArray;
     const accessoryFormGroup = accessoryArray.at(index) as FormGroup;
-    const receivedYes = accessoryFormGroup.value.actionId === this.SubmittedAction?.id || accessoryFormGroup.value.actionId === this.SubmittedActionUnassign?.id;
+    const receivedYes = accessoryFormGroup?.value.actionId === this.SubmittedAction?.id || accessoryFormGroup?.value.actionId === this.SubmittedActionUnassign?.id;
     //if (receivedYes) {
     //  this.showYesReason[index] = true; // Update the showYesReason array
     //  this.showNoReason[index] = false;
@@ -157,8 +165,8 @@ export class AccessoriesAllRevokeComponent {
   isReceivedNo(laptop: any, index: number): boolean {
     const accessoryArray = this.revokeAllForm.get('Accessory') as FormArray;
     const accessoryFormGroup = accessoryArray.at(index) as FormGroup;
-    const receivedNo = accessoryFormGroup.value.actionId === this.SubmitLaterAction?.id ||
-      accessoryFormGroup.value.actionId === this.lostAction?.id;
+    const receivedNo = accessoryFormGroup?.value.actionId === this.SubmitLaterAction?.id ||
+      accessoryFormGroup.value?.actionId === this.lostAction?.id;
     //if (receivedNo) {
     //  this.showYesReason[index] = true; // Update the showYesReason array
     //  this.showNoReason[index] = false;

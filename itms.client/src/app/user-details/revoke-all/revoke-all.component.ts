@@ -1,6 +1,7 @@
 import { Component, Input, SimpleChanges, ChangeDetectorRef, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EmployeeService } from '../../shared/services/Employee.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-revoke-all',
@@ -18,11 +19,11 @@ export class RevokeAllComponent {
   @Input() softwareDetails: any;
   @Output() changeArchiveBanner: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  variable1: boolean = true; 
-  variable2: boolean = false; 
+  variable1: boolean = true;
+  variable2: boolean = false;
   variable3: boolean = true;
-  isButtonDisabled: boolean = false; 
-  
+  isButtonDisabled: boolean = false;
+
   revokeAllForm: FormGroup;
   actionsArray: any[] = [];
   filteredLaptopDetails: any;
@@ -58,10 +59,10 @@ export class RevokeAllComponent {
       this.filteredLaptopDetails = this['laptopDetails'].filter((laptop: any) => laptop.submitedBy === null);
     if (this['softwareDetails'] && Array.isArray(this['softwareDetails']))
       this.filteredSoftwareDetails = this['softwareDetails'].filter((software: any) => software.recievedBy === null);
-    if (this['accessoriesDetails'] && Array.isArray(this['accessoriesDetails'])) 
+    if (this['accessoriesDetails'] && Array.isArray(this['accessoriesDetails']))
       this.filteredAccessoriesDetails = this['accessoriesDetails'].filter((accessory: any) => accessory.submittedBy === null);
   }
-  constructor(private formBuilder: FormBuilder, private revokeAllService: EmployeeService, private actionService: EmployeeService, private employeeService: EmployeeService, private cdr: ChangeDetectorRef) {
+  constructor(private formBuilder: FormBuilder, private toastr: ToastrService, private revokeAllService: EmployeeService, private actionService: EmployeeService, private employeeService: EmployeeService, private cdr: ChangeDetectorRef) {
     this.revokeAllForm = this.formBuilder.group({
       userid: [null, Validators.required],
       archiveUserId: [null, Validators.required],
@@ -147,6 +148,7 @@ export class RevokeAllComponent {
 
   dismissModal() {
     this.currentStep = 1;
+    this.revokeAllForm.reset();
     this.updateButtonDisabledState();
   }
 
@@ -154,7 +156,7 @@ export class RevokeAllComponent {
     this.changeArchiveBanner.emit(true);
     const formData = this.revokeAllForm.value;
     const storedUser = localStorage.getItem("user");
-    if (storedUser !== null) 
+    if (storedUser !== null)
       formData.userid = JSON.parse(storedUser).id;
     if (this.userId)
       formData.archiveUserId = this.userId;
@@ -162,24 +164,24 @@ export class RevokeAllComponent {
 
     this.revokeAllService.revokeAll(formData).subscribe(
       (response) => {
-       // console.log("user id is: ", this.userId);
-       // console.log("response of recent is :", response);
+        // console.log("user id is: ", this.userId);
+        // console.log("response of recent is :", response);
 
         // Set laptop details
 
-        console.log("the recent response is ",response);
+        console.log("the recent response is ", response);
         console.log("laptop details is:", response.laptopResults);
-       
 
-        
+
+
         if (response && response.laptopResults && response.laptopResults.length > 0) {
           for (const laptop of response.laptopResults) {
             console.log("First Name:", laptop.firstName);
 
-            
+
             const correspondingLaptop = this.laptopDetails.find((l: any) => l.deviceId === laptop.deviceId);
             if (correspondingLaptop) {
-              
+
               correspondingLaptop.submitedBy = `${laptop.firstName} ${laptop.lastName}`;
               correspondingLaptop.submitedByDate = laptop.recievedDate;
               correspondingLaptop.actionName = laptop.actionName;
@@ -190,7 +192,7 @@ export class RevokeAllComponent {
         } else {
           console.log("No laptop results found.");
         }
-      
+
 
         // Set accessories details
         console.log("accessories result is :", response.accessoryResults);
@@ -233,12 +235,14 @@ export class RevokeAllComponent {
           console.log("No software results found.");
         }
 
-       
+
         //console.log('Data saved successfully', response);
         this.revokeAllForm.reset();
+        this.toastr.success('Exit Process Successful');
       },
       (error) => {
         console.error('Error occurred while saving data', error);
+        this.toastr.error('Error in Exit Process:', error);
       }
     );
   }
