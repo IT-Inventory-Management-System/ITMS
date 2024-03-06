@@ -198,6 +198,8 @@ export class AccessoriesComponent {
   handleSelectionChange(selectedOption: string) {
     const archiveModal = document.getElementById('exampleModa');
     const unarchiveModal = document.getElementById('unarchive');
+    const unassignable = document.getElementById('unassignable');
+
     //console.log(selectedOption);
     if (selectedOption === 'Archive' && archiveModal) {
       archiveModal.classList.add('show');
@@ -205,6 +207,10 @@ export class AccessoriesComponent {
     } else if (selectedOption === 'Unarchive' && unarchiveModal) {
       unarchiveModal.classList.add('show');
       unarchiveModal.style.display = 'block';
+    }
+    else if (selectedOption === 'Unassignable' && unassignable) {
+      unassignable.classList.add('show');
+      unassignable.style.display = 'block';
     }
   }
 

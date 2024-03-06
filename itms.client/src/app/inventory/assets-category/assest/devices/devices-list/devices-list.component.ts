@@ -71,7 +71,7 @@ export class DevicesListComponent implements OnInit {
       (data) => {
         this.DeviceInfo = data;
         
-        console.log(data);
+        //console.log(data);
         this.deviceService.DeviceDetails = this.DeviceInfo;
         this.getDeviceLogs(this.deviceService.DeviceDetails.cygid);
         this.deviceService.triggerButtonClick();
@@ -116,8 +116,8 @@ export class DevicesListComponent implements OnInit {
           logs[i].recievedDate = logs[i].recievedDate != null ? formatDate(logs[i].recievedDate, 'dd-MM-yyyy', 'en-US') : null;
         }
         this.deviceService.DeviceLog = logs;
-        console.log('Device Logs:', logs);
-        console.log(this.deviceService.DeviceLog.id);
+        //console.log('Device Logs:', logs);
+        //console.log(this.deviceService.DeviceLog.id);
       },
       (error) => {
         console.error('Error fetching device logs:', error);
