@@ -34,7 +34,8 @@
                   <div class="details-text">{{laptop.model}}</div>
                 </div>
                 <div class="device-model">
-                  <div class="details-icon"><img *ngIf="laptop.osName === 'Windows'" src="../../assets/icons/Windows-small.svg">
+                  <div class="details-icon">
+                    <img *ngIf="laptop.osName === 'Windows'" src="../../assets/icons/Windows-small.svg">
                     <img *ngIf="laptop.osName === 'Mac'" src="../../assets/icons/apple.svg">
                   </div>
                   <div class="details-text">{{laptop.osName}}</div>
@@ -45,7 +46,7 @@
                 </div>
                 <div class="same-row-details">
                   <div class="device-model-same-row">
-                    <div class="details-icon"><img src="../../assets/icons/Storage.svg"/></div>
+                    <div class="details-icon"><img src="../../assets/icons/Storage.svg" /></div>
                     <div class="details-text">{{laptop.ram}}</div>
                   </div>
                   <div class="device-model">
@@ -64,9 +65,13 @@
           <div class="details-subheading">
             Assigned Accessories
           </div>
-          <div *ngFor="let accessory of accessoriesDetails">
-            <div *ngIf="accessory.submittedBy === null">
-              <div class="accessories-details">
+          <div class="accessory-detail" [ngClass]="{'full-width': accessoriesDetails?.length === 1}">
+            <div *ngFor="let accessory of accessoriesDetails">
+
+
+
+              <div *ngIf="accessory.submittedBy === null">
+
 
                 <div class="accessories-model-details">
                   <div class="accessories-model">
@@ -84,7 +89,9 @@
                     </div>
                   </div>
                 </div>
+
               </div>
+
             </div>
           </div>
         </div>

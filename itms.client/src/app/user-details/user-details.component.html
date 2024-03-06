@@ -64,10 +64,12 @@
     <!--    <div class="revoke-alert" *ngIf="showRevokeAlert[userDetails?.id]">-->
     <div class="revoke-alert" *ngIf="(userDetails?.exitProcessInitiated || showRevokeAlert[userDetails?.id]) && !archiveBanner">
       <img class="alert-revoke-img" src="../../assets/icons/Vector-red.svg" />
-      <p class="exit-pro-text">Exit process initiated and all the assets information has<br /> been sent to the user.</p>
-      <div class="btn btn-revoke" data-bs-toggle="modal" data-bs-target="#revokeAllModal">
-        <img src="../../assets/icons/Revoke.svg" />
-        <p class="revoke-btn-text">Revoke all items</p>
+      <p class="exit-pro-text">Exit process has been initiated and all the assets information has<br />been sent to the user.</p>
+      <div class="alert-revoke-button">
+        <div class="btn btn-revoke" data-bs-toggle="modal" data-bs-target="#revokeAllModal">
+          <img src="../../assets/icons/Revoke.svg" />
+          <p class="revoke-btn-text">Revoke all items</p>
+        </div>
       </div>
     </div>
 
