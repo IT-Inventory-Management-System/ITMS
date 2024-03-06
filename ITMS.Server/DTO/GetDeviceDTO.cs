@@ -39,6 +39,8 @@
         public string Status { get; set; }
 
         public Guid LocationId { get; set; }
+        public bool? isArchived { get; set; }
+
 
     }
 }

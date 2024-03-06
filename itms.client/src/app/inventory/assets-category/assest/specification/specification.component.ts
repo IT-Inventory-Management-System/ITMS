@@ -13,9 +13,8 @@ export class SpecificationComponent {
   @Input() isArchived: any;
   @Output() modelClicked = new EventEmitter<string>();
 
- 
-  selectedOption: string = 'Active'; // Initially selected option
 
+  selectedOption: string = 'Active';
 
   constructor(private dataService: DataService) { }
 
@@ -34,6 +33,7 @@ export class SpecificationComponent {
   handleSelectionChange(selectedOption: string) {
     const archiveModal = document.getElementById('exampleModa');
     const unarchiveModal = document.getElementById('unarchive');
+    const unassignable = document.getElementById('unassignable');
 
     if (selectedOption === 'Archive' && archiveModal) {
       archiveModal.classList.add('show');
@@ -41,6 +41,10 @@ export class SpecificationComponent {
     } else if (selectedOption === 'Unarchive' && unarchiveModal) {
       unarchiveModal.classList.add('show');
       unarchiveModal.style.display = 'block';
+    }
+    else if (selectedOption === 'Unassignable' && unassignable) {
+      unassignable.classList.add('show');
+      unassignable.style.display = 'block';
     }
   }
  

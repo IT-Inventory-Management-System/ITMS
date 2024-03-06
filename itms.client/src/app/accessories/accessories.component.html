@@ -2,7 +2,7 @@
 <app-new-comments [accessoryId]="accessoryId"></app-new-comments>
 <app-archive-modal [cygid]="cygid" (modalClosed)="handleModalClosed()"></app-archive-modal>
 <app-unrchivemodal [cygid]="cygid" (modalClosed)="handleModalClosed()"></app-unrchivemodal>
-
+<app-unassignable-modal [cygid]="cygid" (modalClosed)="handleModalClosed()"></app-unassignable-modal>
 
 
 <div class="Accesories-details ">
@@ -94,10 +94,10 @@
         </div>
         <ng-select class="ng-selectclass" (change)="handleSelectionChange($event)" [(ngModel)]="selectedOption" [clearable]="false" [searchable]="false">
           <!--<ng-option [value]="'Active'">
-    <img class="asset-image" src="../../../../../assets/icons/Assets/active.svg" />
+            <img class="asset-image" src="../../../../../assets/icons/Assets/active.svg" />
 
-    Active
-  </ng-option>-->
+            Active
+          </ng-option>-->
           <ng-option *ngIf="!(singleSelected && singleSelected[0]?.isArchived)" [value]="'Active'">
             <img class="asset-image" src="../../../../../assets/icons/Assets/active.svg" />
             Active
@@ -107,14 +107,14 @@
             <img class="asset-image" src="../../../../../assets/icons/Assets/archive.svg" />
             Archived
           </ng-option>
-          <!--<ng-option [value]="'Unassignable'">
+          <ng-option [value]="'Unassignable'">
             <img class="asset-image" src="../../../../../assets/icons/Assets/unassignable.svg" />
             Unassignable
-          </ng-option>-->
+          </ng-option>
 
 
-          <ng-option *ngIf="singleSelected && singleSelected[0]?.isArchived === false" value="Archive"  [disabled]="singleSelected[0]?.assignedTo">
-            <img class="asset-image" src="../../../../../assets/icons/Assets/archive.svg"/>
+          <ng-option *ngIf="singleSelected && singleSelected[0]?.isArchived === false" value="Archive" [disabled]="singleSelected[0]?.assignedTo">
+            <img class="asset-image" src="../../../../../assets/icons/Assets/archive.svg" />
 
             Archive
           </ng-option>

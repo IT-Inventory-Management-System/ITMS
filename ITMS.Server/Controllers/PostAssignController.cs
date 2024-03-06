@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.Elfie.Serialization;
 using Xamarin.Forms;
 using System;
+using Microsoft.IdentityModel.Tokens;
 
 namespace ITMS.Server.Controllers
 {
@@ -94,18 +95,20 @@ namespace ITMS.Server.Controllers
 
                 for (int i = 0; i < b; i++)
                 {
-                    if (!string.IsNullOrEmpty(postAssignAssetDTO.SoftwareIds[i]))
+                    if (!string.IsNullOrEmpty(postAssignAssetDTO.SoftwareIds[i].SoftwareId))
                     {
-                        await _postAssignAsset.UpdateSoftwareAsync(postAssignAssetDTO.SoftwareIds[i], postAssignAssetDTO);
+                        Guid id = _postAssignAsset.UpdateSoftwareAsync(postAssignAssetDTO.SoftwareIds[i], postAssignAssetDTO);
 
-                        var software = await _softwareService.getSoftwareAllocationId(postAssignAssetDTO.SoftwareIds[i]);
-                        var softwareId = software.FirstOrDefault()?.Id;
+                        //var software = await _softwareService.getSoftwareAllocationId(postAssignAssetDTO.SoftwareIds[i].SoftwareId);
+                        // var softwareId = software.FirstOrDefault()?.Id;
 
-                        if (softwareId.HasValue)
+                        var softwareId = id;
+
+                        if (!string.IsNullOrEmpty(softwareId.ToString()))
                         {
                             PostDeviceLogDTO postSoftwareLogDTO = new PostDeviceLogDTO()
                             {
-                                SoftwareAllocationId = softwareId.Value,
+                                SoftwareAllocationId = softwareId,
                                 EmployeeId = postAssignAssetDTO.AssignedTo,
                                 AssignedBy = postAssignAssetDTO.AssignedBy,
                                 CreatedBy = postAssignAssetDTO.AssignedBy,
@@ -114,14 +117,14 @@ namespace ITMS.Server.Controllers
 
                             await _postAssignAsset.UpdateSoftwareLogAsync(postSoftwareLogDTO);
 
-                            var SoftwareLogID = await _postAssignAsset.GetLatestDeviceLogId(softwareId.Value);
+                            var SoftwareLogID = await _postAssignAsset.GetLatestDeviceLogId(softwareId);
 
                             if (!string.IsNullOrEmpty(postAssignAssetDTO.SoftwareComments[i]))
                             {
                                 PostCommentDTO softwareCommentDTO = new PostCommentDTO()
                                 {
                                     Description = postAssignAssetDTO.SoftwareComments[i],
-                                    SoftwareAllocationId = softwareId.Value,
+                                    SoftwareAllocationId = softwareId,
                                     CreatedBy = postAssignAssetDTO.AssignedBy,
                                     DevicelogId = SoftwareLogID
                                 };
@@ -188,7 +191,7 @@ namespace ITMS.Server.Controllers
                     }
                 }
 
-                return Ok("Assets allocated successfully");
+                return Ok(true);
             }
             catch (Exception ex)
             {

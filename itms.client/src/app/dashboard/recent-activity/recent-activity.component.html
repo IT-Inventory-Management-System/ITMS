@@ -9,10 +9,10 @@
     </p>
   </div>
   <div class="Device-text">
-    <div *ngIf="logsData.softwareName && logsData.action === 'Assigned'">
+    <div *ngIf="logsData.softwareName && (logsData.action === 'Assigned' || logsData.action === 'assigned')">
       <span class="cyg">{{logsData.softwareName}}</span> has been {{ logsData.action }} to  <span class="user-name">{{ logsData.assignedTo}}</span>
     </div>
-    <div *ngIf="logsData.softwareName && logsData.action === 'Submitted'">
+    <div *ngIf="logsData.softwareName && (logsData.action === 'Submitted' || logsData.action === 'submitted')">
       <span class="cyg">{{logsData.softwareName}}</span> has been {{ logsData.action }} to  <span class="user-name">{{ logsData.submittedTo}}</span>
     </div>
     <div *ngIf="logsData.softwareName && logsData.action === 'Archive'">
@@ -21,11 +21,11 @@
     <div *ngIf="logsData.softwareName && logsData.action === 'Unarchive'">
       <span class="cyg">{{logsData.softwareName}}</span> has been {{ logsData.action }} by  <span class="user-name">{{ logsData.updatedBy}}</span>
     </div>
- 
-    <div *ngIf="logsData.cygid && logsData.action === 'Assigned'">
+
+    <div *ngIf="logsData.cygid && (logsData.action === 'Assigned' || logsData.action === 'assigned')">
       Device <span class="cyg">{{ logsData.cygid }}</span> {{ logsData.category }} has been {{ logsData.action }} to <span class="user-name">{{ logsData.assignedTo }}</span>
     </div>
-    <div *ngIf="logsData.cygid && logsData.action === 'Submitted'">
+    <div *ngIf="logsData.cygid && (logsData.action === 'Submitted' || logsData.action === 'submitted')">
       Device <span class="cyg">{{ logsData.cygid }}</span> {{ logsData.category }} has been {{ logsData.action }} to <span class="user-name">{{ logsData.submittedTo }}</span>
     </div>
     <div *ngIf="logsData.cygid && logsData.action === 'Archive'">
@@ -34,7 +34,15 @@
     <div *ngIf="logsData.cygid && logsData.action === 'Unarchive'">
       Device <span class="cyg">{{ logsData.cygid }}</span> {{ logsData.category }} has been {{ logsData.action }} by <span class="user-name">{{  logsData.updatedBy }}</span>
     </div>
-
+    <div *ngIf="logsData.cygid && (logsData.action === 'Unassignable' || logsData.action === 'unassignable')">
+      Device <span class="cyg">{{ logsData.cygid }}</span> {{ logsData.category }} has been marked {{ logsData.action }} by <span class="user-name">{{ logsData.updatedBy }}</span>
+    </div>
+    <div *ngIf="logsData.cygid && (logsData.action === 'Assignable' || logsData.action === 'assignable')">
+      Device <span class="cyg">{{ logsData.cygid }}</span> {{ logsData.category }} has been marked {{ logsData.action }} by <span class="user-name">{{ logsData.updatedBy }}</span>
+    </div>
+    <div *ngIf="logsData.cygid && (logsData.action === 'Lost' || logsData.action === 'lost')">
+      Device <span class="cyg">{{ logsData.cygid }}</span> {{ logsData.category }} has been {{ logsData.action }}
+    </div>
   </div>
 </div>
 

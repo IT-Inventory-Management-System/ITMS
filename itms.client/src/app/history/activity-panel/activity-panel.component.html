@@ -34,25 +34,15 @@
         <img src="../../../assets/icons/calendar.svg" />
         <span class="date-text">{{ logEntry.updatedDate | date: 'dd-MM-yyyy' }}</span>
       </div>
-      <div class="log"*ngFor="let log of logEntry.logs">
-        <div class="detail-section">
-          <span class="time">{{ log.updatedOn | date: 'hh:mm a' }}</span>
-          <span class="detail">
-            <!--<span class="cyg-name" *ngIf="log.cygid">{{log.cygid}}</span>
-  <span class="cyg-name" *ngIf="log.softwareName">{{log.softwareName}}</span> has been
-  <span *ngIf="log.action === 'create'">created</span>
-  <span *ngIf="log.action === 'Assigned'">Assigned</span>
-  <span *ngIf="log.action === 'Submitted'">Submitted</span>
-  <span *ngIf="log.action === 'update'">updated</span>
-  <span *ngIf="log.action === 'delete'">deleted</span>
-  <span *ngIf="log.action === 'Archive'">Archived</span>
-  <span *ngIf="log.action === 'Unarchive'">Unarchived</span>
-
-  by <span class="cyg-name">{{ log.updatedBy }}</span>-->
-            <div *ngIf="log.softwareName && log.action === 'Assigned'">
+      <div class="log  "*ngFor="let log of logEntry.logs">
+        <div class="detail-section ">
+          <span class="time ">{{ log.updatedOn | date: 'hh:mm a' }}</span>
+          <div class="detail ">
+          
+            <div *ngIf="log.softwareName && (log.action === 'Assigned' || log.action === 'assigned')">
               <span class="cyg-name">{{log.softwareName}}</span> has been {{ log.action }} to  <span class="user-name">{{ log.assignedTo}}</span>
             </div>
-            <div *ngIf="log.softwareName && log.action === 'Submitted'">
+            <div *ngIf="log.softwareName && (log.action === 'Submitted' || log.action === 'submitted')">
               <span class="cyg-name">{{log.softwareName}}</span> has been {{ log.action }} to  <span class="user-name">{{ log.submittedTo}}</span>
             </div>
             <div *ngIf="log.softwareName && log.action === 'Archive'">
@@ -62,10 +52,10 @@
               <span class="cyg-name">{{log.softwareName}}</span> has been {{ log.action }} by  <span class="user-name">{{ log.updatedBy}}</span>
             </div>
 
-            <div *ngIf="log.cygid && log.action === 'Assigned'">
+            <div *ngIf="log.cygid && (log.action === 'Assigned' || log.action === 'assigned')">
               Device <span class="cyg-name">{{ log.cygid }}</span> {{ log.category }} has been {{ log.action }} to <span class="user-name">{{ log.assignedTo }}</span>
             </div>
-            <div *ngIf="log.cygid && log.action === 'Submitted'">
+            <div *ngIf="log.cygid && (log.action === 'Submitted' || log.action === 'submitted')">
               Device <span class="cyg-name">{{ log.cygid }}</span> {{ log.category }} has been {{ log.action }} to <span class="user-name">{{ log.submittedTo }}</span>
             </div>
             <div *ngIf="log.cygid && log.action === 'Archive'">
@@ -74,7 +64,16 @@
             <div *ngIf="log.cygid && log.action === 'Unarchive'">
               Device <span class="cyg-name">{{ log.cygid }}</span> {{ log.category }} has been {{ log.action }} by <span class="user-name">{{  log.updatedBy }}</span>
             </div>
-          </span>
+            <div *ngIf="log.cygid && (log.action === 'Unassignable' || log.action === 'unassignable')">
+              Device <span class="cyg-name">{{ log.cygid }}</span> {{ log.category }} has been marked {{ log.action }} by <span class="user-name">{{ log.updatedBy }}</span>
+            </div>
+            <div *ngIf="log.cygid && (log.action === 'Assignable' || log.action === 'assignable')">
+              Device <span class="cyg-name">{{ log.cygid }}</span> {{ log.category }} has been marked {{ log.action }} by <span class="user-name">{{ log.updatedBy }}</span>
+            </div>
+            <div *ngIf="log.cygid && (log.action === 'Lost' || log.action === 'lost')">
+              Device <span class="cyg-name">{{ log.cygid }}</span> {{ log.category }} has been {{ log.action }}
+            </div>
+          </div>
         </div>
       </div>
     </div>

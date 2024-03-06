@@ -160,4 +160,13 @@ namespace ITMS.Server.DTO
         public string? RecievedBy { get; set; }
         public DateTime? RecievedDate { get; set; }
     }
+
+    public class UnassignableDto
+    {
+        public string? Cygid { get; set; }
+        public Guid CreatedBy { get; set; }
+        public Guid? UpdatedBy { get; set; }
+        public string? Description { get; set; }
+        public bool IsUnassignable { get; set; }
+    }
 }

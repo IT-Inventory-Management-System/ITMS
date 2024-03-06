@@ -9,7 +9,7 @@ type Guid = string;
   providedIn: 'root'
 })
 export class DataService {
-  private apiUrl = 'https://localhost:7283/api/';
+  private apiUrl = 'https://itims-project.somee.com/api/';
 
   DeviceDetails: any;
   DeviceLog: any;
@@ -187,11 +187,19 @@ export class DataService {
     return this.http.get<any[]>(this.apiUrl + 'Device/getAllComments/' + deviceId);
   }
 
+  getFilteredDevicesTable(selectedFilters: any): Observable<any> {
+    return this.http.post(this.apiUrl + 'Device/filterDevices', selectedFilters);
+  }
+
   private deviceListSubject = new BehaviorSubject<any>(null);
   deviceListChanged$ = this.deviceListSubject.asObservable();
 
   notifyDeviceListChanged() {
     this.deviceListSubject.next(null);
+  }
+
+  setDeviceUnassignable(formdata: any): Observable<any> {
+    return this.http.post(this.apiUrl + 'Device/unassignableDevice', formdata);
   }
 
 }

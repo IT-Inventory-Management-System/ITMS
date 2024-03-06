@@ -11,6 +11,7 @@ body {
   width:21.125rem;
   height:38.25rem;
   overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .specification {
