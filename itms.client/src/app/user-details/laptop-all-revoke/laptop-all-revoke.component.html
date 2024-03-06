@@ -1,6 +1,6 @@
 <div class="heading-count">
   <div class="assigned-device-heading">Assigned laptop</div>
-  <div class="laptop-count">Count: {{ laptopDetails?.length }}</div>
+  <div class="laptop-count" *ngIf="laptopDetails">Count: {{ laptopDetails.length }}</div>
 </div>
 
 <div *ngFor="let laptop of laptopDetails; let i = index">
@@ -84,4 +84,3 @@
   </div>
 
 </div>
-
