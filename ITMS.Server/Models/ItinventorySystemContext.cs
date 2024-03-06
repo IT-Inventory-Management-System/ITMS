@@ -47,7 +47,7 @@ public partial class ItinventorySystemContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=.\\SQLExpress;Database=ITInventorySystem;Trusted_Connection=True;TrustServerCertificate=True;");
+        => optionsBuilder.UseSqlServer("workstation id=ITInventorySystem.mssql.somee.com;packet size=4096;user id=rampaldivyansh_SQLLogin_1;pwd=tx8lwape93;data source=ITInventorySystem.mssql.somee.com;persist security info=False;initial catalog=ITInventorySystem;TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
