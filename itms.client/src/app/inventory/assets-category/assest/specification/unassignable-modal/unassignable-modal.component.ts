@@ -72,8 +72,6 @@ export class UnassignableModalComponent {
 
     if (this.deviceForm.valid && archiveModal) {
       archiveModal.style.display = 'block';
-      window.location.reload();
-
     }
     else {
       this.ShowErrorMessage = true;

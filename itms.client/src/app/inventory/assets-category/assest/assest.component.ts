@@ -76,12 +76,12 @@ export class AssestComponent {
       this.deviceService.getDevicesCyg(this.locationId).subscribe(
 
         (data) => {
-          console.log(this.locationId);
-          console.log(data);
+          //console.log(this.locationId);
+          //console.log(data);
           this.deviceData = data;
-          console.log('All Device Data', data);
+          //console.log('All Device Data', data);
           this.setRowData();
-          console.log('Row Data', this.rowData);
+          //console.log('Row Data', this.rowData);
         },
         (error) => {
           console.error('Error fetching device data', error);

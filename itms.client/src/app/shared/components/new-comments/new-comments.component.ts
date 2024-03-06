@@ -106,7 +106,7 @@ export class NewCommentsComponent {
     this.dataService.getAllComments(deviceId).subscribe(
       (data) => {
         this.commentsData = data;
-        console.log("comments : ", this.commentsData);
+        //console.log("comments : ", this.commentsData);
         this.changeDateFormat();
       },
       error => {

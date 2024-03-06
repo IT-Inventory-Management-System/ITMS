@@ -6,8 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class DeviceAssignService {
-  private apiUrl = 'https://itimsbackend.somee.com/api/';
-
+  private apiUrl = 'https://www.itims-project.somee.com/api/';
   constructor(private http: HttpClient) { }
 
   getEmployeeBasicDetails(locationId: any): Observable<any[]> {
