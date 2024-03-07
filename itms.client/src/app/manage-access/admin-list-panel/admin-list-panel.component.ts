@@ -13,6 +13,8 @@ export class AdminListPanelComponent {
   adminList: any[] = [];
   locationId: string = '';
   filterName: string = '';
+  loading: boolean = true;
+
 
   constructor(private dataService: DataService, private adminDetailService: AdminDetailService, private selectedCountryService: SelectedCountryService) { }
 
@@ -52,7 +54,8 @@ export class AdminListPanelComponent {
         this.adminList = data;
         this.adminDetailService.setSelectedAdmin(this.adminList[0]);
         this.adminDetailService.setSelectedCardIndex(0);
-        console.log(this.adminList);
+        console.log("ADMIN DATA : ", this.adminList);
+        this.loading = false;
       },
       (error) => {
         console.log(error);

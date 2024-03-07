@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { ConfigServiceService } from './config-service.service';
 
 type Guid = string;
 
@@ -9,7 +10,7 @@ type Guid = string;
   providedIn: 'root'
 })
 export class DataService {
-  private apiUrl = 'https://itims-project.somee.com/api/';
+  private apiUrl = this.config.apiUrl;
 
   DeviceDetails: any;
   DeviceLog: any;
@@ -22,7 +23,7 @@ export class DataService {
   private buttonClickedSource = new Subject<void>();
   buttonClicked$ = this.buttonClickedSource.asObservable();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private config: ConfigServiceService) {
     this.buttonClicked$.subscribe(() => {
       // Call getComments whenever the button is clicked
       if (this.DeviceDetails && this.DeviceDetails.id) {
