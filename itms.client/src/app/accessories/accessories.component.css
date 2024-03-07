@@ -10,12 +10,12 @@
   }
 
 
-@media screen and (min-width: 1500px) {
+/*@media screen and (min-width: 1500px) {
     .Accesories-details {
       transform: translateX(30%);
     }
     
-}
+}*/
 
 
 
@@ -28,6 +28,16 @@
   gap: 1rem;
   flex-shrink: 0;
   margin-top: 2rem;
+}
+
+
+@media screen and (min-width: 1500px) {
+  .Accesories-details {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Horizontally center the div */
+    height: auto; /* Adjust height as needed */
+  }
 }
 
 .input-text {
