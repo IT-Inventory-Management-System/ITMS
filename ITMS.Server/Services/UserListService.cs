@@ -39,6 +39,7 @@ public class UserListService : IUserListService
                                 ExitProcessInitiated = e.ExitProcessInitiated,
                                 isArchived = e.IsArchived,
                                 UpdatedAtUtc = e.UpdatedAtUtc,
+                                isOnHold = (e.ExitProcessInitiated == true && e.IsArchived == true && _context.Devices.Where(e => e.LocationId == locationId).Any(d => d.StatusNavigation.Type== "Assigned" ))?true:false,
                             }).ToListAsync();
         
         return result;

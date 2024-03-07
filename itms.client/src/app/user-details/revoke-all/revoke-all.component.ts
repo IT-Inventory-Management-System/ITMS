@@ -56,11 +56,11 @@ export class RevokeAllComponent {
   // Filter the details in ngOnChanges lifecycle hook
   ngOnChanges() {
     if (this['laptopDetails'] && Array.isArray(this['laptopDetails']))
-      this.filteredLaptopDetails = this['laptopDetails'].filter((laptop: any) => laptop.submitedBy === null);
+      this.filteredLaptopDetails = this['laptopDetails'].filter((laptop: any) => laptop.submitedBy === null || (laptop.actionName === 'Assigned' || laptop.actionName === 'assigned'));
     if (this['softwareDetails'] && Array.isArray(this['softwareDetails']))
       this.filteredSoftwareDetails = this['softwareDetails'].filter((software: any) => software.recievedBy === null);
     if (this['accessoriesDetails'] && Array.isArray(this['accessoriesDetails']))
-      this.filteredAccessoriesDetails = this['accessoriesDetails'].filter((accessory: any) => accessory.submittedBy === null);
+      this.filteredAccessoriesDetails = this['accessoriesDetails'].filter((accessory: any) => accessory.submittedBy === null || (accessory.actionName === 'Assigned' || accessory.actionName === 'assigned'));
   }
   constructor(private formBuilder: FormBuilder, private toastr: ToastrService, private revokeAllService: EmployeeService, private actionService: EmployeeService, private employeeService: EmployeeService, private cdr: ChangeDetectorRef) {
     this.revokeAllForm = this.formBuilder.group({
