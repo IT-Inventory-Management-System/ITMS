@@ -171,6 +171,8 @@ export class AccessoriesComponent {
       .subscribe(accessories => {
         this.accessories = accessories;
         this.singleSelected = [this.accessories[0]];
+        this.accessoryId = this.accessories[0].accessoryId;
+        //console.log(this.accessories[0].accessoryId);
         this.setRowData();
         console.log('Accessories', [this.accessories[0]]);
         this.singleHistoryAccessory(this.locationId, this.accessories[0].cygid);
@@ -251,6 +253,7 @@ export class AccessoriesComponent {
             this.setRowData();
             this.singleSelected = [this.accessories[0]];
             console.log('Accessories', [this.accessories[0]]);
+            this.accessoryId = this.accessories[0].accessoryId;
             this.singleHistoryAccessory(this.locationId, this.accessories[0].cygid);
           //  console.log('Accessories', this.accessories);
           } else {

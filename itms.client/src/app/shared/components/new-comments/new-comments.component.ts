@@ -31,7 +31,8 @@ export class NewCommentsComponent {
   }
 
   ngOnChanges() {
-    this.getAccessorryComment();
+    if (this.accessoryId != null)
+      this.getAccessorryComment();
   }
 
   createForm() {

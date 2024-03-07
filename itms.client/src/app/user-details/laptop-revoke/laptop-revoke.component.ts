@@ -75,7 +75,7 @@ export class LaptopRevokeComponent {
       );
     }
 
-    if (Perfect || Unassignable) {
+    if (Perfect) {
       const var1 = this.laptopDetails.deviceLogId;
       const var2 = this.loggedUser.id;
 
@@ -83,6 +83,35 @@ export class LaptopRevokeComponent {
       if (SubmittedAction) {
         this.actionId = SubmittedAction.id;
         console.log("Submitted Action: ", this.actionId);
+      }
+
+      const var3 = this.actionId;
+
+      this.deviceLogService.updateRecievedBy(var1, var2, var3).subscribe(
+        (response) => {
+          console.log(response);
+          if (response && response.receivedBy) {
+            const { deviceLogId, firstName, lastName, recievedDate, actionName } = response.receivedBy;
+            this.laptopDetails.submitedBy = `${firstName} ${lastName}`;
+            this.laptopDetails.submitedByDate = `${recievedDate}`;
+            this.laptopDetails.actionName = `${actionName}`;
+            this.addNewComment(deviceLogId);
+          }
+        },
+        (error) => {
+          console.error('Error :', error);
+        }
+      );
+    }
+
+    if (Unassignable) {
+      const var1 = this.laptopDetails.deviceLogId;
+      const var2 = this.loggedUser.id;
+
+      const UnassignableAction = this.actionsArray.find(a => a.actionName === 'Unassignable' || a.actionName === 'unassignable');
+      if (UnassignableAction) {
+        this.actionId = UnassignableAction.id;
+        console.log("Unassignable Action: ", this.actionId);
       }
 
       const var3 = this.actionId;

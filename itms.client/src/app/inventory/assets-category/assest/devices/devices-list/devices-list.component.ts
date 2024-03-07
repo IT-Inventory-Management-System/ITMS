@@ -34,8 +34,8 @@ export class DevicesListComponent implements OnInit {
           if (data[i].type == localStorage.getItem('selectedCountry')) {
             this.locationId = data[i].id;
             this.deviceService.locationId = this.locationId;
-            //alert(this.locationId);
-            this.showDevices();
+            this.getDeviceLogs(this.deviceService.DeviceDetails.cygid);
+            //this.showDevices();
             break;
           }
         }
@@ -46,15 +46,13 @@ export class DevicesListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getDeviceLocation();
+    //this.getDeviceLocation();
+    this.selectFirstDevice();
+
   }
 
   async showDevices() {
-    if (this.isArchived == false) {
-      this.AllDevices = await lastValueFrom(this.deviceService.getDevices(this.locationId));
-    } else {
-      this.AllDevices = await lastValueFrom(this.deviceService.getArchivedDevices(this.locationId));
-    }
+  
 
     // Select the first device
     this.selectFirstDevice();
@@ -73,7 +71,7 @@ export class DevicesListComponent implements OnInit {
         
         //console.log(data);
         this.deviceService.DeviceDetails = this.DeviceInfo;
-        this.getDeviceLogs(this.deviceService.DeviceDetails.cygid);
+        this.getDeviceLocation();
         this.deviceService.triggerButtonClick();
       },
       (error) => {

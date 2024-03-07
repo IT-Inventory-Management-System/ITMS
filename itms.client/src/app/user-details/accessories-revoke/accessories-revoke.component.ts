@@ -73,7 +73,7 @@ export class AccessoriesRevokeComponent {
       );
     }
 
-    if (Perfect || Unassignable) {
+    if (Perfect) {
       const var1 = this.accessoriesDetails.deviceLogId;
       const var2 = this.loggedUser.id;
 
@@ -81,6 +81,35 @@ export class AccessoriesRevokeComponent {
       if (SubmittedAction) {
         this.actionId = SubmittedAction.id;
         console.log("Submitted Action: ", this.actionId);
+      }
+
+      const var3 = this.actionId;
+
+      this.deviceLogService.updateRecievedBy(var1, var2, var3).subscribe(
+        (response) => {
+          console.log(response);
+          if (response && response.receivedBy) {
+            const { deviceLogId, firstName, lastName, recievedDate, actionName } = response.receivedBy;
+            this.accessoriesDetails.submittedBy = `${firstName} ${lastName}`;
+            this.accessoriesDetails.submittedByDate = `${recievedDate}`;
+            this.accessoriesDetails.actionName = `${actionName}`;
+            this.addNewComment(deviceLogId);
+          }
+        },
+        (error) => {
+          console.error('Error :', error);
+        }
+      );
+    }
+
+    if (Unassignable) {
+      const var1 = this.accessoriesDetails.deviceLogId;
+      const var2 = this.loggedUser.id;
+
+      const UnassignableAction = this.actionsArray.find(a => a.actionName === 'Unassignable' || a.actionName === 'unassignable');
+      if (UnassignableAction) {
+        this.actionId = UnassignableAction.id;
+        console.log("Unassignable Action: ", this.actionId);
       }
 
       const var3 = this.actionId;
