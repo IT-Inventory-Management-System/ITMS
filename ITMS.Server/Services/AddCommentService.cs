@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
 using System;
 using System.Xml.Linq;
+using Xamarin.Forms;
 
 namespace ITMS.Server.Services
 {
@@ -96,8 +97,9 @@ namespace ITMS.Server.Services
                 CreatedBy = commentDto.CreatedBy,
                 CreatedAtUtc = DateTime.Now,
                 DeviceId = commentDto.DeviceId,
-                DeviceLogId = commentDto.DeviceLogId
             };
+
+            commentEntity.DeviceLogId = GetLatestDeviceLogId(commentDto.DeviceId);
 
 
             var createdByEntity = _context.Employees
@@ -126,7 +128,7 @@ namespace ITMS.Server.Services
             {
                 Description = commentDto.Description,
                 CreatedBy = commentDto.CreatedBy,
-                CreatedAtUtc = DateTime.Now,
+                CreatedAtUtc = DateTime.UtcNow,
                 SoftwareAllocationId = commentDto.SoftwareAllocationId,
                 DeviceLogId = commentDto.DeviceLogId
             };
@@ -169,6 +171,17 @@ namespace ITMS.Server.Services
                 .Where(c => c.DeviceId == deviceId)
                 .OrderByDescending(c => c.CreatedAtUtc)
                 .ToList();
+        }
+
+        public Guid GetLatestDeviceLogId(Guid id)
+        {
+            var result = _context.DevicesLogs
+                .Where(dl => dl.DeviceId == id || dl.SoftwareAllocation == id)
+                .OrderByDescending(dl => dl.CreatedAtUtc)
+                .Select(dl => dl.Id)
+                .FirstOrDefault();
+
+            return result;
         }
 
     }

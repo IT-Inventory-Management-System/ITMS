@@ -192,7 +192,7 @@ namespace ITMS.Server.Services
                         Comments = deviceLog.Comments
                     };
                     _context.DevicesLogs.Add(newDeviceLog);
-                    await _context.SaveChangesAsync();
+                    _context.SaveChanges();
                     if(!isSoftware)
                     {
                         UserCommentHistory commentDto = new UserCommentHistory
@@ -291,6 +291,17 @@ namespace ITMS.Server.Services
                 Console.WriteLine($"Error updating employee details: {ex.Message}");
                 throw;
             }
+        }
+
+        public async Task<Guid> GetLatestDeviceLogId(Guid id)
+        {
+            var result = await _context.DevicesLogs
+                .Where(dl => dl.DeviceId == id || dl.SoftwareAllocation == id)
+                .OrderByDescending(dl => dl.CreatedAtUtc)
+                .Select(dl => dl.Id)
+                .FirstOrDefaultAsync();
+
+            return result;
         }
     }
 }
