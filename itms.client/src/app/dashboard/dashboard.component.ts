@@ -86,7 +86,20 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/history']);
 
   }
-  
+  dashBoardTime(): string {
+  const currentDate = new Date();
+  const year = currentDate.getFullYear();
+  const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+  const day = String(currentDate.getDate()).padStart(2, '0');
+  let hours = String(currentDate.getHours()).padStart(2, '0');
+  const minutes = String(currentDate.getMinutes()).padStart(2, '0');
+
+  const period = parseInt(hours) >= 12 ? 'PM' : 'AM';
+  hours = (parseInt(hours) % 12 || 12).toString();
+
+  const formattedDateTime = `${day}-${month}-${year}, ${hours}:${minutes} ${period}`;
+  return formattedDateTime;
+}
 
   applyAccessoryFilter(event: Event) {
     this.filterValue = (event.target as HTMLInputElement).value;

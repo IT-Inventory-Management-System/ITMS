@@ -5,22 +5,7 @@
       <input type="text" placeholder="Search Admin" [(ngModel)]="filterName" />
     </div>
   </div>
-  <div class="all-activity-log" (click) = "onClick()">
-    <div class="icon-name">
-      <div class="initial">
-        <div class="group">
-          <div class="frame">
-            <img src="../../../assets/icons/Ellipse.svg" />
-
-            <img class="behind" src="../../../assets/icons/Activity_Log_icon.svg" />
-          </div>
-        </div>
-      </div>
-      <div class="activity-log-text">
-        <span class="activity-text">All Activity Logs</span> 
-      </div>
-    </div>
-  </div>
+  
   <div class="admin-list">
     <app-admin-name-card *ngFor="let adminDetail of adminList | filterSearchList : filterName; let i = index" [adminDetail]="adminDetail" [index]="i"></app-admin-name-card>
   </div>
