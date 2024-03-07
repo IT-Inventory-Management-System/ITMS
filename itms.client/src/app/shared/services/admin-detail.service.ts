@@ -2,14 +2,15 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ConfigServiceService } from './config-service.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminDetailService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private config: ConfigServiceService) { }
 
-  private apiUrl = 'https://itims-project.somee.com/api/';
+  private apiUrl = this.config.apiUrl;
 
   private selectedCardIndexSubject = new BehaviorSubject<number>(0);
   selectedCardIndex$ = this.selectedCardIndexSubject.asObservable();
