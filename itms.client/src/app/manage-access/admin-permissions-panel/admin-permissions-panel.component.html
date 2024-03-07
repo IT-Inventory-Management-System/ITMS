@@ -1,7 +1,7 @@
 <div class="permissions-panel-container">
   <div class="permissions-panel-header">
     <div class="admin-name">
-      <ngx-avatars name="John Doe" [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="35"></ngx-avatars>
+      <ngx-avatars name="{{ selectedAdmin?.firstName }} {{ selectedAdmin?.lastName }}" [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="35"></ngx-avatars>
       <div class="admin-name-id">
         <span class="name">{{ selectedAdmin?.firstName }} {{ selectedAdmin?.lastName }}</span>
         <span class="id">{{ selectedAdmin?.cgiid }}</span>
