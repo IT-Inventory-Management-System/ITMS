@@ -75,7 +75,8 @@ namespace ITMS.Server.Controllers
                     {
                         DeviceLogId = software.DeviceLogId,
                         ActionId = software.ActionId,
-                        userId = receivedByDTO.UserId,
+                        userId = receivedByDTO.UserId
+                        //add deviceId,
                     };
                     var taskResult = await _UserRecievedBy.RevokeAll(true, revokeAllServiceDTO);
 

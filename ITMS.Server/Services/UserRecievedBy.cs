@@ -143,6 +143,14 @@ namespace ITMS.Server.Services
         {
             try
             {
+
+
+
+                // get devices by userId --- assigned to
+
+                //set assigned to null
+
+                 
                 var deviceLog = await _context.DevicesLogs
                     .Include(dl => dl.CreatedByNavigation)
                     .Include(dl => dl.Device)
