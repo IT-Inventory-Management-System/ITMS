@@ -36,7 +36,10 @@
       </div>
       <div class="log  "*ngFor="let log of logEntry.logs">
         <div class="detail-section ">
-          <span class="time ">{{ log.updatedOn | date: 'hh:mm a' }}</span>
+          <span class="time ">
+            {{localizeDateStr(log.updatedOn) | date: 'h:mm a' }}
+            <!--{{ log.updatedOn | date: 'hh:mm a' }}-->
+          </span>
           <div class="detail ">
           
             <div *ngIf="log.softwareName && (log.action === 'Assigned' || log.action === 'assigned')">
