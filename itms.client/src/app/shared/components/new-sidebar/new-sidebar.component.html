@@ -23,15 +23,15 @@
     <img class="sidebar-icon" src="../../assets/icons/Accessories.svg" alt="Sidebar Image" />
     <span *ngIf="!isCollapsed">Accesories</span>
   </div>
-  <div class="content" routerLink="/employee" (click)="highlightIcon('Users')" [ngClass]="{'selected': isIconSelected('Users')}">
+  <div class="content" routerLink="/employee" (click)="highlightIcon('Users')" [ngClass]="{'selected': isIconSelected('employee')}">
     <img class="sidebar-icon" src="../../assets/icons/Users.svg" alt="Sidebar Image" />
     <span *ngIf="!isCollapsed">User</span>
   </div>
-  <div class="content" routerLink="/history" (click)="highlightIcon('Logs')" [ngClass]="{'selected': isIconSelected('Logs')}">
+  <div class="content" routerLink="/history" (click)="highlightIcon('Logs')" [ngClass]="{'selected': isIconSelected('history')}">
     <img class="sidebar-icon" src="../../assets/icons/Logs.svg" alt="Sidebar Image" />
     <span *ngIf="!isCollapsed">Activity Logs</span>
   </div>
-  <div class="content" routerLink="/manage-access" (click)="highlightIcon('access')" [ngClass]="{'selected': isIconSelected('access')}">
+  <div class="content" routerLink="/manage-access" (click)="highlightIcon('access')" [ngClass]="{'selected': isIconSelected('manage-access')}">
     <img class="sidebar-icon" src="../../../../assets/icons/access-icon.svg" alt="Sidebar Image" />
     <span *ngIf="!isCollapsed">Manage Acess</span>
   </div>

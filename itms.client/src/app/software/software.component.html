@@ -99,7 +99,7 @@
 
           </div>
         </div>
-        <div class="expiring" *ngIf="expiringtag" >
+        <div class="expiring" *ngIf="expiringtag && singlesoftware?.expDate" >
           <img src="../../../assets/icons/Software/Warning.svg" />
           <span class="expiringbutton-text">
             <ng-container *ngIf="getRemainingDays(singlesoftware?.expDate) === 'Expired'; else remainingDays">

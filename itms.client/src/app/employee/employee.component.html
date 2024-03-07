@@ -1,25 +1,29 @@
-<div class="user">
+<div class="user-center">
 
-  <div class="user-heading-archive">
 
-    <div class="page-heading">User</div>
+  <div class="user">
 
-    <div class="archive-users">
-      <input type="checkbox" id="archiveUsers" name="archiveUsers" value="archiveUsers" class="archive-checkbox" (change)="onShowArchiveUsersChanged($event)">
-      <label for="archiveUsers" class="archive-text-heading">Show Archive Users Only</label><br>
+    <div class="user-heading-archive">
+
+      <div class="page-heading">User</div>
+
+      <div class="archive-users">
+        <input type="checkbox" id="archiveUsers" name="archiveUsers" value="archiveUsers" class="archive-checkbox" (change)="onShowArchiveUsersChanged($event)">
+        <label for="archiveUsers" class="archive-text-heading">Show Archive Users Only</label><br>
+      </div>
+
     </div>
 
+
+    <div class="user-section">
+      <div class="user-list">
+        <app-user-list [showArchiveUsers]="showArchiveUsers" (userDetailsClicked)="onUserDetailsClicked($event)"></app-user-list>
+      </div>
+      <div class="user-data">
+        <!-- Change col-md-8 to col-md-12 -->
+        <app-user-details [userDetails]="selectedUser" [laptopDetails]="laptopDetails" [softwareDetails]="softwareDetails" [accessoriesDetails]="accessoriesDetails"></app-user-details>
+      </div>
+    </div>
   </div>
-  
 
-  <div class="user-section">
-    <div class="user-list">
-      <app-user-list [showArchiveUsers]="showArchiveUsers" (userDetailsClicked)="onUserDetailsClicked($event)"></app-user-list>
-    </div>
-    <div class="user-data">
-      <!-- Change col-md-8 to col-md-12 -->
-      <app-user-details [userDetails]="selectedUser" [laptopDetails]="laptopDetails" [softwareDetails]="softwareDetails" [accessoriesDetails]="accessoriesDetails"></app-user-details>
-    </div>
-  </div>
 </div>
-
