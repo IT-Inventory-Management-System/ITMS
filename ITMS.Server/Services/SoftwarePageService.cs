@@ -166,7 +166,7 @@ namespace ITMS.Server.Services
                                  {
                                      assignedTo = employee.FirstName + " " + employee.LastName,
                                      assignedToCGI = employee.Cgiid,
-                                     assignedBy = $"{_context.Employees.FirstOrDefault(emp => emp.Id == software.AssignedTo).FirstName} {_context.Employees.FirstOrDefault(emp => emp.Id == software.AssignedTo).LastName}".Trim(),
+                                     assignedBy = $"{_context.Employees.FirstOrDefault(emp => emp.Id == software.AssignedBy).FirstName} {_context.Employees.FirstOrDefault(emp => emp.Id == software.AssignedBy).LastName}".Trim(),
                                      //s.SoftwareAllocations.FirstOrDefault()?.AssignedBy,
                                      assignedDate = software.AssignedDate,
 
