@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DataService } from '../../shared/services/data.service';
 import { AdminDetailService } from '../../shared/services/admin-detail.service';
 import { SelectedCountryService } from '../../shared/services/selected-country.service';
@@ -13,6 +13,8 @@ export class AdminPanelComponent {
   adminList: any[] = [];
   locationId: string = '';
   filterName: string = '';
+  @Output() cardClicked: EventEmitter<any> = new EventEmitter<any>();
+  selected: boolean = false;
   constructor(private dataService: DataService, private adminDetailService: AdminDetailService, private selectedCountryService: SelectedCountryService) { }
 
   ngOnInit(): void {
@@ -22,6 +24,20 @@ export class AdminPanelComponent {
     });
     //this.loadAdminList(); 
 
+  }
+
+  onClick(): void {
+    if (this.selected == false) {
+      this.selected = true;
+      this.cardClicked.emit({
+        CYGID: null,
+      });
+    } else {
+      this.selected = false;
+      this.cardClicked.emit({
+        CYGID: '',
+      });
+    }
   }
 
   getUserLocation() {

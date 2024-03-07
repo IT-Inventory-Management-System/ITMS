@@ -261,8 +261,9 @@ namespace ITMS.Server.Services
                     UpdatedAtUtc= DateTime.UtcNow,
                     UpdatedBy= dto.userid,
                 };
-
+                
                 _context.DevicesLogs.Add(deviceLogEntry);
+                break;
             }
 
             _context.SaveChanges();

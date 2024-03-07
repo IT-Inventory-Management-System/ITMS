@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, SimpleChanges, ViewChild } from '@angular/core';
 import { AdminDetailService } from '../../shared/services/admin-detail.service';
 
 @Component({
@@ -12,6 +12,17 @@ export class ActivityPanelComponent {
   purchseDate: Date | null;
   constructor(private adminDetailService: AdminDetailService) { }
   @ViewChild('filterInput') toInput!: ElementRef<HTMLInputElement>;
+
+  @Input() CYGID: string;
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if ('CYGID' in changes) {
+      if (this.CYGID == null) {
+      this.getAdminLogs(null, this.selectedAdmin.locationId);
+      //alert("chnaged"+ this.CYGID);
+      }
+    }
+  }
 
   toggleInputTypeTo(type: string) {
     const inputElement = document.querySelector('#purchaseDate');

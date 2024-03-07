@@ -131,7 +131,7 @@ public class singleLog
 
 public class adminHistoryParamsDTO
 {
-    public string employeeId { get; set; }
+    public string? employeeId { get; set; }
     public string locationName { get; set; }
 
 

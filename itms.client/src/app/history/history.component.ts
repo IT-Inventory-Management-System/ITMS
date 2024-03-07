@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class HistoryComponent {
 
+  CYGID: string = '';
+
+  onApplyClicked(eventData: any): void {
+    this.CYGID = eventData.CYGID; 
+    console.log(eventData);
+  }
 }

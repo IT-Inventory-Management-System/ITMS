@@ -1,8 +1,24 @@
 <div class="list-panel-container">
-  <div class="list-search-bar">
+  <div class="list-search-bar ">
     <div class="list-search-bar-input">
       <img src="../../../assets/icons/manage-access/search-icon.svg" />
       <input type="text" placeholder="Search Admin" [(ngModel)]="filterName" />
+    </div>
+  </div>
+  <div class="all-activity-log" (click) = "onClick()">
+    <div class="icon-name">
+      <div class="initial">
+        <div class="group">
+          <div class="frame">
+            <img src="../../../assets/icons/Ellipse.svg" />
+
+            <img class="behind" src="../../../assets/icons/Activity_Log_icon.svg" />
+          </div>
+        </div>
+      </div>
+      <div class="activity-log-text">
+        <span class="activity-text">All Activity Logs</span> 
+      </div>
     </div>
   </div>
   <div class="admin-list">
