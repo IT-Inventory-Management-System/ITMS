@@ -64,7 +64,7 @@ export class RevokeAllComponent {
   }
   constructor(private formBuilder: FormBuilder, private toastr: ToastrService, private revokeAllService: EmployeeService, private actionService: EmployeeService, private employeeService: EmployeeService, private cdr: ChangeDetectorRef) {
     this.revokeAllForm = this.formBuilder.group({
-      userid: [null, Validators.required],
+      createdBy: [null, Validators.required],
       archiveUserId: [null, Validators.required],
       Laptop: this.formBuilder.array([]),
       Software: this.formBuilder.array([]),
@@ -157,7 +157,7 @@ export class RevokeAllComponent {
     const formData = this.revokeAllForm.value;
     const storedUser = localStorage.getItem("user");
     if (storedUser !== null)
-      formData.userid = JSON.parse(storedUser).id;
+      formData.createdBy = JSON.parse(storedUser).id;
     if (this.userId)
       formData.archiveUserId = this.userId;
     console.log(formData);

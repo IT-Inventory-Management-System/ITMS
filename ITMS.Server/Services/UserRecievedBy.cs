@@ -144,13 +144,6 @@ namespace ITMS.Server.Services
             try
             {
 
-
-
-                // get devices by userId --- assigned to
-
-                //set assigned to null
-
-                 
                 var deviceLog = await _context.DevicesLogs
                     .Include(dl => dl.CreatedByNavigation)
                     .Include(dl => dl.Device)
@@ -159,7 +152,8 @@ namespace ITMS.Server.Services
 
                 if (deviceLog != null)
                 {
-                    var device = await _context.Devices.FindAsync(deviceLog.DeviceId);
+
+                    var device = await _context.Devices.FindAsync(revokeDevice.DeviceId);
                     if (device != null)
                     {
                         var notAssignedStatusId = await _context.Statuses
@@ -179,65 +173,61 @@ namespace ITMS.Server.Services
 
                     var newDeviceLog = new DevicesLog
                     {
-                        Id = Guid.NewGuid(),
-                        DeviceId = deviceLog.DeviceId,
-                        EmployeeId = deviceLog.EmployeeId,
+                        DeviceId = revokeDevice.DeviceId,
                         AssignedBy = deviceLog.AssignedBy,
-                        RecievedBy = revokeDevice.userId,
                         AssignedDate = deviceLog.AssignedDate,
+                        EmployeeId = revokeDevice.userId,
+                        RecievedBy = revokeDevice.CreatedBy,
                         RecievedDate = DateTime.UtcNow,
-                        AllotedDate = deviceLog.AllotedDate,
-                        CreatedBy = deviceLog.CreatedBy,
+                        CreatedBy = revokeDevice.CreatedBy,
                         CreatedAtUtc = DateTime.UtcNow,
                         UpdatedBy = revokeDevice.userId, 
                         UpdatedAtUtc = DateTime.UtcNow,
                         ActionId = revokeDevice.ActionId,
-                        SoftwareAllocation = deviceLog.SoftwareAllocation,
-                        CreatedByNavigation = deviceLog.CreatedByNavigation,
-                        Device = deviceLog.Device,
-                        Employee = deviceLog.Employee,
-                        UpdatedByNavigation = deviceLog.UpdatedByNavigation,
-                        Comments = deviceLog.Comments
                     };
-                    _context.DevicesLogs.Add(newDeviceLog);
-                    _context.SaveChanges();
+
+                   await _context.DevicesLogs.AddAsync(newDeviceLog);
+                   await _context.SaveChangesAsync();
+
+                Guid lastestLogId = await _context.DevicesLogs.Where(l => l.DeviceId == revokeDevice.DeviceId).OrderByDescending(l => l.CreatedBy).Select(l => l.Id).FirstOrDefaultAsync();
+
                     if(!isSoftware)
                     {
                         UserCommentHistory commentDto = new UserCommentHistory
                         {
                             Description = revokeDevice.DeviceComment,
-                            CreatedBy = revokeDevice.userId,
+                            CreatedBy = revokeDevice.CreatedBy,
                             CreatedAtUtc = DateTime.UtcNow,
-                            DeviceId = deviceLog.DeviceId.HasValue ? deviceLog.DeviceId.Value : Guid.Empty,
-                            DeviceLogId = newDeviceLog.Id,
+                            DeviceId = revokeDevice.DeviceId,
+                            DeviceLogId = lastestLogId,
                         };
                         _commentService.RevokeAllAddComment(commentDto);
                     }
 
                     var actionName = await _context.ActionTables
-                      .Where(a => a.Id == newDeviceLog.ActionId)
+                      .Where(a => a.Id == revokeDevice.ActionId)
                       .Select(a => a.ActionName)
                       .FirstOrDefaultAsync();
 
                     var firstName = await _context.Employees
-                         .Where(e => e.Id == newDeviceLog.RecievedBy)
+                         .Where(e => e.Id == revokeDevice.CreatedBy)
                          .Select(e => e.FirstName)
                          .FirstOrDefaultAsync();
 
                     var lastName = await _context.Employees
-                         .Where(e => e.Id == newDeviceLog.RecievedBy)
+                         .Where(e => e.Id == revokeDevice.CreatedBy)
                          .Select(e => e.LastName)
                          .FirstOrDefaultAsync();
 
                     return new EmployeeDTO
                     {
-                        deviceLogId = newDeviceLog.Id,
+                        deviceLogId = lastestLogId,
                         deviceId = newDeviceLog.DeviceId,
                         softwareAllocationId = newDeviceLog.SoftwareAllocation,
                         FirstName = firstName,
                         LastName = lastName,
-                        RecievedDate = newDeviceLog.RecievedDate,// Include the RecievedDate
-                        ActionName = actionName // Include ActionName
+                        RecievedDate = newDeviceLog.RecievedDate,
+                        ActionName = actionName
 
                     };
                 }
