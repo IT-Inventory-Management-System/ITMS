@@ -153,7 +153,9 @@ public class DeviceLogController : ControllerBase
     [HttpPost("filterEmployeeLog")]
     public List<returnSingleLog> FilterDevicesLogs([FromBody] filterDateadminHistoryParamsDTO filterParams)
     {
-        adminHistoryParamsDTO allDataParams = new adminHistoryParamsDTO() { employeeId= filterParams.employeeId, locationName = filterParams.locationName };
+        var employeeId = filterParams.employeeId != null ? filterParams.employeeId : null;
+        // adminHistoryParamsDTO allDataParams = new adminHistoryParamsDTO() { employeeId= filterParams.employeeId, locationName = filterParams.locationName };
+        adminHistoryParamsDTO allDataParams = new adminHistoryParamsDTO() { employeeId = employeeId, locationName = filterParams.locationName };
         List<returnSingleLog> allData = GetDevicesLogs(allDataParams);
 
         if (filterParams.Date != new DateOnly())

@@ -14,7 +14,8 @@ export class AdminPanelComponent {
   locationId: string = '';
   filterName: string = '';
   @Output() cardClicked: EventEmitter<any> = new EventEmitter<any>();
-  selected: boolean = false;
+  selectedAll: boolean = true;
+  pageSelected: string = 'Activity';
   constructor(private dataService: DataService, private adminDetailService: AdminDetailService, private selectedCountryService: SelectedCountryService) { }
 
   ngOnInit(): void {
@@ -22,18 +23,19 @@ export class AdminPanelComponent {
       localStorage.setItem('selectedCountry', selectedCountry);
       this.getUserLocation();
     });
-    //this.loadAdminList(); 
+    //this.loadAdminList();
+    this.selectedAll = true;
 
   }
 
   onClick(): void {
-    if (this.selected == false) {
-      this.selected = true;
+    if (this.selectedAll == false) {
+      this.selectedAll = true;
       this.cardClicked.emit({
         CYGID: null,
       });
     } else {
-      this.selected = false;
+      this.selectedAll = false;
       this.cardClicked.emit({
         CYGID: '',
       });
@@ -61,9 +63,19 @@ export class AdminPanelComponent {
     this.dataService.getAdminList(this.locationId).subscribe(
       (data) => {
         this.adminList = data;
+        const allLogs = JSON.parse(JSON.stringify(this.adminList[0]));
+        allLogs.id = null;
+        allLogs.firstName = 'All Activity Logs';
+        allLogs.lastName = '';
+        allLogs.cgiid = '';
+        allLogs.role = '';
+        this.adminList.splice(0, 0, allLogs);
+
+
+        //this.adminList.add
         this.adminDetailService.setSelectedAdmin(this.adminList[0]);
         this.adminDetailService.setSelectedCardIndex(0);
-       // console.log(this.adminList);
+        console.log("hello",this.adminList);
       },
       (error) => {
         console.log(error);

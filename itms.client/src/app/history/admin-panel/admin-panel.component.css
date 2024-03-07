@@ -12,6 +12,11 @@
   box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.15);
 }
 
+.selectedWOW {
+  border: 1px solid var(--Primary-Blue, #28519E);
+  background: #E3F3FC;
+}
+
 .list-search-bar {
   display: flex;
   height: 2.5rem;
@@ -122,6 +127,8 @@
   z-index: 0;
 }
 
-.st{
-    border:1px solid black;
+.st {
+  /*border: 1px solid black;*/
+  border: 1px solid var(--Primary-Blue, #28519E);
+  background: #E3F3FC;
 }
