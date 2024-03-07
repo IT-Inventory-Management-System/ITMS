@@ -285,7 +285,7 @@ export class AccessoriesComponent {
         "Device ID": this.accessories[i].cygid,
         "Type": this.accessories[i].isWired ? "Wireless" : "Wired",
         "Brand": this.accessories[i].brand,
-        "Accessories Status": this.accessories[i].isArchived?"Archived":"Active",
+        "Accessories Status": this.accessories[i].status,
        
 
       }
@@ -305,7 +305,7 @@ export class AccessoriesComponent {
     { field: "Device ID", width: 220, resizable: false, suppressMovable: true },
     { field: "Type", width: 220, resizable: false, suppressMovable: true, },
     { field: "Brand", width: 220, resizable: false, suppressMovable: true, },
-    { field: "Accessories Status", width: 222, resizable: false, suppressMovable: true },
+    { field: "Accessories Status", width: 222, resizable: false, suppressMovable: true, cellRenderer: MyCellComponent },
  ];
   filename = 'ExcelSheet.xlsx';
   exporttoexcel() {

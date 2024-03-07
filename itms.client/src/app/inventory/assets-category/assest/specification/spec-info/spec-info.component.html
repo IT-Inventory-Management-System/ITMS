@@ -1,13 +1,13 @@
 <div class="outer-first-container">
   <div class="specc1 ">
     <div class="d-flex">
-      
-        <!-- Content for the left span -->
-        <img  src="../../../../../../assets/icons/Assets/Model.svg"/>
-      
-        <span class="model-count ms-auto">
-          <!--{{ deviceDetails?.modelCount }}-->
-        </span>
+
+      <!-- Content for the left span -->
+      <img src="../../../../../../assets/icons/Assets/Model.svg" />
+
+      <span class="model-count ms-auto">
+        <!--{{ deviceDetails?.modelCount }}-->
+      </span>
     </div>
     <span class="heading">Model</span>
 
@@ -19,18 +19,19 @@
 
 
   </div>
-  <div class="specc1">
-    <div class="d-flex">
-      <img src="../../../../../../assets/icons/Assets/serialnumber.svg" />
 
 
-    </div>
-    <span class="heading">Serial No.</span>
 
-    <span class="value">{{deviceDetails?.serialNumber}}</span>
+</div>
+<div class="specc">
+  <div class="d-flex">
+    <img src="../../../../../../assets/icons/Assets/serialnumber.svg" />
 
 
   </div>
+  <span class="heading">Serial No.</span>
+
+  <span class="value">{{deviceDetails?.serialNumber}}</span>
 
 
 </div>
@@ -43,64 +44,64 @@
   </div>
 
 
-    <span class="heading">Processor</span>
-    <span class="value">{{deviceDetails?.deviceModel?.processor}}</span>
+  <span class="heading">Processor</span>
+  <span class="value">{{deviceDetails?.deviceModel?.processor}}</span>
+
+
+</div>
+
+<div class="outer-first-container">
+  <div class="specc1">
+    <div class="d-flex">
+      <img src="../../../../../../assets/icons/Assets/ram.svg" />
+
+
+    </div>
+
+    <span class="heading">RAM</span>
+    <span class="value">{{deviceDetails?.deviceModel?.ram}}</span>
 
 
   </div>
-
-  <div class="outer-first-container">
-    <div class="specc1">
-      <div class="d-flex">
-        <img src="../../../../../../assets/icons/Assets/ram.svg" />
-
-
-      </div>
-
-      <span class="heading">RAM</span>
-      <span class="value">{{deviceDetails?.deviceModel?.ram}}</span>
-
-
-    </div>
-    <div class="specc1">
-      <div class="d-flex">
-        <img src="../../../../../../assets/icons/Assets/storage.svg" />
-
-      </div>
-
-      <span class="heading">Storage</span>
-      <span class="value">{{deviceDetails?.deviceModel?.storage}}</span>
+  <div class="specc1">
+    <div class="d-flex">
+      <img src="../../../../../../assets/icons/Assets/storage.svg" />
 
     </div>
 
+    <span class="heading">Storage</span>
+    <span class="value">{{deviceDetails?.deviceModel?.storage}}</span>
+
+  </div>
+
+
+
+</div>
+<div class="outer-first-container">
+  <div class="specc1">
+    <div class="d-flex">
+      <img src="../../../../../../assets/icons/Assets/calender.svg" />
+
+    </div>
+
+    <span class="heading">Date of Purchase</span>
+    <span class="value">{{ getFormattedPurchasedDate() }}</span>
 
 
   </div>
-  <div class="outer-first-container">
-    <div class="specc1">
-      <div class="d-flex">
-        <img src="../../../../../../assets/icons/Assets/calender.svg" />
-
-      </div>
-
-      <span class="heading">Date of Purchase</span>
-      <span class="value">{{ getFormattedPurchasedDate() }}</span>
-
+  <div class="specc1">
+    <div class="d-flex">
+      <img src="../../../../../../assets/icons/Assets/calender.svg" />
 
     </div>
-    <div class="specc1">
-      <div class="d-flex">
-        <img src="../../../../../../assets/icons/Assets/calender.svg" />
-
-      </div>
-      <span class="heading">Warranty Year</span>
-      <span class="value">{{deviceDetails?.warrantyRemaining}}</span>
-
-    </div>
-
-
+    <span class="heading">Warranty Year</span>
+    <span class="value">{{deviceDetails?.warrantyRemaining}}</span>
 
   </div>
+
+
+
+</div>
 
 
 
