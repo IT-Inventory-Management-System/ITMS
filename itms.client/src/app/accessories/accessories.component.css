@@ -9,10 +9,12 @@
     outline: none; /* Remove outline when input is focused */
   }
 
-.Accesories-details {
-  @media screen and (min-width: 2560px) {
-    transform: translateX(50%);
-  }
+
+@media screen and (min-width: 1500px) {
+    .Accesories-details {
+      transform: translateX(30%);
+    }
+    
 }
 
 

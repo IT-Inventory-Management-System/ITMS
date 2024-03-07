@@ -24,15 +24,21 @@ export class LaptopAllRevokeComponent {
   SubmitLaterAction: any;
   //newComment: string = '';
   //comments: any;
-  showYesReason: boolean[] = []; 
+  showYesReason: boolean[] = [];
   showNoReason: boolean[] = [];
 
   constructor(private formBuilder: FormBuilder, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
+    const LaptopArray = this.revokeAllForm.get('Laptop') as FormArray;
+
     if (!this.laptopDetails) {
       this.nextBtn.emit(false);
     }
+    if (LaptopArray.length != 0) {
+      this.checkIfSomethingIsMissing();
+    }
+
     console.log(this.revokeAllForm);
   }
 
@@ -51,6 +57,11 @@ export class LaptopAllRevokeComponent {
         this.showNoReason[i] = false;
       }
       this.initializeLaptopFormArray();
+    }
+    const LaptopArray = this.revokeAllForm.get('Laptop') as FormArray;
+
+    if (LaptopArray.length != 0) {
+      this.checkIfSomethingIsMissing();
     }
   }
 
@@ -103,7 +114,7 @@ export class LaptopAllRevokeComponent {
     const laptopFormGroup = laptopArray.at(index) as FormGroup;
     console.log(this.SubmittedAction);
     console.log(this.actionsArray);
-   // console.log("reason is: ", reason);
+    // console.log("reason is: ", reason);
     //const selectedAction = this.actionsArray.find(action => action.actionName === reason);
     //console.log(selectedAction);
     //console.log(this.actionsArray);

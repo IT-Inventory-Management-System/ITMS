@@ -67,3 +67,12 @@
     width:1.5rem;
 }
 */
+
+  .available span {
+    color: #0D542A;
+    font-family: Roboto;
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1.25rem; /* 142.857% */
+  }

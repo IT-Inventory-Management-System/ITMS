@@ -10,8 +10,8 @@
                                 (removeAccessory)="removeAccessory($event)">
     </app-accessories-search-box>
 
-    <div *ngIf="selectedId">
       <app-accessory-brandy-search-box class="sbox"
+                                       *ngIf="selectedId"
                                        [label]="'Brand'"
                                        [placeholder]="'Select Brand'"
                                        [selectedId]="selectedId"
@@ -20,7 +20,7 @@
                                        (AccessoryBrandOptionSelected)=" AccessoryBrandSearchBoxOptionSelected($event,i)"
                                        [assignAssetForm]="assignAssetForm">
       </app-accessory-brandy-search-box>
-      <div class="search-box-subheading type">
+      <div class="search-box-subheading type" *ngIf="selectedId">
         Mouse Type<span style="color:red">*</span>
         <div class="os-input">
           <input type="radio" name="osType" id="windowsRadio" value="true" [(ngModel)]="isWired" (change)="setNewAccessoryId()">
@@ -29,9 +29,8 @@
           <label for="macRadio">Wireless</label>
         </div>
       </div>
-      <div class="search-box-subheading">Device ID<span style="color:red">*</span></div>
-      <input class="custom" disabled placeholder="Device ID" [value]="selectedCygid"/>
-    </div>
+      <div class="search-box-subheading" *ngIf="selectedId">Device ID<span style="color:red">*</span></div>
+      <input class="custom" *ngIf="selectedId" disabled placeholder="Device ID" [value]="selectedCygid"/>
     <app-assign-accessory-comment class="sbox"
                                   [assignAssetForm]="assignAssetForm"
                                   [index]="i">
