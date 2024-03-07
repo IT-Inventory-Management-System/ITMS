@@ -34,7 +34,9 @@ export class AccessoriesComponent {
     Category: ''
   }
     historydata: any;
-    cygid: any;
+  cygid: any;
+  year: any;
+  month: any;
 
   applyAccessoryFilter(event: Event) {
     this.filterValue = (event.target as HTMLInputElement).value;
@@ -45,7 +47,9 @@ export class AccessoriesComponent {
 
   constructor(private dataService: DataService, private selectedCountryService: SelectedCountryService) {
     this.filteredAccessories = this.accessories;
-  
+    const currentDate = new Date();
+     this.year = currentDate.getFullYear();
+    this.month = currentDate.getMonth() + 1;
 
   }
 
