@@ -46,11 +46,6 @@ export class LaptopSearchBoxComponent implements OnInit, OnDestroy {
     this.closeFlagSubscription.unsubscribe();
   }
 
-  //setSaveStateOnDestroy(): void {
-  //  this.selectedOption = null;
-  //  this.assignDataManagementService.setState("cygid", null, this.index);
-  //}
-
   onClearSelection(): void {
     this.selectedOption = null;
     const cygidsArray = this.assignAssetForm.get('cygids') as FormArray;

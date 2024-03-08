@@ -1,20 +1,47 @@
 <div class="Software-Section" *ngFor="let software of softwares; let i = index">
   <div class="form-fields" [class.Software-Section-bottom-margin]="i !== softwares.length - 1">
-    <app-software-search-box class="sbox"
-                             [label]="'Software'"
-                             [placeholder]="'Select Software'"
-                             [SoftwareOptions]="SoftwareOptions"
-                             (SoftwareOptionSelected)="SoftwareSearchBoxOptionSelected($event,i)"
-                             [index]=i
-                             (removeSoftware)="removeSoftware($event)">
-    </app-software-search-box>
-    <app-software-version-search-box class="sbox"
-                                     [label]="'Software Version'"
-                                     [placeholder]="'Select Software Version'"
-                                     [SoftwareVersionOptions]="softwareVersionsOptions[i]"
-                                     (SoftwareVersionOptionSelected)=" SoftwareVersionSearchBoxOptionSelected($event,i)"
-                                     [assignAssetForm]="assignAssetForm">
-    </app-software-version-search-box>
+    <!--<app-software-search-box class="sbox"
+                           [label]="'Software'"
+                           [placeholder]="'Select Software'"
+                           [SoftwareOptions]="SoftwareOptions"
+                           (SoftwareOptionSelected)="SoftwareSearchBoxOptionSelected($event,i)"
+                           [index]=i
+                           (removeSoftware)="removeSoftware($event)">
+  </app-software-search-box>-->
+    <!--<div class="search-box-subheading">
+    {{ label }} <span style="color:red">*</span>
+    <button *ngIf="index > 0" type="button" class="close-button" aria-label="Close" (click)="emitRemoveSoftware()">
+      <img src="../../../../assets/icons/Close.svg" width="19" />
+    </button>
+  </div>
+  <ng-select class="custom search-box"
+             [placeholder]="placeholder"
+             [(ngModel)]="selectedOption"
+             (change)="onSelectOption($event)"
+             (clear)="onClearSelection()">
+    <ng-option class="list-items" *ngFor="let SoftwareName of uniqueSoftwareNames" [value]="SoftwareName">
+      {{SoftwareName }}
+    </ng-option>
+  </ng-select>-->
+    <!--<app-software-version-search-box class="sbox"
+                                   [label]="'Software Version'"
+                                   [placeholder]="'Select Software Version'"
+                                   [SoftwareVersionOptions]="softwareVersionsOptions[i]"
+                                   (SoftwareVersionOptionSelected)=" SoftwareVersionSearchBoxOptionSelected($event,i)"
+                                   [assignAssetForm]="assignAssetForm">
+  </app-software-version-search-box>-->
+    <!--<div class="search-box-subheading">{{ label }} <span style="color:red">*</span></div>
+    <ng-select class=" custom search-box"
+               [placeholder]="placeholder"
+               [(ngModel)]="selectedOption"
+               (change)="onSelectOption($event)"
+               (clear)="onClearSelection()">
+      <ng-option class="list-items" *ngFor="let option of SoftwareVersionOptions" [value]="option">
+        {{ option }}
+      </ng-option>
+    </ng-select>-->
+
+
     <div *ngIf="selectedSoftwareVersions[i]==1 && selectedSoftwareNames[i]" class="alert-box">
       <div class="alert-image-frame">
         <img id="alert-image" src="../../../../assets/icons/Vector.svg" />
@@ -41,10 +68,15 @@
         </div>
       </div>
     </div>
-    <app-assign-software-comment class="sbox"
-                               [assignAssetForm]="assignAssetForm"
-                               [index]="i">
-    </app-assign-software-comment>
+    <div class="comment-subheading">Comment</div>
+    <input class="comment-input-box"
+           required
+           placeholder="Add Comment"
+           aria-label="Comment"
+           [value]="!commentText[i]? '': commentText[i]"
+           (change)="onInputChangeCommentBox($event,i)"
+           style="resize: none">
+
   </div>
   <div class="Add-new" *ngIf="i === softwares.length - 1" (click)="addNewSoftware()">
     <img class="add-img" src="../../../../assets/icons/Add.svg" />

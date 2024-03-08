@@ -27,6 +27,7 @@ export class AssignSoftwareComponent {
   softwareExpiryDate: any[] = [];
   softwares: any[] = [{}];
   closeFlagSubscription: any;
+  commentText: any[] = [];
 
 
   constructor(private assignDataManagementService: AssignDataManagementService,
@@ -39,6 +40,7 @@ export class AssignSoftwareComponent {
         this.selectedSoftwareVersions = [];
         this.softwareExpiryDate =[];
         this.SelectedSoftwaresData = [];
+        this.commentText = [];
       }
     });
   }
@@ -53,6 +55,17 @@ export class AssignSoftwareComponent {
     this.selectedSoftwareNames = this.assignDataManagementService.getMultipleInstanceState('softwareNames') || [];
     this.selectedSoftwareVersions = this.assignDataManagementService.getMultipleInstanceState('softwareVersions') || [];
     this.softwareExpiryDate = this.assignDataManagementService.getMultipleInstanceState('softwareExpiryDate') || [];
+    const softwareCommentsArray = this.assignAssetForm.get('softwareComments') as FormArray;
+
+    if (softwareCommentsArray) {
+      softwareCommentsArray.controls.forEach((control, index) => {
+        const commentControl = control.get('softwareComment');
+        if (commentControl)
+          this.commentText[index] = commentControl.value;
+      });
+    } else {
+      this.commentText = [];
+    }
   }
 
   ngOnDestroy(): void {
@@ -151,5 +164,151 @@ export class AssignSoftwareComponent {
     this.softwareExpiryDate.splice(index, 1);
     this.SelectedSoftwaresData.splice(index, 1);
     this.softwareIdInputChangeFlag();
+  }
+  /****  SEARCH BOX ******* */
+//  import { Component, Input, Output, EventEmitter, ElementRef, HostListener } from '@angular/core';
+//import { AssignDataManagementService } from '../../shared/services/assign-data-management.service';
+//import { Subscription } from 'rxjs';
+//import { CloseFlagService } from '../../shared/services/close-flag.service';
+
+//@Component({
+//  selector: 'app-software-search-box',
+//  templateUrl: './software-search-box.component.html',
+//  styleUrls: ['./software-search-box.component.css']
+//})
+//export class SoftwareSearchBoxComponent {
+//  @Input() label: string;
+//  @Input() placeholder: string;
+//  @Input() SoftwareOptions: any[] = [];
+//  @Input() index: number;
+//  @Output() SoftwareOptionSelected: EventEmitter<any> = new EventEmitter();
+//  @Output() removeSoftware = new EventEmitter<number>();
+//  uniqueSoftwareNames: any[] = [];
+//  selectedOption: any;
+//  private closeFlagSubscription: Subscription;
+
+//  constructor(private assignDataManagementService: AssignDataManagementService,
+//    private closeFlagService: CloseFlagService
+//  ) { }
+
+//  ngOnInit(): void {
+//    this.closeFlagService.setCloseFlagToFalse();
+//    this.selectedOption = this.assignDataManagementService.getState("softwareNames", this.index);
+//    this.SoftwareOptionSelected.emit(this.selectedOption);
+//    this.UniqueOptions();
+//  }
+
+//  ngOnDestroy(): void {
+//    this.closeFlagSubscription = this.closeFlagService.closeFlag$.subscribe((closeFlag) => {
+//      if (!closeFlag) {
+//        this.assignDataManagementService.setState("softwareNames", this.selectedOption, this.index);
+//      }
+//    });
+//    this.closeFlagSubscription.unsubscribe();
+//  }
+
+//  onClearSelection(): void {
+//    this.selectedOption = null;
+//  }
+
+//  UniqueOptions(): void {
+//    const uniqueNamesSet = new Set<string>(this.SoftwareOptions.map(option => option.softwareName));
+//    this.uniqueSoftwareNames = Array.from(uniqueNamesSet);
+//  }
+
+//  onSelectOption(option: any): void {
+//    console.log(option);
+//    this.SoftwareOptionSelected.emit(option);
+//  }
+
+
+//  emitRemoveSoftware(): void {
+//    this.removeSoftware.emit(this.index);
+//  }
+//}
+
+
+  /****  VERSION-SEARCH BOX ******* */
+//import { Component, Input, Output, EventEmitter, ElementRef, HostListener } from '@angular/core';
+//import { FormGroup, FormArray, FormBuilder } from '@angular/forms';
+//import { AssignDataManagementService } from '../../shared/services/assign-data-management.service';
+//import { Subscription } from 'rxjs';
+//import { CloseFlagService } from '../../shared/services/close-flag.service';
+
+//@Component({
+//  selector: 'app-software-version-search-box',
+//  templateUrl: './software-version-search-box.component.html',
+//  styleUrls: ['./software-version-search-box.component.css']
+//})
+//export class SoftwareVersionSearchBoxComponent {
+//  @Input() label: string;
+//  @Input() placeholder: string;
+//  @Input() SoftwareVersionOptions: string[] = [];
+//  @Input() assignAssetForm: FormGroup;
+//  @Input() index: number;
+//  @Output() SoftwareVersionOptionSelected: EventEmitter<any> = new EventEmitter();
+
+//  selectedOption: any;
+//  private closeFlagSubscription: Subscription;
+
+//  constructor(private assignDataManagementService: AssignDataManagementService,
+//    private formBuilder: FormBuilder,
+//    private closeFlagService: CloseFlagService
+//  ) { }
+
+//  onSelectOption(option: any): void {
+//    console.log(this.SoftwareVersionOptions);
+//    this.SoftwareVersionOptionSelected.emit(option);
+//  }
+//  onClearSelection(): void {
+//    this.selectedOption = null;
+//    const softwareIdsArray = this.assignAssetForm.get('softwareIds') as FormArray;
+//    const index = softwareIdsArray.controls.findIndex(control => control.value.index === this.index);
+//    if (index !== -1) {
+//      softwareIdsArray.removeAt(index);
+//      this.selectedOption = null;
+//    }
+//    const data = { option: null, index: this.index };
+//    this.SoftwareVersionOptionSelected.emit(data);
+//  }
+
+//  ngOnInit(): void {
+//    this.closeFlagService.setCloseFlagToFalse();
+//    this.selectedOption = this.assignDataManagementService.getState("softwareVersions", this.index);
+//    if (this.selectedOption)
+//      this.SoftwareVersionOptionSelected.emit(this.selectedOption);
+//  }
+//  ngOnDestroy(): void {
+//    this.closeFlagSubscription = this.closeFlagService.closeFlag$.subscribe((closeFlag) => {
+//      if (!closeFlag) {
+//        this.assignDataManagementService.setState("softwareVersions", this.selectedOption, this.index);
+//      }
+//    });
+//    this.closeFlagSubscription.unsubscribe();
+//  }
+//}
+
+
+
+
+  /******COMMENT******/
+  onInputChangeCommentBox(event: any, index: any): void {
+    this.commentText[index] = event.target.value;
+    const softwareCommentsArray = this.assignAssetForm.get('softwareComments') as FormArray;
+
+    if (softwareCommentsArray) {
+      const controlIndex = softwareCommentsArray.controls.findIndex(control => control.get('index')?.value === index);
+      if (controlIndex !== -1) {
+        softwareCommentsArray.controls[controlIndex].get('softwareComments')?.setValue(event.target.value);
+      } else {
+        softwareCommentsArray.push(this.formBuilder.group({
+          index: index,
+          softwareComment: event.target.value
+        }));
+        console.log(softwareCommentsArray);
+      }
+    } else {
+      console.error('FormArray "softwareComments" is null.');
+    }
   }
 }

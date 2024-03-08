@@ -72,6 +72,9 @@ export class AssignDataManagementService {
           this.laptopCommentsState[index] = newState;
         }
         break;
+      //case 'AllLaptopComments':
+      //  this.laptopCommentsState = newState;
+      //  break;
       case 'softwareNames':
         if (index !== undefined && index >= 0) {
           this.ensureArraySize('softwareNames', index);
@@ -148,6 +151,8 @@ export class AssignDataManagementService {
           return this.laptopCommentsState[index];
         }
         return null;
+      //case 'AllLaptopComments':
+      //  return this.laptopCommentsState;
       case 'softwareNames':
         if (index !== undefined && index >= 0 && index < this.selectedSoftwareNamesState.length) {
           return this.selectedSoftwareNamesState[index];
