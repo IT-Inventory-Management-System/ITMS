@@ -51,7 +51,7 @@ namespace ITMS.Server.Services
             {
                 Description = commentDto.Description,
                 CreatedBy = commentDto.CreatedBy,
-                CreatedAtUtc = DateTime.Now,
+                CreatedAtUtc = DateTime.UtcNow         ,
                 DeviceId = commentDto.DeviceId,
                 DeviceLogId = commentDto.DeviceLogId
             };
@@ -95,7 +95,7 @@ namespace ITMS.Server.Services
             {
                 Description = commentDto.Description,
                 CreatedBy = commentDto.CreatedBy,
-                CreatedAtUtc = DateTime.Now,
+                CreatedAtUtc = DateTime.UtcNow,
                 DeviceId = commentDto.DeviceId,
                 //
                 DeviceLogId= commentDto.DeviceLogId,
@@ -132,7 +132,7 @@ namespace ITMS.Server.Services
                 CreatedBy = commentDto.CreatedBy,
                 CreatedAtUtc = DateTime.UtcNow,
                 SoftwareAllocationId = commentDto.SoftwareAllocationId,
-                DeviceLogId = commentDto.DeviceLogId
+                DeviceLogId = commentDto.DeviceLogId,
             };
 
 

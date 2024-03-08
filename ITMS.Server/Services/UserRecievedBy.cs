@@ -203,12 +203,13 @@ namespace ITMS.Server.Services
                         UpdatedBy = revokeDevice.userId, 
                         UpdatedAtUtc = DateTime.UtcNow,
                         ActionId = revokeDevice.ActionId,
+                        SoftwareAllocation = revokeDevice.SoftwareAllocation,
                     };
 
                    await _context.DevicesLogs.AddAsync(newDeviceLog);
                    await _context.SaveChangesAsync();
 
-                Guid lastestLogId = await _context.DevicesLogs.Where(l => l.DeviceId == revokeDevice.DeviceId).OrderByDescending(l => l.CreatedBy).Select(l => l.Id).FirstOrDefaultAsync();
+                Guid lastestLogId = await _context.DevicesLogs.Where(l => l.DeviceId == revokeDevice.DeviceId).OrderByDescending(l => l.CreatedAtUtc).Select(l => l.Id).FirstOrDefaultAsync();
 
                     if(!isSoftware)
                     {
@@ -217,7 +218,7 @@ namespace ITMS.Server.Services
                             Description = revokeDevice.DeviceComment,
                             CreatedBy = revokeDevice.CreatedBy,
                             CreatedAtUtc = DateTime.UtcNow,
-                            DeviceId = revokeDevice.DeviceId,
+                            DeviceId = revokeDevice.DeviceId.HasValue ? revokeDevice.DeviceId.Value : Guid.Empty,
                             DeviceLogId = lastestLogId,
                         };
                         _commentService.RevokeAllAddComment(commentDto);

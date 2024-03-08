@@ -42,7 +42,7 @@ export class SoftwareAllRevokeComponent {
       deviceLogId: [software.deviceLogId],
       softwareAllocationId: [software.softwareAllocationId],
       actionId: this.SubmittedAction.id,
-      deviceId: [software.softwareAllocationId]
+    //  deviceId: [software.softwareAllocationId]
     });
   }
 }

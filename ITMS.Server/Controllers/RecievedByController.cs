@@ -54,7 +54,7 @@ namespace ITMS.Server.Controllers
                         DeviceComment = laptop.DeviceComment,
                         CreatedBy = receivedByDTO.CreatedBy,
                         DeviceId = laptop.DeviceId,
-                        userId = receivedByDTO.archiveUserId
+                        userId = receivedByDTO.archiveUserId,
                     };
                     var taskResult = await _UserRecievedBy.RevokeAll(false, revokeAllServiceDTO);
 
@@ -77,7 +77,10 @@ namespace ITMS.Server.Controllers
                     {
                         DeviceLogId = software.DeviceLogId,
                         ActionId = software.ActionId,
-                        userId = receivedByDTO.CreatedBy
+                        CreatedBy = receivedByDTO.CreatedBy,
+                        userId = receivedByDTO.CreatedBy,
+                        SoftwareAllocation= software.SoftwareAllocationId,
+                        DeviceId = null,
                         //add deviceId,
                     };
                     var taskResult = await _UserRecievedBy.RevokeAll(true, revokeAllServiceDTO);
