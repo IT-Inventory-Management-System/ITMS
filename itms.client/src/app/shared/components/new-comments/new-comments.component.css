@@ -11,8 +11,8 @@
   background: #FFF;
   margin-left: 47rem;
   display: none;
-  overflow-y:scroll;
-  margin-top:4rem;
+  margin-top: 4rem;
+  overflow-y: hidden;
 }
 
 .header {
@@ -74,7 +74,6 @@
   align-self: stretch;
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
-  overflow-y: scroll;
 }
 
 .date-body {
@@ -150,3 +149,20 @@
 }
 
 
+.st{
+    border: 1px solid black;
+}
+
+.comments-outer-div {
+  height: 27.6125rem;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+}
+
+.spinner-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
