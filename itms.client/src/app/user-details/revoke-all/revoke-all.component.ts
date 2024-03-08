@@ -51,6 +51,7 @@ export class RevokeAllComponent {
       (this.currentStep === 3 && this.variable3);
     this.cdr.detectChanges();
 
+
   }
 
   // Filter the details in ngOnChanges lifecycle hook
