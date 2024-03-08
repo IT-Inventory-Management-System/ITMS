@@ -169,4 +169,11 @@ namespace ITMS.Server.DTO
         public string? Description { get; set; }
         public bool IsUnassignable { get; set; }
     }
+    public class DeviceModelInputDto
+    {
+        public Guid CategoryId { get; set; }
+        public string? Brand { get; set; }
+        public Guid CreatedBy { get; set; }
+        public Guid? UpdatedBy { get;set; }
+    }
 }
