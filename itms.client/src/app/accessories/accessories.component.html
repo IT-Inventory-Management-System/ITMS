@@ -64,14 +64,16 @@
             </div>
           </div>
         </div>
-
-        <div *ngFor="let accessory of filteredAccessories ? filteredAccessories : accessories; let i = index">
-          <app-accesoriesname [accessories]="accessory" [isSelected]="selectedAccessoryIndex === i" (cardClicked)="onCardClicked($event, i)"></app-accesoriesname>
+        <div *ngIf="loading; else content" class="spinner-loading">
+          <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
         </div>
-
-
-
-
+        <ng-template #content>
+          <div *ngFor="let accessory of filteredAccessories ? filteredAccessories : accessories; let i = index">
+            <app-accesoriesname [accessories]="accessory" [isSelected]="selectedAccessoryIndex === i" (cardClicked)="onCardClicked($event, i)"></app-accesoriesname>
+          </div>
+        </ng-template>  
 
       </div>
     </div>

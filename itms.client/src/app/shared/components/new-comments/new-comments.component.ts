@@ -14,6 +14,8 @@ export class NewCommentsComponent {
   deviceForm: FormGroup;
   commentsData: any[] = [];
   @Input() accessoryId: any;
+  loading: boolean = true;
+
  
   constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService) {
 
@@ -109,6 +111,7 @@ export class NewCommentsComponent {
         this.commentsData = data;
         //console.log("comments : ", this.commentsData);
         this.changeDateFormat();
+        this.loading = false;
       },
       error => {
         console.error('Error fetching comments: ', error);
@@ -139,6 +142,8 @@ export class NewCommentsComponent {
         this.commentsData = data;
         console.log("Accessory comments : ", this.commentsData);
         this.changeDateFormat();
+        this.loading = false;
+
       },
       error => {
         console.error('Error fetching comments: ', error);

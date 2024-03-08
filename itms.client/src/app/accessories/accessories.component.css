@@ -793,3 +793,7 @@
   padding: 0rem;
   height: 2rem;
 }
+
+.spinner-loading {
+  margin-left: 8rem;
+}

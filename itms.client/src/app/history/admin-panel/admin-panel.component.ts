@@ -44,7 +44,10 @@ export class AdminPanelComponent {
   loadAdminList() {
     this.dataService.getAdminList(this.locationId).subscribe(
       (data) => {
-        this.adminList = data;
+        const superAdmins = data.filter(admin => admin.role === 'Superadmin');
+        const admins = data.filter(admin => admin.role === 'Admin');
+        this.adminList = superAdmins.concat(admins);
+        //this.adminList = data;
         this.adminDetailService.setSelectedAdmin(this.adminList[0]);
         this.adminDetailService.setSelectedCardIndex(0);
        // console.log(this.adminList);

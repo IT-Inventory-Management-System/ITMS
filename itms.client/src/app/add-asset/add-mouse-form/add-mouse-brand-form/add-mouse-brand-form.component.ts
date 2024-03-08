@@ -130,14 +130,15 @@ export class AddMouseBrandFormComponent {
   updateBrand(event: any) {
     this.loadMouseBrand();
      
-      this.showErrorMessage = false;
+    this.showErrorMessage = false;
 
+    const inputValue = event.target.value.toLowerCase();
     
     for (var i = 0; i < this.dropdownValues.length; i++) {
-      if (this.dropdownValues[i].brand === event.target.value) {
+      if (this.dropdownValues[i].brand.toLowerCase() === inputValue) {
         this.showErrorMessage = true;
         this.errorMessage = 'Brand already exists.';
-
+        break; 
       }
      
 
