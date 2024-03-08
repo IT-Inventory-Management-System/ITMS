@@ -102,7 +102,9 @@ namespace ITMS.Server.Controllers
                         DeviceLogId = accessory.DeviceLogId,
                         ActionId = accessory.ActionId,
                         DeviceComment = accessory.DeviceComment,
-                        userId = receivedByDTO.CreatedBy,
+                        CreatedBy = receivedByDTO.CreatedBy,
+                        DeviceId = accessory.DeviceId,
+                        userId = receivedByDTO.archiveUserId                       
                     };
                     var taskResult = await _UserRecievedBy.RevokeAll(false, revokeAllServiceDTO);
 
