@@ -1,33 +1,42 @@
-﻿//// Controllers/UserController.cs
-//using ITMS.Server.Services;
-//using Microsoft.AspNetCore.Mvc;
-//using ITMS.Server.DTO;
+﻿using ITMS.Server.DTO;
+using ITMS.Server.Models;
+using ITMS.Server.Services;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
-//[ApiController]
-//[Route("[controller]")]
-//public class LoginController : ControllerBase
-//{
-//    private readonly LoginService _loginService;
+namespace ITMS.Server.Controllers
+{
+    [Route("api/Login")]
+    [ApiController]
+    public class LoginController : ControllerBase
+    {
+        private readonly LoginService _loginService;
 
-//    public LoginController(LoginService loginService)
-//    {
-//        _loginService = loginService;
-//    }
+        public LoginController(LoginService LoginService)
+        {
+            _loginService = LoginService;
+        }
 
-//    [HttpPost("login")]
-//    public IActionResult Login([FromBody] ITMS.Server.Models.LoginRequestDto loginRequest)
-//    {
-//        // Call the service for login logic
-//        var loginResponse = _loginService.ValidateLogin(loginRequest);
 
-//        // Handle the response and return appropriate result
-//        if (loginResponse.Success)
-//        {
-//            return Ok("Login successful");
-//        }
-//        else
-//        {
-//            return BadRequest($"Login failed. {loginResponse.Message}");
-//        }
-//    }
-//}
+        [HttpPost("authenticate")]
+        public IActionResult Authenticate([FromBody] UserLoginDto userObj)
+        {
+            var result = _loginService.Authenticate(userObj);
+            if (result == null)
+                return BadRequest();
+
+            if (result != null)
+                return null;
+
+            return Ok(result);
+        }
+
+
+
+
+
+
+    }
+    }

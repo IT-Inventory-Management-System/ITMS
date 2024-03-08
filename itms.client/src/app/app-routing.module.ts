@@ -12,6 +12,7 @@ import { DevicesComponent } from './inventory/assets-category/assest/devices/dev
 import { SoftwareComponent } from './software/software.component';
 import { AccessoriesComponent } from './accessories/accessories.component';
 import { ManageAccessComponent } from './manage-access/manage-access.component';
+import { LoginComponent } from './login/login.component';
 
 
 const routes: Routes = [
@@ -28,6 +29,7 @@ const routes: Routes = [
   { path: 'add-asset', component: AddAssetComponent },
   { path: 'assign-asset', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'api/Device/:cygId', component: InventoryComponent },
+  { path: 'Login', component: LoginComponent }
   
 ];
 
