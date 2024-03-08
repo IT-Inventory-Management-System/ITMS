@@ -19,7 +19,9 @@
             <span class="last-update ">
               Last Updated:
               <span class="Time" *ngIf="logsData.length!=0">
-                {{ selectedLocation === 'India' ? (indTime | date: 'MM-dd-yyyy, h:mm a') : (usaTime | date: 'MM-dd-yyyy, h:mm a') }}
+                {{dashBoardTime()}}
+                <!--{{ selectedLocation === 'India' ? (indTime | date: 'MM-dd-yyyy')+", "+ localizeDateStr(indTime) :(indTime | date: 'MM-dd-yyyy')+", "+ localizeDateStr(usaTime) }}-->
+                <!--{{ selectedLocation === 'India' ? (indTime | date: 'MM-dd-yyyy, h:mm a') : (usaTime | date: 'MM-dd-yyyy, h:mm a') }}-->
               </span>
               <span class="Time" *ngIf="logsData.length==0">00-00-0000, 00:00 AM</span>
             </span>
@@ -189,7 +191,7 @@
                       <hr class="h-line">
 
                     </div>
-                    <app-recent-activity class="p-0"   [logsData]="logs" ></app-recent-activity>
+                    <app-recent-activity class="p-0" [selectedLocation]="selectedLocation"  [logsData]="logs" ></app-recent-activity>
 
 
                   </div>

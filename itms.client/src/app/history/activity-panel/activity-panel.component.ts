@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, SimpleChanges, ViewChild } from '@angular/core';
 import { AdminDetailService } from '../../shared/services/admin-detail.service';
 
 @Component({
@@ -12,6 +12,25 @@ export class ActivityPanelComponent {
   purchseDate: Date | null;
   constructor(private adminDetailService: AdminDetailService) { }
   @ViewChild('filterInput') toInput!: ElementRef<HTMLInputElement>;
+
+  @Input() CYGID: string;
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if ('CYGID' in changes) {
+      if (this.CYGID == null) {
+      this.getAdminLogs(null, this.selectedAdmin.locationId);
+      //alert("chnaged"+ this.CYGID);
+      }
+    }
+  }
+
+  localizeDateStr(date_to_convert_str: string): string {
+    const date_to_convert = new Date(date_to_convert_str);
+    const local_offset = date_to_convert.getTimezoneOffset() * 60 * 1000;
+    const local_time = date_to_convert.getTime() - local_offset;
+    const local_date = new Date(local_time);
+    return local_date.toString();
+  }
 
   toggleInputTypeTo(type: string) {
     const inputElement = document.querySelector('#purchaseDate');
@@ -54,6 +73,7 @@ export class ActivityPanelComponent {
       }
     );
   }
+
 
 
   getAdminLogs(employeeId : any, locationId : any ) {

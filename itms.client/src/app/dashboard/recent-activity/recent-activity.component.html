@@ -5,7 +5,7 @@
     <ngx-avatars name={{logsData.updatedBy}} [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="33"></ngx-avatars>
     <p class=" avatar-name">{{logsData.updatedBy}}</p>
     <p class=" Time">
-      {{ logsData.updatedOn | date: 'h:mm a' }}
+      {{ localizeDateStr(logsData.updatedOn) | date: 'h:mm a' }}
     </p>
   </div>
   <div class="Device-text">

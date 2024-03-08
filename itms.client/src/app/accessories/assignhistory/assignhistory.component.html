@@ -1,26 +1,3 @@
-<!--<div class="assign-history-card">
-  <div class="username-cgiid">
-    <div class="username-avatar">
-      <ngx-avatars name={{historydata.empName}} [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="33"></ngx-avatars>
-
-    </div>
-    <div class="name-cgiid">
-      <span class="username">{{historydata.empName}}</span>
-      <span class="cgiid">{{historydata.cygid}}</span>
-
-    </div>
-  </div>
-  <div class="assigned-name">
-    <div class="assignedby">
-      <span class="assignedby-text">Assigned By</span>
-      <span class="name-date">
-        {{historydata.assignedBy}} <br />
-        <p>{{ historydata.assignedDate | date: 'dd-MM-yyyy' }}</p>
-      </span>
-    </div>
-  </div>
-</div>-->
-
 
 <div>
 
@@ -66,10 +43,17 @@
       <div class="info inforight ">
         <span>Recieved By</span>
         <div class="info-text ">
-          <span class="inforight">
-            {{historydata.recievedBy}}
+          <!--<span class="inforight">
+    {{historydata.recievedBy}}
 
+  </span>-->
+          <span class="inforight" *ngIf="historydata.recievedBy !== null">
+            {{ historydata.recievedBy }}
           </span>
+          <span class="inforight" *ngIf="historydata.recievedBy === null">
+            --
+          </span>
+
           <div>
             {{ historydata.recievedDate | date: 'dd-MM-yyyy' }}
           </div>

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DataService } from '../../shared/services/data.service';
 import { AdminDetailService } from '../../shared/services/admin-detail.service';
 import { SelectedCountryService } from '../../shared/services/selected-country.service';
@@ -13,6 +13,10 @@ export class AdminPanelComponent {
   adminList: any[] = [];
   locationId: string = '';
   filterName: string = '';
+  @Output() cardClicked: EventEmitter<any> = new EventEmitter<any>();
+  selectedAll: boolean = true;
+  pageSelected: string = 'Activity';
+  loading: boolean = true;
   constructor(private dataService: DataService, private adminDetailService: AdminDetailService, private selectedCountryService: SelectedCountryService) { }
 
   ngOnInit(): void {
@@ -20,8 +24,23 @@ export class AdminPanelComponent {
       localStorage.setItem('selectedCountry', selectedCountry);
       this.getUserLocation();
     });
-    //this.loadAdminList(); 
+    //this.loadAdminList();
+    this.selectedAll = true;
 
+  }
+
+  onClick(): void {
+    if (this.selectedAll == false) {
+      this.selectedAll = true;
+      this.cardClicked.emit({
+        CYGID: null,
+      });
+    } else {
+      this.selectedAll = false;
+      this.cardClicked.emit({
+        CYGID: '',
+      });
+    }
   }
 
   getUserLocation() {
@@ -48,9 +67,21 @@ export class AdminPanelComponent {
         const admins = data.filter(admin => admin.role === 'Admin');
         this.adminList = superAdmins.concat(admins);
         //this.adminList = data;
+       // this.adminList = data;
+        const allLogs = JSON.parse(JSON.stringify(this.adminList[0]));
+        allLogs.id = null;
+        allLogs.firstName = 'All Activity Logs';
+        allLogs.lastName = '';
+        allLogs.cgiid = '';
+        allLogs.role = '';
+        this.adminList.splice(0, 0, allLogs);
+
+
+        //this.adminList.add
         this.adminDetailService.setSelectedAdmin(this.adminList[0]);
         this.adminDetailService.setSelectedCardIndex(0);
-       // console.log(this.adminList);
+        console.log("hello", this.adminList);
+        this.loading = false;
       },
       (error) => {
         console.log(error);

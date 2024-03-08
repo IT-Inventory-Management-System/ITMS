@@ -34,7 +34,9 @@ export class AccessoriesComponent {
     Category: ''
   }
     historydata: any;
-    cygid: any;
+  cygid: any;
+  year: any;
+  month: any;
   loading: boolean = true;
 
   applyAccessoryFilter(event: Event) {
@@ -46,7 +48,9 @@ export class AccessoriesComponent {
 
   constructor(private dataService: DataService, private selectedCountryService: SelectedCountryService) {
     this.filteredAccessories = this.accessories;
-  
+    const currentDate = new Date();
+     this.year = currentDate.getFullYear();
+    this.month = currentDate.getMonth() + 1;
 
   }
 
@@ -286,7 +290,7 @@ export class AccessoriesComponent {
         "Device ID": this.accessories[i].cygid,
         "Type": this.accessories[i].isWired ? "Wireless" : "Wired",
         "Brand": this.accessories[i].brand,
-        "Accessories Status": this.accessories[i].isArchived?"Archived":"Active",
+        "Accessories Status": this.accessories[i].status,
        
 
       }
@@ -306,7 +310,7 @@ export class AccessoriesComponent {
     { field: "Device ID", width: 220, resizable: false, suppressMovable: true },
     { field: "Type", width: 220, resizable: false, suppressMovable: true, },
     { field: "Brand", width: 220, resizable: false, suppressMovable: true, },
-    { field: "Accessories Status", width: 222, resizable: false, suppressMovable: true },
+    { field: "Accessories Status", width: 222, resizable: false, suppressMovable: true, cellRenderer: MyCellComponent },
  ];
   filename = 'ExcelSheet.xlsx';
   exporttoexcel() {

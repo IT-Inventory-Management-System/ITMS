@@ -13,6 +13,54 @@
   box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.15);
 }
 
+.icon-name {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.initial {
+  display: flex;
+  align-items: center;
+  gap: 0.44444rem;
+}
+
+.all-activity-log-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+}
+
+.activity-text {
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.group {
+  width: 2rem;
+  height: 2rem;
+  position: relative;
+}
+
+.frame {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  position: relative;
+  z-index: 1;
+}
+
+.behind {
+  position: absolute;
+  left: 0.38rem;
+  z-index: 0;
+}
+
 .permissions-panel-header {
   display: flex;
   justify-content: space-between;

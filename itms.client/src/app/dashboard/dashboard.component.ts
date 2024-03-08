@@ -86,7 +86,20 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/history']);
 
   }
-  
+  dashBoardTime(): string {
+  const currentDate = new Date();
+  const year = currentDate.getFullYear();
+  const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+  const day = String(currentDate.getDate()).padStart(2, '0');
+  let hours = String(currentDate.getHours()).padStart(2, '0');
+  const minutes = String(currentDate.getMinutes()).padStart(2, '0');
+
+  const period = parseInt(hours) >= 12 ? 'PM' : 'AM';
+  hours = (parseInt(hours) % 12 || 12).toString();
+
+  const formattedDateTime = `${day}-${month}-${year}, ${hours}:${minutes} ${period}`;
+  return formattedDateTime;
+}
 
   applyAccessoryFilter(event: Event) {
     this.filterValue = (event.target as HTMLInputElement).value;
@@ -480,18 +493,47 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         console.error('Error fetching accessories data', error);
       }
     );
-   
-
     
   }
+  localizeDateStr(date_to_convert_str: string): string {
+  const date_to_convert = new Date(date_to_convert_str);
+  const timezoneOffset = new Date().getTimezoneOffset() * 60 * 1000; // in milliseconds
+  const localTime = date_to_convert.getTime() + timezoneOffset;
+  const local_date = new Date(localTime);
+  return local_date.toString();
+}
+
+  //localizeDateStr(date_to_convert_str: string): string {
+  //  var date_to_convert = new Date(date_to_convert_str);
+  //  var local_date = new Date();
+  //  date_to_convert.setHours(date_to_convert.getHours() + local_date.getTimezoneOffset());
+  //  return date_to_convert.toString();
+  //}
+  //localizeDateStr(date_to_convert_str: string): string {
+  //  const date_to_convert = new Date(date_to_convert_str);
+  //  const local_date = new Date();
+  //  if (this.selectedLocation === 'India') {
+  //    const timezoneOffset = 5.5 * 60;
+  //    date_to_convert.setMinutes(date_to_convert.getMinutes() + timezoneOffset);
+  //    return date_to_convert.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', hour12: true, hour: '2-digit', minute: '2-digit' });
+  //  } else if (this.selectedLocation === 'USA') {
+  //    const timezoneOffset = -6 * 60; 
+  //    date_to_convert.setMinutes(date_to_convert.getMinutes() + timezoneOffset);
+  //    return date_to_convert.toLocaleString('en-US', { timeZone: 'America/Chicago', hour12: true, hour: '2-digit', minute: '2-digit' });
+  //  }
+  //  return '';
+  //}
+
+
 
   getLogsData(locationid: any): void {
     const body = { locationid: locationid };
     //console.log("body",body);
     this.dashboardService.GetLogs(body).subscribe(
       data => {
-       console.log("logs",data);
+        console.log("logs", data);
         this.logsData = data;
+        //this.logsData.updatedOn = 
         this.setLastUpdated();
       },
       error => {
