@@ -105,7 +105,7 @@ ng-option {
   line-height: normal;
 }
 
-::ng-deep .ng-select .ng-select-container, ::ng-deep .ng-select.ng-select-single .ng-select-container {
+::ng-deep .assign-user .ng-select .ng-select-container, ::ng-deep .assign-user .ng-select.ng-select-single .ng-select-container {
   display: flex;
   height: 2.67rem;
   /*padding: 0.625rem 0.75rem;*/
@@ -118,13 +118,13 @@ ng-option {
   width: 28.77309rem;
 }
 
-::ng-deep .ng-select .ng-arrow-wrapper .ng-arrow {
+::ng-deep .assign-user .ng-select .ng-arrow-wrapper .ng-arrow {
   border-color: none !important;
   border-style: none !important;
   border-width: 0 !important;
 }
 
-::ng-deep .ng-select .ng-arrow-wrapper {
+::ng-deep .assign-user .ng-select .ng-arrow-wrapper {
   background-image: url('../../../assets/icons/expand_more.svg');
   background-repeat: no-repeat;
   margin-top: 2px;

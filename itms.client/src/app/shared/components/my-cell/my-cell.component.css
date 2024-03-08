@@ -33,3 +33,8 @@
   font-weight: 600;
   line-height: 1.25rem; /* 142.857% */
 }
+
+.unassignable {
+  background: #eab685;
+  color: #ae641d;
+}

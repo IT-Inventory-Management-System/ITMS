@@ -1,4 +1,4 @@
-<div class="modal fade " id="exampleModal">
+<div class="modal fade" id="exampleModal">
 
   <div class="header">
     <div class="head">
@@ -7,25 +7,32 @@
     </div>
     <div class="line-head"></div>
   </div>
-
-  <div *ngFor="let value of commentsData" class="body">
-    <div class="date-body">
-      <div class="line-date"></div>
-      <div class="date">
-        <img class="cal" src="../../../../assets/icons/calender.svg" />
-        {{ value.updatedDate }}
+  <div class="comments-outer-div">
+    <div class="spinner-loading" *ngIf="loading; else content">
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
       </div>
-      <div class="line-date"></div>
     </div>
+    <ng-template #content>
+      <div *ngFor="let value of commentsData" class="body">
+        <div class="date-body">
+          <div class="line-date"></div>
+          <div class="date">
+            <img class="cal" src="../../../../assets/icons/calender.svg" />
+            {{ value.updatedDate }}
+          </div>
+          <div class="line-date"></div>
+        </div>
 
-    <div class="upper-comment">
-      <app-single-comment *ngFor="let comment of value.comments" [commentDetails] ="comment"></app-single-comment>
-    </div>
+        <div class="upper-comment">
+          <app-single-comment *ngFor="let comment of value.comments" [commentDetails]="comment"></app-single-comment>
+        </div>
+      </div>
+    </ng-template>
   </div>
-
   <form class="input-comment" [formGroup]="deviceForm">
-      <input type="text" class="cbox" placeholder="Add Comment..."  formControlName="description"/>
-      <button class="submit-button" (click)="onSubmit()">Save</button>
+    <input type="text" class="cbox" placeholder="Add Comment..." formControlName="description" />
+    <button class="submit-button" (click)="onSubmit()">Save</button>
   </form>
 
 
