@@ -283,7 +283,21 @@ namespace itms.server.controllers
             }
         }
 
+        [HttpPost("addAccessoryBrand")]
+        public async Task<IActionResult> addAccessoryBrand([FromBody] DeviceModelInputDto deviceModelInputDto)
+        {
+            try
+            {
+                await _deviceService.UpdateDeviceLogAsync(deviceModelInputDto);
+                return Ok("Brands successfully added");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal Server Error" + ex);
+            }
+           
 
+        }
     }
 
 }

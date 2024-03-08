@@ -2,18 +2,19 @@
 using ITMS.Server.Models;
 using LibNoise.Modifier;
 using Microsoft.EntityFrameworkCore;
+using MiNET.Utils;
 
 namespace ITMS.Server.Services
 {
         public interface IAddAssetService
         {
-            Task<IEnumerable<GetEmployeeDTO>> getAllEmployeeBasicDetails();
+        Task<IEnumerable<GetEmployeeDTO>> getAllEmployeeBasicDetails();
         Task<IEnumerable<GetAccessories>> getAccessories();
         Task<IEnumerable<GetBrandDTO>> getMouseBrand();
-        
-            Task<IEnumerable<getCGIDTO>> getCGIID();
+        Task<IEnumerable<getCGIDTO>> getCGIID();
         Task<IEnumerable<getLaptopIds>> getlaptopIds();
-
+        Task<IEnumerable<categoryInputDTO>> getBrandDetails(Guid CategoryId);
+        Task<IEnumerable<getCGIDTO>> getCGIIDKeyboard();
 
     }
     public class AddAssetService : IAddAssetService
@@ -114,10 +115,47 @@ namespace ITMS.Server.Services
             CYGID = device.Cygid,
             SerialNumber = device.SerialNumber
         }
-    ).ToListAsync();
+        ).ToListAsync();
             return result;
 
         }
 
+        public async Task<IEnumerable<categoryInputDTO>> getBrandDetails(Guid CategoryId)
+        {
+            var result = await (from d in _context.DeviceModel
+                                //join c in _context.Categories
+                                //on d.CategoryId equals c.Id
+                                where d.CategoryId == CategoryId
+                                select new categoryInputDTO
+                                {   
+                                    Id=d.Id,
+                                    categoryId=d.CategoryId,
+                                    Brand=d.Brand
+                                }).ToListAsync();
+            return result;
+        }
+
+        public async Task<IEnumerable<getCGIDTO>> getCGIIDKeyboard()
+        {
+
+            var result = await (from c in _context.Devices
+                                where c.Cygid.StartsWith("CGI-KO")
+                                select new getCGIDTO
+                                {
+                                    CGIID = c.Cygid.Substring(7) // Leave it as string for now
+                                })
+                    .ToListAsync();
+            if (result.Count == 0)
+            {
+                return new List<getCGIDTO> { new getCGIDTO { CGIID = "0" } };
+            }
+            // Convert CGIID to integers and order the result
+            else
+            {
+                result = result.OrderByDescending(c => int.Parse(c.CGIID)).ToList();
+                return result.Take(1);
+            }
+
+        }
     }
 }

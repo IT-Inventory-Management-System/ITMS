@@ -62,4 +62,16 @@
         public Guid locationId { get; set; }
         public string categoryName { get; set; }
     }
+
+    public class categoryInputDTO
+    {
+        public Guid Id { get; set; }
+        public string Brand { get; set; }
+
+        public Guid categoryId { get; set; }
+    }
+    public class categoryDTO
+    {
+        public Guid categoryId { get; set; }
+    }
 }
