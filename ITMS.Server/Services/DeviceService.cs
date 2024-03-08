@@ -657,7 +657,7 @@ public class DeviceService
                 Status = d.StatusNavigation.Type,
                 Category = d.DeviceModel.Category.Name,
                 IsWired = d.DeviceModel.IsWired,
-                Qty = _context.Devices.Count(c => c.DeviceModelId == d.DeviceModel.Id),
+                Qty = _context.Devices.Count(c => (c.DeviceModelId == d.DeviceModel.Id)&&((c.LocationId == locationId))),
                 PurchaseDate = d.PurchasedDate,
                 WarrantyDate = d.WarrantyDate,
                 IsArchived = d.IsArchived,
