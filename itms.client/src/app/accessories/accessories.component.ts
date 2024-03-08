@@ -37,6 +37,7 @@ export class AccessoriesComponent {
   cygid: any;
   year: any;
   month: any;
+  loading: boolean = true;
 
   applyAccessoryFilter(event: Event) {
     this.filterValue = (event.target as HTMLInputElement).value;
