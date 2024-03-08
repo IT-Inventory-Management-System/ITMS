@@ -114,8 +114,8 @@ namespace ITMS.Server.Services
                                          Name = s.SoftwareName,
                                          Version = software != null ? software.Version : null,
                                          Type = type != null ? type.TypeName : null,
-                                         Assigned = s.SoftwareAllocations.Count(software => software.AssignedTo != null && software.Version != null && software.Version == parameters.version),
-                                         Inventory = s.SoftwareAllocations.Count(software => software.AssignedTo == null && software.Version != null && software.Version == parameters.version),
+                                         Assigned = s.SoftwareAllocations.Count(software => software.AssignedTo != null && software.Version != null && software.Version == parameters.version && software.Location.Location1 == parameters.location),
+                                         Inventory = s.SoftwareAllocations.Count(software => software.AssignedTo == null && software.Version != null && software.Version == parameters.version && software.Location.Location1 == parameters.location),
                                          PurchaseDates = s.SoftwareAllocations
                                                          .Where(sa => sa.PurchasedDate != null && sa.Version == parameters.version)
                                                          .GroupBy(sa => new { sa.PurchasedDate, sa.ExpiryDate })
