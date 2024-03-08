@@ -75,6 +75,7 @@ export class ActivityPanelComponent {
   }
 
 
+
   getAdminLogs(employeeId : any, locationId : any ) {
     const body = {
       locationName : locationId,
