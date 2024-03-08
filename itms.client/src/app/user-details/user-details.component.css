@@ -488,3 +488,13 @@
     margin-left: 35rem;
   }
 }
+.archive-alert-on-hold {
+  width: 97%;
+  height: 32px;
+  margin-top: 0.6rem;
+  border-radius: 4px;
+  border: 1px solid #ffe438;
+  padding: 8px 8px 8px 8px;
+  background-color: #fff4ae;
+  gap: 10rem;
+}

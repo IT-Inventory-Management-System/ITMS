@@ -13,6 +13,7 @@ export class UserDetailsComponent {
   @Input() laptopDetails: any;
   @Input() softwareDetails: any;
   @Input() accessoriesDetails: any;
+/*  @Input() isOnHold: boolean = false;*/
   archiveBanner: boolean=false;
   showRevokeAlert: { [userId: string]: boolean } = {};
   showAssignAsset: boolean = true;

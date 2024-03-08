@@ -41,28 +41,37 @@ namespace ITMS.Server.Services
                 var assignedAction = await _context.ActionTables
                     .FirstOrDefaultAsync(a => a.ActionName == "Assigned");
 
+                var SubmittedAction = await _context.ActionTables
+                .FirstOrDefaultAsync(a => a.ActionName == "Submitted" || a.ActionName == "submitted");
+
+                var UnassignableAction = await _context.ActionTables
+                 .FirstOrDefaultAsync(a => a.ActionName == "Unassignable" || a.ActionName == "unassignable");
+    
+
                 //assignedTo and assignedDate == null of device table and statusId of device table not assigned assigned By null
                 if (deviceLog != null)
                 {
                     var device = await _context.Devices.FindAsync(deviceLog.DeviceId);
                     if(device != null)
                     {
-                        var notAssignedStatusId = await _context.Statuses
-                          .Where(s => s.Type == "Not Assigned")
-                          .Select(s => s.Id)
-                          .FirstOrDefaultAsync();
+                        if (receivedByDTO.ActionId == SubmittedAction?.Id || receivedByDTO.ActionId == UnassignableAction?.Id)
+                        {
+                            var notAssignedStatusId = await _context.Statuses
+                              .Where(s => s.Type == "Not Assigned")
+                              .Select(s => s.Id)
+                              .FirstOrDefaultAsync();
 
-                           device.AssignedTo = null;
-                           device.AssignedDate = null;
-                           device.AssignedBy = null;
-                           device.Status = notAssignedStatusId;
+                            device.AssignedTo = null;
+                            device.AssignedDate = null;
+                            device.AssignedBy = null;
+                            device.Status = notAssignedStatusId;
 
-                           _context.Devices.Update(device);
+                            _context.Devices.Update(device);
+
+                        }
+                        
                     }
-                    
-
-                   
-
+             
                     var newDeviceLog = new DevicesLog
                     {
                         Id = Guid.NewGuid(),
@@ -141,6 +150,12 @@ namespace ITMS.Server.Services
         }
         public async Task<EmployeeDTO?> RevokeAll(bool isSoftware,RevokeAllServiceDTO revokeDevice)
         {
+            var SubmittedAction = await _context.ActionTables
+               .FirstOrDefaultAsync(a => a.ActionName == "Submitted" || a.ActionName == "submitted");
+
+            var UnassignableAction = await _context.ActionTables
+             .FirstOrDefaultAsync(a => a.ActionName == "Unassignable" || a.ActionName == "unassignable");
+
             try
             {
 
@@ -156,19 +171,23 @@ namespace ITMS.Server.Services
                     var device = await _context.Devices.FindAsync(revokeDevice.DeviceId);
                     if (device != null)
                     {
-                        var notAssignedStatusId = await _context.Statuses
-                          .Where(s => s.Type == "Not Assigned")
-                          .Select(s => s.Id)
-                          .FirstOrDefaultAsync();
+                        if (revokeDevice.ActionId == SubmittedAction?.Id || revokeDevice.ActionId == UnassignableAction?.Id)
+                        {
+                            var notAssignedStatusId = await _context.Statuses
+                              .Where(s => s.Type == "Not Assigned")
+                              .Select(s => s.Id)
+                              .FirstOrDefaultAsync();
 
-                        device.AssignedTo = null;
-                        device.AssignedDate = null;
-                        device.AssignedBy = null;
-                        device.Status = notAssignedStatusId;
+                            device.AssignedTo = null;
+                            device.AssignedDate = null;
+                            device.AssignedBy = null;
+                            device.Status = notAssignedStatusId;
 
-                        _context.Devices.Update(device);
+                            _context.Devices.Update(device);
+
+                        }
+
                     }
-
 
 
                     var newDeviceLog = new DevicesLog

@@ -109,6 +109,7 @@ export class UserListComponent implements OnInit {
     console.log(this.locationId);
     this.displayingDetailsService.getshowUserListData(this.locationId).subscribe(
       (data) => {
+        console.log("employee data:", data);
         this.displayingData = data;
         this.filterAndSort();       
       },
