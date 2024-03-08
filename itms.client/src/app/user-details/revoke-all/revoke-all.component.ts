@@ -76,6 +76,7 @@ export class RevokeAllComponent {
         this.actionsArray = actions;
         console.log(this.actionsArray);
       },
+
       (error) => {
         console.error('Error fetching actions:', error);
       }
