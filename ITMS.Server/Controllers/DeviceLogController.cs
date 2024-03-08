@@ -72,12 +72,13 @@ public class DeviceLogController : ControllerBase
     [HttpPost("employeeLog")]
     public List<returnSingleLog> GetDevicesLogs([FromBody] adminHistoryParamsDTO adminHistoryParams)
     {
-        var employeeId = Guid.Parse(adminHistoryParams.employeeId);
+        var employeeId = adminHistoryParams.employeeId != null ? Guid.Parse(adminHistoryParams.employeeId) : (Guid?)null;
+
         var locationName = Guid.Parse(adminHistoryParams.locationName);
 
         var groupedLogs = _context.DevicesLogs
             .Include(dl => dl.UpdatedByNavigation)
-            .Where(dl => (dl.UpdatedBy == employeeId) &&(dl.DeviceId != null ? dl.Device.LocationId == locationName : dl.SoftwareAllocationNavigation.LocationId == locationName))
+            .Where(dl => ((employeeId==null)||(dl.UpdatedBy == employeeId)) &&(dl.DeviceId != null ? dl.Device.LocationId == locationName : dl.SoftwareAllocationNavigation.LocationId == locationName))
             .OrderByDescending(dl => dl.UpdatedAtUtc)
             .GroupBy(dl => dl.UpdatedAtUtc.Date)
                           .Select(dl => new returnSingleLog
@@ -152,7 +153,9 @@ public class DeviceLogController : ControllerBase
     [HttpPost("filterEmployeeLog")]
     public List<returnSingleLog> FilterDevicesLogs([FromBody] filterDateadminHistoryParamsDTO filterParams)
     {
-        adminHistoryParamsDTO allDataParams = new adminHistoryParamsDTO() { employeeId= filterParams.employeeId, locationName = filterParams.locationName };
+        var employeeId = filterParams.employeeId != null ? filterParams.employeeId : null;
+        // adminHistoryParamsDTO allDataParams = new adminHistoryParamsDTO() { employeeId= filterParams.employeeId, locationName = filterParams.locationName };
+        adminHistoryParamsDTO allDataParams = new adminHistoryParamsDTO() { employeeId = employeeId, locationName = filterParams.locationName };
         List<returnSingleLog> allData = GetDevicesLogs(allDataParams);
 
         if (filterParams.Date != new DateOnly())
