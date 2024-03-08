@@ -62,6 +62,10 @@ export class AdminPanelComponent {
   loadAdminList() {
     this.dataService.getAdminList(this.locationId).subscribe(
       (data) => {
+        const superAdmins = data.filter(admin => admin.role === 'Superadmin');
+        const admins = data.filter(admin => admin.role === 'Admin');
+        this.adminList = superAdmins.concat(admins);
+        //this.adminList = data;
         this.adminList = data;
         const allLogs = JSON.parse(JSON.stringify(this.adminList[0]));
         allLogs.id = null;

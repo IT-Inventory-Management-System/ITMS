@@ -61,18 +61,23 @@
             </div>
           </div>
         </div>
-
-
-        <div class="sub-category" *ngFor="let software of filteredSoftware ? (selectedLocation === 'India' ? filteredSoftware[0] : filteredSoftware[1]) : (selectedLocation === 'India' ? softwaresData[0] : softwaresData[1]); let i = index">
-          <ng-container *ngIf="passesFilter(software)">
-            <app-software-name [softwareData]="software"
-                               [selectedLocation]="selectedLocation"
-                               [isSelected]="selectedAccessoryIndex === i"
-                               (cardClicked)="onCardClicked($event, i)"
-                               [isArchived]="isArchived">
-            </app-software-name>
-          </ng-container>
+        <div *ngIf="loading; else content" class="spinner-loading">
+          <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
         </div>
+        <ng-template #content>
+          <div class="sub-category" *ngFor="let software of filteredSoftware ? (selectedLocation === 'India' ? filteredSoftware[0] : filteredSoftware[1]) : (selectedLocation === 'India' ? softwaresData[0] : softwaresData[1]); let i = index">
+            <ng-container *ngIf="passesFilter(software)">
+              <app-software-name [softwareData]="software"
+                                 [selectedLocation]="selectedLocation"
+                                 [isSelected]="selectedAccessoryIndex === i"
+                                 (cardClicked)="onCardClicked($event, i)"
+                                 [isArchived]="isArchived">
+              </app-software-name>
+            </ng-container>
+          </div>
+          </ng-template>
 
 
 

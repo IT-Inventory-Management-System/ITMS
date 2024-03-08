@@ -801,6 +801,12 @@
 }
 
 
+.spinner-loading {
+  margin-left: 8rem;
+}
+
+
+
 .st{
     border:1px solid black;
 }

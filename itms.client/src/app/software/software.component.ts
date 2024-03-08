@@ -29,6 +29,7 @@ export class SoftwareComponent implements OnInit {
   isArchived: boolean = false;
   userDataJSON: any;
   UserId: any;
+  loading: boolean = true;
 
   filteredSoftware: any[][] = [[], []];
   filterValues: string = '';
@@ -300,7 +301,11 @@ export class SoftwareComponent implements OnInit {
     this.softwareService.GetSoftware(arch).subscribe(
       data => {
         this.softwaresData = data;
+
         console.log(this.softwaresData);
+        this.loading = false;
+
+
         this.filteredSoftware = this.softwaresData;
         const parameters = {
           name: data[0][0].name,
