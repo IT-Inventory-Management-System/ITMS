@@ -5,6 +5,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace ITMS.Server.Controllers
 {
@@ -21,22 +25,41 @@ namespace ITMS.Server.Controllers
 
 
         [HttpPost("authenticate")]
-        public IActionResult Authenticate([FromBody] UserLoginDto userObj)
+        public IActionResult Authenticate([FromBody] UserLoginDto userLoginDto)
         {
-            var result = _loginService.Authenticate(userObj);
-            if (result == null)
-                return BadRequest();
+            var user = _loginService.Authenticate(userLoginDto);
+            if (user == null)
+                return BadRequest("Invalid credentials");
 
-            if (result != null)
-                return null;
-
-            return Ok(result);
+            var token = GenerateJwtToken(user);
+            return Ok(new { Token = token });
         }
 
 
-
-
-
+        private string GenerateJwtToken(Employee employee)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes("ITIMSSECRETKEYFORJWTTOKEN"); // Replace with your own secret key
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]
+                {
+            new Claim(ClaimTypes.Name, employee.FirstName),
+            new Claim(ClaimTypes.Surname, employee.LastName),
+                    // You can add more claims as needed
+                }),
+                Expires = DateTime.UtcNow.AddDays(7), // Token expiration time
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
+        }
 
     }
-    }
+
+
+
+
+
+}
+    
