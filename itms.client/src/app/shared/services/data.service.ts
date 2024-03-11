@@ -188,8 +188,8 @@ export class DataService {
     return this.http.get<any[]>(this.apiUrl + 'Device/getAllComments/' + deviceId);
   }
 
-  getAllBrands(CategoryID: any): Observable<any[]> {
-    return this.http.post<any | null>(this.apiUrl + 'asset/getBrandDetails' ,CategoryID);
+  getAllBrands(CategoryName: any): Observable<any[]> {
+    return this.http.post<any | null>(this.apiUrl + 'asset/getBrandDetails' ,CategoryName);
   }
 
   getFilteredDevicesTable(selectedFilters: any): Observable<any> {

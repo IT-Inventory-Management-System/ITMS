@@ -20,8 +20,9 @@ export class AddMonitorFormComponent {
   counterValue: number = 0;
   @Input() category: string = '';
   ngOnInit(): void{
-    alert(this.category);
+    
     this.getCgi();
+    this.loadMouseBrand();
   }
 
   constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService) {
@@ -87,16 +88,19 @@ export class AddMonitorFormComponent {
   previous() {
     this.currentStep--;
   }
-  //loadMouseBrand() {
-  //  this.dataService.getAllBrands().subscribe(
-  //    (data) => {
-
-  //    },
-  //    (error) => {
-  //      console.error('Error fetching device data', error);
-  //    }
-  //  );
-  //}
+  loadMouseBrand() {
+    const input = {
+      categoryName: this.category
+    }
+    this.dataService.getAllBrands(input).subscribe(
+      (data) => {
+        console.log(data);
+      },
+      (error) => {
+        console.error('Error fetching device data', error);
+      }
+    );
+  }
   getCgi() {
     this.dataService.getCGIIDMonitor().subscribe(
       (data) => {

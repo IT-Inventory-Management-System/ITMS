@@ -139,10 +139,10 @@ namespace ITMS.Server.Services
         {
 
             var result = await (from c in _context.Devices
-                                where c.Cygid.StartsWith("CGI-KO")
+                                where c.Cygid.StartsWith("CGI-MON")
                                 select new getCGIDTO
                                 {
-                                    CGIID = c.Cygid.Substring(7) // Leave it as string for now
+                                    CGIID = c.Cygid.Substring(8) // Leave it as string for now
                                 })
                     .ToListAsync();
             if (result.Count == 0)
