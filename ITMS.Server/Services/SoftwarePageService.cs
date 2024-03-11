@@ -114,8 +114,8 @@ namespace ITMS.Server.Services
                                          Name = s.SoftwareName,
                                          Version = software != null ? software.Version : null,
                                          Type = type != null ? type.TypeName : null,
-                                         Assigned = s.SoftwareAllocations.Count(software => software.AssignedTo != null && software.Version != null && software.Version == parameters.version),
-                                         Inventory = s.SoftwareAllocations.Count(software => software.AssignedTo == null && software.Version != null && software.Version == parameters.version),
+                                         Assigned = s.SoftwareAllocations.Count(software => software.AssignedTo != null && software.Version != null && software.Version == parameters.version && software.Location.Location1 == parameters.location),
+                                         Inventory = s.SoftwareAllocations.Count(software => software.AssignedTo == null && software.Version != null && software.Version == parameters.version && software.Location.Location1 == parameters.location),
                                          PurchaseDates = s.SoftwareAllocations
                                                          .Where(sa => sa.PurchasedDate != null && sa.Version == parameters.version)
                                                          .GroupBy(sa => new { sa.PurchasedDate, sa.ExpiryDate })
@@ -166,15 +166,13 @@ namespace ITMS.Server.Services
                                  {
                                      assignedTo = employee.FirstName + " " + employee.LastName,
                                      assignedToCGI = employee.Cgiid,
-                                     assignedBy = $"{_context.Employees.FirstOrDefault(emp => emp.Id == software.AssignedTo).FirstName} {_context.Employees.FirstOrDefault(emp => emp.Id == software.AssignedTo).LastName}".Trim(),
+                                     assignedBy = $"{_context.Employees.FirstOrDefault(emp => emp.Id == software.AssignedBy).FirstName} {_context.Employees.FirstOrDefault(emp => emp.Id == software.AssignedBy).LastName}".Trim(),
                                      //s.SoftwareAllocations.FirstOrDefault()?.AssignedBy,
                                      assignedDate = software.AssignedDate,
 
                                  }).ToList();
 
             return singleHistory;
-
-
 
         }
 
@@ -261,8 +259,9 @@ namespace ITMS.Server.Services
                     UpdatedAtUtc= DateTime.UtcNow,
                     UpdatedBy= dto.userid,
                 };
-
+                
                 _context.DevicesLogs.Add(deviceLogEntry);
+                break;
             }
 
             _context.SaveChanges();

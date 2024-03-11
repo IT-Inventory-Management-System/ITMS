@@ -141,7 +141,10 @@
             <span class="Assettext">Asset Age</span>
 
           </div>
-          <span *ngIf="singleSelected && singleSelected[0]" class="agenumber"> {{ calculateYear(singleSelected[0].purchaseDate | date: 'yyyy') }}.{{ calculateMonth(singleSelected[0].purchaseDate | date: 'MM') }} Years</span>
+          <span *ngIf="singleSelected && singleSelected[0]" class="agenumber">
+            {{ calculateYearDifference(singleSelected[0].purchaseDate | date: 'yyyy', year) }}Yrs {{ calculateMonthDifference(singleSelected[0].purchaseDate | date: 'MM',month) }}Mon
+            <!--{{ calculateYear(singleSelected[0].purchaseDate | date: 'yyyy') }}.{{ calculateMonth(singleSelected[0].purchaseDate | date: 'MM') }} Years-->
+          </span>
         </div>
         <div class="type-brand ">
           <div class="type-brand1 ">

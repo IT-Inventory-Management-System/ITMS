@@ -1,11 +1,25 @@
 <div class="permissions-panel-container">
   <div class="permissions-panel-header ">
     <div class="admin-name">
-      <ngx-avatars name="{{ selectedAdmin?.firstName }} {{ selectedAdmin?.lastName }}" [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="35"></ngx-avatars>
-      <div class="admin-name-id">
-        <span class="name">{{ selectedAdmin?.firstName }} {{ selectedAdmin?.lastName }}</span>
-        <span class="id">{{ selectedAdmin?.cgiid }}</span>
-      </div>
+      <ng-container *ngIf="selectedAdmin.firstName === 'All Activity Logs'; else userDetailsTemplate">
+        <div class="icon-name">
+          <div class="initial">
+            <div class="group">
+              <div class="frame">
+                <img src="../../../assets/icons/Ellipse.svg" />
+                <img class="behind" src="../../../assets/icons/Activity_Log_icon.svg" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <ng-template #userDetailsTemplate>
+        <ngx-avatars name="{{ selectedAdmin?.firstName }} {{ selectedAdmin?.lastName }}" [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="35"></ngx-avatars>
+      </ng-template>
+        <div class="admin-name-id">
+          <span class="name">{{ selectedAdmin?.firstName }} {{ selectedAdmin?.lastName }}</span>
+          <span class="id">{{ selectedAdmin?.cgiid }}</span>
+        </div>
     </div>
     <div class="filter">
       <div class="filter-icon">
@@ -36,7 +50,10 @@
       </div>
       <div class="log  "*ngFor="let log of logEntry.logs">
         <div class="detail-section ">
-          <span class="time ">{{ log.updatedOn | date: 'hh:mm a' }}</span>
+          <span class="time ">
+            {{localizeDateStr(log.updatedOn) | date: 'h:mm a' }}
+            <!--{{ log.updatedOn | date: 'hh:mm a' }}-->
+          </span>
           <div class="detail ">
           
             <div *ngIf="log.softwareName && (log.action === 'Assigned' || log.action === 'assigned')">

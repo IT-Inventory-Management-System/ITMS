@@ -11,12 +11,12 @@
     border: none; /* Remove border when input is focused */
     outline: none; /* Remove outline when input is focused */
   }
-.software-details {
+/*.software-details {
   @media screen and (min-width: 2560px) {
     transform: translateX(50%);
   }
 }
-  
+  */
 
 
 .software-details {
@@ -26,9 +26,20 @@
   align-items: flex-start;
   gap: 1rem;
   flex-shrink: 0;
-  margin-top:2rem;
+  margin-top: 2rem;
 
+ 
 }
+
+@media screen and (min-width: 1500px) {
+  .software-details {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Horizontally center the div */
+    height: auto; /* Adjust height as needed */
+  }
+}
+
 
 .input-text {
   border: none;

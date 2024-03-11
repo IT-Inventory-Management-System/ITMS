@@ -12,6 +12,11 @@
   box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.15);
 }
 
+.selectedWOW {
+  border: 1px solid var(--Primary-Blue, #28519E);
+  background: #E3F3FC;
+}
+
 .list-search-bar {
   display: flex;
   height: 2.5rem;
@@ -59,4 +64,75 @@
   gap: 0.534rem;
   flex: 1 0 0;
   align-self: stretch;
+}
+
+
+.all-activity-log {
+  border-radius: 0.267rem;
+  border: 1px solid var(--Secondary-Light-Gray, #E9ECEB);
+  background: var(--Primary-White, #FFF);
+  display: flex;
+  height: 3.1875rem;
+  padding: 0.5rem 0.75rem;
+  align-items: center;
+  gap: 1rem;
+  align-self: stretch;
+}
+
+.icon-name {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.initial {
+  display: flex;
+  align-items: center;
+  gap: 0.44444rem;
+}
+
+.all-activity-log-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+}
+
+.activity-text {
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.group {
+  width: 2rem;
+  height: 2rem;
+  position: relative;
+}
+
+.frame {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  position: relative;
+  z-index: 1;
+}
+
+.behind {
+  position: absolute;
+  left: 0.38rem;
+  z-index: 0;
+}
+
+.st {
+  /*border: 1px solid black;*/
+  border: 1px solid var(--Primary-Blue, #28519E);
+  background: #E3F3FC;
+}
+
+.spinner-loading {
+  margin-left: 8.5rem;
 }

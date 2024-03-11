@@ -246,7 +246,7 @@ public class DeviceLogService
      .Include(dl => dl.Device)
      .Include(dl => dl.Employee)
      .Include(dl => dl.AssignedByNavigation)
-     .Where(dl => (dl.Device.LocationId == locationId) && (dl.Device.Cygid == CYGID))
+     .Where(dl => (dl.Device.LocationId == locationId) && (CYGID == null || dl.Device.Cygid == CYGID))
      //OrderBy(dl => dl.UpdatedAtUtc)
      .GroupBy(dl => new
      {
@@ -277,4 +277,6 @@ public class DeviceLogService
 
 
     }
+
+
 }
