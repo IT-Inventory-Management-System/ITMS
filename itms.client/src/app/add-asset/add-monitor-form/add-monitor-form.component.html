@@ -52,7 +52,9 @@
                 <div class="select-mouse-dropdown">
                   <label for="MouseBrand">Brand <span class="required">*</span></label>
                   <ng-select formControlName="deviceModelId" placeholder="Select Device Brand">
-
+                    <ng-option *ngFor="let value of dropdownValues" [value]="value.id">
+                      {{ value.brand }}
+                    </ng-option>
                     <ng-option>
                     </ng-option>
                   </ng-select>
@@ -69,7 +71,7 @@
               </label>
             </div>
             <div class="mb-3" *ngIf="showDeviceDetailsForm">
-              <app-add-monitor-brand-form (formSubmitted)="onFormSubmitted()"></app-add-monitor-brand-form>
+              <app-add-monitor-brand-form [selectedOptions]="selectedOptions"></app-add-monitor-brand-form>
             </div>
             <div class="form-field3">
               <label class="label" for="">Screen Size(inch) <span class="required">*</span></label>

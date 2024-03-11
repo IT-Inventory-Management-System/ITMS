@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DataService } from '../../shared/services/data.service';
 import { FormBuilder } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -15,14 +15,25 @@ export class AddMonitorFormComponent {
   showDeviceDetailsForm: boolean=false;
   iCheck: boolean = false;
   laststoredcgi: number;
-
+  dropdownValues: any[] = [];
+  UserId: any;
+  userDataJSON: any;
   selectedStorage: string | null = null;
   counterValue: number = 0;
   @Input() category: string = '';
+  selectedOptions = { HDMI: false, VGA: false, DVI: false };
+
   ngOnInit(): void{
     
     this.getCgi();
     this.loadMouseBrand();
+    this.userDataJSON = localStorage.getItem('user');
+
+    // Parse the JSON string back into an object
+    var userData = JSON.parse(this.userDataJSON);
+
+    // Access the 'id' property of the userData object
+    this.UserId = userData.id;
   }
 
   constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService) {
@@ -30,13 +41,19 @@ export class AddMonitorFormComponent {
   }
   toggleDeviceDetailsForm() {
     this.ifChecked = !this.ifChecked;
+    this.emitSelectedOptions();
+
   }
   toggleDeviceDetails() {
     this.ifCheck = !this.ifCheck;
+    this.emitSelectedOptions();
+
   }
 
   toggleDevice() {
     this.iCheck = !this.iCheck;
+    this.emitSelectedOptions();
+
   }
   toggleDetails() {
     this.showDeviceDetailsForm = !this.showDeviceDetailsForm;
@@ -83,8 +100,13 @@ export class AddMonitorFormComponent {
     
 
   }
-
-
+  emitSelectedOptions() {
+    this.selectedOptions = {
+      HDMI: this.ifChecked,
+      VGA: this.ifCheck,
+      DVI: this.iCheck
+    };
+  }
   previous() {
     this.currentStep--;
   }
@@ -95,6 +117,15 @@ export class AddMonitorFormComponent {
     this.dataService.getAllBrands(input).subscribe(
       (data) => {
         console.log(data);
+        this.dropdownValues = data.filter((item: any) => {
+          if ((this.ifChecked && item.type === 'HDMI') ||
+            (this.ifCheck && item.type === 'VGA') ||
+            (this.iCheck && item.type === 'DVI')) {
+            return true;
+          }
+          return false;
+        });
+
       },
       (error) => {
         console.error('Error fetching device data', error);
