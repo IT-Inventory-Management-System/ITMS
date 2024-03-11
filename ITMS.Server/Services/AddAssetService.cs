@@ -14,7 +14,8 @@ namespace ITMS.Server.Services
         Task<IEnumerable<getCGIDTO>> getCGIID();
         Task<IEnumerable<getLaptopIds>> getlaptopIds();
         Task<IEnumerable<categoryInputDTO>> getBrandDetails(String CategoryName);
-        Task<IEnumerable<getCGIDTO>> getCGIIDKeyboard();
+        Task<IEnumerable<getCGIDTO>> getCGIIDKeyboard(); 
+        Task postMonitorDetails(MonitorDTO monitorDTO);
 
     }
     public class AddAssetService : IAddAssetService
@@ -139,10 +140,10 @@ namespace ITMS.Server.Services
         {
 
             var result = await (from c in _context.Devices
-                                where c.Cygid.StartsWith("CGI-KO")
+                                where c.Cygid.StartsWith("CGI-MON")
                                 select new getCGIDTO
                                 {
-                                    CGIID = c.Cygid.Substring(7) // Leave it as string for now
+                                    CGIID = c.Cygid.Substring(8) // Leave it as string for now
                                 })
                     .ToListAsync();
             if (result.Count == 0)
@@ -156,6 +157,24 @@ namespace ITMS.Server.Services
                 return result.Take(1);
             }
 
+        }
+        public async Task postMonitorDetails(MonitorDTO monitorDTO)
+        {
+            DeviceModel deviceModel = new DeviceModel();
+            deviceModel.IsHDMI = monitorDTO.IsHDMI;
+            deviceModel.IsDVI = monitorDTO.IsDVI;
+            deviceModel.IsVGA = monitorDTO.IsVGA;
+            deviceModel.CreatedBy = monitorDTO.CreatedBy;
+            deviceModel.CreatedAtUtc = DateTime.UtcNow;
+            deviceModel.UpdatedBy = monitorDTO.UpdatedBy;
+            deviceModel.UpdatedAtUtc = DateTime.UtcNow;
+            deviceModel.Brand = monitorDTO.Brand;
+            deviceModel.CategoryId = monitorDTO.CategoryId;
+            deviceModel.IsArchived = false;
+
+            _context.DeviceModel.Update(deviceModel);
+            await _context.SaveChangesAsync();
+            
         }
     }
 }

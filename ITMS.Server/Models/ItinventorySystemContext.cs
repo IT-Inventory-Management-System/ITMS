@@ -47,7 +47,7 @@ public partial class ItinventorySystemContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("workstation id=itims-project.mssql.somee.com;packet size=4096;user id=vanditjain11_SQLLogin_1;pwd=losdmslalp;data source=itims-project.mssql.somee.com;persist security info=False;initial catalog=itims-project;TrustServerCertificate=True");
+        => optionsBuilder.UseSqlServer("Server=.\\SQLExpress;Database=ITInventorySystem;Trusted_Connection=True;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -140,6 +140,7 @@ public partial class ItinventorySystemContext : DbContext
                 .HasColumnName("CYGID");
             entity.Property(e => e.IsArchived).HasColumnName("isArchived");
             entity.Property(e => e.LocationId).HasColumnName("locationId");
+            entity.Property(e => e.ScreenSize).HasColumnName("ScreenSize");
             entity.Property(e => e.PurchasedDate).HasColumnType("datetime");
             entity.Property(e => e.RecievedDate).HasColumnType("datetime");
             entity.Property(e => e.SerialNumber).HasMaxLength(255);
@@ -200,6 +201,11 @@ public partial class ItinventorySystemContext : DbContext
             entity.Property(e => e.DeviceName).HasMaxLength(255);
             entity.Property(e => e.IsArchived).HasColumnName("isArchived");
             entity.Property(e => e.IsWired).HasColumnName("isWired");
+            entity.Property(e => e.IsHDMI).HasColumnName("isHDMI");
+            entity.Property(e => e.IsVGA).HasColumnName("isVGA");
+            entity.Property(e => e.IsDVI).HasColumnName("isDVI");
+
+
             entity.Property(e => e.ModelNo).HasMaxLength(255);
             entity.Property(e => e.Os).HasColumnName("OS");
             entity.Property(e => e.Processor).HasMaxLength(255);
