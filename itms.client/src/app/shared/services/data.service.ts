@@ -188,6 +188,10 @@ export class DataService {
     return this.http.get<any[]>(this.apiUrl + 'Device/getAllComments/' + deviceId);
   }
 
+  getAllBrands(CategoryID: any): Observable<any[]> {
+    return this.http.post<any | null>(this.apiUrl + 'asset/getBrandDetails' ,CategoryID);
+  }
+
   getFilteredDevicesTable(selectedFilters: any): Observable<any> {
     return this.http.post(this.apiUrl + 'Device/filterDevices', selectedFilters);
   }
@@ -202,6 +206,8 @@ export class DataService {
   setDeviceUnassignable(formdata: any): Observable<any> {
     return this.http.post(this.apiUrl + 'Device/unassignableDevice', formdata);
   }
-
+  getCGIIDMonitor(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl + 'asset/getCGIIDKeyboard');
+  }
 }
 

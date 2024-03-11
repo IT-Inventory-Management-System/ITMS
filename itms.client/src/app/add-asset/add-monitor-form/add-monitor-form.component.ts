@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { DataService } from '../../shared/services/data.service';
+import { FormBuilder } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-monitor-form',
@@ -11,9 +14,19 @@ export class AddMonitorFormComponent {
   ifCheck: boolean = false;
   showDeviceDetailsForm: boolean=false;
   iCheck: boolean = false;
-  selectedStorage: string | null = null;
-  counterValue:number= 0;
+  laststoredcgi: number;
 
+  selectedStorage: string | null = null;
+  counterValue: number = 0;
+  @Input() category: string = '';
+  ngOnInit(): void{
+    alert(this.category);
+    this.getCgi();
+  }
+
+  constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService) {
+
+  }
   toggleDeviceDetailsForm() {
     this.ifChecked = !this.ifChecked;
   }
@@ -74,7 +87,29 @@ export class AddMonitorFormComponent {
   previous() {
     this.currentStep--;
   }
-  
+  //loadMouseBrand() {
+  //  this.dataService.getAllBrands().subscribe(
+  //    (data) => {
+
+  //    },
+  //    (error) => {
+  //      console.error('Error fetching device data', error);
+  //    }
+  //  );
+  //}
+  getCgi() {
+    this.dataService.getCGIIDMonitor().subscribe(
+      (data) => {
+        this.laststoredcgi = parseInt(data[0]?.cgiid, 10);
+
+        console.log(this.laststoredcgi);
+      },
+      (error) => {
+        console.error('Error fetching device data', error);
+
+      }
+    )
+  }
 
   
 }
