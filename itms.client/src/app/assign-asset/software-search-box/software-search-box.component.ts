@@ -13,6 +13,7 @@ export class SoftwareSearchBoxComponent {
   @Input() placeholder: string;
   @Input() SoftwareOptions: any[] = [];
   @Input() index: number;
+  @Input() selectedOptionDisable: boolean;
   @Output() SoftwareOptionSelected: EventEmitter<any> = new EventEmitter();
   @Output() removeSoftware = new EventEmitter<number>();
   uniqueSoftwareNames: any[] = [];
@@ -46,6 +47,7 @@ export class SoftwareSearchBoxComponent {
   UniqueOptions(): void {
     const uniqueNamesSet = new Set<string>(this.SoftwareOptions.map(option => option.softwareName));
     this.uniqueSoftwareNames = Array.from(uniqueNamesSet);
+    console.log("this.uniqueSoftwareNames", this.uniqueSoftwareNames);
   }
 
   onSelectOption(option: any): void {
@@ -57,4 +59,8 @@ export class SoftwareSearchBoxComponent {
   emitRemoveSoftware(): void {
     this.removeSoftware.emit(this.index);
   }
+
+
+
+
 }

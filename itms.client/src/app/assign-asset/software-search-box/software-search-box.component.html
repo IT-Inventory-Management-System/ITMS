@@ -1,4 +1,5 @@
-<div class="search-box-subheading">{{ label }} <span style="color:red">*</span>
+<div class="search-box-subheading">
+  {{ label }} <span style="color:red">*</span>
   <button *ngIf="index > 0" type="button" class="close-button" aria-label="Close" (click)="emitRemoveSoftware()">
     <img src="../../../../assets/icons/Close.svg" width="19" />
   </button>
@@ -12,3 +13,8 @@
     {{SoftwareName }}
   </ng-option>
 </ng-select>
+
+
+
+
+<!--[disabled]=selectedOptionDisable-->

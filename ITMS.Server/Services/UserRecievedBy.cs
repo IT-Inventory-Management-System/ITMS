@@ -6,12 +6,10 @@ using Microsoft.EntityFrameworkCore; // Add this namespace for Include extension
 
 namespace ITMS.Server.Services
 {
-
     public interface IUserRecievedBy
     {
         Task<EmployeeDTO?> UpdateReceivedBy(RecievedByDTO receivedByDTO);
         Task<EmployeeDTO?> RevokeAll(bool isSoftware, RevokeAllServiceDTO receivedByDTO);
-
         Task ArchiveEmployee(Guid employeeId, Guid updatedByUserId);
 
         Task UpdateExitProcessInitiated(UpdateExitProcessInitiated dto);
@@ -168,7 +166,10 @@ namespace ITMS.Server.Services
                 if (deviceLog != null)
                 {
 
-                    var device = await _context.Devices.FindAsync(revokeDevice.DeviceId);
+
+                    var device = revokeDevice.DeviceId != null? await _context.Devices.FindAsync(revokeDevice.DeviceId):null;
+                    var soft = revokeDevice.SoftwareAllocation != null ? await _context.SoftwareAllocations.FindAsync(revokeDevice.SoftwareAllocation) : null;
+                   
                     if (device != null)
                     {
                         if (revokeDevice.ActionId == SubmittedAction?.Id || revokeDevice.ActionId == UnassignableAction?.Id)
@@ -186,27 +187,80 @@ namespace ITMS.Server.Services
                             _context.Devices.Update(device);
 
                         }
+                    }
 
+                    if(soft != null)
+                    {
+                        if (revokeDevice.ActionId == SubmittedAction?.Id || revokeDevice.ActionId == UnassignableAction?.Id)
+                        {
+                            var notAssignedStatusId = await _context.Statuses
+                              .Where(s => s.Type == "Not Assigned")
+                              .Select(s => s.Id)
+                              .FirstOrDefaultAsync();
+
+                            soft.AssignedTo = null;
+                            soft.AssignedDate = null;
+                            soft.AssignedBy = null;
+
+                            _context.SoftwareAllocations.Update(soft);
+                            //UpdateReceivedBy(revokeDevice);
+                        }
+                    }
+
+                    var newDeviceLog = new DevicesLog();
+                    if (device != null) {
+                        newDeviceLog = new DevicesLog
+                        {
+                            DeviceId = revokeDevice.DeviceId,
+                            AssignedBy = deviceLog.AssignedBy,
+                            AssignedDate = deviceLog.AssignedDate,
+                            AllotedDate = deviceLog.AllotedDate,
+                            EmployeeId = revokeDevice.userId,
+                            RecievedBy = revokeDevice.CreatedBy,
+                            RecievedDate = DateTime.UtcNow,
+                            CreatedBy = revokeDevice.CreatedBy,
+                            CreatedAtUtc = DateTime.UtcNow,
+                            UpdatedBy = revokeDevice.userId,
+                            UpdatedAtUtc = DateTime.UtcNow,
+                            ActionId = revokeDevice.ActionId,
+                            SoftwareAllocation = deviceLog.SoftwareAllocation,
+                        };
+                    }
+                    else {
+
+                        newDeviceLog = new DevicesLog
+                        {
+                            DeviceId = deviceLog.DeviceId,
+                            EmployeeId = deviceLog.EmployeeId,
+                            AssignedBy = deviceLog.AssignedBy,
+                            RecievedBy = revokeDevice.CreatedBy,
+                            AssignedDate = deviceLog.AssignedDate,
+                            RecievedDate = DateTime.UtcNow,
+                            AllotedDate = deviceLog.AllotedDate,
+                            CreatedBy = deviceLog.CreatedBy,
+                            CreatedAtUtc = DateTime.UtcNow,
+
+                            UpdatedBy = revokeDevice.userId, 
+                            UpdatedAtUtc = DateTime.UtcNow,
+                            ActionId = revokeDevice.ActionId, 
+
+                            SoftwareAllocation = deviceLog.SoftwareAllocation,
+                            CreatedByNavigation = deviceLog.CreatedByNavigation,
+                            Device = deviceLog.Device,
+                            Employee = deviceLog.Employee,
+                            UpdatedByNavigation = deviceLog.UpdatedByNavigation,
+                            Comments = deviceLog.Comments
+                        };
                     }
 
 
-                    var newDeviceLog = new DevicesLog
-                    {
-                        DeviceId = revokeDevice.DeviceId,
-                        AssignedBy = deviceLog.AssignedBy,
-                        AssignedDate = deviceLog.AssignedDate,
-                        EmployeeId = revokeDevice.userId,
-                        RecievedBy = revokeDevice.CreatedBy,
-                        RecievedDate = DateTime.UtcNow,
-                        CreatedBy = revokeDevice.CreatedBy,
-                        CreatedAtUtc = DateTime.UtcNow,
-                        UpdatedBy = revokeDevice.userId, 
-                        UpdatedAtUtc = DateTime.UtcNow,
-                        ActionId = revokeDevice.ActionId,
-                        SoftwareAllocation = revokeDevice.SoftwareAllocation,
-                    };
 
-                   await _context.DevicesLogs.AddAsync(newDeviceLog);
+
+                    //  AllotedDate = deviceLog.AllotedDate,
+
+
+
+                    await _context.DevicesLogs.AddAsync(newDeviceLog);
                    await _context.SaveChangesAsync();
 
                 Guid lastestLogId = await _context.DevicesLogs.Where(l => l.DeviceId == revokeDevice.DeviceId).OrderByDescending(l => l.CreatedAtUtc).Select(l => l.Id).FirstOrDefaultAsync();
