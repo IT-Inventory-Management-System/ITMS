@@ -13,7 +13,7 @@ namespace ITMS.Server.Services
         Task<IEnumerable<GetBrandDTO>> getMouseBrand();
         Task<IEnumerable<getCGIDTO>> getCGIID();
         Task<IEnumerable<getLaptopIds>> getlaptopIds();
-        Task<IEnumerable<categoryInputDTO>> getBrandDetails(Guid CategoryId);
+        Task<IEnumerable<categoryInputDTO>> getBrandDetails(String CategoryName);
         Task<IEnumerable<getCGIDTO>> getCGIIDKeyboard();
 
     }
@@ -120,12 +120,12 @@ namespace ITMS.Server.Services
 
         }
 
-        public async Task<IEnumerable<categoryInputDTO>> getBrandDetails(Guid CategoryId)
+        public async Task<IEnumerable<categoryInputDTO>> getBrandDetails(String CategoryName)
         {
             var result = await (from d in _context.DeviceModel
-                                //join c in _context.Categories
-                                //on d.CategoryId equals c.Id
-                                where d.CategoryId == CategoryId
+                                join c in _context.Categories
+                                on d.CategoryId equals c.Id
+                                where c.Name.ToLower() == CategoryName.ToLower()
                                 select new categoryInputDTO
                                 {   
                                     Id=d.Id,
