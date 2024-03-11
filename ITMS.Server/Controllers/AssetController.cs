@@ -57,7 +57,7 @@ namespace ITMS.Server.Controllers
         public async Task<IEnumerable<categoryInputDTO>> getBrandDetails([FromBody] categoryDTO categoryDTO)
         {
             
-            return await _addAssetService.getBrandDetails(categoryDTO.categoryId);
+            return await _addAssetService.getBrandDetails(categoryDTO.categoryName);
         }
     }
 }
