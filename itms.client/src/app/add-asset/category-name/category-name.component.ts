@@ -72,7 +72,6 @@ export class CategoryNameComponent {
         return `../../assets/icons/mobile-${color}.svg`;
       case 'Combo':
         return `../../assets/icons/combo-${color}.svg`;
-
       default:
         return `../../assets/icons/placeholder.svg`;
     }

@@ -176,4 +176,15 @@ namespace ITMS.Server.DTO
         public Guid CreatedBy { get; set; }
         public Guid? UpdatedBy { get;set; }
     }
+    public class MonitorDTO
+    {
+        public bool? IsHDMI { get; set; }
+        public bool? IsVGA { get; set; }
+        public bool? IsDVI { get; set; }
+        public Guid CreatedBy { get; set; }
+        public Guid? UpdatedBy { get; set; }
+        public string? Brand { get; set; }
+        public Guid CategoryId { get; set; }
+
+    }
 }
