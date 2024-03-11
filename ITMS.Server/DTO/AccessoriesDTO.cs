@@ -72,6 +72,6 @@
     }
     public class categoryDTO
     {
-        public Guid categoryId { get; set; }
+        public string categoryName { get; set; }
     }
 }
