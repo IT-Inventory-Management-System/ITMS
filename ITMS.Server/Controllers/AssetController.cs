@@ -59,5 +59,22 @@ namespace ITMS.Server.Controllers
             
             return await _addAssetService.getBrandDetails(categoryDTO.categoryName);
         }
+
+        [HttpPost("addMonitor")]
+        public async Task<IActionResult> addMonitor([FromBody] MonitorDTO monitorDTO)
+        {
+            try
+            {
+                await _addAssetService.postMonitorDetails(monitorDTO);
+
+                return Ok("Monitor added successfully"); // You can customize the success response
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Error adding monitor: {ex.Message}");
+            }
+        }
+
+
     }
 }
