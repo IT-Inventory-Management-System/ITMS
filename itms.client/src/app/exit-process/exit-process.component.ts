@@ -89,6 +89,7 @@ export class ExitProcessComponent {
     );
   }
   sendEmail(imageData: string) {
+    const modalContent = document.querySelector('.email')?.innerHTML;
     const subject = 'Exit Process Information';
     const body = 'Please find the attached information about your assigned items.';
 
@@ -119,32 +120,55 @@ export class ExitProcessComponent {
       canvas.width = width;
       canvas.height = height;
 
-      // Draw the image on the canvas with the resized dimensions
       ctx?.drawImage(img, 0, 0, width, height);
 
-      // Convert the canvas to base64 data URL
-      const resizedImageData = canvas.toDataURL('image/png');
+      const resizedImageData = canvas.toDataURL('image/jpeg');
 
-      // Create a blob from the resized image data
-      const byteCharacters = atob(resizedImageData.split(',')[1]);
-      const byteNumbers = new Array(byteCharacters.length);
-      for (let i = 0; i < byteCharacters.length; i++) {
-        byteNumbers[i] = byteCharacters.charCodeAt(i);
-      }
-      const byteArray = new Uint8Array(byteNumbers);
-      const blob = new Blob([byteArray], { type: 'image/png' });
+      //const byteCharacters = atob(resizedImageData.split(',')[1]);
+      //const byteNumbers = new Array(byteCharacters.length);
+      //for (let i = 0; i < byteCharacters.length; i++) {
+      //  byteNumbers[i] = byteCharacters.charCodeAt(i);
+      //}
+      //const byteArray = new Uint8Array(byteNumbers);
+      //const blob = new Blob([byteArray], { type: 'image/jpeg' });
 
-      // Create a link element to trigger the download of the resized image
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = 'assigned_items.png';
-      link.click();
+      //const imageLink = document.createElement('a');
+      //imageLink.href = URL.createObjectURL(blob);
+      //imageLink.download = 'assigned_items.jpeg';
+      //imageLink.click();
 
-      // Create the mailto link with the resized image attached
-      const mailtoLink = `mailto:${this.ToEmail}?subject=${encodeURIComponent(subject)}&body=${body}&attachment=assigned_items.png`;
+      //const mailtoLink = `mailto:${this.ToEmail}?subject=${encodeURIComponent(subject)}&body=${body}&attachment=assigned_items.png`;
 
-      // Redirect to the mail client
-      window.location.href = mailtoLink;
+      //window.location.href = mailtoLink;
+
+
+     
+      let emailContent = `To: ${this.ToEmail}\n`;
+    emailContent += `Subject: ${subject}\n`;
+    emailContent += `X-Unsent: 1\n`;
+    emailContent += "Content-Type: multipart/mixed; boundary=--boundary_text_string" + "\n";
+    emailContent += "\n";
+    emailContent += "----boundary_text_string" + "\n";
+    emailContent += "Content-Type: text/html; charset=UTF-8" + "\n";
+    emailContent += "\n";
+      emailContent += body + "\n";
+    emailContent += "----boundary_text_string" + "\n";
+      emailContent += "Content-Type: image/jpeg; name=assigned_items.jpeg"+"\n";
+    emailContent += "Content-Transfer-Encoding: base64" + "\n";
+    emailContent += "Content-Disposition: attachment" + "\n";
+    emailContent += "" + "\n";
+      emailContent += resizedImageData.split(',')[1] + "\n";
+      emailContent += "----boundary_text_string--";
+
+    // Create a Blob object with the email content
+    const blobData = new Blob([emailContent], { type: 'text/plain' });
+
+    // Create a download link for the Blob object
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blobData);
+    link.download = 'email_draft.eml';
+    link.click();
+      
     };
   }
 
