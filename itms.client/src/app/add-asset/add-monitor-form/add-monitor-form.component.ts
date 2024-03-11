@@ -42,17 +42,25 @@ export class AddMonitorFormComponent {
   toggleDeviceDetailsForm() {
     this.ifChecked = !this.ifChecked;
     this.emitSelectedOptions();
-
+    if (this.ifChecked || this.ifCheck || this.iCheck) {
+      this.loadMouseBrand();
+    }
   }
   toggleDeviceDetails() {
     this.ifCheck = !this.ifCheck;
     this.emitSelectedOptions();
+    if (this.ifChecked || this.ifCheck || this.iCheck) {
+      this.loadMouseBrand();
+    }
 
   }
 
   toggleDevice() {
     this.iCheck = !this.iCheck;
     this.emitSelectedOptions();
+    if (this.ifChecked || this.ifCheck || this.iCheck) {
+      this.loadMouseBrand();
+    }
 
   }
   toggleDetails() {
@@ -117,14 +125,8 @@ export class AddMonitorFormComponent {
     this.dataService.getAllBrands(input).subscribe(
       (data) => {
         console.log(data);
-        this.dropdownValues = data.filter((item: any) => {
-          if ((this.ifChecked && item.type === 'HDMI') ||
-            (this.ifCheck && item.type === 'VGA') ||
-            (this.iCheck && item.type === 'DVI')) {
-            return true;
-          }
-          return false;
-        });
+
+
 
       },
       (error) => {
