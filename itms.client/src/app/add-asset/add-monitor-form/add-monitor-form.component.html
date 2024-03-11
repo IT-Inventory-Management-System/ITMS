@@ -126,20 +126,25 @@
             This device ID is auto generated.
           </div>
         </div>
-        <div  class="outer-input">
+        <div class="outer-input">
 
 
-          <div class="cyg-id-input">
-            <div class="sno">
-              
+          <div *ngFor="let ele of counterValues; let i = index" class="outer-input" >
+
+
+            <div class="cyg-id-input">
+              <div class="sno">
+                {{ele}}.
+              </div>
+              <div class="inner-cyg-div">
+                <label for="cygId" class="label-cyg">Device ID</label>
+
+                <input type="text" id="cygId" name="cygId" placeholder="Enter CYG ID"  disabled />
+              </div>
             </div>
-            <div class="inner-cyg-div">
-              <label for="cygId" class="label-cyg">Device ID</label>
 
-              <input type="text" id="cygId" name="cygId" placeholder="Enter CYG ID" disabled />
-            </div>
+
           </div>
-
 
         </div>
       </div>

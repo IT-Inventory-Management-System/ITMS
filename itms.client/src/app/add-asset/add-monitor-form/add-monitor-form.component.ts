@@ -12,7 +12,7 @@ export class AddMonitorFormComponent {
   showDeviceDetailsForm: boolean=false;
   iCheck: boolean = false;
   selectedStorage: string | null = null;
-  counterValue = 0;
+  counterValue:number= 0;
 
   toggleDeviceDetailsForm() {
     this.ifChecked = !this.ifChecked;
@@ -44,7 +44,9 @@ export class AddMonitorFormComponent {
     }
   
   }
-
+  get counterValues(): number[] {
+    return Array.from({ length: this.counterValue }, (_, i) => i + 1);
+  }
 
   deselectAllButtons() {
     this.selectedStorage = ''; // Deselect all buttons when input field is clicked
