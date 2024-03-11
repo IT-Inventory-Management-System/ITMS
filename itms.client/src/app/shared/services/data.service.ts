@@ -209,5 +209,10 @@ export class DataService {
   getCGIIDMonitor(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl + 'asset/getCGIIDKeyboard');
   }
+
+  postMonitorBrand(formData: any): Observable<any> {
+    return this.http.post(this.apiUrl + 'asset/addMonitorModel', formData);
+  }
+
 }
 

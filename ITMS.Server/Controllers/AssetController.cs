@@ -71,7 +71,7 @@ namespace ITMS.Server.Controllers
             {
                 await _addAssetService.postMonitorDetails(monitorDTO);
 
-                return Ok("Monitor added successfully"); // You can customize the success response
+                return Ok(); // You can customize the success response
             }
             catch (Exception ex)
             {

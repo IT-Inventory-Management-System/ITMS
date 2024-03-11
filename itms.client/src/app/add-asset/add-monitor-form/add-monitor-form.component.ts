@@ -42,25 +42,19 @@ export class AddMonitorFormComponent {
   toggleDeviceDetailsForm() {
     this.ifChecked = !this.ifChecked;
     this.emitSelectedOptions();
-    if (this.ifChecked || this.ifCheck || this.iCheck) {
-      this.loadMouseBrand();
-    }
+  
   }
   toggleDeviceDetails() {
     this.ifCheck = !this.ifCheck;
     this.emitSelectedOptions();
-    if (this.ifChecked || this.ifCheck || this.iCheck) {
-      this.loadMouseBrand();
-    }
+    
 
   }
 
   toggleDevice() {
     this.iCheck = !this.iCheck;
     this.emitSelectedOptions();
-    if (this.ifChecked || this.ifCheck || this.iCheck) {
-      this.loadMouseBrand();
-    }
+  
 
   }
   toggleDetails() {
@@ -114,6 +108,8 @@ export class AddMonitorFormComponent {
       VGA: this.ifCheck,
       DVI: this.iCheck
     };
+    this.loadMouseBrand();
+
   }
   previous() {
     this.currentStep--;
@@ -121,19 +117,48 @@ export class AddMonitorFormComponent {
   loadMouseBrand() {
     const input = {
       categoryName: this.category
-    }
+    };
+
+    console.log("Selected Options:", this.selectedOptions); // Debugging
+
     this.dataService.getAllBrands(input).subscribe(
       (data) => {
-        console.log(data);
+        console.log("Original Data:", data); // Debugging
+
+        this.dropdownValues = data.filter(item => {
+          const hdmiMatch = this.selectedOptions.HDMI && item.isHDMI;
+          const vgaMatch = this.selectedOptions.VGA && item.isVGA;
+          const dviMatch = this.selectedOptions.DVI && item.isDVI;
+
+          // Check if all selected options match the item properties
+        
+          // Check if both HDMI and VGA are checked and DVI is unchecked
+          if (hdmiMatch && vgaMatch && !dviMatch) {
+            return item.isHDMI && item.isVGA && !item.isDVI;
+          }
+          else if (!hdmiMatch && vgaMatch && dviMatch) {
+            return !item.isHDMI && item.isVGA && item.isDVI;
+          }
+          else if (hdmiMatch && !vgaMatch && dviMatch) {
+            return item.isHDMI && !item.isVGA && item.isDVI;
+          }
+          //else if(){
+            
+          //}
+          //if (hdmiMatch && !vgaMatch && !dviMatch) {
+          //  return item.isHDMI && !item.isVGA && !item.isDVI;
+          //}
 
 
-
+          return false; // Default to false if no matching condition is met
+        });
       },
       (error) => {
         console.error('Error fetching device data', error);
       }
     );
   }
+
   getCgi() {
     this.dataService.getCGIIDMonitor().subscribe(
       (data) => {
