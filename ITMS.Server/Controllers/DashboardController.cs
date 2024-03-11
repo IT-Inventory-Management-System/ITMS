@@ -1,6 +1,7 @@
 using ITMS.Server.DTO;
 using ITMS.Server.Models;
 using ITMS.Server.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -47,6 +48,7 @@ namespace ITMS.Server.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet("primary")]
         public ActionResult<IEnumerable<Accessories>> GetPrimary()
         {

@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AvatarModule } from 'ngx-avatars';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { CategoryComponent } from './category/category.component';
 import { InventoryComponent } from './inventory/inventory.component';
@@ -126,7 +126,7 @@ import { RevokeRoleModalComponent } from './manage-access/admin-permissions-pane
 import { StockStatusCellComponent } from './shared/components/stock-status-cell/stock-status-cell.component';
 import { UnassignableModalComponent } from './inventory/assets-category/assest/specification/unassignable-modal/unassignable-modal.component';
 import { LoginComponent } from './login/login.component';
-
+import { TokenInterceptor } from './interceptors/token.interceptor';
 
 
 @NgModule({
@@ -264,7 +264,6 @@ import { LoginComponent } from './login/login.component';
       StockStatusCellComponent,
       UnassignableModalComponent,
       LoginComponent,
-
   ],
   imports: [
     BrowserModule,
@@ -279,7 +278,11 @@ import { LoginComponent } from './login/login.component';
     NgSelectModule,
     AgGridModule
   ],
-  providers: [DatePipe],
+  providers: [DatePipe, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi: true
+  },], 
   bootstrap: [AppComponent]
 })
 export class AppModule { }

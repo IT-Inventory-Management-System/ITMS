@@ -66,22 +66,25 @@
 
 
           <!--<div class="users">
-            <span class="user-text">Users</span>
-          </div>
-          <div class="upload-csv">
-            <img class="dropdown-icn" src="../../../../assets/icons/uploadcsv.svg" />
-            <span class="uploadcsv-text">Upload User Details CSV</span>
+      <span class="user-text">Users</span>
+    </div>
+    <div class="upload-csv">
+      <img class="dropdown-icn" src="../../../../assets/icons/uploadcsv.svg" />
+      <span class="uploadcsv-text">Upload User Details CSV</span>
 
-          </div>
-          <div class="upload-csv">
-            <img class="dropdown-icn" src="../../../../assets/icons/Add.svg" />
-            <span class="uploadcsv-text" data-bs-toggle="modal" data-bs-target="#UserModal" >Add User Manually</span>
+    </div>
+    <div class="upload-csv">
+      <img class="dropdown-icn" src="../../../../assets/icons/Add.svg" />
+      <span class="uploadcsv-text" data-bs-toggle="modal" data-bs-target="#UserModal" >Add User Manually</span>
 
-          </div>-->
+    </div>-->
         </div>
-        <div class="avatar-dropdown">
-          <ngx-avatars name="{{loggedUser.firstName}} {{loggedUser.lastName}}" [textSizeRatio]=2.7 bgColor="#b8dde1" fgColor="#264f9d" [round]="true"></ngx-avatars>
+        <div class="avatar-dropdown" (click)="toggleDropdown()">
+          <ngx-avatars name="{{firstName}} {{lastName}}" [textSizeRatio]=2.7 bgColor="#b8dde1" fgColor="#264f9d" [round]="true"></ngx-avatars>
           <img src="../../../../assets/icons/arrow.svg">
+        </div>
+        <div *ngIf="showDropdown == true" class="dropdown-content">
+          <a (click)="logout()">Logout</a>
         </div>
       </div>
     </div>

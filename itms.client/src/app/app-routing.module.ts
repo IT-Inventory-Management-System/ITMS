@@ -13,23 +13,24 @@ import { SoftwareComponent } from './software/software.component';
 import { AccessoriesComponent } from './accessories/accessories.component';
 import { ManageAccessComponent } from './manage-access/manage-access.component';
 import { LoginComponent } from './login/login.component';
+import { LoginGuard } from './guards/login.guard';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' }, // Redirect empty path to 'dashboard'
+  { path: '', redirectTo: '/login', pathMatch: 'full' }, // Redirect empty path to 'dashboard'
 
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'category', component: CategoryComponent },
-  { path: 'inventory', component: InventoryComponent },
-  { path: 'accessories', component: AccessoriesComponent },
-  { path: 'employee', component: EmployeeComponent },
-  { path: 'software', component: SoftwareComponent },
-  { path: 'history', component: HistoryComponent },
-  { path: 'manage-access', component: ManageAccessComponent },
-  { path: 'add-asset', component: AddAssetComponent },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [LoginGuard] },
+  { path: 'category', component: CategoryComponent, canActivate: [LoginGuard] },
+  { path: 'inventory', component: InventoryComponent, canActivate: [LoginGuard] },
+  { path: 'accessories', component: AccessoriesComponent, canActivate: [LoginGuard] },
+  { path: 'employee', component: EmployeeComponent, canActivate: [LoginGuard] },
+  { path: 'software', component: SoftwareComponent, canActivate: [LoginGuard] },
+  { path: 'history', component: HistoryComponent, canActivate: [LoginGuard] },
+  { path: 'manage-access', component: ManageAccessComponent, canActivate: [LoginGuard] },
+  { path: 'add-asset', component: AddAssetComponent, canActivate: [LoginGuard] },
   { path: 'assign-asset', redirectTo: '/dashboard', pathMatch: 'full' },
-  { path: 'api/Device/:cygId', component: InventoryComponent },
-  { path: 'Login', component: LoginComponent }
+  { path: 'api/Device/:cygId', component: InventoryComponent, canActivate: [LoginGuard] },
+  { path: 'login', component: LoginComponent }
   
 ];
 

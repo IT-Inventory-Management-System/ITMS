@@ -17,10 +17,13 @@ namespace ITMS.Server.Controllers
     public class LoginController : ControllerBase
     {
         private readonly LoginService _loginService;
+        private readonly ItinventorySystemContext _context;
 
-        public LoginController(LoginService LoginService)
+
+        public LoginController(LoginService LoginService, ItinventorySystemContext context)
         {
             _loginService = LoginService;
+            _context = context;
         }
 
 
@@ -32,6 +35,8 @@ namespace ITMS.Server.Controllers
                 return BadRequest("Invalid credentials");
 
             var token = GenerateJwtToken(user);
+            user.Token = token;
+            _context.SaveChanges();
             return Ok(new { Token = token });
         }
 
@@ -40,12 +45,20 @@ namespace ITMS.Server.Controllers
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes("ITIMSSECRETKEYFORJWTTOKEN"); // Replace with your own secret key
+            var roleName = _context.Roles
+                            .Where(r => r.Id == employee.RoleId)
+                            .Select(r => r.Name)
+                            .FirstOrDefault();
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-            new Claim(ClaimTypes.Name, employee.FirstName),
-            new Claim(ClaimTypes.Surname, employee.LastName),
+                    new Claim("id", employee.Id.ToString()),
+                    new Claim("firstName", employee.FirstName),
+                    new Claim("lastName", employee.LastName),
+                    new Claim(ClaimTypes.Role, roleName),
+                    new Claim("locationId", employee.LocationId.ToString()),
+                    new Claim("cgiid", employee.Cgiid)
                     // You can add more claims as needed
                 }),
                 Expires = DateTime.UtcNow.AddDays(7), // Token expiration time
