@@ -52,7 +52,11 @@ namespace ITMS.Server.Controllers
         {
             return await _addAssetService.getlaptopIds();
         }
-
+        [HttpGet("getMonitorBrands")]
+        public async Task<IEnumerable<monitorInputDTO>> getMonitorBrands()
+        {
+            return await _addAssetService.getMonitorBrands();
+        }
         [HttpPost("getBrandDetails")]
         public async Task<IEnumerable<categoryInputDTO>> getBrandDetails([FromBody] categoryDTO categoryDTO)
         {
@@ -60,7 +64,7 @@ namespace ITMS.Server.Controllers
             return await _addAssetService.getBrandDetails(categoryDTO.categoryName);
         }
 
-        [HttpPost("addMonitor")]
+        [HttpPost("addMonitorModel")]
         public async Task<IActionResult> addMonitor([FromBody] MonitorDTO monitorDTO)
         {
             try

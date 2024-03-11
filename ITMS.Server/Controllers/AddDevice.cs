@@ -121,6 +121,19 @@ namespace ITMS.Server.Controllers
                 return BadRequest(e);
             }
         }
+        [HttpPost("AddMonitor")]
+        public ActionResult AddMonitor([FromBody] PostMonitorDTO postMonitorDTO)
+        {
+            try
+            {
+                _deviceService.AddMonitor(postMonitorDTO);
+                return Ok("Monitor added successfully");
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+        }
 
 
     }

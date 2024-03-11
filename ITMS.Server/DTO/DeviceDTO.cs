@@ -187,4 +187,9 @@ namespace ITMS.Server.DTO
         public Guid CategoryId { get; set; }
 
     }
+    public class monitorInputDTO
+    {
+        public string? Brand { get; set; }
+
+    }
 }

@@ -14,6 +14,7 @@ namespace ITMS.Server.Services
         Task<IEnumerable<getCGIDTO>> getCGIID();
         Task<IEnumerable<getLaptopIds>> getlaptopIds();
         Task<IEnumerable<categoryInputDTO>> getBrandDetails(String CategoryName);
+        Task<IEnumerable<monitorInputDTO>> getMonitorBrands();
         Task<IEnumerable<getCGIDTO>> getCGIIDKeyboard(); 
         Task postMonitorDetails(MonitorDTO monitorDTO);
 
@@ -129,9 +130,13 @@ namespace ITMS.Server.Services
                                 where c.Name.ToLower() == CategoryName.ToLower()
                                 select new categoryInputDTO
                                 {   
-                                    Id=d.Id,
-                                    categoryId=d.CategoryId,
-                                    Brand=d.Brand
+                                    Id = d.Id,
+                                    categoryId = d.CategoryId,
+                                    Brand = d.Brand,
+                                    IsHDMI = d.IsHDMI,
+                                    IsVGA = d.IsVGA,
+                                    IsDVI = d.IsDVI
+
                                 }).ToListAsync();
             return result;
         }
@@ -156,6 +161,21 @@ namespace ITMS.Server.Services
                 result = result.OrderByDescending(c => int.Parse(c.CGIID)).ToList();
                 return result.Take(1);
             }
+
+        }
+        public async Task<IEnumerable<monitorInputDTO>> getMonitorBrands()
+        {
+            var result = await (from d in _context.DeviceModel
+                                join c in _context.Categories
+                                on d.CategoryId equals c.Id
+                                where c.Name.ToLower() == "monitor" 
+                                select new monitorInputDTO
+                                {
+                                    Brand = d.Brand
+
+
+                                }).ToListAsync();
+            return result;
 
         }
         public async Task postMonitorDetails(MonitorDTO monitorDTO)

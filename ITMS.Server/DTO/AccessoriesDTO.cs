@@ -67,11 +67,30 @@
     {
         public Guid Id { get; set; }
         public string Brand { get; set; }
-
         public Guid categoryId { get; set; }
+        public bool? IsHDMI { get; set; }
+        public bool? IsVGA { get; set; }
+        public bool? IsDVI { get; set; }
     }
     public class categoryDTO
     {
         public string categoryName { get; set; }
+    }
+    public class PostMonitorDTO
+    {
+        public List<String> deviceId { get; set; }
+        public int qty { get; set; }
+        public Guid deviceModelId { get; set; }
+        public int ScreenSize { get; set; }
+        public Guid createdBy { get; set; }
+        public Guid updatedBy { get; set; }
+        public Guid status { get; set; }
+        public Guid locationId { get; set; }
+        public DateTime createdAt { get; set; }
+        public DateTime updatedAt { get; set; }
+        public bool isArchived { get; set; }
+        public DateTime purchaseddate { get; set; }
+        public DateTime warrantydate { get; set; }
+
     }
 }
