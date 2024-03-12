@@ -848,6 +848,26 @@ public class DeviceService
             // Log or handle the exception as needed
             throw;
         }
+
+        
+
+    }
+
+    public async Task UpdateDeviceLogAsync(DeviceModelInputDto deviceModelInputDto)
+    {
+        DeviceModel deviceModel = new DeviceModel();
+
+        deviceModel.CategoryId = deviceModelInputDto.CategoryId;
+        deviceModel.Brand = deviceModelInputDto.Brand;
+        deviceModel.CreatedBy = deviceModelInputDto.CreatedBy;
+        deviceModel.UpdatedBy = deviceModelInputDto.UpdatedBy;
+        deviceModel.CreatedAtUtc = DateTime.UtcNow;
+        deviceModel.UpdatedAtUtc = DateTime.UtcNow;
+        deviceModel.IsArchived = false;
+
+        _context.DeviceModel.Update(deviceModel);
+        await _context.SaveChangesAsync();
+        
     }
 
 }

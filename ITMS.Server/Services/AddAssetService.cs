@@ -2,18 +2,20 @@
 using ITMS.Server.Models;
 using LibNoise.Modifier;
 using Microsoft.EntityFrameworkCore;
+using MiNET.Utils;
 
 namespace ITMS.Server.Services
 {
         public interface IAddAssetService
         {
-            Task<IEnumerable<GetEmployeeDTO>> getAllEmployeeBasicDetails();
+        Task<IEnumerable<GetEmployeeDTO>> getAllEmployeeBasicDetails();
         Task<IEnumerable<GetAccessories>> getAccessories();
         Task<IEnumerable<GetBrandDTO>> getMouseBrand();
-        
-            Task<IEnumerable<getCGIDTO>> getCGIID();
+        Task<IEnumerable<getCGIDTO>> getCGIID();
         Task<IEnumerable<getLaptopIds>> getlaptopIds();
-
+        Task<IEnumerable<categoryInputDTO>> getBrandDetails(String CategoryName);
+        Task<IEnumerable<getCGIDTO>> getCGIIDKeyboard(); 
+        Task postMonitorDetails(MonitorDTO monitorDTO);
 
     }
     public class AddAssetService : IAddAssetService
@@ -114,10 +116,65 @@ namespace ITMS.Server.Services
             CYGID = device.Cygid,
             SerialNumber = device.SerialNumber
         }
-    ).ToListAsync();
+        ).ToListAsync();
             return result;
 
         }
 
+        public async Task<IEnumerable<categoryInputDTO>> getBrandDetails(String CategoryName)
+        {
+            var result = await (from d in _context.DeviceModel
+                                join c in _context.Categories
+                                on d.CategoryId equals c.Id
+                                where c.Name.ToLower() == CategoryName.ToLower()
+                                select new categoryInputDTO
+                                {   
+                                    Id=d.Id,
+                                    categoryId=d.CategoryId,
+                                    Brand=d.Brand
+                                }).ToListAsync();
+            return result;
+        }
+
+        public async Task<IEnumerable<getCGIDTO>> getCGIIDKeyboard()
+        {
+
+            var result = await (from c in _context.Devices
+                                where c.Cygid.StartsWith("CGI-MON")
+                                select new getCGIDTO
+                                {
+                                    CGIID = c.Cygid.Substring(8) // Leave it as string for now
+                                })
+                    .ToListAsync();
+            if (result.Count == 0)
+            {
+                return new List<getCGIDTO> { new getCGIDTO { CGIID = "0" } };
+            }
+            // Convert CGIID to integers and order the result
+            else
+            {
+                result = result.OrderByDescending(c => int.Parse(c.CGIID)).ToList();
+                return result.Take(1);
+            }
+
+        }
+        public async Task postMonitorDetails(MonitorDTO monitorDTO)
+        {
+            DeviceModel deviceModel = new DeviceModel();
+            deviceModel.IsHDMI = monitorDTO.IsHDMI;
+            deviceModel.IsDVI = monitorDTO.IsDVI;
+            deviceModel.IsVGA = monitorDTO.IsVGA;
+            deviceModel.CreatedBy = monitorDTO.CreatedBy;
+            deviceModel.CreatedAtUtc = DateTime.UtcNow;
+            deviceModel.UpdatedBy = monitorDTO.UpdatedBy;
+            deviceModel.UpdatedAtUtc = DateTime.UtcNow;
+            deviceModel.Brand = monitorDTO.Brand;
+            deviceModel.CategoryId = monitorDTO.CategoryId;
+            deviceModel.IsArchived = false;
+
+            _context.DeviceModel.Update(deviceModel);
+            await _context.SaveChangesAsync();
+            
+        }
     }
 }

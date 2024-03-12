@@ -20,7 +20,7 @@ namespace ITMS.Server.Controllers
         [HttpGet("getEmployee")]
         public async Task<IEnumerable<GetEmployeeDTO>> getAllEmployeeBasicDetails()
         {
-          return await _addAssetService.getAllEmployeeBasicDetails();
+            return await _addAssetService.getAllEmployeeBasicDetails();
 
         }
         [HttpGet("getAccessories")]
@@ -41,12 +41,40 @@ namespace ITMS.Server.Controllers
         {
             return await _addAssetService.getCGIID();
         }
+        [HttpGet("getCGIIDKeyboard")]
+        public async Task<IEnumerable<getCGIDTO>> getCGIIDKeyboard()
+        {
+            return await _addAssetService.getCGIIDKeyboard();
+        }
 
         [HttpGet("getLaptopIDs")]
         public async Task<IEnumerable<getLaptopIds>> getlaptopIds()
         {
             return await _addAssetService.getlaptopIds();
         }
+
+        [HttpPost("getBrandDetails")]
+        public async Task<IEnumerable<categoryInputDTO>> getBrandDetails([FromBody] categoryDTO categoryDTO)
+        {
+            
+            return await _addAssetService.getBrandDetails(categoryDTO.categoryName);
+        }
+
+        [HttpPost("addMonitor")]
+        public async Task<IActionResult> addMonitor([FromBody] MonitorDTO monitorDTO)
+        {
+            try
+            {
+                await _addAssetService.postMonitorDetails(monitorDTO);
+
+                return Ok("Monitor added successfully"); // You can customize the success response
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Error adding monitor: {ex.Message}");
+            }
+        }
+
 
     }
 }

@@ -52,6 +52,7 @@ export class RevokeAllComponent {
       (this.currentStep === 3 && this.variable3);
     this.cdr.detectChanges();
 
+
   }
 
   // Filter the details in ngOnChanges lifecycle hook
@@ -76,6 +77,7 @@ export class RevokeAllComponent {
         this.actionsArray = actions;
         console.log(this.actionsArray);
       },
+
       (error) => {
         console.error('Error fetching actions:', error);
       }
