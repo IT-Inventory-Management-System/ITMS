@@ -1,4 +1,4 @@
-.body-login {
+/*.body-login {
   height: 42rem;
   width: 73.5rem;
   overflow-x: hidden;
@@ -180,4 +180,19 @@ a {
   form {
     width: 90%;
   }
+}
+*/
+
+.login-outer {
+  width: 84.79rem;
+  height: 48rem;
+  background: url('../../assets/icons/Login/login-screen-background.svg');
+  margin:0rem;
+  object-fit:contain;
+  object-position:center;
+  position:absolute;
+  z-index:-1;
+  overflow-x:hidden;
+  left:0rem;
+  top:-8rem;
 }
