@@ -43,7 +43,7 @@
     }
     public class commonInputDTO
     {
-        public Guid categoryId { get; set; }
+        public string? Name { get; set; }
     }
     public class getAccessoriesDTO
     {
