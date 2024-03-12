@@ -10,6 +10,11 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AddMonitorBrandFormComponent {
   deviceForm: FormGroup;
+  @Input() category: string = '';
+  showErrorMessage = false;
+  dropdownValues: any[] = [];
+  errorMessage: string = '';
+  showMessage = false;
 
   UserId: any;
   userDataJSON: any;
@@ -52,7 +57,7 @@ export class AddMonitorBrandFormComponent {
   ngOnInit(): void {
     this.createForm();
     this.setCategoryId();
-
+    this.loadMouseBrand();
     this.userDataJSON = localStorage.getItem('user');
 
     // Parse the JSON string back into an object
@@ -78,7 +83,7 @@ export class AddMonitorBrandFormComponent {
 
 
 
-    if (this.deviceForm.valid) {
+    if (this.deviceForm.valid && this.showErrorMessage == false && this.showMessage == false) {
 
       console.log(this.deviceForm.value);
 
@@ -94,7 +99,55 @@ export class AddMonitorBrandFormComponent {
         }
       );
     }
+    else {
+      this.showMessage = true;
+    }
 
+  }
+  loadMouseBrand() {
+    const input = {
+      categoryName: this.category
+    };
+    
+    console.log("Selected Options:", this.selectedOptions);
+
+    this.dataService.getAllBrands(input).subscribe(
+      (data) => {
+        console.log("Original Data:", data);
+        this.dropdownValues = [];
+        for (var i = 0; i < data.length; i++) {
+          if (this.selectedOptions.HDMI == data[i].isHDMI && this.selectedOptions.VGA == data[i].isVGA && this.selectedOptions.DVI == data[i].isDVI) {
+            this.dropdownValues.push(data[i]);
+          }
+
+        }
+
+      },
+      (error) => {
+        console.error('Error fetching device data', error);
+      }
+    );
+  }
+
+  updateBrand(event: any) {
+    this.loadMouseBrand();
+
+    this.showErrorMessage = false;
+
+    const inputValue = event.target.value.toLowerCase();
+
+    for (var i = 0; i < this.dropdownValues.length; i++) {
+      if (this.dropdownValues[i].brand.toLowerCase() === inputValue) {
+        this.showErrorMessage = true;
+        this.errorMessage = 'Brand already exists.';
+        break;
+      }
+
+
+    }
+  }
+  hideErrorMessage() {
+    this.showMessage = false;
   }
 
 }
