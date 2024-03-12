@@ -73,22 +73,6 @@ form {
     color: #444;
   }
 
-.btn {
-  width: 150px;
-  height: 50px;
-  border: none;
-  border-radius: 50px;
-  background: #082c3c;
-  color: #fff;
-  font-weight: 600;
-  margin: 10px 0;
-  text-transform: uppercase;
-  cursor: pointer;
-}
-
-  .btn:hover {
-    background: #0c4056;
-  }
 
 a {
   text-decoration: none;
@@ -196,3 +180,163 @@ a {
   left:0rem;
   top:-8rem;
 }
+
+
+.CG-Logo-Main {
+  border-radius: 1rem;
+  background: #FFF;
+  box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.15);
+  display: inline-flex;
+  padding: 3rem 1rem;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rem;
+  height:32.625rem;
+  width:29.5rem;
+  margin-top:10rem;
+  margin-left:30rem;
+}
+
+.logo-with-tagline {
+  display: flex;
+  width: 27.5rem;
+  height: 5.625rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.125rem;
+}
+
+
+.tagline {
+  display: flex;
+  align-items: center;
+  gap: 0.20581rem;
+}
+
+.tag {
+  color: #032C3D;
+  font-family: Roboto;
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-transform: uppercase;
+}
+
+
+.sign-in {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+  height:17rem;
+  width:22.0625rem;
+}
+
+
+.sign-in-text {
+  color: var(--Primary-Royal-Blue, #002C3F);
+  font-family: Roboto;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
+}
+
+
+.credential-button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2rem;
+  height: 12.75rem;
+  width: 22.0625rem;
+}
+
+.cred-forgot {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 0.5rem;
+  height:7.75rem;
+}
+
+
+.email-pass {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.25rem;
+}
+
+.email {
+  border-radius: 0.5rem;
+  border: 1px solid var(--secondary-Grey, #B2B2B3);
+  display: flex;
+  width: 22.0625rem;
+  padding: 0.75rem;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+
+.pass {
+  border-radius: 0.5rem;
+  border: 1px solid var(--secondary-Grey, #B2B2B3);
+  display: flex;
+  width: 22.0625rem;
+  padding: 0.75rem;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.forgot-pass {
+  color: var(--Primary-Blue, #28519E);
+  font-family: Roboto;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+
+
+.btn {
+  display: flex;
+  width: 22.0625rem;
+  height: 3rem;
+  padding: 1rem 0.5rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  border-radius: 0.5rem;
+  background: var(--Primary-Yellow, #FFB81C);
+  box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.15);
+  color: var(--Primary-Royal-Blue, #002C3F);
+  font-family: Roboto;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
+}
+
+
+#inp {
+  border: none;
+  outline: none;
+  /* Add any additional styling as needed */
+}
+
+#pass {
+  border: none;
+  outline: none;
+  width:100%;
+}
+
+
+ /* .btn:hover {
+    background: #FFB81C;
+  }
+*/

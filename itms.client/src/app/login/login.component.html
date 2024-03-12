@@ -26,5 +26,35 @@
   </div>
 </div>-->
 <div class="login-outer">
+  <div class="CG-Logo-Main">
+    <div class="logo-with-tagline">
+      <img src="../../assets/icons/Login/CG Logo.svg" />
+      <div class="tagline">
+        <span class="tag">People First</span>
+        <img src="../../assets/icons/Login/+.svg" />
+        <span class="tag">Driven to Transform</span>
+      </div>
+    </div>
+    <form class="sign-up-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="sign-in">
+        <span class="sign-in-text">Sign-in to your account</span>
+        <div class="credential-button">
+          <div class="cred-forgot">
+            <div class="email-pass">
+              <div class="email">
+                <input type="text" placeholder="Email" id="inp" formControlName="email" required>
+              </div>
+              <div class="pass">
+                <input type="password" placeholder="Password" formControlName="password" id="pass" required>
+              </div>
+            </div>
+            <span class="forgot-pass">Forgot Password?</span>
+          </div>
+          <input type="submit" value="Sign In" class="btn" id="sub">
 
+        </div>
+      </div>
+    </form>
+
+  </div>
 </div>
