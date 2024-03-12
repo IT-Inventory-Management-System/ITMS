@@ -243,7 +243,7 @@ namespace ITMS.Server.Services
             Dictionary<string, string> _categoryPrefixMap = new Dictionary<string, string>
         {
             { "Connector(Texas Instruments)", "CGI-MIS" },
-            { "Apple Thunderbolt(LAN) Connector", "CGI-CLAN" },
+            { "Apple Thunderbolt(LAN)", "CGI-CLAN" },
             { "Android Cables", "CGI-AC" },
             { "Apple VGA Connector", "CGI-CVGA" },
             { "External Hard Drives", "CGI-EHD" },

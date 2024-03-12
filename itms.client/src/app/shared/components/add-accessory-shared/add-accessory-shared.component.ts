@@ -18,7 +18,7 @@ export class AddAccessorySharedComponent {
 
   categoryPrefixMap: { [key: string]: string } = {
     "Connector(Texas Instruments)": "CGI-MIS ",
-    "Apple Thunderbolt(LAN) Connector": "CGI-CLAN ",
+    "Apple Thunderbolt(LAN)": "CGI-CLAN ",
     "Android Cables": "CGI-AC ",
     "Apple VGA Connector": "CGI-CVGA ",
     "External Hard Drives": "CGI-EHD ",
@@ -72,7 +72,7 @@ export class AddAccessorySharedComponent {
     this.setStatus();
     this.setlocationId();
     this.userDataJSON = localStorage.getItem('user');
-
+    this.currentStep = 1;
     // Parse the JSON string back into an object
     var userData = JSON.parse(this.userDataJSON);
 

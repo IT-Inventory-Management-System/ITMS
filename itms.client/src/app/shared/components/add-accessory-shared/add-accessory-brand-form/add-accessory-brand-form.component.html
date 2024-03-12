@@ -2,18 +2,18 @@
   <div class="heading-text">
     Add New Brand
   </div>
-  <div *ngIf="showMessage" class="error-alert-box1">
+  <!--<div *ngIf="showMessage" class="error-alert-box1">
     <div class="error-alert-icon">
       <img src="../../../assets/icons/info-icon.svg" />
     </div>
     <div class="error-alert-message">
       <span>Highlighted field(s) are mandatory and cannot be blank.</span>
     </div>
-  </div>
+  </div>-->
   <form class="device-form" [formGroup]="deviceForm">
     <div class="form-field">
       <label class="label" for="deviceName">Brand Name<span class="required">*</span></label>
-      <input type="text" id="deviceName" class="input-field" placeholder="Enter Brand Name" formControlName="brand" (focus)="hideErrorMessage()" [class.error-textarea]="showMessage && !deviceForm.get('brand')?.value">
+      <input type="text" id="deviceName" class="input-field" placeholder="Enter Brand Name" formControlName="brand">
     </div>
     <div class="add-button">
       <button type="submit" (click)="onSubmit()"><span>Add</span></button>
