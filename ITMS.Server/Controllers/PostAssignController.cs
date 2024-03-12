@@ -119,26 +119,26 @@ namespace ITMS.Server.Controllers
 
                             var SoftwareLogID = await _postAssignAsset.GetLatestDeviceLogId(softwareId);
 
-                            if (!string.IsNullOrEmpty(postAssignAssetDTO.SoftwareComments[i]))
-                            {
-                                PostCommentDTO softwareCommentDTO = new PostCommentDTO()
-                                {
-                                    Description = postAssignAssetDTO.SoftwareComments[i],
-                                    SoftwareAllocationId = softwareId,
-                                    CreatedBy = postAssignAssetDTO.AssignedBy,
-                                    DevicelogId = SoftwareLogID
-                                };
+                            //if (!string.IsNullOrEmpty(postAssignAssetDTO.SoftwareComments[i]))
+                            //{
+                            //    PostCommentDTO softwareCommentDTO = new PostCommentDTO()
+                            //    {
+                            //        Description = postAssignAssetDTO.SoftwareComments[i],
+                            //        SoftwareAllocationId = softwareId,
+                            //        CreatedBy = postAssignAssetDTO.AssignedBy,
+                            //        DevicelogId = SoftwareLogID
+                            //    };
 
-                                await _postAssignAsset.UpdateSoftwareComment(softwareCommentDTO);
+                            //    await _postAssignAsset.UpdateSoftwareComment(softwareCommentDTO);
 
-                                //var Comments = await _postAssignAsset.ListComment(SoftwareLogID);
-                                //var commentID = Comments.FirstOrDefault()?.Id;
+                            //    //var Comments = await _postAssignAsset.ListComment(SoftwareLogID);
+                            //    //var commentID = Comments.FirstOrDefault()?.Id;
 
-                                //if (commentID.HasValue)
-                                //{
-                                //    await _postAssignAsset.UpdateCommentIDLogAsync(SoftwareLogID, commentID.Value);
-                                //}
-                            }
+                            //    //if (commentID.HasValue)
+                            //    //{
+                            //    //    await _postAssignAsset.UpdateCommentIDLogAsync(SoftwareLogID, commentID.Value);
+                            //    //}
+                            //}
                         }
                     }
                 }

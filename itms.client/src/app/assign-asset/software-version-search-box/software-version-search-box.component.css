@@ -62,3 +62,37 @@
 .list-items:hover {
   background-color: #dddddd;
 }
+
+
+.alert-box {
+  display: flex;
+  padding: 0.5rem 0.75rem;
+  align-items: flex-start;
+  gap: 0.5rem;
+  align-self: stretch;
+  border-radius: 0.25rem;
+  background: #FFE8E8;
+}
+
+.alert-image-frame {
+  display: flex;
+  height: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.alert-image {
+  width: 0.75rem;
+  height: 0.75rem;
+  fill: #CC1A07;
+}
+
+.alert-box-msg {
+  flex: 1 0 0;
+  color: var(--Adhoc-Red, #CC1A07);
+  font-family: Roboto;
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1rem;
+}

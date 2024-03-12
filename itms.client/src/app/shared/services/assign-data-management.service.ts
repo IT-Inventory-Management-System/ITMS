@@ -21,7 +21,7 @@ export class AssignDataManagementService {
 
   private accessoriesState: any[] = [];
   private accessoryNamesState: any[] = [];
-  private accessoryBrandsState: any[]= [];
+  private accessoryBrandsState: any[] = [];
 
   private wireState: any[] = [];
   private BrandOptions: any[][] = [];
@@ -39,6 +39,7 @@ export class AssignDataManagementService {
   private formattedAgesState: string[] = [];
 
   private laptopCommentsState: any[] = [];
+  private SelectedLaptopOptions: any[] = [];
   /**************************************************************************************** */
 
   private selectedSoftwareNamesState: any[] = [];
@@ -60,6 +61,12 @@ export class AssignDataManagementService {
       case 'assignedTo':
         this.assignedToState = newState;
         break;
+      case 'setCygId':
+        if (index !== undefined && index >= 0) {
+          this.ensureArraySize('cygids', index);
+          this.cygidsState[index] = newState;
+        }
+        break;
       case 'cygids':
         if (index !== undefined && index >= 0) {
           this.ensureArraySize('cygids', index);
@@ -72,6 +79,9 @@ export class AssignDataManagementService {
           this.laptopCommentsState[index] = newState;
         }
         break;
+      //case 'AllLaptopComments':
+      //  this.laptopCommentsState = newState;
+      //  break;
       case 'softwareNames':
         if (index !== undefined && index >= 0) {
           this.ensureArraySize('softwareNames', index);
@@ -143,11 +153,18 @@ export class AssignDataManagementService {
           return this.cygidsState[index];
         }
         return null;
+      case 'getCygId':
+        if (index !== undefined && index >= 0 && index < this.cygidsState.length) {
+          return this.cygidsState[index];
+        }
+        return null;
       case 'laptopComments':
         if (index !== undefined && index >= 0 && index < this.laptopCommentsState.length) {
           return this.laptopCommentsState[index];
         }
         return null;
+      //case 'AllLaptopComments':
+      //  return this.laptopCommentsState;
       case 'softwareNames':
         if (index !== undefined && index >= 0 && index < this.selectedSoftwareNamesState.length) {
           return this.selectedSoftwareNamesState[index];
@@ -244,7 +261,7 @@ export class AssignDataManagementService {
     }
   }
 
-   setMultipleInstanceState(component: string, newState: any): void {
+  setMultipleInstanceState(component: string, newState: any): void {
     switch (component) {
       case 'selectedLaptops':
         this.selectedLaptopsState = newState;
@@ -300,6 +317,9 @@ export class AssignDataManagementService {
       case 'SelectedAccessories':
         this.SelectedAccessories = newState;
         break;
+      case 'SelectedLaptopOptions':
+        this.SelectedLaptopOptions = newState;
+        break;
       default:
         console.warn('Unknown component:', component);
     }
@@ -308,7 +328,7 @@ export class AssignDataManagementService {
   getMultipleInstanceState(component: string): any {
     switch (component) {
       case 'selectedLaptops':
-        return this.selectedLaptopsState;  
+        return this.selectedLaptopsState;
       case 'formattedAges':
         return this.formattedAgesState;
       case 'devices':
@@ -343,6 +363,8 @@ export class AssignDataManagementService {
         return this.SelectedAccessoriesData;
       case 'SelectedAccessories':
         return this.SelectedAccessories;
+      case 'SelectedLaptopOptions':
+        return this.SelectedLaptopOptions;
       default:
         console.warn('Unknown component:', component);
         return null;

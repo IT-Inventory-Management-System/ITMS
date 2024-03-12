@@ -33,6 +33,8 @@ public partial class Employee
 
     public bool? ExitProcessInitiated { get; set; }
 
+    public bool? onHold { get; set; }
+
     public virtual ICollection<Comment> Comments { get; } = new List<Comment>();
 
     public virtual Employee? CreatedByNavigation { get; set; }

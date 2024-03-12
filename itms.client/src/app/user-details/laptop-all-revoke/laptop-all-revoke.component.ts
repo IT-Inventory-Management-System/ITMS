@@ -51,7 +51,6 @@ export class LaptopAllRevokeComponent {
       this.SubmittedAction = this.actionsArray.find(a => a.actionName === 'Submitted' || a.actionName === 'submitted');
       this.SubmittedActionUnassign = this.actionsArray.find(a => a.actionName === 'Unassignable' || a.actionName === 'unassignable');
       this.SubmitLaterAction = this.actionsArray.find(a => a.actionName === 'Assigned' || a.actionName === 'assigned');
-      //console.log(this.)
       for (let i = 0; i < this.laptopDetails.length; i++) {
         this.showYesReason[i] = false;
         this.showNoReason[i] = false;
@@ -80,7 +79,8 @@ export class LaptopAllRevokeComponent {
     return this.formBuilder.group({
       deviceLogId: [laptop.deviceLogId],
       actionId: [null],
-      deviceComment: [null]
+      deviceComment: [null],
+      deviceId: [laptop.deviceId]
     });
   }
 

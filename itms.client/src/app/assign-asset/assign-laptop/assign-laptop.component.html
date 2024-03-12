@@ -1,15 +1,28 @@
 <div class="Device" *ngFor="let device of devices; let i = index">
   <div class="Device-Section" [class.Device-Section-bottom-margin]="i !== devices.length - 1">
     <div class="Device-Frame">
-      <app-laptop-search-box class="sbox"
-                             [label]="'CYG ID'"
-                             [placeholder]="'Select CYG ID'"
-                             [LaptopOptions]="LaptopOptions"
-                             (LaptopOptionSelected)="LaptopSearchBoxOptionSelected($event, i)"
-                             [assignAssetForm]="assignAssetForm"
-                             [index]="i"
-                             (removeDevice)="removeDevice($event)">
-      </app-laptop-search-box>
+
+      <div class="search-box-subheading">
+        CYG ID <span style="color:red">*</span>
+        <button *ngIf="i > 0" type="button" class="close-button" aria-label="Close" (click)="removeDevice(i)">
+          <img src="../../../../assets/icons/Close.svg" width="19" />
+        </button>
+      </div>
+      <ng-select class="custom search-box"
+                 [placeholder]="'Select CYG ID'"
+                 (clear)="onClearSelection(i)"
+                 (change)="onSelectOption($event,i)"
+                 [ngModel]="!SelectedLaptops[i] ? null : SelectedLaptops[i].cygid">
+        <ng-container *ngIf="LaptopOptions && LaptopOptions.length > 0; else noOptions">
+          <ng-option class="list-items" *ngFor="let option of LaptopOptions" [value]="option">
+            {{ option?.cygid }} - {{option?.deviceName}}
+          </ng-option>
+        </ng-container>
+        <ng-template #noOptions>
+          <option value="" disabled>No options available</option>
+        </ng-template>
+      </ng-select>
+
       <div *ngIf="SelectedLaptops[i]?.assignedTo" class="alert-box">
         <div class="alert-image-frame">
           <img id="alert-image" src="../../../../assets/icons/Vector.svg" />
@@ -49,10 +62,14 @@
         </div>
       </div>
     </div>
-    <app-assign-laptop-comment class="sbox"
-                               [assignAssetForm]="assignAssetForm"
-                               [index]="i">
-    </app-assign-laptop-comment>
+    <div class="comment-subheading">Comment</div>
+    <input class="comment-input-box"
+           required
+           placeholder="Add Comment"
+           aria-label="Comment"
+           (change)="onInputChangeCommentBox($event,i)"
+           [value]="!commentText[i]? '': commentText[i]"
+           style="resize: none" />
   </div>
   <div class="Add-new" *ngIf="i === devices.length - 1" (click)="addNewDevice()">
     <img class="add-img" src="../../../../assets/icons/Add.svg" />

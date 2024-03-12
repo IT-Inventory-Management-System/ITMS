@@ -8,7 +8,7 @@
         public Guid AssignedTo { get; set; }
         public Guid AssignedBy { get; set; }
         public List<string?> DeviceComments { get; set; }
-        public List<string?> SoftwareComments { get; set; }
+        public List<string?>? SoftwareComments { get; set; }
         public List<string?> AccessoryComments { get; set; }
     }
 
