@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input } from '@angular/core';
 import { DataService } from '../../services/data.service';
-import { FormBuilder } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -13,6 +13,8 @@ export class AddAccessorySharedComponent {
 
   }
 
+  addDeviceForm: FormGroup;
+  showErrorMessage = false;
 
   categoryPrefixMap: { [key: string]: string } = {
     "Connector(Texas Instruments)": "CGI-MIS ",
@@ -41,6 +43,8 @@ export class AddAccessorySharedComponent {
   srcLink: any;
   counterValue: number = 0;
   laststoredcgi: number;
+  UserId: any;
+  userDataJSON: any;
   showAccessoryBrandForm = false;
 
   convertToLinkText(inputString: string): string {
@@ -57,15 +61,42 @@ export class AddAccessorySharedComponent {
     this.counterValue = 0;
     //this.updateImageURL(this.category);
     this.ngOnInit();
+    this.showErrorMessage = false;
   }
 
   ngOnInit(): void {
     this.loadMouseBrand();
     this.prefix = this.getPrefix(this.category);
     this.getCgi();
+    this.createForm();
+    this.setStatus();
+    this.setlocationId();
+    this.userDataJSON = localStorage.getItem('user');
+
+    // Parse the JSON string back into an object
+    var userData = JSON.parse(this.userDataJSON);
+
+    // Access the 'id' property of the userData object
+    this.UserId = userData.id;
+
   }
   ngAfterViewInit() {
     this.updateImageURL(this.category);
+  }
+  setlocationId() {
+    this.dataService.getLocation().subscribe(
+      (data) => {
+        for (var i = 0; i < data.length; i++) {
+          if (data[i].type == localStorage.getItem('selectedCountry')) {
+            this.addDeviceForm.get('locationId')?.setValue(data[i].id);
+            break;
+          }
+        }
+
+      },
+      (error) => {
+        console.log("User not found");
+      });
   }
 
   updateImageURL(category: string) {
@@ -95,26 +126,58 @@ export class AddAccessorySharedComponent {
     if (this.counterValue > 0) {
       this.counterValue--;
     }
-    // If you also want to remove the corresponding value from deviceId array when decrementing
-    //const deviceIdArray = this.addDeviceForm.get('deviceId') as FormArray;
-    //deviceIdArray.removeAt(deviceIdArray.length - 1);
+    const deviceIdArray = this.addDeviceForm.get('deviceId') as FormArray;
+    deviceIdArray.removeAt(deviceIdArray.length - 1);
   }
-
   increment() {
     this.counterValue++;
+    const ele = this.counterValue;
+    this.pushValueIntoDeviceId(this.prefix + (this.laststoredcgi + ele));
+    this.addDeviceForm.patchValue({
+      qty: this.counterValue
+    });
+  }
+  setStatus() {
+    this.dataService.getStatus().subscribe(
+      (data) => {
+        for (var i = 0; i < data.length; i++) {
+          if (data[i].type == 'Not Assigned') {
+            this.addDeviceForm.get('status')?.setValue(data[i].id);
+            break;
+          }
+        }
 
+      },
+      (error) => {
+        console.log("User not found");
+      });
   }
   get counterValues(): number[] {
     return Array.from({ length: this.counterValue }, (_, i) => i + 1);
   }
+  nextValidation(): boolean {
+    var isDeviceId = this.addDeviceForm.get('deviceModelId')?.value != null;
+    var isQuantity = this.counterValue > 0;
+    var isPurchasedOn = this.addDeviceForm.get('purchaseddate')?.value != '';
+    var isWarrantyDate = this.addDeviceForm.get('warrantydate')?.value != null;
+    return isDeviceId && isQuantity && isPurchasedOn && isWarrantyDate;
+  }
   next() {
 
-  
+    if (this.nextValidation() == true) {
+      this.hideErrorMessage();
       this.currentStep++;
-    
-  
+    }
+    else {
+      this.showErrorMessage = true;
+    }
 
   }
+  pushValueIntoDeviceId(value: string) {
+    const deviceIdArray = this.addDeviceForm.get('deviceId') as FormArray;
+    deviceIdArray.push(this.fb.control(value));
+  }
+
 
   loadMouseBrand() {
     const input = {
@@ -159,6 +222,65 @@ export class AddAccessorySharedComponent {
 
       }
     )
+  }
+  createForm() {
+    this.addDeviceForm = this.fb.group({
+      deviceModelId: [null, Validators.required],
+      qty: [0, Validators.required],
+      purchaseddate: ['', Validators.required],
+      warrantydate: [null, Validators.required],
+      deviceId: this.fb.array([]),
+      createdBy: [''],
+      updatedBy: [''],
+      createdAt: [''],
+      isArchived: [false],
+      locationId: [''],
+      status: [''],
+      updatedAt: ['']
+
+    });
+  }
+
+  onSubmit() {
+
+    this.addDeviceForm.get('createdAt')?.setValue(new Date().toISOString());
+    this.addDeviceForm.get('updatedAt')?.setValue(new Date().toISOString());
+    this.addDeviceForm.get('createdBy')?.setValue(this.UserId);
+    this.addDeviceForm.get('updatedBy')?.setValue(this.UserId);
+
+    if (this.addDeviceForm.valid && this.showErrorMessage == false) {
+      console.log(this.addDeviceForm.value);
+
+      this.dataService.postCommonData(this.addDeviceForm.value).subscribe(
+        response => {
+          console.log('Data Posted successfully', response);
+          this.toastr.success("Data Posted SuccessFully");
+          this.resettingform();
+
+        },
+        error => {
+          console.error('Error posting data', error);
+          this.toastr.error("Error in posting data");
+        }
+      );
+    }
+    else {
+      this.showErrorMessage = this.addDeviceForm.invalid;
+
+    }
+    }
+  resettingform() {
+    this.addDeviceForm.reset();
+    this.counterValue = 0;
+    this.currentStep = 1;
+
+    this.ngOnChanges();
+
+
+  }
+
+  hideErrorMessage() {
+    this.showErrorMessage = false;
   }
 
 
