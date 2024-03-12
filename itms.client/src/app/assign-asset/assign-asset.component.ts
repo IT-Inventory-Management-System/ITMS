@@ -88,8 +88,10 @@ export class AssignAssetComponent {
     this.isCygidEmptyStep1 = value;
   }
 
-  onSoftwareIdInputChangeStep2(value: boolean): void  {
-    this.isSoftwareIdEmptyStep2 = value;
+  onSoftwareIdInputChangeStep2(data:any): void  {
+    this.isSoftwareIdEmptyStep2 = data.allSelected;
+    this.softwares = data.SoftwareOptions;
+    console.log("outermost", this.softwares);
   }
   onAccessoryIdInputChangeStep3(value: boolean): void {
     this.isAccessoryIdEmptyStep3 = value;
@@ -106,7 +108,10 @@ export class AssignAssetComponent {
   totalLaptopsData: any[] = [];
   totalAccessoriesData: any[] = [];
   users: any[] = [];
+  dupSoftwares: any[] = [];
+
   softwares: any[] = [];
+
   softwareVersions: any[] = [];
   laptops: any[] = [];
   accessories: any[] = [];
@@ -169,6 +174,8 @@ export class AssignAssetComponent {
             this.users = this.totalUsersData.filter(item => item.locationId === this.locationId);
             this.laptops = this.totalLaptopsData.filter(item => item.locationId === this.locationId);
             this.softwares = this.totalSoftwaresData.filter(item => item.locationId === this.locationId);
+
+            console.log("software-loaction", this.softwares);
             this.accessories = this.totalAccessoriesData.filter(item => item.locationId === this.locationId);
             this.getUsers();
             this.getLaptops();
@@ -209,14 +216,41 @@ export class AssignAssetComponent {
     this.deviceAssignService.getSoftware().subscribe(
       (data: any[]) => {
         this.totalSoftwaresData = data;
+        this.dupSoftwares = data;
+        this.softwares = data;
         this.softwares = this.totalSoftwaresData.filter(item => item.locationId === this.locationId);
-        console.log(this.softwares);
+        const groupedSoftware = this.totalSoftwaresData.reduce((acc, curr) => {
+          const key = `${curr.softwareName}_${curr.softwareType}_${curr.version}`;
+          if (curr.assignedTo === null) { 
+            acc[key] = (acc[key] || 0) + 1;
+          }
+          return acc;
+        }, {});
+        this.softwares.forEach(software => {
+          const key = `${software.softwareName}_${software.softwareType}_${software.version}`;
+          software.count = groupedSoftware[key] || 0;
+
+
+          const uniqueSoftwareMap = this.softwares.reduce((acc, curr) => {
+            const key = `${curr.softwareName}_${curr.softwareType}_${curr.version}`;
+            if (!acc[key]) {
+              acc[key] = curr;
+            }
+            return acc;
+          }, {});
+
+          this.softwares = Object.values(uniqueSoftwareMap);
+        });
+        console.log("softwares-asset",this.softwares);
       },
       (error: any) => {
         console.error('Error fetching software details:', error);
       }
     );
   }
+
+  
+
 
   getAccessories(): void {
     this.deviceAssignService.getAccessories().subscribe(
@@ -232,6 +266,7 @@ export class AssignAssetComponent {
   }
 
   closeForm(): void {
+    this.getSoftwares();
     //console.log("closeForm");
     this.assignAssetForm.reset();
     this.currentStep = 1;
@@ -352,7 +387,7 @@ export class AssignAssetComponent {
     for (var i = 0; i < selectedSoftwareIds.length; i++) {
       if (selectedSoftwareIds[i].index != null) {
         input.softwareIds.push({ softwareId: selectedSoftwareIds[i].softwareId, version: selectedSoftwareIds[i].softwareversion });
-        input.softwareComments.push(selectedSoftwareComments[i].deviceComment);
+        //input.softwareComments.push(selectedSoftwareComments[i].deviceComment);
       }
     }
 
