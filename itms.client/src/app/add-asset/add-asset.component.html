@@ -34,7 +34,7 @@
         <div class="col-12" *ngIf="selectedCategory == 'Monitor'">
           <app-add-monitor-form [category]="selectedCategory"></app-add-monitor-form>
         </div>
-        <div class="col-12" *ngIf="selectedCategory && selectedCategory != 'Laptop' && selectedCategory != 'Software' && selectedCategory != 'Mouse' && selectedCategory != 'Monitor'">
+        <div class="col-12" *ngIf="selectedCategory && selectedCategory != 'Laptop' && selectedCategory != 'Software' && selectedCategory != 'Mouse' && selectedCategory != 'Monitor' && selectedCategory != 'Keyboard'  && selectedCategory != 'Combo'">
           <app-add-accessory-shared [category]="selectedCategory"></app-add-accessory-shared>
         </div>
         <!--<app-add-software-form></app-add-software-form>-->
