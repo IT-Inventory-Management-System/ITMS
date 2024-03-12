@@ -14,6 +14,7 @@ namespace ITMS.Server.DTO
             public bool? ExitProcessInitiated { get; set; }
             public bool? isArchived { get; set; }
             public DateTime? UpdatedAtUtc { get; set; }
+            public bool? onHold { get; set; }
 
     }
 

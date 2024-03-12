@@ -39,6 +39,7 @@ public class UserListService : IUserListService
                                 ExitProcessInitiated = e.ExitProcessInitiated,
                                 isArchived = e.IsArchived,
                                 UpdatedAtUtc = e.UpdatedAtUtc,
+                                onHold=e.onHold,
                             }).ToListAsync();
         
         return result;
