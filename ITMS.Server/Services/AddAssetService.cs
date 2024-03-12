@@ -16,7 +16,7 @@ namespace ITMS.Server.Services
         Task<IEnumerable<categoryInputDTO>> getBrandDetails(String CategoryName);
         Task<IEnumerable<monitorInputDTO>> getMonitorBrands();
         Task<IEnumerable<getCGIDTO>> getCGIIDKeyboard();
-        Task<IEnumerable<getCGIDTO>> getCGIIDCommon(Guid categoryId);
+        Task<IEnumerable<getCGIDTO>> getCGIIDCommon(string categoryName);
         Task postMonitorDetails(MonitorDTO monitorDTO);
         Task AddCommonModel(CommonDTO commonDTO);
 
@@ -238,7 +238,7 @@ namespace ITMS.Server.Services
 
         }
 
-        public async Task<IEnumerable<getCGIDTO>> getCGIIDCommon(Guid categoryId)
+        public async Task<IEnumerable<getCGIDTO>> getCGIIDCommon(string categoryName)
         {
             Dictionary<string, string> _categoryPrefixMap = new Dictionary<string, string>
         {
@@ -257,7 +257,7 @@ namespace ITMS.Server.Services
             { "Combo", "CGI-WYC"},
             { "Mouse", "CGI-MOU"},
         };
-            var categoryName = await GetCategoryNameById(categoryId);
+            //var categoryName = await GetCategoryNameById(categoryId);
 
 
             if (categoryName == null || !_categoryPrefixMap.TryGetValue(categoryName, out string prefix))

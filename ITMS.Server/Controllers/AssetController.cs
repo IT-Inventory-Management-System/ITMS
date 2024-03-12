@@ -98,7 +98,7 @@ namespace ITMS.Server.Controllers
         public async Task<IEnumerable<getCGIDTO>> getCGIIDCommon([FromBody] commonInputDTO commonDto)
         {
 
-            return await _addAssetService.getCGIIDCommon(commonDto.categoryId);
+            return await _addAssetService.getCGIIDCommon(commonDto.Name);
         }
 
     }
