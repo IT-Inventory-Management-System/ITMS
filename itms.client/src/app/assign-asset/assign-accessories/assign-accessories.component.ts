@@ -32,6 +32,8 @@ export class AssignAccessoriesComponent {
   selectedBrand: any;
   isWired: any;
   selectedCygid: string = '';
+  commentText: any[] = [];
+
   constructor(private assignDataManagementService: AssignDataManagementService,
     private formBuilder: FormBuilder,
     private closeFlagService: CloseFlagService,
@@ -41,6 +43,7 @@ export class AssignAccessoriesComponent {
     this.closeFlagSubscription = this.closeFlagService.closeFlag$.subscribe(flag => {
       if (flag) {
         this.accessories = [{}];
+        this.commentText = [];
       }
     });
   }
@@ -60,6 +63,18 @@ export class AssignAccessoriesComponent {
       localStorage.setItem('selectedCountry', selectedCountry);
       this.getDeviceLocation();
     });
+
+    const accessoryComments = this.assignAssetForm.get('accessoryComments') as FormArray;
+
+    if (accessoryComments) {
+      accessoryComments.controls.forEach((control, index) => {
+        const commentControl = control.get('accessoryComment');
+        if (commentControl)
+          this.commentText[index] = commentControl.value;
+      });
+    } else {
+      this.commentText = [];
+    }
   }
 
   ngOnDestroy(): void {
@@ -169,6 +184,16 @@ export class AssignAccessoriesComponent {
     this.SelectedAccessoriesName.splice(index, 1);
     this.SelectedBrands.splice(index, 1);
     this.accessoryIdInputChangeFlag();
+    this.commentText.splice(index, 1);
+    const accessoryCommentsArray = this.assignAssetForm.get('accessoryComments') as FormArray;
+    const i = accessoryCommentsArray.controls.findIndex(control => control.value.index === index);
+    if (i !== -1) {
+      accessoryCommentsArray.removeAt(i);
+      for (let j = index; j < accessoryCommentsArray.length; j++) {
+        const accessoryCommentsControl = accessoryCommentsArray.controls[j] as FormGroup;
+        accessoryCommentsControl.patchValue({ index: j }); // Update the index in the form array control
+      }
+    }
   }
 
 
@@ -234,5 +259,25 @@ export class AssignAccessoriesComponent {
     }
     
     
+  }
+
+  /**  COMMENT   **/
+  onInputChangeCommentBox(event: any, index: any): void {
+    this.commentText[index] = event.target.value;
+    const accessoryCommentsArray = this.assignAssetForm.get('accessoryComments') as FormArray;
+    if (accessoryCommentsArray) {
+      const controlIndex = accessoryCommentsArray.controls.findIndex(control => control.get('index')?.value === index);
+      if (controlIndex !== -1) {
+        accessoryCommentsArray.controls[controlIndex].get('accessoryComments')?.setValue(event.target.value);
+      } else {
+        accessoryCommentsArray.push(this.formBuilder.group({
+          index: index,
+          accessoryComment: event.target.value
+        }));
+      }
+      console.log(accessoryCommentsArray);
+    } else {
+      console.error('FormArray "accessoryComments" is null.');
+    }
   }
 } 

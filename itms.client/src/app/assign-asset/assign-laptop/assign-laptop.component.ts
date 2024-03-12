@@ -123,6 +123,10 @@ export class AssignLaptopComponent {
     const i = deviceCommentsArray.controls.findIndex(control => control.value.index === index);
     if (i !== -1) {
       deviceCommentsArray.removeAt(i);
+      for (let j = index; j < deviceCommentsArray.length; j++) {
+        const deviceCommentsControl = deviceCommentsArray.controls[j] as FormGroup;
+        deviceCommentsControl.patchValue({ index: j }); // Update the index in the form array control
+      }
     }
 
     //this.formattedAges.splice(index, 1);
