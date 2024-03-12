@@ -134,6 +134,19 @@ namespace ITMS.Server.Controllers
                 return BadRequest(e);
             }
         }
+        [HttpPost("AddCommonDevice")]
+        public ActionResult AddCommon([FromBody] CommonDeviceDTO commonDeviceDTO)
+        {
+            try
+            {
+                _deviceService.AddCommon(commonDeviceDTO);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+        }
 
 
     }

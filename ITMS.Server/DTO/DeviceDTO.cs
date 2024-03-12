@@ -192,4 +192,12 @@ namespace ITMS.Server.DTO
         public string? Brand { get; set; }
 
     }
+    public class CommonDTO
+    {
+        public Guid CreatedBy { get; set; }
+        public Guid? UpdatedBy { get; set; }
+        public string? Brand { get; set; }
+        public Guid CategoryId { get; set; }
+
+    }
 }

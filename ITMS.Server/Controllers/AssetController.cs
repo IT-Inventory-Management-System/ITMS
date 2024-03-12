@@ -4,6 +4,7 @@ using ITMS.Server.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.Elfie.Serialization;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 namespace ITMS.Server.Controllers
 {
     [ApiController]
@@ -71,7 +72,21 @@ namespace ITMS.Server.Controllers
             {
                 await _addAssetService.postMonitorDetails(monitorDTO);
 
-                return Ok(); // You can customize the success response
+                return Ok("Model updated successfully"); 
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Error adding monitor: {ex.Message}");
+            }
+        }
+        [HttpPost("addCommonModel")]
+        public async Task<IActionResult>addCommonModel([FromBody] CommonDTO commonDTO)
+        {
+            try
+            {
+                await _addAssetService.AddCommonModel(commonDTO);
+
+                return Ok("Model updated successfully"); 
             }
             catch (Exception ex)
             {
@@ -79,6 +94,12 @@ namespace ITMS.Server.Controllers
             }
         }
 
+        [HttpPost("getCGIIDsCommon")]
+        public async Task<IEnumerable<getCGIDTO>> getCGIIDCommon([FromBody] commonInputDTO commonDto)
+        {
+
+            return await _addAssetService.getCGIIDCommon(commonDto.categoryId);
+        }
 
     }
 }

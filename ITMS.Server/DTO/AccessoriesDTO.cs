@@ -41,7 +41,10 @@
     {
         public string CGIID { get; set; }
     }
-
+    public class commonInputDTO
+    {
+        public Guid categoryId { get; set; }
+    }
     public class getAccessoriesDTO
     {
         public Guid Id { get; set; }
@@ -76,12 +79,29 @@
     {
         public string categoryName { get; set; }
     }
+
     public class PostMonitorDTO
     {
         public List<String> deviceId { get; set; }
         public int qty { get; set; }
         public Guid deviceModelId { get; set; }
         public int ScreenSize { get; set; }
+        public Guid createdBy { get; set; }
+        public Guid updatedBy { get; set; }
+        public Guid status { get; set; }
+        public Guid locationId { get; set; }
+        public DateTime createdAt { get; set; }
+        public DateTime updatedAt { get; set; }
+        public bool isArchived { get; set; }
+        public DateTime purchaseddate { get; set; }
+        public DateTime warrantydate { get; set; }
+
+    }
+    public class CommonDeviceDTO
+    {
+        public List<String> deviceId { get; set; }
+        public int qty { get; set; }
+        public Guid deviceModelId { get; set; }
         public Guid createdBy { get; set; }
         public Guid updatedBy { get; set; }
         public Guid status { get; set; }

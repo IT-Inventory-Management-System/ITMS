@@ -15,8 +15,10 @@ namespace ITMS.Server.Services
         Task<IEnumerable<getLaptopIds>> getlaptopIds();
         Task<IEnumerable<categoryInputDTO>> getBrandDetails(String CategoryName);
         Task<IEnumerable<monitorInputDTO>> getMonitorBrands();
-        Task<IEnumerable<getCGIDTO>> getCGIIDKeyboard(); 
+        Task<IEnumerable<getCGIDTO>> getCGIIDKeyboard();
+        Task<IEnumerable<getCGIDTO>> getCGIIDCommon(Guid categoryId);
         Task postMonitorDetails(MonitorDTO monitorDTO);
+        Task AddCommonModel(CommonDTO commonDTO);
 
     }
     public class AddAssetService : IAddAssetService
@@ -181,6 +183,7 @@ namespace ITMS.Server.Services
         public async Task postMonitorDetails(MonitorDTO monitorDTO)
         {
             DeviceModel deviceModel = new DeviceModel();
+
             deviceModel.IsHDMI = monitorDTO.IsHDMI;
             deviceModel.IsDVI = monitorDTO.IsDVI;
             deviceModel.IsVGA = monitorDTO.IsVGA;
@@ -196,5 +199,111 @@ namespace ITMS.Server.Services
             await _context.SaveChangesAsync();
             
         }
+        public async Task AddCommonModel(CommonDTO commonDTO)
+        {
+            DeviceModel deviceModel = new DeviceModel();
+
+            deviceModel.CreatedBy = commonDTO.CreatedBy;
+            deviceModel.CreatedAtUtc = DateTime.UtcNow;
+            deviceModel.UpdatedBy = commonDTO.UpdatedBy;
+            deviceModel.UpdatedAtUtc = DateTime.UtcNow;
+            deviceModel.Brand = commonDTO.Brand;
+            deviceModel.CategoryId = commonDTO.CategoryId;
+            deviceModel.IsArchived = false;
+
+            _context.DeviceModel.Update(deviceModel);
+            await _context.SaveChangesAsync();
+
+        }
+        public async Task<IEnumerable<getCGIDTO>> getCGIIDCommon()
+        {
+
+            var result = await (from c in _context.Devices
+                                where c.Cygid.StartsWith("CGI-MON")
+                                select new getCGIDTO
+                                {
+                                    CGIID = c.Cygid.Substring(8) // Leave it as string for now
+                                })
+                    .ToListAsync();
+            if (result.Count == 0)
+            {
+                return new List<getCGIDTO> { new getCGIDTO { CGIID = "0" } };
+            }
+            // Convert CGIID to integers and order the result
+            else
+            {
+                result = result.OrderByDescending(c => int.Parse(c.CGIID)).ToList();
+                return result.Take(1);
+            }
+
+        }
+
+        public async Task<IEnumerable<getCGIDTO>> getCGIIDCommon(Guid categoryId)
+        {
+            Dictionary<string, string> _categoryPrefixMap = new Dictionary<string, string>
+        {
+            { "Connector(Texas Instruments)", "CGI-MIS" },
+            { "Apple Thunderbolt(LAN) Connector", "CGI-CLAN" },
+            { "Android Cables", "CGI-AC" },
+            { "Apple VGA Connector", "CGI-CVGA" },
+            { "External Hard Drives", "CGI-EHD" },
+            { "HDMI Cables", "CGI-HDMI" },
+            { "Iphone USB-A to Lightning Cables", "CGI-iPHC" },
+            { "Mini- Display HDMI Connector", "CGI-CHD" },
+            { "Bags", "CGI-BAG" },
+            { "RAM of Different Models(Laptop)", "CGI-RAML" },
+            { "RAM of Server", "CGI-RAMS" },
+        
+        };
+            var categoryName = await GetCategoryNameById(categoryId);
+
+
+            if (categoryName == null || !_categoryPrefixMap.TryGetValue(categoryName, out string prefix))
+            {
+                return new List<getCGIDTO> { new getCGIDTO { CGIID = "0" } };
+            }
+
+            var result = await (from c in _context.Devices
+                                where c.Cygid.StartsWith(prefix)
+                                select new getCGIDTO
+                                {
+                                    CGIID = GetNumberAfterLastDash(c.Cygid)
+                                })
+                    .ToListAsync();
+
+            if (result.Count == 0)
+            {
+                return new List<getCGIDTO> { new getCGIDTO { CGIID = "0" } };
+            }
+            else
+            {
+                result = result.OrderByDescending(c => int.Parse(c.CGIID)).ToList();
+                return result.Take(1);
+            }
+        }
+
+        // Helper method to extract the number after the last dash in the string
+        private static string GetNumberAfterLastDash(string input)
+        {
+            int lastDashIndex = input.LastIndexOf('-');
+            if (lastDashIndex != -1 && lastDashIndex < input.Length - 1)
+            {
+                return input.Substring(lastDashIndex + 1);
+            }
+            return "0"; // Default value if no dash is found or it's the last character
+        }
+        // Example of a method to retrieve category name by ID (replace with your actual implementation)
+        private async Task<string> GetCategoryNameById(Guid categoryId)
+        {
+            
+            var result = await (from c in _context.Categories
+                                where c.Id == categoryId
+                                select c.Name)
+                            .FirstOrDefaultAsync();
+
+            return result;
+        }
+
+
     }
 }
