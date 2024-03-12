@@ -86,7 +86,7 @@ namespace ITMS.Server.Controllers
             {
                 await _addAssetService.AddCommonModel(commonDTO);
 
-                return Ok("Model updated successfully"); 
+                return Ok(); 
             }
             catch (Exception ex)
             {
