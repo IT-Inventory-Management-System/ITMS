@@ -9,5 +9,13 @@
   </ng-option>
 </ng-select>
 
-
+<div class="search-box-subheading type" *ngIf="selectedId && selectedOption">
+  Mouse Type<span style="color:red">*</span>
+  <div class="os-input">
+    <input type="radio" name="osType" id="windowsRadio" value="true" [(ngModel)]="isWired" (change)="setNewAccessoryId()">
+    <label for="windowsRadio">Wired</label>
+    <input type="radio" name="osType" id="macRadio" value="false" [(ngModel)]="isWired" (change)="setNewAccessoryId()">
+    <label for="macRadio">Wireless</label>
+  </div>
+</div>
 

@@ -24,6 +24,11 @@ export class AccessoryBrandySearchBoxComponent {
   @Input() uniqueBrandsArray: any[] = [];
   selectedOption: any;
   private closeFlagSubscription: Subscription;
+  @Input() AccessoryBrands: any;
+  selectedCygid: string = '';
+  isWired: any;
+  selectedBrand: any;
+
 
   constructor(private assignDataManagementService: AssignDataManagementService,
     private formBuilder: FormBuilder,
@@ -33,11 +38,43 @@ export class AccessoryBrandySearchBoxComponent {
     private dataService: DataService
   ) { }
 
+
+  setNewAccessoryId() {
+    const selectedBrand = this.selectedBrand;
+    const isWired = this.isWired == 'true' ? true : false;
+
+    const filteredBrands = this.AccessoryBrands.filter(
+      (accessory:any) => accessory.brand === selectedBrand && accessory.iswired === isWired
+    );
+
+    if (filteredBrands.length > 0) {
+      const selectedCygid = filteredBrands[0].cygid;
+      this.selectedCygid = selectedCygid;
+    } else {
+      this.selectedCygid = 'Not found';
+    }
+
+    if (this.selectedCygid != 'Not found') {
+      const accessoryIdsArray = this.assignAssetForm.get('accessoryIds') as FormArray;
+      accessoryIdsArray.push(this.formBuilder.group({
+        index: 0,
+        accessoryId: this.selectedCygid
+      }));
+    }
+
+
+  }
+
   onSelectOption(option: any): void {
     //console.log(this.AccessoryBrandOptions);
     const data = { option: option, index: this.index };
-    alert(option);
-    this.AccessoryBrandOptionSelected.emit(data);
+    //alert(option);
+    console.log(option);
+    this.selectedBrand = option;
+    //this.AccessoryBrandOptionSelected.emit(data);
+
+
+
   }
   onClearSelection(): void {
     this.selectedOption = null;

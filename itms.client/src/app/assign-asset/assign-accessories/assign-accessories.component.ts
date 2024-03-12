@@ -235,31 +235,31 @@ export class AssignAccessoriesComponent {
       });
   }
 
-  setNewAccessoryId() {
-    const selectedBrand = this.selectedBrand;
-    const isWired = this.isWired == 'true'?true:false;
+  //setNewAccessoryId() {
+  //  const selectedBrand = this.selectedBrand;
+  //  const isWired = this.isWired == 'true'?true:false;
 
-    const filteredBrands = this.AccessoryBrands.filter(
-      accessory => accessory.brand === selectedBrand && accessory.iswired === isWired
-    );
+  //  const filteredBrands = this.AccessoryBrands.filter(
+  //    accessory => accessory.brand === selectedBrand && accessory.iswired === isWired
+  //  );
 
-    if (filteredBrands.length > 0) {
-      const selectedCygid = filteredBrands[0].cygid;
-      this.selectedCygid = selectedCygid;
-    } else {
-      this.selectedCygid = 'Not found';
-    }
+  //  if (filteredBrands.length > 0) {
+  //    const selectedCygid = filteredBrands[0].cygid;
+  //    this.selectedCygid = selectedCygid;
+  //  } else {
+  //    this.selectedCygid = 'Not found';
+  //  }
 
-    if (this.selectedCygid != 'Not found') {
-      const accessoryIdsArray = this.assignAssetForm.get('accessoryIds') as FormArray;
-      accessoryIdsArray.push(this.formBuilder.group({
-        index: 0,
-        accessoryId: this.selectedCygid
-      }));
-    }
+  //  if (this.selectedCygid != 'Not found') {
+  //    const accessoryIdsArray = this.assignAssetForm.get('accessoryIds') as FormArray;
+  //    accessoryIdsArray.push(this.formBuilder.group({
+  //      index: 0,
+  //      accessoryId: this.selectedCygid
+  //    }));
+  //  }
     
     
-  }
+  //}
 
   /**  COMMENT   **/
   onInputChangeCommentBox(event: any, index: any): void {
