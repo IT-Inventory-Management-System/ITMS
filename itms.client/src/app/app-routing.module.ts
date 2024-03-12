@@ -15,6 +15,7 @@ import { ManageAccessComponent } from './manage-access/manage-access.component';
 import { LoginComponent } from './login/login.component';
 import { LoginGuard } from './guards/login.guard';
 import { ManageAccessGuard } from './guards/manage-access.guard';
+import { LoginRedirectGuard } from './guards/login-redirect.guard';
 
 
 const routes: Routes = [
@@ -31,7 +32,7 @@ const routes: Routes = [
   { path: 'add-asset', component: AddAssetComponent, canActivate: [LoginGuard] },
   { path: 'assign-asset', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'api/Device/:cygId', component: InventoryComponent, canActivate: [LoginGuard] },
-  { path: 'login', component: LoginComponent }
+  { path: 'login', component: LoginComponent, canActivate: [LoginRedirectGuard] }
   
 ];
 
