@@ -41,7 +41,7 @@ public partial class Device
 
     public Guid LocationId { get; set; }
 
-    public int ScreenSize { get; set; }
+    public int? ScreenSize { get; set; }
 
     public virtual Employee? AssignedByNavigation { get; set; }
 
