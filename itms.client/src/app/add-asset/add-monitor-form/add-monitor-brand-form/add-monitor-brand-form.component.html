@@ -11,10 +11,10 @@
     </div>
   </div>
   <form class="device-form" >
-    <div class="form-field">
+    <div class="form-field" [formGroup]="deviceForm">
       <label class="label" for="deviceName">Brand Name<span class="required">*</span></label>
 
-      <input type="text" id="deviceName" class="input-field" placeholder="Enter Brand Name" required >
+      <input type="text" id="deviceName" class="input-field" placeholder="Enter Brand Name" required formControlName="brand">
 
     </div>
 
@@ -25,7 +25,7 @@
 
     <div class="add-button">
 
-      <button type="submit"><span>Add</span></button>
+      <button type="submit" (click)="onSubmit()"><span>Add</span></button>
     </div>
 
   </form>
