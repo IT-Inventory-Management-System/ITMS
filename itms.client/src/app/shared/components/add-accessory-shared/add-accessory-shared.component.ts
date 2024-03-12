@@ -62,7 +62,7 @@ export class AddAccessorySharedComponent {
   ngOnInit(): void {
     this.loadMouseBrand();
     this.prefix = this.getPrefix(this.category);
-    console.log(this.prefix);
+    this.getCgi();
   }
   ngAfterViewInit() {
     this.updateImageURL(this.category);
@@ -144,6 +144,22 @@ export class AddAccessorySharedComponent {
     return this.categoryPrefixMap[category];
   }
 
+  getCgi() {
+
+    const input = {
+      name: this.category
+    }
+    this.dataService.getAccessoryCGIID(input).subscribe(
+      (data) => {
+        this.laststoredcgi = parseInt(data[0]?.cgiid, 10);
+        console.log(this.laststoredcgi);
+      },
+      (error) => {
+        console.error('Error fetching device data', error);
+
+      }
+    )
+  }
 
 
 }

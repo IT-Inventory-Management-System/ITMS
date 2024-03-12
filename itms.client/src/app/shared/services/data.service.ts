@@ -220,8 +220,8 @@ export class DataService {
     return this.http.post(this.apiUrl + 'asset/addCommonModel', formData);
   }
 
-  getAccessoryCGIID(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl + 'asset/getCGIID');
+  getAccessoryCGIID(categoryInput : any): Observable<any[]> {
+    return this.http.post<any[]>(this.apiUrl + 'asset/getCGIIDsCommon', categoryInput);
   }
 }
 
