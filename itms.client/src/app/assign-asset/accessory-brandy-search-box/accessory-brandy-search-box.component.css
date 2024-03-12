@@ -168,3 +168,61 @@
   font-weight: 400;
   line-height: normal;
 }
+
+
+/**   COMMENT  **/
+.comment-subheading {
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 0.8125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.comment-input-box {
+  width: 100%;
+  display: flex;
+  padding: 0.5rem 0.75rem;
+  align-items: flex-start;
+  gap: 6.625rem;
+  flex: 1 0 0;
+  align-self: stretch;
+  border-radius: 0.25rem;
+  border: 1px solid var(--Secondary-Gray, #B2B2B3);
+  background: var(--Primary-White, #FFF);
+}
+
+  .comment-input-box::placeholder {
+    flex: 1 0 0;
+    color: var(--Primary-Gray, #343435);
+    font-family: Roboto;
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    opacity: 0.5;
+  }
+
+
+  /** ADD ANOTHER  **/
+.Add-new {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.add-img {
+  width: 1.25rem;
+  height: 1.25rem;
+  fill: #FFF;
+}
+
+.add-new-text {
+  color: #28519E;
+  font-family: Roboto;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}

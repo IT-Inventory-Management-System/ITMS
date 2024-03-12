@@ -21,6 +21,8 @@
                                      [assignAssetForm]="assignAssetForm"
                                      [index]=i
                                      [AccessoryBrands]="AccessoryBrands"
+                                     [AccessoriesSize]="accessories.length"
+                                     (AddNewAccessory)="addNewAccessory()"
                                      >
     </app-accessory-brandy-search-box>
     <!--<div class="search-box-subheading type" *ngIf="selectedId">
@@ -32,7 +34,7 @@
         <label for="macRadio">Wireless</label>
       </div>
     </div>-->
-    <div class="search-box-subheading" *ngIf="selectedId">Device ID<span style="color:red">*</span></div>
+    <!--<div class="search-box-subheading" *ngIf="selectedId">Device ID<span style="color:red">*</span></div>
     <input class="custom" *ngIf="selectedId" disabled placeholder="Device ID" [value]="selectedCygid" />
     <div class="comment-subheading">Comment</div>
     <input class="comment-input-box"
@@ -41,11 +43,11 @@
            aria-label="Comment"
            (change)="onInputChangeCommentBox($event,i)"
            [value]="!commentText[i]? '': commentText[i]"
-           style="resize: none">
+           style="resize: none">-->
 
   </div>
-  <div class="Add-new" *ngIf="i === accessories.length - 1" (click)="addNewAccessory()">
+  <!--<div class="Add-new" *ngIf="i === accessories.length - 1" (click)="addNewAccessory()">
     <img class="add-img" src="../../../../assets/icons/Add.svg" />
     <div class="add-new-text">Add Another Accessories</div>
-  </div>
+  </div>-->
 </div>

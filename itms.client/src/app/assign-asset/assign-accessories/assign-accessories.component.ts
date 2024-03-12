@@ -32,7 +32,9 @@ export class AssignAccessoriesComponent {
   selectedBrand: any;
   isWired: any;
   selectedCygid: string = '';
-  commentText: any[] = [];
+  //commentText: any[] = [];
+  selectedIds: any[] = [];
+  uniqueBrandsArrays: any[][] = [];
 
   constructor(private assignDataManagementService: AssignDataManagementService,
     private formBuilder: FormBuilder,
@@ -43,11 +45,12 @@ export class AssignAccessoriesComponent {
     this.closeFlagSubscription = this.closeFlagService.closeFlag$.subscribe(flag => {
       if (flag) {
         this.accessories = [{}];
-        this.commentText = [];
+        //this.commentText = [];
       }
     });
   }
   ngOnInit(): void {
+    console.log(this.AccessoryOptions);
     this.accessories = this.assignDataManagementService.getMultipleInstanceState('accessoriesState') || [];
     if (this.accessories.length === 0) {
       this.accessories.push({});
@@ -64,17 +67,17 @@ export class AssignAccessoriesComponent {
       this.getDeviceLocation();
     });
 
-    const accessoryComments = this.assignAssetForm.get('accessoryComments') as FormArray;
+    //const accessoryComments = this.assignAssetForm.get('accessoryComments') as FormArray;
 
-    if (accessoryComments) {
-      accessoryComments.controls.forEach((control, index) => {
-        const commentControl = control.get('accessoryComment');
-        if (commentControl)
-          this.commentText[index] = commentControl.value;
-      });
-    } else {
-      this.commentText = [];
-    }
+    //if (accessoryComments) {
+    //  accessoryComments.controls.forEach((control, index) => {
+    //    const commentControl = control.get('accessoryComment');
+    //    if (commentControl)
+    //      this.commentText[index] = commentControl.value;
+    //  });
+    //} else {
+    //  this.commentText = [];
+    //}
   }
 
   ngOnDestroy(): void {
@@ -125,44 +128,48 @@ export class AssignAccessoriesComponent {
    */
   AccessoryBrandSearchBoxOptionSelected(data: any, index: number): void {
     this.selectedBrand = data.option;
+    this.selectedIds[index] = data;
     const selectedOption = data;
     const selectedIndex = index;
     const accessoryIdsArray = this.assignAssetForm.get('accessoryIds') as FormArray;
-    const filteredOptions = this.FilteredAccessoryOptions[selectedIndex].filter(
-      (option: any) => option.version === selectedOption && option.assignedTo === null
-    );
-    if (filteredOptions.length > 0) {
-      this.SelectedAccessoriesData[index] = filteredOptions[0];
-      this.SelectedBrands[selectedIndex] = filteredOptions[0];
-      //filter both all existing for same accessoryname in FilteredAccessoryOptions[i] & AccessoryOptions
-      for (let i = 0; i < this.FilteredAccessoryOptions.length; i++) {
-        this.FilteredAccessoryOptions[i] = this.FilteredAccessoryOptions[i].filter(opt => opt.id !== (this.SelectedBrands[selectedIndex]?.id));
-      }
-      this.AccessoryOptions = this.AccessoryOptions.filter(opt => opt.id! == (this.SelectedBrands[selectedIndex]?.id));
-      //this.FilteredAccessoryOptions[selectedIndex] = this.FilteredAccessoryOptions[selectedIndex].filter(opt => opt.id !== this.SelectedBrands[selectedIndex].id);
-      accessoryIdsArray.push(this.formBuilder.group({
-        index: selectedIndex,
-        accessoryId: this.SelectedBrands[selectedIndex].id
-      }));
+    if (this.selectedIds[index]) {
+
     }
-    else {
-      if (filteredOptions.length == 0)
-        this.SelectedBrands[selectedIndex] = 1;
-      else
-      {
-        for (let i = 0; i < this.FilteredAccessoryOptions.length; i++) {
-          if (this.FilteredAccessoryOptions[i].length > 0 && this.FilteredAccessoryOptions[i][0]?.name === this.SelectedBrands[i]?.name) 
-              this.FilteredAccessoryOptions[i].push(this.SelectedBrands[selectedIndex]);
-        }
-        this.AccessoryOptions.push(this.SelectedBrands[selectedIndex]);
-        this.SelectedBrands[selectedIndex] = null;
-        const index = accessoryIdsArray.controls.findIndex(control => control.value.index === selectedIndex);
-        if (index !== -1) {
-          accessoryIdsArray.removeAt(index);
-        }
-      }
-    }
-    this.accessoryIdInputChangeFlag();
+    //const filteredOptions = this.FilteredAccessoryOptions[selectedIndex].filter(
+    //  (option: any) => option.version === selectedOption && option.assignedTo === null
+    //);
+    //if (filteredOptions.length > 0) {
+    //  this.SelectedAccessoriesData[index] = filteredOptions[0];
+    //  this.SelectedBrands[selectedIndex] = filteredOptions[0];
+    //  //filter both all existing for same accessoryname in FilteredAccessoryOptions[i] & AccessoryOptions
+    //  for (let i = 0; i < this.FilteredAccessoryOptions.length; i++) {
+    //    this.FilteredAccessoryOptions[i] = this.FilteredAccessoryOptions[i].filter(opt => opt.id !== (this.SelectedBrands[selectedIndex]?.id));
+    //  }
+    //  this.AccessoryOptions = this.AccessoryOptions.filter(opt => opt.id! == (this.SelectedBrands[selectedIndex]?.id));
+    //  //this.FilteredAccessoryOptions[selectedIndex] = this.FilteredAccessoryOptions[selectedIndex].filter(opt => opt.id !== this.SelectedBrands[selectedIndex].id);
+    //  accessoryIdsArray.push(this.formBuilder.group({
+    //    index: selectedIndex,
+    //    accessoryId: this.SelectedBrands[selectedIndex].id
+    //  }));
+    //}
+    //else {
+    //  if (filteredOptions.length == 0)
+    //    this.SelectedBrands[selectedIndex] = 1;
+    //  else
+    //  {
+    //    for (let i = 0; i < this.FilteredAccessoryOptions.length; i++) {
+    //      if (this.FilteredAccessoryOptions[i].length > 0 && this.FilteredAccessoryOptions[i][0]?.name === this.SelectedBrands[i]?.name) 
+    //          this.FilteredAccessoryOptions[i].push(this.SelectedBrands[selectedIndex]);
+    //    }
+    //    this.AccessoryOptions.push(this.SelectedBrands[selectedIndex]);
+    //    this.SelectedBrands[selectedIndex] = null;
+    //    const index = accessoryIdsArray.controls.findIndex(control => control.value.index === selectedIndex);
+    //    if (index !== -1) {
+    //      accessoryIdsArray.removeAt(index);
+    //    }
+    //  }
+    //}
+    //this.accessoryIdInputChangeFlag();
   }
 
   addNewAccessory(): void {
@@ -184,16 +191,16 @@ export class AssignAccessoriesComponent {
     this.SelectedAccessoriesName.splice(index, 1);
     this.SelectedBrands.splice(index, 1);
     this.accessoryIdInputChangeFlag();
-    this.commentText.splice(index, 1);
-    const accessoryCommentsArray = this.assignAssetForm.get('accessoryComments') as FormArray;
-    const i = accessoryCommentsArray.controls.findIndex(control => control.value.index === index);
-    if (i !== -1) {
-      accessoryCommentsArray.removeAt(i);
-      for (let j = index; j < accessoryCommentsArray.length; j++) {
-        const accessoryCommentsControl = accessoryCommentsArray.controls[j] as FormGroup;
-        accessoryCommentsControl.patchValue({ index: j }); // Update the index in the form array control
-      }
-    }
+    //this.commentText.splice(index, 1);
+    //const accessoryCommentsArray = this.assignAssetForm.get('accessoryComments') as FormArray;
+    //const i = accessoryCommentsArray.controls.findIndex(control => control.value.index === index);
+    //if (i !== -1) {
+    //  accessoryCommentsArray.removeAt(i);
+    //  for (let j = index; j < accessoryCommentsArray.length; j++) {
+    //    const accessoryCommentsControl = accessoryCommentsArray.controls[j] as FormGroup;
+    //    accessoryCommentsControl.patchValue({ index: j }); // Update the index in the form array control
+    //  }
+    //}
   }
 
 
@@ -209,6 +216,7 @@ export class AssignAccessoriesComponent {
         this.AccessoryBrands = data;
         const uniqueBrandsSet = new Set(this.AccessoryBrands.map(item => item.brand));
         this.uniqueBrandsArray = Array.from(uniqueBrandsSet);
+
 
         console.log(this.AccessoryBrands);
       },
@@ -262,22 +270,22 @@ export class AssignAccessoriesComponent {
   //}
 
   /**  COMMENT   **/
-  onInputChangeCommentBox(event: any, index: any): void {
-    this.commentText[index] = event.target.value;
-    const accessoryCommentsArray = this.assignAssetForm.get('accessoryComments') as FormArray;
-    if (accessoryCommentsArray) {
-      const controlIndex = accessoryCommentsArray.controls.findIndex(control => control.get('index')?.value === index);
-      if (controlIndex !== -1) {
-        accessoryCommentsArray.controls[controlIndex].get('accessoryComments')?.setValue(event.target.value);
-      } else {
-        accessoryCommentsArray.push(this.formBuilder.group({
-          index: index,
-          accessoryComment: event.target.value
-        }));
-      }
-      console.log(accessoryCommentsArray);
-    } else {
-      console.error('FormArray "accessoryComments" is null.');
-    }
-  }
+  //onInputChangeCommentBox(event: any, index: any): void {
+  //  this.commentText[index] = event.target.value;
+  //  const accessoryCommentsArray = this.assignAssetForm.get('accessoryComments') as FormArray;
+  //  if (accessoryCommentsArray) {
+  //    const controlIndex = accessoryCommentsArray.controls.findIndex(control => control.get('index')?.value === index);
+  //    if (controlIndex !== -1) {
+  //      accessoryCommentsArray.controls[controlIndex].get('accessoryComments')?.setValue(event.target.value);
+  //    } else {
+  //      accessoryCommentsArray.push(this.formBuilder.group({
+  //        index: index,
+  //        accessoryComment: event.target.value
+  //      }));
+  //    }
+  //    console.log(accessoryCommentsArray);
+  //  } else {
+  //    console.error('FormArray "accessoryComments" is null.');
+  //  }
+  //}
 } 

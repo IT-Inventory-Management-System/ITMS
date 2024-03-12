@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormArray, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { CloseFlagService } from '../../shared/services/close-flag.service';
 import { AssignDataManagementService } from '../../shared/services/assign-data-management.service';
@@ -56,6 +56,15 @@ export class AccessoriesSearchBoxComponent {
   }
 
   emitRemoveSoftware(): void {
+    const accessoryCommentsArray = this.assignAssetForm.get('accessoryComments') as FormArray;
+    const i = accessoryCommentsArray.controls.findIndex(control => control.value.index === this.index);
+    if (i !== -1) {
+      accessoryCommentsArray.removeAt(i);
+      for (let j = this.index; j < accessoryCommentsArray.length; j++) {
+        const accessoryCommentsControl = accessoryCommentsArray.controls[j] as FormGroup;
+        accessoryCommentsControl.patchValue({ index: j }); // Update the index in the form array control
+      }
+    }
     this.removeAccessory.emit(this.index);
   }
 }

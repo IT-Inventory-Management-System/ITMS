@@ -19,7 +19,9 @@ export class AccessoryBrandySearchBoxComponent {
   @Input() AccessoryBrandOptions: any[] = [];
   @Input() assignAssetForm: FormGroup;
   @Input() index: number;
+  @Input() AccessoriesSize: number;
   @Output() AccessoryBrandOptionSelected: EventEmitter<any> = new EventEmitter();
+  @Output() AddNewAccessory: EventEmitter<any> = new EventEmitter();
   locationId: any;
   @Input() uniqueBrandsArray: any[] = [];
   selectedOption: any;
@@ -28,6 +30,8 @@ export class AccessoryBrandySearchBoxComponent {
   selectedCygid: string = '';
   isWired: any;
   selectedBrand: any;
+  commentText: any[] = [];
+  selectedIds: any[] = [];
 
 
   constructor(private assignDataManagementService: AssignDataManagementService,
@@ -36,7 +40,13 @@ export class AccessoryBrandySearchBoxComponent {
     private deviceAssignService: DeviceAssignService,
     private selectedCountryService: SelectedCountryService,
     private dataService: DataService
-  ) { }
+  ) {
+    this.closeFlagSubscription = this.closeFlagService.closeFlag$.subscribe(flag => {
+      if (flag) {
+        this.commentText = [];
+      }
+    });
+  }
 
 
   setNewAccessoryId() {
@@ -57,7 +67,7 @@ export class AccessoryBrandySearchBoxComponent {
     if (this.selectedCygid != 'Not found') {
       const accessoryIdsArray = this.assignAssetForm.get('accessoryIds') as FormArray;
       accessoryIdsArray.push(this.formBuilder.group({
-        index: 0,
+        index: this.index,
         accessoryId: this.selectedCygid
       }));
     }
@@ -72,9 +82,13 @@ export class AccessoryBrandySearchBoxComponent {
     console.log(option);
     this.selectedBrand = option;
     //this.AccessoryBrandOptionSelected.emit(data);
-
-
-
+    if (option.name != "Mouse" || option.name != "Keyboard" || option.name != "Combo") {
+      const accessoryIdsArray = this.assignAssetForm.get('accessoryIds') as FormArray;
+      accessoryIdsArray.push(this.formBuilder.group({
+        index: this.index,
+        accessoryId: this.selectedCygid
+      }));
+    }
   }
   onClearSelection(): void {
     this.selectedOption = null;
@@ -97,6 +111,17 @@ export class AccessoryBrandySearchBoxComponent {
     this.selectedOption = this.assignDataManagementService.getState("accessoriesBrand", this.index);
     if (this.selectedOption)
       this.AccessoryBrandOptionSelected.emit(this.selectedOption);
+    const accessoryComments = this.assignAssetForm.get('accessoryComments') as FormArray;
+
+    if (accessoryComments) {
+      accessoryComments.controls.forEach((control, index) => {
+        const commentControl = control.get('accessoryComment');
+        if (commentControl)
+          this.commentText[index] = commentControl.value;
+      });
+    } else {
+      this.commentText = [];
+    }
   }
   ngOnDestroy(): void {
     this.closeFlagSubscription = this.closeFlagService.closeFlag$.subscribe((closeFlag) => {
@@ -152,5 +177,29 @@ export class AccessoryBrandySearchBoxComponent {
   //}
 
 
+  /**  COMMENT   **/
+  onInputChangeCommentBox(event: any, index: any): void {
+    this.commentText[index] = event.target.value;
+    const accessoryCommentsArray = this.assignAssetForm.get('accessoryComments') as FormArray;
+    if (accessoryCommentsArray) {
+      const controlIndex = accessoryCommentsArray.controls.findIndex(control => control.get('index')?.value === index);
+      if (controlIndex !== -1) {
+        accessoryCommentsArray.controls[controlIndex].get('accessoryComments')?.setValue(event.target.value);
+      } else {
+        accessoryCommentsArray.push(this.formBuilder.group({
+          index: index,
+          accessoryComment: event.target.value
+        }));
+      }
+      console.log(accessoryCommentsArray);
+    } else {
+      console.error('FormArray "accessoryComments" is null.');
+    }
+  }
+
+
+  addNewAccessory() {
+    this.AddNewAccessory.emit();
+  }
 
 }
