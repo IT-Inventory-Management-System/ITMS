@@ -130,19 +130,19 @@ export class AssignSoftwareComponent {
     //  (option: any) => option.version === selectedOption && option.assignedTo === null
     //);
 
-    const filteredOptions = this.FilteredSoftwaresOptions[selectedIndex].filter(
-      (option: any) => option.version === selectedOption
-    );
+    //const filteredOptions = this.FilteredSoftwaresOptions[selectedIndex].filter(
+    //  (option: any) => option.version === selectedOption
+    //);
 
-    console.log("filtered options", filteredOptions);
+    console.log("filtered options", data);
 
-    if (data.option == undefined) {
+    //if (data.option == undefined) {
       softwareIdsArray.push(this.formBuilder.group({
         index: selectedIndex,
-        softwareId: filteredOptions[selectedIndex].id,
+        softwareId: data.softwareId[0].id,
         softwareversion: data.option
       }));
-    }
+    //}
 
     //this.formatExpiryDate(selectedIndex);
     this.softwareIdInputChangeFlag();
@@ -171,12 +171,13 @@ export class AssignSoftwareComponent {
     this.softwareIdInputChangeFlag();
   }
 
-  removeSoftware(index: number): void {
-    this.softwares.splice(index, 1);
-    this.selectedSoftwareNames.splice(index, 1);
-    this.selectedSoftwareVersions.splice(index, 1);
-    this.softwareExpiryDate.splice(index, 1);
-    this.SelectedSoftwaresData.splice(index, 1);
+  removeSoftware(data: any): void {
+    this.SoftwareOptions = data.SoftwareOptions;
+    this.softwares.splice(data.idx, 1);
+    this.selectedSoftwareNames.splice(data.idx, 1);
+    this.selectedSoftwareVersions.splice(data.idx, 1);
+    this.softwareExpiryDate.splice(data.idx, 1);
+    this.SelectedSoftwaresData.splice(data.idx, 1);
     this.softwareIdInputChangeFlag();
   }
 }

@@ -44,71 +44,71 @@ export class SoftwareVersionSearchBoxComponent {
     private closeFlagService: CloseFlagService
 ) { }
 
-  onSelectOption(option: any): void {
- //   alert(option);
-    if (option === undefined) {
+ // onSelectOption(option: any): void {
+ ////   alert(option);
+ //   if (option === undefined) {
       
-      if (this.prev !== '') {
-        const index = this.SoftwareOptions.findIndex(item =>
-          item.softwareName === this.currSelectedSoftware && item.version === this.prev
-        );
-        this.SoftwareOptions[index].count += 1;
+ //     if (this.prev !== '') {
+ //       const index = this.SoftwareOptions.findIndex(item =>
+ //         item.softwareName === this.currSelectedSoftware && item.version === this.prev
+ //       );
+ //       this.SoftwareOptions[index].count += 1;
 
-        if (this.SoftwareOptions[index].count > -1) {
-          this.softwareWarning = false;
-        }
-      }
+ //       if (this.SoftwareOptions[index].count > -1) {
+ //         this.softwareWarning = false;
+ //       }
+ //     }
 
-      this.prev = '';
-    } else {
-      if (this.prev !== '') {
-        const index = this.SoftwareOptions.findIndex(item =>
-          item.softwareName === this.currSelectedSoftware && item.version === this.prev
-        );
-        this.SoftwareOptions[index].count += 1;
+ //     this.prev = '';
+ //   } else {
+ //     if (this.prev !== '') {
+ //       const index = this.SoftwareOptions.findIndex(item =>
+ //         item.softwareName === this.currSelectedSoftware && item.version === this.prev
+ //       );
+ //       this.SoftwareOptions[index].count += 1;
 
-        if (this.SoftwareOptions[index].count > -1) {
-          this.softwareWarning = false;
-        }
-      }
-      const index = this.SoftwareOptions.findIndex(item =>
-        item.softwareName === this.currSelectedSoftware && item.version === option
-      );
+ //       if (this.SoftwareOptions[index].count > -1) {
+ //         this.softwareWarning = false;
+ //       }
+ //     }
+ //     const index = this.SoftwareOptions.findIndex(item =>
+ //       item.softwareName === this.currSelectedSoftware && item.version === option
+ //     );
 
-      this.prev = option;
-      if (this.SoftwareOptions[index].count <= 0) {
-        this.softwareWarning = true; 
-      }
+ //     this.prev = option;
+ //     if (this.SoftwareOptions[index].count <= 0) {
+ //       this.softwareWarning = true; 
+ //     }
       
-      if (index !== -1) {
-        this.SoftwareOptions[index].count -= 1;
-      }
-      this.SoftwareVersionOptionSelected.emit({ option, SoftwareOptions: this.SoftwareOptions, countZero: this.SoftwareOptions[index].count === -1 });
-    }
+ //     if (index !== -1) {
+ //       this.SoftwareOptions[index].count -= 1;
+ //     }
+ //     this.SoftwareVersionOptionSelected.emit({ option, SoftwareOptions: this.SoftwareOptions, countZero: this.SoftwareOptions[index].count === -1 });
+ //   }
     
-    console.log(this.currSelectedSoftware, option);
-    console.log(this.SoftwareOptions);
+ //   console.log(this.currSelectedSoftware, option);
+ //   console.log(this.SoftwareOptions);
 
-  }
-  onClearSelection(): void {
-    this.selectedOption = null;
+ // }
+ // onClearSelection(): void {
+ //   this.selectedOption = null;
 
-    //if (this.prev !== '') {
-    //  const index = this.SoftwareOptions.findIndex(item =>
-    //    item.softwareName === this.currSelectedSoftware && item.version === this.prev
-    //  );
-    //  this.SoftwareOptions[index].count += 1;
-    //}
+ //   //if (this.prev !== '') {
+ //   //  const index = this.SoftwareOptions.findIndex(item =>
+ //   //    item.softwareName === this.currSelectedSoftware && item.version === this.prev
+ //   //  );
+ //   //  this.SoftwareOptions[index].count += 1;
+ //   //}
 
-    const softwareIdsArray = this.assignAssetForm.get('softwareIds') as FormArray;
-    const index = softwareIdsArray.controls.findIndex(control => control.value.index === this.index);
-    if (index !== -1) {
-      softwareIdsArray.removeAt(index);
-      this.selectedOption = null;
-    }
-    const data = { option: null, SoftwareOptions: this.SoftwareOptions, countZero: false};
-    this.SoftwareVersionOptionSelected.emit(data);
-  }
+ //   const softwareIdsArray = this.assignAssetForm.get('softwareIds') as FormArray;
+ //   const index = softwareIdsArray.controls.findIndex(control => control.value.index === this.index);
+ //   if (index !== -1) {
+ //     softwareIdsArray.removeAt(index);
+ //     this.selectedOption = null;
+ //   }
+ //   const data = { option: null, SoftwareOptions: this.SoftwareOptions, countZero: false};
+ //   this.SoftwareVersionOptionSelected.emit(data);
+ // }
 
 
 }

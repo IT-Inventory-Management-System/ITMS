@@ -387,7 +387,7 @@ export class AssignAssetComponent {
     for (var i = 0; i < selectedSoftwareIds.length; i++) {
       if (selectedSoftwareIds[i].index != null) {
         input.softwareIds.push({ softwareId: selectedSoftwareIds[i].softwareId, version: selectedSoftwareIds[i].softwareversion });
-        input.softwareComments.push(selectedSoftwareComments[i].deviceComment);
+        //input.softwareComments.push(selectedSoftwareComments[i].deviceComment);
       }
     }
 
