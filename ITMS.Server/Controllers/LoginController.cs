@@ -32,14 +32,31 @@ namespace ITMS.Server.Controllers
         [HttpPost("authenticate")]
         public IActionResult Authenticate([FromBody] UserLoginDto userLoginDto)
         {
-            var user = _loginService.Authenticate(userLoginDto);
-            if (user == null)
-                return BadRequest("Invalid credentials");
+            try
+            {
+                var user = _loginService.Authenticate(userLoginDto);
+                if (user == null)
+                    return BadRequest("Invalid credentials");
 
-            var token = GenerateJwtToken(user);
-            user.Token = token;
-            _context.SaveChanges();
-            return Ok(new { Token = token });
+                var roleName = _context.Roles
+                                .Where(r => r.Id == user.RoleId)
+                                .Select(r => r.Name)
+                                .FirstOrDefault();
+
+                if (roleName == "User")
+                {
+                    return BadRequest("Not Authorised User");
+                }
+                var token = GenerateJwtToken(user);
+                user.Token = token;
+                _context.SaveChanges();
+                return Ok(new { Token = token });
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            
         }
 
 
@@ -51,6 +68,10 @@ namespace ITMS.Server.Controllers
                             .Where(r => r.Id == employee.RoleId)
                             .Select(r => r.Name)
                             .FirstOrDefault();
+            var locationName = _context.Locations
+                               .Where(l => l.Id == employee.LocationId)
+                               .Select(l => l.Location1)
+                               .FirstOrDefault();
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
@@ -60,10 +81,11 @@ namespace ITMS.Server.Controllers
                     new Claim("lastName", employee.LastName),
                     new Claim(ClaimTypes.Role, roleName),
                     new Claim("locationId", employee.LocationId.ToString()),
-                    new Claim("cgiid", employee.Cgiid)
+                    new Claim("cgiid", employee.Cgiid),
+                    new Claim("locationName", locationName)
                     // You can add more claims as needed
                 }),
-                Expires = DateTime.UtcNow.AddDays(7), // Token expiration time
+                Expires = DateTime.UtcNow.AddDays(1), // Token expiration time
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);

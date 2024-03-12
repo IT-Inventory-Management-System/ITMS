@@ -9,6 +9,7 @@ export class UserStoreService {
   private firstName$ = new BehaviorSubject<string>("");
   private lastName$ = new BehaviorSubject<string>("");
   private role$ = new BehaviorSubject<string>("");
+  private locationName$ = new BehaviorSubject<string>("");
 
   public getRoleFromStore() {
     return this.role$.asObservable();
@@ -34,6 +35,13 @@ export class UserStoreService {
     return this.lastName$.next(lastName);
   }
 
+  public getLocationNameFromStore() {
+    return this.locationName$.asObservable();
+  }
+
+  public setLocationNameFromStore(locationName: string) {
+    return this.locationName$.next(locationName);
+  }
 
   constructor() { }
 }

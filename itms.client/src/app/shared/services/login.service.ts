@@ -24,8 +24,8 @@ export class LoginService {
   }
 
   signOut() {
-    //localStorag.clear();
-    localStorage.removeItem('token');
+    localStorage.clear();
+    //localStorage.removeItem('token');
     this.router.navigate(['login']);
   }
 
@@ -58,6 +58,10 @@ export class LoginService {
 
   getRoleFromToken() {
     if (this.userPayload) return this.userPayload.role;
+  }
+
+  getLocationNameFromToken() {
+    if (this.userPayload) return this.userPayload.locationName;
   }
 
 

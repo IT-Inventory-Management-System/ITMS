@@ -9,10 +9,11 @@ import { UserStoreService } from '../../services/user-store.service';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
-  selectedLocation: string = "India";
+  selectedLocation: string = "";
   showDropdown = false;
   firstName: string = "";
   lastName: string = "";
+  role: string = "";
 
   loggedUser: any;
   constructor(private selectedCountryService: SelectedCountryService, private loginService: LoginService, private userStore: UserStoreService) {
@@ -32,6 +33,18 @@ export class NavbarComponent {
       let lastNameFromToken = this.loginService.getLastNameFromToken();
       this.lastName = val || lastNameFromToken;
     })
+
+    this.userStore.getRoleFromStore().subscribe(val => {
+      let loggedInUserRole = this.loginService.getRoleFromToken();
+      this.role = val || loggedInUserRole;
+    })
+
+    this.userStore.getLocationNameFromStore().subscribe(val => {
+      let loggedInUserLocation = this.loginService.getLocationNameFromToken();
+      this.selectedLocation = val || loggedInUserLocation;
+      this.selectedCountryService.setSelectedCountry(this.selectedLocation);
+    })
+
   }
 
   isOptionsVisible: boolean = false;

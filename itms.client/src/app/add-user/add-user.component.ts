@@ -74,6 +74,7 @@ export class AddUserComponent implements OnInit {
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       cgiId: ['', Validators.required],
+      password: ['', Validators.required],
       //location: [this.locationId]
       CreatedBy: [this.loggedUser.id]
     });

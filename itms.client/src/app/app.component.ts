@@ -12,13 +12,13 @@ export class AppComponent {
   title = 'common-layout';
 
   constructor(private dataService: DataService, private loginService: LoginService, private router: Router) {
-    this.dataService.getFirstUser().subscribe(
-      (data) => {
-        localStorage.setItem("user", JSON.stringify(data));
-      },
-      (error) => {
-        console.log("User not found");
-      });
+    //this.dataService.getFirstUser().subscribe(
+    //  (data) => {
+    //    localStorage.setItem("user", JSON.stringify(data));
+    //  },
+    //  (error) => {
+    //    console.log("User not found");
+    //  });
   }
 
   isLoggedIn(): boolean {

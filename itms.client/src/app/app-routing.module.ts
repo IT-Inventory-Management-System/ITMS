@@ -14,6 +14,7 @@ import { AccessoriesComponent } from './accessories/accessories.component';
 import { ManageAccessComponent } from './manage-access/manage-access.component';
 import { LoginComponent } from './login/login.component';
 import { LoginGuard } from './guards/login.guard';
+import { ManageAccessGuard } from './guards/manage-access.guard';
 
 
 const routes: Routes = [
@@ -26,7 +27,7 @@ const routes: Routes = [
   { path: 'employee', component: EmployeeComponent, canActivate: [LoginGuard] },
   { path: 'software', component: SoftwareComponent, canActivate: [LoginGuard] },
   { path: 'history', component: HistoryComponent, canActivate: [LoginGuard] },
-  { path: 'manage-access', component: ManageAccessComponent, canActivate: [LoginGuard] },
+  { path: 'manage-access', component: ManageAccessComponent, canActivate: [LoginGuard, ManageAccessGuard] },
   { path: 'add-asset', component: AddAssetComponent, canActivate: [LoginGuard] },
   { path: 'assign-asset', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'api/Device/:cygId', component: InventoryComponent, canActivate: [LoginGuard] },

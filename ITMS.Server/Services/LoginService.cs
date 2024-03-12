@@ -34,7 +34,6 @@ namespace ITMS.Server.Services
             // Fetch user based on provided credentials
             var user = _context.Employees.FirstOrDefault(u => u.Email == userLoginDto.Email);
 
-            // If user is not found, return null
             if (user == null)
                 return null;
 
