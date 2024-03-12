@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.Elfie.Serialization;
 using static ITMS.Server.Services.GetSoftwareService;
+using Microsoft.AspNetCore.Authorization;
+
 using System.Runtime.InteropServices;
 using System;
 namespace ITMS.Server.Controllers
@@ -24,21 +26,29 @@ namespace ITMS.Server.Controllers
             _addSoftwareVersionService = addSoftwareVersionService;
             _softwareService = softwareService;
         }
+
+        [Authorize]
         [HttpGet("getSoftware")]
         public async Task<IEnumerable<GetSoftwareDTO>> listSoftware()
         {
             return await _addSoftwareService.listSoftware();
         }
+
+        [Authorize]
         [HttpGet("getSoftwareVersion")]
         public async Task<IEnumerable<GetSoftwareVersionDTO>> listSoftwareVersions(String SoftwareName)
         {
             return await _addSoftwareVersionService.listSoftwareVersions(SoftwareName);
         }
+
+        [Authorize]
         [HttpGet("getSoftwareId")]
         public async Task<IEnumerable<GetSoftwareDTO>> listSoftwareId(String SoftwareName, String Version)
         {
             return await _addSoftwareService.getSoftwareId(SoftwareName, Version);
         }
+
+        [Authorize]
         [HttpGet ("getsoftwareType")]
         public ActionResult<IEnumerable<SoftwareType>> GetSoftwareTypes()
         {

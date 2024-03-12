@@ -7,6 +7,8 @@ using ITMS.Server.Models;
 using ITMS.Server.DTO;
 using static Azure.Core.HttpHeader;
 using System.Runtime.InteropServices;
+using Microsoft.AspNetCore.Authorization;
+
 
 
 namespace itms.server.controllers
@@ -24,19 +26,22 @@ namespace itms.server.controllers
             _deviceService = deviceService;
             _getDeviceService = getDeviceService;
         }
-        
+
+        [Authorize]
         [HttpGet("getDevicess/{locationId}")]
         public List<GetDeviceDTO> listDevices(Guid locationId)
         {
             return _getDeviceService.listDevices(locationId);
         }
 
+        [Authorize]
         [HttpGet("getAllComments/{deviceId}")]
         public async Task<IEnumerable<getComments>> listAllComments(Guid deviceId)
         {
             return await _getDeviceService.listAllComments(deviceId);
         }
 
+        [Authorize]
         [HttpGet("checkDeviceStatus")]
         public async Task<IActionResult> checkDeviceStatus(string CYGID)
         {
@@ -51,6 +56,8 @@ namespace itms.server.controllers
             }
 
         }
+
+        [Authorize]
         [HttpGet("categories")]
         public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
         {
@@ -67,7 +74,7 @@ namespace itms.server.controllers
         }
 
 
-
+        [Authorize]
         [HttpGet("{deviceId}")]
         public async Task<ActionResult<DeviceDto>> GetDeviceStatusAndAge(string deviceId)
         {
@@ -87,7 +94,7 @@ namespace itms.server.controllers
             }
         }
 
-
+        [Authorize]
         [HttpGet("GetDevices/{id}")]
         public IActionResult GetDevices(Guid id)
         {
@@ -103,6 +110,7 @@ namespace itms.server.controllers
             }
         }
 
+        [Authorize]
         [HttpGet("archived-cygids/{locationId}")]
         public async Task<IActionResult> GetDeviceHistory(Guid locationId)
         {
@@ -118,12 +126,15 @@ namespace itms.server.controllers
             }
         }
 
+        [Authorize]
         [HttpGet("get-ostype")]
         public ActionResult<IEnumerable<Ostype>> GetOstypes()
         {
             var getos = _deviceService.GetOstypes();
             return Ok(getos);
         }
+
+        [Authorize]
         [HttpGet("get-location")]
         public ActionResult<IEnumerable<Location>> Getlocation()
         {
@@ -131,6 +142,7 @@ namespace itms.server.controllers
             return Ok(getLocation);
         }
 
+        [Authorize]
         [HttpGet("get-status")]
         public ActionResult<IEnumerable<Location>> GetStatus()
         {
@@ -138,6 +150,7 @@ namespace itms.server.controllers
             return Ok(statusList);
         }
 
+        [Authorize]
         [HttpGet("get-unique-processors")]
         public ActionResult<IEnumerable<ProcessorDto>> GetUniqueProcessors()
         {
@@ -145,6 +158,8 @@ namespace itms.server.controllers
             return Ok(processors);
         }
 
+
+        [Authorize]
         [HttpPost("updateDeviceStatus")]
         public async Task<IActionResult> UpdateDeviceStatus([FromBody] ArchivedoneDto archiveDto)
         {
@@ -168,6 +183,7 @@ namespace itms.server.controllers
             }
         }
 
+        [Authorize]
         [HttpPost("updateDeviceStatustoNotassigned")]
         public async Task<IActionResult> UpdateDeviceStatustoNotassigned([FromBody] ArchivedoneDto archiveDto)
         {
@@ -191,6 +207,7 @@ namespace itms.server.controllers
             }
         }
 
+        [Authorize]
         [HttpPost("DeviceModels")]
         public async Task<IActionResult> GetDeviceModels([FromBody] DeviceModelInputDTO deviceModelInput)
         {
@@ -209,6 +226,7 @@ namespace itms.server.controllers
             }
         }
 
+        [Authorize]
         [HttpPost("getAllAccessories")]
         public List<allAccessoriesDTO> GetAllAccessories([FromBody] locationaccesoryDTO dto)
         {
@@ -220,6 +238,7 @@ namespace itms.server.controllers
             return allData;
         }
 
+        [Authorize]
         [HttpPost("filterAccessories")]
         public List<allAccessoriesDTO> FilterAccessories(filterAccessoriesBodyDTO filter)
         {
@@ -233,7 +252,7 @@ namespace itms.server.controllers
             return _deviceService.GetFilterAccessories(allData, filter);
         }
 
-
+        [Authorize]
         [HttpPost("singleHistoryAccessory")]
         public List<historySingleAccessory> singleHistoryAccessory([FromBody] locationaccesoryDTO dto)
         {
@@ -242,7 +261,7 @@ namespace itms.server.controllers
             return history;
         }
 
-
+        [Authorize]
         [HttpPost("filterDevices")]
         public List<GetDeviceDTO> FiltterCard([FromBody] FilterDTO filterInput)
         {
@@ -259,7 +278,7 @@ namespace itms.server.controllers
             return filterDevices;
         }
 
-
+        [Authorize]
         [HttpPost("unassignableDevice")]
         public async Task<IActionResult> setDeviceUnassignable([FromBody] UnassignableDto unassignableDto)
         {

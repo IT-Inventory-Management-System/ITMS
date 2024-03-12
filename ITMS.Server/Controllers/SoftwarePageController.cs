@@ -45,6 +45,8 @@ using ITMS.Server.DTO;
 using ITMS.Server.Models;
 using ITMS.Server.Services;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
+
 using Microsoft.AspNetCore.Mvc;
 
 namespace ITMS.Server.Controllers
@@ -60,6 +62,7 @@ namespace ITMS.Server.Controllers
             _softwarepageService = softwarepageService;
         }
 
+        [Authorize]
         [HttpGet("software")]
         public List<IEnumerable<SoftwarePage>> GetSoftware([FromQuery] bool arch)
         {
@@ -82,6 +85,7 @@ namespace ITMS.Server.Controllers
             return list;
         }
 
+        [Authorize]
         [HttpPost("filter")]
         public List<IEnumerable<SoftwarePage>> Filter([FromBody] filterDto attri)
         {
@@ -91,6 +95,7 @@ namespace ITMS.Server.Controllers
             return _softwarepageService.CardFilter(allData, attri);
         }
 
+        [Authorize]
         [HttpGet("selected")]
         public IActionResult GetSelected([FromQuery] SingleSoftwareSelectedParams parameters)
         {
@@ -100,12 +105,14 @@ namespace ITMS.Server.Controllers
 
         }
 
+        [Authorize]
         [HttpGet("History")]
         public ActionResult<IEnumerable<SingleSoftwareHistory>> GetHistory([FromQuery] SingleSoftwareSelectedParams parameters)
         {
             return _softwarepageService.GetSingleHistory(parameters);
         }
 
+        [Authorize]
         [HttpGet("softwarestable")]
         public List<TablePage> GetSoftwares([FromQuery] String country)
         {
@@ -120,6 +127,7 @@ namespace ITMS.Server.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost("filterTable")]
         public List<TablePage> FilterTable([FromBody] filterDto attri)
         {
@@ -135,6 +143,7 @@ namespace ITMS.Server.Controllers
             return filteredData;
         }
 
+        [Authorize]
         [HttpPost("archive")]
 public IActionResult Archive([FromBody] SoftwareUpdateDto dto)
 {

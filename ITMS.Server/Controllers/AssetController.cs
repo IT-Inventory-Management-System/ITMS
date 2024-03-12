@@ -4,6 +4,8 @@ using ITMS.Server.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.Elfie.Serialization;
+using Microsoft.AspNetCore.Authorization;
+
 namespace ITMS.Server.Controllers
 {
     [ApiController]
@@ -17,12 +19,17 @@ namespace ITMS.Server.Controllers
             _context = context;
             _addAssetService = addAssetService;
         }
+
+        [Authorize]
         [HttpGet("getEmployee")]
         public async Task<IEnumerable<GetEmployeeDTO>> getAllEmployeeBasicDetails()
         {
           return await _addAssetService.getAllEmployeeBasicDetails();
 
         }
+
+
+        [Authorize]
         [HttpGet("getAccessories")]
         public async Task<IEnumerable<GetAccessories>> getAccessories()
         {
@@ -30,18 +37,21 @@ namespace ITMS.Server.Controllers
 
         }
 
+        [Authorize]
         [HttpGet("getMouseBrand")]
         public async Task<IEnumerable<GetBrandDTO>> getMouseBrand()
         {
             return await _addAssetService.getMouseBrand();
         }
 
+        [Authorize]
         [HttpGet("getCGIID")]
         public async Task<IEnumerable<getCGIDTO>> getCGIID()
         {
             return await _addAssetService.getCGIID();
         }
 
+        [Authorize]
         [HttpGet("getLaptopIDs")]
         public async Task<IEnumerable<getLaptopIds>> getlaptopIds()
         {

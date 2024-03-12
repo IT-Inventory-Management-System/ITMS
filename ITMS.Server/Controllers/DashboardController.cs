@@ -18,6 +18,7 @@ namespace ITMS.Server.Controllers
             _dashboardService = dashboardService;
         }
 
+        [Authorize]
         [HttpGet("accessories")]
         public ActionResult<IEnumerable<Accessories>> GetAccessories()
         {
@@ -33,7 +34,7 @@ namespace ITMS.Server.Controllers
         //    return Ok(software);
         //}
 
-
+        [Authorize]
         [HttpGet("softwares")]
         public ActionResult<IEnumerable<Softwares>> GetSoftwares()
         {
@@ -56,6 +57,7 @@ namespace ITMS.Server.Controllers
             return Ok(os);
         }
 
+        [Authorize]
         [HttpPost("logs")]
         public ActionResult<IEnumerable<Logs>> GetLogs([FromBody] Getlocation country)
         {

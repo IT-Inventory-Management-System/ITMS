@@ -5,7 +5,10 @@ using ITMS.Server.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+
 namespace ITMS.Server.Controllers
+
 {
     [ApiController]
     [Route("api/addDevices")]
@@ -18,6 +21,7 @@ namespace ITMS.Server.Controllers
             _deviceService = deviceService;
         }
 
+        [Authorize]
         [HttpGet("device-models")]
         public async Task<IActionResult> GetLaptopModelsName()
         {
@@ -26,7 +30,7 @@ namespace ITMS.Server.Controllers
         }
 
 
-
+        [Authorize]
         [HttpPost]
         public ActionResult PutLaptops([FromBody] PutLaptop pLaptop)
         {
@@ -41,7 +45,7 @@ namespace ITMS.Server.Controllers
             }
         }
 
-
+        [Authorize]
         [HttpPost("update")]
         public ActionResult PutDeviceModel([FromBody] PutDeviceModel model)
         {
@@ -56,6 +60,7 @@ namespace ITMS.Server.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet("software-models")]
         public async Task<IActionResult> GetSoftwareModelsName()
         {
@@ -65,7 +70,7 @@ namespace ITMS.Server.Controllers
 
 
 
-
+       [Authorize]
         [HttpPost("add-software")]
         public ActionResult PutSoftware([FromBody] PutSoftware software)
         {
@@ -80,6 +85,7 @@ namespace ITMS.Server.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost("add-software-allocation")]
         public ActionResult PutSoftwareAllocation([FromBody] PutSofwareAllocation softwareAllocation)
         {
@@ -94,6 +100,8 @@ namespace ITMS.Server.Controllers
             }
 
         }
+
+        [Authorize]
         [HttpPost("AddMouseModel")]
         public ActionResult AddMouseModel([FromBody] PostMouseModelDTO mouseModel)
         {
@@ -108,6 +116,7 @@ namespace ITMS.Server.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost("AddMouse")]
         public ActionResult AddMouse([FromBody] PostMouseDTO mouseModel)
         {
