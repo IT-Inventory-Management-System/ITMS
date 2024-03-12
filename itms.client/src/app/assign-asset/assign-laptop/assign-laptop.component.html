@@ -9,9 +9,9 @@
   </div>
   <ng-select class="custom search-box"
              [placeholder]="'Select CYG ID'"
-             [(ngModel)]="cygids[i]"
+             (clear)="onClearSelection(i)"
              (change)="onSelectOption($event,i)"
-             (clear)="onClearSelection(i)">
+             [ngModel]="!SelectedLaptops[i] ? null : SelectedLaptops[i].cygid">
     <ng-container *ngIf="LaptopOptions && LaptopOptions.length > 0; else noOptions">
       <ng-option class="list-items" *ngFor="let option of LaptopOptions" [value]="option">
         {{ option?.cygid }} - {{option?.deviceName}}
