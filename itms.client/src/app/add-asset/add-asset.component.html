@@ -37,6 +37,9 @@
         <div class="col-12" *ngIf="selectedCategory && selectedCategory != 'Laptop' && selectedCategory != 'Software' && selectedCategory != 'Mouse' && selectedCategory != 'Monitor' && selectedCategory != 'Keyboard'  && selectedCategory != 'Combo'">
           <app-add-accessory-shared [category]="selectedCategory"></app-add-accessory-shared>
         </div>
+        <div class="col-12" *ngIf="selectedCategory && (selectedCategory == 'Keyboard' || selectedCategory == 'Combo') ">
+          <app-add-keyboard-combo [category]="selectedCategory"></app-add-keyboard-combo>
+        </div>
         <!--<app-add-software-form></app-add-software-form>-->
       </div>
     </div>
