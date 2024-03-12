@@ -127,7 +127,7 @@ namespace ITMS.Server.Controllers
             try
             {
                 _deviceService.AddMonitor(postMonitorDTO);
-                return Ok("Monitor added successfully");
+                return Ok();
             }
             catch (Exception e)
             {

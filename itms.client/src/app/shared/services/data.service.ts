@@ -213,6 +213,9 @@ export class DataService {
   postMonitorBrand(formData: any): Observable<any> {
     return this.http.post(this.apiUrl + 'asset/addMonitorModel', formData);
   }
+  postMonitorDetails(formData: any): Observable<any> {
+    return this.http.post(this.apiUrl + 'addDevices/AddMonitor', formData);
+  }
 
 }
 

@@ -49,15 +49,13 @@
             </div>
             <div class="mouse-model-input">
               <div class="mouse-model-select">
-                <div class="select-mouse-dropdown">
+                <div class="select-mouse-dropdown" [formGroup]="deviceForm">
                   <label for="MouseBrand">Brand <span class="required">*</span></label>
                   <ng-select formControlName="deviceModelId" placeholder="Select Device Brand">
                     <ng-option *ngFor="let value of dropdownValues" [value]="value.id">
                       {{ value.brand }}
                     </ng-option>
-                    <ng-option>
-                    </ng-option>
-                  </ng-select>
+                     </ng-select>
                 </div>
               </div>
             </div>
@@ -87,7 +85,7 @@
 
               </div>
             </div>
-            <div class="quantity-select">
+            <div class="quantity-select" [formGroup]="deviceForm">
               <label for="quantity">Quantity <span class="required">*</span></label>
               <div class="quantity-counter">
                 <div class="reduce-button" (click)="decrement()"><img src="../../../assets/icons/reduce-quantity.svg" /></div>
@@ -95,11 +93,11 @@
                 <div class="add-button" (click)="increment()"><img src="../../../assets/icons/add-quantity.svg" /></div>
               </div>
             </div>
-            <div class="add-device-date mb-3" id="deviceDetailsDiv">
+            <div class="add-device-date mb-3" id="deviceDetailsDiv" [formGroup]="deviceForm">
               <div class="purchase-date-section">
                 <label for="purchaseDate" class="purchaseDate">Date of Purchase <span class="required">*</span></label>
                 <div class="pdatee">
-                  <input type="date" class="form-control" id="purchaseDate" name="purchaseDate" placeholder="15-12-2023">
+                  <input type="date" class="form-control" id="purchaseDate" name="purchaseDate" placeholder="15-12-2023" formControlName="purchaseddate">
                   <img src="../../../assets/icons/calendar.svg" />
                 </div>
               </div>
@@ -110,7 +108,7 @@
                 <label for="Warranty Year " class="purchaseDate">Warranty Date <span class="required">*</span></label>
                 <div class="pdatee">
 
-                  <input type="date" class="form-control" id="Warranty Year " name="Warranty Year " placeholder="15-12-2023" f>
+                  <input type="date" class="form-control" id="Warranty Year " name="Warranty Year " placeholder="15-12-2023" formControlName="warrantydate">
                   <img src="../../../assets/icons/calendar.svg" />
                 </div>
               </div>
@@ -131,7 +129,7 @@
         <div class="outer-input">
 
 
-          <div *ngFor="let ele of counterValues; let i = index" class="outer-input" >
+          <div *ngFor="let ele of counterValues; let i = index" class="outer-input" [formGroup]="deviceForm" >
 
 
             <div class="cyg-id-input">
@@ -164,7 +162,7 @@
 
     <div class="save-device-button">
       <button class="cancel-button"><span>Cancel</span></button>
-      <button class="submit-button-layout" type="submit" ><span>Submit</span></button>
+      <button class="submit-button-layout" type="submit" (click)="onSubmit()" ><span>Submit</span></button>
     </div>
   </div>
 
