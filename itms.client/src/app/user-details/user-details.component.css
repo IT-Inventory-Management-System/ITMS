@@ -490,11 +490,28 @@
 }
 .archive-alert-on-hold {
   width: 97%;
-  height: 32px;
+  height: 44px;
   margin-top: 0.6rem;
   border-radius: 4px;
   border: 1px solid #ffe438;
   padding: 8px 8px 8px 8px;
   background-color: #fff4ae;
   gap: 10rem;
+}
+
+.btn-hold {
+  border-radius: 0.25rem;
+  background: var(--Other-Red, #E03E2D);
+  display: flex;
+  padding: 0.5rem;
+  align-items: center;
+  gap: 0.625rem;
+  width: 10.5rem;
+  height: 2.375rem;
+  color: var(--Primary-White, #FFF);
+}
+
+.alert-hold-button {
+  margin-left: 35rem;
+  margin-top: -2.5rem;
 }

@@ -289,20 +289,24 @@ namespace ITMS.Server.Services
 
         public async Task ArchiveEmployee(Guid UserId, Guid archiveUserId)
         {
+            var devicesAssigned = await _context.Devices.AnyAsync(d => d.AssignedTo == archiveUserId);
             try
             {
-                var employee = await _context.Employees.FindAsync(archiveUserId);
-                if (employee != null)
-                {
-                    employee.UpdatedBy = UserId;
-                    employee.UpdatedAtUtc = DateTime.UtcNow;
-                    employee.IsArchived = true;
-                    await _context.SaveChangesAsync();
-                }
-                else
-                {
-                    throw new ArgumentException("Employee not found");
-                }
+                  if(devicesAssigned)
+                  {
+                        var employee = await _context.Employees.FindAsync(archiveUserId);
+                        if (employee != null)
+                        {
+                            employee.UpdatedBy = UserId;
+                            employee.UpdatedAtUtc = DateTime.UtcNow;
+                            employee.IsArchived = true;
+                            await _context.SaveChangesAsync();
+                        }
+                        else
+                        {
+                            throw new ArgumentException("Employee not found");
+                        }
+                  }
             }
             catch (Exception ex)
             {

@@ -39,9 +39,9 @@ public class UserListService : IUserListService
                                 ExitProcessInitiated = e.ExitProcessInitiated,
                                 isArchived = e.IsArchived,
                                 UpdatedAtUtc = e.UpdatedAtUtc,
-                                isOnHold = (e.ExitProcessInitiated == true && e.IsArchived == true && _context.Devices.Where(e => e.LocationId == locationId).Any(d => d.StatusNavigation.Type== "Assigned" ))?true:false,
+                                isOnHold = (e.ExitProcessInitiated == true  && _context.Devices.Where(e => e.LocationId == locationId).Any(d => d.StatusNavigation.Type== "Assigned" ))?true:false,
                             }).ToListAsync();
-        
+/* if(total devices assigned to user === total devices with 'not submitted' status)*/
         return result;
     }
 
