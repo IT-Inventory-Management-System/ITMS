@@ -75,7 +75,8 @@ export class AccessoriesAllRevokeComponent {
     return this.formBuilder.group({
       deviceLogId: [accessory.deviceLogId],
       actionId: [null],
-      deviceComment: [null]
+      deviceComment: [null],
+      deviceId: [accessory.deviceId]
     });
   }
 

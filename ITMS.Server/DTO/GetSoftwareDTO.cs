@@ -9,5 +9,6 @@
         public string Version { get; set; }
         public Guid LocationId { get; set; }
         public Guid? AssignedTo { get; set; }
+        public int Count { get; set; }
     }
 }

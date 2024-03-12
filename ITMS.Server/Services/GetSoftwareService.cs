@@ -28,7 +28,7 @@ namespace ITMS.Server.Services
                                 on s.SoftwareTypeId equals st.Id
                                 join sa in _context.SoftwareAllocations
                                 on s.Id equals sa.SoftwareId
-
+                                where sa.IsArchived == false
                                 select new GetSoftwareDTO
                                 {
                                     Id = s.Id,

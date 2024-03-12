@@ -11,7 +11,8 @@ import { CloseFlagService } from '../../shared/services/close-flag.service';
 export class AssignSoftwareComponent {
   @Input() SoftwareOptions: any[] = [];
   @Input() assignAssetForm: FormGroup;
-  @Output() softwareIdInputChange = new EventEmitter<boolean>();
+  @Output() softwareIdInputChange = new EventEmitter<{ allSelected: boolean, SoftwareOptions: any[] }>();
+
 
   //SelectedSoftware: any;
   //SelectedSoftwareVersion: any;
@@ -28,6 +29,13 @@ export class AssignSoftwareComponent {
   softwares: any[] = [{}];
   closeFlagSubscription: any;
 
+  selectedOptionDisable: boolean = false;
+
+  softwareWarning: boolean = false;
+
+
+  currSelectedSoftware: string = '';
+
 
   constructor(private assignDataManagementService: AssignDataManagementService,
     private formBuilder: FormBuilder,
@@ -43,6 +51,7 @@ export class AssignSoftwareComponent {
     });
   }
   ngOnInit(): void {
+    console.log("software-oninit", this.SoftwareOptions);
     this.softwares = this.assignDataManagementService.getMultipleInstanceState('softwares') || [];
     if (this.softwares.length === 0) {
       this.softwares.push({});
@@ -75,18 +84,20 @@ export class AssignSoftwareComponent {
       const allSelected = this.selectedSoftwareNames.every(name => name !== null) &&
       this.selectedSoftwareVersions.every(version => version !== null && version !== 1);
       console.log(allSelected);
-      this.softwareIdInputChange.emit(allSelected);
+    this.softwareIdInputChange.emit({ allSelected, SoftwareOptions: this.SoftwareOptions });
   }
 
   SoftwareSearchBoxOptionSelected(event: any, index: number): void {
     this.selectedSoftwareNames[index] = event;
+    this.currSelectedSoftware = this.selectedSoftwareNames[index];
+    console.log("this.currSelectedSoftware", this.currSelectedSoftware);
     this.filterSoftwareVersions(index);
   }
 
   filterSoftwareVersions(index: number): void {
     if (this.selectedSoftwareNames[index]) {
       this.FilteredSoftwaresOptions[index] = this.SoftwareOptions.filter(opt => opt.softwareName === this.selectedSoftwareNames[index]);
-      console.log(this.FilteredSoftwaresOptions[index]);
+      console.log("this.FilteredSoftwaresOptions[index]",this.FilteredSoftwaresOptions[index]);
       this.SelectedSoftwaresData[index] = this.FilteredSoftwaresOptions[index][0];
       const uniqueVersions: string[] = [];
       this.FilteredSoftwaresOptions[index].forEach(option => {
@@ -103,21 +114,37 @@ export class AssignSoftwareComponent {
   }
   //filter from FilteredSoftwaresOptions to add and remove from selectedSoftwareVersions
   SoftwareVersionSearchBoxOptionSelected(data: any, index: number): void {
-    const selectedOption = data;
+    if (data.option != null) {
+      this.selectedOptionDisable = true;
+    } else {
+      this.selectedOptionDisable = false;
+    }
+    //alert(this.selectedOptionDisable);
+    const selectedOption = data.option;
     const selectedIndex = index;
+    this.SoftwareOptions = data.SoftwareOptions;
+    this.softwareWarning = data.countZero;
     const softwareIdsArray = this.assignAssetForm.get('softwareIds') as FormArray;
 
-    const filteredOptions = this.FilteredSoftwaresOptions[selectedIndex].filter(
-      (option: any) => option.version === selectedOption && option.assignedTo === null
-    );
+    //const filteredOptions = this.FilteredSoftwaresOptions[selectedIndex].filter(
+    //  (option: any) => option.version === selectedOption && option.assignedTo === null
+    //);
 
-    softwareIdsArray.push(this.formBuilder.group({
-      index: selectedIndex,
-      softwareId: filteredOptions[selectedIndex].id,
-      softwareversion: data
-    }));
+    //const filteredOptions = this.FilteredSoftwaresOptions[selectedIndex].filter(
+    //  (option: any) => option.version === selectedOption
+    //);
 
-    this.formatExpiryDate(selectedIndex);
+    console.log("filtered options", data);
+
+    //if (data.option == undefined) {
+      softwareIdsArray.push(this.formBuilder.group({
+        index: selectedIndex,
+        softwareId: data.softwareId[0].id,
+        softwareversion: data.option
+      }));
+    //}
+
+    //this.formatExpiryDate(selectedIndex);
     this.softwareIdInputChangeFlag();
 
   }
@@ -144,12 +171,13 @@ export class AssignSoftwareComponent {
     this.softwareIdInputChangeFlag();
   }
 
-  removeSoftware(index: number): void {
-    this.softwares.splice(index, 1);
-    this.selectedSoftwareNames.splice(index, 1);
-    this.selectedSoftwareVersions.splice(index, 1);
-    this.softwareExpiryDate.splice(index, 1);
-    this.SelectedSoftwaresData.splice(index, 1);
+  removeSoftware(data: any): void {
+    this.SoftwareOptions = data.SoftwareOptions;
+    this.softwares.splice(data.idx, 1);
+    this.selectedSoftwareNames.splice(data.idx, 1);
+    this.selectedSoftwareVersions.splice(data.idx, 1);
+    this.softwareExpiryDate.splice(data.idx, 1);
+    this.SelectedSoftwaresData.splice(data.idx, 1);
     this.softwareIdInputChangeFlag();
   }
 }

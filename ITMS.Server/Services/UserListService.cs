@@ -41,7 +41,7 @@ public class UserListService : IUserListService
                                 UpdatedAtUtc = e.UpdatedAtUtc,
                                 onHold=e.onHold,
                             }).ToListAsync();
-        
+/* if(total devices assigned to user === total devices with 'not submitted' status)*/
         return result;
     }
 

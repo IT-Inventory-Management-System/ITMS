@@ -70,11 +70,11 @@
               <button type="button"
                       class="btn-save"
                       [attr.data-bs-dismiss]="currentStep === 3 && assignAssetForm.valid ? 'modal' : null"
-                      (click)="currentStep !== 3 ? nextStep() : saveChanges()"
-                      [disabled]="
+                      (click)="currentStep !== 3 ? nextStep() : saveChanges()">
+                      <!--[disabled]="
                       (currentStep === 1 && isCygidEmptyStep1) ||
                       (currentStep === 2 && isSoftwareIdEmptyStep2) ||
-                      (currentStep === 3 && isAccessoryIdEmptyStep3)">
+                      (currentStep === 3 && isAccessoryIdEmptyStep3)">-->
                       {{ getButtonText() }}
               </button>
             </div>
