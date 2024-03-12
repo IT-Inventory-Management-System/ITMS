@@ -23,6 +23,8 @@ export class AddMonitorFormComponent {
   @Input() category: string = '';
   selectedOptions = { HDMI: false, VGA: false, DVI: false };
   deviceForm: FormGroup;
+  showErrorMessage = false;
+
 
   ngOnInit(): void{
     
@@ -108,9 +110,25 @@ if (this.counterValue > 0) {
       });   
       };
     
+  nextValidation(): boolean {
+    var isDeviceId = this.deviceForm.get('deviceModelId')?.value != null;
+    var isQuantity = this.counterValue > 0;
+    var isPurchasedOn = this.deviceForm.get('purchaseddate')?.value != '';
+    var screensize = this.deviceForm.get('screensize')?.value != '';
+    var isWarrantyDate = this.deviceForm.get('warrantydate')?.value != null;
+    return isDeviceId && isQuantity && isPurchasedOn && isWarrantyDate && screensize;
+  }
   next() {
-     this.currentStep++;
- }
+
+    if (this.nextValidation() == true) {
+      this.hideErrorMessage();
+      this.currentStep++;
+    }
+    else {
+      this.showErrorMessage = true;
+    }
+
+  }
   emitSelectedOptions() {
     this.selectedOptions = {
       HDMI: this.ifChecked,
@@ -217,11 +235,12 @@ if (this.counterValue > 0) {
     this.deviceForm.get('createdAt')?.setValue(new Date().toISOString());
     this.deviceForm.get('updatedAt')?.setValue(new Date().toISOString());
 
+    if (this.deviceForm.valid && this.showErrorMessage == false) {
 
 
-    console.log(this.deviceForm.value);
+      console.log(this.deviceForm.value);
 
-    this.dataService.postMonitorDetails(this.deviceForm.value).subscribe(
+      this.dataService.postMonitorDetails(this.deviceForm.value).subscribe(
         response => {
 
           console.log('Post successful', response);
@@ -233,9 +252,28 @@ if (this.counterValue > 0) {
         }
       );
     }
+    else {
+      this.showErrorMessage = this.deviceForm.invalid;
+
+    }
+  }
+  resettingform() {
+    this.deviceForm.reset();
+    this.counterValue = 0;
+    this.currentStep = 1;
+    this.ifChecked = false;
+    this.ifCheck= false;
+    this.iCheck = false;
+    this.ngOnInit();
+
+
+  }
   pushValueIntoDeviceId(value: string) {
     const deviceIdArray = this.deviceForm.get('deviceId') as FormArray;
     deviceIdArray.push(this.fb.control(value));
+  }
+  hideErrorMessage() {
+    this.showErrorMessage = false;
   }
 
   }
