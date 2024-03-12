@@ -253,7 +253,9 @@ namespace ITMS.Server.Services
             { "Bags", "CGI-BAG" },
             { "RAM of Different Models(Laptop)", "CGI-RAML" },
             { "RAM of Server", "CGI-RAMS" },
-        
+            { "Keyboard", "CGI-KO"},
+            { "Combo", "CGI-WYC"},
+            { "Mouse", "CGI-MOU"},
         };
             var categoryName = await GetCategoryNameById(categoryId);
 
@@ -285,7 +287,7 @@ namespace ITMS.Server.Services
         // Helper method to extract the number after the last dash in the string
         private static string GetNumberAfterLastDash(string input)
         {
-            int lastDashIndex = input.LastIndexOf('-');
+            int lastDashIndex = input.LastIndexOf(' ');
             if (lastDashIndex != -1 && lastDashIndex < input.Length - 1)
             {
                 return input.Substring(lastDashIndex + 1);
