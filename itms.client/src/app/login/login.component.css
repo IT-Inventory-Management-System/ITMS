@@ -181,7 +181,6 @@ a {
   top:-8rem;
 }
 
-
 .CG-Logo-Main {
   border-radius: 1rem;
   background: #FFF;
@@ -326,7 +325,7 @@ a {
 #inp {
   border: none;
   outline: none;
-  /* Add any additional styling as needed */
+  width: 100%;
 }
 
 #pass {
