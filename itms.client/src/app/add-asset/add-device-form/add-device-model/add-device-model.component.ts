@@ -16,6 +16,8 @@ export class AddDeviceModelComponent implements OnInit {
   selectedRam: string | null = null;
   selectedStorage: string | null = null;
   @Input() selectedOS: string;
+  UserId: any;
+  userDataJSON: any;
 
   constructor(private fb: FormBuilder, private dataService: DataService, private toastr: ToastrService) { }
 
@@ -24,7 +26,13 @@ export class AddDeviceModelComponent implements OnInit {
     console.log(this.selectedOS);
     this.setOperatingSystem();
     this.setCategoryId();
-    this.setCreatedBy();
+    this.userDataJSON = localStorage.getItem('user');
+
+    // Parse the JSON string back into an object
+    var userData = JSON.parse(this.userDataJSON);
+
+    // Access the 'id' property of the userData object
+    this.UserId = userData.id;
   }
 
   createForm() {
@@ -118,6 +126,8 @@ export class AddDeviceModelComponent implements OnInit {
 
   onSubmit() {
 
+    this.deviceForm.get('createdBy')?.setValue(this.UserId);
+    this.deviceForm.get('updatedBy')?.setValue(this.UserId);
     this.deviceForm.get('createdAtUtc')?.setValue(new Date().toISOString());
     this.deviceForm.get('updatedAtUtc')?.setValue(new Date().toISOString());
 

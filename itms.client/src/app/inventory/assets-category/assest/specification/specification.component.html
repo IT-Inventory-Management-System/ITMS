@@ -23,8 +23,8 @@
 
 
   </div>
-  <ng-select (change)="handleSelectionChange($event)" [(ngModel)]="selectedOption" [clearable]="false" [searchable]="false">
-    <ng-option [value]="'Active'" *ngIf="selectedOption === 'Active'">
+  <ng-select (change)="handleSelectionChange($event)" [(ngModel)]="deviceDetails.status.type" [clearable]="false" [searchable]="false">
+    <ng-option [value]="'Not Assigned'" *ngIf="selectedOption === 'Active'">
       <img class="asset-image" src="../../../../../assets/icons/Assets/active.svg" />
 
       Active
@@ -50,7 +50,7 @@
 
     </ng-option>
 
-    <ng-option [value]="'Archived'" *ngIf="selectedOption === 'Archived'">
+    <ng-option [value]="'Discarded'" >
       <img class="asset-image" src="../../../../../assets/icons/Assets/archive.svg" />
 
       Archived
@@ -65,7 +65,7 @@
       <span class="asset-age">Asset Age</span>
     </span>
 
-    <span class="years">{{deviceDetails?.ageInYears}} Years </span>
+    <span class="years">{{calculateAgeInYears(deviceDetails?.ageInYears)}} </span>
 
   </div>
 

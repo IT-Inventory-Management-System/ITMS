@@ -139,6 +139,12 @@ namespace ITMS.Server.DTO
         public int? Qty { get; set; }
         public DateTime? PurchaseDate { get; set; }
         public DateTime? WarrantyDate { get; set; }
+        public string? CategoryType { get; set; }
+        public int? ScreenSize { get; set; }
+        public bool? IsHDMI { get; set; }
+        public bool? IsVGA { get; set; }
+        public bool? IsDVI { get; set; }
+
     }
 
     public class filterAccessoriesBodyDTO
@@ -181,6 +187,19 @@ namespace ITMS.Server.DTO
         public bool? IsHDMI { get; set; }
         public bool? IsVGA { get; set; }
         public bool? IsDVI { get; set; }
+        public Guid CreatedBy { get; set; }
+        public Guid? UpdatedBy { get; set; }
+        public string? Brand { get; set; }
+        public Guid CategoryId { get; set; }
+
+    }
+    public class monitorInputDTO
+    {
+        public string? Brand { get; set; }
+
+    }
+    public class CommonDTO
+    {
         public Guid CreatedBy { get; set; }
         public Guid? UpdatedBy { get; set; }
         public string? Brand { get; set; }

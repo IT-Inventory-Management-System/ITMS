@@ -10,6 +10,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 
 export class AddMouseFormComponent {
+  UserId: any;
+  userDataJSON: any;
   constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService) {
     
   }
@@ -17,9 +19,15 @@ export class AddMouseFormComponent {
   ngOnInit(): void {
     this.getCgi();
     this.createForm();
-    this.setCreatedBy();
     this.setlocationId();
     this.setStatus();
+    this.userDataJSON = localStorage.getItem('user');
+
+    // Parse the JSON string back into an object
+    var userData = JSON.parse(this.userDataJSON);
+
+    // Access the 'id' property of the userData object
+    this.UserId = userData.id;
   }
   addDeviceForm: FormGroup;
   showErrorMessage = false;
@@ -37,16 +45,7 @@ export class AddMouseFormComponent {
   get counterValues(): number[] {
     return Array.from({ length: this.counterValue }, (_, i) => i + 1);
   }
-  setCreatedBy() {
-    this.dataService.getFirstUser().subscribe(
-      (data) => {
-        this.addDeviceForm.get('createdBy')?.setValue(data.id);
-        this.addDeviceForm.get('updatedBy')?.setValue(data.id);
-      },
-      (error) => {
-        console.log("User not found");
-      });
-  }
+
   setlocationId() {
     this.dataService.getLocation().subscribe(
       (data) => {
@@ -176,7 +175,8 @@ export class AddMouseFormComponent {
   }
 
   onSubmit() {
-
+    this.addDeviceForm.get('createdBy')?.setValue(this.UserId);
+    this.addDeviceForm.get('updatedBy')?.setValue(this.UserId);
     this.addDeviceForm.get('createdAt')?.setValue(new Date().toISOString());
     this.addDeviceForm.get('updatedAt')?.setValue(new Date().toISOString());
 
