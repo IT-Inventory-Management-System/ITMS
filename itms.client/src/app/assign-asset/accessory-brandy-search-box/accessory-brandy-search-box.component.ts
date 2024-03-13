@@ -14,7 +14,7 @@ import { DataService } from '../../shared/services/data.service';
 })
 export class AccessoryBrandySearchBoxComponent {
   prev: string = '';
-  @Input() accessCYGIDs: string[];
+  @Input() accessCYGIDs: { accessCYGID: string, index: number }[] = [];
   @Input() AccessoryOptions: any;
   @Input() selectedId: any;
   @Input() label: string;
@@ -73,12 +73,13 @@ export class AccessoryBrandySearchBoxComponent {
       //}
       this.selectedCygid = selectedCygid;
       if (this.prev !== '') {
-        const index = this.accessCYGIDs.indexOf(this.prev);
-        if (index !== -1) {
-          this.accessCYGIDs.splice(index, 1);
+        const prevIndex = this.accessCYGIDs.findIndex(item => item.accessCYGID === this.prev);
+        if (prevIndex !== -1) {
+          this.accessCYGIDs.splice(prevIndex, 1);
         }
       }
-      this.accessCYGIDs.push(this.selectedCygid);
+      this.accessCYGIDs.push({ accessCYGID: this.selectedCygid, index: this.index });
+
 
       this.prev = selectedCygid;
       console.log(this.accessCYGIDs);
@@ -109,7 +110,8 @@ export class AccessoryBrandySearchBoxComponent {
       console.log(option);
       this.selectedBrand = option;
       if (this.selectedCygid != '') {
-        const index = this.accessCYGIDs.indexOf(this.selectedCygid);
+        const index = this.accessCYGIDs.findIndex(item => item.accessCYGID === this.selectedCygid);
+        //const index = this.accessCYGIDs.indexOf(this.selectedCygid);
         if (index !== -1) {
           this.accessCYGIDs.splice(index, 1);
         }
@@ -153,12 +155,13 @@ export class AccessoryBrandySearchBoxComponent {
       //}
       this.selectedCygid = selectedCygid;
       if (this.prev !== '') {
-        const index = this.accessCYGIDs.indexOf(this.prev);
+        const index = this.accessCYGIDs.findIndex(item => item.accessCYGID === this.prev);
+        //const index = this.accessCYGIDs.indexOf(this.prev);
         if (index !== -1) {
           this.accessCYGIDs.splice(index, 1);
         }
       }
-      this.accessCYGIDs.push(this.selectedCygid);
+      this.accessCYGIDs.push({ accessCYGID: this.selectedCygid ,index:this.index});
 
       this.prev = selectedCygid;
       console.log(this.accessCYGIDs);
@@ -181,7 +184,8 @@ export class AccessoryBrandySearchBoxComponent {
     
 
     if (this.selectedCygid != '') {
-      const index = this.accessCYGIDs.indexOf(this.selectedCygid);
+      const index = this.accessCYGIDs.findIndex(item => item.accessCYGID === this.selectedCygid);
+      //const index = this.accessCYGIDs.indexOf(this.selectedCygid);
       if (index !== -1) {
         this.accessCYGIDs.splice(index, 1);
       }

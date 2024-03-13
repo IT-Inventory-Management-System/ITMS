@@ -119,7 +119,7 @@ export class AssignAssetComponent {
   locationId: string = '';
   closeFlag$ = this.closeFlag.closeFlag$;
 
-  accessCYGIDs: string[] = [];
+  accessCYGIDs: { accessCYGID: string, index: number }[] = [];
 
   assignAssetForm: FormGroup;
   @ViewChild(SearchBoxComponent) SearchBoxComponent: any;
@@ -397,15 +397,27 @@ export class AssignAssetComponent {
       }
     }
     console.log("accessoryCommentArray",accessoryCommentArray);
-    for (var i = 0; i < accessoryCommentArray.length; i++) {
-      //if (accessoryCommentArray[i].index) {
-        //input.accessoryCYGIDs.push(accessoryIds[i].accessoryId)
-        console.log("accessoryCommentArray", accessoryCommentArray[i].accessoryComment);
-        input.accessoryComments.push(accessoryCommentArray[i].accessoryComment)
-      //}
+    for (let i = 0; i < this.accessCYGIDs.length; i++) {
+      const matchingIndexItem = accessoryCommentArray.find((item:any) => item.index === i);
+      if (matchingIndexItem) {
+        input.accessoryComments.push(matchingIndexItem.accessoryComment);
+      } else {
+        input.accessoryComments.push('');
+      }
     }
-    
-    input.accessoryCYGIDs = this.accessCYGIDs;
+
+
+    //console.log("accessoryCommentArray", accessoryCommentArray);
+    //for (int i = 0;i<)
+    this.accessCYGIDs.sort((a, b) => a.index - b.index);
+
+    input.accessoryCYGIDs = this.accessCYGIDs.map(item => item.accessCYGID);
+
+
+    //for (var i = 0; i < this.accessCYGIDs.length; i++) {
+    //  input.accessoryCYGIDs.push(this.accessCYGIDs[i].accessCYGID);
+    //  //input.accessoryCYGIDs = this.accessCYGIDs;
+    //}
 
 
     console.log("INPUT DATA : ",input);

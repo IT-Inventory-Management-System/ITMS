@@ -16,7 +16,7 @@ export class AssignAccessoriesComponent {
   selectedId: any[] = [];
   selectedCygid: string = '';
 
-  @Input() accessCYGIDs: string[];
+  @Input() accessCYGIDs: { accessCYGID: string, index: number }[] = [];
   @Input() AccessoryOptions: any[] = [];
   @Input() assignAssetForm: FormGroup;
   @Output() accessoryIdInputChange = new EventEmitter<any>();
@@ -203,7 +203,8 @@ export class AssignAccessoriesComponent {
 
   removeAccessory(index: number): void {
     if (this.selectedCygid != '') {
-      const index = this.accessCYGIDs.indexOf(this.selectedCygid);
+      const index = this.accessCYGIDs.findIndex(item => item.accessCYGID === this.selectedCygid);
+      //const index = this.accessCYGIDs.indexOf(this.selectedCygid);
       if (index !== -1) {
         this.accessCYGIDs.splice(index, 1);
       }
@@ -230,8 +231,7 @@ export class AssignAccessoriesComponent {
     //}
   }
 
-
-  getAccessoriesDetails(index: number, accessCYGIDs: string[]) {
+  getAccessoriesDetails(index: number, accessCYGIDs: { accessCYGID: string, index: number }[]) {
 
     const input = {
       categoryName: this.selectedId[index],
@@ -240,7 +240,8 @@ export class AssignAccessoriesComponent {
       this.deviceAssignService.getAccessoriesDetails(input).subscribe(
         (data: any[]) => {
           this.AccessoryBrands = data;
-          this.AccessoryBrands = data.filter(brand => !accessCYGIDs.includes(brand.cygid));
+          //this.AccessoryBrands = data.filter(brand => !accessCYGIDs.includes(brand.cygid));
+          this.AccessoryBrands = data.filter(brand => !accessCYGIDs.some(item => item.accessCYGID === brand.cygid));
 
           this.AccessoryBrands = this.AccessoryBrands.map(brand => ({ ...brand, count: 1 }));
           const uniqueBrandsSet = new Set(this.AccessoryBrands.map(item => item.brand));
