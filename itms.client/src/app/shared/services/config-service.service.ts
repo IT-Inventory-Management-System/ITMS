@@ -7,4 +7,5 @@ export class ConfigServiceService {
 
   apiUrl = 'https://itims-project-testing.somee.com/api/';
   constructor() { }
+
 }
