@@ -210,19 +210,19 @@ export class AccessoryBrandySearchBoxComponent {
     //  localStorage.setItem('selectedCountry', selectedCountry);
     //  this.getDeviceLocation();
     //});
-    if (this.selectedId == null) {
+    //if (this.selectedId == null) {
       this.selectedOption = null;
       this.isWired = null;
       this.selectedCygid = '';
-    }
+    //}
 
     this.prev = '';
 
 
     this.closeFlagService.setCloseFlagToFalse();
     this.selectedOption = this.assignDataManagementService.getState("accessoriesBrand", this.index);
-    if (this.selectedOption)
-      this.AccessoryBrandOptionSelected.emit(this.selectedOption);
+    //if (this.selectedOption)
+    //  this.AccessoryBrandOptionSelected.emit(this.selectedOption);
     const accessoryComments = this.assignAssetForm.get('accessoryComments') as FormArray;
 
     if (accessoryComments) {
