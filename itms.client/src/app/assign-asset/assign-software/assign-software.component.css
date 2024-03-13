@@ -15,12 +15,13 @@
 
 .sbox {
   display: flex;
-  height: 12.625rem;
   flex-direction: column;
   align-items: flex-start;
   gap: 0.375rem;
   align-self: stretch;
+  height: auto; /* Set height according to content */
 }
+
 
 .software-details {
   display: flex;
