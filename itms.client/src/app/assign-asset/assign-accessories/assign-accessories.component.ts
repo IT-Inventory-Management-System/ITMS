@@ -58,7 +58,7 @@ export class AssignAccessoriesComponent {
     this.initializeSelectedIds();
 
 
-    console.log(this.AccessoryOptions);
+    //console.log(this.AccessoryOptions);
     this.accessories = this.assignDataManagementService.getMultipleInstanceState('accessoriesState') || [];
     if (this.accessories.length === 0) {
       this.accessories.push({});
@@ -110,8 +110,8 @@ export class AssignAccessoriesComponent {
   }
 
   AccessorySearchBoxOptionSelected(event: any, index: number): void {
-    console.log("getAccessoriesDetails is called here");
-    console.log("AccessCygids", this.accessCYGIDs);
+    //console.log("getAccessoriesDetails is called here");
+    //console.log("AccessCygids", this.accessCYGIDs);
     
     if (event != null) {
       this.selectedId[index] = event.option;
@@ -133,7 +133,7 @@ export class AssignAccessoriesComponent {
         }
       });
       this.BrandOptions[index] = uniqueVersions;
-      console.log(this.BrandOptions[index]);
+      //console.log(this.BrandOptions[index]);
     }
     else {
       this.BrandOptions[index];
@@ -159,7 +159,7 @@ export class AssignAccessoriesComponent {
       //this.AccessoryBrands = data.AccessoryBrands;
 
       this.accessCYGIDs = data.accessCYGIDs
-      console.log("accessCYGIDs", this.accessCYGIDs);
+      //console.log("accessCYGIDs", this.accessCYGIDs);
       this.selectedCygid = data.cygid
 
       this.getAccessoriesDetails(index, this.accessCYGIDs);
@@ -210,7 +210,7 @@ export class AssignAccessoriesComponent {
     this.SelectedBrands.push(null);
     this.accessoryIdInputChangeFlag();
     this.AccessoryBrands = data.AccessoryBrands;
-    console.log("AccessoryBrands from add another", this.AccessoryBrands);
+    //console.log("AccessoryBrands from add another", this.AccessoryBrands);
   }
 
   removeAccessory(data: any): void {
@@ -263,7 +263,7 @@ export class AssignAccessoriesComponent {
           this.uniqueBrandsArray = Array.from(uniqueBrandsSet);
 
 
-          console.log("getAllAcc executed", this.AccessoryBrands);
+          //console.log("getAllAcc executed", this.AccessoryBrands);
         },
         (error: any) => {
           console.error('Error fetching accessory brand', error);
@@ -287,7 +287,7 @@ export class AssignAccessoriesComponent {
         }
       },
       (error) => {
-        console.log("User not found");
+        //console.log("User not found");
       });
   }
 
