@@ -14,6 +14,9 @@ export class AddKeyboardComboBrandFormComponent {
   showErrorMessage: boolean = false;
   errorMessage: string = '';
   showMessage = false;
+  @Input() category: string = '';
+  UserId: any;
+  userDataJSON: any;
 
   constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService) {
 
@@ -22,8 +25,14 @@ export class AddKeyboardComboBrandFormComponent {
   ngOnInit(): void {
     this.createForm();
     this.setCategoryId();
-    this.setCreatedBy();
     this.setmedium();
+    this.userDataJSON = localStorage.getItem('user');
+
+    // Parse the JSON string back into an object
+    var userData = JSON.parse(this.userDataJSON);
+
+    // Access the 'id' property of the userData object
+    this.UserId = userData.id;
   }
   dropdownValues: any[] = [];
 
@@ -45,7 +54,7 @@ export class AddKeyboardComboBrandFormComponent {
       (data) => {
         for (var i = 0; i < data.length; i++) {
           for (var j = 0; j < data[i].categories.length; j++) {
-            if (data[i].categories[j].name == 'Mouse') {
+            if (data[i].categories[j].name == this.category) {
               this.deviceForm.get('categoryId')?.setValue(data[i].categories[j].id);
             }
           }
@@ -55,18 +64,10 @@ export class AddKeyboardComboBrandFormComponent {
         console.log(error);
       });
   }
-  setCreatedBy() {
-    this.dataService.getFirstUser().subscribe(
-      (data) => {
-        this.deviceForm.get('createdBy')?.setValue(data.id);
-        this.deviceForm.get('updatedBy')?.setValue(data.id);
-      },
-      (error) => {
-        console.log("User not found");
-      });
-  }
-  onSubmit() {
 
+  onSubmit() {
+    this.deviceForm.get('createdBy')?.setValue(this.UserId);
+    this.deviceForm.get('updatedBy')?.setValue(this.UserId);
     this.deviceForm.get('createdAtUtc')?.setValue(new Date().toISOString());
     this.deviceForm.get('updatedAtUtc')?.setValue(new Date().toISOString());
 
@@ -106,13 +107,17 @@ export class AddKeyboardComboBrandFormComponent {
   }
 
   loadMouseBrand() {
-    this.dataService.getMouseBrand().subscribe(
+    const input = {
+      name: this.category
+    };
+
+    this.dataService.getComboBrands(input).subscribe(
       (data) => {
         if (this.selectedmedium === 'wired') {
 
-          this.dropdownValues = data.filter(item => item.iswired == 1);
+          this.dropdownValues = data.filter(item => item.iswired == true);
         } else if (this.selectedmedium === 'wireless') {
-          this.dropdownValues = data.filter(item => item.iswired == 0);
+          this.dropdownValues = data.filter(item => item.iswired == false);
 
         }
         else {
@@ -125,7 +130,6 @@ export class AddKeyboardComboBrandFormComponent {
       }
     );
   }
-
   updateBrand(event: any) {
     this.loadMouseBrand();
 
