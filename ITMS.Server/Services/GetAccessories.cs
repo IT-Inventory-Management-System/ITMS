@@ -12,6 +12,7 @@ namespace ITMS.Server.Services
         Task<IEnumerable<getAccessoriesDTO>> listAccessories();
         Task<IEnumerable<getMouseDetailsDTO>> getMouseDetails(Guid locationId, string c);
         
+        
     }
     public class GetAccessoriesService : IGetAccessoryService
     {
@@ -55,7 +56,6 @@ namespace ITMS.Server.Services
                                 }).ToListAsync();
             return result;
         }
-
 
     }
 

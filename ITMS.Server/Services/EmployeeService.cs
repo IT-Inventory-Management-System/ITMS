@@ -45,6 +45,7 @@ namespace ITMS.Server.Services
                     employee.UpdatedAtUtc = DateTime.UtcNow;
                     employee.IsArchived = false;
                     employee.ExitProcessInitiated = false;
+                    employee.onHold = false;
                     employee.LocationId = _context.Locations.FirstOrDefault(l => l.Location1 == singleUser.Location).Id;
                     employee.Password = HashPassword(singleUser.password);
                     employee.Token = "";

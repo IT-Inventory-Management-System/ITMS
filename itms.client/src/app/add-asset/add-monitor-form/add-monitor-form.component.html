@@ -21,6 +21,14 @@
     </div>
     <form>
       <div *ngIf="currentStep === 1">
+        <div  *ngIf="showErrorMessage" class="error-alert-box1">
+          <div class="error-alert-icon">
+            <img src="../../../assets/icons/info-icon.svg" />
+          </div>
+          <div class="error-alert-message">
+            <span>Highlighted field(s) are mandatory and cannot be blank.</span>
+          </div>
+        </div>
         <div>
           <div class="mouse-button">
             <label class="mouse-label">Display Port Type<span class="required">*</span></label>
@@ -49,20 +57,121 @@
             </div>
             <div class="mouse-model-input" >
               <div class="mouse-model-select">
-                <div class="select-mouse-dropdown">
+                <div class="select-mouse-dropdown" [formGroup]="deviceForm">
                   <label for="MouseBrand">Brand <span class="required">*</span></label>
-                  <ng-select formControlName="deviceModelId" placeholder="Select Device Brand">
-
-                    <ng-option  >
+                  <ng-select formControlName="deviceModelId" placeholder="Select Device Brand" [class.disabled]="!(ifChecked || ifCheck || iCheck)" (focus)="hideErrorMessage()" [class.error-textarea]="showErrorMessage && !deviceForm.get('deviceModelId')?.value">
+                    <ng-option *ngFor="let value of dropdownValues" [value]="value.id">
+                      {{ value.brand }}
                     </ng-option>
                   </ng-select>
                 </div>
               </div>
             </div>
+            <div class="add-device-check" [class.disabled]="!(ifChecked || ifCheck || iCheck)">
+              <input class="form-check-input" type="checkbox" id="addModel" (change)="toggleDetails()">
+
+              <label class="form-check-label add" for="addModel" >
+                <img *ngIf="showDeviceDetailsForm == false" src="../../../assets/icons/checkbox-unchecked.svg" />
+                <img *ngIf="showDeviceDetailsForm == true" src="../../../assets/icons/checkbox-checked.svg" />
+                <span id="add">Add New Device Details</span>
+              </label>
+            </div>
+            <div class="mb-3" *ngIf="showDeviceDetailsForm">
+              <app-add-monitor-brand-form [selectedOptions]="selectedOptions" [category]="category" (formSubmitted)="onFormSubmitted()"></app-add-monitor-brand-form>
+            </div>
+            <div class="form-field3">
+              <label class="label" for="">Screen Size(inch) <span class="required">*</span></label>
+              <div class="storage-selector" [class.disabled]="!(ifChecked || ifCheck || iCheck)">
+                <button type="button" class="storage-button" [ngClass]="{ 'selected': selectedStorage === '22' }" (click)="selectStorage('22')">22</button>
+                <button type="button" class="storage-button" [ngClass]="{ 'selected': selectedStorage === '24' }" (click)="selectStorage('24')">24</button>
+                <button type="button" class="storage-button" [ngClass]="{ 'selected': selectedStorage === '32' }" (click)="selectStorage('32')">32</button>
+                <!-- Add more buttons if needed -->
+                <div class="storage-other">
+                  <label for="otherStorage">Other</label>
+                  <input type="text" id="otherStorage" class="ram-other-input-field" placeholder="Other" (input)="selectOtherStorage($event);" (click)="deselectAllButtons()" />
+                </div>
+
+              </div>
+            </div>
+            <div class="quantity-select" [formGroup]="deviceForm">
+              <label for="quantity">Quantity <span class="required">*</span></label>
+              <div class="quantity-counter" [class.disabled]="!(ifChecked || ifCheck || iCheck)" [class.error-textarea]="showErrorMessage && !deviceForm.get('qty')?.value">
+                <div class="reduce-button" (click)="decrement();hideErrorMessage()"><img src="../../../assets/icons/reduce-quantity.svg" /></div>
+                <span class="counter-value">{{ counterValue }}</span>
+                <div class="add-button" (click)="increment();hideErrorMessage()"><img src="../../../assets/icons/add-quantity.svg" /></div>
+              </div>
+            </div>
+            <div class="add-device-date mb-3" id="deviceDetailsDiv" [formGroup]="deviceForm">
+              <div class="purchase-date-section">
+                <label for="purchaseDate" class="purchaseDate">Date of Purchase <span class="required">*</span></label>
+                <div [class.error-textarea]="showErrorMessage && !deviceForm.get('purchaseddate')?.value" class="pdatee">
+                  <input type="date" class="form-control" id="purchaseDate" name="purchaseDate" placeholder="15-12-2023" formControlName="purchaseddate"[class.disabled]="!(ifChecked || ifCheck || iCheck)" (focus)="hideErrorMessage()" [class.error-textarea]="showErrorMessage && !deviceForm.get('purchaseddate')?.value">
+                  <img src="../../../assets/icons/calendar.svg" />
+                </div>
+              </div>
+
+
+              <div class="purchase-date-section">
+
+                <label for="Warranty Year " class="purchaseDate">Warranty Date <span class="required">*</span></label>
+                <div [class.error-textarea]="showErrorMessage && !deviceForm.get('warrantydate')?.value" class="pdatee">
+
+                  <input type="date" class="form-control" id="Warranty Year " name="Warranty Year " placeholder="15-12-2023" formControlName="warrantydate" [class.disabled]="!(ifChecked || ifCheck || iCheck)" (focus)="hideErrorMessage()">
+                  <img src="../../../assets/icons/calendar.svg" />
+                </div>
+              </div>
+
+
+            </div>
           </div>
+
+        </div>
+      </div>
+      <div *ngIf="currentStep === 2" class="app-id-input custom-container">
+        <div class="alert" role="alert">
+          <img src="../../../assets/icons/Vector.svg" class="alert-icon" alt="alert icon">
+          <div class="alert-text">
+            This device ID is auto generated.
+          </div>
+        </div>
+        <div class="outer-input">
+
+
+          <div *ngFor="let ele of counterValues; let i = index" class="outer-input" [formGroup]="deviceForm" >
+
+
+            <div class="cyg-id-input">
+              <div class="sno">
+                {{ele}}.
+              </div>
+              <div class="inner-cyg-div">
+                <label for="cygId" class="label-cyg">Device ID</label>
+
+                <input type="text" id="cygId" name="cygId" placeholder="Enter CYG ID" [value]="'CGI-MON-' + (laststoredcgi+ ele)" disabled />
+              </div>
+            </div>
+
+
+          </div>
+
         </div>
       </div>
     </form>
   </div>
- 
+  <div *ngIf="currentStep === 1" class="add-device-footer1">
+
+    <div class="save-device-button">
+      <button class="cancel-button" type="button" (click)="resettingform()"><span>Cancel</span></button>
+      <button type="button" class="next-button" (click)="next()"[disabled]="!(ifChecked || ifCheck || iCheck)" ><span>Next</span></button>
+    </div>
+  </div>
+  <div *ngIf="currentStep === 2" class="add-device-footer2">
+    <button class="previous-btn" (click)="previous()"><span>Previous</span></button>
+
+    <div class="save-device-button">
+      <button class="cancel-button" (click)="resettingform()"><span>Cancel</span></button>
+      <button class="submit-button-layout" type="submit" (click)="onSubmit()" ><span>Submit</span></button>
+    </div>
+  </div>
+
 </div>

@@ -13,6 +13,7 @@ export class UserDetailsComponent {
   @Input() laptopDetails: any;
   @Input() softwareDetails: any;
   @Input() accessoriesDetails: any;
+/*  @Input() isOnHold: boolean = false;*/
   archiveBanner: boolean=false;
   showRevokeAlert: { [userId: string]: boolean } = {};
   showAssignAsset: boolean = true;
@@ -50,7 +51,6 @@ export class UserDetailsComponent {
     if (this.userDetails && this.userDetails.isArchived !== undefined && this.userDetails.updatedAtUtc) {
       this.archiveBanner = this.userDetails.isArchived === true && this.calculateDaysDifference(this.userDetails.updatedAtUtc) < 30;
     } else {
-      
       this.archiveBanner = false;
     }
   }
@@ -67,6 +67,9 @@ export class UserDetailsComponent {
   }
   changeArchiveBanner(value: boolean) {
     this.archiveBanner = value;
+  }
+  changeOnHoldBanner(value: boolean) {
+    this.userDetails.onHold = value;
   }
 
   onInitiateExitProcess(userId: string) {
@@ -104,6 +107,7 @@ export class UserDetailsComponent {
     this.updateExitProcessInitiationService.UpdateExitProcessInitiation(body).subscribe(
       response => {
         console.log('Exit process updated successfully:', response);
+        this.changeOnHoldBanner(false);
         // Handle success, if needed
       },
       error => {

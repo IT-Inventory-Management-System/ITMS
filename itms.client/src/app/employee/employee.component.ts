@@ -10,7 +10,7 @@ export class EmployeeComponent {
   
   selectedUser: any; // Variable to store selected user details
   isLoading: boolean = true; 
-  userDetails: any
+  userDetails: any;
   laptopDetails: any;
   softwareDetails: any;
   accessoriesDetails: any;

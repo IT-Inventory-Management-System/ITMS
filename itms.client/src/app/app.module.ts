@@ -125,6 +125,10 @@ import { AddUserCsvComponent } from './add-user-csv/add-user-csv.component';
 import { RevokeRoleModalComponent } from './manage-access/admin-permissions-panel/revoke-role-modal/revoke-role-modal.component';
 import { StockStatusCellComponent } from './shared/components/stock-status-cell/stock-status-cell.component';
 import { UnassignableModalComponent } from './inventory/assets-category/assest/specification/unassignable-modal/unassignable-modal.component';
+import { AddAccessorySharedComponent } from './shared/components/add-accessory-shared/add-accessory-shared.component';
+import { AddAccessoryBrandFormComponent } from './shared/components/add-accessory-shared/add-accessory-brand-form/add-accessory-brand-form.component';
+import { AddKeyboardComboComponent } from './add-asset/add-keyboard-combo/add-keyboard-combo.component';
+import { AddKeyboardComboBrandFormComponent } from './add-asset/add-keyboard-combo/add-keyboard-combo-brand-form/add-keyboard-combo-brand-form.component';
 import { LoginComponent } from './login/login.component';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 
@@ -263,6 +267,11 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
     AccessoryBrandySearchBoxComponent,
       StockStatusCellComponent,
       UnassignableModalComponent,
+      AddAccessorySharedComponent,
+      AddAccessoryBrandFormComponent,
+      AddKeyboardComboComponent,
+      AddKeyboardComboBrandFormComponent,
+
       LoginComponent,
   ],
   imports: [

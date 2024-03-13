@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.Elfie.Serialization;
 using Microsoft.AspNetCore.Authorization;
 
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 namespace ITMS.Server.Controllers
 {
     [ApiController]
@@ -24,7 +25,7 @@ namespace ITMS.Server.Controllers
         [HttpGet("getEmployee")]
         public async Task<IEnumerable<GetEmployeeDTO>> getAllEmployeeBasicDetails()
         {
-          return await _addAssetService.getAllEmployeeBasicDetails();
+            return await _addAssetService.getAllEmployeeBasicDetails();
 
         }
 
@@ -50,12 +51,77 @@ namespace ITMS.Server.Controllers
         {
             return await _addAssetService.getCGIID();
         }
+        [HttpGet("getCGIIDKeyboard")]
+        public async Task<IEnumerable<getCGIDTO>> getCGIIDKeyboard()
+        {
+            return await _addAssetService.getCGIIDKeyboard();
+        }
 
         [Authorize]
         [HttpGet("getLaptopIDs")]
         public async Task<IEnumerable<getLaptopIds>> getlaptopIds()
         {
             return await _addAssetService.getlaptopIds();
+        }
+        [HttpGet("getMonitorBrands")]
+        public async Task<IEnumerable<monitorInputDTO>> getMonitorBrands()
+        {
+            return await _addAssetService.getMonitorBrands();
+        }
+        [HttpPost("getBrandDetails")]
+        public async Task<IEnumerable<categoryInputDTO>> getBrandDetails([FromBody] categoryDTO categoryDTO)
+        {
+            
+            return await _addAssetService.getBrandDetails(categoryDTO.categoryName);
+        }
+
+        [HttpPost("getBrandFromName")]
+        public async Task<IEnumerable<getBrand>> getBrandFromName([FromBody] categoryDTO categoryDTO)
+        {
+
+            return await _addAssetService.getBrandFromName(categoryDTO.categoryName);
+        }
+
+        [HttpPost("addMonitorModel")]
+        public async Task<IActionResult> addMonitor([FromBody] MonitorDTO monitorDTO)
+        {
+            try
+            {
+                await _addAssetService.postMonitorDetails(monitorDTO);
+
+                return Ok(); 
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Error adding monitor: {ex.Message}");
+            }
+        }
+        [HttpPost("addCommonModel")]
+        public async Task<IActionResult>addCommonModel([FromBody] CommonDTO commonDTO)
+        {
+            try
+            {
+                await _addAssetService.AddCommonModel(commonDTO);
+
+                return Ok(); 
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Error adding monitor: {ex.Message}");
+            }
+        }
+
+        [HttpPost("getCGIIDsCommon")]
+        public async Task<IEnumerable<getCGIDTO>> getCGIIDCommon([FromBody] commonInputDTO commonDto)
+        {
+
+            return await _addAssetService.getCGIIDCommon(commonDto.Name);
+        }
+
+        [HttpPost("getKeyboardComboBrand")]
+        public async Task<IEnumerable<GetBrandDTO>> getKeyboardComboBrand([FromBody] commonInputDTO commonDto)
+        {
+            return await _addAssetService.getKeyboardComboBrand(commonDto);
         }
 
     }

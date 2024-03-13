@@ -6,12 +6,10 @@ using Microsoft.EntityFrameworkCore; // Add this namespace for Include extension
 
 namespace ITMS.Server.Services
 {
-
     public interface IUserRecievedBy
     {
         Task<EmployeeDTO?> UpdateReceivedBy(RecievedByDTO receivedByDTO);
         Task<EmployeeDTO?> RevokeAll(bool isSoftware, RevokeAllServiceDTO receivedByDTO);
-
         Task ArchiveEmployee(Guid employeeId, Guid updatedByUserId);
 
         Task UpdateExitProcessInitiated(UpdateExitProcessInitiated dto);
@@ -41,28 +39,37 @@ namespace ITMS.Server.Services
                 var assignedAction = await _context.ActionTables
                     .FirstOrDefaultAsync(a => a.ActionName == "Assigned");
 
+                var SubmittedAction = await _context.ActionTables
+                .FirstOrDefaultAsync(a => a.ActionName == "Submitted" || a.ActionName == "submitted");
+
+                var UnassignableAction = await _context.ActionTables
+                 .FirstOrDefaultAsync(a => a.ActionName == "Unassignable" || a.ActionName == "unassignable");
+    
+
                 //assignedTo and assignedDate == null of device table and statusId of device table not assigned assigned By null
                 if (deviceLog != null)
                 {
                     var device = await _context.Devices.FindAsync(deviceLog.DeviceId);
                     if(device != null)
                     {
-                        var notAssignedStatusId = await _context.Statuses
-                          .Where(s => s.Type == "Not Assigned")
-                          .Select(s => s.Id)
-                          .FirstOrDefaultAsync();
+                        if (receivedByDTO.ActionId == SubmittedAction?.Id || receivedByDTO.ActionId == UnassignableAction?.Id)
+                        {
+                            var notAssignedStatusId = await _context.Statuses
+                              .Where(s => s.Type == "Not Assigned")
+                              .Select(s => s.Id)
+                              .FirstOrDefaultAsync();
 
-                           device.AssignedTo = null;
-                           device.AssignedDate = null;
-                           device.AssignedBy = null;
-                           device.Status = notAssignedStatusId;
+                            device.AssignedTo = null;
+                            device.AssignedDate = null;
+                            device.AssignedBy = null;
+                            device.Status = notAssignedStatusId;
 
-                           _context.Devices.Update(device);
+                            _context.Devices.Update(device);
+
+                        }
+                        
                     }
-                    
-
-                   
-
+             
                     var newDeviceLog = new DevicesLog
                     {
                         Id = Guid.NewGuid(),
@@ -141,16 +148,15 @@ namespace ITMS.Server.Services
         }
         public async Task<EmployeeDTO?> RevokeAll(bool isSoftware,RevokeAllServiceDTO revokeDevice)
         {
+            var SubmittedAction = await _context.ActionTables
+               .FirstOrDefaultAsync(a => a.ActionName == "Submitted" || a.ActionName == "submitted");
+
+            var UnassignableAction = await _context.ActionTables
+             .FirstOrDefaultAsync(a => a.ActionName == "Unassignable" || a.ActionName == "unassignable");
+
             try
             {
 
-
-
-                // get devices by userId --- assigned to
-
-                //set assigned to null
-
-                 
                 var deviceLog = await _context.DevicesLogs
                     .Include(dl => dl.CreatedByNavigation)
                     .Include(dl => dl.Device)
@@ -159,85 +165,143 @@ namespace ITMS.Server.Services
 
                 if (deviceLog != null)
                 {
-                    var device = await _context.Devices.FindAsync(deviceLog.DeviceId);
+
+
+                    var device = revokeDevice.DeviceId != null? await _context.Devices.FindAsync(revokeDevice.DeviceId):null;
+                    var soft = revokeDevice.SoftwareAllocation != null ? await _context.SoftwareAllocations.FindAsync(revokeDevice.SoftwareAllocation) : null;
+                   
                     if (device != null)
                     {
-                        var notAssignedStatusId = await _context.Statuses
-                          .Where(s => s.Type == "Not Assigned")
-                          .Select(s => s.Id)
-                          .FirstOrDefaultAsync();
+                        if (revokeDevice.ActionId == SubmittedAction?.Id || revokeDevice.ActionId == UnassignableAction?.Id)
+                        {
+                            var notAssignedStatusId = await _context.Statuses
+                              .Where(s => s.Type == "Not Assigned")
+                              .Select(s => s.Id)
+                              .FirstOrDefaultAsync();
 
-                        device.AssignedTo = null;
-                        device.AssignedDate = null;
-                        device.AssignedBy = null;
-                        device.Status = notAssignedStatusId;
+                            device.AssignedTo = null;
+                            device.AssignedDate = null;
+                            device.AssignedBy = null;
+                            device.Status = notAssignedStatusId;
 
-                        _context.Devices.Update(device);
+                            _context.Devices.Update(device);
+
+                        }
+                    }
+
+                    if(soft != null)
+                    {
+                        if (revokeDevice.ActionId == SubmittedAction?.Id || revokeDevice.ActionId == UnassignableAction?.Id)
+                        {
+                            var notAssignedStatusId = await _context.Statuses
+                              .Where(s => s.Type == "Not Assigned")
+                              .Select(s => s.Id)
+                              .FirstOrDefaultAsync();
+
+                            soft.AssignedTo = null;
+                            soft.AssignedDate = null;
+                            soft.AssignedBy = null;
+
+                            _context.SoftwareAllocations.Update(soft);
+                            //UpdateReceivedBy(revokeDevice);
+                        }
+                    }
+
+                    var newDeviceLog = new DevicesLog();
+                    if (device != null) {
+                        newDeviceLog = new DevicesLog
+                        {
+                            DeviceId = revokeDevice.DeviceId,
+                            AssignedBy = deviceLog.AssignedBy,
+                            AssignedDate = deviceLog.AssignedDate,
+                            AllotedDate = deviceLog.AllotedDate,
+                            EmployeeId = revokeDevice.userId,
+                            RecievedBy = revokeDevice.CreatedBy,
+                            RecievedDate = DateTime.UtcNow,
+                            CreatedBy = revokeDevice.CreatedBy,
+                            CreatedAtUtc = DateTime.UtcNow,
+                            UpdatedBy = revokeDevice.userId,
+                            UpdatedAtUtc = DateTime.UtcNow,
+                            ActionId = revokeDevice.ActionId,
+                            SoftwareAllocation = deviceLog.SoftwareAllocation,
+                        };
+                    }
+                    else {
+
+                        newDeviceLog = new DevicesLog
+                        {
+                            DeviceId = deviceLog.DeviceId,
+                            EmployeeId = deviceLog.EmployeeId,
+                            AssignedBy = deviceLog.AssignedBy,
+                            RecievedBy = revokeDevice.CreatedBy,
+                            AssignedDate = deviceLog.AssignedDate,
+                            RecievedDate = DateTime.UtcNow,
+                            AllotedDate = deviceLog.AllotedDate,
+                            CreatedBy = deviceLog.CreatedBy,
+                            CreatedAtUtc = DateTime.UtcNow,
+
+                            UpdatedBy = revokeDevice.userId, 
+                            UpdatedAtUtc = DateTime.UtcNow,
+                            ActionId = revokeDevice.ActionId, 
+
+                            SoftwareAllocation = deviceLog.SoftwareAllocation,
+                            CreatedByNavigation = deviceLog.CreatedByNavigation,
+                            Device = deviceLog.Device,
+                            Employee = deviceLog.Employee,
+                            UpdatedByNavigation = deviceLog.UpdatedByNavigation,
+                            Comments = deviceLog.Comments
+                        };
                     }
 
 
 
-                    var newDeviceLog = new DevicesLog
-                    {
-                        Id = Guid.NewGuid(),
-                        DeviceId = deviceLog.DeviceId,
-                        EmployeeId = deviceLog.EmployeeId,
-                        AssignedBy = deviceLog.AssignedBy,
-                        RecievedBy = revokeDevice.userId,
-                        AssignedDate = deviceLog.AssignedDate,
-                        RecievedDate = DateTime.UtcNow,
-                        AllotedDate = deviceLog.AllotedDate,
-                        CreatedBy = deviceLog.CreatedBy,
-                        CreatedAtUtc = DateTime.UtcNow,
-                        UpdatedBy = revokeDevice.userId, 
-                        UpdatedAtUtc = DateTime.UtcNow,
-                        ActionId = revokeDevice.ActionId,
-                        SoftwareAllocation = deviceLog.SoftwareAllocation,
-                        CreatedByNavigation = deviceLog.CreatedByNavigation,
-                        Device = deviceLog.Device,
-                        Employee = deviceLog.Employee,
-                        UpdatedByNavigation = deviceLog.UpdatedByNavigation,
-                        Comments = deviceLog.Comments
-                    };
-                    _context.DevicesLogs.Add(newDeviceLog);
-                    _context.SaveChanges();
+
+                    //  AllotedDate = deviceLog.AllotedDate,
+
+
+
+                    await _context.DevicesLogs.AddAsync(newDeviceLog);
+                   await _context.SaveChangesAsync();
+
+                Guid lastestLogId = await _context.DevicesLogs.Where(l => l.DeviceId == revokeDevice.DeviceId).OrderByDescending(l => l.CreatedAtUtc).Select(l => l.Id).FirstOrDefaultAsync();
+
                     if(!isSoftware)
                     {
                         UserCommentHistory commentDto = new UserCommentHistory
                         {
                             Description = revokeDevice.DeviceComment,
-                            CreatedBy = revokeDevice.userId,
+                            CreatedBy = revokeDevice.CreatedBy,
                             CreatedAtUtc = DateTime.UtcNow,
-                            DeviceId = deviceLog.DeviceId.HasValue ? deviceLog.DeviceId.Value : Guid.Empty,
-                            DeviceLogId = newDeviceLog.Id,
+                            DeviceId = revokeDevice.DeviceId.HasValue ? revokeDevice.DeviceId.Value : Guid.Empty,
+                            DeviceLogId = lastestLogId,
                         };
                         _commentService.RevokeAllAddComment(commentDto);
                     }
 
                     var actionName = await _context.ActionTables
-                      .Where(a => a.Id == newDeviceLog.ActionId)
+                      .Where(a => a.Id == revokeDevice.ActionId)
                       .Select(a => a.ActionName)
                       .FirstOrDefaultAsync();
 
                     var firstName = await _context.Employees
-                         .Where(e => e.Id == newDeviceLog.RecievedBy)
+                         .Where(e => e.Id == revokeDevice.CreatedBy)
                          .Select(e => e.FirstName)
                          .FirstOrDefaultAsync();
 
                     var lastName = await _context.Employees
-                         .Where(e => e.Id == newDeviceLog.RecievedBy)
+                         .Where(e => e.Id == revokeDevice.CreatedBy)
                          .Select(e => e.LastName)
                          .FirstOrDefaultAsync();
 
                     return new EmployeeDTO
                     {
-                        deviceLogId = newDeviceLog.Id,
+                        deviceLogId = lastestLogId,
                         deviceId = newDeviceLog.DeviceId,
                         softwareAllocationId = newDeviceLog.SoftwareAllocation,
                         FirstName = firstName,
                         LastName = lastName,
-                        RecievedDate = newDeviceLog.RecievedDate,// Include the RecievedDate
-                        ActionName = actionName // Include ActionName
+                        RecievedDate = newDeviceLog.RecievedDate,
+                        ActionName = actionName
 
                     };
                 }
@@ -263,6 +327,8 @@ namespace ITMS.Server.Services
                     employee.ExitProcessInitiated = dto.ExitProcessInitiated;
                     employee.UpdatedBy = dto.updatedBy;
                     employee.UpdatedAtUtc = DateTime.UtcNow;
+                    if (!dto.ExitProcessInitiated)
+                        employee.onHold = false;
                     await _context.SaveChangesAsync();
                 }
                 else
@@ -279,19 +345,40 @@ namespace ITMS.Server.Services
 
         public async Task ArchiveEmployee(Guid UserId, Guid archiveUserId)
         {
+            var devicesAssigned = await _context.Devices.AnyAsync(d => d.AssignedTo == archiveUserId);
             try
             {
-                var employee = await _context.Employees.FindAsync(archiveUserId);
-                if (employee != null)
-                {
-                    employee.UpdatedBy = UserId;
-                    employee.UpdatedAtUtc = DateTime.UtcNow;
-                    employee.IsArchived = true;
-                    await _context.SaveChangesAsync();
-                }
+                  if(!devicesAssigned)
+                  {
+                        var employee = await _context.Employees.FindAsync(archiveUserId);
+                        if (employee != null)
+                        {
+                            employee.UpdatedBy = UserId;
+                            employee.UpdatedAtUtc = DateTime.UtcNow;
+                            employee.IsArchived = true;
+                            employee.onHold = false;
+                            await _context.SaveChangesAsync();
+                        }
+                        else
+                        {
+                            throw new ArgumentException("Employee not found");
+                        }
+                  }
                 else
                 {
-                    throw new ArgumentException("Employee not found");
+                    var employee = await _context.Employees.FindAsync(archiveUserId);
+                    if (employee != null)
+                    {
+                        employee.UpdatedBy = UserId;
+                        employee.UpdatedAtUtc = DateTime.UtcNow;
+                        employee.onHold = true;
+                        employee.IsArchived = false;
+                        await _context.SaveChangesAsync();
+                    }
+                    else
+                    {
+                        throw new ArgumentException("Employee not found");
+                    }
                 }
             }
             catch (Exception ex)

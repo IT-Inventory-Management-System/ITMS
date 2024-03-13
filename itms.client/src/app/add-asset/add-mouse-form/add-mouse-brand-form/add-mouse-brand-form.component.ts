@@ -15,6 +15,8 @@ export class AddMouseBrandFormComponent {
   showErrorMessage: boolean = false;
   errorMessage: string = '';
   showMessage = false;
+  UserId: any;
+  userDataJSON: any;
 
   constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService) {
 
@@ -23,8 +25,14 @@ export class AddMouseBrandFormComponent {
   ngOnInit(): void {
     this.createForm();
     this.setCategoryId();
-    this.setCreatedBy();
     this.setmedium();
+    this.userDataJSON = localStorage.getItem('user');
+
+    // Parse the JSON string back into an object
+    var userData = JSON.parse(this.userDataJSON);
+
+    // Access the 'id' property of the userData object
+    this.UserId = userData.id;
   }
   dropdownValues: any[] = [];
 
@@ -56,18 +64,10 @@ export class AddMouseBrandFormComponent {
         console.log(error);
       });
   }
-  setCreatedBy() {
-    this.dataService.getFirstUser().subscribe(
-      (data) => {
-        this.deviceForm.get('createdBy')?.setValue(data.id);
-        this.deviceForm.get('updatedBy')?.setValue(data.id);
-      },
-      (error) => {
-        console.log("User not found");
-      });
-  }
-  onSubmit() {
 
+  onSubmit() {
+    this.deviceForm.get('createdBy')?.setValue(this.UserId);
+    this.deviceForm.get('updatedBy')?.setValue(this.UserId);
     this.deviceForm.get('createdAtUtc')?.setValue(new Date().toISOString());
     this.deviceForm.get('updatedAtUtc')?.setValue(new Date().toISOString());
   
@@ -130,14 +130,15 @@ export class AddMouseBrandFormComponent {
   updateBrand(event: any) {
     this.loadMouseBrand();
      
-      this.showErrorMessage = false;
+    this.showErrorMessage = false;
 
+    const inputValue = event.target.value.toLowerCase();
     
     for (var i = 0; i < this.dropdownValues.length; i++) {
-      if (this.dropdownValues[i].brand === event.target.value) {
+      if (this.dropdownValues[i].brand.toLowerCase() === inputValue) {
         this.showErrorMessage = true;
         this.errorMessage = 'Brand already exists.';
-
+        break; 
       }
      
 

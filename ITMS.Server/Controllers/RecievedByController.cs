@@ -46,9 +46,9 @@ namespace ITMS.Server.Controllers
         {
            try
             {
-                List<object> laptopResults = new List<object>(); // List to store laptop task results
-                List<object> softwareResults = new List<object>(); // List to store software task results
-                List<object> accessoryResults = new List<object>(); // List to store accessory task results
+                List<object> laptopResults = new List<object>(); 
+                List<object> softwareResults = new List<object>();
+                List<object> accessoryResults = new List<object>(); 
 
                 foreach (var laptop in receivedByDTO.Laptop)
                 {
@@ -57,8 +57,9 @@ namespace ITMS.Server.Controllers
                         DeviceLogId = laptop.DeviceLogId,
                         ActionId = laptop.ActionId,
                         DeviceComment = laptop.DeviceComment,
-                        userId= receivedByDTO.UserId,
-
+                        CreatedBy = receivedByDTO.CreatedBy,
+                        DeviceId = laptop.DeviceId,
+                        userId = receivedByDTO.archiveUserId,
                     };
                     var taskResult = await _UserRecievedBy.RevokeAll(false, revokeAllServiceDTO);
 
@@ -81,7 +82,10 @@ namespace ITMS.Server.Controllers
                     {
                         DeviceLogId = software.DeviceLogId,
                         ActionId = software.ActionId,
-                        userId = receivedByDTO.UserId
+                        CreatedBy = receivedByDTO.CreatedBy,
+                        userId = receivedByDTO.CreatedBy,
+                        SoftwareAllocation= software.SoftwareAllocationId,
+                        DeviceId = null,
                         //add deviceId,
                     };
                     var taskResult = await _UserRecievedBy.RevokeAll(true, revokeAllServiceDTO);
@@ -106,7 +110,9 @@ namespace ITMS.Server.Controllers
                         DeviceLogId = accessory.DeviceLogId,
                         ActionId = accessory.ActionId,
                         DeviceComment = accessory.DeviceComment,
-                        userId = receivedByDTO.UserId,
+                        CreatedBy = receivedByDTO.CreatedBy,
+                        DeviceId = accessory.DeviceId,
+                        userId = receivedByDTO.archiveUserId                       
                     };
                     var taskResult = await _UserRecievedBy.RevokeAll(false, revokeAllServiceDTO);
 
@@ -122,7 +128,7 @@ namespace ITMS.Server.Controllers
                     }
                 }
 
-                await _UserRecievedBy.ArchiveEmployee(receivedByDTO.UserId, receivedByDTO.archiveUserId);
+                await _UserRecievedBy.ArchiveEmployee(receivedByDTO.CreatedBy, receivedByDTO.archiveUserId);
                 // All updates were successful
                 return Ok(new
                 {

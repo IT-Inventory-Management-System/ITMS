@@ -88,11 +88,14 @@ export class AssignAssetComponent {
     this.isCygidEmptyStep1 = value;
   }
 
-  onSoftwareIdInputChangeStep2(value: boolean): void  {
-    this.isSoftwareIdEmptyStep2 = value;
+  onSoftwareIdInputChangeStep2(data:any): void  {
+    this.isSoftwareIdEmptyStep2 = data.allSelected;
+    this.softwares = data.SoftwareOptions;
+    console.log("outermost", this.softwares);
   }
-  onAccessoryIdInputChangeStep3(value: boolean): void {
-    this.isAccessoryIdEmptyStep3 = value;
+  onAccessoryIdInputChangeStep3(data: any): void {
+    this.isAccessoryIdEmptyStep3 = data.allSelected;
+    this.accessCYGIDs = data.accessCYGIDs;
   }
 
   isNextButtonEnabled(): boolean {
@@ -106,12 +109,17 @@ export class AssignAssetComponent {
   totalLaptopsData: any[] = [];
   totalAccessoriesData: any[] = [];
   users: any[] = [];
+  dupSoftwares: any[] = [];
+
   softwares: any[] = [];
+
   softwareVersions: any[] = [];
   laptops: any[] = [];
   accessories: any[] = [];
   locationId: string = '';
   closeFlag$ = this.closeFlag.closeFlag$;
+
+  accessCYGIDs: { accessCYGID: string, index: number }[] = [];
 
   assignAssetForm: FormGroup;
   @ViewChild(SearchBoxComponent) SearchBoxComponent: any;
@@ -151,6 +159,8 @@ export class AssignAssetComponent {
   }
 
   ngOnInit() {
+    this.accessCYGIDs = [];
+
     this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
       localStorage.setItem('selectedCountry', selectedCountry);
       this.getDeviceLocation();
@@ -169,6 +179,8 @@ export class AssignAssetComponent {
             this.users = this.totalUsersData.filter(item => item.locationId === this.locationId);
             this.laptops = this.totalLaptopsData.filter(item => item.locationId === this.locationId);
             this.softwares = this.totalSoftwaresData.filter(item => item.locationId === this.locationId);
+
+            console.log("software-loaction", this.softwares);
             this.accessories = this.totalAccessoriesData.filter(item => item.locationId === this.locationId);
             this.getUsers();
             this.getLaptops();
@@ -209,8 +221,32 @@ export class AssignAssetComponent {
     this.deviceAssignService.getSoftware().subscribe(
       (data: any[]) => {
         this.totalSoftwaresData = data;
+        this.dupSoftwares = data;
+        this.softwares = data;
         this.softwares = this.totalSoftwaresData.filter(item => item.locationId === this.locationId);
-        console.log(this.softwares);
+        const groupedSoftware = this.totalSoftwaresData.reduce((acc, curr) => {
+          const key = `${curr.softwareName}_${curr.softwareType}_${curr.version}`;
+          if (curr.assignedTo === null) { 
+            acc[key] = (acc[key] || 0) + 1;
+          }
+          return acc;
+        }, {});
+        this.softwares.forEach(software => {
+          const key = `${software.softwareName}_${software.softwareType}_${software.version}`;
+          software.count = groupedSoftware[key] || 0;
+
+
+          const uniqueSoftwareMap = this.softwares.reduce((acc, curr) => {
+            const key = `${curr.softwareName}_${curr.softwareType}_${curr.version}`;
+            if (!acc[key]) {
+              acc[key] = curr;
+            }
+            return acc;
+          }, {});
+
+          this.softwares = Object.values(uniqueSoftwareMap);
+        });
+        console.log("softwares-asset",this.softwares);
       },
       (error: any) => {
         console.error('Error fetching software details:', error);
@@ -218,12 +254,16 @@ export class AssignAssetComponent {
     );
   }
 
+  
+
+
   getAccessories(): void {
     this.deviceAssignService.getAccessories().subscribe(
       (data: any[]) => {
         this.totalAccessoriesData = data;
         this.accessories = this.totalAccessoriesData
-          //.filter(item => item.locationId === this.locationId);
+        //.filter(item => item.locationId === this.locationId);
+        console.log("outermost accessories",this.accessories);
       },
       (error: any) => {
         console.error('Error fetching software details:', error);
@@ -232,6 +272,8 @@ export class AssignAssetComponent {
   }
 
   closeForm(): void {
+    this.accessCYGIDs = [];
+    this.getSoftwares();
     //console.log("closeForm");
     this.assignAssetForm.reset();
     this.currentStep = 1;
@@ -342,25 +384,48 @@ export class AssignAssetComponent {
     console.log("selectedSoftwareComments", selectedSoftwareComments);
     var accessoryIds = this.assignAssetForm?.get('accessoryIds')?.value;
     var accessoryCommentArray = this.assignAssetForm?.get('accessoryComments')?.value;
+    //deviceIds.sort((a: { index: number; }, b: { index: number; }) => a.index - b.index);
+    //input.deviceCYGIDs = deviceIds.map((item: { cygid: any; }) => item.cygid);
 
     for (var i = 0; i < deviceIds.length; i++) {
-      if (deviceIds[i].index != null)
         input.deviceCYGIDs.push(deviceIds[i].cygid)
-        input.deviceComments.push(deviceCommentArray[i].deviceComment)
+      //input.deviceComments.push(deviceCommentArray[i].deviceComment)
+      const matchingIndexItem = deviceCommentArray.find((item: any) => item.index === i);
+      if (matchingIndexItem) {
+        input.deviceComments.push(matchingIndexItem.deviceComment);
+      } else {
+        input.deviceComments.push('');
+      }
     }
 
     for (var i = 0; i < selectedSoftwareIds.length; i++) {
       if (selectedSoftwareIds[i].index != null) {
         input.softwareIds.push({ softwareId: selectedSoftwareIds[i].softwareId, version: selectedSoftwareIds[i].softwareversion });
-        input.softwareComments.push(selectedSoftwareComments[i].deviceComment);
+        //input.softwareComments.push(selectedSoftwareComments[i].deviceComment);
+      }
+    }
+    console.log("accessoryCommentArray",accessoryCommentArray);
+    for (let i = 0; i < this.accessCYGIDs.length; i++) {
+      const matchingIndexItem = accessoryCommentArray.find((item:any) => item.index === i);
+      if (matchingIndexItem) {
+        input.accessoryComments.push(matchingIndexItem.accessoryComment);
+      } else {
+        input.accessoryComments.push('');
       }
     }
 
-    for (var i = 0; i < accessoryIds.length; i++) {
-      if (accessoryIds[i].index != null)
-        input.accessoryCYGIDs.push(accessoryIds[i].accessoryId)
-      input.accessoryComments.push(accessoryCommentArray[i].deviceComment)
-    }
+
+    //console.log("accessoryCommentArray", accessoryCommentArray);
+    //for (int i = 0;i<)
+    this.accessCYGIDs.sort((a, b) => a.index - b.index);
+
+    input.accessoryCYGIDs = this.accessCYGIDs.map(item => item.accessCYGID);
+
+
+    //for (var i = 0; i < this.accessCYGIDs.length; i++) {
+    //  input.accessoryCYGIDs.push(this.accessCYGIDs[i].accessCYGID);
+    //  //input.accessoryCYGIDs = this.accessCYGIDs;
+    //}
 
 
     console.log("INPUT DATA : ",input);
@@ -368,12 +433,14 @@ export class AssignAssetComponent {
     this.deviceAssignService.saveAssignment(input).subscribe(
           (response : any) => {
             this.closeForm();
-            this.assignAssetForm.reset();
+        this.assignAssetForm.reset();
+        this.accessCYGIDs = [];
             this.toastr.success('Assignment saved successfully');
           },
           (error) => {
             this.closeForm();
             this.assignAssetForm.reset();
+            this.accessCYGIDs = [];
             this.toastr.error('Error saving assignment:', error);
           }
         );

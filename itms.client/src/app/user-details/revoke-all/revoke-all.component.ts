@@ -17,6 +17,7 @@ export class RevokeAllComponent {
   @Input() laptopDetails: any;
   @Input() accessoriesDetails: any;
   @Input() softwareDetails: any;
+  @Output() changeOnHoldBanner: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() changeArchiveBanner: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   variable1: boolean = true;
@@ -51,20 +52,21 @@ export class RevokeAllComponent {
       (this.currentStep === 3 && this.variable3);
     this.cdr.detectChanges();
 
+
   }
 
   // Filter the details in ngOnChanges lifecycle hook
   ngOnChanges() {
     if (this['laptopDetails'] && Array.isArray(this['laptopDetails']))
-      this.filteredLaptopDetails = this['laptopDetails'].filter((laptop: any) => laptop.submitedBy === null);
+      this.filteredLaptopDetails = this['laptopDetails'].filter((laptop: any) => laptop.submitedBy === null || (laptop.actionName === 'Assigned' || laptop.actionName === 'assigned'));
     if (this['softwareDetails'] && Array.isArray(this['softwareDetails']))
       this.filteredSoftwareDetails = this['softwareDetails'].filter((software: any) => software.recievedBy === null);
     if (this['accessoriesDetails'] && Array.isArray(this['accessoriesDetails']))
-      this.filteredAccessoriesDetails = this['accessoriesDetails'].filter((accessory: any) => accessory.submittedBy === null);
+      this.filteredAccessoriesDetails = this['accessoriesDetails'].filter((accessory: any) => accessory.submittedBy === null || (accessory.actionName === 'Assigned' || accessory.actionName === 'assigned') );
   }
   constructor(private formBuilder: FormBuilder, private toastr: ToastrService, private revokeAllService: EmployeeService, private actionService: EmployeeService, private employeeService: EmployeeService, private cdr: ChangeDetectorRef) {
     this.revokeAllForm = this.formBuilder.group({
-      userid: [null, Validators.required],
+      createdBy: [null, Validators.required],
       archiveUserId: [null, Validators.required],
       Laptop: this.formBuilder.array([]),
       Software: this.formBuilder.array([]),
@@ -75,6 +77,7 @@ export class RevokeAllComponent {
         this.actionsArray = actions;
         console.log(this.actionsArray);
       },
+
       (error) => {
         console.error('Error fetching actions:', error);
       }
@@ -153,11 +156,10 @@ export class RevokeAllComponent {
   }
 
   saveData() {
-    this.changeArchiveBanner.emit(true);
     const formData = this.revokeAllForm.value;
     const storedUser = localStorage.getItem("user");
     if (storedUser !== null)
-      formData.userid = JSON.parse(storedUser).id;
+      formData.createdBy = JSON.parse(storedUser).id;
     if (this.userId)
       formData.archiveUserId = this.userId;
     console.log(formData);
@@ -172,7 +174,36 @@ export class RevokeAllComponent {
         console.log("the recent response is ", response);
         console.log("laptop details is:", response.laptopResults);
 
+        const SubmitLaterActionId = this.actionsArray.find(a => a.actionName === 'Assigned' || a.actionName === 'assigned').id;
 
+        let isSubmitLater = false; // Initialize the variable to false
+
+        // Loop through laptop results
+        if (formData.Laptop && formData.Laptop.length > 0) {
+          for (const laptop of formData.Laptop) {
+            if (laptop.actionId === SubmitLaterActionId) {
+              isSubmitLater = true; // Set to true if any instance has the SubmitLaterActionId
+              break; // Exit loop if found
+            }
+          }
+        }
+
+        // Loop through accessory results
+        if (formData.Accessory && formData.Accessory.length > 0) {
+          for (const accessory of formData.Accessory) {
+            if (accessory.actionId === SubmitLaterActionId) {
+              isSubmitLater = true; // Set to true if any instance has the SubmitLaterActionId
+              break; // Exit loop if found
+            }
+          }
+        }
+
+        if (isSubmitLater == true)
+          this.changeOnHoldBanner.emit(true);
+        else {
+          this.changeOnHoldBanner.emit(false);
+          this.changeArchiveBanner.emit(true);
+        }
 
         if (response && response.laptopResults && response.laptopResults.length > 0) {
           for (const laptop of response.laptopResults) {

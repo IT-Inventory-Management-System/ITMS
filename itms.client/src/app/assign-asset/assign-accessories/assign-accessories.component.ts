@@ -13,10 +13,13 @@ import { DeviceAssignService } from '../../shared/services/device-assign.service
   styleUrls: ['./assign-accessories.component.css']
 })
 export class AssignAccessoriesComponent {
-  selectedId: any;
+  selectedId: any[] = [];
+  selectedCygid: string = '';
+
+  @Input() accessCYGIDs: { accessCYGID: string, index: number }[] = [];
   @Input() AccessoryOptions: any[] = [];
   @Input() assignAssetForm: FormGroup;
-  @Output() accessoryIdInputChange = new EventEmitter<boolean>();
+  @Output() accessoryIdInputChange = new EventEmitter<any>();
   locationId: any;
   accessories: any[] = [{}];
   SelectedAccessoriesName: any[] = [];
@@ -31,7 +34,13 @@ export class AssignAccessoriesComponent {
   uniqueBrandsArray: any[] = [];
   selectedBrand: any;
   isWired: any;
-  selectedCygid: string = '';
+  //selectedCygid: string = '';
+  //commentText: any[] = [];
+  selectedIds: any[] = [];
+  uniqueBrandsArrays: any[][] = [];
+
+
+
   constructor(private assignDataManagementService: AssignDataManagementService,
     private formBuilder: FormBuilder,
     private closeFlagService: CloseFlagService,
@@ -41,10 +50,15 @@ export class AssignAccessoriesComponent {
     this.closeFlagSubscription = this.closeFlagService.closeFlag$.subscribe(flag => {
       if (flag) {
         this.accessories = [{}];
+        //this.commentText = [];
       }
     });
   }
   ngOnInit(): void {
+    this.initializeSelectedIds();
+
+
+    console.log(this.AccessoryOptions);
     this.accessories = this.assignDataManagementService.getMultipleInstanceState('accessoriesState') || [];
     if (this.accessories.length === 0) {
       this.accessories.push({});
@@ -60,6 +74,22 @@ export class AssignAccessoriesComponent {
       localStorage.setItem('selectedCountry', selectedCountry);
       this.getDeviceLocation();
     });
+
+    //const accessoryComments = this.assignAssetForm.get('accessoryComments') as FormArray;
+
+    //if (accessoryComments) {
+    //  accessoryComments.controls.forEach((control, index) => {
+    //    const commentControl = control.get('accessoryComment');
+    //    if (commentControl)
+    //      this.commentText[index] = commentControl.value;
+    //  });
+    //} else {
+    //  this.commentText = [];
+    //}
+  }
+
+  initializeSelectedIds(): void {
+    this.selectedId = new Array(this.accessories.length).fill(null);
   }
 
   ngOnDestroy(): void {
@@ -76,14 +106,20 @@ export class AssignAccessoriesComponent {
   accessoryIdInputChangeFlag(): void {
     const allSelected = this.SelectedAccessoriesName.every(accessory => accessory !== null) &&
       this.SelectedBrands.every(brand => brand !== null);;
-    this.accessoryIdInputChange.emit(!allSelected);
+    this.accessoryIdInputChange.emit({ allSelected: !allSelected, accessCYGIDs: this.accessCYGIDs });
   }
 
   AccessorySearchBoxOptionSelected(event: any, index: number): void {
-    this.selectedId = event;
-    this.getAccessoriesDetails();
-    this.SelectedAccessoriesName[index] = event;
-    this.filterAccessoryBrands(index);
+    console.log("getAccessoriesDetails is called here");
+    
+    if (event != null) {
+      this.selectedId[index] = event.option;
+      this.accessCYGIDs = event.accessCYGIDs;
+
+      this.getAccessoriesDetails(index, this.accessCYGIDs);
+      this.SelectedAccessoriesName[index] = event.option;
+      this.filterAccessoryBrands(index);
+    }
   }
   filterAccessoryBrands(index: number): void {
     if (this.SelectedAccessoriesName[index]) {
@@ -110,87 +146,125 @@ export class AssignAccessoriesComponent {
    */
   AccessoryBrandSearchBoxOptionSelected(data: any, index: number): void {
     this.selectedBrand = data.option;
+    this.selectedIds[index] = data;
     const selectedOption = data;
     const selectedIndex = index;
     const accessoryIdsArray = this.assignAssetForm.get('accessoryIds') as FormArray;
-    const filteredOptions = this.FilteredAccessoryOptions[selectedIndex].filter(
-      (option: any) => option.version === selectedOption && option.assignedTo === null
-    );
-    if (filteredOptions.length > 0) {
-      this.SelectedAccessoriesData[index] = filteredOptions[0];
-      this.SelectedBrands[selectedIndex] = filteredOptions[0];
-      //filter both all existing for same accessoryname in FilteredAccessoryOptions[i] & AccessoryOptions
-      for (let i = 0; i < this.FilteredAccessoryOptions.length; i++) {
-        this.FilteredAccessoryOptions[i] = this.FilteredAccessoryOptions[i].filter(opt => opt.id !== (this.SelectedBrands[selectedIndex]?.id));
-      }
-      this.AccessoryOptions = this.AccessoryOptions.filter(opt => opt.id! == (this.SelectedBrands[selectedIndex]?.id));
-      //this.FilteredAccessoryOptions[selectedIndex] = this.FilteredAccessoryOptions[selectedIndex].filter(opt => opt.id !== this.SelectedBrands[selectedIndex].id);
-      accessoryIdsArray.push(this.formBuilder.group({
-        index: selectedIndex,
-        accessoryId: this.SelectedBrands[selectedIndex].id
-      }));
+    if (this.selectedIds[index]) {
+
     }
-    else {
-      if (filteredOptions.length == 0)
-        this.SelectedBrands[selectedIndex] = 1;
-      else
-      {
-        for (let i = 0; i < this.FilteredAccessoryOptions.length; i++) {
-          if (this.FilteredAccessoryOptions[i].length > 0 && this.FilteredAccessoryOptions[i][0]?.name === this.SelectedBrands[i]?.name) 
-              this.FilteredAccessoryOptions[i].push(this.SelectedBrands[selectedIndex]);
-        }
-        this.AccessoryOptions.push(this.SelectedBrands[selectedIndex]);
-        this.SelectedBrands[selectedIndex] = null;
-        const index = accessoryIdsArray.controls.findIndex(control => control.value.index === selectedIndex);
-        if (index !== -1) {
-          accessoryIdsArray.removeAt(index);
-        }
-      }
-    }
-    this.accessoryIdInputChangeFlag();
+
+    //this.AccessoryBrands = data.AccessoryBrands;
+    this.accessCYGIDs = data.accessCYGIDs
+    console.log("accessCYGIDs", this.accessCYGIDs);
+    this.selectedCygid = data.cygid
+
+    this.getAccessoriesDetails(index, this.accessCYGIDs);
+    //const filteredOptions = this.FilteredAccessoryOptions[selectedIndex].filter(
+    //  (option: any) => option.version === selectedOption && option.assignedTo === null
+    //);
+    //if (filteredOptions.length > 0) {
+    //  this.SelectedAccessoriesData[index] = filteredOptions[0];
+    //  this.SelectedBrands[selectedIndex] = filteredOptions[0];
+    //  //filter both all existing for same accessoryname in FilteredAccessoryOptions[i] & AccessoryOptions
+    //  for (let i = 0; i < this.FilteredAccessoryOptions.length; i++) {
+    //    this.FilteredAccessoryOptions[i] = this.FilteredAccessoryOptions[i].filter(opt => opt.id !== (this.SelectedBrands[selectedIndex]?.id));
+    //  }
+    //  this.AccessoryOptions = this.AccessoryOptions.filter(opt => opt.id! == (this.SelectedBrands[selectedIndex]?.id));
+    //  //this.FilteredAccessoryOptions[selectedIndex] = this.FilteredAccessoryOptions[selectedIndex].filter(opt => opt.id !== this.SelectedBrands[selectedIndex].id);
+    //  accessoryIdsArray.push(this.formBuilder.group({
+    //    index: selectedIndex,
+    //    accessoryId: this.SelectedBrands[selectedIndex].id
+    //  }));
+    //}
+    //else {
+    //  if (filteredOptions.length == 0)
+    //    this.SelectedBrands[selectedIndex] = 1;
+    //  else
+    //  {
+    //    for (let i = 0; i < this.FilteredAccessoryOptions.length; i++) {
+    //      if (this.FilteredAccessoryOptions[i].length > 0 && this.FilteredAccessoryOptions[i][0]?.name === this.SelectedBrands[i]?.name) 
+    //          this.FilteredAccessoryOptions[i].push(this.SelectedBrands[selectedIndex]);
+    //    }
+    //    this.AccessoryOptions.push(this.SelectedBrands[selectedIndex]);
+    //    this.SelectedBrands[selectedIndex] = null;
+    //    const index = accessoryIdsArray.controls.findIndex(control => control.value.index === selectedIndex);
+    //    if (index !== -1) {
+    //      accessoryIdsArray.removeAt(index);
+    //    }
+    //  }
+    //}
+    //this.accessoryIdInputChangeFlag();
   }
 
-  addNewAccessory(): void {
+  addNewAccessory(data: any): void {
+    //this.accessCYGIDs = data.accessCYGIDs;
     this.accessories.push({});
     this.SelectedAccessoriesName.push(null);
     this.wire.push(null);
     //this.SelectedAccessories.push(null);
     this.SelectedBrands.push(null);
     this.accessoryIdInputChangeFlag();
+    this.AccessoryBrands = data.AccessoryBrands;
+    console.log("AccessoryBrands from add another", this.AccessoryBrands);
   }
 
-  removeAccessory(index: number): void {
-    if (this.SelectedBrands[index] && !this.FilteredAccessoryOptions[index].includes(this.SelectedBrands[index])) {
-      this.FilteredAccessoryOptions[index].push(this.SelectedBrands[index]);
+  removeAccessory(data: any): void {
+    this.selectedId[data.index] = data.selectedId;
+    this.accessCYGIDs = data.accessCYGIDs;
+    if (this.selectedCygid != '') {
+      const index = this.accessCYGIDs.findIndex(item => item.accessCYGID === this.selectedCygid);
+      //const index = this.accessCYGIDs.indexOf(this.selectedCygid);
+      if (index !== -1) {
+        this.accessCYGIDs.splice(index, 1);
+      }
     }
-    this.accessories.splice(index, 1);
-    this.wire.splice(index, 1);
+
+    if (this.SelectedBrands[data.index] && !this.FilteredAccessoryOptions[data.index].includes(this.SelectedBrands[data.index])) {
+      this.FilteredAccessoryOptions[data.index].push(this.SelectedBrands[data.index]);
+    }
+    this.accessories.splice(data.index, 1);
+    this.wire.splice(data.index, 1);
     //this.SelectedAccessories.splice(index, 1);
-    this.SelectedAccessoriesName.splice(index, 1);
-    this.SelectedBrands.splice(index, 1);
+    this.SelectedAccessoriesName.splice(data.index, 1);
+    this.SelectedBrands.splice(data.index, 1);
     this.accessoryIdInputChangeFlag();
+    this.accessCYGIDs = data.accessCYGIDs;
+    //this.commentText.splice(index, 1);
+    //const accessoryCommentsArray = this.assignAssetForm.get('accessoryComments') as FormArray;
+    //const i = accessoryCommentsArray.controls.findIndex(control => control.value.index === index);
+    //if (i !== -1) {
+    //  accessoryCommentsArray.removeAt(i);
+    //  for (let j = index; j < accessoryCommentsArray.length; j++) {
+    //    const accessoryCommentsControl = accessoryCommentsArray.controls[j] as FormGroup;
+    //    accessoryCommentsControl.patchValue({ index: j }); // Update the index in the form array control
+    //  }
+    //}
   }
 
-
-  getAccessoriesDetails() {
+  getAccessoriesDetails(index: number, accessCYGIDs: { accessCYGID: string, index: number }[]) {
 
     const input = {
-      categoryName: this.selectedId,
+      categoryName: this.selectedId[index],
       locationId: this.locationId
     }
+      this.deviceAssignService.getAccessoriesDetails(input).subscribe(
+        (data: any[]) => {
+          this.AccessoryBrands = data;
+          //this.AccessoryBrands = data.filter(brand => !accessCYGIDs.includes(brand.cygid));
+          this.AccessoryBrands = data.filter(brand => !accessCYGIDs.some(item => item.accessCYGID === brand.cygid));
 
-    this.deviceAssignService.getAccessoriesDetails(input).subscribe(
-      (data: any[]) => {
-        this.AccessoryBrands = data;
-        const uniqueBrandsSet = new Set(this.AccessoryBrands.map(item => item.brand));
-        this.uniqueBrandsArray = Array.from(uniqueBrandsSet);
+          this.AccessoryBrands = this.AccessoryBrands.map(brand => ({ ...brand, count: 1 }));
+          const uniqueBrandsSet = new Set(this.AccessoryBrands.map(item => item.brand));
+          this.uniqueBrandsArray = Array.from(uniqueBrandsSet);
 
-        console.log(this.AccessoryBrands);
-      },
-      (error: any) => {
-        console.error('Error fetching accessory brand', error);
-      }
-    );
+
+          console.log("getAllAcc executed", this.AccessoryBrands);
+        },
+        (error: any) => {
+          console.error('Error fetching accessory brand', error);
+        }
+      );
   }
 
   getDeviceLocation() {
@@ -198,9 +272,12 @@ export class AssignAccessoriesComponent {
       (data) => {
         for (var i = 0; i < data.length; i++) {
           if (data[i].type == localStorage.getItem('selectedCountry')) {
-            this.locationId = data[i].id;
-            if (this.selectedId != null)
-              this.getAccessoriesDetails();
+            if (this.locationId !== data[i].id) { 
+              this.locationId = data[i].id;
+              if (this.selectedId != null) {
+                //this.getAccessoriesDetails();
+              }
+            }
             break;
           }
         }
@@ -210,29 +287,50 @@ export class AssignAccessoriesComponent {
       });
   }
 
-  setNewAccessoryId() {
-    const selectedBrand = this.selectedBrand;
-    const isWired = this.isWired == 'true'?true:false;
 
-    const filteredBrands = this.AccessoryBrands.filter(
-      accessory => accessory.brand === selectedBrand && accessory.iswired === isWired
-    );
+  //setNewAccessoryId() {
+  //  const selectedBrand = this.selectedBrand;
+  //  const isWired = this.isWired == 'true'?true:false;
 
-    if (filteredBrands.length > 0) {
-      const selectedCygid = filteredBrands[0].cygid;
-      this.selectedCygid = selectedCygid;
-    } else {
-      this.selectedCygid = 'Not found';
-    }
+  //  const filteredBrands = this.AccessoryBrands.filter(
+  //    accessory => accessory.brand === selectedBrand && accessory.iswired === isWired
+  //  );
 
-    if (this.selectedCygid != 'Not found') {
-      const accessoryIdsArray = this.assignAssetForm.get('accessoryIds') as FormArray;
-      accessoryIdsArray.push(this.formBuilder.group({
-        index: 0,
-        accessoryId: this.selectedCygid
-      }));
-    }
+  //  if (filteredBrands.length > 0) {
+  //    const selectedCygid = filteredBrands[0].cygid;
+  //    this.selectedCygid = selectedCygid;
+  //  } else {
+  //    this.selectedCygid = 'Not found';
+  //  }
+
+  //  if (this.selectedCygid != 'Not found') {
+  //    const accessoryIdsArray = this.assignAssetForm.get('accessoryIds') as FormArray;
+  //    accessoryIdsArray.push(this.formBuilder.group({
+  //      index: 0,
+  //      accessoryId: this.selectedCygid
+  //    }));
+  //  }
     
     
-  }
+  //}
+
+  /**  COMMENT   **/
+  //onInputChangeCommentBox(event: any, index: any): void {
+  //  this.commentText[index] = event.target.value;
+  //  const accessoryCommentsArray = this.assignAssetForm.get('accessoryComments') as FormArray;
+  //  if (accessoryCommentsArray) {
+  //    const controlIndex = accessoryCommentsArray.controls.findIndex(control => control.get('index')?.value === index);
+  //    if (controlIndex !== -1) {
+  //      accessoryCommentsArray.controls[controlIndex].get('accessoryComments')?.setValue(event.target.value);
+  //    } else {
+  //      accessoryCommentsArray.push(this.formBuilder.group({
+  //        index: index,
+  //        accessoryComment: event.target.value
+  //      }));
+  //    }
+  //    console.log(accessoryCommentsArray);
+  //  } else {
+  //    console.error('FormArray "accessoryComments" is null.');
+  //  }
+  //}
 } 

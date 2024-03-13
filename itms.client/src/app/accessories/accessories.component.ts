@@ -37,6 +37,7 @@ export class AccessoriesComponent {
   cygid: any;
   year: any;
   month: any;
+  loading: boolean = true;
 
   applyAccessoryFilter(event: Event) {
     this.filterValue = (event.target as HTMLInputElement).value;
@@ -170,9 +171,10 @@ export class AccessoriesComponent {
     this.dataService.getAllAccessories(dto)
       .subscribe(accessories => {
         this.accessories = accessories;
+        console.log(this.accessories);
         this.singleSelected = [this.accessories[0]];
         this.accessoryId = this.accessories[0].accessoryId;
-        //console.log(this.accessories[0].accessoryId);
+        this.loading = false;
         this.setRowData();
         console.log('Accessories', [this.accessories[0]]);
         this.singleHistoryAccessory(this.locationId, this.accessories[0].cygid);

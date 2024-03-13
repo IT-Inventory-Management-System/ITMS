@@ -35,6 +35,13 @@ public partial class DeviceModel
 
     public bool? IsArchived { get; set; }
 
+    public bool? IsHDMI { get; set; }
+    public bool? IsVGA { get; set; }
+
+    public bool? IsDVI { get; set; }
+
+
+
     public virtual Category Category { get; set; } = null!;
 
     public virtual Employee CreatedByNavigation { get; set; } = null!;

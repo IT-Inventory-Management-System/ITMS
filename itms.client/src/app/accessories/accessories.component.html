@@ -64,21 +64,23 @@
             </div>
           </div>
         </div>
-
-        <div *ngFor="let accessory of filteredAccessories ? filteredAccessories : accessories; let i = index">
-          <app-accesoriesname [accessories]="accessory" [isSelected]="selectedAccessoryIndex === i" (cardClicked)="onCardClicked($event, i)"></app-accesoriesname>
+        <div *ngIf="loading; else content" class="spinner-loading">
+          <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
         </div>
-
-
-
-
+        <ng-template #content>
+          <div *ngFor="let accessory of filteredAccessories ? filteredAccessories : accessories; let i = index">
+            <app-accesoriesname [accessories]="accessory" [isSelected]="selectedAccessoryIndex === i" (cardClicked)="onCardClicked($event, i)"></app-accesoriesname>
+          </div>
+        </ng-template>  
 
       </div>
     </div>
 
     <div class="specification ">
       <div class="summary">
-        <span class="Accesories-summary">Mouse Detail</span>
+        <span class="Accesories-summary">{{singleSelected[0].category}} Detail</span>
       </div>
       <div class="specification-div  ">
 
@@ -94,10 +96,10 @@
         </div>
         <ng-select class="ng-selectclass" (change)="handleSelectionChange($event)" [(ngModel)]="selectedOption" [clearable]="false" [searchable]="false">
           <!--<ng-option [value]="'Active'">
-            <img class="asset-image" src="../../../../../assets/icons/Assets/active.svg" />
+      <img class="asset-image" src="../../../../../assets/icons/Assets/active.svg" />
 
-            Active
-          </ng-option>-->
+      Active
+    </ng-option>-->
           <ng-option *ngIf="!(singleSelected && singleSelected[0]?.isArchived)" [value]="'Active'">
             <img class="asset-image" src="../../../../../assets/icons/Assets/active.svg" />
             Active
@@ -144,18 +146,52 @@
             <!--{{ calculateYear(singleSelected[0].purchaseDate | date: 'yyyy') }}.{{ calculateMonth(singleSelected[0].purchaseDate | date: 'MM') }} Years-->
           </span>
         </div>
-        <div class="type-brand ">
+        <div *ngIf="singleSelected[0].category != 'Monitor'" class="type-brand ">
           <div class="type-brand1 ">
             <div class="type ">
               <div class="type-icon-text ">
                 <div class="type-icon-text-inner">
                   <img src="../../../assets/icons/Accessories/typeicon.svg" />
                   <span class="type-text">Type</span>
-                  <span *ngIf="singleSelected && singleSelected[0]" class="type-name">{{ singleSelected[0].isWired ? 'Wired' : 'Wireless' }}</span>
+                  <span *ngIf="singleSelected && singleSelected[0] && singleSelected[0].isWired != null" class="type-name">{{ singleSelected[0].isWired == true ? 'Wired' : 'Wireless' }}</span>
+                  <span *ngIf="singleSelected && singleSelected[0] && singleSelected[0].isWired == null" class="type-name">{{singleSelected[0].categoryType}}</span>
 
                 </div>
               </div>
             </div>
+
+          </div>
+        </div>
+        <div *ngIf="singleSelected[0].category == 'Monitor'" class="type-brand ">
+          <div class="type-brand1 ">
+            <div class="type ">
+              <div class="type-icon-text ">
+                <div class="type-icon-text-inner">
+                  <img src="../../../assets/icons/Accessories/screen-size-icon.svg" />
+                  <span class="type-text">Screen Size</span>
+                  <span *ngIf="singleSelected && singleSelected[0]" class="type-name">{{ singleSelected[0].screenSize }} inches</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div *ngIf="singleSelected[0].category == 'Monitor'" class="type-brand ">
+          <div class="type-brand1 ">
+            <div class="type ">
+              <div class="type-icon-text ">
+                <div class="type-icon-text-inner">
+                  <img src="../../assets/icons/Accessories/hdmi-cables-blue.svg" />
+                  <span class="type-text">Display Port</span>
+                  <span *ngIf="singleSelected && singleSelected[0]" class="type-name">{{ singleSelected[0].isDVI == true ? ' DVI ' : '' }} {{singleSelected[0].isVGA == true ? ' VGA ' : ''}} {{singleSelected[0].isHDMI == true ? ' HDMI ' : ''}}</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="type-brand ">
+          <div class="type-brand1 ">
             <div class="brand">
               <div class="brand-icon-text">
                 <div class="type-icon-text-inner">
@@ -168,8 +204,11 @@
 
               </div>
             </div>
+
           </div>
         </div>
+
+
 
         <div class="type-brand ">
           <div class="type-brand1 ">

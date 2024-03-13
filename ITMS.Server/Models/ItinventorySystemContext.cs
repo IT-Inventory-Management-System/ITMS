@@ -140,6 +140,7 @@ public partial class ItinventorySystemContext : DbContext
                 .HasColumnName("CYGID");
             entity.Property(e => e.IsArchived).HasColumnName("isArchived");
             entity.Property(e => e.LocationId).HasColumnName("locationId");
+            entity.Property(e => e.ScreenSize).HasColumnName("ScreenSize");
             entity.Property(e => e.PurchasedDate).HasColumnType("datetime");
             entity.Property(e => e.RecievedDate).HasColumnType("datetime");
             entity.Property(e => e.SerialNumber).HasMaxLength(255);
@@ -200,6 +201,11 @@ public partial class ItinventorySystemContext : DbContext
             entity.Property(e => e.DeviceName).HasMaxLength(255);
             entity.Property(e => e.IsArchived).HasColumnName("isArchived");
             entity.Property(e => e.IsWired).HasColumnName("isWired");
+            entity.Property(e => e.IsHDMI).HasColumnName("isHDMI");
+            entity.Property(e => e.IsVGA).HasColumnName("isVGA");
+            entity.Property(e => e.IsDVI).HasColumnName("isDVI");
+
+
             entity.Property(e => e.ModelNo).HasMaxLength(255);
             entity.Property(e => e.Os).HasColumnName("OS");
             entity.Property(e => e.Processor).HasMaxLength(255);
@@ -294,6 +300,7 @@ public partial class ItinventorySystemContext : DbContext
 
             entity.HasIndex(e => e.Cgiid, "UQ__Employee__DCC46F8888CFCCAB").IsUnique();
             entity.Property(e => e.ExitProcessInitiated).HasColumnName("ExitProcessInitiated");
+            entity.Property(e => e.onHold).HasColumnName("onHold");
             entity.Property(e => e.Token).HasColumnName("token");
             entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
             entity.Property(e => e.Cgiid)

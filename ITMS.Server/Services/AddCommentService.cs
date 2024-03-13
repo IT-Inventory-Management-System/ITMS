@@ -51,7 +51,7 @@ namespace ITMS.Server.Services
             {
                 Description = commentDto.Description,
                 CreatedBy = commentDto.CreatedBy,
-                CreatedAtUtc = DateTime.Now,
+                CreatedAtUtc = DateTime.UtcNow         ,
                 DeviceId = commentDto.DeviceId,
                 DeviceLogId = commentDto.DeviceLogId
             };
@@ -89,28 +89,30 @@ namespace ITMS.Server.Services
 
         public void RevokeAllAddComment(UserCommentHistory commentDto)
         {
-            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(System.Threading.Thread.CurrentThread.CurrentCulture.Name);
+            //System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(System.Threading.Thread.CurrentThread.CurrentCulture.Name);
 
             Comment commentEntity = new Comment
             {
                 Description = commentDto.Description,
                 CreatedBy = commentDto.CreatedBy,
-                CreatedAtUtc = DateTime.Now,
+                CreatedAtUtc = DateTime.UtcNow,
                 DeviceId = commentDto.DeviceId,
+                //
+                DeviceLogId= commentDto.DeviceLogId,
             };
 
-            commentEntity.DeviceLogId = GetLatestDeviceLogId(commentDto.DeviceId);
+            //commentEntity.DeviceLogId = GetLatestDeviceLogId(commentDto.DeviceId);
 
 
-            var createdByEntity = _context.Employees
-                .Where(e => e.Id == commentDto.CreatedBy)
-                .FirstOrDefault();
+            //var createdByEntity = _context.Employees
+            //    .Where(e => e.Id == commentDto.CreatedBy)
+            //    .FirstOrDefault();
 
 
-            if (createdByEntity != null)
-            {
-                commentEntity.CreatedByNavigation = createdByEntity;
-            }
+            //if (createdByEntity != null)
+            //{
+            //    commentEntity.CreatedByNavigation = createdByEntity;
+            //}
 
 
             _context.Comments.Add(commentEntity);
@@ -130,19 +132,19 @@ namespace ITMS.Server.Services
                 CreatedBy = commentDto.CreatedBy,
                 CreatedAtUtc = DateTime.UtcNow,
                 SoftwareAllocationId = commentDto.SoftwareAllocationId,
-                DeviceLogId = commentDto.DeviceLogId
+                DeviceLogId = commentDto.DeviceLogId,
             };
 
 
-            var createdByEntity = _context.Employees
-                .Where(e => e.Id == commentDto.CreatedBy)
-                .FirstOrDefault();
+            //var createdByEntity = _context.Employees
+            //    .Where(e => e.Id == commentDto.CreatedBy)
+            //    .FirstOrDefault();
 
 
-            if (createdByEntity != null)
-            {
-                commentEntity.CreatedByNavigation = createdByEntity;
-            }
+            //if (createdByEntity != null)
+            //{
+            //    commentEntity.CreatedByNavigation = createdByEntity;
+            //}
 
 
             _context.Comments.Add(commentEntity);

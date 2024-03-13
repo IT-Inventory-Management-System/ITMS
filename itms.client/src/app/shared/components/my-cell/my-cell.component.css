@@ -1,7 +1,7 @@
 .status-outer {
   display: flex;
   height: 1.75rem;
-  width:4.25rem;
+  width:6rem;
   padding: 0.4375rem 0.625rem;
   align-items: center;
   justify-content: center;
@@ -32,4 +32,9 @@
   font-style: normal;
   font-weight: 600;
   line-height: 1.25rem; /* 142.857% */
+}
+
+.unassignable {
+  background: #eab685;
+  color: #ae641d;
 }

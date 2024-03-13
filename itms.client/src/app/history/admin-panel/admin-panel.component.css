@@ -132,3 +132,7 @@
   border: 1px solid var(--Primary-Blue, #28519E);
   background: #E3F3FC;
 }
+
+.spinner-loading {
+  margin-left: 8.5rem;
+}

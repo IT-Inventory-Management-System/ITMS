@@ -16,7 +16,8 @@ namespace ITMS.Server.Services;
     void AddDeviceModel (PutDeviceModel model);
     void AddMouseModel(PostMouseModelDTO mouseModel);
     void AddMouse(PostMouseDTO mouseModel);
-
+    void AddMonitor(PostMonitorDTO monitorDTO);
+    void AddCommon(CommonDeviceDTO commonDeviceDTO);
     Task<List<LaptopModelDTO>> GetLaptopModelsAsync();
     Task<List<SoftwareModelDTO>> GetSoftwareModelsAsync();
 }
@@ -45,7 +46,7 @@ public class AddDeviceService : IDeviceService
                 inventoriesItem.PurchasedDate = device.PurchasedOn;
                 inventoriesItem.Status = device.Status;
                 inventoriesItem.CreatedBy = device.CreatedBy;
-                inventoriesItem.CreatedAtUtc = device.CreatedAtUtc;
+                inventoriesItem.CreatedAtUtc = DateTime.UtcNow;
                 inventoriesItem.UpdatedBy = device.UpdatedBy;
                 inventoriesItem.UpdatedAtUtc = DateTime.UtcNow;
                 inventoriesItem.WarrantyDate = device.WarrantyDate;
@@ -73,9 +74,9 @@ public class AddDeviceService : IDeviceService
                 IsWired = model.IsWired,
                 CategoryId = model.CategoryId,
                 CreatedBy = model.CreatedBy,
-                CreatedAtUtc = model.CreatedAtUtc,
+                CreatedAtUtc = DateTime.UtcNow,
                 UpdatedBy = model.UpdatedBy,
-                UpdatedAtUtc = model.UpdatedAtUtc,
+                UpdatedAtUtc = DateTime.UtcNow,
                 IsArchived = model.IsArchived,
             };
             _context.DeviceModel.Add(deviceModel);
@@ -132,9 +133,9 @@ public class AddDeviceService : IDeviceService
                 CategoryId = software.CategoryId,
                 SoftwareThumbnail = software.SoftwareThumbnail,
                 CreatedBy = software.CreatedBy,
-                CreatedAtUtc = software.CreatedAtUtc,
+                CreatedAtUtc = DateTime.UtcNow,
                 UpdatedBy = software.UpdatedBy,
-                UpdatedAtUtc = software.UpdatedAtUtc
+                UpdatedAtUtc = DateTime.UtcNow
             };
 
             _context.Software.Add(softwareForDb);
@@ -169,9 +170,9 @@ public class AddDeviceService : IDeviceService
             IsWired = mouseModel.iswired,
             CategoryId = mouseModel.categoryId,
             CreatedBy = mouseModel.createdBy,
-            CreatedAtUtc = mouseModel.createdAt,
+            CreatedAtUtc = DateTime.UtcNow,
             UpdatedBy = mouseModel.updatedBy,
-            UpdatedAtUtc = mouseModel.updatedAt,
+            UpdatedAtUtc = DateTime.UtcNow,
             IsArchived = mouseModel.isArchived,
         };
         _context.DeviceModel.Add(deviceModel);
@@ -189,7 +190,7 @@ public class AddDeviceService : IDeviceService
             inventoriesItem.DeviceModelId = mouseModel.deviceModelId;
             inventoriesItem.Status = mouseModel.status;
             inventoriesItem.CreatedBy = mouseModel.createdBy;
-            inventoriesItem.CreatedAtUtc = mouseModel.createdAt;
+            inventoriesItem.CreatedAtUtc = DateTime.UtcNow;
             inventoriesItem.UpdatedBy = mouseModel.updatedBy;
             inventoriesItem.UpdatedAtUtc = DateTime.UtcNow;
             inventoriesItem.IsArchived = mouseModel.isArchived;
@@ -200,6 +201,55 @@ public class AddDeviceService : IDeviceService
 
         }
         //_context.Devices.Add(device);
+        _context.SaveChanges();
+    }
+
+    public void AddMonitor(PostMonitorDTO postMonitorDTO)
+    {
+        for (int i = 0; i < postMonitorDTO.qty; i++)
+        {
+            Device inventoriesItem = new Device();
+
+            inventoriesItem.Cygid = postMonitorDTO.deviceId[i].ToString();
+            inventoriesItem.DeviceModelId = postMonitorDTO.deviceModelId;
+            inventoriesItem.Status = postMonitorDTO.status;
+            inventoriesItem.CreatedBy = postMonitorDTO.createdBy;
+            inventoriesItem.CreatedAtUtc = DateTime.UtcNow;
+            inventoriesItem.UpdatedBy = postMonitorDTO.updatedBy;
+            inventoriesItem.UpdatedAtUtc = DateTime.UtcNow;
+            inventoriesItem.IsArchived = postMonitorDTO.isArchived;
+            inventoriesItem.LocationId = postMonitorDTO.locationId;
+            inventoriesItem.PurchasedDate = postMonitorDTO.purchaseddate;
+            inventoriesItem.WarrantyDate = postMonitorDTO.warrantydate;
+            inventoriesItem.ScreenSize = postMonitorDTO.ScreenSize;
+
+            _context.Devices.Add(inventoriesItem);
+
+        }
+        //_context.Devices.Add(device);
+        _context.SaveChanges();
+    }
+    public void AddCommon(CommonDeviceDTO commonDeviceDTO)
+    {
+        for (int i = 0; i < commonDeviceDTO.qty; i++)
+        {
+            Device inventoriesItem = new Device();
+
+            inventoriesItem.Cygid = commonDeviceDTO.deviceId[i].ToString();
+            inventoriesItem.DeviceModelId = commonDeviceDTO.deviceModelId;
+            inventoriesItem.Status = commonDeviceDTO.status;
+            inventoriesItem.CreatedBy = commonDeviceDTO.createdBy;
+            inventoriesItem.CreatedAtUtc = DateTime.UtcNow;
+            inventoriesItem.UpdatedBy = commonDeviceDTO.updatedBy;
+            inventoriesItem.UpdatedAtUtc = DateTime.UtcNow;
+            inventoriesItem.IsArchived = commonDeviceDTO.isArchived;
+            inventoriesItem.LocationId = commonDeviceDTO.locationId;
+            inventoriesItem.PurchasedDate = commonDeviceDTO.purchaseddate;
+            inventoriesItem.WarrantyDate = commonDeviceDTO.warrantydate;
+
+            _context.Devices.Add(inventoriesItem);
+
+        }
         _context.SaveChanges();
     }
 }
