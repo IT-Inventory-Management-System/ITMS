@@ -1,15 +1,16 @@
 <div class="add-mouse-outer-container">
   <div class="add-mouse-header">
-    <span>Add Mouse</span>
+    <span>Add {{category}}</span>
   </div>
   <div class="add-mouse-content overflow-auto">
     <div class="stepper-container">
       <div class="stepper-stepper">
         <div class="stepper-stepper1">
 
-          <img *ngIf="currentStep === 1" src="../../../assets/icons/mouse-blue.svg" />
+          <img *ngIf="currentStep === 1 && category == 'Keyboard'" src="../../../assets/icons/keyboard-blue.svg" />
+          <img *ngIf="currentStep === 1 && category == 'Combo'" src="../../../assets/icons/combo-blue.svg" />
           <img *ngIf="currentStep === 2 || currentStep===3" src="../../../assets/icons/completed.svg" />
-          <span class="stepper-text"><span>Mouse Details</span></span>
+          <span class="stepper-text"><span>{{category}} Details</span></span>
         </div>
         <img src="../../../assets/icons/Vector 16 (Stroke).svg" />
         <div class="stepper-stepper2">
@@ -31,7 +32,7 @@
         </div>
         <div>
           <div class="mouse-radio-button">
-            <label class="mouse-label">Mouse Type <span class="required">*</span></label>
+            <label class="mouse-label">{{category}} Type <span class="required">*</span></label>
             <div class="mouse-input">
               <input type="radio" name="mouseType" id="wiredRadio" value="wired" [(ngModel)]="selectedmedium" (change)="loadMouseBrand()">
               <label for="wiredRadio">Wired</label>
