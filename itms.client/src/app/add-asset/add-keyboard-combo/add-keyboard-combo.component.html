@@ -1,15 +1,16 @@
 <div class="add-mouse-outer-container">
   <div class="add-mouse-header">
-    <span>Add Mouse</span>
+    <span>Add {{category}}</span>
   </div>
   <div class="add-mouse-content overflow-auto">
     <div class="stepper-container">
       <div class="stepper-stepper">
         <div class="stepper-stepper1">
 
-          <img *ngIf="currentStep === 1" src="../../../assets/icons/mouse-blue.svg" />
+          <img *ngIf="currentStep === 1 && category == 'Keyboard'" src="../../../assets/icons/keyboard-blue.svg" />
+          <img *ngIf="currentStep === 1 && category == 'Combo'" src="../../../assets/icons/combo-blue.svg" />
           <img *ngIf="currentStep === 2 || currentStep===3" src="../../../assets/icons/completed.svg" />
-          <span class="stepper-text"><span>Mouse Details</span></span>
+          <span class="stepper-text"><span>{{category}} Details</span></span>
         </div>
         <img src="../../../assets/icons/Vector 16 (Stroke).svg" />
         <div class="stepper-stepper2">
@@ -31,7 +32,7 @@
         </div>
         <div>
           <div class="mouse-radio-button">
-            <label class="mouse-label">Mouse Type <span class="required">*</span></label>
+            <label class="mouse-label">{{category}} Type <span class="required">*</span></label>
             <div class="mouse-input">
               <input type="radio" name="mouseType" id="wiredRadio" value="wired" [(ngModel)]="selectedmedium" (change)="loadMouseBrand()">
               <label for="wiredRadio">Wired</label>
@@ -65,7 +66,7 @@
           </label>
         </div>
         <div class="mb-3" *ngIf="showDeviceDetailsForm">
-          <app-add-keyboard-combo-brand-form [selectedmedium]="selectedmedium" (formSubmitted)="onFormSubmitted()"></app-add-keyboard-combo-brand-form>
+          <app-add-keyboard-combo-brand-form [selectedmedium]="selectedmedium" (formSubmitted)="onFormSubmitted()" [category]="category"></app-add-keyboard-combo-brand-form>
         </div>
         <div class="quantity-select">
           <label for="quantity">Quantity <span class="required">*</span></label>
@@ -116,7 +117,7 @@
             <div class="inner-cyg-div">
               <label for="cygId" class="label-cyg">Device ID</label>
 
-              <input type="text" id="cygId" name="cygId" placeholder="Enter CYG ID" [value]="'CGI-MOU-' + (laststoredcgi+ ele)" disabled />
+              <input type="text" id="cygId" name="cygId" placeholder="Enter CYG ID" [value]="prefix+ (laststoredcgi+ ele)" disabled />
             </div>
           </div>
 
@@ -128,7 +129,7 @@
   <div *ngIf="currentStep === 1" class="add-device-footer1">
 
     <div class="save-device-button">
-      <button class="cancel-button" type="button"><span>Cancel</span></button>
+      <button class="cancel-button" type="button" (click)="resettingform()"><span>Cancel</span></button>
       <button type="button" class="next-button" (click)="next()" [disabled]="!selectedmedium"><span>Next</span></button>
     </div>
   </div>
@@ -136,7 +137,7 @@
     <button class="previous-btn" (click)="previous()"><span>Previous</span></button>
 
     <div class="save-device-button">
-      <button class="cancel-button"><span>Cancel</span></button>
+      <button class="cancel-button" (click)="resettingform()"><span>Cancel</span></button>
       <button class="submit-button-layout" type="submit" (click)="onSubmit()"><span>Submit</span></button>
     </div>
   </div>

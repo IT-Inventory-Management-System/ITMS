@@ -226,6 +226,11 @@ export class DataService {
   postCommonData(formData: any): Observable<any> {
     return this.http.post(this.apiUrl + 'addDevices/AddCommonDevice', formData);
   }
-
+  getAllCommonBrands(CategoryName: any): Observable<any[]> {
+    return this.http.post<any | null>(this.apiUrl + 'asset/getBrandFromName', CategoryName);
+  }
+  getComboBrands(CategoryName: any): Observable<any[]> {
+    return this.http.post<any | null>(this.apiUrl + 'asset/getKeyboardComboBrand', CategoryName);
+  }
 }
 

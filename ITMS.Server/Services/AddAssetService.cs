@@ -17,9 +17,11 @@ namespace ITMS.Server.Services
         Task<IEnumerable<monitorInputDTO>> getMonitorBrands();
         Task<IEnumerable<getCGIDTO>> getCGIIDKeyboard();
         Task<IEnumerable<getCGIDTO>> getCGIIDCommon(string categoryName);
+        Task<IEnumerable<GetBrandDTO>> getKeyboardComboBrand(commonInputDTO commonDTO);
         Task<IEnumerable<getBrand>> getBrandFromName(string categoryName);
         Task postMonitorDetails(MonitorDTO monitorDTO);
         Task AddCommonModel(CommonDTO commonDTO);
+
 
     }
     public class AddAssetService : IAddAssetService
@@ -266,9 +268,9 @@ namespace ITMS.Server.Services
             { "HDMI Cables", "CGI-HDMI" },
             { "iPhone USB-A to Lightning", "CGI-iPHC" },
             { "Mini-Display HDMI Connector", "CGI-CHD" },
-            { "Bags", "CGI-BAG" },
+            { "Bag", "CGI-BAG" },
             { "RAM of Different Models(Laptop)", "CGI-RAML" },
-            { "RAM of Server", "CGI-RAMS" },
+            { "Server", "CGI-RAMS" },
             { "Keyboard", "CGI-KO"},
             { "Combo", "CGI-WYC"},
             { "Mouse", "CGI-MOU"},
@@ -319,6 +321,22 @@ namespace ITMS.Server.Services
                                 select c.Name)
                             .FirstOrDefaultAsync();
 
+            return result;
+        }
+
+        public async Task<IEnumerable<GetBrandDTO>> getKeyboardComboBrand(commonInputDTO commonDTO)
+        {
+            var result = await (from c in _context.DeviceModel
+                                join cat in _context.Categories
+                                on c.CategoryId equals cat.Id
+                                where cat.Name.ToLower() == commonDTO.Name.ToLower()
+                                select new GetBrandDTO
+
+                                {
+                                    Id = c.Id,
+                                    brand = c.Brand,
+                                    iswired = c.IsWired
+                                }).ToListAsync();
             return result;
         }
 

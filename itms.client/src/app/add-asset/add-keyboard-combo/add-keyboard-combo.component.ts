@@ -10,19 +10,38 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AddKeyboardComboComponent {
   @Input() category: any;
+  prefix: string;
+  UserId: any;
+  userDataJSON: any;
   constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService) {
 
   }
-
+  ngOnChanges() {
+    //this.ngAfterViewInit();
+    this.counterValue = 0;
+    this.selectedmedium = '';
+    //this.updateImageURL(this.category);
+    this.ngOnInit();
+    this.showErrorMessage = false;
+    this.currentStep = 1;
+  }
 
 
 
   ngOnInit(): void {
     this.getCgi();
+    this.prefix = this.getPrefix(this.category);
+
     this.createForm();
-    this.setCreatedBy();
     this.setlocationId();
     this.setStatus();
+    this.userDataJSON = localStorage.getItem('user');
+
+    // Parse the JSON string back into an object
+    var userData = JSON.parse(this.userDataJSON);
+
+    // Access the 'id' property of the userData object
+    this.UserId = userData.id;
   }
   addDeviceForm: FormGroup;
   showErrorMessage = false;
@@ -40,16 +59,7 @@ export class AddKeyboardComboComponent {
   get counterValues(): number[] {
     return Array.from({ length: this.counterValue }, (_, i) => i + 1);
   }
-  setCreatedBy() {
-    this.dataService.getFirstUser().subscribe(
-      (data) => {
-        this.addDeviceForm.get('createdBy')?.setValue(data.id);
-        this.addDeviceForm.get('updatedBy')?.setValue(data.id);
-      },
-      (error) => {
-        console.log("User not found");
-      });
-  }
+
   setlocationId() {
     this.dataService.getLocation().subscribe(
       (data) => {
@@ -68,7 +78,7 @@ export class AddKeyboardComboComponent {
   increment() {
     this.counterValue++;
     const ele = this.counterValue;
-    this.pushValueIntoDeviceId('CGI-MOU ' + (this.laststoredcgi + ele));
+    this.pushValueIntoDeviceId(this.prefix + (this.laststoredcgi + ele));
     this.addDeviceForm.patchValue({
       qty: this.counterValue
     });
@@ -105,6 +115,7 @@ export class AddKeyboardComboComponent {
 
     });
   }
+  
 
   decrement() {
     if (this.counterValue > 0) {
@@ -141,13 +152,17 @@ export class AddKeyboardComboComponent {
     this.currentStep--;
   }
   loadMouseBrand() {
-    this.dataService.getMouseBrand().subscribe(
+    const input = {
+      name: this.category
+    };
+
+    this.dataService.getComboBrands(input).subscribe(
       (data) => {
         if (this.selectedmedium === 'wired') {
 
-          this.dropdownValues = data.filter(item => item.iswired == 1);
+          this.dropdownValues = data.filter(item => item.iswired == true);
         } else if (this.selectedmedium === 'wireless') {
-          this.dropdownValues = data.filter(item => item.iswired == 0);
+          this.dropdownValues = data.filter(item => item.iswired == false);
 
         }
         else {
@@ -160,9 +175,33 @@ export class AddKeyboardComboComponent {
       }
     );
   }
+  categoryPrefixMap: { [key: string]: string } = {
+    "Connector(Texas Instruments)": "CGI-MIS ",
+    "Apple Thunderbolt(LAN)": "CGI-CLAN ",
+    "Android Cables": "CGI-AC ",
+    "Apple VGA Connector": "CGI-CVGA ",
+    "External Hard Drive Connectors": "CGI-EHD ",
+    "HDMI Cables": "CGI-HDMI ",
+    "iPhone USB-A to Lightning": "CGI-iPHC ",
+    "Mini-Display HDMI Connector": "CGI-CHD ",
+    "Bags": "CGI-BAG ",
+    "RAM of Different Models(Laptop)": "CGI-RAML ",
+    "RAM of Server": "CGI-RAMS ",
+    "Keyboard": "CGI-KO ",
+    "Combo": "CGI-WYC ",
+    "Mouse": "CGI-MOU ",
+  };
+
+  getPrefix(category: string): string {
+    return this.categoryPrefixMap[category];
+  }
 
   getCgi() {
-    this.dataService.getCGIID().subscribe(
+
+    const input = {
+      name: this.category
+    }
+    this.dataService.getAccessoryCGIID(input).subscribe(
       (data) => {
         this.laststoredcgi = parseInt(data[0]?.cgiid, 10);
         console.log(this.laststoredcgi);
@@ -175,18 +214,20 @@ export class AddKeyboardComboComponent {
   }
   onFormSubmitted() {
     this.showDeviceDetailsForm = false;
+    this.loadMouseBrand();
     this.ngOnInit();
   }
 
   onSubmit() {
-
+    this.addDeviceForm.get('createdBy')?.setValue(this.UserId);
+    this.addDeviceForm.get('updatedBy')?.setValue(this.UserId);
     this.addDeviceForm.get('createdAt')?.setValue(new Date().toISOString());
     this.addDeviceForm.get('updatedAt')?.setValue(new Date().toISOString());
 
     if (this.addDeviceForm.valid && this.showErrorMessage == false) {
       console.log(this.addDeviceForm.value);
 
-      this.dataService.postMouse(this.addDeviceForm.value).subscribe(
+      this.dataService.postCommonData(this.addDeviceForm.value).subscribe(
         response => {
           console.log('Data Posted successfully', response);
           this.toastr.success("Data Posted SuccessFully");

@@ -79,7 +79,7 @@ namespace ITMS.Server.Controllers
             {
                 await _addAssetService.postMonitorDetails(monitorDTO);
 
-                return Ok("Model updated successfully"); 
+                return Ok(); 
             }
             catch (Exception ex)
             {
@@ -106,6 +106,12 @@ namespace ITMS.Server.Controllers
         {
 
             return await _addAssetService.getCGIIDCommon(commonDto.Name);
+        }
+
+        [HttpPost("getKeyboardComboBrand")]
+        public async Task<IEnumerable<GetBrandDTO>> getKeyboardComboBrand([FromBody] commonInputDTO commonDto)
+        {
+            return await _addAssetService.getKeyboardComboBrand(commonDto);
         }
 
     }

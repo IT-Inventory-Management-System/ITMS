@@ -77,7 +77,7 @@
               </label>
             </div>
             <div class="mb-3" *ngIf="showDeviceDetailsForm">
-              <app-add-monitor-brand-form [selectedOptions]="selectedOptions" [category]="category"></app-add-monitor-brand-form>
+              <app-add-monitor-brand-form [selectedOptions]="selectedOptions" [category]="category" (formSubmitted)="onFormSubmitted()"></app-add-monitor-brand-form>
             </div>
             <div class="form-field3">
               <label class="label" for="">Screen Size(inch) <span class="required">*</span></label>

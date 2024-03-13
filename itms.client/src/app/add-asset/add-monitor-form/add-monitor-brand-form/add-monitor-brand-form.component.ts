@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DataService } from '../../../shared/services/data.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -33,6 +33,8 @@ export class AddMonitorBrandFormComponent {
       categoryId: [''],
     });
   }
+  @Output() formSubmitted: EventEmitter<void> = new EventEmitter<void>();
+
 
   setCategoryId() {
     this.dataService.getCategories().subscribe(
@@ -92,6 +94,8 @@ export class AddMonitorBrandFormComponent {
 
           console.log('Post successful', response);
           this.toastr.success("Data posted successfully");
+          this.formSubmitted.emit();
+
         },
         error => {
           console.error('Error posting data', error);
@@ -146,6 +150,7 @@ export class AddMonitorBrandFormComponent {
 
     }
   }
+
   hideErrorMessage() {
     this.showMessage = false;
   }
