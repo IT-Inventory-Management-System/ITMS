@@ -140,6 +140,11 @@ namespace ITMS.Server.DTO
         public DateTime? PurchaseDate { get; set; }
         public DateTime? WarrantyDate { get; set; }
         public string? CategoryType { get; set; }
+        public int? ScreenSize { get; set; }
+        public bool? IsHDMI { get; set; }
+        public bool? IsVGA { get; set; }
+        public bool? IsDVI { get; set; }
+
     }
 
     public class filterAccessoriesBodyDTO

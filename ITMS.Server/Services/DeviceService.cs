@@ -664,7 +664,11 @@ public class DeviceService
                 IsArchived = d.IsArchived,
                 AssignedTo = d.AssignedTo == null ? false : true,
                 accessoryId = d.Id,
-                CategoryType = d.DeviceModel.Category.CategoryType.TypeName
+                CategoryType = d.DeviceModel.Category.CategoryType.TypeName,
+                ScreenSize = d.ScreenSize,
+                IsDVI = d.DeviceModel.IsDVI,
+                IsHDMI = d.DeviceModel.IsHDMI,
+                IsVGA = d.DeviceModel.IsVGA
 
             }).ToList();
     }

@@ -84,6 +84,7 @@ export class DevicesListComponent {
     const outerCard = this.el.nativeElement.querySelector('.devices-list-container-items');
     if (this.device.cygid === this.selectedDeviceId) {
       this.renderer.setStyle(outerCard, 'background-color', '#E3F3FC');
+      this.renderer.setStyle(outerCard, 'border', '1px solid #28519E');
       this.renderer.setStyle(outerCard, 'color', 'white');
     }
   }
@@ -94,6 +95,7 @@ export class DevicesListComponent {
       const allCards = document.querySelectorAll('.devices-list-container-items');
       allCards.forEach(card => {
         this.renderer.removeStyle(card, 'background-color');
+        this.renderer.removeStyle(card, 'border');
         this.renderer.removeStyle(card, 'color');
       });
     }
