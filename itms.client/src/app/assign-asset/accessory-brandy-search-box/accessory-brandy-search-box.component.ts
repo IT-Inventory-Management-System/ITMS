@@ -129,7 +129,7 @@ export class AccessoryBrandySearchBoxComponent {
       this.selectedCygid = '';
       const dataPass = { accessCYGIDs: this.accessCYGIDs, index: this.index, cygid: this.selectedCygid };
       this.AccessoryBrandOptionSelected.emit(dataPass);
-      if (this.selectedId != "Mouse" || this.selectedId != "Keyboard" || this.selectedId != "Combo") {
+      if (this.selectedId !== "Mouse" || this.selectedId !== "Keyboard" || this.selectedId !== "Combo") {
         this.selectCygId();
       }
     }

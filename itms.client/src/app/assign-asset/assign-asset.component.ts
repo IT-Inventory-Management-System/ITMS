@@ -385,9 +385,14 @@ export class AssignAssetComponent {
     var accessoryCommentArray = this.assignAssetForm?.get('accessoryComments')?.value;
 
     for (var i = 0; i < deviceIds.length; i++) {
-      if (deviceIds[i].index != null)
         input.deviceCYGIDs.push(deviceIds[i].cygid)
-        input.deviceComments.push(deviceCommentArray[i].deviceComment)
+      //input.deviceComments.push(deviceCommentArray[i].deviceComment)
+      const matchingIndexItem = deviceCommentArray.find((item: any) => item.index === i);
+      if (matchingIndexItem) {
+        input.deviceComments.push(matchingIndexItem.deviceComment);
+      } else {
+        input.deviceComments.push('');
+      }
     }
 
     for (var i = 0; i < selectedSoftwareIds.length; i++) {
