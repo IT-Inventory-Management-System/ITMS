@@ -1,14 +1,63 @@
-<div class="search-box-subheading">{{ label }} <span style="color:red">*</span>
-  <button *ngIf="index > 0" type="button" class="close-button" aria-label="Close" (click)="emitRemoveSoftware()">
-    <img src="../../../../assets/icons/Close.svg" width="19" />
-  </button>
+  <div class="search-box-subheading">
+    {{ label }} <span style="color:red">*</span>
+    <button *ngIf="index > 0" type="button" class="close-button" aria-label="Close" (click)="emitRemoveSoftware()">
+      <img src="../../../../assets/icons/Close.svg" width="19" />
+    </button>
+  </div>
+  <ng-select class="custom search-box"
+             [placeholder]="'Select Software'"
+             [(ngModel)]="selectedOption"
+             (change)="onSelectOption($event)"
+             (clear)="onClearSelection()"
+             [disabled]="selectedOptionVersion !== null"
+             >
+    <ng-option class="list-items" *ngFor="let SoftwareName of uniqueSoftwareNames" [value]="SoftwareName">
+      {{SoftwareName }}
+    </ng-option>
+  </ng-select>
+
+  <div class="search-box-subheading">Software Version <span style="color:red">*</span></div>
+  <ng-select class=" custom search-box"
+             [placeholder]="'Select Software Version'"
+             [(ngModel)]="selectedOptionVersion"
+             (change)="onSelectOptionVersion($event)"
+             (clear)="onClearSelectionVersion()">
+    <ng-option class="list-items" *ngFor="let option of softwareVersionsOptions" [value]="option">
+      {{ option }}
+    </ng-option>
+  </ng-select>
+
+  <div *ngIf="softwareWarning==true" class="alert-box">
+    <div class="alert-image-frame">
+      <img id="alert-image" src="../../../../assets/icons/Vector.svg" />
+    </div>
+    <div class="alert-box-msg">
+      This Software has already been assigned to maximum no. of users.<br>
+      Please select another software from the list.
+    </div>
+  </div>
+
+
+<div *ngIf="selectedSoftwareType && selectedSoftwareType[0].softwareType" class="software-details">
+  <div class="details-subheading">
+    Selected Software Details:
+  </div>
+  <div class="details-frame">
+    <div class="details">
+      <div class="detail">
+        <div class="detail-paramter">Software Type:</div>
+        <div class="detail-value">{{selectedSoftwareType[0].softwareType}}</div>
+      </div>
+      <div *ngIf="selectedSoftwareType[0].expiryDate" class="detail">
+        <div class="detail-paramter">Expiry:</div>
+        <div class="detail-value">{{ selectedSoftwareType[0].expiryDate | date:'dd-MM-yyyy' }}</div>
+      </div>
+    </div>
+  </div>
 </div>
-<ng-select class="custom search-box"
-           [placeholder]="placeholder"
-           [(ngModel)]="selectedOption"
-           (change)="onSelectOption($event)"
-           (clear)="onClearSelection()">
-  <ng-option class="list-items" *ngFor="let SoftwareName of uniqueSoftwareNames" [value]="SoftwareName">
-    {{SoftwareName }}
-  </ng-option>
-</ng-select>
+
+<div class="Add-new" *ngIf="index === softwares.length - 1" (click)="addNewSoftware()">
+  <img class="add-img" src="../../../../assets/icons/Add.svg" />
+  <div class="add-new-text">Add Another Software</div>
+</div>
+<!--[disabled]=selectedOptionDisable-->

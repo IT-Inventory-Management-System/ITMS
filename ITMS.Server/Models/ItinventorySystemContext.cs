@@ -300,6 +300,7 @@ public partial class ItinventorySystemContext : DbContext
 
             entity.HasIndex(e => e.Cgiid, "UQ__Employee__DCC46F8888CFCCAB").IsUnique();
             entity.Property(e => e.ExitProcessInitiated).HasColumnName("ExitProcessInitiated");
+            entity.Property(e => e.onHold).HasColumnName("onHold");
             entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
             entity.Property(e => e.Cgiid)
                 .HasMaxLength(255)

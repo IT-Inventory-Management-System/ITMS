@@ -1,4 +1,4 @@
-<div class="search-box-subheading">{{ label }} <span style="color:red">*</span></div>
+<!--<div class="search-box-subheading">{{ label }} <span style="color:red">*</span></div>
 <ng-select class=" custom search-box"
            [placeholder]="placeholder"
            [(ngModel)]="selectedOption"
@@ -8,3 +8,13 @@
     {{ option }}
   </ng-option>
 </ng-select>
+
+<div *ngIf="softwareWarning==true" class="alert-box">
+  <div class="alert-image-frame">
+    <img id="alert-image" src="../../../../assets/icons/Vector.svg" />
+  </div>
+  <div class="alert-box-msg">
+    This Software has already been assigned to maximum no. of users.<br>
+    Please select another software from the list.
+  </div>
+</div>-->
