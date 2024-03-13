@@ -50,7 +50,9 @@
           <app-assign-accessories *ngIf="currentStep === 3"
                                   [AccessoryOptions]="accessories"
                                   [assignAssetForm]="assignAssetForm"
-                                  (accessoryIdInputChange)="onAccessoryIdInputChangeStep3($event)">
+                                  (accessoryIdInputChange)="onAccessoryIdInputChangeStep3($event)"
+                                  [accessCYGIDs]="accessCYGIDs"
+                                  >
           </app-assign-accessories>
           <div class="progress mt-3">
             <div class="progress-bar" role="progressbar" [style.width]="getProgressBarWidth()" aria-valuemin="0" aria-valuemax="100"></div>

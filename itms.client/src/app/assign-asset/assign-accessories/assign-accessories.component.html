@@ -10,11 +10,11 @@
                                 (removeAccessory)="removeAccessory($event)">
     </app-accessories-search-box>
 
-    <app-accessory-brandy-search-box class="sbox"
-                                     *ngIf="selectedId"
+    <app-accessory-brandy-search-box class="sboxx"
+                                     *ngIf="selectedId[i]"
                                      [label]="'Brand'"
                                      [placeholder]="'Select Brand'"
-                                     [selectedId]="selectedId"
+                                     [selectedId]="selectedId[i]"
                                      [AccessoryBrandOptions]="BrandOptions[i]"
                                      [uniqueBrandsArray]="uniqueBrandsArray"
                                      (AccessoryBrandOptionSelected)=" AccessoryBrandSearchBoxOptionSelected($event,i)"
@@ -22,28 +22,31 @@
                                      [index]=i
                                      [AccessoryBrands]="AccessoryBrands"
                                      [AccessoriesSize]="accessories.length"
-                                     (AddNewAccessory)="addNewAccessory()"
+                                     (AddNewAccessory)="addNewAccessory($event)"
+                                     [accessCYGIDs]="accessCYGIDs"
+                                     [AccessoryOptions]="AccessoryOptions[i]"
                                      >
     </app-accessory-brandy-search-box>
+
     <!--<div class="search-box-subheading type" *ngIf="selectedId">
-      Mouse Type<span style="color:red">*</span>
-      <div class="os-input">
-        <input type="radio" name="osType" id="windowsRadio" value="true" [(ngModel)]="isWired" (change)="setNewAccessoryId()">
-        <label for="windowsRadio">Wired</label>
-        <input type="radio" name="osType" id="macRadio" value="false" [(ngModel)]="isWired" (change)="setNewAccessoryId()">
-        <label for="macRadio">Wireless</label>
-      </div>
-    </div>-->
+    Mouse Type<span style="color:red">*</span>
+    <div class="os-input">
+      <input type="radio" name="osType" id="windowsRadio" value="true" [(ngModel)]="isWired" (change)="setNewAccessoryId()">
+      <label for="windowsRadio">Wired</label>
+      <input type="radio" name="osType" id="macRadio" value="false" [(ngModel)]="isWired" (change)="setNewAccessoryId()">
+      <label for="macRadio">Wireless</label>
+    </div>
+  </div>-->
     <!--<div class="search-box-subheading" *ngIf="selectedId">Device ID<span style="color:red">*</span></div>
-    <input class="custom" *ngIf="selectedId" disabled placeholder="Device ID" [value]="selectedCygid" />
-    <div class="comment-subheading">Comment</div>
-    <input class="comment-input-box"
-           required
-           placeholder="Add Comment"
-           aria-label="Comment"
-           (change)="onInputChangeCommentBox($event,i)"
-           [value]="!commentText[i]? '': commentText[i]"
-           style="resize: none">-->
+  <input class="custom" *ngIf="selectedId" disabled placeholder="Device ID" [value]="selectedCygid" />
+  <div class="comment-subheading">Comment</div>
+  <input class="comment-input-box"
+         required
+         placeholder="Add Comment"
+         aria-label="Comment"
+         (change)="onInputChangeCommentBox($event,i)"
+         [value]="!commentText[i]? '': commentText[i]"
+         style="resize: none">-->
 
   </div>
   <!--<div class="Add-new" *ngIf="i === accessories.length - 1" (click)="addNewAccessory()">

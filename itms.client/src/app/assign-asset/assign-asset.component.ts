@@ -93,8 +93,9 @@ export class AssignAssetComponent {
     this.softwares = data.SoftwareOptions;
     console.log("outermost", this.softwares);
   }
-  onAccessoryIdInputChangeStep3(value: boolean): void {
-    this.isAccessoryIdEmptyStep3 = value;
+  onAccessoryIdInputChangeStep3(data: any): void {
+    this.isAccessoryIdEmptyStep3 = data.allSelected;
+    this.accessCYGIDs = data.accessCYGIDs;
   }
 
   isNextButtonEnabled(): boolean {
@@ -117,6 +118,8 @@ export class AssignAssetComponent {
   accessories: any[] = [];
   locationId: string = '';
   closeFlag$ = this.closeFlag.closeFlag$;
+
+  accessCYGIDs: string[] = [];
 
   assignAssetForm: FormGroup;
   @ViewChild(SearchBoxComponent) SearchBoxComponent: any;
@@ -156,6 +159,8 @@ export class AssignAssetComponent {
   }
 
   ngOnInit() {
+    this.accessCYGIDs = [];
+
     this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
       localStorage.setItem('selectedCountry', selectedCountry);
       this.getDeviceLocation();
@@ -257,7 +262,8 @@ export class AssignAssetComponent {
       (data: any[]) => {
         this.totalAccessoriesData = data;
         this.accessories = this.totalAccessoriesData
-          //.filter(item => item.locationId === this.locationId);
+        //.filter(item => item.locationId === this.locationId);
+        console.log("outermost accessories",this.accessories);
       },
       (error: any) => {
         console.error('Error fetching software details:', error);
@@ -390,12 +396,16 @@ export class AssignAssetComponent {
         //input.softwareComments.push(selectedSoftwareComments[i].deviceComment);
       }
     }
-
-    for (var i = 0; i < accessoryIds.length; i++) {
-      if (accessoryIds[i].index != null)
-        input.accessoryCYGIDs.push(accessoryIds[i].accessoryId)
-      input.accessoryComments.push(accessoryCommentArray[i].deviceComment)
+    console.log("accessoryCommentArray",accessoryCommentArray);
+    for (var i = 0; i < accessoryCommentArray.length; i++) {
+      //if (accessoryCommentArray[i].index) {
+        //input.accessoryCYGIDs.push(accessoryIds[i].accessoryId)
+        console.log("accessoryCommentArray", accessoryCommentArray[i].accessoryComment);
+        input.accessoryComments.push(accessoryCommentArray[i].accessoryComment)
+      //}
     }
+    
+    input.accessoryCYGIDs = this.accessCYGIDs;
 
 
     console.log("INPUT DATA : ",input);
@@ -403,12 +413,14 @@ export class AssignAssetComponent {
     this.deviceAssignService.saveAssignment(input).subscribe(
           (response : any) => {
             this.closeForm();
-            this.assignAssetForm.reset();
+        this.assignAssetForm.reset();
+        this.accessCYGIDs = [];
             this.toastr.success('Assignment saved successfully');
           },
           (error) => {
             this.closeForm();
             this.assignAssetForm.reset();
+            this.accessCYGIDs = [];
             this.toastr.error('Error saving assignment:', error);
           }
         );

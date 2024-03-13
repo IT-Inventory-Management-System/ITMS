@@ -13,10 +13,13 @@ import { DeviceAssignService } from '../../shared/services/device-assign.service
   styleUrls: ['./assign-accessories.component.css']
 })
 export class AssignAccessoriesComponent {
-  selectedId: any;
+  selectedId: any[] = [];
+  selectedCygid: string = '';
+
+  @Input() accessCYGIDs: string[];
   @Input() AccessoryOptions: any[] = [];
   @Input() assignAssetForm: FormGroup;
-  @Output() accessoryIdInputChange = new EventEmitter<boolean>();
+  @Output() accessoryIdInputChange = new EventEmitter<any>();
   locationId: any;
   accessories: any[] = [{}];
   SelectedAccessoriesName: any[] = [];
@@ -31,7 +34,7 @@ export class AssignAccessoriesComponent {
   uniqueBrandsArray: any[] = [];
   selectedBrand: any;
   isWired: any;
-  selectedCygid: string = '';
+  //selectedCygid: string = '';
   //commentText: any[] = [];
   selectedIds: any[] = [];
   uniqueBrandsArrays: any[][] = [];
@@ -50,6 +53,9 @@ export class AssignAccessoriesComponent {
     });
   }
   ngOnInit(): void {
+    this.initializeSelectedIds();
+
+
     console.log(this.AccessoryOptions);
     this.accessories = this.assignDataManagementService.getMultipleInstanceState('accessoriesState') || [];
     if (this.accessories.length === 0) {
@@ -80,6 +86,10 @@ export class AssignAccessoriesComponent {
     //}
   }
 
+  initializeSelectedIds(): void {
+    this.selectedId = new Array(this.accessories.length).fill(null);
+  }
+
   ngOnDestroy(): void {
     this.assignDataManagementService.setMultipleInstanceState('accessoryNamesState', this.SelectedAccessoriesName);
     this.assignDataManagementService.setMultipleInstanceState('accessoryBrandsState', this.SelectedBrands);
@@ -94,12 +104,13 @@ export class AssignAccessoriesComponent {
   accessoryIdInputChangeFlag(): void {
     const allSelected = this.SelectedAccessoriesName.every(accessory => accessory !== null) &&
       this.SelectedBrands.every(brand => brand !== null);;
-    this.accessoryIdInputChange.emit(!allSelected);
+    this.accessoryIdInputChange.emit({ allSelected: !allSelected, accessCYGIDs: this.accessCYGIDs });
   }
 
   AccessorySearchBoxOptionSelected(event: any, index: number): void {
-    this.selectedId = event;
-    this.getAccessoriesDetails();
+    console.log("getAccessoriesDetails is called here");
+    this.selectedId[index] = event;
+    this.getAccessoriesDetails(index, this.accessCYGIDs);
     this.SelectedAccessoriesName[index] = event;
     this.filterAccessoryBrands(index);
   }
@@ -135,6 +146,13 @@ export class AssignAccessoriesComponent {
     if (this.selectedIds[index]) {
 
     }
+
+    //this.AccessoryBrands = data.AccessoryBrands;
+    this.accessCYGIDs = data.accessCYGIDs
+    console.log("accessCYGIDs", this.accessCYGIDs);
+    this.selectedCygid = data.cygid
+
+    this.getAccessoriesDetails(index, this.accessCYGIDs);
     //const filteredOptions = this.FilteredAccessoryOptions[selectedIndex].filter(
     //  (option: any) => option.version === selectedOption && option.assignedTo === null
     //);
@@ -172,16 +190,25 @@ export class AssignAccessoriesComponent {
     //this.accessoryIdInputChangeFlag();
   }
 
-  addNewAccessory(): void {
+  addNewAccessory(data:any): void {
     this.accessories.push({});
     this.SelectedAccessoriesName.push(null);
     this.wire.push(null);
     //this.SelectedAccessories.push(null);
     this.SelectedBrands.push(null);
     this.accessoryIdInputChangeFlag();
+    this.AccessoryBrands = data.AccessoryBrands;
+    console.log("AccessoryBrands from add another", this.AccessoryBrands);
   }
 
   removeAccessory(index: number): void {
+    if (this.selectedCygid != '') {
+      const index = this.accessCYGIDs.indexOf(this.selectedCygid);
+      if (index !== -1) {
+        this.accessCYGIDs.splice(index, 1);
+      }
+    }
+
     if (this.SelectedBrands[index] && !this.FilteredAccessoryOptions[index].includes(this.SelectedBrands[index])) {
       this.FilteredAccessoryOptions[index].push(this.SelectedBrands[index]);
     }
@@ -204,26 +231,28 @@ export class AssignAccessoriesComponent {
   }
 
 
-  getAccessoriesDetails() {
+  getAccessoriesDetails(index: number, accessCYGIDs: string[]) {
 
     const input = {
-      categoryName: this.selectedId,
+      categoryName: this.selectedId[index],
       locationId: this.locationId
     }
+      this.deviceAssignService.getAccessoriesDetails(input).subscribe(
+        (data: any[]) => {
+          this.AccessoryBrands = data;
+          this.AccessoryBrands = data.filter(brand => !accessCYGIDs.includes(brand.cygid));
 
-    this.deviceAssignService.getAccessoriesDetails(input).subscribe(
-      (data: any[]) => {
-        this.AccessoryBrands = data;
-        const uniqueBrandsSet = new Set(this.AccessoryBrands.map(item => item.brand));
-        this.uniqueBrandsArray = Array.from(uniqueBrandsSet);
+          this.AccessoryBrands = this.AccessoryBrands.map(brand => ({ ...brand, count: 1 }));
+          const uniqueBrandsSet = new Set(this.AccessoryBrands.map(item => item.brand));
+          this.uniqueBrandsArray = Array.from(uniqueBrandsSet);
 
 
-        console.log(this.AccessoryBrands);
-      },
-      (error: any) => {
-        console.error('Error fetching accessory brand', error);
-      }
-    );
+          console.log("getAllAcc executed", this.AccessoryBrands);
+        },
+        (error: any) => {
+          console.error('Error fetching accessory brand', error);
+        }
+      );
   }
 
   getDeviceLocation() {
@@ -231,9 +260,12 @@ export class AssignAccessoriesComponent {
       (data) => {
         for (var i = 0; i < data.length; i++) {
           if (data[i].type == localStorage.getItem('selectedCountry')) {
-            this.locationId = data[i].id;
-            if (this.selectedId != null)
-              this.getAccessoriesDetails();
+            if (this.locationId !== data[i].id) { 
+              this.locationId = data[i].id;
+              if (this.selectedId != null) {
+                //this.getAccessoriesDetails();
+              }
+            }
             break;
           }
         }
@@ -242,6 +274,7 @@ export class AssignAccessoriesComponent {
         console.log("User not found");
       });
   }
+
 
   //setNewAccessoryId() {
   //  const selectedBrand = this.selectedBrand;

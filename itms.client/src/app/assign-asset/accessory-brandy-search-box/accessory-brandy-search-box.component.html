@@ -1,4 +1,4 @@
-<div class="search-box-subheading">{{ label }} <span style="color:red">*</span></div>
+<!--<div class="search-box-subheading">{{ label }} <span style="color:red">*</span></div>
 <ng-select class=" custom search-box"
            [placeholder]="placeholder"
            [(ngModel)]="selectedOption"
@@ -34,4 +34,46 @@
 <div class="Add-new" *ngIf="index === AccessoriesSize - 1" (click)="addNewAccessory()">
   <img class="add-img" src="../../../../assets/icons/Add.svg" />
   <div class="add-new-text">Add Another Accessories</div>
+</div>-->
+
+
+<!--------------------------------------------------------------------------------------------------------------------->
+
+
+<div class="search-box-subheading">{{ label }} <span style="color:red">*</span></div>
+<ng-select class="custom search-box"
+           [placeholder]="placeholder"
+           [(ngModel)]="selectedOption"
+           (change)="onSelectOption($event)"
+           (clear)="onClearSelection()">
+  <ng-option class="list-items" *ngFor="let option of uniqueBrandsArray" [value]="option">
+    {{ option }}
+  </ng-option>
+</ng-select>
+
+<div class="search-box-subheading type" *ngIf="selectedOption && (selectedId === 'Mouse' || selectedId === 'Keyboard' || selectedId === 'Combo')">
+  Accessory Type<span style="color:red">*</span>
+  <div class="os-input">
+    <input type="radio" name="osType{{index}}" id="windowsRadio{{index}}" value="true" [(ngModel)]="isWired" (change)="setNewAccessoryId()">
+    <label for="windowsRadio{{index}}">Wired</label>
+    <input type="radio" name="osType{{index}}" id="macRadio{{index}}" value="false" [(ngModel)]="isWired" (change)="setNewAccessoryId()">
+    <label for="macRadio{{index}}">Wireless</label>
+  </div>
 </div>
+
+<div class="search-box-subheading" *ngIf="selectedId">Device ID<span style="color:red">*</span></div>
+<input class="custom" *ngIf="selectedId" disabled placeholder="Device ID" [value]="selectedCygid" />
+<div class="comment-subheading">Comment</div>
+<input class="comment-input-box"
+       required
+       placeholder="Add Comment"
+       aria-label="Comment"
+       (change)="onInputChangeCommentBox($event,index)"
+       [value]="commentText"
+       style="resize: none">
+
+<div class="Add-new" *ngIf="index === AccessoriesSize - 1" (click)="addNewAccessory()">
+  <img class="add-img" src="../../../../assets/icons/Add.svg" />
+  <div class="add-new-text">Add Another Accessories</div>
+</div>
+

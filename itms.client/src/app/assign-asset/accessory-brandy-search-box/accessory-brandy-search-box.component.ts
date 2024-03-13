@@ -13,6 +13,9 @@ import { DataService } from '../../shared/services/data.service';
   styleUrls: ['./accessory-brandy-search-box.component.css']
 })
 export class AccessoryBrandySearchBoxComponent {
+  prev: string = '';
+  @Input() accessCYGIDs: string[];
+  @Input() AccessoryOptions: any;
   @Input() selectedId: any;
   @Input() label: string;
   @Input() placeholder: string;
@@ -54,12 +57,31 @@ export class AccessoryBrandySearchBoxComponent {
     const isWired = this.isWired == 'true' ? true : false;
 
     const filteredBrands = this.AccessoryBrands.filter(
-      (accessory:any) => accessory.brand === selectedBrand && accessory.iswired === isWired
+      (accessory: any) => accessory.brand === selectedBrand && accessory.iswired === isWired
     );
+
+    console.log("this.AccessoryBrands", this.AccessoryBrands);
+
+    console.log("filteredBrands", filteredBrands);
 
     if (filteredBrands.length > 0) {
       const selectedCygid = filteredBrands[0].cygid;
+      //const indexToUpdate = this.AccessoryBrands.findIndex((accessory: any) => accessory.cygid === selectedCygid);
+
+      //if (indexToUpdate !== -1) {
+      //  this.AccessoryBrands[indexToUpdate].count = 0;
+      //}
       this.selectedCygid = selectedCygid;
+      if (this.prev !== '') {
+        const index = this.accessCYGIDs.indexOf(this.prev);
+        if (index !== -1) {
+          this.accessCYGIDs.splice(index, 1);
+        }
+      }
+      this.accessCYGIDs.push(this.selectedCygid);
+
+      this.prev = selectedCygid;
+      console.log(this.accessCYGIDs);
     } else {
       this.selectedCygid = 'Not found';
     }
@@ -72,25 +94,98 @@ export class AccessoryBrandySearchBoxComponent {
       }));
     }
 
-
+    this.AccessoryBrandOptionSelected.emit({ AccessoryBrands: this.AccessoryBrands, accessCYGIDs: this.accessCYGIDs, cygid: this.selectedCygid });
   }
 
+
+
+
   onSelectOption(option: any): void {
-    //console.log(this.AccessoryBrandOptions);
-    const data = { option: option, index: this.index };
-    //alert(option);
-    console.log(option);
-    this.selectedBrand = option;
-    //this.AccessoryBrandOptionSelected.emit(data);
-    if (option.name != "Mouse" || option.name != "Keyboard" || option.name != "Combo") {
+    if (option) {
+      console.log("SELECTED OPTION", this.selectedId);
+      //console.log("HELLO WHEN OPTION SELECTED",this.AccessoryBrandOptions);
+      const data = { option: option, index: this.index };
+      //alert(option);
+      console.log(option);
+      this.selectedBrand = option;
+      if (this.selectedCygid != '') {
+        const index = this.accessCYGIDs.indexOf(this.selectedCygid);
+        if (index !== -1) {
+          this.accessCYGIDs.splice(index, 1);
+        }
+      }
+      
+      //this.AccessoryBrandOptionSelected.emit(data);
+      if (option.name != "Mouse" || option.name != "Keyboard" || option.name != "Combo") {
+        const accessoryIdsArray = this.assignAssetForm.get('accessoryIds') as FormArray;
+        accessoryIdsArray.push(this.formBuilder.group({
+          index: this.index,
+          accessoryId: this.selectedCygid
+        }));
+      }
+      this.isWired = null;
+      this.selectedCygid = '';
+      const dataPass = { accessCYGIDs: this.accessCYGIDs, index: this.index, cygid: this.selectedCygid };
+      this.AccessoryBrandOptionSelected.emit(dataPass);
+      if (this.selectedId != "Mouse" || this.selectedId != "Keyboard" || this.selectedId != "Combo") {
+        this.selectCygId();
+      }
+    }
+  }
+
+  selectCygId() {
+    const selectedBrand = this.selectedBrand;
+
+    const filteredBrands = this.AccessoryBrands.filter(
+      (accessory: any) => accessory.brand === selectedBrand
+    );
+
+    console.log("this.AccessoryBrands", this.AccessoryBrands);
+
+    console.log("filteredBrands", filteredBrands);
+
+    if (filteredBrands.length > 0) {
+      const selectedCygid = filteredBrands[0].cygid;
+      //const indexToUpdate = this.AccessoryBrands.findIndex((accessory: any) => accessory.cygid === selectedCygid);
+
+      //if (indexToUpdate !== -1) {
+      //  this.AccessoryBrands[indexToUpdate].count = 0;
+      //}
+      this.selectedCygid = selectedCygid;
+      if (this.prev !== '') {
+        const index = this.accessCYGIDs.indexOf(this.prev);
+        if (index !== -1) {
+          this.accessCYGIDs.splice(index, 1);
+        }
+      }
+      this.accessCYGIDs.push(this.selectedCygid);
+
+      this.prev = selectedCygid;
+      console.log(this.accessCYGIDs);
+    } else {
+      this.selectedCygid = 'Not found';
+    }
+
+    if (this.selectedCygid != 'Not found') {
       const accessoryIdsArray = this.assignAssetForm.get('accessoryIds') as FormArray;
       accessoryIdsArray.push(this.formBuilder.group({
         index: this.index,
         accessoryId: this.selectedCygid
       }));
     }
+
+    this.AccessoryBrandOptionSelected.emit({ AccessoryBrands: this.AccessoryBrands, accessCYGIDs: this.accessCYGIDs, cygid: this.selectedCygid });
   }
+
   onClearSelection(): void {
+    
+
+    if (this.selectedCygid != '') {
+      const index = this.accessCYGIDs.indexOf(this.selectedCygid);
+      if (index !== -1) {
+        this.accessCYGIDs.splice(index, 1);
+      }
+    }
     this.selectedOption = null;
     const accessoryIdsArray = this.assignAssetForm.get('accessoryIds') as FormArray;
     const index = accessoryIdsArray.controls.findIndex(control => control.value.index === this.index);
@@ -98,7 +193,10 @@ export class AccessoryBrandySearchBoxComponent {
       accessoryIdsArray.removeAt(index);
       this.selectedOption = null;
     }
-    const data = { option: null, index: this.index };
+    this.isWired = null;
+    this.selectedCygid = '';
+    this.prev = '';
+    const data = { accessCYGIDs: this.accessCYGIDs, index: this.index, cygid: this.selectedCygid };
     this.AccessoryBrandOptionSelected.emit(data);
   }
 
@@ -107,6 +205,9 @@ export class AccessoryBrandySearchBoxComponent {
     //  localStorage.setItem('selectedCountry', selectedCountry);
     //  this.getDeviceLocation();
     //});
+    this.prev = '';
+
+
     this.closeFlagService.setCloseFlagToFalse();
     this.selectedOption = this.assignDataManagementService.getState("accessoriesBrand", this.index);
     if (this.selectedOption)
@@ -199,7 +300,7 @@ export class AccessoryBrandySearchBoxComponent {
 
 
   addNewAccessory() {
-    this.AddNewAccessory.emit();
+    this.AddNewAccessory.emit({ AccessoryBrands: this.AccessoryBrands });
   }
 
 }
