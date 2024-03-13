@@ -10,7 +10,7 @@ import { formatDate } from '@angular/common';
   templateUrl: './devices-list.component.html',
   styleUrls: ['./devices-list.component.css']
 })
-export class DevicesListComponent implements OnInit {
+export class DevicesListComponent {
   @Input() device: any;
   @Input() isArchived: any;
   DeviceData: any;
@@ -45,7 +45,7 @@ export class DevicesListComponent implements OnInit {
       });
   }
 
-  ngOnInit() {
+  ngOnChanges() {
     //this.getDeviceLocation();
     this.selectFirstDevice();
 
@@ -58,7 +58,7 @@ export class DevicesListComponent implements OnInit {
     this.selectFirstDevice();
   }
 
-  onDeviceClick(cygid: any): void {
+  onDeviceClick(cygid: any, flag: boolean): void {
     DevicesListComponent.selectedDeviceId = cygid; // Update the static variable
     this.selectedDeviceId = cygid;
     this.isselectedDevice = true;
@@ -69,7 +69,9 @@ export class DevicesListComponent implements OnInit {
         this.deviceService.DeviceDetails = this.DeviceInfo;
         this.getDeviceLocation();
         this.deviceService.triggerButtonClick();
-        this.resetStyles();
+        if (flag == false) {
+          this.resetStyles();
+        }
         this.updateStyles();
       },
       (error) => {
@@ -120,7 +122,7 @@ export class DevicesListComponent implements OnInit {
     );
   }
 
-  // Method to select the first device
+
   private selectFirstDevice(): void {
     if (this.AllDevices && this.AllDevices.length > 0) {
 
@@ -129,10 +131,10 @@ export class DevicesListComponent implements OnInit {
 
         if (cygId) {
           const firstDeviceId = cygId;
-          this.onDeviceClick(firstDeviceId);
+          this.onDeviceClick(firstDeviceId, true);
         } else {
           const firstDeviceId = this.AllDevices[0].cygid;
-          this.onDeviceClick(firstDeviceId);
+          this.onDeviceClick(firstDeviceId, true);
         }
       });
 
