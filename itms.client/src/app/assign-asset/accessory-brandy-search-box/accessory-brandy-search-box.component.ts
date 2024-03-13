@@ -103,11 +103,11 @@ export class AccessoryBrandySearchBoxComponent {
 
   onSelectOption(option: any): void {
     if (option) {
-      console.log("SELECTED OPTION", this.selectedId);
+      //console.log("SELECTED OPTION", this.selectedId);
       //console.log("HELLO WHEN OPTION SELECTED",this.AccessoryBrandOptions);
       const data = { option: option, index: this.index };
       //alert(option);
-      console.log(option);
+      //console.log(option);
       this.selectedBrand = option;
       if (this.selectedCygid != '') {
         const index = this.accessCYGIDs.findIndex(item => item.accessCYGID === this.selectedCygid);
@@ -143,9 +143,9 @@ export class AccessoryBrandySearchBoxComponent {
       (accessory: any) => accessory.brand === selectedBrand
     );
 
-    console.log("this.AccessoryBrands", this.AccessoryBrands);
+    //console.log("this.AccessoryBrands", this.AccessoryBrands);
 
-    console.log("filteredBrands", filteredBrands);
+    //console.log("filteredBrands", filteredBrands);
 
     if (filteredBrands.length > 0) {
       const selectedCygid = filteredBrands[0].cygid;
@@ -165,7 +165,7 @@ export class AccessoryBrandySearchBoxComponent {
       this.accessCYGIDs.push({ accessCYGID: this.selectedCygid ,index:this.index});
 
       this.prev = selectedCygid;
-      console.log(this.accessCYGIDs);
+      //console.log(this.accessCYGIDs);
     } else {
       this.selectedCygid = 'Not found';
     }
@@ -210,19 +210,19 @@ export class AccessoryBrandySearchBoxComponent {
     //  localStorage.setItem('selectedCountry', selectedCountry);
     //  this.getDeviceLocation();
     //});
-    if (this.selectedId == null) {
+    //if (this.selectedId == null) {
       this.selectedOption = null;
       this.isWired = null;
       this.selectedCygid = '';
-    }
+    //}
 
     this.prev = '';
 
 
     this.closeFlagService.setCloseFlagToFalse();
     this.selectedOption = this.assignDataManagementService.getState("accessoriesBrand", this.index);
-    if (this.selectedOption)
-      this.AccessoryBrandOptionSelected.emit(this.selectedOption);
+    //if (this.selectedOption)
+    //  this.AccessoryBrandOptionSelected.emit(this.selectedOption);
     const accessoryComments = this.assignAssetForm.get('accessoryComments') as FormArray;
 
     if (accessoryComments) {
@@ -303,7 +303,7 @@ export class AccessoryBrandySearchBoxComponent {
           accessoryComment: event.target.value
         }));
       }
-      console.log(accessoryCommentsArray);
+      //console.log(accessoryCommentsArray);
     } else {
       console.error('FormArray "accessoryComments" is null.');
     }
