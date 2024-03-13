@@ -13,7 +13,8 @@ export class SpecificationComponent {
   @Input() isArchived: any;
   @Output() modelClicked = new EventEmitter<string>();
   currentStatus: any;
-
+  year: any;
+  month: any;
   selectedOption: string = 'Active';
 
   constructor(private dataService: DataService) {
@@ -55,6 +56,12 @@ export class SpecificationComponent {
  
   handleModalClosed() {
   this.selectedOption = 'Active';
-}
+  }
+
+  calculateAgeInYears(ageInYears: number): string {
+    const years = Math.floor(ageInYears);
+    const months = Math.round((ageInYears - years) * 12);
+    return `${years} Y ${months} M`;
+  }
 
 }
