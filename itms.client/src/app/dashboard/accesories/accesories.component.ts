@@ -32,13 +32,17 @@ export class AccesoriesComponent {
     } else if (lowerCaseName === 'apple thunderbolt(lan)') {
       return '../../../assets/icons/dashboard/Icons=LAN Connector.svg';
     } else if (lowerCaseName === 'external hard drive connectors') {
-      return '../../../assets/icons/dashboard/Icons=connector.svg';
+      return '../../../assets/icons/dashboard/connector.svg';
     } else if (lowerCaseName === 'iphone usb-a to lightning') {
-      return '../../../assets/icons/dashboard/Icons=HDMIConnector.svg';
+      return '../../../assets/icons/dashboard/HDMI.svg';
     } else if (lowerCaseName === 'android cables') {
-      return '../../../assets/icons/dashboard/Icons=HDMIConnector.svg';
+      return '../../../assets/icons/dashboard/HDMI.svg';
     } else if (lowerCaseName === 'server') {
-      return '../../../assets/icons/dashboard/Icons=RAM.svg';
+      return '../../../assets/icons/dashboard/RAM.svg';
+    } else if (lowerCaseName === 'hdmi cables') {
+      return '../../../assets/icons/dashboard/HDMI.svg';
+    } else if (lowerCaseName === 'mini-display hdmi connector') {
+      return '../../../assets/icons/dashboard/Icons=Mini Display HDMI Connector.svg';
     }
 
     else {
