@@ -41,7 +41,7 @@ export class AddMonitorFormComponent {
     // Access the 'id' property of the userData object
     this.UserId = userData.id;
   }
-
+ 
   constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService) {
 
   }
@@ -68,6 +68,8 @@ export class AddMonitorFormComponent {
   }
   onFormSubmitted() {
     this.showDeviceDetailsForm = false;
+    this.ngOnInit();
+
   }
   selectStorage(value: string) {
     this.selectedStorage = value;
@@ -245,6 +247,7 @@ if (this.counterValue > 0) {
 
           console.log('Post successful', response);
           this.toastr.success("Data posted successfully");
+          this.resettingform();
         },
         error => {
           console.error('Error posting data', error);
@@ -264,6 +267,7 @@ if (this.counterValue > 0) {
     this.ifChecked = false;
     this.ifCheck= false;
     this.iCheck = false;
+    this.deselectAllButtons();
     this.ngOnInit();
 
 
@@ -275,6 +279,7 @@ if (this.counterValue > 0) {
   hideErrorMessage() {
     this.showErrorMessage = false;
   }
+
 
   }
 
