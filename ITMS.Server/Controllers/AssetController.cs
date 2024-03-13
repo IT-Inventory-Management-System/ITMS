@@ -65,6 +65,13 @@ namespace ITMS.Server.Controllers
             return await _addAssetService.getBrandDetails(categoryDTO.categoryName);
         }
 
+        [HttpPost("getBrandFromName")]
+        public async Task<IEnumerable<getBrand>> getBrandFromName([FromBody] categoryDTO categoryDTO)
+        {
+
+            return await _addAssetService.getBrandFromName(categoryDTO.categoryName);
+        }
+
         [HttpPost("addMonitorModel")]
         public async Task<IActionResult> addMonitor([FromBody] MonitorDTO monitorDTO)
         {

@@ -41,6 +41,10 @@
     {
         public string CGIID { get; set; }
     }
+    public class getBrand
+    {
+        public string Brand { get; set; }
+    }
     public class commonInputDTO
     {
         public string? Name { get; set; }
