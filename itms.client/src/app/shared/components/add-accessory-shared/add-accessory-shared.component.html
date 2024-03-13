@@ -52,7 +52,7 @@
           </label>
         </div>
         <div class="mb-3" *ngIf="showAccessoryBrandForm">
-          <app-add-accessory-brand-form [category]="category"></app-add-accessory-brand-form>
+          <app-add-accessory-brand-form [category]="category" (formSubmitted)="onFormSubmitted()"></app-add-accessory-brand-form>
         </div>
         <div class="quantity-select" >
           <label for="quantity">Quantity <span class="required">*</span></label>

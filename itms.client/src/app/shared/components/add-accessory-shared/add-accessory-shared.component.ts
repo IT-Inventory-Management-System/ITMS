@@ -240,6 +240,10 @@ export class AddAccessorySharedComponent {
 
     });
   }
+  onFormSubmitted() {
+    this.showAccessoryBrandForm = false;
+    this.ngOnInit();
+  }
 
   onSubmit() {
 

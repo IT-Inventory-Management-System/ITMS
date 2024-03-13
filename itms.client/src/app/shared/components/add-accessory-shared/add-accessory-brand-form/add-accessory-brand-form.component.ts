@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataService } from '../../../services/data.service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -11,13 +11,15 @@ import { ToastrService } from 'ngx-toastr';
 export class AddAccessoryBrandFormComponent {
   deviceForm: FormGroup;
   @Input() category: string = '';
-  //showErrorMessage = false;
-  //dropdownValues: any[] = [];
-  //errorMessage: string = '';
-  //showMessage = false;
+  showErrorMessage = false;
+  dropdownValues: any[] = [];
+  errorMessage: string = '';
+  showMessage = false;
 
   UserId: any;
   userDataJSON: any;
+  @Output() formSubmitted: EventEmitter<void> = new EventEmitter<void>();
+
   constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService) {
 
   }
@@ -37,7 +39,7 @@ export class AddAccessoryBrandFormComponent {
     this.deviceForm = this.fb.group({
       createdBy: [''],
       updatedBy: [''],
-      brand: [''],
+      brand: ['', Validators.required],
       categoryId: [''],
     });
   }
@@ -60,28 +62,52 @@ export class AddAccessoryBrandFormComponent {
     this.ngOnInit();
   }
   onSubmit() {
-
-    //this.deviceForm.get('createdAtUtc')?.setValue(new Date().toISOString());
-    //this.deviceForm.get('updatedAtUtc')?.setValue(new Date().toISOString());
-
-
-
-    
     this.deviceForm.get('createdBy')?.setValue(this.UserId);
     this.deviceForm.get('updatedBy')?.setValue(this.UserId);
-      console.log(this.deviceForm.value);
+
+    console.log(this.deviceForm.value);
+    if (this.deviceForm.valid && this.showErrorMessage == false && this.showMessage == false) {
 
     this.dataService.postCommonBrand(this.deviceForm.value).subscribe(
-        response => {
+      response => {
 
-          console.log('Post successful', response);
-          this.toastr.success("Data posted successfully");
-        },
-        error => {
-          console.error('Error posting data', error);
-          this.toastr.error("Error in posting data")
-        }
-      );
+        console.log('Post successful', response);
+        this.toastr.success("Data posted successfully");
+        this.formSubmitted.emit();
+
+      },
+      error => {
+        console.error('Error posting data', error);
+        this.toastr.error("Error in posting data")
+      }
+    );
+  }
+       else {
+      this.showMessage = true;
+    }
    
   }
+  hideErrorMessage() {
+    this.showMessage = false;
+  }
+  loadMouseBrand() {
+    const input = {
+      categoryName: this.category
+    };
+
+    this.dataService.getAllBrands(input).subscribe(
+      (data) => {
+        console.log("Original Data:", data);
+        this.dropdownValues = [];
+        this.dropdownValues = data;
+
+
+
+      },
+      (error) => {
+        console.error('Error fetching device data', error);
+      }
+    );
+  }
+
 }
