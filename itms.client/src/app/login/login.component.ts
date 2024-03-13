@@ -30,7 +30,7 @@ export class LoginComponent {
 
       this.loginService.authenticate(userLoginDto).subscribe(
         (response: any) => {
-          console.log('Token:', response.token);
+          //console.log('Token:', response.token);
           this.loginService.storeToken(response.token);
           const tokenPayload = this.loginService.decodedToken();
           this.userstore.setFirstNameFromStore(tokenPayload.firstName);
