@@ -17,7 +17,7 @@ export class DevicesListComponent implements OnInit {
   DeviceInfo: any;
   DeviceLog: any;
   CommentDetails: any;
-  AllDevices: any;
+  @Input() AllDevices: any;
   isselectedDevice: boolean = false;
   selectedDeviceId: string | null = null;
   locationId: string = '';
@@ -59,20 +59,18 @@ export class DevicesListComponent implements OnInit {
   }
 
   onDeviceClick(cygid: any): void {
-    this.resetStyles();
     DevicesListComponent.selectedDeviceId = cygid; // Update the static variable
     this.selectedDeviceId = cygid;
     this.isselectedDevice = true;
-    this.updateStyles();
 
     this.deviceService.getDevicesInfo(cygid).subscribe(
       (data) => {
         this.DeviceInfo = data;
-        
-        //console.log(data);
         this.deviceService.DeviceDetails = this.DeviceInfo;
         this.getDeviceLocation();
         this.deviceService.triggerButtonClick();
+        this.resetStyles();
+        this.updateStyles();
       },
       (error) => {
         console.error('Error fetching device info:', error);
@@ -81,7 +79,6 @@ export class DevicesListComponent implements OnInit {
   }
 
   updateStyles() {
-    // Apply styles to the clicked card
     const outerCard = this.el.nativeElement.querySelector('.devices-list-container-items');
     if (this.device.cygid === this.selectedDeviceId) {
       this.renderer.setStyle(outerCard, 'background-color', '#E3F3FC');

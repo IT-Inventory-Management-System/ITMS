@@ -216,6 +216,16 @@ export class DataService {
   postMonitorDetails(formData: any): Observable<any> {
     return this.http.post(this.apiUrl + 'addDevices/AddMonitor', formData);
   }
+  postCommonBrand(formData: any): Observable<any> {
+    return this.http.post(this.apiUrl + 'asset/addCommonModel', formData);
+  }
+
+  getAccessoryCGIID(categoryInput : any): Observable<any[]> {
+    return this.http.post<any[]>(this.apiUrl + 'asset/getCGIIDsCommon', categoryInput);
+  }
+  postCommonData(formData: any): Observable<any> {
+    return this.http.post(this.apiUrl + 'addDevices/AddCommonDevice', formData);
+  }
 
 }
 
