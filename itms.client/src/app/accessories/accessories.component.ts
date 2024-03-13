@@ -171,6 +171,7 @@ export class AccessoriesComponent {
     this.dataService.getAllAccessories(dto)
       .subscribe(accessories => {
         this.accessories = accessories;
+        console.log(this.accessories);
         this.singleSelected = [this.accessories[0]];
         this.accessoryId = this.accessories[0].accessoryId;
         this.loading = false;
