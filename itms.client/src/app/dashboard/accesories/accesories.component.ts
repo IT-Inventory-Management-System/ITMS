@@ -27,7 +27,20 @@ export class AccesoriesComponent {
       return '../../../assets/icons/dashboard/desktop-solid 1.svg'
     } else if (lowerCaseName === 'mobile devices') {
       return '../../../assets/icons/dashboard/DeviceMobile.svg';
+    } else if (lowerCaseName === 'Apple VGA Connector') {
+      return '../../../assets/icons/dashboard/Icons=VGA.svg';
+    } else if (lowerCaseName === 'Apple Thunderbolt(LAN)') {
+      return '../../../assets/icons/dashboard/Icons=LAN Connector.svg';
+    } else if (lowerCaseName === 'External Hard Drive Connectors') {
+      return '../../../assets/icons/dashboard/Icons=connector.svg';
+    } else if (lowerCaseName === 'Iphone USB-A to lightning') {
+      return '../../../assets/icons/dashboard/Icons=HDMIConnector.svg';
+    } else if (lowerCaseName === 'Android Cables') {
+      return '../../../assets/icons/dashboard/Icons=HDMIConnector.svg';
+    } else if (lowerCaseName === 'Server') {
+      return '../../../assets/icons/dashboard/Icons=RAM.svg';
     }
+
     else {
       // Default path or handle other cases
       return '../../../assets/icons/dashboard/Ellipse.svg';
