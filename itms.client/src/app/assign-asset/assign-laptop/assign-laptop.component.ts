@@ -123,7 +123,21 @@ export class AssignLaptopComponent {
     const i = deviceCommentsArray.controls.findIndex(control => control.value.index === index);
     if (i !== -1) {
       deviceCommentsArray.removeAt(i);
+      for (let j = index; j < deviceCommentsArray.length; j++) {
+        const deviceCommentsControl = deviceCommentsArray.controls[j] as FormGroup;
+        deviceCommentsControl.patchValue({ index: j }); // Update the index in the form array control
+      }
     }
+      const cygidsArray = this.assignAssetForm.get('cygids') as FormArray;
+      const k = cygidsArray.controls.findIndex(control => control.value.index === index);
+      if (k !== -1) {
+        cygidsArray.removeAt(k);
+        this.SelectedLaptopOptions[k] = null;
+        for (let j = index; j < cygidsArray.length; j++) {
+          const cygidsControl = cygidsArray.controls[j] as FormGroup;
+          cygidsControl.patchValue({ index: j }); // Update the index in the form array control
+        }
+      }
 
     //this.formattedAges.splice(index, 1);
     this.cygidInputChangeFlag();

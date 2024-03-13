@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormArray, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { CloseFlagService } from '../../shared/services/close-flag.service';
 import { AssignDataManagementService } from '../../shared/services/assign-data-management.service';
@@ -10,13 +10,14 @@ import { AssignDataManagementService } from '../../shared/services/assign-data-m
   styleUrls: ['./accessories-search-box.component.css']
 })
 export class AccessoriesSearchBoxComponent {
+  @Input() accessCYGIDs: { accessCYGID: string, index: number }[] = [];
   @Input() label: string;
   @Input() placeholder: string;
   @Input() AccessoryOptions: any[] = [];
   @Input() assignAssetForm: FormGroup;
   @Input() index: number;
   @Output() AccessoryOptionSelected: EventEmitter<any> = new EventEmitter();
-  @Output() removeAccessory = new EventEmitter<number>();
+  @Output() removeAccessory = new EventEmitter<any>();
 
   uniqueAccessoryNames: any[] = [];
   selectedOption: any;
@@ -52,10 +53,20 @@ export class AccessoriesSearchBoxComponent {
   }
 
   onSelectOption(option: any): void {
-    this.AccessoryOptionSelected.emit(option);
+    this.AccessoryOptionSelected.emit({ accessCYGIDs: this.accessCYGIDs, option: option });
   }
 
   emitRemoveSoftware(): void {
-    this.removeAccessory.emit(this.index);
+    this.selectedOption = null;
+    const accessoryCommentsArray = this.assignAssetForm.get('accessoryComments') as FormArray;
+    const i = accessoryCommentsArray.controls.findIndex(control => control.value.index === this.index);
+    if (i !== -1) {
+      accessoryCommentsArray.removeAt(i);
+      for (let j = this.index; j < accessoryCommentsArray.length; j++) {
+        const accessoryCommentsControl = accessoryCommentsArray.controls[j] as FormGroup;
+        accessoryCommentsControl.patchValue({ index: j }); // Update the index in the form array control
+      }
+    }
+    this.removeAccessory.emit({ accessCYGIDs: this.accessCYGIDs, index: this.index, selectedOption: this.selectedOption });
   }
 }
