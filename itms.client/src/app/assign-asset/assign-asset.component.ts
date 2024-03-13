@@ -383,6 +383,8 @@ export class AssignAssetComponent {
     console.log("selectedSoftwareComments", selectedSoftwareComments);
     var accessoryIds = this.assignAssetForm?.get('accessoryIds')?.value;
     var accessoryCommentArray = this.assignAssetForm?.get('accessoryComments')?.value;
+    //deviceIds.sort((a: { index: number; }, b: { index: number; }) => a.index - b.index);
+    //input.deviceCYGIDs = deviceIds.map((item: { cygid: any; }) => item.cygid);
 
     for (var i = 0; i < deviceIds.length; i++) {
         input.deviceCYGIDs.push(deviceIds[i].cygid)
