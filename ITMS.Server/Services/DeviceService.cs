@@ -20,6 +20,7 @@ using System.Xml.Schema;
 using System.Web.Mvc;
 using MiNET.Blocks;
 using System.IO.Compression;
+using log4net;
 
 public class DeviceService
 
@@ -662,7 +663,9 @@ public class DeviceService
                 WarrantyDate = d.WarrantyDate,
                 IsArchived = d.IsArchived,
                 AssignedTo = d.AssignedTo == null ? false : true,
-                accessoryId = d.Id
+                accessoryId = d.Id,
+                CategoryType = d.DeviceModel.Category.CategoryType.TypeName
+
             }).ToList();
     }
 

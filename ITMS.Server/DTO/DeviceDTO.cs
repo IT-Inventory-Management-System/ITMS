@@ -139,6 +139,7 @@ namespace ITMS.Server.DTO
         public int? Qty { get; set; }
         public DateTime? PurchaseDate { get; set; }
         public DateTime? WarrantyDate { get; set; }
+        public string? CategoryType { get; set; }
     }
 
     public class filterAccessoriesBodyDTO

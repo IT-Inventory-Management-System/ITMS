@@ -16,7 +16,8 @@ export class AddSoftwareModelComponent {
 
   ProfileDP = '';
   newSoftwareForm: FormGroup;
-
+  UserId: any;
+  userDataJSON: any;
   softwareTypes: any[] = [];
 
   constructor(private fb: FormBuilder, private dataService: DataService, private toastr: ToastrService) { }
@@ -30,7 +31,13 @@ export class AddSoftwareModelComponent {
     this.ProfileDP = '../../../assets/icons/add_photo_alternate_outlined 1.svg';
 
     this.setCategoryId();
-    this.setCreatedBy();
+    this.userDataJSON = localStorage.getItem('user');
+
+    // Parse the JSON string back into an object
+    var userData = JSON.parse(this.userDataJSON);
+
+    // Access the 'id' property of the userData object
+    this.UserId = userData.id;
   }
 
   setCategoryId() {
@@ -49,16 +56,6 @@ export class AddSoftwareModelComponent {
       });
   }
 
-  setCreatedBy() {
-    this.dataService.getFirstUser().subscribe(
-      (data) => {
-        this.newSoftwareForm.get('createdBy')?.setValue(data.id);
-        this.newSoftwareForm.get('updatedBy')?.setValue(data.id);
-      },
-      (error) => {
-        console.log("User not found");
-      });
-  }
 
   getSoftwareType() {
     this.dataService.getSoftwareTypes().subscribe(
@@ -97,6 +94,8 @@ export class AddSoftwareModelComponent {
 
     this.newSoftwareForm.get('createdAtUtc')?.setValue(new Date().toISOString());
     this.newSoftwareForm.get('updatedAtUtc')?.setValue(new Date().toISOString());
+    this.newSoftwareForm.get('createdBy')?.setValue(this.UserId);
+    this.newSoftwareForm.get('updatedBy')?.setValue(this.UserId);
     if (this.newSoftwareForm.valid) {
       console.log(this.newSoftwareForm.value);
       //this.newSoftwareForm.reset();
@@ -110,7 +109,6 @@ export class AddSoftwareModelComponent {
           this.ProfileDP = '../../../assets/icons/add_photo_alternate_outlined 1.svg';
           this.newSoftwareForm.reset();
           this.setCategoryId();
-          this.setCreatedBy();
           this.toastr.success("Data posted successfully");
 
 
