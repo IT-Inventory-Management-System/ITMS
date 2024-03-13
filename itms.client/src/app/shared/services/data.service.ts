@@ -209,5 +209,28 @@ export class DataService {
   getCGIIDMonitor(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl + 'asset/getCGIIDKeyboard');
   }
+
+  postMonitorBrand(formData: any): Observable<any> {
+    return this.http.post(this.apiUrl + 'asset/addMonitorModel', formData);
+  }
+  postMonitorDetails(formData: any): Observable<any> {
+    return this.http.post(this.apiUrl + 'addDevices/AddMonitor', formData);
+  }
+  postCommonBrand(formData: any): Observable<any> {
+    return this.http.post(this.apiUrl + 'asset/addCommonModel', formData);
+  }
+
+  getAccessoryCGIID(categoryInput : any): Observable<any[]> {
+    return this.http.post<any[]>(this.apiUrl + 'asset/getCGIIDsCommon', categoryInput);
+  }
+  postCommonData(formData: any): Observable<any> {
+    return this.http.post(this.apiUrl + 'addDevices/AddCommonDevice', formData);
+  }
+  getAllCommonBrands(CategoryName: any): Observable<any[]> {
+    return this.http.post<any | null>(this.apiUrl + 'asset/getBrandFromName', CategoryName);
+  }
+  getComboBrands(CategoryName: any): Observable<any[]> {
+    return this.http.post<any | null>(this.apiUrl + 'asset/getKeyboardComboBrand', CategoryName);
+  }
 }
 

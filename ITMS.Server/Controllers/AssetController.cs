@@ -4,6 +4,7 @@ using ITMS.Server.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.Elfie.Serialization;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 namespace ITMS.Server.Controllers
 {
     [ApiController]
@@ -52,7 +53,11 @@ namespace ITMS.Server.Controllers
         {
             return await _addAssetService.getlaptopIds();
         }
-
+        [HttpGet("getMonitorBrands")]
+        public async Task<IEnumerable<monitorInputDTO>> getMonitorBrands()
+        {
+            return await _addAssetService.getMonitorBrands();
+        }
         [HttpPost("getBrandDetails")]
         public async Task<IEnumerable<categoryInputDTO>> getBrandDetails([FromBody] categoryDTO categoryDTO)
         {
@@ -60,14 +65,35 @@ namespace ITMS.Server.Controllers
             return await _addAssetService.getBrandDetails(categoryDTO.categoryName);
         }
 
-        [HttpPost("addMonitor")]
+        [HttpPost("getBrandFromName")]
+        public async Task<IEnumerable<getBrand>> getBrandFromName([FromBody] categoryDTO categoryDTO)
+        {
+
+            return await _addAssetService.getBrandFromName(categoryDTO.categoryName);
+        }
+
+        [HttpPost("addMonitorModel")]
         public async Task<IActionResult> addMonitor([FromBody] MonitorDTO monitorDTO)
         {
             try
             {
                 await _addAssetService.postMonitorDetails(monitorDTO);
 
-                return Ok("Monitor added successfully"); // You can customize the success response
+                return Ok(); 
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Error adding monitor: {ex.Message}");
+            }
+        }
+        [HttpPost("addCommonModel")]
+        public async Task<IActionResult>addCommonModel([FromBody] CommonDTO commonDTO)
+        {
+            try
+            {
+                await _addAssetService.AddCommonModel(commonDTO);
+
+                return Ok(); 
             }
             catch (Exception ex)
             {
@@ -75,6 +101,18 @@ namespace ITMS.Server.Controllers
             }
         }
 
+        [HttpPost("getCGIIDsCommon")]
+        public async Task<IEnumerable<getCGIDTO>> getCGIIDCommon([FromBody] commonInputDTO commonDto)
+        {
+
+            return await _addAssetService.getCGIIDCommon(commonDto.Name);
+        }
+
+        [HttpPost("getKeyboardComboBrand")]
+        public async Task<IEnumerable<GetBrandDTO>> getKeyboardComboBrand([FromBody] commonInputDTO commonDto)
+        {
+            return await _addAssetService.getKeyboardComboBrand(commonDto);
+        }
 
     }
 }

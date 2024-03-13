@@ -27,6 +27,8 @@ export class AddDeviceFormComponent implements OnInit {
   showExistMessage: boolean = false;
   invalidSerialIndices: number[] = [];
   invalidCygIndices: number[] = [];
+  UserId: any;
+  userDataJSON: any;
   constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService) {
     this.dropdownValues = [];
   }
@@ -40,9 +42,15 @@ export class AddDeviceFormComponent implements OnInit {
     //this.loadDeviceData();
 
     this.createForm();
-    this.setCreatedBy();
     this.setlocationId();
     this.setStatus();
+    this.userDataJSON = localStorage.getItem('user');
+
+    // Parse the JSON string back into an object
+    var userData = JSON.parse(this.userDataJSON);
+
+    // Access the 'id' property of the userData object
+    this.UserId = userData.id;
 
   }
 
@@ -120,16 +128,6 @@ export class AddDeviceFormComponent implements OnInit {
   }
 
 
-  setCreatedBy() {
-    this.dataService.getFirstUser().subscribe(
-      (data) => { 
-        this.addDeviceForm.get('createdBy')?.setValue(data.id);
-        this.addDeviceForm.get('updatedBy')?.setValue(data.id);
-      },
-      (error) => {
-        console.log("User not found");
-      });
-  }
 
   setPurchaseDate(event : any) {
     this.addDeviceForm.get('purchasedOn')?.setValue(event.target.value);
@@ -270,7 +268,8 @@ checkCygIds(): boolean {
 
 
   onSubmit() {
-
+    this.addDeviceForm.get('createdBy')?.setValue(this.UserId);
+    this.addDeviceForm.get('updatedBy')?.setValue(this.UserId);
     this.addDeviceForm.get('createdAtUtc')?.setValue(new Date().toISOString());
 
     if (this.checkSerialNumber() && this.checkCygIds() && this.showErrorMessage == false) {
@@ -392,7 +391,6 @@ checkCygIds(): boolean {
   resetform() {
 
     this.createForm();
-    this.setCreatedBy();
     this.setlocationId();
     this.setStatus();
     this.counterValue = 0;

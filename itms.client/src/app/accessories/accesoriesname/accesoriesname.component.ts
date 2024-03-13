@@ -36,9 +36,39 @@ export class AccesoriesnameComponent {
       case 'keyboard':
         iconFileName = 'keyboard.svg';
         break;
-      // Add more cases for other categories as needed
+
+      case 'external hard drive connectors':
+        iconFileName = 'external-hard-drive-connectors-blue.svg';
+        break;
+
+      case 'apple vga connector':
+        iconFileName = 'external-hard-drive-connectors-blue.svg';
+        break;
+
+      case 'hdmi cables':
+        iconFileName = 'hdmi-cables-blue.svg';
+        break;
+      case 'connector(texas instruments)':
+        iconFileName = 'connectortexas-instruments-blue.svg';
+        break;
+
+      case 'server':
+        iconFileName = 'server-blue.svg';
+        break;
+
+      case 'apple thunderbolt(lan)':
+        iconFileName = 'apple-thunderboltlan-blue.svg';
+        break;
+
+      case 'mini-display hdmi connector':
+        iconFileName = 'mini-display-hdmi-connector-blue.svg';
+        break;
+
+      case 'monitor':
+        iconFileName = 'Monitor.svg';
+        break;
+
       default:
-        // Default icon if category doesn't match any specific case
         iconFileName = 'Ellipse.svg';
         break;
     }

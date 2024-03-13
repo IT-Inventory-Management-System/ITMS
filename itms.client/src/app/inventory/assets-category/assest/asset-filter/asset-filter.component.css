@@ -14,10 +14,14 @@
 }
 
 .criteria{
-  overflow: scroll;
+  overflow-y: scroll;
   margin-top: 1.25rem;
+  
 }
-
+.scrolling {
+  overflow-y: scroll;
+  height: 35.75rem;
+}
 .filtersection {
   border-bottom: 1px solid var(--Secondary-Light-Gray, #E9ECEB);
   display: flex;

@@ -10,14 +10,14 @@ import { formatDate } from '@angular/common';
   templateUrl: './devices-list.component.html',
   styleUrls: ['./devices-list.component.css']
 })
-export class DevicesListComponent implements OnInit {
+export class DevicesListComponent {
   @Input() device: any;
   @Input() isArchived: any;
   DeviceData: any;
   DeviceInfo: any;
   DeviceLog: any;
   CommentDetails: any;
-  AllDevices: any;
+  @Input() AllDevices: any;
   isselectedDevice: boolean = false;
   selectedDeviceId: string | null = null;
   locationId: string = '';
@@ -45,7 +45,7 @@ export class DevicesListComponent implements OnInit {
       });
   }
 
-  ngOnInit() {
+  ngOnChanges() {
     //this.getDeviceLocation();
     this.selectFirstDevice();
 
@@ -58,21 +58,22 @@ export class DevicesListComponent implements OnInit {
     this.selectFirstDevice();
   }
 
-  onDeviceClick(cygid: any): void {
-    this.resetStyles();
+  onDeviceClick(cygid: any, flag: boolean): void {
     DevicesListComponent.selectedDeviceId = cygid; // Update the static variable
     this.selectedDeviceId = cygid;
     this.isselectedDevice = true;
-    this.updateStyles();
 
     this.deviceService.getDevicesInfo(cygid).subscribe(
       (data) => {
         this.DeviceInfo = data;
-        
-        //console.log(data);
         this.deviceService.DeviceDetails = this.DeviceInfo;
+        console.log(this.deviceService.DeviceDetails);
         this.getDeviceLocation();
         this.deviceService.triggerButtonClick();
+        if (flag == false) {
+          this.resetStyles();
+        }
+        this.updateStyles();
       },
       (error) => {
         console.error('Error fetching device info:', error);
@@ -81,10 +82,10 @@ export class DevicesListComponent implements OnInit {
   }
 
   updateStyles() {
-    // Apply styles to the clicked card
     const outerCard = this.el.nativeElement.querySelector('.devices-list-container-items');
     if (this.device.cygid === this.selectedDeviceId) {
       this.renderer.setStyle(outerCard, 'background-color', '#E3F3FC');
+      this.renderer.setStyle(outerCard, 'border', '1px solid #28519E');
       this.renderer.setStyle(outerCard, 'color', 'white');
     }
   }
@@ -95,6 +96,7 @@ export class DevicesListComponent implements OnInit {
       const allCards = document.querySelectorAll('.devices-list-container-items');
       allCards.forEach(card => {
         this.renderer.removeStyle(card, 'background-color');
+        this.renderer.removeStyle(card, 'border');
         this.renderer.removeStyle(card, 'color');
       });
     }
@@ -123,7 +125,7 @@ export class DevicesListComponent implements OnInit {
     );
   }
 
-  // Method to select the first device
+
   private selectFirstDevice(): void {
     if (this.AllDevices && this.AllDevices.length > 0) {
 
@@ -132,10 +134,10 @@ export class DevicesListComponent implements OnInit {
 
         if (cygId) {
           const firstDeviceId = cygId;
-          this.onDeviceClick(firstDeviceId);
+          this.onDeviceClick(firstDeviceId, true);
         } else {
           const firstDeviceId = this.AllDevices[0].cygid;
-          this.onDeviceClick(firstDeviceId);
+          this.onDeviceClick(firstDeviceId, true);
         }
       });
 

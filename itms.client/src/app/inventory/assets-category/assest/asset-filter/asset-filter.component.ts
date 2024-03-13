@@ -44,11 +44,14 @@ export class AssetFilterComponent {
 
   checked: string = "";
 
-  toggleCheckbox(value: any, category:string) {
+  toggleCheckbox(value: any, category: string) {
     // Implement logic to handle checkbox state for each status
     if (category === 'fromDate' || category === 'toDate') {
       // Handle date filters
       this.selectedCheckboxes[category] = value;
+    } else if (category === 'deviceStatus') {
+      // Handle single selection for Device Status
+      this.selectedCheckboxes[category] = [value];
     } else {
       // Handle checkbox categories
       const categoryCheckboxes = this.selectedCheckboxes[category];
@@ -57,15 +60,16 @@ export class AssetFilterComponent {
       if (index === -1) {
         // Checkbox was checked, add to the selected list
         categoryCheckboxes.push(value);
-        this.checked = value;
       } else {
         // Checkbox was unchecked, remove from the selected list
         categoryCheckboxes.splice(index, 1);
-        this.checked = "";
       }
-    }
 
-    // Log the selected values (you can use this.selectedCheckboxes for further processing)
-    //console.log("Selected Checkboxes:", this.selectedCheckboxes);
+      // Log the selected values (you can use this.selectedCheckboxes for further processing)
+      console.log(categoryCheckboxes);
+    }
   }
+
+
+
 }
