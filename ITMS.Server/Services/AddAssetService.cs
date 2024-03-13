@@ -17,6 +17,7 @@ namespace ITMS.Server.Services
         Task<IEnumerable<monitorInputDTO>> getMonitorBrands();
         Task<IEnumerable<getCGIDTO>> getCGIIDKeyboard();
         Task<IEnumerable<getCGIDTO>> getCGIIDCommon(string categoryName);
+        Task<IEnumerable<getBrand>> getBrandFromName(string categoryName);
         Task postMonitorDetails(MonitorDTO monitorDTO);
         Task AddCommonModel(CommonDTO commonDTO);
 
@@ -180,6 +181,21 @@ namespace ITMS.Server.Services
             return result;
 
         }
+        public async Task<IEnumerable<getBrand>> getBrandFromName(string categoryName)
+        {
+            var result = await (from d in _context.DeviceModel
+                                join c in _context.Categories
+                                on d.CategoryId equals c.Id
+                                where c.Name.ToLower() == categoryName.ToLower()
+                                select new getBrand
+                                {
+                                    Brand = d.Brand
+
+
+                                }).ToListAsync();
+            return result;
+
+        }
         public async Task postMonitorDetails(MonitorDTO monitorDTO)
         {
             DeviceModel deviceModel = new DeviceModel();
@@ -243,13 +259,13 @@ namespace ITMS.Server.Services
             Dictionary<string, string> _categoryPrefixMap = new Dictionary<string, string>
         {
             { "Connector(Texas Instruments)", "CGI-MIS" },
-            { "Apple Thunderbolt(LAN) Connector", "CGI-CLAN" },
+            { "Apple Thunderbolt(LAN)", "CGI-CLAN" },
             { "Android Cables", "CGI-AC" },
             { "Apple VGA Connector", "CGI-CVGA" },
-            { "External Hard Drives", "CGI-EHD" },
+            { "External Hard Drive Connectors", "CGI-EHD" },
             { "HDMI Cables", "CGI-HDMI" },
-            { "Iphone USB-A to Lightning Cables", "CGI-iPHC" },
-            { "Mini- Display HDMI Connector", "CGI-CHD" },
+            { "iPhone USB-A to Lightning", "CGI-iPHC" },
+            { "Mini-Display HDMI Connector", "CGI-CHD" },
             { "Bags", "CGI-BAG" },
             { "RAM of Different Models(Laptop)", "CGI-RAML" },
             { "RAM of Server", "CGI-RAMS" },
