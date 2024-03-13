@@ -27,17 +27,17 @@ export class AccesoriesComponent {
       return '../../../assets/icons/dashboard/desktop-solid 1.svg'
     } else if (lowerCaseName === 'mobile devices') {
       return '../../../assets/icons/dashboard/DeviceMobile.svg';
-    } else if (lowerCaseName === 'Apple VGA Connector') {
+    } else if (lowerCaseName === 'apple vga connector') {
       return '../../../assets/icons/dashboard/Icons=VGA.svg';
-    } else if (lowerCaseName === 'Apple Thunderbolt(LAN)') {
+    } else if (lowerCaseName === 'apple thunderbolt(lan)') {
       return '../../../assets/icons/dashboard/Icons=LAN Connector.svg';
-    } else if (lowerCaseName === 'External Hard Drive Connectors') {
+    } else if (lowerCaseName === 'external hard drive connectors') {
       return '../../../assets/icons/dashboard/Icons=connector.svg';
-    } else if (lowerCaseName === 'Iphone USB-A to lightning') {
+    } else if (lowerCaseName === 'iphone usb-a to lightning') {
       return '../../../assets/icons/dashboard/Icons=HDMIConnector.svg';
-    } else if (lowerCaseName === 'Android Cables') {
+    } else if (lowerCaseName === 'android cables') {
       return '../../../assets/icons/dashboard/Icons=HDMIConnector.svg';
-    } else if (lowerCaseName === 'Server') {
+    } else if (lowerCaseName === 'server') {
       return '../../../assets/icons/dashboard/Icons=RAM.svg';
     }
 
