@@ -121,6 +121,32 @@ namespace ITMS.Server.Controllers
                 return BadRequest(e);
             }
         }
+        [HttpPost("AddMonitor")]
+        public ActionResult AddMonitor([FromBody] PostMonitorDTO postMonitorDTO)
+        {
+            try
+            {
+                _deviceService.AddMonitor(postMonitorDTO);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+        }
+        [HttpPost("AddCommonDevice")]
+        public ActionResult AddCommon([FromBody] CommonDeviceDTO commonDeviceDTO)
+        {
+            try
+            {
+                _deviceService.AddCommon(commonDeviceDTO);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+        }
 
 
     }

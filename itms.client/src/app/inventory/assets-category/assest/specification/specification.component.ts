@@ -12,11 +12,14 @@ import { ArchiveModalComponent } from '../specification/archive-modal/archive-mo
 export class SpecificationComponent {
   @Input() isArchived: any;
   @Output() modelClicked = new EventEmitter<string>();
-
-
+  currentStatus: any;
+  year: any;
+  month: any;
   selectedOption: string = 'Active';
 
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService) {
+     
+  }
 
   selectModel(modelName: string) {
     console.log(modelName);
@@ -28,6 +31,9 @@ export class SpecificationComponent {
     return this.dataService.DeviceDetails;
   }
 
+  ngOnInit() {
+    console.log("STATUS : ", this.deviceDetails?.status);
+  }
  
 
   handleSelectionChange(selectedOption: string) {
@@ -50,6 +56,12 @@ export class SpecificationComponent {
  
   handleModalClosed() {
   this.selectedOption = 'Active';
-}
+  }
+
+  calculateAgeInYears(ageInYears: number): string {
+    const years = Math.floor(ageInYears);
+    const months = Math.round((ageInYears - years) * 12);
+    return `${years} Y ${months} M`;
+  }
 
 }

@@ -52,6 +52,15 @@ export class CategoryNameComponent {
     imgElement.src = this.getSrcLink(cardName, color);
   }
 
+  convertToLinkText(inputString: string): string {
+    return inputString
+      .toLowerCase()
+      .replace(/\s+/g, '-')
+      .replace(/[^\w\-]+/g, '')
+      .replace(/\-\-+/g, '-')
+      .replace(/^-+|-+$/g, '');
+  }
+
 
   getSrcLink(name: string, color: string) {
 
@@ -73,7 +82,14 @@ export class CategoryNameComponent {
       case 'Combo':
         return `../../assets/icons/combo-${color}.svg`;
       default:
-        return `../../assets/icons/placeholder.svg`;
+        return this.getOtherSrcLink(name, color);
     }
   }
+
+  getOtherSrcLink(category: string, color: string) {
+    const convertedString = this.convertToLinkText(category);
+    console.log(convertedString);
+    return `../../assets/icons/add-asset/${convertedString}-${color}.svg`;
+  }
+
 }

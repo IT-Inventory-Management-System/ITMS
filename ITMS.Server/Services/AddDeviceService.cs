@@ -16,7 +16,8 @@ namespace ITMS.Server.Services;
     void AddDeviceModel (PutDeviceModel model);
     void AddMouseModel(PostMouseModelDTO mouseModel);
     void AddMouse(PostMouseDTO mouseModel);
-
+    void AddMonitor(PostMonitorDTO monitorDTO);
+    void AddCommon(CommonDeviceDTO commonDeviceDTO);
     Task<List<LaptopModelDTO>> GetLaptopModelsAsync();
     Task<List<SoftwareModelDTO>> GetSoftwareModelsAsync();
 }
@@ -200,6 +201,55 @@ public class AddDeviceService : IDeviceService
 
         }
         //_context.Devices.Add(device);
+        _context.SaveChanges();
+    }
+
+    public void AddMonitor(PostMonitorDTO postMonitorDTO)
+    {
+        for (int i = 0; i < postMonitorDTO.qty; i++)
+        {
+            Device inventoriesItem = new Device();
+
+            inventoriesItem.Cygid = postMonitorDTO.deviceId[i].ToString();
+            inventoriesItem.DeviceModelId = postMonitorDTO.deviceModelId;
+            inventoriesItem.Status = postMonitorDTO.status;
+            inventoriesItem.CreatedBy = postMonitorDTO.createdBy;
+            inventoriesItem.CreatedAtUtc = DateTime.UtcNow;
+            inventoriesItem.UpdatedBy = postMonitorDTO.updatedBy;
+            inventoriesItem.UpdatedAtUtc = DateTime.UtcNow;
+            inventoriesItem.IsArchived = postMonitorDTO.isArchived;
+            inventoriesItem.LocationId = postMonitorDTO.locationId;
+            inventoriesItem.PurchasedDate = postMonitorDTO.purchaseddate;
+            inventoriesItem.WarrantyDate = postMonitorDTO.warrantydate;
+            inventoriesItem.ScreenSize = postMonitorDTO.ScreenSize;
+
+            _context.Devices.Add(inventoriesItem);
+
+        }
+        //_context.Devices.Add(device);
+        _context.SaveChanges();
+    }
+    public void AddCommon(CommonDeviceDTO commonDeviceDTO)
+    {
+        for (int i = 0; i < commonDeviceDTO.qty; i++)
+        {
+            Device inventoriesItem = new Device();
+
+            inventoriesItem.Cygid = commonDeviceDTO.deviceId[i].ToString();
+            inventoriesItem.DeviceModelId = commonDeviceDTO.deviceModelId;
+            inventoriesItem.Status = commonDeviceDTO.status;
+            inventoriesItem.CreatedBy = commonDeviceDTO.createdBy;
+            inventoriesItem.CreatedAtUtc = DateTime.UtcNow;
+            inventoriesItem.UpdatedBy = commonDeviceDTO.updatedBy;
+            inventoriesItem.UpdatedAtUtc = DateTime.UtcNow;
+            inventoriesItem.IsArchived = commonDeviceDTO.isArchived;
+            inventoriesItem.LocationId = commonDeviceDTO.locationId;
+            inventoriesItem.PurchasedDate = commonDeviceDTO.purchaseddate;
+            inventoriesItem.WarrantyDate = commonDeviceDTO.warrantydate;
+
+            _context.Devices.Add(inventoriesItem);
+
+        }
         _context.SaveChanges();
     }
 }
