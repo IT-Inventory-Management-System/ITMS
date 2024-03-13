@@ -39,6 +39,8 @@ export class AssignAccessoriesComponent {
   selectedIds: any[] = [];
   uniqueBrandsArrays: any[][] = [];
 
+
+
   constructor(private assignDataManagementService: AssignDataManagementService,
     private formBuilder: FormBuilder,
     private closeFlagService: CloseFlagService,
@@ -109,10 +111,15 @@ export class AssignAccessoriesComponent {
 
   AccessorySearchBoxOptionSelected(event: any, index: number): void {
     console.log("getAccessoriesDetails is called here");
-    this.selectedId[index] = event;
-    this.getAccessoriesDetails(index, this.accessCYGIDs);
-    this.SelectedAccessoriesName[index] = event;
-    this.filterAccessoryBrands(index);
+    
+    if (event != null) {
+      this.selectedId[index] = event.option;
+      this.accessCYGIDs = event.accessCYGIDs;
+
+      this.getAccessoriesDetails(index, this.accessCYGIDs);
+      this.SelectedAccessoriesName[index] = event.option;
+      this.filterAccessoryBrands(index);
+    }
   }
   filterAccessoryBrands(index: number): void {
     if (this.SelectedAccessoriesName[index]) {
@@ -190,7 +197,8 @@ export class AssignAccessoriesComponent {
     //this.accessoryIdInputChangeFlag();
   }
 
-  addNewAccessory(data:any): void {
+  addNewAccessory(data: any): void {
+    //this.accessCYGIDs = data.accessCYGIDs;
     this.accessories.push({});
     this.SelectedAccessoriesName.push(null);
     this.wire.push(null);
@@ -201,7 +209,9 @@ export class AssignAccessoriesComponent {
     console.log("AccessoryBrands from add another", this.AccessoryBrands);
   }
 
-  removeAccessory(index: number): void {
+  removeAccessory(data: any): void {
+    this.selectedId[data.index] = data.selectedId;
+    this.accessCYGIDs = data.accessCYGIDs;
     if (this.selectedCygid != '') {
       const index = this.accessCYGIDs.findIndex(item => item.accessCYGID === this.selectedCygid);
       //const index = this.accessCYGIDs.indexOf(this.selectedCygid);
@@ -210,15 +220,16 @@ export class AssignAccessoriesComponent {
       }
     }
 
-    if (this.SelectedBrands[index] && !this.FilteredAccessoryOptions[index].includes(this.SelectedBrands[index])) {
-      this.FilteredAccessoryOptions[index].push(this.SelectedBrands[index]);
+    if (this.SelectedBrands[data.index] && !this.FilteredAccessoryOptions[data.index].includes(this.SelectedBrands[data.index])) {
+      this.FilteredAccessoryOptions[data.index].push(this.SelectedBrands[data.index]);
     }
-    this.accessories.splice(index, 1);
-    this.wire.splice(index, 1);
+    this.accessories.splice(data.index, 1);
+    this.wire.splice(data.index, 1);
     //this.SelectedAccessories.splice(index, 1);
-    this.SelectedAccessoriesName.splice(index, 1);
-    this.SelectedBrands.splice(index, 1);
+    this.SelectedAccessoriesName.splice(data.index, 1);
+    this.SelectedBrands.splice(data.index, 1);
     this.accessoryIdInputChangeFlag();
+    this.accessCYGIDs = data.accessCYGIDs;
     //this.commentText.splice(index, 1);
     //const accessoryCommentsArray = this.assignAssetForm.get('accessoryComments') as FormArray;
     //const i = accessoryCommentsArray.controls.findIndex(control => control.value.index === index);

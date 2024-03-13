@@ -129,7 +129,8 @@ export class AccessoryBrandySearchBoxComponent {
       this.selectedCygid = '';
       const dataPass = { accessCYGIDs: this.accessCYGIDs, index: this.index, cygid: this.selectedCygid };
       this.AccessoryBrandOptionSelected.emit(dataPass);
-      if (this.selectedId !== "Mouse" || this.selectedId !== "Keyboard" || this.selectedId !== "Combo") {
+      if (this.selectedId !== 'Mouse' && this.selectedId !== 'Keyboard' && this.selectedId !== 'Combo') {
+        alert(this.selectedId);
         this.selectCygId();
       }
     }
@@ -209,6 +210,12 @@ export class AccessoryBrandySearchBoxComponent {
     //  localStorage.setItem('selectedCountry', selectedCountry);
     //  this.getDeviceLocation();
     //});
+    if (this.selectedId == null) {
+      this.selectedOption = null;
+      this.isWired = null;
+      this.selectedCygid = '';
+    }
+
     this.prev = '';
 
 
@@ -304,7 +311,7 @@ export class AccessoryBrandySearchBoxComponent {
 
 
   addNewAccessory() {
-    this.AddNewAccessory.emit({ AccessoryBrands: this.AccessoryBrands });
+    this.AddNewAccessory.emit();
   }
 
 }

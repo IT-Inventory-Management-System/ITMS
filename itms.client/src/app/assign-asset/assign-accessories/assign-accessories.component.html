@@ -6,6 +6,7 @@
                                 [AccessoryOptions]="AccessoryOptions"
                                 [assignAssetForm]="assignAssetForm"
                                 (AccessoryOptionSelected)="AccessorySearchBoxOptionSelected($event,i)"
+                                [accessCYGIDs]="accessCYGIDs"
                                 [index]=i
                                 (removeAccessory)="removeAccessory($event)">
     </app-accessories-search-box>
@@ -25,6 +26,7 @@
                                      (AddNewAccessory)="addNewAccessory($event)"
                                      [accessCYGIDs]="accessCYGIDs"
                                      [AccessoryOptions]="AccessoryOptions[i]"
+
                                      >
     </app-accessory-brandy-search-box>
 

@@ -272,6 +272,7 @@ export class AssignAssetComponent {
   }
 
   closeForm(): void {
+    this.accessCYGIDs = [];
     this.getSoftwares();
     //console.log("closeForm");
     this.assignAssetForm.reset();
