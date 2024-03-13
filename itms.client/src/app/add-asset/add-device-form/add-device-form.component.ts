@@ -170,7 +170,7 @@ export class AddDeviceFormComponent implements OnInit {
       (data) => {
         this.deviceData = data;
 
-        console.log(this.deviceData);
+        //console.log(this.deviceData);
         
 
       },
@@ -273,11 +273,11 @@ checkCygIds(): boolean {
     this.addDeviceForm.get('createdAtUtc')?.setValue(new Date().toISOString());
 
     if (this.checkSerialNumber() && this.checkCygIds() && this.showErrorMessage == false) {
-      console.log(this.addDeviceForm.value);
+      //console.log(this.addDeviceForm.value);
 
       this.dataService.postDevice(this.addDeviceForm.value).subscribe(
         response => {
-          console.log('Data Posted successfully', response);
+          //console.log('Data Posted successfully', response);
           this.resetform();
           this.toastr.success("Data posted successfully");
         },
@@ -352,8 +352,8 @@ checkCygIds(): boolean {
     var isQuantity = this.counterValue > 0;
     var isPurchasedOn = this.addDeviceForm.get('purchasedOn')?.value != '';
     var isWarrantyDate = this.addDeviceForm.get('warrantyDate')?.value != null;
-    console.log(this.addDeviceForm.value);
-    console.log("check : ", isDeviceId && isQuantity && isPurchasedOn && isWarrantyDate);
+    //console.log(this.addDeviceForm.value);
+    //console.log("check : ", isDeviceId && isQuantity && isPurchasedOn && isWarrantyDate);
     return isDeviceId && isQuantity && isPurchasedOn && isWarrantyDate;
   }
 

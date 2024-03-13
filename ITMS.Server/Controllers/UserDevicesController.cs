@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ITMS.Server.Services;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace ITMS.Server.Controllers
 {
@@ -15,6 +17,7 @@ namespace ITMS.Server.Controllers
             _userDeviceService = userDeviceService;
         }
 
+        [Authorize]
         [HttpGet("{deviceId}")]
         public async Task<IActionResult> GetUserDeviceById(Guid deviceId)
         {
@@ -28,6 +31,7 @@ namespace ITMS.Server.Controllers
             return Ok(userDeviceDto);
         }
 
+        [Authorize]
         [HttpGet("GetDevices/{id}")]
         public IActionResult GetDevices(Guid id)
         {

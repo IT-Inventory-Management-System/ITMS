@@ -1,0 +1,28 @@
+<div class="body-login">
+  <div class="container-login">
+    <div class="panels-container">
+      <div class="panel-login left-panel">
+        <div class="content-login">
+          <img src="https://skillfinity.cginfinity.com/static/media/Cginfinitylogo.89c539294b8e6745a0c62a8ae4cffed8.svg">
+          <h1>CGI IT ADMIN</h1>
+        </div>
+        <img src="signin.svg" alt="" class="image">
+      </div>
+    </div>
+    <div class="signin-signup">
+      <form method="post" asp-controller="welcome" asp-action="Index" class="sign-up-form">
+        <h2 class="title">Sign In</h2>
+        <div class="input-field">
+          <i class="fas fa-envelope"></i>
+          <input type="text" asp-for="Email" placeholder="Email" id="inp" required>
+        </div>
+        <div class="input-field">
+          <i class="fas fa-lock"></i>
+          <input type="password" asp-for="Password" placeholder="Password" required>
+        </div>
+        <input type="submit" value="Login" class="btn" id="sub">
+      </form>
+    </div>
+  </div>
+</div>
+

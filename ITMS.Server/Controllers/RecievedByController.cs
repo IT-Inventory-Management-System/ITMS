@@ -3,6 +3,8 @@ using ITMS.Server.Models;
 using ITMS.Server.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace ITMS.Server.Controllers
 {
@@ -15,6 +17,8 @@ namespace ITMS.Server.Controllers
         {
             _UserRecievedBy = UserRecievedBy;
         }
+
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> UpdateReceivedBy([FromBody] RecievedByDTO receivedByDTO)
         {
@@ -36,6 +40,7 @@ namespace ITMS.Server.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost("RevokeAll")]
         public async Task<IActionResult> RevokeAll([FromBody] RevokeAllDTO receivedByDTO)
         {
@@ -138,6 +143,9 @@ namespace ITMS.Server.Controllers
                 return StatusCode(500, "Internal Server Error");
             }
         }
+
+
+        [Authorize]
         [HttpPost("updateExitProcessInitiation")]
         public async Task<IActionResult> UpdateExitProcess([FromBody] UpdateExitProcessInitiated dto)
         {

@@ -65,8 +65,6 @@ export class AssetFilterComponent {
         categoryCheckboxes.splice(index, 1);
       }
 
-      // Log the selected values (you can use this.selectedCheckboxes for further processing)
-      console.log(categoryCheckboxes);
     }
   }
 

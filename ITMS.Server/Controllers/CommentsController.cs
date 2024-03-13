@@ -4,6 +4,8 @@ using ITMS.Server.Models;
 using ITMS.Server.Services;
 using ITMS.Server.DTO;
 using log4net.Core;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace ITMS.Server.Controllers
 {
@@ -18,6 +20,7 @@ namespace ITMS.Server.Controllers
             _commentService = commentService;
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult AddComment([FromBody] UserCommentHistory commentDto)
         {
@@ -33,6 +36,8 @@ namespace ITMS.Server.Controllers
                 return BadRequest(ex);
             }
         }
+
+        [Authorize]
         [HttpPost("AddRevokeComment")]
         public IActionResult AddRevokeComment([FromBody] UserCommentHistory commentDto)
         {
@@ -49,6 +54,7 @@ namespace ITMS.Server.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost("AddSoftwareComment")]
         public IActionResult AddSoftwareComment([FromBody] UserSoftwareCommentHistory commentDto)
         {
@@ -65,7 +71,7 @@ namespace ITMS.Server.Controllers
             }
         }
 
-
+        [Authorize]
         [HttpGet("{deviceId}")]
         public IActionResult GetComments(Guid deviceId)
         {

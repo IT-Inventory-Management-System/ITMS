@@ -85,7 +85,7 @@ export class DevicesComponent implements OnInit{
       this.dataService.getFilteredDevices(filter).subscribe(
         (data) => {
           this.DeviceData = data;
-          console.log("FILTERED DATA : ", this.DeviceData);
+          //console.log("FILTERED DATA : ", this.DeviceData);
           this.loading = false;
         });
     }
@@ -96,7 +96,7 @@ export class DevicesComponent implements OnInit{
     this.dataService.getArchivedDevices(this.locationId)
       .subscribe(data => {
         this.DeviceData = data;
-        console.log(data);
+        //console.log(data);
       });
   }
 

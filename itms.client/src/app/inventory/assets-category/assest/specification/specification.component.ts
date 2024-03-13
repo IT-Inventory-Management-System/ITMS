@@ -22,7 +22,7 @@ export class SpecificationComponent {
   }
 
   selectModel(modelName: string) {
-    console.log(modelName);
+    //console.log(modelName);
     this.modelClicked.emit(modelName);
   }
  
@@ -32,7 +32,7 @@ export class SpecificationComponent {
   }
 
   ngOnInit() {
-    console.log("STATUS : ", this.deviceDetails?.status);
+    //console.log("STATUS : ", this.deviceDetails?.status);
   }
  
 

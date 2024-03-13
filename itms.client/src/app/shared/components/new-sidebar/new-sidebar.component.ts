@@ -1,5 +1,7 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoginService } from '../../services/login.service';
+import { UserStoreService } from '../../services/user-store.service';
 
 @Component({
   selector: 'app-new-sidebar',
@@ -9,6 +11,15 @@ import { Router } from '@angular/router';
 
 export class NewSidebarComponent {
 
+  role: string = "";
+
+  ngOnInit() {
+    this.userStore.getRoleFromStore().subscribe(val => {
+      let loggedInUserRole = this.loginService.getRoleFromToken();
+      this.role = val || loggedInUserRole;
+    })
+
+  }
 
   isCollapsed = true;
   selectedIcon: string = 'dashboard';
@@ -17,7 +28,7 @@ export class NewSidebarComponent {
     this.isCollapsed = !this.isCollapsed;
   }
 
-  constructor(private cdr: ChangeDetectorRef, private router: Router) { }
+  constructor(private cdr: ChangeDetectorRef, private router: Router, private loginService: LoginService, private userStore: UserStoreService) { }
 
   highlightIcon(icon: string) {
     this.selectedIcon = icon;

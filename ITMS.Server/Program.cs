@@ -1,8 +1,11 @@
 
 using ITMS.Server.Models;
 using ITMS.Server.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using MiNET.Blocks;
+using System.Text;
 using static Azure.Core.HttpHeader;
 using static ITMS.Server.Services.GetSoftwareService;
 
@@ -43,6 +46,7 @@ builder.Services.AddScoped<AccessoriesService>();
 builder.Services.AddScoped<ICommentService, AddCommentService>();
 builder.Services.AddScoped<IUserRecievedBy,  UserRecievedBy>();
 builder.Services.AddScoped<ActionService, ActionService>();
+builder.Services.AddScoped<LoginService>();
 
 builder.Services.AddScoped<SoftwarePageService>();
 builder.Services.AddScoped<EmployeeService>();
@@ -57,6 +61,25 @@ builder.Services.AddCors(options =>
     {
         builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
     });
+});
+
+
+builder.Services.AddAuthentication(x =>
+{
+    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(x =>
+{
+    x.RequireHttpsMetadata = false;
+    x.SaveToken = true;
+    x.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("ITIMSSECRETKEYFORJWTTOKEN")),
+        ValidateAudience = false,
+        ValidateIssuer = false,
+        ClockSkew = TimeSpan.Zero
+    };
 });
 
 var app = builder.Build();
@@ -74,6 +97,9 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseCors("AllowOrigin");
+
+app.UseAuthentication();
+
 
 app.UseAuthorization();
 

@@ -1,46 +1,66 @@
-﻿//using ITMS.Server.DTO;
-//using ITMS.Server.Models;
-//using System.Data.SqlClient; // Assuming SQL Server for this example
+﻿using ITMS.Server.DTO;
+using ITMS.Server.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Text;
+using static MiNET.Net.McpeSetScoreboardIdentity;
 
-//namespace ITMS.Server.Services
-//{
-//    public class LoginService
-//    {
-//        private readonly string connectionString; // Replace with your actual database connection string
+namespace ITMS.Server.Services
+{
+    public interface ILoginService
+    {
+        Employee Authenticate(UserLoginDto userLoginDto);
+    }
 
-//        public LoginService(string connectionString)
-//        {
-//            this.connectionString = connectionString;
-//        }
+    public class LoginService : ILoginService
+    {
+        private readonly ItinventorySystemContext _context;
+        private static RNGCryptoServiceProvider rngCsp = new RNGCryptoServiceProvider();
+        private static readonly int SaltSize = 16;
+        private static readonly int HashSize = 20;
+        private static readonly int Iterations = 10000;
 
-//        public LoginResponseDto ValidateLogin(LoginRequestDto loginRequest)
-//        {
-//            using (var connection = new SqlConnection(connectionString))
-//            {
-//                connection.Open();
+        public LoginService(ItinventorySystemContext context)
+        {
+            _context = context;
+        }
 
-//                // Replace "Users" with your actual table name
-//                string query = "SELECT COUNT(*) FROM Users WHERE Username = @Username AND Password = @Password";
+        public Employee Authenticate(UserLoginDto userLoginDto)
+        {
+            // Fetch user based on provided credentials
+            var user = _context.Employees.FirstOrDefault(u => u.Email == userLoginDto.Email);
 
-//                using (var command = new SqlCommand(query, connection))
-//                {
-//                    command.Parameters.AddWithValue("@Username", loginRequest.Email);
-//                    command.Parameters.AddWithValue("@Password", loginRequest.Password);
+            if (user == null)
+                return null;
 
-//                    int count = (int)command.ExecuteScalar();
+            if(VerifyPassword(userLoginDto.Password, user.Password) == false)
+            {
+                return null;
+            }
 
-//                    if (count > 0)
-//                    {
-//                        return new LoginResponseDto { Success = true, Message = "Login successful" };
-//                    }
-//                    else
-//                    {
-//                        return new LoginResponseDto { Success = false, Message = "Invalid credentials" };
-//                    }
-//                }
-//            }
-//        }
+            return user; // Return authenticated user
+        }
 
-        
-//    }
-//}
+        public static bool VerifyPassword(string password, string base64Hash)
+        {
+            var hashBytes = Convert.FromBase64String(base64Hash);
+
+            var salt = new byte[SaltSize];
+            Array.Copy(hashBytes, 0, salt, 0, SaltSize);
+
+            var key = new Rfc2898DeriveBytes(password, salt, Iterations);
+            byte[] hash = key.GetBytes(HashSize);
+
+            for (var i = 0; i < HashSize; i++)
+            {
+                if (hashBytes[i + SaltSize] != hash[i])
+                    return false;
+            }
+            return true;
+        }
+    }
+}

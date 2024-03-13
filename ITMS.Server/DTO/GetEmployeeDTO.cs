@@ -26,7 +26,7 @@
 
         public Guid? CreatedBy { get; set; }
 
-        // public DateTime CreatedAtUtc { get; set; }
+         public string password { get; set; }
 
         public Guid? UpdatedBy { get; set; }
 

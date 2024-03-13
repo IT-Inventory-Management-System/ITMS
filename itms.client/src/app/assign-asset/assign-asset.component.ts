@@ -91,7 +91,7 @@ export class AssignAssetComponent {
   onSoftwareIdInputChangeStep2(data:any): void  {
     this.isSoftwareIdEmptyStep2 = data.allSelected;
     this.softwares = data.SoftwareOptions;
-    console.log("outermost", this.softwares);
+    //console.log("outermost", this.softwares);
   }
   onAccessoryIdInputChangeStep3(data: any): void {
     this.isAccessoryIdEmptyStep3 = data.allSelected;
@@ -180,7 +180,7 @@ export class AssignAssetComponent {
             this.laptops = this.totalLaptopsData.filter(item => item.locationId === this.locationId);
             this.softwares = this.totalSoftwaresData.filter(item => item.locationId === this.locationId);
 
-            console.log("software-loaction", this.softwares);
+            //console.log("software-loaction", this.softwares);
             this.accessories = this.totalAccessoriesData.filter(item => item.locationId === this.locationId);
             this.getUsers();
             this.getLaptops();
@@ -189,7 +189,7 @@ export class AssignAssetComponent {
         }
       },
       (error) => {
-        console.log("User not found");
+        //console.log("User not found");
       });
   }
 
@@ -246,7 +246,7 @@ export class AssignAssetComponent {
 
           this.softwares = Object.values(uniqueSoftwareMap);
         });
-        console.log("softwares-asset",this.softwares);
+        //console.log("softwares-asset",this.softwares);
       },
       (error: any) => {
         console.error('Error fetching software details:', error);
@@ -263,7 +263,7 @@ export class AssignAssetComponent {
         this.totalAccessoriesData = data;
         this.accessories = this.totalAccessoriesData
         //.filter(item => item.locationId === this.locationId);
-        console.log("outermost accessories",this.accessories);
+        //console.log("outermost accessories",this.accessories);
       },
       (error: any) => {
         console.error('Error fetching software details:', error);
@@ -320,7 +320,7 @@ export class AssignAssetComponent {
 
   saveChanges(): void {
     this.removeNullIndexInstances();
-    console.log('Form Values:', this.assignAssetForm.value);
+    //console.log('Form Values:', this.assignAssetForm.value);
     const userData = localStorage.getItem('user');
     if (!userData) {
       this.toastr.error('Logged in User data not found. Cannot save changes.');
@@ -381,7 +381,7 @@ export class AssignAssetComponent {
     var deviceCommentArray = this.assignAssetForm?.get('deviceComments')?.value;
     var selectedSoftwareIds = this.assignAssetForm?.get('softwareIds')?.value;
     var selectedSoftwareComments = this.assignAssetForm?.get('softwareComments')?.value;
-    console.log("selectedSoftwareComments", selectedSoftwareComments);
+   // console.log("selectedSoftwareComments", selectedSoftwareComments);
     var accessoryIds = this.assignAssetForm?.get('accessoryIds')?.value;
     var accessoryCommentArray = this.assignAssetForm?.get('accessoryComments')?.value;
     //deviceIds.sort((a: { index: number; }, b: { index: number; }) => a.index - b.index);
@@ -404,7 +404,7 @@ export class AssignAssetComponent {
         //input.softwareComments.push(selectedSoftwareComments[i].deviceComment);
       }
     }
-    console.log("accessoryCommentArray",accessoryCommentArray);
+    //console.log("accessoryCommentArray",accessoryCommentArray);
     for (let i = 0; i < this.accessCYGIDs.length; i++) {
       const matchingIndexItem = accessoryCommentArray.find((item:any) => item.index === i);
       if (matchingIndexItem) {
@@ -428,7 +428,7 @@ export class AssignAssetComponent {
     //}
 
 
-    console.log("INPUT DATA : ",input);
+    //console.log("INPUT DATA : ",input);
 
     this.deviceAssignService.saveAssignment(input).subscribe(
           (response : any) => {

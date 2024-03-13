@@ -148,11 +148,11 @@ if (this.counterValue > 0) {
       categoryName: this.category
     };
 
-    console.log("Selected Options:", this.selectedOptions); 
+    //console.log("Selected Options:", this.selectedOptions); 
 
     this.dataService.getAllBrands(input).subscribe(
       (data) => {
-        console.log("Original Data:", data); 
+        //console.log("Original Data:", data); 
         this.dropdownValues = [];
         for (var i = 0; i < data.length; i++) {
           if (this.selectedOptions.HDMI == data[i].isHDMI && this.selectedOptions.VGA == data[i].isVGA && this.selectedOptions.DVI == data[i].isDVI) {
@@ -173,7 +173,7 @@ if (this.counterValue > 0) {
       (data) => {
         this.laststoredcgi = parseInt(data[0]?.cgiid, 10);
 
-        console.log(this.laststoredcgi);
+        //console.log(this.laststoredcgi);
       },
       (error) => {
         console.error('Error fetching device data', error);
@@ -240,12 +240,12 @@ if (this.counterValue > 0) {
     if (this.deviceForm.valid && this.showErrorMessage == false) {
 
 
-      console.log(this.deviceForm.value);
+      //console.log(this.deviceForm.value);
 
       this.dataService.postMonitorDetails(this.deviceForm.value).subscribe(
         response => {
 
-          console.log('Post successful', response);
+          //console.log('Post successful', response);
           this.toastr.success("Data posted successfully");
           this.resettingform();
         },

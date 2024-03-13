@@ -13,11 +13,11 @@
     <div class="collapse navbar-collapse" id="navbarToggleExternalContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <div class="center">
-          <div class="inputs">
+          <div class="inputs" *ngIf="role=='Superadmin'">
             <div class="inputf">
-              <input type="radio" name="q1" id="q11" value="India" (change)="onRadioChange($event)" checked />
+              <input type="radio" name="q1" id="q11" value="India" (change)="onRadioChange($event)" [checked]="selectedLocation=='India'" />
               <label class="radio-txt" for="q11">INDIA</label>
-              <input type="radio" name="q1" id="q12" value="USA" (change)="onRadioChange($event)" />
+              <input type="radio" name="q1" id="q12" value="USA" (change)="onRadioChange($event)" [checked]="selectedLocation=='USA'" />
               <label class="radio-txt" for="q12">USA</label>
 
               <span class="slider"></span>
@@ -25,7 +25,6 @@
           </div>
         </div>
       </ul>
-
 
 
 
@@ -66,22 +65,28 @@
 
 
           <!--<div class="users">
-            <span class="user-text">Users</span>
-          </div>
-          <div class="upload-csv">
-            <img class="dropdown-icn" src="../../../../assets/icons/uploadcsv.svg" />
-            <span class="uploadcsv-text">Upload User Details CSV</span>
+      <span class="user-text">Users</span>
+    </div>
+    <div class="upload-csv">
+      <img class="dropdown-icn" src="../../../../assets/icons/uploadcsv.svg" />
+      <span class="uploadcsv-text">Upload User Details CSV</span>
 
-          </div>
-          <div class="upload-csv">
-            <img class="dropdown-icn" src="../../../../assets/icons/Add.svg" />
-            <span class="uploadcsv-text" data-bs-toggle="modal" data-bs-target="#UserModal" >Add User Manually</span>
+    </div>
+    <div class="upload-csv">
+      <img class="dropdown-icn" src="../../../../assets/icons/Add.svg" />
+      <span class="uploadcsv-text" data-bs-toggle="modal" data-bs-target="#UserModal" >Add User Manually</span>
 
-          </div>-->
+    </div>-->
         </div>
-        <div class="avatar-dropdown">
-          <ngx-avatars name="{{loggedUser.firstName}} {{loggedUser.lastName}}" [textSizeRatio]=2.7 bgColor="#b8dde1" fgColor="#264f9d" [round]="true"></ngx-avatars>
+        <div class="avatar-dropdown" (click)="toggleDropdown()">
+          <ngx-avatars name="{{firstName}} {{lastName}}" [textSizeRatio]=2.7 bgColor="#b8dde1" fgColor="#264f9d" [round]="true"></ngx-avatars>
           <img src="../../../../assets/icons/arrow.svg">
+        </div>
+        <div *ngIf="showDropdown == true" class="additional-options position-absolute">
+          <div class="dropdown-both dropdown-btn" (click)="logout()">
+            <img class="logout-icn" src="../../../../assets/icons/logout-icon.svg" />
+            Logout
+          </div>
         </div>
       </div>
     </div>

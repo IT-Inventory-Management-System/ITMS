@@ -4,6 +4,8 @@ using ITMS.Server.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.Elfie.Serialization;
+using Microsoft.AspNetCore.Authorization;
+
 namespace ITMS.Server.Controllers
 {
     [ApiController]
@@ -21,24 +23,29 @@ namespace ITMS.Server.Controllers
             _userListService = userListService;
             _employeeService = employeeService;
         }
+
+        [Authorize]
         [HttpGet("basicdetails/{locationId}")]
         public async Task<IEnumerable<UserListDTO>> GetUserDevicesAsync(Guid locationId)
         {
             return await _userListService.GetUserDevicesAsync(locationId);
         }
 
+        [Authorize]
         [HttpGet("GetFirstUser")]
         public async Task<UserListDTO> GetFirstUserAsync()
         {
             return await _userListService.GetFirstUserAsync();
         }
 
+        [Authorize]
         [HttpGet("admin-list/{locationId}")]
         public async Task<IEnumerable<AdminListDTO>> GetAdminList(string locationId)
         {
             return await _userListService.GetAdminList(Guid.Parse(locationId));
         }
 
+        [Authorize]
         [HttpPost("change-role")]
         public async Task<IActionResult> ChangeUserRoleAsync([FromBody] ChangeRoleDTO changeRoleDTO)
         {
@@ -55,7 +62,7 @@ namespace ITMS.Server.Controllers
             }
         }
 
-
+        [Authorize]
         [HttpPost("AddUsers")]
         public void PutNewUsers(List<PutNewUsers> listOfUsers)
         {

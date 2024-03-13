@@ -47,7 +47,7 @@ export class ArchiveModalComponent {
     this.deviceForm.get('updatedBy')?.setValue(this.UserId);
 
     if (this.deviceForm.valid) {
-      console.log(this.deviceForm.value);
+      //console.log(this.deviceForm.value);
 
 
 

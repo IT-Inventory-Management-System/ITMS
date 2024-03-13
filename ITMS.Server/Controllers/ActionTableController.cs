@@ -2,6 +2,8 @@
 using ITMS.Server.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace ITMS.Server.Controllers
 {
@@ -15,6 +17,7 @@ namespace ITMS.Server.Controllers
             _ActionTableService = actionTableService;
         }
 
+        [Authorize]
         [HttpGet("getActions")]
         public IActionResult GetActions()
         {

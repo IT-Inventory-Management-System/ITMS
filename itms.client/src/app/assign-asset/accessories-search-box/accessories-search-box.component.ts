@@ -32,7 +32,7 @@ export class AccessoriesSearchBoxComponent {
     this.selectedOption = this.assignDataManagementService.getState("accessoriesName", this.index);
     this.AccessoryOptionSelected.emit(this.selectedOption);
     this.UniqueOptions();
-    console.log(this.assignAssetForm.value);
+    //console.log(this.assignAssetForm.value);
   }
 
   ngOnDestroy(): void {

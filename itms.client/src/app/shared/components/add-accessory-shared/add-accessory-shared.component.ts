@@ -105,7 +105,7 @@ export class AddAccessorySharedComponent {
 
       if (imgElement) {
         imgElement.src = this.getSrcLink(category);
-        console.log(imgElement.src);
+        //console.log(imgElement.src);
       } else {
         console.error('Element with class "accesory-icon" not found.');
       }
@@ -115,7 +115,7 @@ export class AddAccessorySharedComponent {
 
   getSrcLink(category: string) {
     const convertedString = this.convertToLinkText(category);
-    console.log(convertedString);
+    //console.log(convertedString);
     return `../../../../assets/icons/add-asset/${convertedString}-blue.svg`;
   }
 
@@ -186,7 +186,7 @@ export class AddAccessorySharedComponent {
 
     this.dataService.getAllBrands(input).subscribe(
       (data) => {
-        console.log("Original Data:", data);
+        //console.log("Original Data:", data);
         this.dropdownValues = [];
         this.dropdownValues = data;
 
@@ -215,7 +215,7 @@ export class AddAccessorySharedComponent {
     this.dataService.getAccessoryCGIID(input).subscribe(
       (data) => {
         this.laststoredcgi = parseInt(data[0]?.cgiid, 10);
-        console.log(this.laststoredcgi);
+        //console.log(this.laststoredcgi);
       },
       (error) => {
         console.error('Error fetching device data', error);
@@ -253,11 +253,11 @@ export class AddAccessorySharedComponent {
     this.addDeviceForm.get('updatedBy')?.setValue(this.UserId);
 
     if (this.addDeviceForm.valid && this.showErrorMessage == false) {
-      console.log(this.addDeviceForm.value);
+      //console.log(this.addDeviceForm.value);
 
       this.dataService.postCommonData(this.addDeviceForm.value).subscribe(
         response => {
-          console.log('Data Posted successfully', response);
+          //console.log('Data Posted successfully', response);
           this.toastr.success("Data Posted SuccessFully");
           this.resettingform();
 
