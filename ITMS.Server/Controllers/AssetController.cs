@@ -63,11 +63,15 @@ namespace ITMS.Server.Controllers
         {
             return await _addAssetService.getlaptopIds();
         }
+
+        [Authorize]
         [HttpGet("getMonitorBrands")]
         public async Task<IEnumerable<monitorInputDTO>> getMonitorBrands()
         {
             return await _addAssetService.getMonitorBrands();
         }
+
+        [Authorize]
         [HttpPost("getBrandDetails")]
         public async Task<IEnumerable<categoryInputDTO>> getBrandDetails([FromBody] categoryDTO categoryDTO)
         {
@@ -75,6 +79,7 @@ namespace ITMS.Server.Controllers
             return await _addAssetService.getBrandDetails(categoryDTO.categoryName);
         }
 
+        [Authorize]
         [HttpPost("getBrandFromName")]
         public async Task<IEnumerable<getBrand>> getBrandFromName([FromBody] categoryDTO categoryDTO)
         {
@@ -82,6 +87,7 @@ namespace ITMS.Server.Controllers
             return await _addAssetService.getBrandFromName(categoryDTO.categoryName);
         }
 
+        [Authorize]
         [HttpPost("addMonitorModel")]
         public async Task<IActionResult> addMonitor([FromBody] MonitorDTO monitorDTO)
         {
@@ -96,6 +102,8 @@ namespace ITMS.Server.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Error adding monitor: {ex.Message}");
             }
         }
+
+        [Authorize]
         [HttpPost("addCommonModel")]
         public async Task<IActionResult>addCommonModel([FromBody] CommonDTO commonDTO)
         {
@@ -111,6 +119,7 @@ namespace ITMS.Server.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost("getCGIIDsCommon")]
         public async Task<IEnumerable<getCGIDTO>> getCGIIDCommon([FromBody] commonInputDTO commonDto)
         {
@@ -118,6 +127,7 @@ namespace ITMS.Server.Controllers
             return await _addAssetService.getCGIIDCommon(commonDto.Name);
         }
 
+        [Authorize]
         [HttpPost("getKeyboardComboBrand")]
         public async Task<IEnumerable<GetBrandDTO>> getKeyboardComboBrand([FromBody] commonInputDTO commonDto)
         {

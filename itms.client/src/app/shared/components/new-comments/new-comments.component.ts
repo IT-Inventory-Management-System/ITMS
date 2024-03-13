@@ -61,10 +61,10 @@ export class NewCommentsComponent {
       this.deviceForm.get('deviceId')?.setValue(this.dataService.DeviceDetails?.id);
       if (this.deviceForm.get('description')?.value) {
         if (this.deviceForm.valid) {
-          console.log(this.deviceForm.value);
+          //console.log(this.deviceForm.value);
           this.dataService.postComments(this.deviceForm.value).subscribe(
             response => {
-              console.log('Post successful', response);
+              //console.log('Post successful', response);
               //this.getComments();
               this.deviceForm.reset();
               this.setCreatedBy();
@@ -84,10 +84,10 @@ export class NewCommentsComponent {
       this.deviceForm.get('deviceId')?.setValue(this.accessoryId);
       if (this.deviceForm.get('description')?.value) {
         if (this.deviceForm.valid) {
-          console.log(this.deviceForm.value);
+          //console.log(this.deviceForm.value);
           this.dataService.postComments(this.deviceForm.value).subscribe(
             response => {
-              console.log('Post successful', response);
+              //console.log('Post successful', response);
               //this.getComments();
               this.deviceForm.reset();
               this.setCreatedBy();
@@ -140,7 +140,7 @@ export class NewCommentsComponent {
     this.dataService.getAllAccessoriesComment(this.accessoryId).subscribe(
       (data) => {
         this.commentsData = data;
-        console.log("Accessory comments : ", this.commentsData);
+        //console.log("Accessory comments : ", this.commentsData);
         this.changeDateFormat();
         this.loading = false;
 

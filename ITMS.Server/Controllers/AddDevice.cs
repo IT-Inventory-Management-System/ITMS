@@ -130,6 +130,8 @@ namespace ITMS.Server.Controllers
                 return BadRequest(e);
             }
         }
+
+        [Authorize]
         [HttpPost("AddMonitor")]
         public ActionResult AddMonitor([FromBody] PostMonitorDTO postMonitorDTO)
         {
@@ -143,6 +145,8 @@ namespace ITMS.Server.Controllers
                 return BadRequest(e);
             }
         }
+
+        [Authorize]
         [HttpPost("AddCommonDevice")]
         public ActionResult AddCommon([FromBody] CommonDeviceDTO commonDeviceDTO)
         {

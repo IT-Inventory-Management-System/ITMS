@@ -302,6 +302,7 @@ namespace itms.server.controllers
             }
         }
 
+        [Authorize]
         [HttpPost("addAccessoryBrand")]
         public async Task<IActionResult> addAccessoryBrand([FromBody] DeviceModelInputDto deviceModelInputDto)
         {
