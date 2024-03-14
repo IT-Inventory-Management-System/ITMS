@@ -55,7 +55,7 @@ export class ArchiveModalComponent {
 
         .subscribe(response => {
           if (response) {
-            console.log("posted successfully");
+           // console.log("posted successfully");
 
           } else {
             console.error("error in posting data");

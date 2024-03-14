@@ -206,7 +206,7 @@ export class AddDeviceFormComponent implements OnInit {
           // If no OS selected, show all devices
           this.dropdownValues = data;
         }
-        console.log(data);
+       // console.log(data);
       },
       (error) => {
         console.error('Error fetching dropdown values', error);

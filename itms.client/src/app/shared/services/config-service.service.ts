@@ -5,6 +5,6 @@ import { Injectable } from '@angular/core';
 })
 export class ConfigServiceService {
 
-  apiUrl = 'https://itims-project-testing.somee.com/api/';
+  apiUrl = 'https://localhost:7283/api/';
   constructor() { }
 }

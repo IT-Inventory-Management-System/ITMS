@@ -88,7 +88,7 @@ export class CategoryNameComponent {
 
   getOtherSrcLink(category: string, color: string) {
     const convertedString = this.convertToLinkText(category);
-    console.log(convertedString);
+   // console.log(convertedString);
     return `../../assets/icons/add-asset/${convertedString}-${color}.svg`;
   }
 

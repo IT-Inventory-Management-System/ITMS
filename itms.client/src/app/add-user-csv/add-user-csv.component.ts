@@ -69,7 +69,7 @@ export class AddUserCsvComponent {
     if (this.file) {
       this.fileName = this.file.name;
       this.csvFileVisible = !this.csvFileVisible;
-      console.log('Selected file:', this.file);
+     // console.log('Selected file:', this.file);
     }
   }
 
@@ -95,7 +95,7 @@ export class AddUserCsvComponent {
           cgiId: row[3]
         };
       });
-      console.log(employeeArray);
+     // console.log(employeeArray);
       this.postUserData(employeeArray);
     };
 
@@ -105,7 +105,7 @@ export class AddUserCsvComponent {
   postUserData(newEmployeeData: any[]) {
     this.empService.postUsers(newEmployeeData).subscribe(
       response => {
-        console.log('New Users added successfully', response);
+       // console.log('New Users added successfully', response);
         this.toastr.success("New users added successfully");
       },
       error => {

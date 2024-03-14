@@ -18,8 +18,8 @@ export class SoftwareAllRevokeComponent {
   SubmittedAction: any;
   constructor(private formBuilder: FormBuilder) { }
   ngOnChanges() {
-    console.log(this.softwareDetails);
-    console.log(this.actionsArray);
+  //  console.log(this.softwareDetails);
+   // console.log(this.actionsArray);
     if (this.softwareDetails && this.revokeAllForm && this.actionsArray) {
       this.SubmittedAction = this.actionsArray.find(a => a.actionName === 'Submitted' || a.actionName === 'submitted');
       this.initializeSoftwareFormArray();
@@ -34,7 +34,7 @@ export class SoftwareAllRevokeComponent {
         SoftwareArray.push(this.createSoftwareFormGroup(software));
       });
     }
-    console.log(SoftwareArray);
+  //  console.log(SoftwareArray);
   }
 
   createSoftwareFormGroup(software: any) {

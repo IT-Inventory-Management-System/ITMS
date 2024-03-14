@@ -17,6 +17,9 @@
   color: var(--Other-Red, #E03E2D);
 }
 
+.close-add-user{
+    cursor:pointer;
+}
 /*
 .Add-user {
   border-radius: 0.25rem;
@@ -30,8 +33,6 @@
   gap: 1rem;
   
 }*/
-
-
 .Heading {
   display: flex;
   height: 2.25rem;

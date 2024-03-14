@@ -38,12 +38,12 @@ export class UnrchivemodalComponent {
     this.deviceForm.get('cygid')?.setValue(this.cygid);
     this.deviceForm.get('createdBy')?.setValue(this.UserId);
     this.deviceForm.get('updatedBy')?.setValue(this.UserId);
-    console.log(this.deviceForm.value);
+  //  console.log(this.deviceForm.value);
 
     this.dataService.UpdateDeviceStatusToNotAssigned(this.deviceForm.value)
       .subscribe(response => {
         if (response) {
-          console.log("posted successfully");
+         // console.log("posted successfully");
         } else {
           console.error("error in posting data");
         }

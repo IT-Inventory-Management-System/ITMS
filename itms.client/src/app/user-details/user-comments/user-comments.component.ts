@@ -71,14 +71,14 @@ export class UserCommentsComponent {
         deviceLogId: this.laptopDetails.deviceLogId 
       };
 
-      console.log('Comment DTO:', commentDto);
+     // console.log('Comment DTO:', commentDto);
 
       this.commentService.addComment(commentDto).subscribe(
         (response) => {
          
-          console.log(response); 
+        //  console.log(response); 
           this.laptopDetails.comments.unshift(response);
-          console.log(this.laptopDetails.comments);
+          //console.log(this.laptopDetails.comments);
           this.newComment = '';
         },
         (error) => {
