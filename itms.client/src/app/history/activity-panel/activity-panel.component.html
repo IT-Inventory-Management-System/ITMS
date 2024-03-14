@@ -1,7 +1,7 @@
 <div class="permissions-panel-container">
   <div class="permissions-panel-header ">
     <div class="admin-name">
-      <ng-container *ngIf="selectedAdmin.firstName === 'All Activity Logs'; else userDetailsTemplate">
+      <ng-container *ngIf="selectedAdmin && selectedAdmin.firstName === 'All Activity Logs'; else userDetailsTemplate">
         <div class="icon-name">
           <div class="initial">
             <div class="group">
@@ -37,7 +37,7 @@
       </div>-->
       <div class="purchase-date-section">
         <!--<label for="purchaseDate" class="purchaseDate">Date of Purchase <span class="required">*</span></label>-->
-          <input #filterInput type="date" class="form-control" id="purchaseDate" name="purchaseDate" formControlName="purchasedOn" placeholder="15-12-2023" (focus)="toggleInputTypeTo('date')" (change)="toggleInputTypeTo('text')" (change)="toggleCheckboxTo(filterInput.value)">
+          <input #filterInput type="date" class="form-control" id="purchaseDate" name="purchaseDate" placeholder="15-12-2023" (focus)="toggleInputTypeTo('date')" (change)="toggleInputTypeTo('text')" (change)="toggleCheckboxTo(filterInput.value)">
         <!--<img src="../../../assets/icons/calendar.svg" />-->
       </div>
     </div>

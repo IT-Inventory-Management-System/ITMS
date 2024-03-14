@@ -50,11 +50,13 @@ export class ActivityPanelComponent {
 
   ngOnInit() {
     this.adminDetailService.selectedAdmin$.subscribe((admin) => {
-      this.selectedAdmin = admin;
-     // console.log("selectedadmin", this.selectedAdmin);
-      this.getAdminLogs(admin.id, admin.locationId);
+      if (admin) {
+        this.selectedAdmin = admin;
+        this.getAdminLogs(admin.id, admin.locationId);
+      }
     });
   }
+
 
   filteredLogs(employeeId: any, locationId: any, filterdate:any) {
     const body = {

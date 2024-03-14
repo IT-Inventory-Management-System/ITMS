@@ -18,7 +18,7 @@ export class EmployeeService {
   //}
 
   getDevices(id: any): Observable<any[]> {
-    console.log(id);
+   // console.log(id);
     return this.http.get<any[]>(this.apiUrl + 'userdevices/GetDevices/' + id);
   }
 
@@ -36,7 +36,7 @@ export class EmployeeService {
 
   updateRecievedBy(deviceLogId: any, receivedByUserId: any, ActionId: any) {
     const body = { deviceLogId, receivedByUserId, ActionId };
-    console.log(body);
+  //  console.log(body);
     return this.http.post<any>(this.apiUrl + 'RecievedBy', body);
   }
   addComment(commentDto: any): Observable<any> {
