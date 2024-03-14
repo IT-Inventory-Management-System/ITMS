@@ -30,6 +30,10 @@ export class AccessoryBrandySearchBoxComponent {
   locationId: any;
   @Input() uniqueBrandsArray: any[] = [];
   selectedOption: any;
+  selectedOptionSize: any = null;
+  uniqueSizes: any[] = [];
+
+
   private closeFlagSubscription: Subscription;
   @Input() AccessoryBrands: any;
   selectedCygid: string = '';
@@ -53,6 +57,66 @@ export class AccessoryBrandySearchBoxComponent {
     });
   }
 
+  setNewAccessoryIdPortType() {
+    const selectedBrand = this.selectedBrand;
+    console.log("OLD MONITER", this.AccessoryBrands);
+    this.AccessoryBrands = this.AccessoryBrands.filter(
+      (accessory: any) => accessory.brand === selectedBrand && accessory.portType === this.PortType 
+    );
+    console.log("MONITER", this.AccessoryBrands);
+    this.uniqueSizes = Array.from(new Set(this.AccessoryBrands.map((accessory:any) => accessory.screenSize)));
+    this.uniqueSizes.sort((a, b) => a - b);
+
+  }
+
+  onSelectOptionSize(option:any) {
+    console.log(option);
+    const selectedBrand = option;
+
+    const filteredBrands = this.AccessoryBrands.filter(
+      (accessory: any) => accessory.screenSize === selectedBrand
+    );
+
+    //console.log("this.AccessoryBrands", this.AccessoryBrands);
+
+    //console.log("filteredBrands", filteredBrands);
+
+    if (filteredBrands.length > 0) {
+      const selectedCygid = filteredBrands[0].cygid;
+      //const indexToUpdate = this.AccessoryBrands.findIndex((accessory: any) => accessory.cygid === selectedCygid);
+
+      //if (indexToUpdate !== -1) {
+      //  this.AccessoryBrands[indexToUpdate].count = 0;
+      //}
+      this.selectedCygid = selectedCygid;
+      if (this.prev !== '') {
+        const index = this.accessCYGIDs.findIndex(item => item.accessCYGID === this.prev);
+        //const index = this.accessCYGIDs.indexOf(this.prev);
+        if (index !== -1) {
+          this.accessCYGIDs.splice(index, 1);
+        }
+      }
+      this.accessCYGIDs.push({ accessCYGID: this.selectedCygid, index: this.index });
+
+      this.prev = selectedCygid;
+      //console.log(this.accessCYGIDs);
+    } else {
+      this.selectedCygid = 'Not found';
+    }
+
+    if (this.selectedCygid != 'Not found') {
+      const accessoryIdsArray = this.assignAssetForm.get('accessoryIds') as FormArray;
+      accessoryIdsArray.push(this.formBuilder.group({
+        index: this.index,
+        accessoryId: this.selectedCygid
+      }));
+    }
+
+    this.AccessoryBrandOptionSelected.emit({ AccessoryBrands: this.AccessoryBrands, accessCYGIDs: this.accessCYGIDs, cygid: this.selectedCygid });
+  }
+  onClearSelectionSize() {
+
+  }
 
   setNewAccessoryId() {
     const selectedBrand = this.selectedBrand;
@@ -101,9 +165,7 @@ export class AccessoryBrandySearchBoxComponent {
   }
 
 
-  setNewAccessoryIdPortType() {
-    console.log(this.PortType);
-  }
+  
 
 
 
@@ -135,7 +197,7 @@ export class AccessoryBrandySearchBoxComponent {
       this.selectedCygid = '';
       const dataPass = { accessCYGIDs: this.accessCYGIDs, index: this.index, cygid: this.selectedCygid };
       this.AccessoryBrandOptionSelected.emit(dataPass);
-      if (this.selectedId !== 'Mouse' && this.selectedId !== 'Keyboard' && this.selectedId !== 'Combo') {
+      if (this.selectedId !== 'Mouse' && this.selectedId !== 'Keyboard' && this.selectedId !== 'Combo' && this.selectedId !== 'Monitor') {
         alert(this.selectedId);
         this.selectCygId();
       }

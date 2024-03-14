@@ -59,17 +59,35 @@
   </div>
 </div>
 
-<div class="search-box-subheading type" *ngIf="selectedOption && selectedId === 'Moniter'">
+<div class="search-box-subheading type" *ngIf="selectedOption && selectedId === 'Monitor'">
   Accessory Type<span style="color:red">*</span>
   <div class="os-input">
-    <input type="radio" name="osType{{index}}" id="windowsRadio{{index}}" value="true" [(ngModel)]="PortType" (change)="setNewAccessoryIdPortType()">
+    <input type="radio" name="osType{{index}}" id="windowsRadio{{index}}" value="HDMI" [(ngModel)]="PortType" (change)="setNewAccessoryIdPortType()">
     <label for="windowsRadio{{index}}">HDMI</label>
-    <input type="radio" name="osType{{index}}" id="macRadio{{index}}" value="false" [(ngModel)]="PortType" (change)="setNewAccessoryIdPortType()">
+
+    <input type="radio" name="osType{{index}}" id="macRadio{{index}}" value="VGA" [(ngModel)]="PortType" (change)="setNewAccessoryIdPortType()">
     <label for="macRadio{{index}}">VGA</label>
-    <input type="radio" name="osType{{index}}" id="macRadio{{index}}" value="false" [(ngModel)]="PortType" (change)="setNewAccessoryIdPortType()">
-    <label for="macRadio{{index}}">DVI</label>
+
+    <input type="radio" name="osType{{index}}" id="dviRadio{{index}}" value="DVI" [(ngModel)]="PortType" (change)="setNewAccessoryIdPortType()">
+    <label for="dviRadio{{index}}">DVI</label>
   </div>
+
 </div>
+
+<!---------------------------------------------------------------------------------------------------------->
+<div class="search-box-subheading">"Size" <span style="color:red">*</span></div>
+<ng-select class="custom search-box"
+           [placeholder]="'Select Screen Size'"
+           [(ngModel)]="selectedOptionSize"
+           (change)="onSelectOptionSize($event)"
+           (clear)="onClearSelection()">
+  <ng-option class="list-items" *ngFor="let option of uniqueSizes" [value]="option">
+    {{ option }}
+  </ng-option>
+</ng-select>
+
+
+<!------------------------------------------------------------------------------------------------------------>
 
 
 <div class="search-box-subheading" *ngIf="selectedId">Device ID<span style="color:red">*</span></div>
