@@ -52,15 +52,19 @@ export class SoftwareSearchBoxComponent implements OnChanges {
   }
 
   ngOnDestroy(): void {
-    this.closeFlagSubscription = this.closeFlagService.closeFlag$.subscribe((closeFlag) => {
-      if (!closeFlag) {
-        this.assignDataManagementService.setState("softwareNames", this.selectedOption, this.index);
-        this.assignDataManagementService.setState("softwareVersions", this.selectedOptionVersion, this.index);
+    //this.closeFlagSubscription = this.closeFlagService.closeFlag$.subscribe((closeFlag) => {
+    //  if (!closeFlag) {
+    //    this.assignDataManagementService.setState("softwareNames", this.selectedOption, this.index);
+    //    this.assignDataManagementService.setState("softwareVersions", this.selectedOptionVersion, this.index);
         
-        this.assignDataManagementService.setState("selectedSoftwareType", this.selectedSoftwareType, this.index);
-      }
-    });
-    this.closeFlagSubscription.unsubscribe();
+    //    this.assignDataManagementService.setState("selectedSoftwareType", this.selectedSoftwareType, this.index);
+    //  }
+    //});
+    this.assignDataManagementService.setState("softwareNames", this.selectedOption, this.index);
+    this.assignDataManagementService.setState("softwareVersions", this.selectedOptionVersion, this.index);
+
+    this.assignDataManagementService.setState("selectedSoftwareType", this.selectedSoftwareType, this.index);
+    //this.closeFlagSubscription.unsubscribe();
     
   }
 

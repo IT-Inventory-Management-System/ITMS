@@ -114,7 +114,7 @@ export class AssignAccessoriesComponent {
     console.log("AccessCygids", this.accessCYGIDs);
     
     if (event != null) {
-      this.selectedId[index] = event.option;
+      this.selectedId[index] = event.selectedOption;
       this.accessCYGIDs = event.accessCYGIDs;
 
       this.getAccessoriesDetails(index, this.accessCYGIDs);

@@ -30,6 +30,7 @@ export class AssignDataManagementService {
   private SelectedAccessories: any[] = [];
 
   private accessoryCommentsState: any[] = [];
+  private selectedCygid :any[]=[];
 
   /**************************************************************************************** */
   private selectedLaptopsState: any[] = [];
@@ -55,6 +56,8 @@ export class AssignDataManagementService {
   private softwareExpiryDateState: any[] = [];
 
   private softwareCommentsState: any[] = [];
+
+  private selectedSoftwareType: any[] = [];
 
   setState(component: string, newState: any, index?: number): void {
     switch (component) {
@@ -120,6 +123,24 @@ export class AssignDataManagementService {
         break;
       case 'accessory':
         this.accessoryState = newState;
+        break;
+      case 'selectedSoftwareType':
+        if (index !== undefined && index >= 0) {
+          this.ensureArraySize('selectedSoftwareType', index);
+          this.selectedSoftwareType[index] = newState;
+        }
+        break;
+      case 'selectedCygid':
+        if (index !== undefined && index >= 0) {
+          this.ensureArraySize('selectedCygid', index);
+          this.selectedCygid[index] = newState;
+        }
+        break;
+      case 'isWired':
+        if (index !== undefined && index >= 0) {
+          this.ensureArraySize('isWired', index);
+          this.wireState[index] = newState;
+        }
         break;
       //case 'accessoryComment':
       //  this.accessoryCommentState = newState;
@@ -197,6 +218,21 @@ export class AssignDataManagementService {
         return null;
       case 'accessory':
         return this.accessoryState !== undefined ? this.accessoryState : null;
+      case 'selectedSoftwareType':
+        if (index !== undefined && index >= 0 && index < this.selectedSoftwareType.length) {
+          return this.selectedSoftwareType[index];
+        }
+        return null;
+      case 'selectedCygid':
+        if (index !== undefined && index >= 0 && index < this.selectedCygid.length) {
+          return this.selectedCygid[index];
+        }
+        return null;
+      case 'isWired':
+        if (index !== undefined && index >= 0 && index < this.wireState.length) {
+          return this.wireState[index];
+        }
+        return null;
       //case 'accessoryComment':
       //  return this.accessoryCommentState !== undefined ? this.accessoryCommentState : null;
       //case 'softwareName':
@@ -255,6 +291,19 @@ export class AssignDataManagementService {
         while (this.accessoryCommentsState.length <= index) {
           this.accessoryCommentsState.push(null);
         }
+        break;
+      case 'selectedSoftwareType':
+        while (this.selectedSoftwareType.length <= index) {
+          this.selectedSoftwareType.push(null);
+        }
+        break;
+      case 'selectedCygid':
+        while (this.selectedCygid.length <= index)
+          this.selectedCygid.push(null);
+        break;
+      case 'isWired':
+        while (this.wireState.length <= index)
+          this.wireState.push(null);
         break;
       default:
         console.error('Invalid component:', component);

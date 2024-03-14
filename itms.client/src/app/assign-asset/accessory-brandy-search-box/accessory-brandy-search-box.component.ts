@@ -221,6 +221,9 @@ export class AccessoryBrandySearchBoxComponent {
 
     this.closeFlagService.setCloseFlagToFalse();
     this.selectedOption = this.assignDataManagementService.getState("accessoriesBrand", this.index);
+    this.selectedCygid = this.assignDataManagementService.getState("selectedCygid", this.index);
+    this.isWired = this.assignDataManagementService.getState("isWired",this.index);
+
     //if (this.selectedOption)
     //  this.AccessoryBrandOptionSelected.emit(this.selectedOption);
     const accessoryComments = this.assignAssetForm.get('accessoryComments') as FormArray;
@@ -241,6 +244,8 @@ export class AccessoryBrandySearchBoxComponent {
         this.assignDataManagementService.setState("accessoriesBrand", this.selectedOption, this.index);
       }
     });
+    this.assignDataManagementService.setState("selectedCygid", this.selectedCygid, this.index);
+    this.assignDataManagementService.setState("isWired", this.isWired, this.index);
     this.closeFlagSubscription.unsubscribe();
   }
 
