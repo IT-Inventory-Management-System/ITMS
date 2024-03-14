@@ -14,6 +14,8 @@ import { DataService } from '../../shared/services/data.service';
 })
 export class AccessoryBrandySearchBoxComponent {
   prev: string = '';
+  PortType: any = null;
+
   @Input() accessCYGIDs: { accessCYGID: string, index: number }[] = [];
   @Input() AccessoryOptions: any;
   @Input() selectedId: any;
@@ -98,6 +100,10 @@ export class AccessoryBrandySearchBoxComponent {
     this.AccessoryBrandOptionSelected.emit({ AccessoryBrands: this.AccessoryBrands, accessCYGIDs: this.accessCYGIDs, cygid: this.selectedCygid });
   }
 
+
+  setNewAccessoryIdPortType() {
+    console.log(this.PortType);
+  }
 
 
 

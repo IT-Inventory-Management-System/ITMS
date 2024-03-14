@@ -61,6 +61,10 @@
         public string Brand { get; set; }
         public bool? iswired { get; set; }
         public string CYGID { get; set; }
+        public bool? isHDMI { get; set; }
+        public string? ScreenSize { get; set; }
+        public bool? isVGA { get; set; }
+        public bool? isDVI { get; set; }
 
     }
 

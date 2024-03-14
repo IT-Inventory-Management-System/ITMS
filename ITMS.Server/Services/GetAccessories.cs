@@ -52,8 +52,10 @@ namespace ITMS.Server.Services
                                     Brand = c.Brand,
                                     iswired = c.IsWired,
                                     CYGID = d.Cygid,
-                                  
+                                    //isHDMI = c.isHDMI
                                 }).ToListAsync();
+
+
             return result;
         }
 

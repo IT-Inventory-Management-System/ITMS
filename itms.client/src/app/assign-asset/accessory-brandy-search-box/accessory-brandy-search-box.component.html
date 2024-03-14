@@ -35,8 +35,6 @@
   <img class="add-img" src="../../../../assets/icons/Add.svg" />
   <div class="add-new-text">Add Another Accessories</div>
 </div>-->
-
-
 <!--------------------------------------------------------------------------------------------------------------------->
 
 
@@ -60,6 +58,19 @@
     <label for="macRadio{{index}}">Wireless</label>
   </div>
 </div>
+
+<div class="search-box-subheading type" *ngIf="selectedOption && selectedId === 'Moniter'">
+  Accessory Type<span style="color:red">*</span>
+  <div class="os-input">
+    <input type="radio" name="osType{{index}}" id="windowsRadio{{index}}" value="true" [(ngModel)]="PortType" (change)="setNewAccessoryIdPortType()">
+    <label for="windowsRadio{{index}}">HDMI</label>
+    <input type="radio" name="osType{{index}}" id="macRadio{{index}}" value="false" [(ngModel)]="PortType" (change)="setNewAccessoryIdPortType()">
+    <label for="macRadio{{index}}">VGA</label>
+    <input type="radio" name="osType{{index}}" id="macRadio{{index}}" value="false" [(ngModel)]="PortType" (change)="setNewAccessoryIdPortType()">
+    <label for="macRadio{{index}}">DVI</label>
+  </div>
+</div>
+
 
 <div class="search-box-subheading" *ngIf="selectedId">Device ID<span style="color:red">*</span></div>
 <input class="custom" *ngIf="selectedId" disabled placeholder="Device ID" [value]="selectedCygid" />
