@@ -44,17 +44,19 @@ export class ActivityPanelComponent {
     if (value !== '') {
       formattedDate = this.purchseDate.toISOString().split('T')[0];
     }
-    console.log(formattedDate);
+   // console.log(formattedDate);
     this.filteredLogs(this.selectedAdmin.id, this.selectedAdmin.locationId, formattedDate);
   }
 
   ngOnInit() {
     this.adminDetailService.selectedAdmin$.subscribe((admin) => {
-      this.selectedAdmin = admin;
-     // console.log("selectedadmin", this.selectedAdmin);
-      this.getAdminLogs(admin.id, admin.locationId);
+      if (admin) {
+        this.selectedAdmin = admin;
+        this.getAdminLogs(admin.id, admin.locationId);
+      }
     });
   }
+
 
   filteredLogs(employeeId: any, locationId: any, filterdate:any) {
     const body = {
@@ -62,7 +64,7 @@ export class ActivityPanelComponent {
       employeeId: employeeId,
       date: filterdate
     };
-    console.log("REQUEST BODY : ", body);
+    //console.log("REQUEST BODY : ", body);
     this.adminDetailService.getFilteredLogs(body).subscribe(
       data => {
       //  console.log("ADMIN LOGS : ", data);
@@ -84,7 +86,7 @@ export class ActivityPanelComponent {
    // console.log("REQUEST BODY : ", body);
     this.adminDetailService.getLogs(employeeId, locationId).subscribe(
       data => {
-       console.log("ADMIN LOGS : ", data);
+      // console.log("ADMIN LOGS : ", data);
         this.admindata = data;
       },
       error => {

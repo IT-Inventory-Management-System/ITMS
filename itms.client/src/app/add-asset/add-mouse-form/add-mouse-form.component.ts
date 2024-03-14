@@ -149,7 +149,7 @@ export class AddMouseFormComponent {
         else {
           this.dropdownValues = data;
         }
-        console.log(data);
+        //console.log(data);
       },
       (error) => {
         console.error('Error fetching device data', error);
@@ -161,7 +161,7 @@ export class AddMouseFormComponent {
     this.dataService.getCGIID().subscribe(
       (data) => {
         this.laststoredcgi= parseInt(data[0]?.cgiid, 10);
-        console.log(this.laststoredcgi);
+        //console.log(this.laststoredcgi);
       },
       (error) => {
         console.error('Error fetching device data', error);
@@ -181,11 +181,11 @@ export class AddMouseFormComponent {
     this.addDeviceForm.get('updatedAt')?.setValue(new Date().toISOString());
 
     if (this.addDeviceForm.valid && this.showErrorMessage == false) {
-      console.log(this.addDeviceForm.value);
+      //console.log(this.addDeviceForm.value);
 
       this.dataService.postMouse(this.addDeviceForm.value).subscribe(
         response => {
-          console.log('Data Posted successfully', response);
+          //console.log('Data Posted successfully', response);
           this.toastr.success("Data Posted SuccessFully");
           this.resettingform();
 

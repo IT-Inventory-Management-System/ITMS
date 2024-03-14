@@ -7,6 +7,8 @@ using Microsoft.CodeAnalysis.Elfie.Serialization;
 using Xamarin.Forms;
 using System;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace ITMS.Server.Controllers
 {
@@ -27,6 +29,7 @@ namespace ITMS.Server.Controllers
             _softwareService = softwareService;
         }
 
+        [Authorize]
         [HttpPost("assignAsset")]
         public async Task<IActionResult> AssignAsset([FromBody] PostAssignAssetDTO postAssignAssetDTO)
         {

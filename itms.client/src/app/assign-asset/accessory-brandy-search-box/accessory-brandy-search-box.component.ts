@@ -62,9 +62,9 @@ export class AccessoryBrandySearchBoxComponent {
       (accessory: any) => accessory.brand === selectedBrand && accessory.iswired === isWired
     );
 
-    console.log("this.AccessoryBrands", this.AccessoryBrands);
+  //  console.log("this.AccessoryBrands", this.AccessoryBrands);
 
-    console.log("filteredBrands", filteredBrands);
+  //  console.log("filteredBrands", filteredBrands);
 
     if (filteredBrands.length > 0) {
       const selectedCygid = filteredBrands[0].cygid;
@@ -84,7 +84,7 @@ export class AccessoryBrandySearchBoxComponent {
 
 
       this.prev = selectedCygid;
-      console.log(this.accessCYGIDs);
+    //  console.log(this.accessCYGIDs);
     } else {
       this.selectedCygid = 'Not found';
     }
@@ -109,11 +109,11 @@ export class AccessoryBrandySearchBoxComponent {
 
   onSelectOption(option: any): void {
     if (option) {
-      console.log("SELECTED OPTION", this.selectedId);
+      //console.log("SELECTED OPTION", this.selectedId);
       //console.log("HELLO WHEN OPTION SELECTED",this.AccessoryBrandOptions);
       const data = { option: option, index: this.index };
       //alert(option);
-      console.log(option);
+      //console.log(option);
       this.selectedBrand = option;
       if (this.selectedCygid != '') {
         const index = this.accessCYGIDs.findIndex(item => item.accessCYGID === this.selectedCygid);
@@ -149,9 +149,9 @@ export class AccessoryBrandySearchBoxComponent {
       (accessory: any) => accessory.brand === selectedBrand
     );
 
-    console.log("this.AccessoryBrands", this.AccessoryBrands);
+    //console.log("this.AccessoryBrands", this.AccessoryBrands);
 
-    console.log("filteredBrands", filteredBrands);
+    //console.log("filteredBrands", filteredBrands);
 
     if (filteredBrands.length > 0) {
       const selectedCygid = filteredBrands[0].cygid;
@@ -171,7 +171,7 @@ export class AccessoryBrandySearchBoxComponent {
       this.accessCYGIDs.push({ accessCYGID: this.selectedCygid ,index:this.index});
 
       this.prev = selectedCygid;
-      console.log(this.accessCYGIDs);
+      //console.log(this.accessCYGIDs);
     } else {
       this.selectedCygid = 'Not found';
     }
@@ -314,7 +314,7 @@ export class AccessoryBrandySearchBoxComponent {
           accessoryComment: event.target.value
         }));
       }
-      console.log(accessoryCommentsArray);
+      //console.log(accessoryCommentsArray);
     } else {
       console.error('FormArray "accessoryComments" is null.');
     }

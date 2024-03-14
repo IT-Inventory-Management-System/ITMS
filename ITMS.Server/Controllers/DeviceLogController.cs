@@ -4,6 +4,8 @@ using ITMS.Server.Models;
 using ITMS.Server.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+
 using System;
 using System.Threading.Tasks;
 using static adminHistoryParamsDTO;
@@ -21,6 +23,7 @@ public class DeviceLogController : ControllerBase
         _context = context;
     }
 
+    [Authorize]
     [HttpGet("devices/{locationId}")]
     public List<DevicelogDto> GetDeviceHistory(Guid locationId)
     {
@@ -37,6 +40,7 @@ public class DeviceLogController : ControllerBase
         }
     }
 
+    [Authorize]
     [HttpGet("devicesloginfo/{cygid}")]
     public async Task<IEnumerable<DevicelogDto>> GetDevicesLogInfo(string cygid)
     {
@@ -53,6 +57,7 @@ public class DeviceLogController : ControllerBase
         }
     }
 
+    [Authorize]
     [HttpPost("Comment")]
     public IActionResult AddComment([FromBody] DeviceAddComment commentDto)
     {
@@ -67,8 +72,8 @@ public class DeviceLogController : ControllerBase
             return StatusCode(500, new { Message = "Internal Server Error" });
         }
     }
-    
 
+    [Authorize]
     [HttpPost("employeeLog")]
     public List<returnSingleLog> GetDevicesLogs([FromBody] adminHistoryParamsDTO adminHistoryParams)
     {
@@ -113,8 +118,9 @@ public class DeviceLogController : ControllerBase
        .ToList();
 
         return groupedLogs;
-    }                            
-    
+    }
+
+    [Authorize]
     [HttpPost("filterDevices")]
     public List<DevicelogDto> FiltterCard([FromBody] FilterDTO filterInput)
     {
@@ -131,6 +137,7 @@ public class DeviceLogController : ControllerBase
         return filterDevices;
     }
 
+    [Authorize]
     [HttpPost("singleHistoryDevice")]
     public List<historySingleDevice> singleHistoryDevice([FromBody] locationDeviceDTO dto)
     {
@@ -148,8 +155,8 @@ public class DeviceLogController : ControllerBase
     //        .OrderBy(dl => dl.CreatedAtUtc) // Assuming logs are ordered by CreatedAtUtc
     //        .ToList();
 
-                               
 
+    [Authorize]
     [HttpPost("filterEmployeeLog")]
     public List<returnSingleLog> FilterDevicesLogs([FromBody] filterDateadminHistoryParamsDTO filterParams)
     {

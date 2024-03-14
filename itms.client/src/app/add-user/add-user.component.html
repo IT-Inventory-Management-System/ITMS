@@ -4,7 +4,7 @@
       <span class="Adduser-text">
         Add User
       </span>
-      <img src="../../assets/icons/Add-user-modal/close.svg" (click)="cancel()" data-bs-dismiss="modal">
+      <img src="../../assets/icons/Add-user-modal/close.svg" (click)="cancel()" data-bs-dismiss="modal" class="close-add-user">
 
     </div>
     <hr />
@@ -36,15 +36,30 @@
           </div>
         </div>
       </div>
-      <div class="email-div">
-        <span class="email-text">Email Id <span class="required">*</span></span>
-        <div class="email-input">
-          <input formControlName="email" class="email-input-text" placeholder="Enter Email ID" />
-          <!--<div class="form-text text-danger" *ngIf="userForm.get('email')?.errors?.['required'] && (userForm.get('email')?.touched||userForm.get('email')?.dirty)">Email is Required</div>-->
-          <!--<div class="form-text text-danger" *ngIf="userForm.get('email')?.errors?.['email'] && (userForm.get('email')?.touched||userForm.get('email')?.dirty)">Email is Invalid</div>-->
+      <div class="email-div  ">
+        <div  >
+          <span class="email-text ">Email Id <span class="required">*</span></span>
+          <div class="email-input ">
+            <input formControlName="email" class="email-input-text" placeholder="Enter Email ID" />
+            <!--<div class="form-text text-danger" *ngIf="userForm.get('email')?.errors?.['required'] && (userForm.get('email')?.touched||userForm.get('email')?.dirty)">Email is Required</div>-->
+            <!--<div class="form-text text-danger" *ngIf="userForm.get('email')?.errors?.['email'] && (userForm.get('email')?.touched||userForm.get('email')?.dirty)">Email is Invalid</div>-->
 
+          </div>
         </div>
+        <div class="password-div" >
+          <span class="email-text  ">Password</span>
+          <div class="email-input ">
+            <input type="password" formControlName="password" class="email-input-text" placeholder="Password" />
+            <!--<div class="form-text text-danger" *ngIf="userForm.get('email')?.errors?.['required'] && (userForm.get('email')?.touched||userForm.get('email')?.dirty)">Email is Required</div>-->
+            <!--<div class="form-text text-danger" *ngIf="userForm.get('email')?.errors?.['email'] && (userForm.get('email')?.touched||userForm.get('email')?.dirty)">Email is Invalid</div>-->
+
+          </div>
+        </div>
+
+
+
       </div>
+      
       <div class="cgi">
         <span class="cgi-text">CGI ID <span class="required">*</span></span>
         <div class="input-cgi">

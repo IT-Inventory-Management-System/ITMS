@@ -32,7 +32,7 @@ export class AddSoftwareFormComponent {
     this.dataService.getSoftwareTypes().subscribe(
       (data) => {
         this.softwareTypes = data;
-        console.log(data);
+        //console.log(data);
       },
       (error) => {
         console.error('Error fetching software values', error);
@@ -87,7 +87,7 @@ export class AddSoftwareFormComponent {
     this.dataService.getSoftwares().subscribe(
       (data) => {
         this.dropdownValues = data;
-        console.log(data);
+        //console.log(data);
       },
       (error) => {
         console.error('Error fetching software values', error);
@@ -199,12 +199,12 @@ export class AddSoftwareFormComponent {
     if (this.checkForm()) {
 
 
-      console.log(this.SoftwareForm.value);
+      //console.log(this.SoftwareForm.value);
 
       this.dataService.postSoftwaredata(this.SoftwareForm.value).subscribe(
         response => {
-          console.log('Post successful', response);
-          console.log('Before toastr call');
+          //console.log('Post successful', response);
+          //console.log('Before toastr call');
           
           this.hideErrorMessage();
           this.resetform();

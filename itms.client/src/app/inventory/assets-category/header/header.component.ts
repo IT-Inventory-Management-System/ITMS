@@ -20,7 +20,7 @@ export class HeaderComponent {
         .subscribe(data => {
           this.deviceService.Archiveddevices=data
           this.Archiveddevices = data;
-          console.log(this.Archiveddevices);
+         // console.log(this.Archiveddevices);
         });
     } else {
       this.Archiveddevices = [];

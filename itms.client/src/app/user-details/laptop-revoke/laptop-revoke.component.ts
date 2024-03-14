@@ -53,14 +53,14 @@ export class LaptopRevokeComponent {
       const lostAction = this.actionsArray.find(a => a.actionName === 'Lost' || a.actionName === 'lost');
       if (lostAction) {
         this.actionId = lostAction.id;
-        console.log("Lost Action: ", this.actionId);
+       // console.log("Lost Action: ", this.actionId);
       }
 
       const var3 = this.actionId;
 
       this.deviceLogService.updateRecievedBy(var1, var2, var3).subscribe(
         (response) => {
-          console.log(response);
+         // console.log(response);
           if (response && response.receivedBy) {
             const { deviceLogId, firstName, lastName, recievedDate, actionName } = response.receivedBy;
             this.laptopDetails.submitedBy = `${firstName} ${lastName}`;
@@ -82,14 +82,14 @@ export class LaptopRevokeComponent {
       const SubmittedAction = this.actionsArray.find(a => a.actionName === 'Submitted' || a.actionName === 'submitted');
       if (SubmittedAction) {
         this.actionId = SubmittedAction.id;
-        console.log("Submitted Action: ", this.actionId);
+       // console.log("Submitted Action: ", this.actionId);
       }
 
       const var3 = this.actionId;
 
       this.deviceLogService.updateRecievedBy(var1, var2, var3).subscribe(
         (response) => {
-          console.log(response);
+         // console.log(response);
           if (response && response.receivedBy) {
             const { deviceLogId, firstName, lastName, recievedDate, actionName } = response.receivedBy;
             this.laptopDetails.submitedBy = `${firstName} ${lastName}`;
@@ -111,14 +111,14 @@ export class LaptopRevokeComponent {
       const UnassignableAction = this.actionsArray.find(a => a.actionName === 'Unassignable' || a.actionName === 'unassignable');
       if (UnassignableAction) {
         this.actionId = UnassignableAction.id;
-        console.log("Unassignable Action: ", this.actionId);
+      //  console.log("Unassignable Action: ", this.actionId);
       }
 
       const var3 = this.actionId;
 
       this.deviceLogService.updateRecievedBy(var1, var2, var3).subscribe(
         (response) => {
-          console.log(response);
+         // console.log(response);
           if (response && response.receivedBy) {
             const { deviceLogId, firstName, lastName, recievedDate, actionName } = response.receivedBy;
             this.laptopDetails.submitedBy = `${firstName} ${lastName}`;
@@ -140,14 +140,14 @@ export class LaptopRevokeComponent {
       const SubmitLaterAction = this.actionsArray.find(a => a.actionName === 'Assigned' || a.actionName === 'assigned');
       if (SubmitLaterAction) {
         this.actionId = SubmitLaterAction.id;
-        console.log("Submit Later Action: ", this.actionId);
+     //   console.log("Submit Later Action: ", this.actionId);
       }
 
       const var3 = this.actionId;
 
       this.deviceLogService.updateRecievedBy(var1, var2, var3).subscribe(
         (response) => {
-          console.log(response);
+          //console.log(response);
           if (response && response.receivedBy) {
             const { deviceLogId , firstName, lastName, recievedDate, actionName} = response.receivedBy;
             this.laptopDetails.submitedBy = `${firstName} ${lastName}`;
@@ -165,7 +165,7 @@ export class LaptopRevokeComponent {
   }
 
   addNewComment(deviceLogId: any) {
-    console.log('comment called');
+  //  console.log('comment called');
     const commentDto = {
       description: this.newComment,
       createdBy: this.loggedUser.id,
@@ -174,12 +174,12 @@ export class LaptopRevokeComponent {
       deviceLogId: deviceLogId
     };
 
-    console.log('Comment DTO:', commentDto);
+   // console.log('Comment DTO:', commentDto);
 
     this.commentService.addRevokeComment(commentDto).subscribe(
       (response) => {
 
-        console.log(response);
+      //  console.log(response);
         //this.laptopDetails.comments.unshift(response);
         //console.log(this.laptopDetails.comments);
         this.newComment = '';

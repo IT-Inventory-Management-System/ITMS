@@ -46,7 +46,7 @@ export class AddAssetComponent {
     this.dataService.getCategories().subscribe(
       (data) => {
         this.categoryData = data;
-        console.log(this.categoryData);
+        //console.log(this.categoryData);
         this.loading = false; 
       },
       (error) => {

@@ -44,11 +44,11 @@ export class CommentsComponent {
       deviceLogId: this.deviceLogId
     };
 
-    console.log('Comment DTO:', commentDto);
+   // console.log('Comment DTO:', commentDto);
 
     this.dataService.postComment(commentDto).subscribe(
       (response: any) => {
-        console.log('Comment added successfully', response);
+      //  console.log('Comment added successfully', response);
 
         if (response && response.comment) {
           // Prepend the new comment to the existing comments array

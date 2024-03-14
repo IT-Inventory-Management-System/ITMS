@@ -67,7 +67,7 @@ export class DevicesListComponent {
       (data) => {
         this.DeviceInfo = data;
         this.deviceService.DeviceDetails = this.DeviceInfo;
-        console.log(this.deviceService.DeviceDetails);
+        //console.log(this.deviceService.DeviceDetails);
         this.getDeviceLocation();
         this.deviceService.triggerButtonClick();
         if (flag == false) {

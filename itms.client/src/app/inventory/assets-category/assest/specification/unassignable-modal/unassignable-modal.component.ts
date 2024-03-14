@@ -46,13 +46,13 @@ export class UnassignableModalComponent {
     this.deviceForm.get('updatedBy')?.setValue(this.UserId);
 
     if (this.deviceForm.valid) {
-      console.log(this.deviceForm.value);
+     // console.log(this.deviceForm.value);
 
 
 
       this.dataService.setDeviceUnassignable(this.deviceForm.value).subscribe(response => {
           if (response) {
-            console.log("Unassigned Device successfully");
+           // console.log("Unassigned Device successfully");
 
           } else {
             console.error("error in posting data");
