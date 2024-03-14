@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AvatarModule } from 'ngx-avatars';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { CategoryComponent } from './category/category.component';
 import { InventoryComponent } from './inventory/inventory.component';
@@ -129,7 +129,8 @@ import { AddAccessorySharedComponent } from './shared/components/add-accessory-s
 import { AddAccessoryBrandFormComponent } from './shared/components/add-accessory-shared/add-accessory-brand-form/add-accessory-brand-form.component';
 import { AddKeyboardComboComponent } from './add-asset/add-keyboard-combo/add-keyboard-combo.component';
 import { AddKeyboardComboBrandFormComponent } from './add-asset/add-keyboard-combo/add-keyboard-combo-brand-form/add-keyboard-combo-brand-form.component';
-
+import { LoginComponent } from './login/login.component';
+import { TokenInterceptor } from './interceptors/token.interceptor';
 
 
 @NgModule({
@@ -271,6 +272,7 @@ import { AddKeyboardComboBrandFormComponent } from './add-asset/add-keyboard-com
       AddKeyboardComboComponent,
       AddKeyboardComboBrandFormComponent,
 
+      LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -285,7 +287,11 @@ import { AddKeyboardComboBrandFormComponent } from './add-asset/add-keyboard-com
     NgSelectModule,
     AgGridModule
   ],
-  providers: [DatePipe],
+  providers: [DatePipe, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi: true
+  },], 
   bootstrap: [AppComponent]
 })
 export class AppModule { }

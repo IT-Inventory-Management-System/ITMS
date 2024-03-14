@@ -23,7 +23,7 @@ export class AddDeviceModelComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
-    console.log(this.selectedOS);
+    //console.log(this.selectedOS);
     this.setOperatingSystem();
     this.setCategoryId();
     this.userDataJSON = localStorage.getItem('user');
@@ -135,11 +135,11 @@ export class AddDeviceModelComponent implements OnInit {
 
     if (this.deviceForm.valid) {
       
-      console.log(this.deviceForm.value);
+      //console.log(this.deviceForm.value);
 
       this.dataService.postDeviceModel(this.deviceForm.value).subscribe(
         response => {
-          console.log('Post successful', response);
+          //console.log('Post successful', response);
           this.deviceForm.reset();
           this.selectedRam = null;
           this.selectedStorage = null;

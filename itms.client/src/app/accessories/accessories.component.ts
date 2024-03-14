@@ -66,10 +66,10 @@ export class AccessoriesComponent {
     // console.log("cyg", this.cygid);
     // console.log(eventData);
     this.singleSelected = this.accessories.filter(a => a.cygid === eventData.CYGID);
-    console.log(this.singleSelected);
+   // console.log(this.singleSelected);
     this.singleHistoryAccessory(this.locationId, this.cygid);
     this.accessoryId = eventData.accessoryId;
-    console.log(this.accessoryId)
+   // console.log(this.accessoryId)
     if (this.singleSelected[0]?.isArchived) {
       this.selectedOption = 'Archived';
     } else {
@@ -171,12 +171,12 @@ export class AccessoriesComponent {
     this.dataService.getAllAccessories(dto)
       .subscribe(accessories => {
         this.accessories = accessories;
-        console.log(this.accessories);
+      //  console.log(this.accessories);
         this.singleSelected = [this.accessories[0]];
         this.accessoryId = this.accessories[0].accessoryId;
         this.loading = false;
         this.setRowData();
-        console.log('Accessories', [this.accessories[0]]);
+       // console.log('Accessories', [this.accessories[0]]);
         this.singleHistoryAccessory(this.locationId, this.accessories[0].cygid);
         this.selectedOption = this.accessories[0].isArchived ? 'Archived' : 'Active';
         this.cygid = this.accessories[0].cygid
@@ -193,7 +193,7 @@ export class AccessoriesComponent {
       .subscribe(
         (history) => {
           this.historydata = history;
-  console.log('History Data', history); 
+ // console.log('History Data', history); 
         },
         (error) => {
           console.error('Error fetching history data:', error);
@@ -254,7 +254,7 @@ export class AccessoriesComponent {
             this.accessories = result;
             this.setRowData();
             this.singleSelected = [this.accessories[0]];
-            console.log('Accessories', [this.accessories[0]]);
+          //  console.log('Accessories', [this.accessories[0]]);
             this.accessoryId = this.accessories[0].accessoryId;
             this.singleHistoryAccessory(this.locationId, this.accessories[0].cygid);
           //  console.log('Accessories', this.accessories);

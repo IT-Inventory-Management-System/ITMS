@@ -47,7 +47,7 @@ export class ArchiveModalComponent {
     this.deviceForm.get('updatedBy')?.setValue(this.UserId);
 
     if (this.deviceForm.valid) {
-      console.log(this.deviceForm.value);
+      //console.log(this.deviceForm.value);
 
 
 
@@ -55,7 +55,7 @@ export class ArchiveModalComponent {
 
         .subscribe(response => {
           if (response) {
-            console.log("posted successfully");
+           // console.log("posted successfully");
 
           } else {
             console.error("error in posting data");

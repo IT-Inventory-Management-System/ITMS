@@ -27,11 +27,11 @@ export class AdminPermissionsPanelComponent {
       newRole: 'User'
     };
 
-    console.log(userData);
+   // console.log(userData);
 
     this.dataService.changeUserRole(userData).subscribe(
       (response) => {
-        console.log(response);
+      //  console.log(response);
         this.adminDetailService.notifyAdminListChanged();
         this.isToggleChecked = true;
       },

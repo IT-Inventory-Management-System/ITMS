@@ -13,6 +13,8 @@
   left: 30%;
 }
 
+
+
 .hearder {
   border-bottom: 1px solid var(--Secondary-Light-Gray, #E9ECEB);
   display: flex;
@@ -36,6 +38,11 @@
   margin-left: 15rem;
   width: 1.5rem;
   height: 1.5rem;
+  cursor: pointer;
+}
+
+.close-add-user {
+  cursor: pointer;
 }
 
 .content {

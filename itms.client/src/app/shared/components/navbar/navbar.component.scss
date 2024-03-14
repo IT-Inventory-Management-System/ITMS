@@ -439,3 +439,9 @@ input[type=radio]:checked + .off-label + .selected {
 #navbarToggleExternalContent{
     background-color: white;
 }
+
+.logout-icn{
+    height: 1.5rem;
+    width: 1.5rem;
+    flex-shrink: 0;
+}

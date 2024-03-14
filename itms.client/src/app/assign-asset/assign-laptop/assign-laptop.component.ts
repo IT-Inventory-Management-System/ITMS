@@ -33,11 +33,11 @@ export class AssignLaptopComponent {
     });
   }
   ngOnChanges() {
-    console.log(this.SelectedLaptops);
+   // console.log(this.SelectedLaptops);
   }
 
   ngOnInit(): void {
-    console.log(this.LaptopOptions);
+  //  console.log(this.LaptopOptions);
     this.devices = this.assignDataManagementService.getMultipleInstanceState('devices') || [];
     if (this.devices.length === 0) {
       this.devices.push({});
@@ -78,7 +78,7 @@ export class AssignLaptopComponent {
 
   LaptopSearchBoxOptionSelected(event: any, index: number): void {
     //console.log(event);
-    console.log(this.SelectedLaptops);
+   // console.log(this.SelectedLaptops);
     if (event) {
       this.SelectedLaptops[index] = event;
       this.calculateFormattedAge(index);
@@ -86,7 +86,7 @@ export class AssignLaptopComponent {
         this.LaptopOptions = this.LaptopOptions.filter(option => option !== event);
     }
     else {
-      console.log(this.SelectedLaptops);
+     // console.log(this.SelectedLaptops);
 
       if (this.SelectedLaptops[index] && !this.LaptopOptions.includes(this.SelectedLaptops[index])) {
         this.LaptopOptions.push(this.SelectedLaptops[index]);
@@ -94,7 +94,7 @@ export class AssignLaptopComponent {
       }
     }
     this.cygidInputChangeFlag();
-    console.log(this.SelectedLaptops);
+   // console.log(this.SelectedLaptops);
   }
 
   calculateFormattedAge(index: number): void {
@@ -155,7 +155,7 @@ export class AssignLaptopComponent {
     }
   }
   onSelectOption(option: any, index: any): void {
-    console.log(this.SelectedLaptops);
+   // console.log(this.SelectedLaptops);
 
     //console.log(option);
     if (option != undefined) {
@@ -178,7 +178,7 @@ export class AssignLaptopComponent {
         }));
       }
     }
-    console.log(this.SelectedLaptops);
+   // console.log(this.SelectedLaptops);
 
   }
 
@@ -202,7 +202,7 @@ export class AssignLaptopComponent {
           deviceComment: event.target.value
         }));
       }
-      console.log(laptopCommentsArray);
+     // console.log(laptopCommentsArray);
     } else {
       console.error('FormArray "deviceComments" is null.');
     }

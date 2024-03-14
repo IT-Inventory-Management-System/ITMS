@@ -76,10 +76,10 @@ export class ExitProcessComponent {
       updatedBy: JSON.parse(this.storedUser).id,
       exitProcessInitiated: true
     };
-    console.log(body);
+   // console.log(body);
     this.updateExitProcessInitiationService.UpdateExitProcessInitiation(body).subscribe(
       response => {
-        console.log('Exit process updated successfully:', response.message);
+       // console.log('Exit process updated successfully:', response.message);
         // Handle success
       },
       error => {

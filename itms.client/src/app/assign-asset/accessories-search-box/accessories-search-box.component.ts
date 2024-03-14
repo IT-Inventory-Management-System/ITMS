@@ -33,7 +33,7 @@ export class AccessoriesSearchBoxComponent {
     
     this.AccessoryOptionSelected.emit({ accessCYGIDs: this.accessCYGIDs, index: this.index, selectedOption: this.selectedOption });
     this.UniqueOptions();
-    console.log(this.assignAssetForm.value);
+    //console.log(this.assignAssetForm.value);
   }
 
   ngOnDestroy(): void {

@@ -20,7 +20,7 @@ export class SpecInfoComponent  {
 
   handleClick(modelno : string) {
     this.modelClicked.emit(modelno);
-    console.log(modelno);
+   // console.log(modelno);
   }
     
   

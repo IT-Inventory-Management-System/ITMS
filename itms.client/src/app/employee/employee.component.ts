@@ -36,9 +36,9 @@ export class EmployeeComponent {
           this.laptopDetails = data.laptop;
           this.softwareDetails = data.software;
           this.accessoriesDetails = data.accessories;
-          console.log(this.laptopDetails);
-          console.log(this.softwareDetails);
-          console.log(this.accessoriesDetails);
+         // console.log(this.laptopDetails);
+        //  console.log(this.softwareDetails);
+         // console.log(this.accessoriesDetails);
         },
         (error) => {
           console.error('Error fetching laptop details:', error);

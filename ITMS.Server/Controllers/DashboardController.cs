@@ -1,6 +1,7 @@
 using ITMS.Server.DTO;
 using ITMS.Server.Models;
 using ITMS.Server.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,6 +18,7 @@ namespace ITMS.Server.Controllers
             _dashboardService = dashboardService;
         }
 
+        [Authorize]
         [HttpGet("accessories")]
         public ActionResult<IEnumerable<Accessories>> GetAccessories()
         {
@@ -32,7 +34,7 @@ namespace ITMS.Server.Controllers
         //    return Ok(software);
         //}
 
-
+        [Authorize]
         [HttpGet("softwares")]
         public ActionResult<IEnumerable<Softwares>> GetSoftwares()
         {
@@ -47,6 +49,7 @@ namespace ITMS.Server.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet("primary")]
         public ActionResult<IEnumerable<Accessories>> GetPrimary()
         {
@@ -54,6 +57,7 @@ namespace ITMS.Server.Controllers
             return Ok(os);
         }
 
+        [Authorize]
         [HttpPost("logs")]
         public ActionResult<IEnumerable<Logs>> GetLogs([FromBody] Getlocation country)
         {

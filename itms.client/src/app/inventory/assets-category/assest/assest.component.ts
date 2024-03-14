@@ -101,7 +101,7 @@ export class AssestComponent {
       this.dataService.getFilteredDevicesTable(filter).subscribe(
         (data) => {
           this.deviceData = data;
-          console.log("FILTERED DATA : ", this.deviceData);
+          //console.log("FILTERED DATA : ", this.deviceData);
           this.setRowData();
       });
   }
@@ -133,7 +133,7 @@ export class AssestComponent {
   }
 
   onFilterTextBoxChanged() {
-    console.log('Searched Value : ', this.searchValue);
+    //console.log('Searched Value : ', this.searchValue);
   }
 
   // Column Definitions: Defines & controls grid columns.
@@ -287,7 +287,7 @@ export class AssestComponent {
     this.deviceService.getDeviceModelData(inputObject).subscribe(
 
       (data) => {
-        console.log('Model Data : ', data);
+        //console.log('Model Data : ', data);
         this.setModelRowDef(data[0]);
         this.selectedView = 'table';
       },
@@ -310,7 +310,7 @@ export class AssestComponent {
       'Stock Status': modelData.inventory <= 2 ? (modelData.inventory == 0 ? 'Out' : 'Low') : 'In'
     }
 
-    console.log(this.modelRowDef);
+    //console.log(this.modelRowDef);
   }
 
   showFilter(filter: any) {

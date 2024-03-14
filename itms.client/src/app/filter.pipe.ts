@@ -5,8 +5,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class FilterPipe implements PipeTransform {
   transform(items: any[], searchText: string): any {
-    console.log('Items:', items);
-    console.log('SearchText:', searchText);
+   // console.log('Items:', items);
+   // console.log('SearchText:', searchText);
 
     if (!items || !searchText) {
       return items;
@@ -29,7 +29,7 @@ export class FilterPipe implements PipeTransform {
       }))
       .filter(item => item.categories.length > 0);
 
-    console.log('Filtered Items:', modifiedFilteredItems);
+   // console.log('Filtered Items:', modifiedFilteredItems);
 
     return modifiedFilteredItems;
 

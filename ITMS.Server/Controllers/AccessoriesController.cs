@@ -3,6 +3,8 @@ using ITMS.Server.Models;
 using ITMS.Server.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace ITMS.Server.Controllers
 {
@@ -33,12 +35,15 @@ namespace ITMS.Server.Controllers
         //    }
         //}
 
+
+        [Authorize]
         [HttpGet("GetAccessoriesList")]
         public async Task<IEnumerable<getAccessoriesDTO>> listAccessories()
         {
             return await _getAccessoryService.listAccessories();
         }
 
+        [Authorize]
         [HttpPost("GetAccessoriesDetails")]
         public async Task<IEnumerable<getMouseDetailsDTO>> getMouseDetails([FromBody] accessoryInputDTO inputDTO)
         {
