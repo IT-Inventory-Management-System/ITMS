@@ -82,6 +82,7 @@ export class AddUserComponent implements OnInit {
   previous(): void {
     if (this.idx <= 1) {
       this.idx--;
+      this.userForm = this.list[this.idx];
       this.previousDisabled = true;
       return;
     }
