@@ -106,10 +106,10 @@ export class UserListComponent implements OnInit {
  
   showUserListData() {
   
-    console.log(this.locationId);
+    //console.log(this.locationId);
     this.displayingDetailsService.getshowUserListData(this.locationId).subscribe(
       (data) => {
-        console.log("employee data:", data);
+       // console.log("employee data:", data);
         this.displayingData = data;
         this.filterAndSort();       
       },
@@ -120,7 +120,7 @@ export class UserListComponent implements OnInit {
   }
 
   GetUserDetails = (details: any) => {
-    console.log(details.id);
-    console.log("working");
+   // console.log(details.id);
+   // console.log("working");
   }
 }

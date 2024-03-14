@@ -20,7 +20,6 @@ export class AssetFilterComponent {
     this.applyFilter.emit(this.selectedCheckboxes);
     this.changeDetectorRef.detectChanges();
     this.dataService.notifyDeviceListChanged();
-    console.log();
   }
 
 

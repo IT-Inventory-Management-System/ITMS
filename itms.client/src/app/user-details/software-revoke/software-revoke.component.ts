@@ -79,14 +79,14 @@ export class SoftwareRevokeComponent {
       const SubmittedAction = this.actionsArray.find(a => a.actionName === 'Submitted' || a.actionName === 'submitted');
       if (SubmittedAction) {
         this.actionId = SubmittedAction.id;
-        console.log("Submitted Action: ", this.actionId);
+      //  console.log("Submitted Action: ", this.actionId);
       }
 
       const var3 = this.actionId;
 
       this.deviceLogService.updateRecievedBy(var1, var2, var3).subscribe(
         (response) => {
-          console.log(response);
+        //  console.log(response);
           if (response && response.receivedBy) {
             const { deviceLogId, firstName, lastName, recievedDate, actionName } = response.receivedBy;
             this.softwareDetails.recievedBy = `${firstName} ${lastName}`;

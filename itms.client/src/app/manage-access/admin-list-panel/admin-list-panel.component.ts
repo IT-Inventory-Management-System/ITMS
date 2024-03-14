@@ -59,7 +59,7 @@ export class AdminListPanelComponent {
         //this.adminList = data;
         this.adminDetailService.setSelectedAdmin(this.adminList[0]);
         this.adminDetailService.setSelectedCardIndex(0);
-        console.log("ADMIN DATA : ", this.adminList);
+       // console.log("ADMIN DATA : ", this.adminList);
         this.loading = false;
       },
       (error) => {

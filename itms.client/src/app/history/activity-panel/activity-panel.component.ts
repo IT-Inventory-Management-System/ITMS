@@ -44,7 +44,7 @@ export class ActivityPanelComponent {
     if (value !== '') {
       formattedDate = this.purchseDate.toISOString().split('T')[0];
     }
-    console.log(formattedDate);
+   // console.log(formattedDate);
     this.filteredLogs(this.selectedAdmin.id, this.selectedAdmin.locationId, formattedDate);
   }
 
@@ -62,7 +62,7 @@ export class ActivityPanelComponent {
       employeeId: employeeId,
       date: filterdate
     };
-    console.log("REQUEST BODY : ", body);
+    //console.log("REQUEST BODY : ", body);
     this.adminDetailService.getFilteredLogs(body).subscribe(
       data => {
       //  console.log("ADMIN LOGS : ", data);
@@ -84,7 +84,7 @@ export class ActivityPanelComponent {
    // console.log("REQUEST BODY : ", body);
     this.adminDetailService.getLogs(employeeId, locationId).subscribe(
       data => {
-       console.log("ADMIN LOGS : ", data);
+      // console.log("ADMIN LOGS : ", data);
         this.admindata = data;
       },
       error => {

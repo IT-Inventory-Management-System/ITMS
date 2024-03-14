@@ -65,13 +65,13 @@ export class AddAccessoryBrandFormComponent {
     this.deviceForm.get('createdBy')?.setValue(this.UserId);
     this.deviceForm.get('updatedBy')?.setValue(this.UserId);
 
-    console.log(this.deviceForm.value);
+    //console.log(this.deviceForm.value);
     if (this.deviceForm.valid && this.showErrorMessage == false && this.showMessage == false) {
 
     this.dataService.postCommonBrand(this.deviceForm.value).subscribe(
       response => {
 
-        console.log('Post successful', response);
+      //  console.log('Post successful', response);
         this.toastr.success("Data posted successfully");
         this.formSubmitted.emit();
 
@@ -97,7 +97,7 @@ export class AddAccessoryBrandFormComponent {
 
     this.dataService.getAllBrands(input).subscribe(
       (data) => {
-        console.log("Original Data:", data);
+       // console.log("Original Data:", data);
         this.dropdownValues = [];
         this.dropdownValues = data;
 

@@ -80,7 +80,7 @@ export class AdminPanelComponent {
         //this.adminList.add
         this.adminDetailService.setSelectedAdmin(this.adminList[0]);
         this.adminDetailService.setSelectedCardIndex(0);
-        console.log("hello", this.adminList);
+       // console.log("hello", this.adminList);
         this.loading = false;
       },
       (error) => {

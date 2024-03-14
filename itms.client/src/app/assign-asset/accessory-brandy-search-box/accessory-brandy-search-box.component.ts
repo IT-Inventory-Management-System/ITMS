@@ -60,9 +60,9 @@ export class AccessoryBrandySearchBoxComponent {
       (accessory: any) => accessory.brand === selectedBrand && accessory.iswired === isWired
     );
 
-    console.log("this.AccessoryBrands", this.AccessoryBrands);
+  //  console.log("this.AccessoryBrands", this.AccessoryBrands);
 
-    console.log("filteredBrands", filteredBrands);
+  //  console.log("filteredBrands", filteredBrands);
 
     if (filteredBrands.length > 0) {
       const selectedCygid = filteredBrands[0].cygid;
@@ -82,7 +82,7 @@ export class AccessoryBrandySearchBoxComponent {
 
 
       this.prev = selectedCygid;
-      console.log(this.accessCYGIDs);
+    //  console.log(this.accessCYGIDs);
     } else {
       this.selectedCygid = 'Not found';
     }

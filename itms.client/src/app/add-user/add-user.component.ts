@@ -128,15 +128,15 @@ export class AddUserComponent implements OnInit {
     
     this.addNew();
     for (let i = 0; i < this.list.length; i++) {
-      console.log(this.list[i].get("firstName"));
+    //  console.log(this.list[i].get("firstName"));
       const formValue = this.list[i].value;
 
-      console.log("selected location", this.selectedLocation)
+    //  console.log("selected location", this.selectedLocation)
       const formValueWithLocation = { ...formValue, location: this.selectedLocation };
 
       this.res.push(formValueWithLocation);
 
-      console.log(formValueWithLocation);
+     // console.log(formValueWithLocation);
       //this.res.push(this.list[i].value);
       //console.log(this.list[i].value);
     }
@@ -145,7 +145,7 @@ export class AddUserComponent implements OnInit {
     if (this.res.length > 0) {
       this.empService.postUsers(this.res).subscribe(
         response => {
-          console.log('Post successful', response);
+         // console.log('Post successful', response);
           this.toastr.success("Data posted successfully");
         },
         error => {

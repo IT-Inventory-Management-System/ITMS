@@ -96,8 +96,7 @@ export class SoftwareComponent implements OnInit {
   constructor(private softwareService: SoftwareService, private LocationService: LocationService, private selectedCountryService: SelectedCountryService, private toastr: ToastrService) { }
 
   onApplyClicked(eventData: any): void {
-    console.log
-      ("event data", eventData);
+   // console.log  ("event data", eventData);
     const fromDate = eventData.from ? eventData.from.toISOString().split('T')[0] : ''; // Convert From Date to string
     const toDate = eventData.to ? eventData.to.toISOString().split('T')[0] : '';
 
@@ -137,7 +136,7 @@ export class SoftwareComponent implements OnInit {
           };
           this.onCardClicked(parameters, 0);
         } else {
-          console.log('No software found for parameters:', body);
+         // console.log('No software found for parameters:', body);
         }
       },
       error => {
@@ -153,7 +152,7 @@ export class SoftwareComponent implements OnInit {
         //  console.log("tabel", this.softwarestableData);
           this.setRowData();
         } else {
-          console.log('No software found for parameters:', body);
+         // console.log('No software found for parameters:', body);
         }
       },
       error => {
@@ -189,7 +188,7 @@ export class SoftwareComponent implements OnInit {
           this.toastr.success("Data posted successfully");
         } else {
           // Handle case when no software is found
-          console.log('No software found for parameters:', body);
+         // console.log('No software found for parameters:', body);
           this.toastr.error("Error in posting data");
         }
       },
@@ -221,7 +220,7 @@ export class SoftwareComponent implements OnInit {
       type: eventData.type
 
     };
-    console.log("parameters", parameters);
+   // console.log("parameters", parameters);
     this.archive = parameters;
 
     this.softwareService.GetSingleSelected(parameters).subscribe(
@@ -232,7 +231,7 @@ export class SoftwareComponent implements OnInit {
          // console.log('Single software :', this.singlesoftware);
 
         } else {
-          console.log('No software found for parameters:', parameters);
+          //console.log('No software found for parameters:', parameters);
         }
       },
       error => {
@@ -245,10 +244,10 @@ export class SoftwareComponent implements OnInit {
         if (result) {
        //   console.log(' software history:', result);
           this.softwarehistory = result;
-          console.log(' software history:', this.softwarehistory);
+         // console.log(' software history:', this.softwarehistory);
 
         } else {
-          console.log('No software history for parameters:', parameters);
+        //  console.log('No software history for parameters:', parameters);
         }
       },
       error => {
@@ -302,7 +301,7 @@ export class SoftwareComponent implements OnInit {
       data => {
         this.softwaresData = data;
 
-        console.log(this.softwaresData);
+      //  console.log(this.softwaresData);
         this.loading = false;
 
 
