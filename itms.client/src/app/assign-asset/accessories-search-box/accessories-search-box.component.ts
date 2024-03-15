@@ -30,7 +30,8 @@ export class AccessoriesSearchBoxComponent {
   ngOnInit(): void {
     this.closeFlagService.setCloseFlagToFalse();
     this.selectedOption = this.assignDataManagementService.getState("accessoriesName", this.index);
-    this.AccessoryOptionSelected.emit(this.selectedOption);
+    
+    this.AccessoryOptionSelected.emit({ accessCYGIDs: this.accessCYGIDs, index: this.index, selectedOption: this.selectedOption });
     this.UniqueOptions();
     //console.log(this.assignAssetForm.value);
   }
@@ -53,7 +54,7 @@ export class AccessoriesSearchBoxComponent {
   }
 
   onSelectOption(option: any): void {
-    this.AccessoryOptionSelected.emit({ accessCYGIDs: this.accessCYGIDs, option: option });
+    this.AccessoryOptionSelected.emit({ accessCYGIDs: this.accessCYGIDs, index: this.index, selectedOption: option });
   }
 
   emitRemoveSoftware(): void {
