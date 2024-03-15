@@ -35,8 +35,6 @@
   <img class="add-img" src="../../../../assets/icons/Add.svg" />
   <div class="add-new-text">Add Another Accessories</div>
 </div>-->
-
-
 <!--------------------------------------------------------------------------------------------------------------------->
 
 
@@ -61,8 +59,44 @@
   </div>
 </div>
 
+<div class="search-box-subheading type" *ngIf="selectedOption && selectedId === 'Monitor'">
+  Accessory Type<span style="color:red">*</span>
+  <div class="os-input1">
+    <input type="radio" name="osType{{index}}" id="windowsRadio{{index}}" value="HDMI" [(ngModel)]="PortType" (change)="setNewAccessoryIdPortType()">
+    <label for="windowsRadio{{index}}">HDMI</label>
+
+    <input type="radio" name="osType{{index}}" id="macRadio{{index}}" value="VGA" [(ngModel)]="PortType" (change)="setNewAccessoryIdPortType()">
+    <label for="macRadio{{index}}">VGA</label>
+
+    <input type="radio" name="osType{{index}}" id="dviRadio{{index}}" value="DVI" [(ngModel)]="PortType" (change)="setNewAccessoryIdPortType()">
+    <label for="dviRadio{{index}}">DVI</label>
+  </div>
+
+</div>
+
+<!---------------------------------------------------------------------------------------------------------->
+<div class="search-box-subheading" *ngIf="selectedOption && selectedId === 'Monitor'">
+  "Size" <span style="color:red">*</span>
+</div>
+  <ng-select class="custom search-box"
+             [placeholder]="'Select Screen Size'"
+             [(ngModel)]="selectedOptionSize"
+             (change)="onSelectOptionSize($event)"
+             (clear)="onClearSelectionSize()"
+             *ngIf="selectedOption && selectedId === 'Monitor'"
+             >
+    <ng-option class="list-items" *ngFor="let option of uniqueSizes" [value]="option">
+      {{ option }}
+    </ng-option>
+  </ng-select>
+
+
+
+<!------------------------------------------------------------------------------------------------------------>
+
+
 <div class="search-box-subheading" *ngIf="selectedId">Device ID<span style="color:red">*</span></div>
-<input class="custom" *ngIf="selectedId" disabled placeholder="Device ID" [value]="selectedCygid" />
+<input class="custom disabled" *ngIf="selectedId" disabled placeholder="Device ID" [value]="selectedCygid" />
 <div class="comment-subheading">Comment</div>
 <input class="comment-input-box"
        required

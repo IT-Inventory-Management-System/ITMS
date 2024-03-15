@@ -25,6 +25,7 @@
   align-self: stretch;
   width: 17.6875rem;
   height: 2.4375rem;
+  cursor:pointer;
 }
 
 .name {

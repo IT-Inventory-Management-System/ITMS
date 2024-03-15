@@ -12,10 +12,10 @@
 }
 
 .modal-content {
-  height: 18.625rem;
+  height: 22.625rem;
   width: 25rem;
   top: 6rem;
-  border-radius: 0rem;
+  border-radius: 0.5rem;
 }
 
 .archive_item_heading {
@@ -72,6 +72,7 @@
   height: 2.5rem;
   padding: 0rem;
   border: none;
+  margin-top: 1rem;
 }
 
 .footer_bu {

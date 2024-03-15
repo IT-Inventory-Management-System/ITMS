@@ -199,8 +199,8 @@ export class DataService {
   private deviceListSubject = new BehaviorSubject<any>(null);
   deviceListChanged$ = this.deviceListSubject.asObservable();
 
-  notifyDeviceListChanged() {
-    this.deviceListSubject.next(null);
+  notifyDeviceListChanged(cygid: string | null = null) {
+    this.deviceListSubject.next(cygid);
   }
 
   setDeviceUnassignable(formdata: any): Observable<any> {

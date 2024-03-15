@@ -74,7 +74,7 @@ export class AddUserComponent implements OnInit {
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       cgiId: ['', Validators.required],
-      password: ['', Validators.required],
+      password: [''],
       //location: [this.locationId]
       CreatedBy: [this.loggedUser.id]
     });
@@ -83,7 +83,9 @@ export class AddUserComponent implements OnInit {
   previous(): void {
     if (this.idx <= 1) {
       this.idx--;
+      this.userForm = this.list[this.idx];
       this.previousDisabled = true;
+      this.userForm = this.list[this.idx];
       return;
     }
     if (this.idx == this.curr) {

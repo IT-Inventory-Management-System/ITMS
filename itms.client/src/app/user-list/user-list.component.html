@@ -1,4 +1,4 @@
-<div class="search-user">
+<div class="search-user ">
 
   <div class="search-bar">
     <div class="search-bar-within">
@@ -16,14 +16,17 @@
     </div>
   </div>
 
-  <ng-template #content>
-    <div class="user-name-list">
-      <user-name-list (click)="showUserDetails(userDetails, i)" *ngFor="let userDetails of filteredDisplayingData | filterSearchList : filterName; let i = index"
-                      [cgiid]="userDetails.cgiid"
-                      [firstName]="userDetails.firstName"
-                      [lastName]="userDetails.lastName"
-                      [isSelected]="userDetails.isSelected">
-      </user-name-list>
-    </div>
-  </ng-template>
+  <div class="user-list-class">
+    <ng-template #content>
+      <div class="user-name-list">
+        <user-name-list (click)="showUserDetails(userDetails, i)" *ngFor="let userDetails of filteredDisplayingData | filterSearchList : filterName; let i = index"
+                        [cgiid]="userDetails.cgiid"
+                        [firstName]="userDetails.firstName"
+                        [lastName]="userDetails.lastName"
+                        [isSelected]="userDetails.isSelected">
+        </user-name-list>
+      </div>
+    </ng-template>
+  </div>
+
 </div>
