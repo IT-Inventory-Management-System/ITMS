@@ -421,18 +421,16 @@
 }
 
 .archive-text-days {
-  margin-top: -1.7rem;
-  margin-left: 1.5rem;
   font-family: Roboto;
-  font-size: 14px;
+  font-size: 0.875rem;
+  font-style: normal;
   font-weight: 500;
-  line-height: 16px;
-  letter-spacing: 0em;
-  text-align: left;
+  line-height: 1rem;
 }
 
 .archive-alert-img {
   margin-bottom: 0.9rem;
+  margin-right:0.2rem;
 }
 
 
@@ -512,6 +510,13 @@
 }
 
 .alert-hold-button {
-  margin-left: 35rem;
-  margin-top: -2.5rem;
+  margin-left: 35.45rem;
+  margin-top: -3.1rem;
+
+}
+.top-content{
+    padding: 0.35rem 0rem;
+    text-align:center;
+    display:flex;
+    flex-direction:row;
 }
