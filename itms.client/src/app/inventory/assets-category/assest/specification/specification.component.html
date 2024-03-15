@@ -29,7 +29,7 @@
 
       Active
     </ng-option>
-    <!--<ng-option [value]="'Unassignable'">Unassignable</ng-option>-->
+    <ng-option [value]="'Unassignable'">Unassignable</ng-option>
 
     <ng-option *ngIf="!isArchived && deviceDetails?.status?.type!=='Discarded'" value="Archive" [disabled]="deviceDetails?.status?.type=='Assigned'">
       <img class="asset-image" src="../../../../../assets/icons/Assets/archive.svg" />
