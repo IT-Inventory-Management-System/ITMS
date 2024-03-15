@@ -1,4 +1,6 @@
 import { Component, Input } from '@angular/core';
+import { GetLocalTimeService } from '../../shared/services/get-local-time.service';
+
 
 @Component({
   selector: 'app-recent-activity',
@@ -8,6 +10,10 @@ import { Component, Input } from '@angular/core';
 export class RecentActivityComponent {
   @Input() logsData: any;
   @Input() selectedLocation: any;
+
+  constructor(private TimeService: GetLocalTimeService) {
+
+  }
 
   //localizeDateStr(date_to_convert_str:string):string{
   //  //var date_to_convert = new Date(date_to_convert_str);
@@ -26,11 +32,7 @@ export class RecentActivityComponent {
   //}
 
   localizeDateStr(date_to_convert_str: string): string {
-    const date_to_convert = new Date(date_to_convert_str);
-    const local_offset = date_to_convert.getTimezoneOffset() * 60 * 1000; 
-    const local_time = date_to_convert.getTime() - local_offset;
-    const local_date = new Date(local_time);
-    return local_date.toString();
+    return this.TimeService.localizeDateStr(date_to_convert_str);
   }
 
 
