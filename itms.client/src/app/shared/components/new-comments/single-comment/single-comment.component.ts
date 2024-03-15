@@ -8,4 +8,14 @@ import { Component, Input } from '@angular/core';
 export class SingleCommentComponent {
 
   @Input() commentDetails: any;
+
+  convertUtcToLocalTime(utcTimeString: string): string {
+    const utcDate = new Date(utcTimeString);
+    const offsetMinutes = utcDate.getTimezoneOffset();
+    const localDate = new Date(utcDate.getTime() - (offsetMinutes * 60000));
+    const localTimeString = localDate.toLocaleString();
+    return localTimeString;
+  }
+
+
 }

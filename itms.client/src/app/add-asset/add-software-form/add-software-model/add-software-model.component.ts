@@ -45,7 +45,7 @@ export class AddSoftwareModelComponent {
       (data) => {
         for (var i = 0; i < data.length; i++) {
           for (var j = 0; j < data[i].categories.length; j++) {
-            if (data[i].categories[j].name == localStorage.getItem('selectedCategory')) {
+            if (data[i].categories[j].name == 'Software' || data[i].categories[j].name == 'software') {
               this.newSoftwareForm.get('categoryId')?.setValue(data[i].categories[j].id);
             }
           }

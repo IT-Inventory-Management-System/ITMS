@@ -80,7 +80,7 @@ export class NavbarComponent {
   }
 
   quickActionsDropdown() {
-    this.isOptionsVisible = !this.isOptionsVisible
+    this.isOptionsVisible = !this.isOptionsVisible;
   }
 
 }
