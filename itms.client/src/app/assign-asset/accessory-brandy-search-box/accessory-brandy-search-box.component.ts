@@ -328,7 +328,9 @@ export class AccessoryBrandySearchBoxComponent implements OnChanges {
     this.closeFlagService.setCloseFlagToFalse();
     this.selectedOption = this.assignDataManagementService.getState("accessoriesBrand", this.index);
     this.selectedCygid = this.assignDataManagementService.getState("selectedCygid", this.index);
-    this.isWired = this.assignDataManagementService.getState("isWired",this.index);
+    this.PortType = this.assignDataManagementService.getState("PortType", this.index);
+    this.isWired = this.assignDataManagementService.getState("isWired", this.index);
+    this.selectedOptionSize = this.assignDataManagementService.getState("selectedOptionSize", this.index);
 
     //if (this.selectedOption)
     //  this.AccessoryBrandOptionSelected.emit(this.selectedOption);
@@ -352,6 +354,9 @@ export class AccessoryBrandySearchBoxComponent implements OnChanges {
     });
     this.assignDataManagementService.setState("selectedCygid", this.selectedCygid, this.index);
     this.assignDataManagementService.setState("isWired", this.isWired, this.index);
+    this.assignDataManagementService.setState("PortType", this.PortType, this.index);
+    this.assignDataManagementService.setState("selectedOptionSize", this.selectedOptionSize, this.index);
+
     this.closeFlagSubscription.unsubscribe();
   }
 

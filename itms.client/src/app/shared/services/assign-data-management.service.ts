@@ -30,7 +30,9 @@ export class AssignDataManagementService {
   private SelectedAccessories: any[] = [];
 
   private accessoryCommentsState: any[] = [];
-  private selectedCygid :any[]=[];
+  private selectedCygid: any[] = [];
+  private portType: any[] = [];
+  private selectedOptionSize: any[] = [];
 
   /**************************************************************************************** */
   private selectedLaptopsState: any[] = [];
@@ -142,6 +144,18 @@ export class AssignDataManagementService {
           this.wireState[index] = newState;
         }
         break;
+      case 'portType':
+        if (index !== undefined && index >= 0) {
+          this.ensureArraySize('portType', index);
+          this.portType[index] = newState;
+        }
+        break;
+      case 'selectedOptionSize':
+        if (index !== undefined && index >= 0) {
+          this.ensureArraySize('selectedOptionSize', index);
+          this.selectedOptionSize[index] = newState;
+        }
+        break;
       //case 'accessoryComment':
       //  this.accessoryCommentState = newState;
       //  break;
@@ -233,6 +247,16 @@ export class AssignDataManagementService {
           return this.wireState[index];
         }
         return null;
+      case 'portType':
+        if (index !== undefined && index >= 0 && index < this.portType.length) {
+          return this.portType[index];
+        }
+        return null;
+      case 'selectedOptionSize':
+        if (index !== undefined && index >= 0 && index < this.selectedOptionSize.length) {
+          return this.selectedOptionSize[index];
+        }
+        return null;
       //case 'accessoryComment':
       //  return this.accessoryCommentState !== undefined ? this.accessoryCommentState : null;
       //case 'softwareName':
@@ -304,6 +328,14 @@ export class AssignDataManagementService {
       case 'isWired':
         while (this.wireState.length <= index)
           this.wireState.push(null);
+        break;
+      case 'portType':
+        while (this.portType.length <= index)
+          this.portType.push(null);
+        break;
+      case 'selectedOptionSize':
+        while (this.selectedOptionSize.length <= index)
+          this.selectedOptionSize.push(null);
         break;
       default:
         console.error('Invalid component:', component);
