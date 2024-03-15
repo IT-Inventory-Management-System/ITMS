@@ -47,19 +47,11 @@ export class ArchiveModalComponent {
     this.deviceForm.get('updatedBy')?.setValue(this.UserId);
 
     if (this.deviceForm.valid) {
-      //console.log(this.deviceForm.value);
-
-
-
-      this.dataService.UpdateDeviceStatusToDiscarded(this.deviceForm.value)
-
-        .subscribe(response => {
+      this.dataService.UpdateDeviceStatusToDiscarded(this.deviceForm.value).subscribe(response => {
           if (response) {
-            console.log("posted successfully");
-
+            this.dataService.notifyDeviceListChanged(this.cygid);
           } else {
             console.error("error in posting data");
-            // Handle the case where the device is not found or status update fails
           }
         }
 
@@ -77,7 +69,7 @@ export class ArchiveModalComponent {
 
     if (this.deviceForm.valid && archiveModal) {
       archiveModal.style.display = 'block';
-      window.location.reload();
+      this.closemodal();
 
     }
     else {

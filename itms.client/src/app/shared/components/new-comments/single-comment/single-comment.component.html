@@ -14,7 +14,7 @@
         <ngx-avatars name="{{commentDetails.createdBy}}" [textSizeRatio]=2.7 bgColor=#b8dde1 fgColor=#264f9d [round]="true" size="31"></ngx-avatars>
         <div class="admin-name">{{commentDetails.createdBy}}</div>
       </div>
-      <div class="time">{{commentDetails.createdAtUtc}}</div>
+      <div class="time">{{convertUtcToLocalTime(commentDetails.createdAtUtc) | date: 'h:mm a' }}</div>
     </div>
 
     <div *ngIf="commentDetails.assignedTo != null && commentDetails.receivedBy == null" class="comment-detail">

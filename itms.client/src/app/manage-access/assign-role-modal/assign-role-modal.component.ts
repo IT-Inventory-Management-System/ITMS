@@ -86,7 +86,7 @@ export class AssignRoleModalComponent {
       (data) => {
         this.userDataList = data;
         this.userDataList = data.sort((a, b) => a.cgiid.localeCompare(b.cgiid));
-        console.log(this.userDataList);
+       // console.log(this.userDataList);
  
       },
       (error) => {
@@ -96,7 +96,7 @@ export class AssignRoleModalComponent {
   }
 
   roleSelector() {
-    console.log(this.selectedRole);
+   // console.log(this.selectedRole);
   }
 
   changeRole() {
@@ -106,11 +106,11 @@ export class AssignRoleModalComponent {
       newRole: this.selectedRole
     };
 
-    console.log(userData);
+   // console.log(userData);
 
     this.dataService.changeUserRole(userData).subscribe(
       (response) => {
-        console.log(response);
+      //  console.log(response);
         this.adminDetailService.notifyAdminListChanged();
       },
       (error) => {

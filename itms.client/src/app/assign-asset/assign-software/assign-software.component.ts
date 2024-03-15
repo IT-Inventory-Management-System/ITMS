@@ -51,7 +51,7 @@ export class AssignSoftwareComponent {
     });
   }
   ngOnInit(): void {
-    console.log("software-oninit", this.SoftwareOptions);
+  //  console.log("software-oninit", this.SoftwareOptions);
     this.softwares = this.assignDataManagementService.getMultipleInstanceState('softwares') || [];
     if (this.softwares.length === 0) {
       this.softwares.push({});
@@ -83,21 +83,21 @@ export class AssignSoftwareComponent {
     //this.softwareIdInputChange.emit(isSoftwareIdEmpty);
       const allSelected = this.selectedSoftwareNames.every(name => name !== null) &&
       this.selectedSoftwareVersions.every(version => version !== null && version !== 1);
-      console.log(allSelected);
+     // console.log(allSelected);
     this.softwareIdInputChange.emit({ allSelected, SoftwareOptions: this.SoftwareOptions });
   }
 
   SoftwareSearchBoxOptionSelected(event: any, index: number): void {
     this.selectedSoftwareNames[index] = event;
     this.currSelectedSoftware = this.selectedSoftwareNames[index];
-    console.log("this.currSelectedSoftware", this.currSelectedSoftware);
+   // console.log("this.currSelectedSoftware", this.currSelectedSoftware);
     this.filterSoftwareVersions(index);
   }
 
   filterSoftwareVersions(index: number): void {
     if (this.selectedSoftwareNames[index]) {
       this.FilteredSoftwaresOptions[index] = this.SoftwareOptions.filter(opt => opt.softwareName === this.selectedSoftwareNames[index]);
-      console.log("this.FilteredSoftwaresOptions[index]",this.FilteredSoftwaresOptions[index]);
+    //  console.log("this.FilteredSoftwaresOptions[index]",this.FilteredSoftwaresOptions[index]);
       this.SelectedSoftwaresData[index] = this.FilteredSoftwaresOptions[index][0];
       const uniqueVersions: string[] = [];
       this.FilteredSoftwaresOptions[index].forEach(option => {
@@ -106,7 +106,7 @@ export class AssignSoftwareComponent {
         }
       });
       this.softwareVersionsOptions[index] = uniqueVersions;
-      console.log(this.softwareVersionsOptions[index]);
+    //  console.log(this.softwareVersionsOptions[index]);
     }
     else {
       this.softwareVersionsOptions[index];
@@ -134,7 +134,7 @@ export class AssignSoftwareComponent {
     //  (option: any) => option.version === selectedOption
     //);
 
-    console.log("filtered options", data);
+  //  console.log("filtered options", data);
 
     //if (data.option == undefined) {
       softwareIdsArray.push(this.formBuilder.group({

@@ -75,7 +75,7 @@ export class RevokeAllComponent {
     this.actionService.getActions().subscribe(
       (actions) => {
         this.actionsArray = actions;
-        console.log(this.actionsArray);
+        //console.log(this.actionsArray);
       },
 
       (error) => {
@@ -151,6 +151,25 @@ export class RevokeAllComponent {
 
   dismissModal() {
     this.currentStep = 1;
+
+    for (let i = 0; i < this.laptopDetails.length; i++) {
+      this.laptopDetails[i].received = null;
+      this.laptopDetails[i].perfect = null;
+      this.laptopDetails[i].unassignable = null;
+      this.laptopDetails[i].submittedLater = null;
+      this.laptopDetails[i].lostNotReceived = null;
+      this.laptopDetails[i].comment = '';
+    }
+
+    for (let i = 0; i < this.accessoriesDetails.length; i++) {
+      this.accessoriesDetails[i].received = null;
+      this.accessoriesDetails[i].perfect = null;
+      this.accessoriesDetails[i].unassignable = null;
+      this.accessoriesDetails[i].submittedLater = null;
+      this.accessoriesDetails[i].lostNotReceived = null;
+      this.accessoriesDetails[i].comment = '';
+    }
+
     this.revokeAllForm.reset();
     this.updateButtonDisabledState();
   }
@@ -162,7 +181,7 @@ export class RevokeAllComponent {
       formData.createdBy = JSON.parse(storedUser).id;
     if (this.userId)
       formData.archiveUserId = this.userId;
-    console.log(formData);
+   // console.log(formData);
 
     this.revokeAllService.revokeAll(formData).subscribe(
       (response) => {
@@ -171,8 +190,8 @@ export class RevokeAllComponent {
 
         // Set laptop details
 
-        console.log("the recent response is ", response);
-        console.log("laptop details is:", response.laptopResults);
+       // console.log("the recent response is ", response);
+       // console.log("laptop details is:", response.laptopResults);
 
         const SubmitLaterActionId = this.actionsArray.find(a => a.actionName === 'Assigned' || a.actionName === 'assigned').id;
 
@@ -207,7 +226,7 @@ export class RevokeAllComponent {
 
         if (response && response.laptopResults && response.laptopResults.length > 0) {
           for (const laptop of response.laptopResults) {
-            console.log("First Name:", laptop.firstName);
+         //   console.log("First Name:", laptop.firstName);
 
 
             const correspondingLaptop = this.laptopDetails.find((l: any) => l.deviceId === laptop.deviceId);
@@ -217,19 +236,19 @@ export class RevokeAllComponent {
               correspondingLaptop.submitedByDate = laptop.recievedDate;
               correspondingLaptop.actionName = laptop.actionName;
             } else {
-              console.log("No corresponding laptop in laptopDetails array.");
+            //  console.log("No corresponding laptop in laptopDetails array.");
             }
           }
         } else {
-          console.log("No laptop results found.");
+          //console.log("No laptop results found.");
         }
 
 
         // Set accessories details
-        console.log("accessories result is :", response.accessoryResults);
+       // console.log("accessories result is :", response.accessoryResults);
         if (response && response.accessoryResults && response.accessoryResults.length > 0) {
           for (const accessory of response.accessoryResults) {
-            console.log("First Name:", accessory.firstName);
+           // console.log("First Name:", accessory.firstName);
 
 
             const correspondingAccessory = this.accessoriesDetails.find((a: any) => a.deviceId === accessory.deviceId);
@@ -239,17 +258,17 @@ export class RevokeAllComponent {
               correspondingAccessory.submittedByDate = accessory.recievedDate;
               correspondingAccessory.actionName = accessory.actionName;
             } else {
-              console.log("No corresponding accessory in accessoriesDetails array.");
+            //  console.log("No corresponding accessory in accessoriesDetails array.");
             }
           }
         } else {
-          console.log("No accessory results found.");
+        //  console.log("No accessory results found.");
         }
 
-        console.log("software result is :", response.softwareResults);
+       // console.log("software result is :", response.softwareResults);
         if (response && response.softwareResults && response.softwareResults.length > 0) {
           for (const software of response.softwareResults) {
-            console.log("First Name:", software.firstName);
+           // console.log("First Name:", software.firstName);
 
 
             const correspondingSoftware = this.softwareDetails.find((s: any) => s.softwareAllocationId === software.softwareAllocationId);
@@ -259,11 +278,11 @@ export class RevokeAllComponent {
               correspondingSoftware.recievedByDate = software.recievedDate;
               correspondingSoftware.actionName = software.actionName;
             } else {
-              console.log("No corresponding software in softwareDetails array.");
+             // console.log("No corresponding software in softwareDetails array.");
             }
           }
         } else {
-          console.log("No software results found.");
+         // console.log("No software results found.");
         }
 
 

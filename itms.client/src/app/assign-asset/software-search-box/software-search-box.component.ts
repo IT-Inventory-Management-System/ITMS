@@ -52,15 +52,19 @@ export class SoftwareSearchBoxComponent implements OnChanges {
   }
 
   ngOnDestroy(): void {
-    this.closeFlagSubscription = this.closeFlagService.closeFlag$.subscribe((closeFlag) => {
-      if (!closeFlag) {
-        this.assignDataManagementService.setState("softwareNames", this.selectedOption, this.index);
-        this.assignDataManagementService.setState("softwareVersions", this.selectedOptionVersion, this.index);
+    //this.closeFlagSubscription = this.closeFlagService.closeFlag$.subscribe((closeFlag) => {
+    //  if (!closeFlag) {
+    //    this.assignDataManagementService.setState("softwareNames", this.selectedOption, this.index);
+    //    this.assignDataManagementService.setState("softwareVersions", this.selectedOptionVersion, this.index);
         
-        this.assignDataManagementService.setState("selectedSoftwareType", this.selectedSoftwareType, this.index);
-      }
-    });
-    this.closeFlagSubscription.unsubscribe();
+    //    this.assignDataManagementService.setState("selectedSoftwareType", this.selectedSoftwareType, this.index);
+    //  }
+    //});
+    this.assignDataManagementService.setState("softwareNames", this.selectedOption, this.index);
+    this.assignDataManagementService.setState("softwareVersions", this.selectedOptionVersion, this.index);
+
+    this.assignDataManagementService.setState("selectedSoftwareType", this.selectedSoftwareType, this.index);
+    //this.closeFlagSubscription.unsubscribe();
     
   }
 
@@ -71,11 +75,11 @@ export class SoftwareSearchBoxComponent implements OnChanges {
   UniqueOptions(): void {
     const uniqueNamesSet = new Set<string>(this.SoftwareOptions.map(option => option.softwareName));
     this.uniqueSoftwareNames = Array.from(uniqueNamesSet);
-    console.log("this.uniqueSoftwareNames", this.uniqueSoftwareNames);
+   // console.log("this.uniqueSoftwareNames", this.uniqueSoftwareNames);
   }
 
   onSelectOption(option: any): void {
-    console.log(option);
+  //  console.log(option);
     //this.SoftwareOptionSelected.emit(option);
     this.currSelectedSoftware = option;
     this.filterSoftwareVersions(option);
@@ -84,7 +88,7 @@ export class SoftwareSearchBoxComponent implements OnChanges {
   filterSoftwareVersions(option: string): void {
     if (option) {
       this.FilteredSoftwaresOptions = this.SoftwareOptions.filter(opt => opt.softwareName === option);
-      console.log("this.FilteredSoftwaresOptions[index]", this.FilteredSoftwaresOptions);
+    //  console.log("this.FilteredSoftwaresOptions[index]", this.FilteredSoftwaresOptions);
       //this.SelectedSoftwaresData[index] = this.FilteredSoftwaresOptions;
       const uniqueVersions: string[] = [];
       this.FilteredSoftwaresOptions.forEach(option => {
@@ -93,7 +97,7 @@ export class SoftwareSearchBoxComponent implements OnChanges {
         }
       });
       this.softwareVersionsOptions = uniqueVersions;
-      console.log(this.softwareVersionsOptions);
+    //  console.log(this.softwareVersionsOptions);
     }
     else {
       this.softwareVersionsOptions;
@@ -156,19 +160,16 @@ export class SoftwareSearchBoxComponent implements OnChanges {
         this.SoftwareOptions[index].count -= 1;
       }
 
-      //console.log("HELLOOOOO JIIII", this.FilteredSoftwaresOptions);
       const softwareId = this.FilteredSoftwaresOptions.filter(
         (options: any) => options.version === option
       );
-      //console.log("HELLOOOOO JIIII  wowo", softwareId);
       this.selectedSoftwareType = softwareId;
-      console.log("HELLOOOOO JIIII  wowo", this.selectedSoftwareType[0].softwareType);
       this.SoftwareVersionOptionSelected.emit({ softwareId,option, SoftwareOptions: this.SoftwareOptions, countZero: this.SoftwareOptions[index].count === -1 });
     }
 
     
-    console.log(this.currSelectedSoftware, option);
-    console.log(this.SoftwareOptions);
+   // console.log(this.currSelectedSoftware, option);
+   // console.log(this.SoftwareOptions);
 
   }
   onClearSelectionVersion(): void {

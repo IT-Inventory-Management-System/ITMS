@@ -23,15 +23,10 @@ export class AddDeviceModelComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
-    //console.log(this.selectedOS);
     this.setOperatingSystem();
     this.setCategoryId();
     this.userDataJSON = localStorage.getItem('user');
-
-    // Parse the JSON string back into an object
     var userData = JSON.parse(this.userDataJSON);
-
-    // Access the 'id' property of the userData object
     this.UserId = userData.id;
   }
 
@@ -102,7 +97,7 @@ export class AddDeviceModelComponent implements OnInit {
       (data) => {
         for (var i = 0; i < data.length; i++) {
           for (var j = 0; j  < data[i].categories.length; j++) {
-            if (data[i].categories[j].name == localStorage.getItem('selectedCategory')) {
+            if (data[i].categories[j].name == 'Laptop' || data[i].categories[j].name == 'laptop') {
               this.deviceForm.get('categoryId')?.setValue(data[i].categories[j].id);
             }
           }

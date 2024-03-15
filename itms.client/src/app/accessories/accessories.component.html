@@ -78,10 +78,14 @@
       </div>
     </div>
 
-    <div class="specification ">
+    <div class="specification " *ngIf="singleSelected">
+      <!--<div class="summary">
+    <span class="Accesories-summary">{{singleSelected[0]?.category}} Detail</span>
+  </div>-->
       <div class="summary">
-        <span class="Accesories-summary">{{singleSelected[0]?.category}} Detail</span>
+        <span class="Accessories-summary">{{ singleSelected ? singleSelected[0]?.category + ' Detail' : 'No selection' }}</span>
       </div>
+
       <div class="specification-div  ">
 
         <div class="spec-card  ">
@@ -96,10 +100,10 @@
         </div>
         <ng-select class="ng-selectclass" (change)="handleSelectionChange($event)" [(ngModel)]="selectedOption" [clearable]="false" [searchable]="false">
           <!--<ng-option [value]="'Active'">
-      <img class="asset-image" src="../../../../../assets/icons/Assets/active.svg" />
+        <img class="asset-image" src="../../../../../assets/icons/Assets/active.svg" />
 
-      Active
-    </ng-option>-->
+        Active
+      </ng-option>-->
           <ng-option *ngIf="!(singleSelected && singleSelected[0]?.isArchived)" [value]="'Active'">
             <img class="asset-image" src="../../../../../assets/icons/Assets/active.svg" />
             Active
@@ -116,7 +120,7 @@
 
 
           <ng-option *ngIf="singleSelected && singleSelected[0]?.isArchived === false" value="Archive" [disabled]="singleSelected[0]?.assignedTo">
-            <img class="asset-image" src="../../../../../assets/icons/Assets/archive.svg" />
+            <img class="asset-image" src="../../../../../assets/icons/Assets/archive.svg" [ngClass]="{ 'disabled': singleSelected[0]?.assignedTo }" />
 
             Archive
           </ng-option>
@@ -124,7 +128,7 @@
           <ng-option *ngIf="singleSelected && singleSelected[0]?.isArchived === true" value="Unarchive">
             <img class="asset-image" src="../../../../../assets/icons/Assets/unarchive.svg" />
 
-            Unarchive
+            Retrieve
 
           </ng-option>
 

@@ -39,14 +39,14 @@ export class LaptopAllRevokeComponent {
       this.checkIfSomethingIsMissing();
     }
 
-    console.log(this.revokeAllForm);
+    //console.log(this.revokeAllForm);
   }
 
   ngOnChanges() {
     if (this.laptopDetails && this.revokeAllForm) {
       if (this.laptopDetails.length)
         this.nextBtn.emit(true);
-      console.log(this.laptopDetails);
+     // console.log(this.laptopDetails);
       this.lostAction = this.actionsArray.find(a => a.actionName === 'Lost' || a.actionName === 'lost');
       this.SubmittedAction = this.actionsArray.find(a => a.actionName === 'Submitted' || a.actionName === 'submitted');
       this.SubmittedActionUnassign = this.actionsArray.find(a => a.actionName === 'Unassignable' || a.actionName === 'unassignable');
@@ -112,8 +112,8 @@ export class LaptopAllRevokeComponent {
   handleReasonSelection(reason: string, index: number) {
     const laptopArray = this.revokeAllForm.get('Laptop') as FormArray;
     const laptopFormGroup = laptopArray.at(index) as FormGroup;
-    console.log(this.SubmittedAction);
-    console.log(this.actionsArray);
+   // console.log(this.SubmittedAction);
+    //console.log(this.actionsArray);
     // console.log("reason is: ", reason);
     //const selectedAction = this.actionsArray.find(action => action.actionName === reason);
     //console.log(selectedAction);
@@ -127,25 +127,25 @@ export class LaptopAllRevokeComponent {
     switch (reason) {
       case 'Perfect':
         if (this.SubmittedAction) {
-          console.log(this.SubmittedAction.id);
+         // console.log(this.SubmittedAction.id);
           laptopFormGroup.patchValue({ actionId: this.SubmittedAction.id });
         }
         break;
       case 'Unassignable':
         if (this.SubmittedActionUnassign) {
-          console.log(this.SubmittedActionUnassign.id);
+         // console.log(this.SubmittedActionUnassign.id);
           laptopFormGroup.patchValue({ actionId: this.SubmittedActionUnassign.id });
         }
         break;
       case 'Submitted Later':
         if (this.SubmitLaterAction) {
-          console.log(this.SubmitLaterAction.id);
+         // console.log(this.SubmitLaterAction.id);
           laptopFormGroup.patchValue({ actionId: this.SubmitLaterAction.id });
         }
         break;
       case 'Lost/Not Received':
         if (this.lostAction) {
-          console.log(this.lostAction.id);
+        //  console.log(this.lostAction.id);
           laptopFormGroup.patchValue({ actionId: this.lostAction.id });
         }
         break;

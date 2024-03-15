@@ -272,6 +272,7 @@
   width: 33.875rem;
   align-items: flex-start;
   gap: 1.25rem;
+  margin-top:1.25rem;
 }
 
 .purchase-date-section {

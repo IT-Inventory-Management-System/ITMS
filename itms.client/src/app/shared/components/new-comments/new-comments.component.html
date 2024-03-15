@@ -19,7 +19,7 @@
           <div class="line-date"></div>
           <div class="date">
             <img class="cal" src="../../../../assets/icons/calender.svg" />
-            {{ value.updatedDate }}
+            {{ convertUtcToLocalTime(value.updatedDate) | date: 'MM-dd-yyyy' }}
           </div>
           <div class="line-date"></div>
         </div>

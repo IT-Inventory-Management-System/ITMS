@@ -52,8 +52,11 @@ namespace ITMS.Server.Services
                                     Brand = c.Brand,
                                     iswired = c.IsWired,
                                     CYGID = d.Cygid,
-                                  
+                                    PortType = c.IsHDMI==true ? "HDMI" : (c.IsVGA==true ? "VGA" : (c.IsDVI==true ? "DVI" : "Unknown")),
+                                    ScreenSize = d.ScreenSize
                                 }).ToListAsync();
+
+
             return result;
         }
 

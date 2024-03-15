@@ -105,9 +105,6 @@ export class AddAccessorySharedComponent {
 
       if (imgElement) {
         imgElement.src = this.getSrcLink(category);
-        //console.log(imgElement.src);
-      } else {
-        console.error('Element with class "accesory-icon" not found.');
       }
     }
   }

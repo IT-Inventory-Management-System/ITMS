@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { GetLocalTimeService } from '../../../services/get-local-time.service';
 
 @Component({
   selector: 'app-single-comment',
@@ -8,4 +9,12 @@ import { Component, Input } from '@angular/core';
 export class SingleCommentComponent {
 
   @Input() commentDetails: any;
+
+  constructor(private localTime: GetLocalTimeService) { }
+
+  convertUtcToLocalTime(utcTimeString: string): string {
+    return this.localTime.localizeDateStr(utcTimeString);
+  }
+
+
 }
