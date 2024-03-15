@@ -120,7 +120,7 @@
 
 
           <ng-option *ngIf="singleSelected && singleSelected[0]?.isArchived === false" value="Archive" [disabled]="singleSelected[0]?.assignedTo">
-            <img class="asset-image" src="../../../../../assets/icons/Assets/archive.svg" />
+            <img class="asset-image" src="../../../../../assets/icons/Assets/archive.svg" [ngClass]="{ 'disabled': singleSelected[0]?.assignedTo }" />
 
             Archive
           </ng-option>

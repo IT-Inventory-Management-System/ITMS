@@ -39,6 +39,8 @@ export class AssignAccessoriesComponent {
   selectedIds: any[] = [];
   uniqueBrandsArrays: any[][] = [];
 
+  removeAccessoryButtonClicked: boolean = false;
+
 
 
   constructor(private assignDataManagementService: AssignDataManagementService,
@@ -114,7 +116,7 @@ export class AssignAccessoriesComponent {
     //console.log("AccessCygids", this.accessCYGIDs);
     
     if (event != null) {
-      this.selectedId[index] = event.option;
+      this.selectedId[index] = event.selectedOption;
       this.accessCYGIDs = event.accessCYGIDs;
 
       this.getAccessoriesDetails(index, this.accessCYGIDs);
@@ -209,12 +211,14 @@ export class AssignAccessoriesComponent {
     //this.SelectedAccessories.push(null);
     this.SelectedBrands.push(null);
     this.accessoryIdInputChangeFlag();
-    this.AccessoryBrands = data.AccessoryBrands;
+    //this.AccessoryBrands = data.AccessoryBrands;
     //console.log("AccessoryBrands from add another", this.AccessoryBrands);
   }
 
   removeAccessory(data: any): void {
-    this.selectedId[data.index] = data.selectedId;
+    this.removeAccessoryButtonClicked = !this.removeAccessoryButtonClicked;
+      this.selectedId[data.index] = data.selectedId;
+
     this.accessCYGIDs = data.accessCYGIDs;
     if (this.selectedCygid != '') {
       const index = this.accessCYGIDs.findIndex(item => item.accessCYGID === this.selectedCygid);
@@ -234,6 +238,8 @@ export class AssignAccessoriesComponent {
     this.SelectedBrands.splice(data.index, 1);
     this.accessoryIdInputChangeFlag();
     this.accessCYGIDs = data.accessCYGIDs;
+
+
     //this.commentText.splice(index, 1);
     //const accessoryCommentsArray = this.assignAssetForm.get('accessoryComments') as FormArray;
     //const i = accessoryCommentsArray.controls.findIndex(control => control.value.index === index);
@@ -252,6 +258,7 @@ export class AssignAccessoriesComponent {
       categoryName: this.selectedId[index],
       locationId: this.locationId
     }
+    if (input.categoryName !== undefined && input.categoryName !== null) {
       this.deviceAssignService.getAccessoriesDetails(input).subscribe(
         (data: any[]) => {
           this.AccessoryBrands = data;
@@ -269,6 +276,7 @@ export class AssignAccessoriesComponent {
           console.error('Error fetching accessory brand', error);
         }
       );
+    }
   }
 
   getDeviceLocation() {
