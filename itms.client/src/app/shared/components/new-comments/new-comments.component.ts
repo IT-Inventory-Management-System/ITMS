@@ -3,6 +3,7 @@ import { DataService } from '../../services/data.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { formatDate } from '@angular/common';
+import { GetLocalTimeService } from '../../services/get-local-time.service';
 
 
 @Component({
@@ -16,8 +17,8 @@ export class NewCommentsComponent {
   @Input() accessoryId: any;
   loading: boolean = true;
 
- 
-  constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService) {
+
+  constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService, private localTime: GetLocalTimeService) {
 
   }
   ngOnInit(): void {
@@ -110,7 +111,7 @@ export class NewCommentsComponent {
       (data) => {
         this.commentsData = data;
         //console.log("comments : ", this.commentsData);
-        this.changeDateFormat();
+        //this.changeDateFormat();
         this.loading = false;
       },
       error => {
@@ -140,8 +141,6 @@ export class NewCommentsComponent {
     this.dataService.getAllAccessoriesComment(this.accessoryId).subscribe(
       (data) => {
         this.commentsData = data;
-        //console.log("Accessory comments : ", this.commentsData);
-        this.changeDateFormat();
         this.loading = false;
 
       },
@@ -149,6 +148,11 @@ export class NewCommentsComponent {
         console.error('Error fetching comments: ', error);
       }
     );
+  }
+
+
+  convertUtcToLocalTime(utcTimeString: string): string {
+    return this.localTime.localizeDateStr(utcTimeString);
   }
 
 }
