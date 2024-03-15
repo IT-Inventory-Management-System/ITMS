@@ -144,9 +144,9 @@ export class AssignDataManagementService {
           this.wireState[index] = newState;
         }
         break;
-      case 'portType':
+      case 'PortType':
         if (index !== undefined && index >= 0) {
-          this.ensureArraySize('portType', index);
+          this.ensureArraySize('PortType', index);
           this.portType[index] = newState;
         }
         break;
@@ -247,7 +247,7 @@ export class AssignDataManagementService {
           return this.wireState[index];
         }
         return null;
-      case 'portType':
+      case 'PortType':
         if (index !== undefined && index >= 0 && index < this.portType.length) {
           return this.portType[index];
         }
@@ -329,7 +329,7 @@ export class AssignDataManagementService {
         while (this.wireState.length <= index)
           this.wireState.push(null);
         break;
-      case 'portType':
+      case 'PortType':
         while (this.portType.length <= index)
           this.portType.push(null);
         break;

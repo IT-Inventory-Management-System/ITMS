@@ -307,6 +307,8 @@ export class AccessoryBrandySearchBoxComponent implements OnChanges {
     this.isWired = null;
     this.selectedCygid = '';
     this.prev = '';
+    this.PortType = null;
+    this.selectedOptionSize = null;
     const data = { accessCYGIDs: this.accessCYGIDs, index: this.index, cygid: this.selectedCygid };
     this.AccessoryBrandOptionSelected.emit(data);
   }
