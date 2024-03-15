@@ -39,6 +39,8 @@ export class AssignAccessoriesComponent {
   selectedIds: any[] = [];
   uniqueBrandsArrays: any[][] = [];
 
+  removeAccessoryButtonClicked: boolean = false;
+
 
 
   constructor(private assignDataManagementService: AssignDataManagementService,
@@ -234,6 +236,9 @@ export class AssignAccessoriesComponent {
     this.SelectedBrands.splice(data.index, 1);
     this.accessoryIdInputChangeFlag();
     this.accessCYGIDs = data.accessCYGIDs;
+
+    this.removeAccessoryButtonClicked = !this.removeAccessoryButtonClicked;
+
     //this.commentText.splice(index, 1);
     //const accessoryCommentsArray = this.assignAssetForm.get('accessoryComments') as FormArray;
     //const i = accessoryCommentsArray.controls.findIndex(control => control.value.index === index);

@@ -6,13 +6,14 @@ import { CloseFlagService } from '../../shared/services/close-flag.service';
 import { DeviceAssignService } from '../../shared/services/device-assign.service';
 import { SelectedCountryService } from '../../shared/services/selected-country.service';
 import { DataService } from '../../shared/services/data.service';
+import { OnChanges } from '@angular/core';
 
 @Component({
   selector: 'app-accessory-brandy-search-box',
   templateUrl: './accessory-brandy-search-box.component.html',
   styleUrls: ['./accessory-brandy-search-box.component.css']
 })
-export class AccessoryBrandySearchBoxComponent {
+export class AccessoryBrandySearchBoxComponent implements OnChanges {
   prev: string = '';
   PortType: any = null;
 
@@ -28,6 +29,9 @@ export class AccessoryBrandySearchBoxComponent {
   @Output() AccessoryBrandOptionSelected: EventEmitter<any> = new EventEmitter();
   @Output() AddNewAccessory: EventEmitter<any> = new EventEmitter();
   locationId: any;
+
+  @Input() removeAccessoryButtonClicked: boolean;
+
   @Input() uniqueBrandsArray: any[] = [];
   selectedOption: any;
   selectedOptionSize: any = null;
@@ -55,6 +59,17 @@ export class AccessoryBrandySearchBoxComponent {
         this.commentText = [];
       }
     });
+  }
+
+  ngOnChanges(changes: import("@angular/core").SimpleChanges): void {
+    if (changes['removeAccessoryButtonClicked']) {
+      console.log("removeAccessoryButtonClicked changed:", this.removeAccessoryButtonClicked);
+      this.selectedOption = null;
+      this.selectedOptionSize = null;
+      this.isWired = null;
+      this.PortType = null;
+      this.selectedCygid = '';
+    }
   }
 
   setNewAccessoryIdPortType() {
@@ -407,6 +422,7 @@ export class AccessoryBrandySearchBoxComponent {
 
 
   addNewAccessory() {
+    //this.removeAccessoryButtonClicked = !this.removeAccessoryButtonClicked;
     this.AddNewAccessory.emit();
   }
 
