@@ -170,6 +170,50 @@
 }
 
 
+
+
+.os-input1 {
+  margin-top: 0.38rem;
+  display: flex;
+  align-items: center; /* Align items vertically */
+  gap: 8rem;
+}
+
+  .os-input1 input[type="radio"] {
+    display: none; /* Hide the actual radio buttons */
+  }
+
+  .os-input1 label {
+    cursor: pointer;
+    color: var(--Primary-Gray, #343435);
+    font-family: Roboto;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: normal;
+    position: relative;
+    padding-left: 30px; /* Adjust as needed */
+  }
+
+    .os-input1 label::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%); /* Vertically center the radio button */
+      width: 20px;
+      height: 20px;
+      background-image: url('../../../assets/icons/Component 2.svg');
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+
+  .os-input1 input[type="radio"]:checked + label::before {
+    background-image: url('../../../assets/icons/Component 2_checked.svg');
+  }
+
+
+
+
 /**   COMMENT  **/
 .comment-subheading {
   color: var(--Primary-Gray, #343435);

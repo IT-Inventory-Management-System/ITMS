@@ -64,11 +64,11 @@ export class AccessoryBrandySearchBoxComponent implements OnChanges {
   ngOnChanges(changes: import("@angular/core").SimpleChanges): void {
     if (changes['removeAccessoryButtonClicked']) {
       console.log("removeAccessoryButtonClicked changed:", this.removeAccessoryButtonClicked);
-      this.selectedOption = null;
-      this.selectedOptionSize = null;
-      this.isWired = null;
-      this.PortType = null;
-      this.selectedCygid = '';
+      //this.selectedOption = null;
+      //this.selectedOptionSize = null;
+      //this.isWired = null;
+      //this.PortType = null;
+      //this.selectedCygid = '';
     }
   }
 

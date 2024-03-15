@@ -216,7 +216,9 @@ export class AssignAccessoriesComponent {
   }
 
   removeAccessory(data: any): void {
-    this.selectedId[data.index] = data.selectedId;
+    this.removeAccessoryButtonClicked = !this.removeAccessoryButtonClicked;
+      this.selectedId[data.index] = data.selectedId;
+
     this.accessCYGIDs = data.accessCYGIDs;
     if (this.selectedCygid != '') {
       const index = this.accessCYGIDs.findIndex(item => item.accessCYGID === this.selectedCygid);
@@ -237,7 +239,6 @@ export class AssignAccessoriesComponent {
     this.accessoryIdInputChangeFlag();
     this.accessCYGIDs = data.accessCYGIDs;
 
-    this.removeAccessoryButtonClicked = !this.removeAccessoryButtonClicked;
 
     //this.commentText.splice(index, 1);
     //const accessoryCommentsArray = this.assignAssetForm.get('accessoryComments') as FormArray;
