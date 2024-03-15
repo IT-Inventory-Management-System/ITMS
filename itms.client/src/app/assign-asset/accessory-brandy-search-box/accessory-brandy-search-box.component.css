@@ -12,11 +12,21 @@
   min-height: 0px;
   border-radius: 0;
 }
+.disabled {
+  display: flex;
+  height: 2.5rem;
+  gap: 6.625rem;
+  flex-shrink: 0;
+  align-self: stretch;
+  border-radius: 0.25rem;
+  padding-left: 10px;
+  border: 1px solid var(--Secondary-Gray, #B2B2B3);
+}
 
-  .ng-select.custom .ng-select-container {
-    min-height: 0px;
-    border-radius: 0;
-  }
+.ng-select.custom .ng-select-container {
+  min-height: 0px;
+  border-radius: 0;
+}
 
 .search-box {
   display: flex;
