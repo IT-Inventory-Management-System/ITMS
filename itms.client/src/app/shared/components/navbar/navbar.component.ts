@@ -52,6 +52,13 @@ export class NavbarComponent {
       this.isOptionsVisible = false;
     });
 
+    this.renderer.listen('document', 'click', (event) => {
+      if (!this.showDropdown || this.elementRef.nativeElement.contains(event.target)) {
+        return;
+      }
+      this.showDropdown = false;
+    });
+
   }
 
   isOptionsVisible: boolean = false;
@@ -73,7 +80,7 @@ export class NavbarComponent {
   }
 
   quickActionsDropdown() {
-
+    this.isOptionsVisible = !this.isOptionsVisible
   }
 
 }
