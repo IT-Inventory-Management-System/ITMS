@@ -152,8 +152,8 @@ export class SoftwareComponent implements OnInit {
       (result: any | null) => {
         if (result) {
        //   this.singlesoftware = result.IsArchived;
-          this.singlesoftware.isArchived = result.IsArchived;
-          //console.log('Single software:', this.singlesoftware);
+          this.singlesoftware.isArchived = result.isArchived;
+          console.log('Single software:', this.singlesoftware);
           this.toastr.success("Data posted successfully");
         } else {
          // console.log('No software found for parameters:', body);
