@@ -24,12 +24,12 @@
 
   </div>
   <ng-select (change)="handleSelectionChange($event)" [(ngModel)]="deviceDetails?.status.type" [clearable]="false" [searchable]="false">
-    <ng-option [value]="'Not Assigned'" *ngIf="selectedOption === 'Active'">
+    <ng-option [value]="'Not Assigned'" *ngIf="selectedOption === 'Active' && deviceDetails?.status?.type!=='Discarded' ">
       <img class="asset-image" src="../../../../../assets/icons/Assets/active.svg" />
 
       Active
     </ng-option>
-    <ng-option [value]="'Unassignable'">Unassignable</ng-option>
+    <!--<ng-option [value]="'Unassignable'">Unassignable</ng-option>-->
 
     <ng-option *ngIf="!isArchived && deviceDetails?.status?.type!=='Discarded'" value="Archive" [disabled]="deviceDetails?.status?.type=='Assigned'">
       <img class="asset-image" src="../../../../../assets/icons/Assets/archive.svg" />
@@ -46,15 +46,15 @@
     <ng-option *ngIf="deviceDetails?.status?.type === 'Discarded'" value="Unarchive">
       <img class="asset-image" src="../../../../../assets/icons/Assets/unarchive.svg" />
 
-      Unarchive
+      Retrieve
 
     </ng-option>
 
-    <ng-option [value]="'Discarded'" >
+    <ng-option [value]="'Discarded'"  *ngIf="deviceDetails?.status?.type == 'Discarded'">
       <img class="asset-image" src="../../../../../assets/icons/Assets/archive.svg" />
-
       Archived
     </ng-option>
+
 
   </ng-select>
 

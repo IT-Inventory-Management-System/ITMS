@@ -21,9 +21,8 @@ export class DevicesListComponent {
   isselectedDevice: boolean = false;
   selectedDeviceId: string | null = null;
   locationId: string = '';
-
-  // Static variable to store the selected device ID
   private static selectedDeviceId: string | null = null;
+  @Input() archivedCyg: any;
 
   constructor(private deviceService: DataService, private el: ElementRef, private renderer: Renderer2, private route: ActivatedRoute) { }
 
@@ -35,7 +34,6 @@ export class DevicesListComponent {
             this.locationId = data[i].id;
             this.deviceService.locationId = this.locationId;
             this.getDeviceLogs(this.deviceService.DeviceDetails.cygid);
-            //this.showDevices();
             break;
           }
         }
@@ -46,16 +44,17 @@ export class DevicesListComponent {
   }
 
   ngOnChanges() {
-    //this.getDeviceLocation();
     this.selectFirstDevice();
+    //console.log("ssss",this.archivedCyg);
+  }
 
+  ngOnDestroy() {
+    this.archivedCyg = null;
+    //console.log("pppp", this.archivedCyg)
   }
 
   async showDevices() {
-  
-
-    // Select the first device
-    this.selectFirstDevice();
+      this.selectFirstDevice();
   }
 
   onDeviceClick(cygid: any, flag: boolean): void {
@@ -126,6 +125,7 @@ export class DevicesListComponent {
   }
 
 
+
   private selectFirstDevice(): void {
     if (this.AllDevices && this.AllDevices.length > 0) {
 
@@ -135,7 +135,11 @@ export class DevicesListComponent {
         if (cygId) {
           const firstDeviceId = cygId;
           this.onDeviceClick(firstDeviceId, true);
-        } else {
+        } else if (this.archivedCyg) {
+          const firstDeviceId = this.archivedCyg;
+          this.onDeviceClick(firstDeviceId, true);
+        }
+        else {
           const firstDeviceId = this.AllDevices[0].cygid;
           this.onDeviceClick(firstDeviceId, true);
         }
