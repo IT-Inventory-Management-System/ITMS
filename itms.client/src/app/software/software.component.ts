@@ -46,36 +46,7 @@ export class SoftwareComponent implements OnInit {
     filter:false
   }
 
-  //onCardClicked(eventData: any): void {
-  //  // Handle the emitted event data here
-  //  console.log('Card clicked:', eventData);
-  //  // You can also perform any other actions based on the event data
-  //}
 
-  //applySoftwareFilter(event: Event) {
-  //  this.filterValues = (event.target as HTMLInputElement).value;
-  //  this.filteredSoftware = this.softwaresData.filter((software) =>
-  //    software.name.toLowerCase().includes(this.filterValues.toLowerCase())
-  //  );
-  //}
-
-
-
-  //applySoftwareFilter(event: Event) {
-  //  const keyword = (event.target as HTMLInputElement).value.toLowerCase().trim(); // Get the input value and convert to lowercase
-  //  // Check if selectedLocation is 'India'
-  //  if (this.selectedLocation === 'India') {
-  //    // Filter software cards from filteredSoftware[0] based on the keyword
-  //    this.filteredSoftware[0] = this.softwaresData[0].filter((software: any) =>
-  //      software.name.toLowerCase().includes(keyword)
-  //    );
-  //  } else {
-  //    // Filter software cards from filteredSoftware[1] based on the keyword
-  //    this.filteredSoftware[1] = this.softwaresData[1].filter((software: any) =>
-  //      software.name.toLowerCase().includes(keyword)
-  //    );
-  //  }
-  //}
 
   applySoftwareFilter() {
     const keyword = this.filterValues.toLowerCase().trim(); // Get filter keyword
@@ -176,18 +147,15 @@ export class SoftwareComponent implements OnInit {
     };
   //  console.log("body", body);
 
-
-    //this.toastr.success("Data posted successfully");
-    // Call the service method with the prepared body
+  
     this.softwareService.UpdateSoftwareArchiveStatus(body).subscribe(
       (result: any | null) => {
         if (result) {
-          // Handle the result here
        //   this.singlesoftware = result;
-       //   console.log('Single software:', this.singlesoftware);
+          //   console.log('Single software:', this.singlesoftware);
+
           this.toastr.success("Data posted successfully");
         } else {
-          // Handle case when no software is found
          // console.log('No software found for parameters:', body);
           this.toastr.error("Error in posting data");
         }
@@ -196,11 +164,7 @@ export class SoftwareComponent implements OnInit {
         console.error('Error updating software archive status:', error);
       }
     );
-    //if (this.archivedAttributes.selectedType.length === 0 && this.archivedAttributes.selectedStock.length === 0 && this.archivedAttributes.from === '' && this.archivedAttributes.to === '') {
-    //  this.getSoftwaresData(this.isArchived);
-    //} else {
-    //  this.onApplyClicked(this.archivedAttributes);
-    //}
+   
   }
 
 
