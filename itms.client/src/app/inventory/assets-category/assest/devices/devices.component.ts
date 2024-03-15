@@ -18,6 +18,7 @@ export class DevicesComponent implements OnInit{
   locationId: string = '';
   loading: boolean = true;
   @Input() filterData: any;
+  archivedCyg: any = null;
 
   constructor(private dataService: DataService, private selectedCountryService: SelectedCountryService) {
   }
@@ -28,7 +29,6 @@ export class DevicesComponent implements OnInit{
         for (var i = 0; i < data.length; i++) {
           if (data[i].type == localStorage.getItem('selectedCountry')) {
             this.locationId = data[i].id;
-            //alert(this.locationId);
             this.showDevices();
             break;
           }
@@ -47,20 +47,21 @@ export class DevicesComponent implements OnInit{
       this.getDeviceLocation();
     });
 
-    this.dataService.deviceListChanged$.subscribe(() => {
-      // Reload or fetch the updated admin list here
-      this.getDeviceLocation();
+    this.dataService.deviceListChanged$.subscribe((cygid: string | null) => {
+      this.loading = true;
+      if (cygid !== null) {
+        this.archivedCyg = cygid;
+        this.getDeviceLocation();
+      } else {
+        this.getDeviceLocation();
+      }
     });
   }
 
-  //ngOnChanges(changes: SimpleChanges) {
-  //  this.loading = true;
-  //  this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
-  //    localStorage.setItem('selectedCountry', selectedCountry);
-  //    this.getDeviceLocation();
-  //  });
-  //}
-
+  ngOnDestroy() {
+    this.archivedCyg = null;
+    //console.log("pppp", this.archivedCyg)
+  }
 
 
   showDevices() {
