@@ -338,6 +338,12 @@
   overflow-y: scroll;
 }
 
+.disabled {
+  opacity: 0.5; /* Example styling to indicate disabled state */
+  pointer-events: none; /* Disable pointer events to prevent interactions */
+  /* Add more styling as needed to visually indicate the disabled state */
+}
+
 .text-field {
   display: flex;
   flex-direction: column;
