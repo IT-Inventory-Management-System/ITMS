@@ -110,12 +110,18 @@ public IActionResult Archive([FromBody] SoftwareUpdateDto dto)
     }
 
     bool updateResult = _softwarepageService.UpdateSoftwareArchiveStatus(dto);
+
     if (!updateResult)
     {
         return NotFound("Software not found.");
     }
 
-    return Ok(updateResult);
+            //return Ok(updateResult);
+            var responseObject = new
+            {
+                IsArchived = dto.IsArchived
+            };
+            return Ok(responseObject);
 }
 
 
