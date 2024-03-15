@@ -38,6 +38,7 @@
   border-radius: 0.25rem;
   border: 1px solid var(--Secondary-Gray, #B2B2B3);
   background: #FFF;
+  margin-bottom: 1rem;
 }
 
 .search-box::placeholder {
