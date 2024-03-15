@@ -63,7 +63,7 @@ export class AccessoryBrandySearchBoxComponent implements OnChanges {
 
   ngOnChanges(changes: import("@angular/core").SimpleChanges): void {
     if (changes['removeAccessoryButtonClicked']) {
-      console.log("removeAccessoryButtonClicked changed:", this.removeAccessoryButtonClicked);
+      //console.log("removeAccessoryButtonClicked changed:", this.removeAccessoryButtonClicked);
       //this.selectedOption = null;
       //this.selectedOptionSize = null;
       //this.isWired = null;
@@ -74,12 +74,12 @@ export class AccessoryBrandySearchBoxComponent implements OnChanges {
 
   setNewAccessoryIdPortType() {
     const selectedBrand = this.selectedBrand;
-    console.log("OLD MONITER", this.AccessoryBrands);
+    //console.log("OLD MONITER", this.AccessoryBrands);
     //this.AccessoryBrands
     const filteredName = this.AccessoryBrands.filter(
       (accessory: any) => accessory.brand === selectedBrand && accessory.portType === this.PortType 
     );
-    console.log("MONITER", this.AccessoryBrands);
+    //console.log("MONITER", this.AccessoryBrands);
     this.uniqueSizes = Array.from(new Set(filteredName.map((accessory:any) => accessory.screenSize)));
     this.uniqueSizes.sort((a, b) => a - b);
 
@@ -87,10 +87,10 @@ export class AccessoryBrandySearchBoxComponent implements OnChanges {
 
   onSelectOptionSize(option: any) {
     if (option) {
-      console.log(option);
+      //console.log(option);
       const selectedBrand = option;
 
-      console.log("of moniters this.accessCYGIDs", this.accessCYGIDs);
+      //console.log("of moniters this.accessCYGIDs", this.accessCYGIDs);
       const filteredBrands = this.AccessoryBrands.filter(
         (accessory: any) => accessory.screenSize === selectedBrand
       );
@@ -134,7 +134,7 @@ export class AccessoryBrandySearchBoxComponent implements OnChanges {
     }
   }
   onClearSelectionSize() {
-    alert(this.selectedCygid);
+    //alert(this.selectedCygid);
     if (this.selectedCygid != '') {
       const index = this.accessCYGIDs.findIndex(item => item.accessCYGID === this.selectedCygid);
       //const index = this.accessCYGIDs.indexOf(this.selectedCygid);
