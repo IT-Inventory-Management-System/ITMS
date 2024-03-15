@@ -80,7 +80,7 @@
            [placeholder]="'Select Screen Size'"
            [(ngModel)]="selectedOptionSize"
            (change)="onSelectOptionSize($event)"
-           (clear)="onClearSelection()">
+           (clear)="onClearSelectionSize()">
   <ng-option class="list-items" *ngFor="let option of uniqueSizes" [value]="option">
     {{ option }}
   </ng-option>

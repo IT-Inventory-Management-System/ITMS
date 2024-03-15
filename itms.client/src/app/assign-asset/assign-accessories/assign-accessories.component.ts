@@ -209,7 +209,7 @@ export class AssignAccessoriesComponent {
     //this.SelectedAccessories.push(null);
     this.SelectedBrands.push(null);
     this.accessoryIdInputChangeFlag();
-    this.AccessoryBrands = data.AccessoryBrands;
+    //this.AccessoryBrands = data.AccessoryBrands;
     //console.log("AccessoryBrands from add another", this.AccessoryBrands);
   }
 
