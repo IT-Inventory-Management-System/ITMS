@@ -258,6 +258,7 @@ export class AssignAccessoriesComponent {
       categoryName: this.selectedId[index],
       locationId: this.locationId
     }
+    if (input.categoryName !== undefined && input.categoryName !== null) {
       this.deviceAssignService.getAccessoriesDetails(input).subscribe(
         (data: any[]) => {
           this.AccessoryBrands = data;
@@ -275,6 +276,7 @@ export class AssignAccessoriesComponent {
           console.error('Error fetching accessory brand', error);
         }
       );
+    }
   }
 
   getDeviceLocation() {
