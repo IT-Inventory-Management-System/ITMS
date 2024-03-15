@@ -1,4 +1,4 @@
-<div class="search-user">
+<div class="search-user ">
 
   <div class="search-bar">
     <div class="search-bar-within">
@@ -17,7 +17,7 @@
   </div>
 
   <ng-template #content>
-    <div class="user-name-list">
+    <div class="user-name-list ">
       <user-name-list (click)="showUserDetails(userDetails, i)" *ngFor="let userDetails of filteredDisplayingData | filterSearchList : filterName; let i = index"
                       [cgiid]="userDetails.cgiid"
                       [firstName]="userDetails.firstName"

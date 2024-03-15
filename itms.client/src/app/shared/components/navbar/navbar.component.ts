@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 import { SelectedCountryService } from '../../services/selected-country.service';
 import { LoginService } from '../../services/login.service';
 import { UserStoreService } from '../../services/user-store.service';
+import { Renderer2 } from '@angular/core';
+import { ElementRef } from '@angular/core';
+
+
 
 @Component({
   selector: 'app-navbar',
@@ -16,11 +20,8 @@ export class NavbarComponent {
   role: string = "";
 
   loggedUser: any;
-  constructor(private selectedCountryService: SelectedCountryService, private loginService: LoginService, private userStore: UserStoreService) {
-    //const storedUser = localStorage.getItem("user");
-    //if (storedUser !== null) {
-    //  this.loggedUser = JSON.parse(storedUser);
-    //}
+  constructor(private selectedCountryService: SelectedCountryService, private loginService: LoginService, private userStore: UserStoreService, private renderer: Renderer2, private elementRef: ElementRef) {
+
   }
 
   ngOnInit() {
@@ -44,6 +45,19 @@ export class NavbarComponent {
       this.selectedLocation = val || loggedInUserLocation;
       this.selectedCountryService.setSelectedCountry(this.selectedLocation);
     })
+    this.renderer.listen('document', 'click', (event) => {
+      if (!this.isOptionsVisible || this.elementRef.nativeElement.contains(event.target)) {
+        return;
+      }
+      this.isOptionsVisible = false;
+    });
+
+    this.renderer.listen('document', 'click', (event) => {
+      if (!this.showDropdown || this.elementRef.nativeElement.contains(event.target)) {
+        return;
+      }
+      this.showDropdown = false;
+    });
 
   }
 
@@ -64,4 +78,9 @@ export class NavbarComponent {
   toggleDropdown() {
     this.showDropdown = !this.showDropdown;
   }
+
+  quickActionsDropdown() {
+    this.isOptionsVisible = !this.isOptionsVisible
+  }
+
 }

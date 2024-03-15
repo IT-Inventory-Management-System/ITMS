@@ -47,7 +47,7 @@ namespace ITMS.Server.Services
                     employee.ExitProcessInitiated = false;
                     employee.onHold = false;
                     employee.LocationId = _context.Locations.FirstOrDefault(l => l.Location1 == singleUser.Location).Id;
-                    employee.Password = HashPassword(singleUser.password);
+                    employee.Password = singleUser.password != null?HashPassword(singleUser.password): null;
                     employee.Token = "";
                     //Guid.Parse("4F687C11-F0FC-4F5A-9B2F-DAAE538A9F53");
                     _context.Employees.Add(employee);
