@@ -672,6 +672,12 @@
     width:21.125rem!important;
 }
 
+.disabled {
+  opacity: 0.5; /* Example styling to indicate disabled state */
+  pointer-events: none; /* Disable pointer events to prevent interactions */
+  /* Add more styling as needed to visually indicate the disabled state */
+}
+
 
 
 
