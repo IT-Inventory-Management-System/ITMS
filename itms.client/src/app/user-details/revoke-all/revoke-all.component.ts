@@ -151,6 +151,25 @@ export class RevokeAllComponent {
 
   dismissModal() {
     this.currentStep = 1;
+
+    for (let i = 0; i < this.laptopDetails.length; i++) {
+      this.laptopDetails[i].received = null;
+      this.laptopDetails[i].perfect = null;
+      this.laptopDetails[i].unassignable = null;
+      this.laptopDetails[i].submittedLater = null;
+      this.laptopDetails[i].lostNotReceived = null;
+      this.laptopDetails[i].comment = '';
+    }
+
+    for (let i = 0; i < this.accessoriesDetails.length; i++) {
+      this.accessoriesDetails[i].received = null;
+      this.accessoriesDetails[i].perfect = null;
+      this.accessoriesDetails[i].unassignable = null;
+      this.accessoriesDetails[i].submittedLater = null;
+      this.accessoriesDetails[i].lostNotReceived = null;
+      this.accessoriesDetails[i].comment = '';
+    }
+
     this.revokeAllForm.reset();
     this.updateButtonDisabledState();
   }

@@ -20,11 +20,32 @@ export class ExitProcessComponent {
   cont: any;
   ToEmail: any;
   storedUser: any;
+  laptopCount: number = 0;
+  accessoryCount: number = 0;
   constructor(private updateExitProcessInitiationService: EmployeeService) { }
 
 
   ngOnChanges() {
     this.ToEmail = this.userEmail;
+
+    this.laptopCount = 0;
+    if (this.laptopDetails && this.laptopDetails.length) {
+      for (const laptop of this.laptopDetails) {
+        if (laptop.submitedBy === null) {
+          this.laptopCount++;
+        }
+      }
+    }
+
+    this.accessoryCount = 0;
+    if (this.accessoriesDetails && this.accessoriesDetails.length) {
+      for (const accessory of this.accessoriesDetails) {
+        if (accessory.submittedBy === null) {
+          this.accessoryCount++;
+        }
+      }
+    }
+  
   }
 
   onInitiateExitProcess() {

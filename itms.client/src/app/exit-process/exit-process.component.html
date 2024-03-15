@@ -22,7 +22,7 @@
           </div>
         </div>
         <div class="device-details">
-          <div class="details-subheading">
+          <div class="details-subheading" *ngIf="laptopCount != 0">
             Assigned Laptop
           </div>
           <div *ngFor="let laptop of laptopDetails">
@@ -46,7 +46,7 @@
                 </div>
                 <div class="same-row-details">
                   <div class="device-model-same-row">
-                    <div class="details-icon"><img src="../../assets/icons/storage.svg" /></div>
+                    <div class="details-icon"><img src="../../assets/icons/ramm.svg" /></div>
                     <div class="details-text">{{laptop.ram}}</div>
                   </div>
                   <div class="device-model">
@@ -62,7 +62,7 @@
 
             </div>
           </div>
-          <div class="details-subheading">
+          <div class="details-subheading" *ngIf="accessoryCount != 0">
             Assigned Accessories
           </div>
           <div *ngFor="let accessory of accessoriesDetails">
