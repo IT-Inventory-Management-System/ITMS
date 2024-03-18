@@ -14,7 +14,7 @@
     </div>
 
     <ng-template #content>
-      <app-devices-list *ngFor="let device of DeviceData | assetfilterdevice : searchdevice" [device]="device" [isArchived]="isArchived" [AllDevices]="DeviceData" [archivedCyg]="archivedCyg"></app-devices-list>
+      <app-devices-list *ngFor="let device of DeviceData | assetfilterdevice : searchdevice; let i = index" [device]="device" [isArchived]="isArchived" [AllDevices]="DeviceData" [archivedCyg]="archivedCyg" [index]="i"></app-devices-list>
     </ng-template>
 
       
