@@ -47,6 +47,32 @@ export class AddDeviceFormComponent implements OnInit {
 
   }
 
+  getCurrentDate(): string {
+    const today = new Date();
+    const year = today.getFullYear();
+    let month = '' + (today.getMonth() + 1);
+    let day = '' + today.getDate();
+
+    if (month.length < 2) {
+      month = '0' + month;
+    }
+    if (day.length < 2) {
+      day = '0' + day;
+    }
+
+    return [year, month, day].join('-');
+  }
+
+
+  PurchasedDate(): string {
+    var isPurchasedOn = this.addDeviceForm.get('purchaseddate')?.value != '';
+    if (isPurchasedOn) {
+      return this.addDeviceForm.get('purchaseddate')?.value;
+    }
+    return '';
+  }
+
+
   createForm() {
     this.addDeviceForm = this.fb.group({
       deviceModelId: [null, Validators.required],
@@ -102,7 +128,6 @@ export class AddDeviceFormComponent implements OnInit {
     const value = (event.target as HTMLInputElement).value;
 
     if (this.validateCygId(value, index)) {
-      // Remove index from the invalidCygIndices array if it exists
       const invalidIndexIndex = this.invalidCygIndices.indexOf(index);
       if (invalidIndexIndex !== -1) {
         this.invalidCygIndices.splice(invalidIndexIndex, 1);
@@ -110,7 +135,6 @@ export class AddDeviceFormComponent implements OnInit {
 
       this.cygIds.at(index).setValue(value);
     } else {
-      // Add index to the invalidCygIndices array if it's not already there
       if (!this.invalidCygIndices.includes(index)) {
         this.invalidCygIndices.push(index);
       }
@@ -132,7 +156,6 @@ export class AddDeviceFormComponent implements OnInit {
         for (var i = 0; i < data.length; i++) {
           if (data[i].type == localStorage.getItem('selectedCountry')) {
             this.locationId = data[i].id;
-            //alert(this.locationId);
             this.getlaptopids();
             break;
           }
@@ -161,10 +184,7 @@ export class AddDeviceFormComponent implements OnInit {
   getlaptopids() {
     this.dataService.getLaptopIDs().subscribe(
       (data) => {
-        this.deviceData = data;
-
-        //console.log(this.deviceData);
-        
+        this.deviceData = data;        
 
       },
       (error) => {

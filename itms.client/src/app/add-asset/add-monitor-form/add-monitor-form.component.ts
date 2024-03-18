@@ -45,6 +45,33 @@ export class AddMonitorFormComponent {
   constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService) {
 
   }
+
+  getCurrentDate(): string {
+    const today = new Date();
+    const year = today.getFullYear();
+    let month = '' + (today.getMonth() + 1);
+    let day = '' + today.getDate();
+
+    if (month.length < 2) {
+      month = '0' + month;
+    }
+    if (day.length < 2) {
+      day = '0' + day;
+    }
+
+    return [year, month, day].join('-');
+  }
+
+
+  PurchasedDate(): string {
+    var isPurchasedOn = this.deviceForm.get('purchaseddate')?.value != '';
+    if (isPurchasedOn) {
+      return this.deviceForm.get('purchaseddate')?.value;
+    }
+    return '';
+  }
+
+
   toggleDeviceDetailsForm() {
     this.ifChecked = !this.ifChecked;
     this.emitSelectedOptions();
