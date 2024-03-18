@@ -78,7 +78,7 @@
           <div class="purchase-date-section" >
             <label for="purchaseDate" class="purchaseDate">Date of Purchase <span class="required">*</span></label>
             <div class="date-input-container" [class.error-textarea]="showErrorMessage && !addDeviceForm.get('purchasedOn')?.value" (input)="checkShowError()">
-              <input type="date" class="form-control" id="purchaseDate" name="purchaseDate" (input)="setPurchaseDate($event)" placeholder="15-12-2023" [class.disabled]="selectedOS == ''">
+              <input type="date" class="form-control" id="purchaseDate" name="purchaseDate" (input)="setPurchaseDate($event)" placeholder="15-12-2023" [class.disabled]="selectedOS == ''" max="{{ getCurrentDate() }}">
               <img src="../../../assets/icons/calendar.svg" [class.disabled]="selectedOS == ''" />
             </div>
           </div>
@@ -101,10 +101,10 @@
             <label>Warranty Year <span class="required">*</span></label>
             <div class="warranty-input" >
               <div [class.error-textarea]="showErrorMessage && !addDeviceForm.get('warrantyMonth')?.value" class="month" > 
-                <input type="number" class="form-control" id="warrantyMonth" name="warrantyYear" placeholder="Month" (blur)="setWarrantyMonth($event)" [class.disabled]="selectedOS == ''">
+                <input type="number" class="form-control" id="warrantyMonth" name="warrantyYear" placeholder="Month" (blur)="setWarrantyMonth($event)" [class.disabled]="selectedOS == ''" min="0">
               </div>
               <div [class.error-textarea]="showErrorMessage && !addDeviceForm.get('warrantyYear')?.value" class="month">
-                <input type="number" class="form-control" id="warrantyYear" name="warrantyYear" placeholder="Year" (blur)="setWarrantyYear($event)" [class.disabled]="selectedOS == ''">
+                <input type="number" class="form-control" id="warrantyYear" name="warrantyYear" placeholder="Year" (blur)="setWarrantyYear($event)" [class.disabled]="selectedOS == ''" min="0">
               </div>
             </div>
 

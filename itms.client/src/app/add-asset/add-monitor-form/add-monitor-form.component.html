@@ -105,7 +105,7 @@
               <div class="purchase-date-section">
                 <label for="purchaseDate" class="purchaseDate">Date of Purchase <span class="required">*</span></label>
                 <div [class.error-textarea]="showErrorMessage && !deviceForm.get('purchaseddate')?.value" class="pdatee">
-                  <input type="date" class="form-control" id="purchaseDate" name="purchaseDate" placeholder="15-12-2023" formControlName="purchaseddate"[class.disabled]="!(ifChecked || ifCheck || iCheck)" (focus)="hideErrorMessage()" [class.error-textarea]="showErrorMessage && !deviceForm.get('purchaseddate')?.value">
+                  <input type="date" class="form-control" id="purchaseDate" name="purchaseDate" placeholder="15-12-2023" formControlName="purchaseddate"[class.disabled]="!(ifChecked || ifCheck || iCheck)" (focus)="hideErrorMessage()" [class.error-textarea]="showErrorMessage && !deviceForm.get('purchaseddate')?.value" max="{{ getCurrentDate() }}">
                   <img src="../../../assets/icons/calendar.svg" />
                 </div>
               </div>
@@ -116,7 +116,7 @@
                 <label for="Warranty Year " class="purchaseDate">Warranty Date <span class="required">*</span></label>
                 <div [class.error-textarea]="showErrorMessage && !deviceForm.get('warrantydate')?.value" class="pdatee">
 
-                  <input type="date" class="form-control" id="Warranty Year " name="Warranty Year " placeholder="15-12-2023" formControlName="warrantydate" [class.disabled]="!(ifChecked || ifCheck || iCheck)" (focus)="hideErrorMessage()">
+                  <input type="date" class="form-control" id="Warranty Year " name="Warranty Year " placeholder="15-12-2023" formControlName="warrantydate" [class.disabled]="!(ifChecked || ifCheck || iCheck)" (focus)="hideErrorMessage()" min="{{ PurchasedDate() }}">
                   <img src="../../../assets/icons/calendar.svg" />
                 </div>
               </div>
