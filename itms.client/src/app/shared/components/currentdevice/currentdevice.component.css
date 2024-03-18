@@ -1,0 +1,9 @@
+.status span {
+  color: var(--Primary-Royal-Blue, #002C3F);
+  font-family: Roboto;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-transform: uppercase;
+}

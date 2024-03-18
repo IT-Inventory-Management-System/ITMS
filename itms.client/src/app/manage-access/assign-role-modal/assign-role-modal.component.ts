@@ -69,7 +69,6 @@ export class AssignRoleModalComponent {
         for (var i = 0; i < data.length; i++) {
           if (data[i].type == localStorage.getItem('selectedCountry')) {
             this.locationId = data[i].id;
-            //alert(this.locationId);
             this.loadUserData();
             break;
           }
@@ -85,9 +84,7 @@ export class AssignRoleModalComponent {
     this.displayingDetailsService.getshowUserListData(this.locationId).subscribe(
       (data) => {
         this.userDataList = data;
-        this.userDataList = data.sort((a, b) => a.cgiid.localeCompare(b.cgiid));
-       // console.log(this.userDataList);
- 
+        this.userDataList = data.sort((a, b) => a.cgiid.localeCompare(b.cgiid)); 
       },
       (error) => {
         console.log('Error in API request : ', error);
@@ -106,11 +103,9 @@ export class AssignRoleModalComponent {
       newRole: this.selectedRole
     };
 
-   // console.log(userData);
-
     this.dataService.changeUserRole(userData).subscribe(
       (response) => {
-      //  console.log(response);
+        this.selectedUser = null;
         this.adminDetailService.notifyAdminListChanged();
       },
       (error) => {
