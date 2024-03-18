@@ -14,8 +14,6 @@ export class AddDeviceFormComponent implements OnInit {
   addDeviceForm: FormGroup;
   currentCygIdIndex: number | null = null;
   currentSerialIndex: number | null = null;
-
-  // cygIds: FormArray;
   errorMessage: string;
   showErrorMessage = false;
   dropdownValues: any[] = [];
@@ -36,7 +34,6 @@ export class AddDeviceFormComponent implements OnInit {
   currentStep: number = 1;
 
   ngOnInit(): void {
-    //console.log('selectedos : ', this.selectedOS);
     this.getlaptopids();
     this.loadDropdownValues();
     //this.loadDeviceData();
@@ -45,11 +42,7 @@ export class AddDeviceFormComponent implements OnInit {
     this.setlocationId();
     this.setStatus();
     this.userDataJSON = localStorage.getItem('user');
-
-    // Parse the JSON string back into an object
     var userData = JSON.parse(this.userDataJSON);
-
-    // Access the 'id' property of the userData object
     this.UserId = userData.id;
 
   }

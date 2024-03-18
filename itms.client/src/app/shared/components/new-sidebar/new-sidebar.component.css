@@ -75,3 +75,7 @@
 .sidebar-icon:hover {
   fill: white;
 }
+
+#accessories-sidebar-icon{
+    margin-left: 3px;
+}

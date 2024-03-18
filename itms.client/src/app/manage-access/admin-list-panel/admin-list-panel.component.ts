@@ -49,6 +49,7 @@ export class AdminListPanelComponent {
   }
 
   loadAdminList() {
+    this.loading = true;
     this.dataService.getAdminList(this.locationId).subscribe(
       (data) => {
 

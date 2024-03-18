@@ -814,3 +814,24 @@
 .spinner-loading {
   margin-left: 8rem;
 }
+
+
+.archive-label {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.archive-label span {
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.rightSide input {
+  display: none;
+}
+
