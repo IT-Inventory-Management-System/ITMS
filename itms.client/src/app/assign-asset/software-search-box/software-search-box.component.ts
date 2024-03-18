@@ -123,7 +123,7 @@ export class SoftwareSearchBoxComponent implements OnChanges {
     this.selectedOptionVersion = null;
     this.selectedSoftwareType = null;
     this.prev = '';
-    console.log("from remove",this.SoftwareOptions);
+    //console.log("from remove",this.SoftwareOptions);
     this.removeSoftware.emit({ idx :this.index, SoftwareOptions: this.SoftwareOptions });
   }
 
