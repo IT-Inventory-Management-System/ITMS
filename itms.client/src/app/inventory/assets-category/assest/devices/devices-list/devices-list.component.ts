@@ -56,7 +56,7 @@ export class DevicesListComponent {
 
   async showDevices() {
     this.selectFirstDevice()
-  }
+  } 
 
   onDeviceClick(cygid: any, flag: boolean): void {
     DevicesListComponent.selectedDeviceId = cygid;
