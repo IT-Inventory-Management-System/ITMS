@@ -107,6 +107,7 @@ export class SoftwareSearchBoxComponent implements OnChanges {
 
 
   emitRemoveSoftware(): void {
+
     if (this.selectedOptionVersion != null) {
       const index = this.SoftwareOptions.findIndex(item =>
         item.softwareName === this.currSelectedSoftware && item.version === this.selectedOptionVersion
@@ -117,6 +118,12 @@ export class SoftwareSearchBoxComponent implements OnChanges {
         this.softwareWarning = false;
       }
     }
+
+    this.selectedOption = null;
+    this.selectedOptionVersion = null;
+    this.selectedSoftwareType = null;
+    this.prev = '';
+    console.log("from remove",this.SoftwareOptions);
     this.removeSoftware.emit({ idx :this.index, SoftwareOptions: this.SoftwareOptions });
   }
 
