@@ -57,10 +57,9 @@
   position: absolute;
   top: 0;
   left: 0;
-  border-radius: 0rem 0.25rem;
+  border-radius: 4px 0px 4px 0px;
   background: #ffb81c;
   box-sizing: content-box;
- 
 }
 
 .device-tag-info {
@@ -82,7 +81,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  border-radius: 0rem 0.25rem;
+  border-radius: 4px 0px 4px 0px;
   background: #479C6B;
   z-index: 2;
   box-sizing: content-box;
@@ -96,7 +95,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  border-radius: 0rem 0.25rem;
+  border-radius: 4px 0px 4px 0px;
   background: #CC1A07;
   z-index: 2;
   box-sizing: content-box;
@@ -110,7 +109,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  border-radius: 0rem 0.25rem;
+  border-radius: 4px 0px 4px 0px;
   background: #CC1A07;
   z-index: 2;
   box-sizing: content-box;

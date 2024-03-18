@@ -287,7 +287,7 @@ export class RevokeAllComponent {
 
 
         //console.log('Data saved successfully', response);
-        this.revokeAllForm.reset();
+        //this.revokeAllForm.reset();
         this.toastr.success('Exit Process Successful');
       },
       (error) => {

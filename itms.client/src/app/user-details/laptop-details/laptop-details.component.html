@@ -89,7 +89,8 @@
               Windows Laptop
             </div>
 
-            <div *ngIf="laptop.osName === 'Mac'" style="color: var(--Primary-Gray, #343435); font-family: Roboto; font-size: 1rem; font-style: normal; font-weight: 600; line-height: normal;">
+            <div *ngIf="laptop.osName === 'Mac'" style="color: var(--Primary-Gray, #343435)">
+              <img class ="mac-icon" src="../../../assets/icons/apple.svg" [ngStyle]="{'filter': (laptop.actionName === 'Lost' || laptop.actionName === 'lost' || laptop.actionName === 'Submitted' || laptop.actionName === 'submitted' || laptop.actionName === 'Unassignable' || laptop.actionName === 'unassignable') ? 'grayscale(100%)' : 'none'}">
               Mac
             </div>
           </div>
