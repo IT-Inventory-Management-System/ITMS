@@ -70,7 +70,7 @@
                    [class.disabled]="isUserSelected==false || softwareWarningCheck==true"
                   >Previous</button>
           <div class="modal-footer">
-            <div class="button-container">
+            <!--<div class="button-container">-->
               <button type="button"
                       class="btn-skip"
                       *ngIf="currentStep !== 3"
@@ -92,9 +92,20 @@
                       (currentStep === 3 && isAccessoryIdEmptyStep3)">-->
                       {{ getButtonText() }}
               </button>
-            </div>
+            <!--</div>-->
           </div>
         </div>
     </div>
 </div>
 </div>
+
+
+<!--<button type="button"
+        class="btn-save"
+        [attr.data-bs-dismiss]="currentStep === 3 && assignAssetForm.valid ? 'modal' : null"
+        (click)="currentStep !== 3 ? nextStep() : saveChanges()"
+        [class.disabled]="isUserSelected==false || softwareWarningCheck==true"
+        *ngIf="currentStep === 3"
+        data-bs-dismiss="modal" aria-label="Close">
+  {{ getButtonText() }}
+</button>-->

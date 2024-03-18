@@ -35,6 +35,13 @@
   align-self: stretch;
 }
 
+/*.error-alert-icon img {
+  filter: brightness(110%) saturate(100%) hue-rotate(0deg) sepia(100%) saturate(1500%) hue-rotate(0deg) brightness(100%) contrast(100%);
+}*/
+
+
+
+
 
 :host {
   display: contents;
