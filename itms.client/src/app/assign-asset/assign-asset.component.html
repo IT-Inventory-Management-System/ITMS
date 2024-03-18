@@ -10,7 +10,9 @@
                           [label]="'User'"
                           [placeholder]="'Search User by Name, CGI ID and Email Address'"
                           [options]="users"
-                          [assignAssetForm]="assignAssetForm">
+                          [assignAssetForm]="assignAssetForm"
+                          (userSelected)="userSelected($event)"
+                          >
           </app-search-box>
           <div class="stepper-container">
             <div class="stepper-stepper">
@@ -40,18 +42,23 @@
                              [LaptopOptions]="laptops"
                              [assignAssetForm]="assignAssetForm"
                              (cygidInputChange)="onCygidInputChangeStep1($event)"
+                             [class.disabled]="isUserSelected==false"
                              >
           </app-assign-laptop>
           <app-assign-software *ngIf="currentStep === 2"
                                [SoftwareOptions]="softwares"
                                [assignAssetForm]="assignAssetForm"
-                               (softwareIdInputChange)="onSoftwareIdInputChangeStep2($event)">
+                               (softwareIdInputChange)="onSoftwareIdInputChangeStep2($event)"
+                               [class.disabled]="isUserSelected==false"
+                               (softwareWarning)="softwareWarning($event)"
+                               >
           </app-assign-software>
           <app-assign-accessories *ngIf="currentStep === 3"
                                   [AccessoryOptions]="accessories"
                                   [assignAssetForm]="assignAssetForm"
                                   (accessoryIdInputChange)="onAccessoryIdInputChangeStep3($event)"
                                   [accessCYGIDs]="accessCYGIDs"
+                                  [class.disabled]="isUserSelected==false"
                                   >
           </app-assign-accessories>
           <div class="progress mt-3">
@@ -59,20 +66,26 @@
           </div>
         </div>
         <div class="footer">
-          <button type="button" class="btn btn-previous" *ngIf="currentStep !== 1" (click)="previousStep()">Previous</button>
+          <button type="button" class="btn btn-previous" *ngIf="currentStep !== 1" (click)="previousStep()"
+                   [class.disabled]="isUserSelected==false || softwareWarningCheck==true"
+                  >Previous</button>
           <div class="modal-footer">
             <div class="button-container">
               <button type="button"
                       class="btn-skip"
                       *ngIf="currentStep !== 3"
                       (click)="skipStep()"
-                      [disabled]="!isNextButtonEnabled()">
+                      [disabled]="!isNextButtonEnabled()"
+                      [class.disabled]="isUserSelected==false || softwareWarningCheck==true"
+                      >
                       Skip
               </button>
               <button type="button"
                       class="btn-save"
                       [attr.data-bs-dismiss]="currentStep === 3 && assignAssetForm.valid ? 'modal' : null"
-                      (click)="currentStep !== 3 ? nextStep() : saveChanges()">
+                      (click)="currentStep !== 3 ? nextStep() : saveChanges()"
+                      [class.disabled]="isUserSelected==false || softwareWarningCheck==true"
+                      >
                       <!--[disabled]="
                       (currentStep === 1 && isCygidEmptyStep1) ||
                       (currentStep === 2 && isSoftwareIdEmptyStep2) ||
