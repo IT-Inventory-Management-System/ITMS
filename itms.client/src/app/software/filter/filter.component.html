@@ -13,65 +13,65 @@
     <div class="criteria-text">
       <span class="text">Refine the assets by implementing specific criteria.</span>
     </div>
-
-    <app-accordion>
-      <app-accordion-item title="SoftwareType">
-        <div class="filter-checkbox-outer">
-          <div *ngFor="let status of SoftwareType" class="filter-checkbox">
-            <input class="filter-checkbox-input" type="checkbox" id="{{status}}" [checked]="isSelectedType(status)" (change)="toggleCheckboxType(status)">
-            <label class="filter-checkbox-label" for="{{status}}">
-              <img *ngIf="isSelectedType(status)" src="../../../../../assets/icons/checkbox-checked.svg" />
-              <img *ngIf="!isSelectedType(status)" src="../../../../../assets/icons/checkbox-unchecked.svg" />
-              <span>{{status}}</span>
-            </label>
-          </div>
-        </div>
-      </app-accordion-item>
-      <app-accordion-item title="SoftwareStatus">
-        <div class="filter-checkbox-outer">
-          <div *ngFor="let status of SoftwareStatus" class="filter-checkbox">
-            <input class="filter-checkbox-input" type="checkbox" id="{{status}}"  (change)="toggleCheckboxStatus(status)">
-            <label class="filter-checkbox-label" for="{{status}}">
-              <img *ngIf="stat === status" src="../../../../../assets/icons/checkbox-checked.svg" />
-              <img *ngIf="stat !== status" src="../../../../../assets/icons/checkbox-unchecked.svg" />
-              <span>{{status}}</span>
-            </label>
-          </div>
-        </div>
-      </app-accordion-item>
-      <app-accordion-item title="StockStatus">
-        <div class="filter-checkbox-outer">
-          <div *ngFor="let status of StockStatus" class="filter-checkbox">
-            <input class="filter-checkbox-input" type="checkbox" id="{{status}}" [checked]="isSelectedStock(status)" (change)="toggleCheckboxStock(status)">
-            <label class="filter-checkbox-label" for="{{status}}">
-              <img *ngIf="isSelectedStock(status)"  src="../../../../../assets/icons/checkbox-checked.svg" />
-              <img *ngIf="!isSelectedStock(status)" src="../../../../../assets/icons/checkbox-unchecked.svg" />
-              <span>{{status}}</span>
-            </label>
-          </div>
-        </div>
-      </app-accordion-item>
-
-      <app-accordion-item title="Date of Purchase">
-        <div class="filter-checkbox-outer">
-          <div class="date-filter-outer">
-            <div class="date-filter">
-              <input #fromInput id="from" type="text" placeholder="From Date" (focus)="toggleInputType('date')" (blur)="toggleInputType('text')" (blur)="toggleCheckboxFrom(fromInput.value)" />
-              <img src="../../../../../assets/icons/calendar.svg" />
+    <div class="scrolling">
+      <app-accordion>
+        <app-accordion-item title="SoftwareType">
+          <div class="filter-checkbox-outer">
+            <div *ngFor="let status of SoftwareType" class="filter-checkbox">
+              <input class="filter-checkbox-input" type="checkbox" id="{{status}}" [checked]="isSelectedType(status)" (change)="toggleCheckboxType(status)">
+              <label class="filter-checkbox-label" for="{{status}}">
+                <img *ngIf="isSelectedType(status)" src="../../../../../assets/icons/checkbox-checked.svg" />
+                <img *ngIf="!isSelectedType(status)" src="../../../../../assets/icons/checkbox-unchecked.svg" />
+                <span>{{status}}</span>
+              </label>
             </div>
           </div>
-          <div class="date-filter-outer">
-            <div class="date-filter">
-              <input #toInput id="to" type="text" placeholder="To Date" (focus)="toggleInputTypeTo('date')" (blur)="toggleInputTypeTo('text')" (blur)="toggleCheckboxTo(toInput.value)" />
-              <!--<input type="text" placeholder="To Date" onfocus="(this.type='date')" onblur="(this.type='text')" />-->
-              <img src="../../../../../assets/icons/calendar.svg" />
+        </app-accordion-item>
+        <app-accordion-item title="SoftwareStatus">
+          <div class="filter-checkbox-outer">
+            <div *ngFor="let status of SoftwareStatus" class="filter-checkbox">
+              <input class="filter-checkbox-input" type="checkbox" id="{{status}}" (change)="toggleCheckboxStatus(status)">
+              <label class="filter-checkbox-label" for="{{status}}">
+                <img *ngIf="stat === status" src="../../../../../assets/icons/checkbox-checked.svg" />
+                <img *ngIf="stat !== status" src="../../../../../assets/icons/checkbox-unchecked.svg" />
+                <span>{{status}}</span>
+              </label>
             </div>
           </div>
-        </div>
-      </app-accordion-item>
+        </app-accordion-item>
+        <app-accordion-item title="StockStatus">
+          <div class="filter-checkbox-outer">
+            <div *ngFor="let status of StockStatus" class="filter-checkbox">
+              <input class="filter-checkbox-input" type="checkbox" id="{{status}}" [checked]="isSelectedStock(status)" (change)="toggleCheckboxStock(status)">
+              <label class="filter-checkbox-label" for="{{status}}">
+                <img *ngIf="isSelectedStock(status)" src="../../../../../assets/icons/checkbox-checked.svg" />
+                <img *ngIf="!isSelectedStock(status)" src="../../../../../assets/icons/checkbox-unchecked.svg" />
+                <span>{{status}}</span>
+              </label>
+            </div>
+          </div>
+        </app-accordion-item>
 
-    </app-accordion>
+        <app-accordion-item title="Date of Purchase">
+          <div class="filter-checkbox-outer">
+            <div class="date-filter-outer">
+              <div class="date-filter">
+                <input #fromInput id="from" type="text" placeholder="From Date" (focus)="toggleInputType('date')" (blur)="toggleInputType('text')" (blur)="toggleCheckboxFrom(fromInput.value)" />
+                <img src="../../../../../assets/icons/calendar.svg" />
+              </div>
+            </div>
+            <div class="date-filter-outer">
+              <div class="date-filter">
+                <input #toInput id="to" type="text" placeholder="To Date" (focus)="toggleInputTypeTo('date')" (blur)="toggleInputTypeTo('text')" (blur)="toggleCheckboxTo(toInput.value)" />
+                <!--<input type="text" placeholder="To Date" onfocus="(this.type='date')" onblur="(this.type='text')" />-->
+                <img src="../../../../../assets/icons/calendar.svg" />
+              </div>
+            </div>
+          </div>
+        </app-accordion-item>
 
+      </app-accordion>
+    </div>
   </div>
   <div class="filter-footer ">
     <div class="save-cancel-button ">
