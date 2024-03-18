@@ -164,7 +164,7 @@ export class SoftwareSearchBoxComponent implements OnChanges {
         (options: any) => options.version === option
       );
       this.selectedSoftwareType = softwareId;
-      this.SoftwareVersionOptionSelected.emit({ softwareId,option, SoftwareOptions: this.SoftwareOptions, countZero: this.SoftwareOptions[index].count === -1 });
+      this.SoftwareVersionOptionSelected.emit({ softwareId, option, SoftwareOptions: this.SoftwareOptions, countZero: this.SoftwareOptions[index].count === -1, softwareWarning: this.softwareWarning });
     }
 
     
