@@ -36,7 +36,7 @@
 .assigned-device-heading {
   font-family: Roboto;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 16px;
   letter-spacing: 0em;
   text-align: left;
@@ -178,9 +178,12 @@
   font-weight: 600;
   line-height: 16px;
   letter-spacing: 0em;
-  text-align: left;
+  text-align: right;
 }
-
+.laptop-count-container {
+  display: flex;
+  align-items: center;
+}
 .laptop-count {
   color: #6D6D6D;
 }

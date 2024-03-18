@@ -1,90 +1,93 @@
 <div class="heading-count">
-  <div class="assigned-device-heading">Assigned laptop</div>
-  <div class="laptop-count" *ngIf="laptopDetails">Count: {{ laptopDetails.length }}</div>
-</div>
-
-<div *ngFor="let laptop of laptopDetails; let i = index">
-
-  <div class="assigned-device-detail-box">
-
-
-    <div class="details">
-      <div class="iconsOfModal">
-        <img src="../../../assets/icons/CYGVector.svg" /><p>{{laptop.cygid}}</p>
-      </div>
-
-
-      <!--{laptopDetails.deviceLogId}}-->
-      <div class="iconsOfModal">
-        <img class="modal-img" src="../../../assets/icons/laptop-small.svg" /><p>{{laptop.model}}</p>
-      </div>
-      <div class="iconsOfModal">
-        <img src="../../../assets/icons/windows.svg" /><p>{{laptop.osName}}</p>
-
-      </div>
-      <div class="iconsOfModal">
-        <img src="../../../assets/icons/ProcessorVector.svg" /><p>{{laptop.processor}}</p>
-
-      </div>
-
-      <div class="storage-details">
-        <div class="iconsOfModal right-icon">
-          <img src="../../../assets/icons/add-asset/server-blue.svg"><p>{{laptop.ram}}</p>
-        </div>
-        <div class="iconsOfModal right-icon">
-          <img src="../../../assets/icons/add-asset/server-blue.svg"><p>{{laptop.storage}}</p>
-
-        </div>
-
-      </div>
-      <div class="iconsOfModal">
-        <img src="../../../assets/icons/CalenderVector.svg" /><p>Assigned on: {{laptop.assignedDate | date: 'MM-dd-yyyy'}}</p>
-      </div>
-
-    </div>
+  <div class="assigned-device-heading" *ngIf="laptopCount != 0">Assigned laptop</div>
+  <div class="laptop-count-container">
+    <div class="laptop-count" *ngIf="laptopCount != 0">Count: {{ laptopDetails.length }}</div>
+    <div class="no-laptop-message" *ngIf="laptopCount === 0">No laptop assigned to this user</div>
+  </div>
   </div>
 
-  <div class="received">
-    <div class="device-recieved">
+  <div *ngFor="let laptop of laptopDetails; let i = index">
 
-      <p>Item Received <span class="star">*</span></p>
+    <div class="assigned-device-detail-box">
 
-      <input type="radio" id="receivedYes{{i}}" name="deviceReceived{{i}}" [(ngModel)]="laptop.received" value="Yes" (click)="showYesReasonOptions(i)">
-      <label for="receivedYes{{i}}">Yes</label>
 
-      <input type="radio" id="receivedNo{{i}}" name="deviceReceived{{i}}" [(ngModel)]="laptop.received" value="No" (click)="showNoReasonOptions(i)">
-      <label for="receivedNo{{i}}">No</label>
+      <div class="details">
+        <div class="iconsOfModal">
+          <img src="../../../assets/icons/CYGVector.svg" /><p>{{laptop.cygid}}</p>
+        </div>
+
+
+        <!--{laptopDetails.deviceLogId}}-->
+        <div class="iconsOfModal">
+          <img class="modal-img" src="../../../assets/icons/laptop-small.svg" /><p>{{laptop.model}}</p>
+        </div>
+        <div class="iconsOfModal">
+          <img src="../../../assets/icons/windows.svg" /><p>{{laptop.osName}}</p>
+
+        </div>
+        <div class="iconsOfModal">
+          <img src="../../../assets/icons/ProcessorVector.svg" /><p>{{laptop.processor}}</p>
+
+        </div>
+
+        <div class="storage-details">
+          <div class="iconsOfModal right-icon">
+            <img src="../../../assets/icons/add-asset/server-blue.svg"><p>{{laptop.ram}}</p>
+          </div>
+          <div class="iconsOfModal right-icon">
+            <img src="../../../assets/icons/add-asset/server-blue.svg"><p>{{laptop.storage}}</p>
+
+          </div>
+
+        </div>
+        <div class="iconsOfModal">
+          <img src="../../../assets/icons/CalenderVector.svg" /><p>Assigned on: {{laptop.assignedDate | date: 'MM-dd-yyyy'}}</p>
+        </div>
+
+      </div>
     </div>
 
-    <div *ngIf="showYesReason[i]" class="reason-options">
-      <p>Condition <span class="star">*</span></p>
-      
+    <div class="received">
+      <div class="device-recieved">
+
+        <p>Item Received <span class="star">*</span></p>
+
+        <input type="radio" id="receivedYes{{i}}" name="deviceReceived{{i}}" [(ngModel)]="laptop.received" value="Yes" (click)="showYesReasonOptions(i)">
+        <label for="receivedYes{{i}}">Yes</label>
+
+        <input type="radio" id="receivedNo{{i}}" name="deviceReceived{{i}}" [(ngModel)]="laptop.received" value="No" (click)="showNoReasonOptions(i)">
+        <label for="receivedNo{{i}}">No</label>
+      </div>
+
+      <div *ngIf="showYesReason[i]" class="reason-options">
+        <p>Condition <span class="star">*</span></p>
+
         <input type="radio" id="perfect{{i}}" name="reasonOptions{{i}}" [(ngModel)]="laptop.perfect" [checked]="isReasonSelected('Perfect', i)" value="Perfect" (change)="handleReasonSelection('Perfect', i)">
         <label for="perfect{{i}}">Perfect</label>
 
         <input type="radio" id="unassignable{{i}}" name="reasonOptions{{i}}" [(ngModel)]="laptop.unassignable" [checked]="isReasonSelected('Unassignable', i)" value="Unassignable" (change)="handleReasonSelection('Unassignable', i)">
         <label for="unassignable{{i}}">Unassignable</label>
-      
 
-    </div>
 
-    <div *ngIf="showNoReason[i]" class="reason-options">
-      <p>Reason <span class="star">*</span></p>
-      <div>
-        <input type="radio" id="submittedLater{{i}}" name="reasonOptions{{i}}" [(ngModel)]="laptop.submittedLater" [checked]="isReasonSelected('Submitted Later', i)" value="Submitted Later" (change)="handleReasonSelection('Submitted Later', i)">
-        <label for="submittedLater{{i}}">Will be submitted later</label>
+      </div>
 
-        <input type="radio" id="lostNotReceived{{i}}" name="reasonOptions{{i}}" [(ngModel)]="laptop.lostNotReceived" [checked]="isReasonSelected('Lost/Not Received', i)" value="Lost/Not Received" class="lost" (change)="handleReasonSelection('Lost/Not Received', i)">
-        <label for="lostNotReceived{{i}}">Lost/Not Recieved</label>
+      <div *ngIf="showNoReason[i]" class="reason-options">
+        <p>Reason <span class="star">*</span></p>
+        <div>
+          <input type="radio" id="submittedLater{{i}}" name="reasonOptions{{i}}" [(ngModel)]="laptop.submittedLater" [checked]="isReasonSelected('Submitted Later', i)" value="Submitted Later" (change)="handleReasonSelection('Submitted Later', i)">
+          <label for="submittedLater{{i}}">Will be submitted later</label>
+
+          <input type="radio" id="lostNotReceived{{i}}" name="reasonOptions{{i}}" [(ngModel)]="laptop.lostNotReceived" [checked]="isReasonSelected('Lost/Not Received', i)" value="Lost/Not Received" class="lost" (change)="handleReasonSelection('Lost/Not Received', i)">
+          <label for="lostNotReceived{{i}}">Lost/Not Recieved</label>
+        </div>
+      </div>
+
+
+
+      <div class="comment-box">
+        <p>Comment <span class="star">*</span></p>
+        <input type="text" class="input-box" placeholder="Type Here..." [(ngModel)]="laptop.comment" (input)="setDeviceComment($event, i)" />
       </div>
     </div>
 
-
-
-    <div class="comment-box">
-      <p>Comment <span class="star">*</span></p>
-      <input type="text" class="input-box" placeholder="Type Here..." [(ngModel)]="laptop.comment" (input)="setDeviceComment($event, i)" />
-    </div>
   </div>
-
-</div>

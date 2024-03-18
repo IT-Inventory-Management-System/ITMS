@@ -21,6 +21,7 @@ export class AccessoriesAllRevokeComponent {
   SubmittedActionUnassign: any;
   SubmitLaterAction: any;
   selectedReason: any;
+  accessoryCount: number = 0;
 
   //newComment: string = '';
   //comments: any;
@@ -55,6 +56,15 @@ export class AccessoriesAllRevokeComponent {
     const accessoryArray = this.revokeAllForm.get('Accessory') as FormArray;
     if (accessoryArray.length != 0) {
       this.checkIfSomethingIsMissing();
+    }
+
+    this.accessoryCount = 0;
+    if (this.accessoriesDetails && this.accessoriesDetails.length) {
+      for (const accessory of this.accessoriesDetails) {
+        if (accessory.submittedBy === null) {
+          this.accessoryCount++;
+        }
+      }
     }
   }
 

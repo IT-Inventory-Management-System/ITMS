@@ -1,6 +1,7 @@
 <div class="heading-count">
-  <div class="assigned-accessory-heading">Assigned Assessories</div>
-  <div class="acccessory-count" *ngIf="accessoriesDetails">Count: {{ accessoriesDetails.length }}</div>
+  <div class="assigned-accessory-heading" *ngIf="accessoryCount != 0">Assigned Assessories</div>
+  <div class="acccessory-count" *ngIf="accessoryCount != 0">Count: {{ accessoriesDetails.length }}</div>
+  <div class="no-laptop-message" *ngIf="accessoryCount === 0">No accessory assigned to this user</div>
 </div>
 
 <div *ngFor="let accessory of accessoriesDetails; let i = index">

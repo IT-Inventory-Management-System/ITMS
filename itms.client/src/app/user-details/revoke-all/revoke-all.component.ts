@@ -170,7 +170,7 @@ export class RevokeAllComponent {
       this.accessoriesDetails[i].comment = '';
     }
 
-    this.revokeAllForm.reset();
+    //this.revokeAllForm.reset();
     this.updateButtonDisabledState();
   }
 
