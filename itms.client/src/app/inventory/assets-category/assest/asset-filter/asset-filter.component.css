@@ -13,14 +13,10 @@
   height: 35.75rem;
 }
 
-.criteria{
-  overflow-y: scroll;
-  margin-top: 1.25rem;
-  
-}
+
 .scrolling {
   overflow-y: scroll;
-  height: 35.75rem;
+  max-height: 25rem;
 }
 .filtersection {
   border-bottom: 1px solid var(--Secondary-Light-Gray, #E9ECEB);
@@ -29,6 +25,8 @@
   justify-content: space-between;
   align-items: flex-start;
   align-self: stretch;
+  position: fixed;
+  width:100vw;
 }
 
 .tab {
@@ -63,8 +61,9 @@
   padding: 0rem 1rem;
   flex-direction: column;
   align-items: flex-end;
-  gap: 1.5rem;
+  gap: 1rem;
   align-self: stretch;
+  margin-top: 3rem;
 }
 
 .criteria-text {
@@ -248,6 +247,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   align-items: center;
   justify-content: center;
   gap: 0.625rem;
+  position: fixed;
+  bottom: 1rem;
 }
 
 .save-cancel-button {
@@ -286,6 +287,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   gap: 0.5rem;
   flex: 1 0 0;
   border-radius: 0.25rem;
+  border:none;
   background: var(--Primary-Blue, #28519E);
 }
 
