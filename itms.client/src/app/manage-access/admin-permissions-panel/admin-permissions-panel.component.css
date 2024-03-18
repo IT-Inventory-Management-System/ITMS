@@ -154,15 +154,13 @@
 .revoke-message {
   color: var(--Primary-Grey, #343435);
   text-align: center;
-  leading-trim: both;
-  text-edge: cap;
   font-feature-settings: 'clig' off, 'liga' off;
   font-family: Roboto;
   font-size: 1rem;
   font-style: normal;
   font-weight: 500;
-  line-height: 150%; /* 1.5rem */
-  width: 14.9375rem;
+  line-height: 150%;
+  width: 20.9375rem;
 }
 
 .revoke-buttons {
@@ -218,4 +216,8 @@
     font-style: normal;
     font-weight: 600;
     line-height: 1.25rem; /* 142.857% */
+  }
+
+  .st{
+      border: 1px solid black;
   }

@@ -22,12 +22,15 @@
       </div>
 
       <div class="filter-section">
-        <div class="justify-content-end form-check rightSide" *ngIf="selectedView === 'card'">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" (click)="Archived()">
-          <label class="form-check-label" for="flexCheckDefault">
-            Show Archive Assets Only
+        <div class="rightSide" *ngIf="selectedView === 'card'">
+          <input type="checkbox" value="" id="flexCheckDefault" (click)="Archived()">
+          <label class="archive-label" for="flexCheckDefault">
+            <img *ngIf="isArchived == false" src="../../../assets/icons/checkbox-unchecked.svg" />
+            <img *ngIf="isArchived == true" src="../../../assets/icons/checkbox-checked.svg" />
+            <span>Show Archive Assets Only</span>
           </label>
         </div>
+
         <div class="search-bar" *ngIf="selectedView === 'table'">
           <img src="../../../assets/icons/Software/Search.svg" />
 

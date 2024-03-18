@@ -318,3 +318,9 @@ app-assign-accessories{
     background-color: rgba(40, 81, 158, 0.7);
     cursor: not-allowed;
   }
+
+
+.software-icon-new {
+  width: 1.4rem;
+  height: 1.5rem;
+}

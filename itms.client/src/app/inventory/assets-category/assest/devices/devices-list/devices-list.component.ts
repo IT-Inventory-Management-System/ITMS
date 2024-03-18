@@ -45,12 +45,10 @@ export class DevicesListComponent {
 
   ngOnChanges() {
     this.selectFirstDevice();
-    //console.log("ssss",this.archivedCyg);
   }
 
   ngOnDestroy() {
     this.archivedCyg = null;
-    //console.log("pppp", this.archivedCyg)
   }
 
   async showDevices() {
@@ -58,7 +56,7 @@ export class DevicesListComponent {
   }
 
   onDeviceClick(cygid: any, flag: boolean): void {
-    DevicesListComponent.selectedDeviceId = cygid; // Update the static variable
+    DevicesListComponent.selectedDeviceId = cygid;
     this.selectedDeviceId = cygid;
     this.isselectedDevice = true;
 
