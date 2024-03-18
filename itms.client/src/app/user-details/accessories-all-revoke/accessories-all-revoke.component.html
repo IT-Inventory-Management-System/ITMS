@@ -9,24 +9,24 @@
 
     <div class="details">
       <div class="iconsOfModal">
-        <img *ngIf="accessory.categoryName === 'Mouse'" src="../../../assets/icons/MouseVector.svg" />
+        <img *ngIf="accessory.categoryName === 'Mouse'" src="../../../assets/icons/mouse-acc.svg" />
         <img *ngIf="accessory.categoryName === 'Keyboard'" src="../../../assets/icons/KeyboardVector.svg" />
         <p>{{accessory.categoryName}}</p>
       </div>
 
       <div class="brand">
         <div class="iconsOfModal">
-          <img src="../../../assets//icons/AccessoryID.svg" />
+          <img src="../../../assets//icons/number.svg" />
           <p>{{accessory.cygid}}</p>
         </div>
         <div class="iconsOfModal">
-          <img src="../../../assets/icons/BrandVector.svg" /><p>{{accessory.brand}}</p>
+          <img src="../../../assets/icons/brand-acc.svg" /><p>{{accessory.brand}}</p>
         </div>
       </div>
 
       <div class="wiredNotWired">
         <div class="iconsOfModal">
-          <img src="../../../assets/icons/WiredVector.svg" />
+          <img src="../../../assets/icons/type-acc.svg" />
           <p>
             <ng-container *ngIf="accessory.isWired; else notWiredText">Wired</ng-container>
             <ng-template #notWiredText>Not Wired</ng-template>
@@ -34,7 +34,7 @@
         </div>
 
         <div class="iconsOfModal">
-          <img src="../../../assets/icons/CalenderVector.svg" />
+          <img src="../../../assets/icons/calendar-acc.svg" />
           <p>{{accessory.assignedDate | date: 'MM-dd-yyyy'}}</p>
         </div>
       </div>

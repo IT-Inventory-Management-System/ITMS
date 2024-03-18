@@ -168,11 +168,11 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  margin: 1rem 0rem;
 }
 
 .assigned-device-heading,
 .laptop-count {
-  margin: 1rem 0rem;
   font-family: Roboto;
   font-size: 14px;
   font-weight: 600;
