@@ -41,12 +41,10 @@
   .accessory-recieved input[type="radio"] {
     margin-right: 0.5rem;
     width: 20px;
-    height: 20px;
   }
 
     .accessory-recieved input[type="radio"] + label {
       margin-right: 5rem;
-      font-size: 16px;
       top: 0;
     }
 
@@ -56,6 +54,12 @@
 
 .comment-box {
   margin-top: 1rem;
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 0.8125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 .input-box {
@@ -66,10 +70,22 @@
   border: 1px solid #B2B2B3;
   gap: 106px;
   margin-bottom: 1rem;
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 0.8125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 .reason-options {
   margin-top: 1rem;
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 0.8125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
   .reason-options input[type="radio"] {
@@ -80,13 +96,13 @@
 
     .reason-options input[type="radio"] + label {
       margin-right: 3rem;
-      font-size: 16px;
       top: 0;
     }
 
 .iconsOfModal {
   display: flex;
   align-items: center;
+  width:13rem;
 }
 
   .iconsOfModal img {
@@ -102,7 +118,7 @@
 
 .brand {
   display: flex;
-  gap: 8.6rem;
+  gap: 8rem;
 }
 
 .heading-count {
@@ -128,4 +144,41 @@
 }
 .div-section{
     width:15rem;
+}
+
+.accessory input[type="radio"] {
+  display: none;
+}
+
+/* Style labels to use SVG icons as background images */
+.accessory label {
+  display: inline-block;
+  vertical-align: middle; /* Align the labels vertically with the image */
+  cursor: pointer;
+  background-image: url('../../../assets/icons/Component 2.svg'); /* Replace with path to your blue SVG icon */
+  padding-left: 30px; /* Adjust this value based on the width of your image */
+  background-repeat: no-repeat;
+  background-position: left center; /* Align the image to the left */
+  background-size: 20px 20px;
+}
+
+/* Style labels for checked state */
+.accessory input[type="radio"]:checked + label {
+  background-image: url('../../../assets/icons/Component 2_checked.svg') /* Replace with path to your blue checked SVG icon */
+}
+.accessory {
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.label {
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 0.8125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
