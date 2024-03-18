@@ -17,6 +17,27 @@
   flex-direction: row;
 }
 
+/*.received input[type="radio"] {
+  display: none;
+}
+
+
+.received label {
+  display: inline-block;
+  vertical-align: middle; 
+  cursor: pointer;
+  background-image: url('../../../assets/icons/Component 2.svg');
+  padding-left: 30px; 
+  background-repeat: no-repeat;
+  background-position: left center; 
+  background-size: 20px 20px;
+}
+
+
+.received input[type="radio"]:checked + label {
+  background-image: url('../../../assets/icons/Component 2_checked.svg') 
+}*/
+
 .user-firstname-lastname-id {
   display: flex;
   flex-direction: column;
@@ -130,6 +151,12 @@
 
 .reason-options {
   margin-top: 1rem;
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 0.8125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 .reason-options input[type="radio"] {
