@@ -9,8 +9,16 @@
   gap: 1.25rem;
   margin-left: 74%;
   display: none;
-  margin-top: 4rem;
+  margin-top: 5rem;
   height: 35.75rem;
+}
+
+@media screen and (min-width: 1560px) {
+  #filterModal {
+    margin-left: 55.8% !important;
+    margin-top: 11rem !important;
+    height: 40.25rem !important;
+  }
 }
 
 
@@ -26,7 +34,9 @@
   align-items: flex-start;
   align-self: stretch;
   position: fixed;
-  width:100vw;
+  width: 100vw;
+  max-width: 22.5rem;
+  position: relative;
 }
 
 .tab {
@@ -36,6 +46,7 @@
   justify-content: space-between;
   align-items: center;
   flex: 1 0 0;
+  max-width: 5rem;
 }
 
 
@@ -63,7 +74,7 @@
   align-items: flex-end;
   gap: 1rem;
   align-self: stretch;
-  margin-top: 3rem;
+  margin-top: 1rem;
 }
 
 .criteria-text {
@@ -247,8 +258,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   align-items: center;
   justify-content: center;
   gap: 0.625rem;
-  position: fixed;
-  bottom: 1rem;
+  /*position: fixed;
+  bottom: 1rem;*/
+  position: absolute;
+  bottom: 0;
 }
 
 .save-cancel-button {

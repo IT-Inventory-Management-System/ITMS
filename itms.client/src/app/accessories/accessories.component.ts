@@ -33,7 +33,7 @@ export class AccessoriesComponent {
     Availability: '',
     Category: ''
   }
-    historydata: any;
+  historydata: any;
   cygid: any;
   year: any;
   month: any;
@@ -171,15 +171,21 @@ export class AccessoriesComponent {
     this.dataService.getAllAccessories(dto)
       .subscribe(accessories => {
         this.accessories = accessories;
-      //  console.log(this.accessories);
-        this.singleSelected = [this.accessories[0]];
-        this.accessoryId = this.accessories[0].accessoryId;
+        if (accessories.length != 0) {
+          //  console.log(this.accessories);
+          this.singleSelected = [this.accessories[0]];
+          this.accessoryId = this.accessories[0].accessoryId;
+
+          this.setRowData();
+          // console.log('Accessories', [this.accessories[0]]);
+          this.singleHistoryAccessory(this.locationId, this.accessories[0].cygid);
+          this.selectedOption = this.accessories[0].isArchived ? 'Archived' : 'Active';
+          this.cygid = this.accessories[0].cygid
+        } else {
+          this.singleSelected = [];
+        }
+
         this.loading = false;
-        this.setRowData();
-       // console.log('Accessories', [this.accessories[0]]);
-        this.singleHistoryAccessory(this.locationId, this.accessories[0].cygid);
-        this.selectedOption = this.accessories[0].isArchived ? 'Archived' : 'Active';
-        this.cygid = this.accessories[0].cygid
       });
   }
 

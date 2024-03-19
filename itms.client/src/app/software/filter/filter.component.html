@@ -15,7 +15,7 @@
     </div>
     <div class="scrolling">
       <app-accordion>
-        <app-accordion-item title="SoftwareType">
+        <app-accordion-item title="Software Type">
           <div class="filter-checkbox-outer">
             <div *ngFor="let status of SoftwareType" class="filter-checkbox">
               <input class="filter-checkbox-input" type="checkbox" id="{{status}}" [checked]="isSelectedType(status)" (change)="toggleCheckboxType(status)">
@@ -27,7 +27,7 @@
             </div>
           </div>
         </app-accordion-item>
-        <app-accordion-item title="SoftwareStatus">
+        <app-accordion-item title="Software Status">
           <div class="filter-checkbox-outer">
             <div *ngFor="let status of SoftwareStatus" class="filter-checkbox">
               <input class="filter-checkbox-input" type="checkbox" id="{{status}}" (change)="toggleCheckboxStatus(status)">
@@ -39,7 +39,7 @@
             </div>
           </div>
         </app-accordion-item>
-        <app-accordion-item title="StockStatus">
+        <app-accordion-item title="Stock Status">
           <div class="filter-checkbox-outer">
             <div *ngFor="let status of StockStatus" class="filter-checkbox">
               <input class="filter-checkbox-input" type="checkbox" id="{{status}}" [checked]="isSelectedStock(status)" (change)="toggleCheckboxStock(status)">
