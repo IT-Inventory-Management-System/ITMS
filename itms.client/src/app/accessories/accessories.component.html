@@ -85,7 +85,7 @@
     <span class="Accesories-summary">{{singleSelected[0]?.category}} Detail</span>
   </div>-->
       <div class="summary">
-        <span class="Accessories-summary">{{ singleSelected ? singleSelected[0]?.category + ' Detail' : 'No selection' }}</span>
+        <span class="Accessories-summary">{{ singleSelected[0] ? singleSelected[0]?.category + ' Detail' : 'Accessory Details' }}</span>
       </div>
 
       <div class="specification-div  ">
@@ -152,7 +152,7 @@
             <!--{{ calculateYear(singleSelected[0].purchaseDate | date: 'yyyy') }}.{{ calculateMonth(singleSelected[0].purchaseDate | date: 'MM') }} Years-->
           </span>
         </div>
-        <div *ngIf="singleSelected[0].category != 'Monitor'" class="type-brand ">
+        <div *ngIf="singleSelected && singleSelected[0] && singleSelected[0].category && singleSelected[0].category != 'Monitor'" class="type-brand ">
           <div class="type-brand1 ">
             <div class="type ">
               <div class="type-icon-text ">
@@ -168,7 +168,7 @@
 
           </div>
         </div>
-        <div *ngIf="singleSelected[0].category == 'Monitor'" class="type-brand ">
+        <div *ngIf="singleSelected && singleSelected[0] && singleSelected[0].category && singleSelected[0].category == 'Monitor'" class="type-brand ">
           <div class="type-brand1 ">
             <div class="type ">
               <div class="type-icon-text ">
@@ -182,7 +182,7 @@
 
           </div>
         </div>
-        <div *ngIf="singleSelected[0].category == 'Monitor'" class="type-brand ">
+        <div *ngIf="singleSelected && singleSelected[0] && singleSelected[0].category && singleSelected[0].category == 'Monitor'" class="type-brand ">
           <div class="type-brand1 ">
             <div class="type ">
               <div class="type-icon-text ">

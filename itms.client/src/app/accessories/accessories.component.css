@@ -17,6 +17,14 @@
     
 }*/
 
+.Accessories-summary {
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
 
 
 

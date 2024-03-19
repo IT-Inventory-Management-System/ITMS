@@ -99,13 +99,17 @@ export class SoftwareComponent implements OnInit {
         if (result) {
           this.softwaresData = result;
           this.filteredSoftware = this.softwaresData;
-          const parameters = {
-            name: result[0][0].name,
-            version: result[0][0].version,
-            location: this.selectedLocation,
-            type: result[0][0].type
-          };
-          this.onCardClicked(parameters, 0);
+          //-----------------------------------------
+          if (result && result[0] && result[0][0]) {
+            const parameters = {
+              name: result[0][0].name,
+              version: result[0][0].version,
+              location: this.selectedLocation,
+              type: result[0][0].type
+            };
+            this.onCardClicked(parameters, 0);
+          }
+          //-----------------------------------------
         } else {
          // console.log('No software found for parameters:', body);
         }
@@ -270,13 +274,17 @@ export class SoftwareComponent implements OnInit {
 
 
         this.filteredSoftware = this.softwaresData;
-        const parameters = {
-          name: data[0][0].name,
-          version: data[0][0].version,
-          location: this.selectedLocation,
-          type: data[0][0].type
-        };
-        this.onCardClicked(parameters, 0);
+        //-----------------------------------------
+        if (data && data[0] && data[0][0]) {
+          const parameters = {
+            name: data[0][0].name,
+            version: data[0][0].version,
+            location: this.selectedLocation,
+            type: data[0][0].type
+          };
+          this.onCardClicked(parameters, 0);
+        }
+        //------------------------------------------
       },
       error => {
         console.error('Error fetching software data', error);
