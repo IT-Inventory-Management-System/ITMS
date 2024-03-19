@@ -128,7 +128,7 @@
         <div class="col-6 purchase-date-section">
           <label for="PPdate" class="form-label required-field">Date of purchase</label>
 
-            <input type="date" class="form-control" id="PPdate" placeholder="12-15-2023" formControlName="purchasedDate" (focus)="hideErrorMessage()" [class.error-textarea]="showErrorMessage && !SoftwareForm.get('purchasedDate')?.value" />
+            <input type="date" class="form-control" id="PPdate" placeholder="12-15-2023" formControlName="purchasedDate" (focus)="hideErrorMessage()" [class.error-textarea]="showErrorMessage && !SoftwareForm.get('purchasedDate')?.value"  max="{{ getCurrentDate() }}"/>
             <img src="../../../assets/icons/calendar.svg" />
 
           </div>
