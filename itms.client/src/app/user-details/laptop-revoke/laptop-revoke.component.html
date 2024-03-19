@@ -69,10 +69,10 @@
             <div class="device-recieved">
 
               <p>Item Received <span class="star">*</span></p>
-              <input type="radio" id="receivedYes" name="deviceReceivedYes" value="Yes" (click)="showYesReasonOptions()">
+              <input type="radio" id="receivedYes" name="deviceReceived" value="Yes" (click)="showYesReasonOptions()">
               <label for="receivedYes">Yes</label>
 
-              <input type="radio" id="receivedNo" name="deviceReceivedNo" value="No" (click)="showNoReasonOptions()">
+              <input type="radio" id="receivedNo" name="deviceReceived" value="No" (click)="showNoReasonOptions()">
               <label for="receivedNo">No</label>
             </div>
 
@@ -80,10 +80,10 @@
             <div *ngIf="showYesReason" class="reason-options">
               <p>Condition <span class="star">*</span></p>
               <div>
-                <input type="radio" id="perfect" name="reasonOptionsPerfect" value="Perfect" [(ngModel)]="selectedReason">
+                <input type="radio" id="perfect" name="reasonOptions" value="Perfect" [(ngModel)]="selectedReason">
                 <label for="perfect">Perfect</label>
 
-                <input type="radio" id="unassignable" name="reasonOptionsUnassignable" value="Unassignable" [(ngModel)]="selectedReason">
+                <input type="radio" id="unassignable" name="reasonOptions" value="Unassignable" [(ngModel)]="selectedReason">
                 <label for="unassignable">Unassignable</label>
               </div>
             </div>
@@ -91,10 +91,10 @@
             <div *ngIf="showNoReason" class="reason-options">
               <p>Reason <span class="star">*</span></p>
               <div>
-                <input type="radio" id="submittedLater" name="reasonOptionsSubmitLater" value="Submitted Later" [(ngModel)]="selectedReason">
+                <input type="radio" id="submittedLater" name="reasonOptions" value="Submitted Later" [(ngModel)]="selectedReason">
                 <label for="submittedLater">Will be submitted later</label>
 
-                <input type="radio" id="lostNotReceived" name="reasonOptionsLost" value="Lost/Not Received" class="lost" [(ngModel)]="selectedReason">
+                <input type="radio" id="lostNotReceived" name="reasonOptions" value="Lost/Not Received" class="lost" [(ngModel)]="selectedReason">
                 <label for="lostNotReceived">Lost/Not Recieved</label>
               </div>
             </div>
