@@ -142,7 +142,7 @@ export class AssignSoftwareComponent {
     //if (data.option == undefined) {
       softwareIdsArray.push(this.formBuilder.group({
         index: selectedIndex,
-        softwareId: data.softwareId[0].id,
+        softwareId: data.softwareId[0]?.id || '' ,
         softwareversion: data.option
       }));
     //}
