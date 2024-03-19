@@ -13,6 +13,9 @@ export class AssignSoftwareComponent {
   @Input() assignAssetForm: FormGroup;
   @Output() softwareIdInputChange = new EventEmitter<{ allSelected: boolean, SoftwareOptions: any[] }>();
 
+  @Output() softwareWarning: EventEmitter<any> = new EventEmitter();
+
+
 
   //SelectedSoftware: any;
   //SelectedSoftwareVersion: any;
@@ -31,7 +34,7 @@ export class AssignSoftwareComponent {
 
   selectedOptionDisable: boolean = false;
 
-  softwareWarning: boolean = false;
+  softwareWarningCheck: boolean = false;
 
 
   currSelectedSoftware: string = '';
@@ -123,7 +126,7 @@ export class AssignSoftwareComponent {
     const selectedOption = data.option;
     const selectedIndex = index;
     this.SoftwareOptions = data.SoftwareOptions;
-    this.softwareWarning = data.countZero;
+    this.softwareWarningCheck = data.countZero;
     const softwareIdsArray = this.assignAssetForm.get('softwareIds') as FormArray;
 
     //const filteredOptions = this.FilteredSoftwaresOptions[selectedIndex].filter(
@@ -139,14 +142,14 @@ export class AssignSoftwareComponent {
     //if (data.option == undefined) {
       softwareIdsArray.push(this.formBuilder.group({
         index: selectedIndex,
-        softwareId: data.softwareId[0].id,
+        softwareId: data.softwareId[0]?.id || '' ,
         softwareversion: data.option
       }));
     //}
 
     //this.formatExpiryDate(selectedIndex);
     this.softwareIdInputChangeFlag();
-
+    this.softwareWarning.emit({ softwareWarning: data.softwareWarning});
   }
 
 

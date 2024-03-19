@@ -102,6 +102,31 @@ export class AddMouseFormComponent {
     });
   }
 
+  getCurrentDate(): string {
+    const today = new Date();
+    const year = today.getFullYear();
+    let month = '' + (today.getMonth() + 1);
+    let day = '' + today.getDate();
+
+    if (month.length < 2) {
+      month = '0' + month;
+    }
+    if (day.length < 2) {
+      day = '0' + day;
+    }
+
+    return [year, month, day].join('-');
+  }
+
+ 
+  PurchasedDate(): string {
+   var isPurchasedOn = this.addDeviceForm.get('purchaseddate')?.value != '';
+    if (isPurchasedOn) {
+      return this.addDeviceForm.get('purchaseddate')?.value;
+    }
+    return '';
+}
+
   decrement() {
     if (this.counterValue > 0) {
       this.counterValue--;

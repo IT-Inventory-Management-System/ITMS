@@ -102,7 +102,11 @@ export class AssignAssetComponent {
     return (this.currentStep === 1 && this.isCygidEmptyStep1) ||
       (this.currentStep === 2 && this.isSoftwareIdEmptyStep2);
   }
+  userSelected(data: any) {
+    this.isUserSelected = data.isUserSelected;
+  }
 
+  isUserSelected: boolean = false;
 
   totalUsersData: any[] = [];
   totalSoftwaresData: any[] = [];
@@ -123,6 +127,7 @@ export class AssignAssetComponent {
 
   assignAssetForm: FormGroup;
   @ViewChild(SearchBoxComponent) SearchBoxComponent: any;
+  softwareWarningCheck: boolean = false;
   //@ViewChild(LaptopSearchBoxComponent) LaptopSearchBoxComponent: any;
   //@ViewChild(AccessoriesSearchBoxComponent) accessoriesSearchBoxComponent: AccessoriesSearchBoxComponent;
   //@ViewChild(SoftwareSearchBoxComponent) softwareSearchBoxComponent: SoftwareSearchBoxComponent;
@@ -156,6 +161,10 @@ export class AssignAssetComponent {
     },
     //  { validator: customValidation(this.toastr) }
     );
+  }
+
+  softwareWarning(data: any) {
+    this.softwareWarningCheck = data.softwareWarning
   }
 
   ngOnInit() {

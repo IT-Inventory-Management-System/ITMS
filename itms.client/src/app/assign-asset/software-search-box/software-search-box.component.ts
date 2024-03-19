@@ -107,6 +107,7 @@ export class SoftwareSearchBoxComponent implements OnChanges {
 
 
   emitRemoveSoftware(): void {
+
     if (this.selectedOptionVersion != null) {
       const index = this.SoftwareOptions.findIndex(item =>
         item.softwareName === this.currSelectedSoftware && item.version === this.selectedOptionVersion
@@ -117,6 +118,12 @@ export class SoftwareSearchBoxComponent implements OnChanges {
         this.softwareWarning = false;
       }
     }
+
+    this.selectedOption = null;
+    this.selectedOptionVersion = null;
+    this.selectedSoftwareType = null;
+    this.prev = '';
+    //console.log("from remove",this.SoftwareOptions);
     this.removeSoftware.emit({ idx :this.index, SoftwareOptions: this.SoftwareOptions });
   }
 
@@ -164,7 +171,8 @@ export class SoftwareSearchBoxComponent implements OnChanges {
         (options: any) => options.version === option
       );
       this.selectedSoftwareType = softwareId;
-      this.SoftwareVersionOptionSelected.emit({ softwareId,option, SoftwareOptions: this.SoftwareOptions, countZero: this.SoftwareOptions[index].count === -1 });
+      //console.log("from selectVersionChange", this.SoftwareOptions);
+      this.SoftwareVersionOptionSelected.emit({ softwareId, option, SoftwareOptions: this.SoftwareOptions, countZero: this.SoftwareOptions[index].count === -1, softwareWarning: this.softwareWarning });
     }
 
     
@@ -191,8 +199,10 @@ export class SoftwareSearchBoxComponent implements OnChanges {
     //}
     const softwareId = this.FilteredSoftwaresOptions.filter(
       (option: any) => option.id === this.selectedOption
-    ); 
-    const data = { softwareId, option: null, SoftwareOptions: this.SoftwareOptions, countZero: false };
+    );
+    this.softwareWarning = false;
+    //console.log("from clear",this.SoftwareOptions);
+    const data = { softwareId, option: null, SoftwareOptions: this.SoftwareOptions, countZero: false, softwareWarning: this.softwareWarning };
     this.SoftwareVersionOptionSelected.emit(data);
   }
 
