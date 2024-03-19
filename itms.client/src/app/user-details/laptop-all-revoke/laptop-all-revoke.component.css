@@ -1,10 +1,32 @@
+
+/* Hide default radio buttons */
+.received input[type="radio"] {
+  display: none;
+}
+
+/* Style labels to use SVG icons as background images */
+.received label {
+  display: inline-block;
+  vertical-align: middle; /* Align the labels vertically with the image */
+  cursor: pointer;
+  background-image: url('../../../assets/icons/Component 2.svg'); /* Replace with path to your blue SVG icon */
+  padding-left: 30px; /* Adjust this value based on the width of your image */
+  background-repeat: no-repeat;
+  background-position: left center; /* Align the image to the left */
+  background-size: 20px 20px;
+}
+
+/* Style labels for checked state */
+.received input[type="radio"]:checked + label {
+  background-image: url('../../../assets/icons/Component 2_checked.svg') /* Replace with path to your blue checked SVG icon */
+}
+
 .assigned-device-detail-box {
-  margin-top: 1.2rem;
   height: auto;
   width: auto;
   border: 1px solid #B8DDE1;
   gap: 12px;
-  padding: 10px;
+  padding: 0.625rem 0.625rem 0rem 0.625rem;
   background-color: #F5F8FE;
   border-radius: 4px;
   overflow-x: hidden;
@@ -14,7 +36,7 @@
 .assigned-device-heading {
   font-family: Roboto;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 16px;
   letter-spacing: 0em;
   text-align: left;
@@ -23,7 +45,6 @@
 .details {
   height: 100%;
   width: 27rem;
-  margin-top: 1.2rem;
   font-family: Roboto;
   font-size: 14px;
   font-weight: 500;
@@ -40,18 +61,36 @@
 
 .device-recieved {
   margin-top: 1rem;
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 0.8125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
   .device-recieved input[type="radio"] {
     margin-right: 0.5rem;
     width: 20px;
     height: 20px;
+    color: var(--Primary-Gray, #343435);
+    font-family: Roboto;
+    font-size: 0.8125rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
   }
 
     .device-recieved input[type="radio"] + label {
       margin-right: 5rem;
       font-size: 16px;
       top: 0;
+      color: var(--Primary-Gray, #343435);
+      font-family: Roboto;
+      font-size: 0.8125rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
     }
 
 .star {
@@ -60,6 +99,12 @@
 
 .comment-box {
   margin-top: 1rem;
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 0.8125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 .input-box {
@@ -69,22 +114,43 @@
   border-radius: 4px;
   border: 1px solid #B2B2B3;
   gap: 106px;
+  margin-bottom:1rem;
 }
-
+.modal-img{
+    margin-right:0.5rem;
+}
 .reason-options {
   margin-top: 1rem;
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 0.8125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
   .reason-options input[type="radio"] {
     margin-right: 0.5rem;
     width: 20px;
     height: 20px;
+    color: var(--Primary-Gray, #343435);
+    font-family: Roboto;
+    font-size: 0.8125rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
   }
 
     .reason-options input[type="radio"] + label {
       margin-right: 3rem;
       font-size: 16px;
       top: 0;
+      color: var(--Primary-Gray, #343435);
+      font-family: Roboto;
+      font-size: 0.8125rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
     }
 
 .iconsOfModal {
@@ -94,7 +160,7 @@
 
   .iconsOfModal img {
     margin-right: 0.5rem;
-    margin-bottom: 1.2rem;
+    margin-bottom: 0.75rem;
     height: 19px;
   }
 
@@ -102,19 +168,36 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  margin: 1rem 0rem;
 }
 
 .assigned-device-heading,
 .laptop-count {
-  margin-top: 0.2rem;
   font-family: Roboto;
   font-size: 14px;
   font-weight: 600;
   line-height: 16px;
   letter-spacing: 0em;
-  text-align: left;
+  text-align: right;
 }
-
+.laptop-count-container {
+  display: flex;
+  align-items: center;
+}
 .laptop-count {
   color: #6D6D6D;
+}
+.right-icon{
+    width:14rem;
+}
+.radio-container input[type="radio"] {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.radio-container label {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 0.5rem; /* Adjust as needed */
+  margin-bottom: 1rem;
 }

@@ -26,6 +26,8 @@ export class LaptopAllRevokeComponent {
   //comments: any;
   showYesReason: boolean[] = [];
   showNoReason: boolean[] = [];
+  laptopCount: number = 0;
+
 
   constructor(private formBuilder: FormBuilder, private cdr: ChangeDetectorRef) { }
 
@@ -61,6 +63,15 @@ export class LaptopAllRevokeComponent {
 
     if (LaptopArray.length != 0) {
       this.checkIfSomethingIsMissing();
+    }
+
+    this.laptopCount = 0;
+    if (this.laptopDetails && this.laptopDetails.length) {
+      for (const laptop of this.laptopDetails) {
+        if (laptop.submitedBy === null) {
+          this.laptopCount++;
+        }
+      }
     }
   }
 

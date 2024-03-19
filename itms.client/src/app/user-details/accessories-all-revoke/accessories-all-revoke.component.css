@@ -1,11 +1,10 @@
 
 .assigned-accessory-detail-box {
-  margin-top: 1.2rem;
   height: auto;
   width: auto;
   border: 1px solid #B8DDE1;
   gap: 12px;
-  padding: 10px;
+  padding: 0.62rem 0.62rem 0rem 0.62rem;
   background-color: #F5F8FE;
   border-radius: 4px;
 }
@@ -21,7 +20,6 @@
 .details {
   height: 100%;
   width: 27rem;
-  margin-top: 1.2rem;
   font-family: Roboto;
   font-size: 14px;
   font-weight: 500;
@@ -43,12 +41,10 @@
   .accessory-recieved input[type="radio"] {
     margin-right: 0.5rem;
     width: 20px;
-    height: 20px;
   }
 
     .accessory-recieved input[type="radio"] + label {
       margin-right: 5rem;
-      font-size: 16px;
       top: 0;
     }
 
@@ -58,6 +54,12 @@
 
 .comment-box {
   margin-top: 1rem;
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 0.8125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 .input-box {
@@ -67,10 +69,23 @@
   border-radius: 4px;
   border: 1px solid #B2B2B3;
   gap: 106px;
+  margin-bottom: 1rem;
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 0.8125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 .reason-options {
   margin-top: 1rem;
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 0.8125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
   .reason-options input[type="radio"] {
@@ -81,19 +96,19 @@
 
     .reason-options input[type="radio"] + label {
       margin-right: 3rem;
-      font-size: 16px;
       top: 0;
     }
 
 .iconsOfModal {
   display: flex;
   align-items: center;
+  width:13rem;
 }
 
   .iconsOfModal img {
     margin-right: 0.5rem;
-    margin-bottom: 1.2rem;
-    height: 19px;
+    margin-bottom: 0.75rem;
+    height: 1rem;
   }
 
 .wiredNotWired {
@@ -103,13 +118,14 @@
 
 .brand {
   display: flex;
-  gap: 8.6rem;
+  gap: 8rem;
 }
 
 .heading-count {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  margin: 1rem 0rem;
 }
 
 .assigned-accessory-heading,
@@ -125,4 +141,44 @@
 
 .acccessory-count {
   color: #6D6D6D;
+}
+.div-section{
+    width:15rem;
+}
+
+.accessory input[type="radio"] {
+  display: none;
+}
+
+/* Style labels to use SVG icons as background images */
+.accessory label {
+  display: inline-block;
+  vertical-align: middle; /* Align the labels vertically with the image */
+  cursor: pointer;
+  background-image: url('../../../assets/icons/Component 2.svg'); /* Replace with path to your blue SVG icon */
+  padding-left: 30px; /* Adjust this value based on the width of your image */
+  background-repeat: no-repeat;
+  background-position: left center; /* Align the image to the left */
+  background-size: 20px 20px;
+}
+
+/* Style labels for checked state */
+.accessory input[type="radio"]:checked + label {
+  background-image: url('../../../assets/icons/Component 2_checked.svg') /* Replace with path to your blue checked SVG icon */
+}
+.accessory {
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.label {
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 0.8125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }

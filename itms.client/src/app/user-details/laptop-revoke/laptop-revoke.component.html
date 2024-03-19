@@ -63,44 +63,49 @@
             </div>
           </div>
 
-          <div class="device-recieved">
-
-            <p>Item Received <span class="star">*</span></p>
-            <input type="radio" id="receivedYes" name="deviceReceived" value="Yes" (click)="showYesReasonOptions()">
-            <label for="receivedYes">Yes</label>
-
-            <input type="radio" id="receivedNo" name="deviceReceived" value="No" (click)="showNoReasonOptions()">
-            <label for="receivedNo">No</label>
-          </div>
+          <div class="received">
 
 
-          <div *ngIf="showYesReason" class="reason-options">
-            <p>Condition <span class="star">*</span></p>
-            <div>
-              <input type="radio" id="perfect" name="reasonOptions" value="Perfect"  [(ngModel)]="selectedReason">
-              <label for="perfect">Perfect</label>
+            <div class="device-recieved">
 
-              <input type="radio" id="unassignable" name="reasonOptions" value="Unassignable"  [(ngModel)]="selectedReason">
-              <label for="unassignable">Unassignable</label>
+              <p>Item Received <span class="star">*</span></p>
+              <input type="radio" id="receivedYes" name="deviceReceived" value="Yes" (click)="showYesReasonOptions()">
+              <label for="receivedYes">Yes</label>
+
+              <input type="radio" id="receivedNo" name="deviceReceived" value="No" (click)="showNoReasonOptions()">
+              <label for="receivedNo">No</label>
             </div>
-          </div>
 
-          <div *ngIf="showNoReason" class="reason-options">
-            <p>Reason <span class="star">*</span></p>
-            <div>
-              <input type="radio" id="submittedLater" name="reasonOptions" value="Submitted Later" [(ngModel)]="selectedReason" >
-              <label for="submittedLater">Will be submitted later</label>
 
-              <input type="radio" id="lostNotReceived" name="reasonOptions" value="Lost/Not Received" class="lost" [(ngModel)]="selectedReason" >
-              <label for="lostNotReceived">Lost/Not Recieved</label>
+            <div *ngIf="showYesReason" class="reason-options">
+              <p>Condition <span class="star">*</span></p>
+              <div>
+                <input type="radio" id="perfect" name="reasonOptions" value="Perfect" [(ngModel)]="selectedReason">
+                <label for="perfect">Perfect</label>
+
+                <input type="radio" id="unassignable" name="reasonOptions" value="Unassignable" [(ngModel)]="selectedReason">
+                <label for="unassignable">Unassignable</label>
+              </div>
             </div>
-          </div>
+
+            <div *ngIf="showNoReason" class="reason-options">
+              <p>Reason <span class="star">*</span></p>
+              <div>
+                <input type="radio" id="submittedLater" name="reasonOptions" value="Submitted Later" [(ngModel)]="selectedReason">
+                <label for="submittedLater">Will be submitted later</label>
+
+                <input type="radio" id="lostNotReceived" name="reasonOptions" value="Lost/Not Received" class="lost" [(ngModel)]="selectedReason">
+                <label for="lostNotReceived">Lost/Not Recieved</label>
+              </div>
+            </div>
 
 
 
-          <div class="comment-box">
-            <p>Comment <span class="star">*</span></p>
-            <input type="text" class="input-box" [(ngModel)]="newComment" placeholder="Type Here..." />
+            <div class="comment-box">
+              <p>Comment <span class="star">*</span></p>
+              <input type="text" class="input-box" [(ngModel)]="newComment" placeholder="Type Here..." />
+            </div>
+
           </div>
 
         </div>

@@ -244,9 +244,27 @@
   gap: 1rem;
 }
 .modal-dialog {
-  width: 32.75rem;
+/*  width: 32.75rem;
   height: 41.25rem !important;
-  max-height: 41.25rem !important;
+  max-height: 41.25rem !important;*/
+  top:50% !important;
+  left:50% !important;
+  transform: translate(-50%, -50%) !important;
+  position: fixed;
+}
+
+@media (min-width: 2560px) {
+  .modal-dialog {
+    top: 20% !important; /* Adjust based on background height */
+    left: 50% !important;
+  }
+}
+
+@media (min-width: 1843px) {
+  .modal-dialog {
+    top: 20% !important; /* Adjust based on background height */
+    left: 50% !important;
+  }
 }
 
 .assign-asset-modal-outer-box {
