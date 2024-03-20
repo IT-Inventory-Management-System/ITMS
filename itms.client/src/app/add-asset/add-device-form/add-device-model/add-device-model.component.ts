@@ -30,6 +30,14 @@ export class AddDeviceModelComponent implements OnInit {
     this.UserId = userData.id;
   }
 
+  deselectAllButtons() {
+    this.selectedRam = ''; // Deselect all buttons when input field is clicked
+  }
+
+  deselctstoragebutton() {
+    this.selectedStorage = '';
+  }
+
   createForm() {
     this.deviceForm = this.fb.group({
       deviceName: ['', Validators.required],
