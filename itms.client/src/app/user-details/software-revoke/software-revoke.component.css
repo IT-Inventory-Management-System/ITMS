@@ -46,12 +46,12 @@
 }
 
 .assigned-software-detail-box {
-  margin-top: 1.2rem;
+  margin-top: 1.5rem;
   height: auto;
   width: auto;
   border: 1px solid #B8DDE1;
   gap: 12px;
-  padding: 10px;
+  padding: 0.62rem 0.62rem 0.12rem 0.62rem;
   background-color: #F5F8FE;
   border-radius: 4px;
 }
@@ -63,12 +63,13 @@
   line-height: 16px;
   letter-spacing: 0em;
   text-align: left;
+  margin-bottom:0.5rem;
 }
 
 .details {
   height: auto;
   width: auto;
-  margin-top: 1.2rem;
+  margin-top: 1rem;
   font-family: Roboto;
   font-size: 14px;
   font-weight: 500;
@@ -150,8 +151,11 @@
 
   .iconsOfModal img {
     margin-right: 0.5rem;
-    margin-bottom: 1.2rem;
+    margin-bottom: 0.75rem;
     height: 19px;
+  }
+  .iconsOfModal p{
+      margin-bottom: 0.75rem;
   }
 
 .CloseButton {
@@ -190,4 +194,9 @@
   line-height: 15px;
   letter-spacing: 0em;
   text-align: left;
+  margin-bottom:0.25rem;
+}
+.details p {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
 }

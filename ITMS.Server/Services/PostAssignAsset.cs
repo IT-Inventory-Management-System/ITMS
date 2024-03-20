@@ -58,7 +58,7 @@ namespace ITMS.Server.Services
             entityToUpdate.AssignedBy = device.AssignedBy;
             entityToUpdate.AssignedTo = device.AssignedTo;
             entityToUpdate.AssignedDate = DateTime.UtcNow;
-            entityToUpdate.Status = _context.Statuses.FirstOrDefault(s => s.Type == "Assigned").Id;
+            entityToUpdate.Status = _context.Statuses.FirstOrDefault(s => s.Type.ToLower() == "Assigned").Id;
             _context.Devices.Update(entityToUpdate);
             await _context.SaveChangesAsync();
         }
@@ -150,7 +150,7 @@ namespace ITMS.Server.Services
             devicesLog.CreatedAtUtc = DateTime.UtcNow;
             devicesLog.UpdatedBy = devicelogDto.AssignedBy;
             devicesLog.UpdatedAtUtc = DateTime.UtcNow;
-            devicesLog.ActionId = _context.ActionTables.FirstOrDefault(action => action.ActionName == "assigned").Id;
+            devicesLog.ActionId = _context.ActionTables.FirstOrDefault(action => action.ActionName.ToLower() == "assigned").Id;
             devicesLog.SoftwareAllocation = devicelogDto.SoftwareAllocationId;
             _context.DevicesLogs.Update(devicesLog);
             await _context.SaveChangesAsync();

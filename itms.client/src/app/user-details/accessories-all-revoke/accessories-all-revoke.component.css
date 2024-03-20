@@ -102,7 +102,7 @@
 .iconsOfModal {
   display: flex;
   align-items: center;
-  width:13rem;
+  width:14rem;
 }
 
   .iconsOfModal img {
@@ -113,12 +113,10 @@
 
 .wiredNotWired {
   display: flex;
-  gap: 10rem;
 }
 
 .brand {
   display: flex;
-  gap: 8rem;
 }
 
 .heading-count {
