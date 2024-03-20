@@ -9,8 +9,12 @@
   gap: 1.25rem;
   margin-left: 74%;
   display: none;
-  margin-top: 5rem;
+  margin-top: 1.3rem; /* Move the modal up by 5rem */
   height: 35.75rem;
+  position: fixed;
+  top: 0;
+  right: 0; /* Position the modal to the right edge */
+  margin-left: calc(100% - 22.5rem); /* Adjust the value accordingly */
 }
 
 @media screen and (min-width: 1560px) {

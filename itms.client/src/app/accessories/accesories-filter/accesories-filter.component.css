@@ -6,7 +6,7 @@
   }
 }
 
-
+/*
 #accesoriesfilterModal {
   border-radius: 0.25rem;
   background: #FFF;
@@ -20,7 +20,25 @@
   display: none;
   margin-top: 5rem;
   height: 35.75rem;
+}*/
+#accesoriesfilterModal {
+  border-radius: 0.25rem;
+  background: #FFF;
+  display: flex;
+  width: 22.5rem;
+  padding: 1rem 0rem;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  display: none;
+  margin-top: 1.3rem; /* Move the modal up by 5rem */
+  height: 35.75rem;
+  position: fixed;
+  top: 0;
+  right: 0; /* Position the modal to the right edge */
+  margin-left: calc(100% - 22.5rem); /* Adjust the value accordingly */
 }
+
 
 .Accesories-type {
   display: flex;
