@@ -68,6 +68,10 @@ export class AccesoriesnameComponent {
         iconFileName = 'Monitor.svg';
         break;
 
+      case 'bag':
+        iconFileName = 'bag-blue.svg';
+        break;
+
       default:
         iconFileName = 'Ellipse.svg';
         break;
