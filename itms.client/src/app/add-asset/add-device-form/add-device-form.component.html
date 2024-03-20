@@ -140,7 +140,11 @@
           <div class="cyg-id-input ">
             <label for="cygId">CYG ID.<span class="required">*</span></label>
             <div [class.error-textarea]="showErrorMessage && !cygIds.controls[i].value" class="cyg-idd">
-              <input type="text" id="cygId" name="cygId" (input)="updateCygId(i, $event)" placeholder="Enter CYG ID" />
+              <div class="outer">
+                <span class="cygdefault">CYG  </span>
+                <input type="text" id="cygId" name="cygId" (input)="updateCygId(i, $event)" />
+              </div>
+              <!-- Placeholder text indicates "CYG" -->
             </div>
             <span *ngIf=" showExistMessage  &&   invalidCygIndices.includes(i)" class="error_text">
               <img src="../../../assets/icons/error.svg" />

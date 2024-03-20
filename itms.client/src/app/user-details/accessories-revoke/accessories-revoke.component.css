@@ -184,7 +184,7 @@
 
 .CloseButton {
   width: 92px;
-  Height: 40px;
+  height: 40px;
   border-radius: 4px;
   Border: 1.8px solid #28519E;
   Padding: 12px, 8px, 12px, 8px;
@@ -195,7 +195,7 @@
 
 .SubmitButton {
   width: 92px;
-  Height: 40px;
+  height: 40px;
   border-radius: 4px;
   Border: 1.8px solid #28519E;
   Padding: 12px, 8px, 12px, 8px;

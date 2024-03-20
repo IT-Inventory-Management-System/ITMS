@@ -197,6 +197,7 @@ export class AddMouseFormComponent {
   onFormSubmitted() {
     this.showDeviceDetailsForm = false;
     this.ngOnInit();
+    this.loadMouseBrand();
   }
 
   onSubmit() {
