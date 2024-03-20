@@ -947,7 +947,7 @@ public class DeviceService
                         DevicesLog deviceLog = new DevicesLog
                         {
                             DeviceId = await _context.Devices.Where(dc => dc.Cygid == d.Cygid).Select(d => d.Id).FirstOrDefaultAsync(),
-                            EmployeeId = await _context.Employees.Where(e => e.FirstName.ToLower() + " " + e.LastName.ToLower() == trimmedDl.ToLower()).Select(e => e.Id).FirstOrDefaultAsync(),
+                            EmployeeId = await _context.Employees.Where(e => string.Concat(e.FirstName," ",e.LastName).ToLower() == trimmedDl.ToLower()).Select(e => e.Id).FirstOrDefaultAsync(),
                             AssignedBy = d.LoggedIn,
                             RecievedBy = d.LoggedIn,
                             RecievedDate = DateTime.UtcNow,
@@ -1010,7 +1010,7 @@ public class DeviceService
                     deviceItem.LocationId = inputDto.locationId;
                     deviceItem.Status = await _context.Statuses.Where(s => s.Type.ToLower() == status.ToLower()).Select(s => s.Id).FirstOrDefaultAsync();
                     deviceItem.DeviceModelId = await _context.DeviceModel.Where(dm => dm.DeviceName.ToLower() == inputDto.FullDeviceName.ToLower()).Select(d => d.Id).FirstOrDefaultAsync();
-                    deviceItem.AssignedTo = assigned == null ? null : await _context.Employees.Where(e => e.FirstName + " " + e.LastName == assigned).Select(e => e.Id).FirstOrDefaultAsync();
+                    deviceItem.AssignedTo = assigned == null ? null : await _context.Employees.Where(e => string.Concat(e.FirstName + " " + e.LastName).ToLower() == assigned.ToLower().Select(e => e.Id).FirstOrDefaultAsync();
                     deviceItem.AssignedDate = assigned == null ? null : DateTime.UtcNow;
                     deviceItem.AssignedBy = assigned == null ? null : inputDto.LoggedIn;
                     _context.Devices.Add(deviceItem);
