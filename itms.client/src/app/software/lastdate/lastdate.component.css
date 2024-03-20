@@ -12,6 +12,10 @@
 
 }
 
+.close{
+    cursor:pointer;
+}
+
 .heading {
   display: flex;
   flex-direction: column;
