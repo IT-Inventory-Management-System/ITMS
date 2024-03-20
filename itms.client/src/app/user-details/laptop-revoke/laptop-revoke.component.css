@@ -68,12 +68,12 @@
 }
 
 .assigned-device-detail-box {
-  margin-top: 1.2rem;
+  margin-top: 1.25rem;
   height: auto;
   width: auto;
   border: 1px solid #B8DDE1;
   gap: 12px;
-  padding: 10px;
+  padding: 0.62rem 0.62rem 0.12rem 0.62rem;
   background-color: #F5F8FE;
   border-radius: 4px;
 }
@@ -105,7 +105,13 @@
 }
 
 .device-recieved {
-    margin-top:1rem;
+  margin-top: 1rem;
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 0.8125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
   .device-recieved input[type="radio"] {
     margin-right: 0.5rem; 
@@ -113,11 +119,17 @@
     height: 20px;
   }
 
-  .device-recieved input[type="radio"] + label {
-    margin-right: 5rem; 
-    font-size: 16px;
-    top: 0;
-  }
+    .device-recieved input[type="radio"] + label {
+      margin-right: 5rem;
+      font-size: 16px;
+      top: 0;
+      color: var(--Primary-Gray, #343435);
+      font-family: Roboto;
+      font-size: 0.8125rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
 
 .star {
   color: #E03E2D;
@@ -169,6 +181,12 @@
     margin-right: 3rem;
     font-size: 16px;
     top: 0;
+    color: var(--Primary-Gray, #343435);
+    font-family: Roboto;
+    font-size: 0.8125rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
   }
 
 .iconsOfModal {
@@ -178,16 +196,20 @@
 
   .iconsOfModal img {
     margin-right: 0.5rem;
-    margin-bottom: 1.2rem;
+    margin-bottom: 0.5rem;
     height: 19px;
+    width:19px;
+  }
+  .iconsOfModal p {
+    margin-bottom: 0.5rem;
   }
 
 .CloseButton {
   width: 92px;
-  Height: 40px;
+  height: 40px;
   border-radius: 4px;
   Border: 1.8px solid #28519E;
-  Padding: 12px, 8px, 12px, 8px;
+  padding: 12px, 8px, 12px, 8px;
   Gap: 8px;
   color: #28519E;
   font-weight: 600;
@@ -195,12 +217,40 @@
 
 .SubmitButton {
   width: 92px;
-  Height: 40px;
+  height: 40px;
   border-radius: 4px;
   Border: 1.8px solid #28519E;
-  Padding: 12px, 8px, 12px, 8px;
+  padding: 12px, 8px, 12px, 8px;
   Gap: 8px;
   color: white;
   font-weight: 600;
   background-color: #28519E;
+}
+.received input[type="radio"] {
+  display: none;
+}
+
+/* Style labels to use SVG icons as background images */
+.received label {
+  display: inline-block;
+  vertical-align: middle; /* Align the labels vertically with the image */
+  cursor: pointer;
+  background-image: url('../../../assets/icons/Component 2.svg'); /* Replace with path to your blue SVG icon */
+  padding-left: 30px; /* Adjust this value based on the width of your image */
+  background-repeat: no-repeat;
+  background-position: left center; /* Align the image to the left */
+  background-size: 20px 20px;
+}
+
+/* Style labels for checked state */
+.received input[type="radio"]:checked + label {
+  background-image: url('../../../assets/icons/Component 2_checked.svg') /* Replace with path to your blue checked SVG icon */
+}
+.received {
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 0.8125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }

@@ -231,4 +231,28 @@ namespace ITMS.Server.DTO
         public string CYGID { get; set; }
         public string ErrorMessage { get; set; }
     }
+
+
+    public class OneTimeAddDeviceDTO
+    {
+        public string FullDeviceName { get; set; }
+        public string? Processor { get; set; }
+        public string DeviceLog { get; set; }
+        public string? Ram { get; set; }
+        public string? Storage { get; set; }
+        public string? SerialNo { get; set; }
+        public DateTime? PurchasedDate { get; set; }
+        public DateTime? WarrantyDate { get; set; }
+        public string? Cygid { get; set; }
+        public Guid LoggedIn { get; set; }
+    }
+
+    public class PutSingleDeviceModelDTO
+    {
+        public string FullDeviceName { get; set; }
+        public string? Processor { get; set; }
+        public string? Ram { get; set; }
+        public string? Storage { get; set; }
+
+    }
 }

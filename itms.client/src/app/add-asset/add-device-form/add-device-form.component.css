@@ -580,6 +580,10 @@ form{
   width: 103%;
   margin-left: -2% !important;
   margin-top: 1.25rem;
+  min-height:4rem;
+  height:3rem;
+  
+  
   
 }
 
@@ -590,10 +594,16 @@ form{
   align-items: flex-start;
   gap: 0.375rem;
   flex: 1 0 0;
+  min-height: 4rem;
+  height: 3rem;
 }
-.custom-container{
-    width:46rem;
-    padding-left:1rem;
+.custom-container {
+  width: 46rem;
+  padding-left: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  height: 42.5625rem;
 }
 .cyg-id-input {
   display: flex;
@@ -602,9 +612,10 @@ form{
   align-items: flex-start;
   gap: 0.375rem;
   flex: 1 0 0;
+  position:relative;
 }
 
-.serial-number-input input, .cyg-id-input input {
+.serial-number-input input  {
   display: flex;
   height: 2.5rem;
   padding: 0.5rem 0.75rem;
@@ -615,6 +626,31 @@ form{
   border: 1px solid var(--Secondary-Gray, #B2B2B3);
   background: #FFF;
   width:21rem;
+}
+.cyg-id-input input {
+  display: flex;
+  height: 2.2rem;
+  align-items: center;
+  border:none;
+  width:100vw !important;
+  margin-left:0.2rem;
+  padding-bottom:0.1rem;
+}
+  .cyg-id-input input:focus, .cyg-id-input input:active {
+    border: 1px solid transparent; /* Set initial border as transparent */
+    outline: none;
+  }
+.outer {
+  display: flex;
+  height: 2.5rem;
+  padding: 0.5rem 0rem 0.5rem 0.75rem;
+  align-items: center;
+/*  gap: 6.625rem;
+*/  align-self: stretch;
+  border-radius: 0.25rem;
+  border: 1px solid var(--Secondary-Gray, #B2B2B3);
+  background: #FFF;
+  width: 21rem;
 }
 
 
@@ -783,3 +819,15 @@ form{
   border-radius: 0.25rem;
   height: 2.6rem;
 }
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/*.cygdefault{
+    position:absolute;
+    top:1.8rem;
+    left:1rem;
+    border:1px solid black;
+}*/
+

@@ -126,14 +126,14 @@ export class AddDeviceFormComponent implements OnInit {
   updateCygId(index: number, event: Event) {
     this.hideErrorMessage();
     const value = (event.target as HTMLInputElement).value;
-
-    if (this.validateCygId(value, index)) {
+    const value2 = 'CYG ' + value;
+    if (this.validateCygId(value2, index)) {
       const invalidIndexIndex = this.invalidCygIndices.indexOf(index);
       if (invalidIndexIndex !== -1) {
         this.invalidCygIndices.splice(invalidIndexIndex, 1);
       }
 
-      this.cygIds.at(index).setValue(value);
+      this.cygIds.at(index).setValue(value2);
     } else {
       if (!this.invalidCygIndices.includes(index)) {
         this.invalidCygIndices.push(index);
@@ -255,7 +255,10 @@ export class AddDeviceFormComponent implements OnInit {
   const isValid = serialNumbersArray.every((serialNumber) => serialNumber.trim() !== '' && !isExisting);
 
   return isValid;
-}
+  }
+
+
+
 
 checkCygIds(): boolean {
   const cygIdsArray = this.cygIds.controls.map((control) => control.value);
