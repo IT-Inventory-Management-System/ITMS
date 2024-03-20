@@ -1,13 +1,18 @@
 ﻿using ITMS.Server.DTO;
 using ITMS.Server.Models;
 using LibNoise.Modifier;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using MiNET.Utils;
+using System.Net.NetworkInformation;
+using System.Text.RegularExpressions;
+using Xamarin.Forms;
 
 namespace ITMS.Server.Services
 {
         public interface IAddAssetService
         {
+        Task<List<DeviceResponseDTO>> importDeviceData(List<DeviceInputDTO> importDeviceInput);
         Task<IEnumerable<GetEmployeeDTO>> getAllEmployeeBasicDetails();
         Task<IEnumerable<GetAccessories>> getAccessories();
         Task<IEnumerable<GetBrandDTO>> getMouseBrand();
@@ -340,6 +345,117 @@ namespace ITMS.Server.Services
             return result;
         }
 
+
+        public async Task<List<DeviceResponseDTO>> importDeviceData(List<DeviceInputDTO> importDeviceInput)
+        {
+            var responseDto = new List<DeviceResponseDTO>();
+
+            foreach (var inputDto in importDeviceInput)
+            {
+                if (!IsCYGIDUnique(inputDto.CYGID, importDeviceInput))
+                {
+                    responseDto.Add(new DeviceResponseDTO
+                    {
+                        CYGID = inputDto.CYGID,
+                        ErrorMessage = $"'{inputDto.CYGID}' already exists. Please provide a unique CYGID."
+                    });
+                    continue;
+                }
+
+                else
+                {
+                    var status = getStatus(inputDto.AssignedTo);
+                    var assigned = getAssignedTo(inputDto.AssignedTo);
+                    inputDto.SerialNumber = RemoveTag(inputDto.SerialNumber);
+                    Models.Device deviceItem = new Models.Device();
+                    deviceItem.SerialNumber = inputDto.SerialNumber;
+                    deviceItem.Cygid = inputDto.CYGID;
+                    deviceItem.PurchasedDate = inputDto.DateOfPurchase;
+                    deviceItem.CreatedBy = inputDto.CreatedBy;
+                    deviceItem.UpdatedBy = inputDto.UpdatedBy;
+                    deviceItem.CreatedAtUtc = DateTime.UtcNow;
+                    deviceItem.UpdatedAtUtc = DateTime.UtcNow;
+                    deviceItem.IsArchived = false;
+                    deviceItem.LocationId = inputDto.locationId;
+                    deviceItem.Status = await _context.Statuses.Where(s => s.Type.ToLower() == status.ToLower()).Select(s => s.Id).FirstOrDefaultAsync();
+                    deviceItem.DeviceModelId = await _context.DeviceModel.Where(dm => dm.DeviceName.ToLower() == inputDto.Model.ToLower()).Select(d => d.Id).FirstOrDefaultAsync();
+                    deviceItem.AssignedTo = assigned == null ? null : await _context.Employees.Where(e => e.FirstName + " " + e.LastName == assigned).Select(e => e.Id).FirstOrDefaultAsync();
+                    deviceItem.AssignedDate = assigned == null ? null : DateTime.UtcNow;
+                    deviceItem.AssignedBy = assigned == null ? null : inputDto.CreatedBy;
+                    _context.Devices.Add(deviceItem);
+                    _context.SaveChangesAsync();
+
+                }
+
+            }
+
+            return responseDto;
+        }
+
+
+        private bool IsCYGIDUnique(string cygId, List<DeviceInputDTO> importDeviceInput)
+        {
+            return importDeviceInput.Count(dto => dto.CYGID == cygId) == 1;
+        }
+
+        private string RemoveTag(string input)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+                return input;
+
+            int startIndex = input.IndexOf('(');
+            int endIndex = input.IndexOf(')');
+            if (startIndex != -1 && endIndex != -1 && endIndex > startIndex)
+            {
+                input = input.Remove(startIndex, endIndex - startIndex + 1).Trim();
+            }
+
+            input = input.Replace("Service Tag", "").Trim();
+
+            return input;
+        }
+
+        static string getStatus(string input)
+        {
+            string pattern = @"\b(\w+\s+\w+)\b|\bIN Stock\b";
+            var matches = new System.Collections.Generic.List<string>();
+
+            MatchCollection matchesCollection = Regex.Matches(input, pattern);
+
+            foreach (Match match in matchesCollection)
+            {
+                matches.Add(match.Value.Trim());
+            }
+
+            string lastMatch = matches.LastOrDefault()?.ToLower();
+            if (lastMatch != null && (lastMatch == "in stock" || lastMatch == "instock" || lastMatch == "in"))
+            {
+                return "Not Assigned";
+            }
+
+            return "Assigned";
+        }
+
+        static string getAssignedTo(string input)
+        {
+            string pattern = @"\b(\w+\s+\w+)\b|\bIN Stock\b";
+            var matches = new System.Collections.Generic.List<string>();
+
+            MatchCollection matchesCollection = Regex.Matches(input, pattern);
+
+            foreach (Match match in matchesCollection)
+            {
+                matches.Add(match.Value.Trim());
+            }
+
+            string lastMatch = matches.LastOrDefault()?.ToLower();
+            if (lastMatch != null && (lastMatch == "in stock" || lastMatch == "instock" || lastMatch == "in"))
+            {
+                return null;
+            }
+
+            return matches.LastOrDefault();
+        }
 
     }
 }

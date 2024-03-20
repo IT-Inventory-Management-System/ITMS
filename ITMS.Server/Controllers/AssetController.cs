@@ -7,6 +7,7 @@ using Microsoft.CodeAnalysis.Elfie.Serialization;
 using Microsoft.AspNetCore.Authorization;
 
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using Microsoft.AspNetCore.JsonPatch.Internal;
 namespace ITMS.Server.Controllers
 {
     [ApiController]
@@ -132,6 +133,12 @@ namespace ITMS.Server.Controllers
         public async Task<IEnumerable<GetBrandDTO>> getKeyboardComboBrand([FromBody] commonInputDTO commonDto)
         {
             return await _addAssetService.getKeyboardComboBrand(commonDto);
+        }
+
+        [HttpPost("importDeviceData")]
+        public async Task<List<DeviceResponseDTO>> importDevice([FromBody] List<DeviceInputDTO> importDeviceInput)
+        {
+            return await _addAssetService.importDeviceData(importDeviceInput);
         }
 
     }

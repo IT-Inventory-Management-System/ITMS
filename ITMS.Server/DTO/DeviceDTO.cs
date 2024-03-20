@@ -206,4 +206,29 @@ namespace ITMS.Server.DTO
         public Guid CategoryId { get; set; }
 
     }
+
+    public class DeviceInputDTO
+    {
+        public string? Model { get; set; }
+        public string? SerialNumber { get; set; }
+        public DateTime? DateOfPurchase { get; set; }
+        public string? AssignedTo { get; set; }
+        public string? CYGID { get; set; }
+        public DateTime? AssignedDate { get; set; }
+        public Guid CreatedBy { get; set; }
+        public Guid? UpdatedBy { get; set; }
+        public Guid locationId { get; set; }
+
+    }
+
+    public class ListDeviceInputDto
+    {
+        public List<DeviceInputDTO> Devices { get; set; }
+    }
+
+    public class DeviceResponseDTO
+    {
+        public string CYGID { get; set; }
+        public string ErrorMessage { get; set; }
+    }
 }
