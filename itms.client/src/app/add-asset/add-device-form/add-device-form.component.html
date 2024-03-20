@@ -136,7 +136,8 @@
               </span>
             </div>
           </div>
-          <div class="cyg-id-input">
+
+          <div class="cyg-id-input ">
             <label for="cygId">CYG ID.<span class="required">*</span></label>
             <div [class.error-textarea]="showErrorMessage && !cygIds.controls[i].value" class="cyg-idd">
               <input type="text" id="cygId" name="cygId" (input)="updateCygId(i, $event)" placeholder="Enter CYG ID" />
