@@ -16,12 +16,12 @@ namespace ITMS.Server.Controllers
     public class AddDeviceController : ControllerBase
     {
         private readonly IDeviceService _deviceService;
-        private readonly DeviceService _deviceServiceMAIN;
+       // private readonly DeviceService _deviceServiceMAIN;
 
         public AddDeviceController(IDeviceService deviceService, DeviceService deviceServiceMAIN)
         {
             _deviceService = deviceService;
-            _deviceServiceMAIN = deviceServiceMAIN;
+           // _deviceServiceMAIN = deviceServiceMAIN;
         }
 
         [Authorize]
@@ -49,33 +49,33 @@ namespace ITMS.Server.Controllers
         }
 
 
-        [HttpPost("one-time-add-devices")]
-        public async Task<ActionResult> OneTimeAddDevice([FromBody] List<OneTimeAddDeviceDTO> detailsList)
-        {
-            try
-            {
-                List<OneTimeAddDeviceDTO> uniqueDevices = await _deviceServiceMAIN.GetUnique(detailsList);
-                await _deviceServiceMAIN.PutSingleDeviceModel(uniqueDevices);
+        //[HttpPost("one-time-add-devices")]
+        //public async Task<ActionResult> OneTimeAddDevice([FromBody] List<OneTimeAddDeviceDTO> detailsList)
+        //{
+        //    try
+        //    {
+        //        List<OneTimeAddDeviceDTO> uniqueDevices = await _deviceServiceMAIN.GetUnique(detailsList);
+        //        await _deviceServiceMAIN.PutSingleDeviceModel(uniqueDevices);
 
-                List<OneTimeAddDeviceDTO> devicelogsToBeSaved = new List<OneTimeAddDeviceDTO>();
+        //        List<OneTimeAddDeviceDTO> devicelogsToBeSaved = new List<OneTimeAddDeviceDTO>();
 
-                foreach (var d in detailsList)
-                {
-                    if (!string.IsNullOrEmpty(d.DeviceLog))
-                    {
-                        devicelogsToBeSaved.Add(d);
-                    }
-                }
+        //        foreach (var d in detailsList)
+        //        {
+        //            if (!string.IsNullOrEmpty(d.DeviceLog))
+        //            {
+        //                devicelogsToBeSaved.Add(d);
+        //            }
+        //        }
 
-                List<OneTimeAddDeviceDTO> failedLogs = await _deviceServiceMAIN.PutSingleDevice_DeviceLog(devicelogsToBeSaved);
+        //        List<OneTimeAddDeviceDTO> failedLogs = await _deviceServiceMAIN.PutSingleDevice_DeviceLog(devicelogsToBeSaved);
 
-                return Ok(uniqueDevices);
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-        }
+        //        return Ok(uniqueDevices);
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return BadRequest(e.Message);
+        //    }
+        //}
 
 
 
