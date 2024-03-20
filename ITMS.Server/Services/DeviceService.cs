@@ -21,6 +21,7 @@ using System.Web.Mvc;
 using MiNET.Blocks;
 using System.IO.Compression;
 using log4net;
+using static MiNET.Net.McpeInteract;
 
 public class DeviceService
 
@@ -877,4 +878,96 @@ public class DeviceService
         
     }
 
+    //public async Task<List<string>> GetUnique(string allNames)
+    //{
+    //    return await allNames.Distinct().ToList();
+    //}
+
+    public async Task<List<OneTimeAddDeviceDTO>> GetUnique(List<OneTimeAddDeviceDTO> allNames)
+    {
+        return await Task.FromResult(allNames.Distinct().ToList());
+    }
+
+    public async Task PutSingleDeviceModel(List<OneTimeAddDeviceDTO> uniqueDevices)
+    {
+        foreach(var d in uniqueDevices)
+        {
+            string[] Name = d.FullDeviceName.Split(' ');
+
+            DeviceModel deviceModel = new DeviceModel
+            {
+                CategoryId = await _context.Categories.Where(s => s.Name == "Laptop").Select(s => s.Id).FirstOrDefaultAsync(),
+                Brand = Name[0],
+                ModelNo = Name[0] != "Apple"?Name[2].Trim('(',')'): Name[2],
+                DeviceName = d.FullDeviceName,
+                CreatedBy = d.LoggedIn,
+                UpdatedBy = d.LoggedIn,
+                Processor = d.Processor,
+                Storage = d.Storage,
+                Ram = d.Ram,
+                Os = Name[0] != "Apple" ? await _context.Ostypes.Where(o => o.Osname == "Windows").Select(s => s.Id).FirstOrDefaultAsync(): await _context.Ostypes.Where(o => o.Osname == "MAC").Select(s => s.Id).FirstOrDefaultAsync(),
+                CreatedAtUtc = DateTime.UtcNow,
+                UpdatedAtUtc = DateTime.UtcNow,
+                IsArchived = false
+            };
+
+            _context.DeviceModel.Add(deviceModel);
+            await _context.SaveChangesAsync();
+        }
+    }
+    public async Task<List<OneTimeAddDeviceDTO>> PutSingleDevice_DeviceLog(List<OneTimeAddDeviceDTO> detailsList)
+    {
+        List<OneTimeAddDeviceDTO> failedItems = new List<OneTimeAddDeviceDTO>();
+
+        foreach (var d in detailsList)
+        {
+            try
+            {
+                string[] Devicelog = d.DeviceLog.Split('(',')');
+
+                foreach (var dl in Devicelog)
+                {
+                    string trimmedDl = dl.Trim(' ');
+                    if (trimmedDl.ToLower() == "in stock"||string.IsNullOrEmpty(trimmedDl))
+                    {
+                        continue;
+                    }
+                    try
+                    {
+                        DevicesLog deviceLog = new DevicesLog
+                        {
+                            DeviceId = await _context.Devices.Where(dc => dc.Cygid == d.Cygid).Select(d => d.Id).FirstOrDefaultAsync(),
+                            EmployeeId = await _context.Employees.Where(e => e.FirstName.ToLower() + " " + e.LastName.ToLower() == trimmedDl.ToLower()).Select(e => e.Id).FirstOrDefaultAsync(),
+                            AssignedBy = d.LoggedIn,
+                            RecievedBy = d.LoggedIn,
+                            RecievedDate = DateTime.UtcNow,
+                            CreatedBy = d.LoggedIn,
+                            UpdatedBy = d.LoggedIn,
+                            CreatedAtUtc = DateTime.UtcNow,
+                            UpdatedAtUtc = DateTime.UtcNow,
+                            ActionId = await _context.ActionTables.Where(a => a.ActionName == "Submitted").Select(e => e.Id).FirstOrDefaultAsync(),
+                        };
+
+                        _context.DevicesLogs.Add(deviceLog);
+                        await _context.SaveChangesAsync();
+                    }catch(Exception ex)
+                    {
+                        failedItems.Add(d);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                failedItems.Add(d);
+            }
+        }
+
+        return failedItems;
+    }
 }
+
+
+
+
+
+

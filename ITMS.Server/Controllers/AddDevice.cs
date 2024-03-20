@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using System.Collections.Generic;
 
 namespace ITMS.Server.Controllers
 
@@ -15,10 +16,12 @@ namespace ITMS.Server.Controllers
     public class AddDeviceController : ControllerBase
     {
         private readonly IDeviceService _deviceService;
+        private readonly DeviceService _deviceServiceMAIN;
 
-        public AddDeviceController(IDeviceService deviceService)
+        public AddDeviceController(IDeviceService deviceService, DeviceService deviceServiceMAIN)
         {
             _deviceService = deviceService;
+            _deviceServiceMAIN = deviceServiceMAIN;
         }
 
         [Authorize]
@@ -45,6 +48,38 @@ namespace ITMS.Server.Controllers
             }
         }
 
+
+        [HttpPost("one-time-add-devices")]
+        public async Task<ActionResult> OneTimeAddDevice([FromBody] List<OneTimeAddDeviceDTO> detailsList)
+        {
+            try
+            {
+                List<OneTimeAddDeviceDTO> uniqueDevices = await _deviceServiceMAIN.GetUnique(detailsList);
+                await _deviceServiceMAIN.PutSingleDeviceModel(uniqueDevices);
+
+                List<OneTimeAddDeviceDTO> devicelogsToBeSaved = new List<OneTimeAddDeviceDTO>();
+
+                foreach (var d in detailsList)
+                {
+                    if (!string.IsNullOrEmpty(d.DeviceLog))
+                    {
+                        devicelogsToBeSaved.Add(d);
+                    }
+                }
+
+                List<OneTimeAddDeviceDTO> failedLogs = await _deviceServiceMAIN.PutSingleDevice_DeviceLog(devicelogsToBeSaved);
+
+                return Ok(uniqueDevices);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+
+
+
         [Authorize]
         [HttpPost("update")]
         public ActionResult PutDeviceModel([FromBody] PutDeviceModel model)
@@ -70,7 +105,7 @@ namespace ITMS.Server.Controllers
 
 
 
-       [Authorize]
+        [Authorize]
         [HttpPost("add-software")]
         public ActionResult PutSoftware([FromBody] PutSoftware software)
         {
