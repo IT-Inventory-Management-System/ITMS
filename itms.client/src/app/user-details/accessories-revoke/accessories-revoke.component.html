@@ -30,24 +30,24 @@
             <div class="assigned-accessory-heading">Assigned Assessory Detail</div>
             <div class="details">
               <div class="iconsOfModal">
-                <img *ngIf="accessoriesDetails.categoryName === 'Mouse'" src="../../../assets/icons/MouseVector.svg" />
+                <img *ngIf="accessoriesDetails.categoryName === 'Mouse'" src="../../../assets/icons/mouse-small.svg" class="mouse-img" />
                 <img *ngIf="accessoriesDetails.categoryName === 'Keyboard'" src="../../../assets/icons/KeyboardVector.svg" />
                 <p>{{accessoriesDetails.categoryName}}</p>
               </div>
 
               <div class="brand">
                 <div class="iconsOfModal">
-                  <img src="../../../assets//icons/AccessoryID.svg" />
+                  <img src="../../../assets//icons/cyg.svg" />
                   <p>{{accessoriesDetails.cygid}}</p>
                 </div>
                 <div class="iconsOfModal">
-                  <img src="../../../assets/icons/BrandVector.svg" /><p>{{accessoriesDetails.brand}}</p>
+                  <img src="../../../assets/icons/brand-acc.svg" /><p>{{accessoriesDetails.brand}}</p>
                 </div>
               </div>
 
               <div class="wiredNotWired">
                 <div class="iconsOfModal">
-                  <img src="../../../assets/icons/WiredVector.svg" />
+                  <img src="../../../assets/icons/type-acc.svg" />
                   <p>
                     <ng-container *ngIf="accessoriesDetails.isWired; else notWiredText">Wired</ng-container>
                     <ng-template #notWiredText>Not Wired</ng-template>
@@ -55,7 +55,7 @@
                 </div>
 
                 <div class="iconsOfModal">
-                  <img src="../../../assets/icons/CalenderVector.svg" />
+                  <img src="../../../assets/icons/calendar-revoke.svg" />
                   <p>{{accessoriesDetails.assignedDate | date: 'MM-dd-yyyy'}}</p>
                 </div>
               </div>
@@ -81,24 +81,20 @@
 
             <div *ngIf="showYesReason" class="reason-options">
               <p>Condition <span class="star">*</span></p>
-              <div>
                 <input type="radio" id="perfect" name="reasonOptions" value="Perfect" [(ngModel)]="selectedReason">
                 <label for="perfect">Perfect</label>
 
                 <input type="radio" id="unassignable" name="reasonOptions" value="Unassignable" [(ngModel)]="selectedReason">
                 <label for="unassignable">Unassignable</label>
-              </div>
             </div>
 
             <div *ngIf="showNoReason" class="reason-options">
               <p>Reason <span class="star">*</span></p>
-              <div>
                 <input type="radio" id="submittedLater" name="reasonOptions" value="Submitted Later" [(ngModel)]="selectedReason">
                 <label for="submittedLater">Will be submitted later</label>
 
                 <input type="radio" id="lostNotReceived" name="reasonOptions" value="Lost/Not Received" class="lost" [(ngModel)]="selectedReason">
                 <label for="lostNotReceived">Lost/Not Recieved</label>
-              </div>
             </div>
 
 

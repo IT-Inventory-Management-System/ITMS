@@ -73,13 +73,11 @@
 
       <div *ngIf="showNoReason[i]" class="reason-options">
         <p>Reason <span class="star">*</span></p>
-        <div>
           <input type="radio" id="submittedLater{{i}}" name="reasonOptions{{i}}" [(ngModel)]="laptop.submittedLater" [checked]="isReasonSelected('Submitted Later', i)" value="Submitted Later" (change)="handleReasonSelection('Submitted Later', i)">
           <label for="submittedLater{{i}}">Will be submitted later</label>
 
           <input type="radio" id="lostNotReceived{{i}}" name="reasonOptions{{i}}" [(ngModel)]="laptop.lostNotReceived" [checked]="isReasonSelected('Lost/Not Received', i)" value="Lost/Not Received" class="lost" (change)="handleReasonSelection('Lost/Not Received', i)">
           <label for="lostNotReceived{{i}}">Lost/Not Recieved</label>
-        </div>
       </div>
 
 

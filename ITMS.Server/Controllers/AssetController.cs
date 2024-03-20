@@ -134,5 +134,12 @@ namespace ITMS.Server.Controllers
             return await _addAssetService.getKeyboardComboBrand(commonDto);
         }
 
+        [HttpPost("getCGIIDsMobile")]
+        public async Task<IEnumerable<getCGIDTO>> getCGIIDMobile([FromBody] mobileInputDTO commonDto)
+        {
+
+            return await _addAssetService.getCGIIDCommon(commonDto.Brand);
+        }
+
     }
 }

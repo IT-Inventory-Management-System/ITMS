@@ -41,6 +41,10 @@
     {
         public string CGIID { get; set; }
     }
+    public class getCGIMobile
+    {
+        public string Brand { get; set; }
+    }
     public class getBrand
     {
         public string Brand { get; set; }
@@ -48,6 +52,10 @@
     public class commonInputDTO
     {
         public string? Name { get; set; }
+    }
+    public class mobileInputDTO
+    { 
+        public string Brand { get; set; }
     }
     public class getAccessoriesDTO
     {
