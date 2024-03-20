@@ -318,6 +318,48 @@ namespace itms.server.controllers
            
 
         }
+
+
+        [HttpPost("one-time-add-devices")]
+        public async Task<ActionResult> OneTimeAddDevice([FromBody] List<OneTimeAddDeviceDTO> detailsList)
+        {
+            List<OneTimeAddDeviceDTO> failedItemsAll = new List<OneTimeAddDeviceDTO>();
+            try
+            {
+                List<OneTimeAddDeviceDTO> uniqueDevices = await _deviceService.GetUnique(detailsList);
+                List<OneTimeAddDeviceDTO> failedModels = await _deviceService.PutSingleDeviceModel(uniqueDevices);
+                failedItemsAll.AddRange(failedModels);
+
+                List<OneTimeAddDeviceDTO> failedItems = await _deviceService.importDeviceData(detailsList);
+                failedItemsAll.AddRange(failedItems);
+
+                List<OneTimeAddDeviceDTO> devicelogsToBeSaved = new List<OneTimeAddDeviceDTO>();
+
+                foreach (var d in detailsList)
+                {
+                    if (!string.IsNullOrEmpty(d.DeviceLog))
+                    {
+                        devicelogsToBeSaved.Add(d);
+                    }
+                }
+
+                List<OneTimeAddDeviceDTO> failedLogs = await _deviceService.PutSingleDevice_DeviceLog(devicelogsToBeSaved);
+                failedItemsAll.AddRange(failedLogs);
+
+                return Ok(failedItemsAll);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+
+        [HttpPost("importDeviceData")]
+        public async Task<List<OneTimeAddDeviceDTO>> importDevice([FromBody] List<OneTimeAddDeviceDTO> importDeviceInput)
+        {
+            return await _deviceService.importDeviceData(importDeviceInput);
+        }
     }
 
 }

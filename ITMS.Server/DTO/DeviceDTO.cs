@@ -245,6 +245,7 @@ namespace ITMS.Server.DTO
         public DateTime? WarrantyDate { get; set; }
         public string? Cygid { get; set; }
         public Guid LoggedIn { get; set; }
+        public Guid locationId { get; set; }
     }
 
     public class PutSingleDeviceModelDTO
