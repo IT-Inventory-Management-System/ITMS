@@ -232,5 +232,8 @@ export class DataService {
   getComboBrands(CategoryName: any): Observable<any[]> {
     return this.http.post<any | null>(this.apiUrl + 'asset/getKeyboardComboBrand', CategoryName);
   }
+  getMobileCGIID(Brand: any): Observable<any[]> {
+    return this.http.post<any[]>(this.apiUrl + 'asset/getCGIIDsMobile', Brand);
+  }
 }
 

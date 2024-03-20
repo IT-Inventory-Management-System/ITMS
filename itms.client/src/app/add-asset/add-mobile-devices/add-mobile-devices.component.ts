@@ -15,22 +15,15 @@ export class AddMobileDevicesComponent {
 
   addDeviceForm: FormGroup;
   showErrorMessage = false;
-
+  prefix: any = '';
+  selectedbrand: any = '';
   categoryPrefixMap: { [key: string]: string } = {
-    "Connector(Texas Instruments)": "CGI-MIS ",
-    "Apple Thunderbolt(LAN)": "CGI-CLAN ",
-    "Android Cables": "CGI-AC ",
-    "Apple VGA Connector": "CGI-CVGA ",
-    "External Hard Drive Connectors": "CGI-EHD ",
-    "HDMI Cables": "CGI-HDMI ",
-    "iPhone USB-A to Lightning": "CGI-iPHC ",
-    "Mini-Display HDMI Connector": "CGI-CHD ",
-    "Bag": "CGI-BAG ",
-    "RAM of Different Models(Laptop)": "CGI-RAML ",
-    "Server": "CGI-RAMS ",
-    "Keyboard": "CGI-KO ",
-    "Combo": "CGI-WYC ",
-    "Mouse": "CGI-MOU ",
+   "Android":"CGI-MAnD" ,
+"iPhone X":"CGI-MiPhX" ,
+ "iPhone 11":"CGI-MIP11" ,
+ "iPhone 12":"CGI-MIP12" ,
+ "iPad Wi-Fi 7th Gen":"CGI-MiPad" ,
+
   };
 
 
@@ -38,7 +31,7 @@ export class AddMobileDevicesComponent {
   dropdownValues: any[] = [];
 
   @Input() category: string = '';
-  prefix: string;
+  //prefix: string;
   currentStep: number = 1;
   srcLink: any;
   counterValue: number = 0;
@@ -66,8 +59,8 @@ export class AddMobileDevicesComponent {
 
   ngOnInit(): void {
     this.loadMouseBrand();
-    this.prefix = this.getPrefix(this.category);
-    this.getCgi();
+   // this.prefix = this.getPrefix(this.category);
+    //this.getCgi();
     this.createForm();
     this.setStatus();
     this.setlocationId();
@@ -129,7 +122,7 @@ export class AddMobileDevicesComponent {
   increment() {
     this.counterValue++;
     const ele = this.counterValue;
-    this.pushValueIntoDeviceId(this.prefix + (this.laststoredcgi + ele));
+    this.pushValueIntoDeviceId(this.prefix + (this.laststoredcgi + ' '+ ele));
     this.addDeviceForm.patchValue({
       qty: this.counterValue
     });
@@ -200,16 +193,16 @@ export class AddMobileDevicesComponent {
     this.currentStep--;
   }
 
-  getPrefix(category: string): string {
-    return this.categoryPrefixMap[category];
+  getPrefix(brand: string): string {
+    return this.categoryPrefixMap[brand];
   }
 
-  getCgi() {
+  getCgi(brand:string) {
 
     const input = {
-      name: this.category
+      Brand: brand
     }
-    this.dataService.getAccessoryCGIID(input).subscribe(
+    this.dataService.getMobileCGIID(input).subscribe(
       (data) => {
         this.laststoredcgi = parseInt(data[0]?.cgiid, 10);
         //console.log(this.laststoredcgi);
@@ -248,7 +241,7 @@ export class AddMobileDevicesComponent {
     this.addDeviceForm.get('updatedAt')?.setValue(new Date().toISOString());
     this.addDeviceForm.get('createdBy')?.setValue(this.UserId);
     this.addDeviceForm.get('updatedBy')?.setValue(this.UserId);
-
+    console.log(this.addDeviceForm.value);
     if (this.addDeviceForm.valid && this.showErrorMessage == false) {
       //console.log(this.addDeviceForm.value);
 
@@ -283,5 +276,42 @@ export class AddMobileDevicesComponent {
   hideErrorMessage() {
     this.showErrorMessage = false;
   }
+  onBrandSelected(selectedValue: any) {
+    console.log('Selected brand:', selectedValue);
+    const selectedValu= selectedValue;
+    //console.log(selectedValue);
 
+    const [brand, Id] = selectedValue.split('@');
+    this.selectedbrand = brand;
+    //if (brand != 'iPhone X' || brand != 'iPhone 11' || brand != 'iPhone 12' || brand != 'iPad Wi-Fi 7th Gen') {
+    //  this.prefix = this.getPrefix('Android');
+    //  this.getCgi('Android');
+
+    //} else {
+    //  this.prefix = this.getPrefix(this.selectedbrand);
+    //  this.getCgi(this.selectedbrand);
+    //}
+    if (brand == 'iPhone X') {
+      this.prefix = this.getPrefix('iPhone X');
+      this.getCgi('iPhone X');
+    }
+    else if (brand == 'iPhone 11') {
+      this.prefix = this.getPrefix('iPhone 11');
+      this.getCgi('iPhone 11');
+    }
+    else if (brand == 'iPhone 12') {
+      this.prefix = this.getPrefix('iPhone 12');
+      this.getCgi('iPhone 12');
+    }
+    else if (brand == 'iPad Wi-Fi 7th Gen') {
+      this.prefix = this.getPrefix('iPad Wi-Fi 7th Gen');
+      this.getCgi('iPad Wi-Fi 7th Gen');
+    }
+    else {
+      this.prefix = this.getPrefix('Android');
+      this.getCgi('Android');
+    }
+  
+    this.addDeviceForm.get('deviceModelId')?.setValue(Id);
+  }
 }
