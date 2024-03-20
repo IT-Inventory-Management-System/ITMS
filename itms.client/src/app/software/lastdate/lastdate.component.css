@@ -1,4 +1,4 @@
-#lastdateModal {
+/*#lastdateModal {
   border-radius: 0.25rem;
   background: #FFF;
   width: 38.375rem;
@@ -10,10 +10,25 @@
   display:none;
   margin-left:40rem;
 
+}*/
+
+#lastdateModal {
+  overflow-y: hidden; /* Prevent vertical scrolling */
 }
 
-.close{
-    cursor:pointer;
+
+
+.outer-width {
+  width: 38.375rem;
+  padding: 1rem 1.5rem;
+  margin-left: 17rem;
+  height: 35.7rem;
+}
+
+
+
+.close {
+  cursor: pointer;
 }
 
 .heading {

@@ -120,7 +120,7 @@ namespace ITMS.Server.Services
             devicesLog.CreatedAtUtc = DateTime.UtcNow;
             devicesLog.UpdatedBy = devicelogDto.AssignedBy;
             devicesLog.UpdatedAtUtc = DateTime.UtcNow;
-            devicesLog.ActionId = _context.ActionTables.FirstOrDefault(action => action.ActionName == "assigned").Id;
+            devicesLog.ActionId = _context.ActionTables.FirstOrDefault(action => action.ActionName.ToLower() == "assigned").Id;
             devicesLog.SoftwareAllocation = devicelogDto.SoftwareAllocationId;
             _context.DevicesLogs.Update(devicesLog);
             await _context.SaveChangesAsync();
