@@ -77,7 +77,7 @@ export class ImportDataComponent {
       const data = new Uint8Array(this.arrayBuffer);
       const workbook = XLSX.read(data, { type: 'array' });
       console.log(workbook);
-      const sheetName = workbook.SheetNames[4];
+      const sheetName = workbook.SheetNames[0];
       const sheet = workbook.Sheets[sheetName];
       const dataArray: any[][] = XLSX.utils.sheet_to_json(sheet, { header: 1 });
       console.log(dataArray);
@@ -99,18 +99,18 @@ export class ImportDataComponent {
     fileReader.readAsArrayBuffer(this.file);
   }
 
-  //postUserData(newEmployeeData: any[]) {
-  //  this.empService.postUsers(newEmployeeData).subscribe(
-  //    response => {
-  //      // console.log('New Users added successfully', response);
-  //      this.toastr.success("New users added successfully");
-  //    },
-  //    error => {
-  //      console.error('Error posting data', error);
-  //      this.toastr.error("Error in posting new users");
-  //    }
-  //  );
-  //}
+  postUserData(oldDeviceData: any[]) {
+    this.dataService.postExcelLaptopData(oldDeviceData).subscribe(
+      response => {
+        console.log(response);
+        //this.toastr.success("New users added successfully");
+      },
+      error => {
+        console.error('Error posting data', error);
+        //this.toastr.error("Error in posting new users");
+      }
+    );
+  }
 
   cancle() {
     this.csvFileVisible = false;
