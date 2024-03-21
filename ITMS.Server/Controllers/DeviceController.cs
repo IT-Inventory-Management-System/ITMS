@@ -319,9 +319,9 @@ namespace itms.server.controllers
 
         }
 
-
+        [Authorize]
         [HttpPost("one-time-add-devices")]
-        public async Task<ActionResult> OneTimeAddDevice([FromBody] List<OneTimeAddDeviceDTO> detailsList)
+        public async Task<ActionResult> OneTimeAddDevice(List<OneTimeAddDeviceDTO> detailsList)
         {
             List<OneTimeAddDeviceDTO> failedItemsAll = new List<OneTimeAddDeviceDTO>();
             try
@@ -367,7 +367,7 @@ namespace itms.server.controllers
             }
         }
 
-
+        [Authorize]
         [HttpPost("importDeviceData")]
         public async Task<List<OneTimeAddDeviceDTO>> importDevice([FromBody] List<OneTimeAddDeviceDTO> importDeviceInput)
         {

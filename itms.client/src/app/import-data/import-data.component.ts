@@ -81,19 +81,22 @@ export class ImportDataComponent {
       const sheet = workbook.Sheets[sheetName];
       const dataArray: any[][] = XLSX.utils.sheet_to_json(sheet, { header: 1 });
       console.log(dataArray);
-      //const employeeArray = dataArray.slice(1).map((row: any[]) => {
-      //  return {
-      //    location: this.locationName,
-      //    createdBy: this.loggedUser.id,
-      //    updatedBy: this.loggedUser.id,
-      //    firstName: row[0],
-      //    lastName: row[1],
-      //    email: row[2],
-      //    cgiId: row[3]
-      //  };
-      //});
-      // console.log(employeeArray);
-      //this.postUserData(employeeArray);
+      const inputArray = dataArray.slice(1).map((row: any[]) => {
+        return {
+          locationId: this.locationId,
+          LoggedIn: this.loggedUser.id,
+          FullDeviceName: row[1],
+          Processor: 'i7',
+          Ram: "16",
+          Storage: "512",
+          SerialNo: row[2],
+          PurchasedDate: row[3],
+          DeviceLog: row[4],
+          Cygid: row[5]
+        };
+      });
+      console.log(inputArray);
+      this.postUserData(inputArray);
     };
 
     fileReader.readAsArrayBuffer(this.file);

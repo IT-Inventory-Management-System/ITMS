@@ -242,7 +242,6 @@ namespace ITMS.Server.DTO
         public string? Storage { get; set; }
         public string? SerialNo { get; set; }
         public string? PurchasedDate { get; set; }
-        public DateTime? WarrantyDate { get; set; }
         public string? Cygid { get; set; }
         public Guid LoggedIn { get; set; }
         public Guid locationId { get; set; }

@@ -234,7 +234,7 @@ export class DataService {
   }
 
 
-  postExcelLaptopData(formData: any): Observable<any> {
+  postExcelLaptopData(formData: any[]): Observable<any> {
     return this.http.post(this.apiUrl + 'Device/one-time-add-devices', formData);
   }
 
