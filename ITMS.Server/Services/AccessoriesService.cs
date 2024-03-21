@@ -79,68 +79,96 @@ namespace ITMS.Server.Services
 
         public async Task<List<OneTimePutBagDTO>> OneTimePutBagService(List<OneTimePutBagDTO> listOfBags)
         {
+            var number = 0;
             List<OneTimePutBagDTO> failedItems = new List<OneTimePutBagDTO>();
-
-
+            var result = await _addAssetService.getCGIIDCommon("Bag");
+            if (result != null && result.Any())
+            {
+                number = int.Parse(result.First().CGIID);
+            }
+            var idx = 1;
 
             foreach (var b in listOfBags)
             {
-                List<OneTimePutBagDTO> failedddSingleMouse = await AddSingleBag(b);
-                failedItems.AddRange(failedddSingleMouse);
+                (int number, List<OneTimePutBagDTO> failedItem) failedddSingleBag = await AddSinglebag(b,number+idx);
+                idx++;
+                if (failedddSingleBag.failedItem.Count != 0)
+                {
+                    failedItems.AddRange(failedddSingleBag.failedItem);
+                    continue;
+                }
 
-                List<OneTimePutBagDTO> failedHistory = await AddSingleBagHistory(b);
-
+                if (!string.IsNullOrEmpty(b.AssignedTo))
+                {
+                    List<OneTimePutBagDTO> failedHistory = await AddSingleBagHistory(b, failedddSingleBag.number);
+                    if(failedHistory.Count != 0)
+                    {
+                        failedItems.AddRange(failedHistory);
+                        continue;
+                    }
+                }
             }
+            return failedItems;
         }
 
-        public async Task<List<OneTimePutBagDTO>> AddSingleBagHistory(OneTimePutBagDTO bag)
-        {
-            DevicesLog dl = new DevicesLog
-            {
-                DeviceId = await _context.Devices.Where(dc => dc.Cygid == d.Cygid).Select(d => d.Id).FirstOrDefaultAsync(),
-                EmployeeId = await _context.Employees.Where(e => e.FirstName + " " + e.LastName == bag.AssignedTo).Select(e => e.Id).FirstOrDefaultAsync(),
-                AssignedBy = bag.LoggedIn,
-                RecievedBy = bag.LoggedIn,
-                RecievedDate = DateTime.UtcNow,
-                CreatedBy = bag.LoggedIn,
-                UpdatedBy = bag.LoggedIn,
-                CreatedAtUtc = DateTime.UtcNow,
-                UpdatedAtUtc = DateTime.UtcNow,
-                ActionId = await _context.ActionTables.Where(a => a.ActionName.ToLower() == "submitted").Select(e => e.Id).FirstOrDefaultAsync(),
-            };
-        }
-
-        public async Task<(int number, List<OneTimePutBagDTO> failedItems)> AddSinglebag(OneTimePutBagDTO bag)
+        public async Task<List<OneTimePutBagDTO>> AddSingleBagHistory(OneTimePutBagDTO bag,int cygnumber)
         {
             List<OneTimePutBagDTO> failedItems = new List<OneTimePutBagDTO>();
-            var number = 0;
+            try
+            {
+                DevicesLog dl = new DevicesLog
+                {
+                    DeviceId = await _context.Devices.Where(dc => dc.Cygid.ToLower() == string.Concat("cgi-bag"," ",cygnumber)).Select(d => d.Id).FirstOrDefaultAsync(),
+                    EmployeeId = await _context.Employees.Where(e => e.FirstName + " " + e.LastName == bag.AssignedTo).Select(e => e.Id).FirstOrDefaultAsync(),
+                    AssignedBy = bag.LoggedIn,
+                    RecievedBy = bag.LoggedIn,
+                    RecievedDate = DateTime.UtcNow,
+                    CreatedBy = bag.LoggedIn,
+                    UpdatedBy = bag.LoggedIn,
+                    CreatedAtUtc = DateTime.UtcNow,
+                    UpdatedAtUtc = DateTime.UtcNow,
+                    ActionId = await _context.ActionTables.Where(a => a.ActionName.ToLower() == "submitted").Select(e => e.Id).FirstOrDefaultAsync(),
+                };
+                _context.DevicesLogs.Add(dl);
+                await _context.SaveChangesAsync();
+            }
+            catch(Exception ex)
+            {
+                failedItems.Add(bag);
+            }
+            return failedItems;
+        }
+
+        public async Task<(int number, List<OneTimePutBagDTO> failedItems)> AddSinglebag(OneTimePutBagDTO bag,int number)
+        {
+            List<OneTimePutBagDTO> failedItems = new List<OneTimePutBagDTO>();
+            
 
             try
             {
                 //var result = await _addAssetService.getCGIIDCommon("Bag");
                 //number = result?.FirstOrDefault()?.CGIID + 1;
 
-                var result = await _addAssetService.getCGIIDCommon("Bag");
-                if (result != null && result.Any())
-                {
-                    number = int.Parse(result.First().CGIID) + 1;
-                }
-
                 Models.Device device = new Models.Device
                 {
-                    Cygid = "CGI-BAG" + number,
-                    DeviceModelId = (await _context.DeviceModel.FindAsync(await _context.Categories
-                                     .Where(c => c.Name.ToLower() == "bag")
-                                     .Select(c => c.Id)
-                                     .FirstOrDefaultAsync())).Id,
-                    CreatedBy = bag.LoggedIn,
+                    Cygid = "CGI-BAG" +" "+number,
+                    DeviceModelId = await _context.DeviceModel
+                                    .Where(dm => dm.Brand.ToLower() == "dell" && dm.Category.Name.ToLower() == "bag")
+                                    .Select(s => s.Id)
+                                    .FirstOrDefaultAsync(),
+                //Guid.Parse("CED54FC9-412F-4DB3-A866-B2E27ED8B3A4"),
+                //(await _context.DeviceModel.FindAsync(await _context.Categories
+                //                 .Where(c => c.Name.ToLower() == "bag")
+                //                 .Select(c => c.Id)
+                //                 .FirstOrDefaultAsync())).Id,
+                CreatedBy = bag.LoggedIn,
                     UpdatedBy = bag.LoggedIn,
                     CreatedAtUtc = DateTime.UtcNow,
                     UpdatedAtUtc = DateTime.UtcNow,
-                    AssignedTo = string.IsNullOrEmpty(bag.AssignedTo)?null:await _context.Employees.Where(e => string.Concat(e.FirstName, " ", e.LastName).ToLower() == bag.AssignedTo.ToLower()).Select(e => e.Id).FirstOrDefaultAsync(),
+                    AssignedTo = string.IsNullOrEmpty(bag.AssignedTo) ? null : await _context.Employees.Where(e => string.Concat(e.FirstName, " ", e.LastName).ToLower() == bag.AssignedTo.ToLower()).Select(e => e.Id).FirstOrDefaultAsync(),
                     // e => e.FirstName.ToLower() + " " + e.LastName.ToLower() == bag.AssignedTo.ToLower()).Select(s => s.Id).FirstOrDefaultAsync(),
-                    AssignedBy = string.IsNullOrEmpty(bag.AssignedTo) ? null: bag.LoggedIn,
-                    AssignedDate = DateTime.UtcNow,
+                    AssignedBy = string.IsNullOrEmpty(bag.AssignedTo) ? null : bag.LoggedIn,
+                    AssignedDate = string.IsNullOrEmpty(bag.AssignedTo) ? null: DateTime.UtcNow,
                     PurchasedDate = bag.Purchaseddate,
                     LocationId = bag.locationId,
                     IsArchived = false,
