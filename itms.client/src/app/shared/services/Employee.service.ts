@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { ConfigServiceService } from './config-service.service';
 
 @Injectable({
@@ -64,4 +64,13 @@ export class EmployeeService {
   UpdateExitProcessInitiation(body: any) {
     return this.http.post<any>(this.apiUrl + 'RecievedBy/updateExitProcessInitiation', body);
   }
+
+  private userListSubject = new BehaviorSubject<any>(null);
+  userListChanged$ = this.userListSubject.asObservable();
+
+  notifyUserListChanged() {
+    this.userListSubject.next(null);
+  }
+
+
 }

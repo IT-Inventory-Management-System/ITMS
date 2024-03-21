@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { DataService } from '../../shared/services/data.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { SelectedCountryService } from '../../shared/services/selected-country.service';
 @Component({
   selector: 'app-add-software-form',
   templateUrl: './add-software-form.component.html',
@@ -16,7 +17,7 @@ export class AddSoftwareFormComponent {
   softwareTypes: any[] = [];
   NewSoftwareID: any;
 
-  constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService) {
+  constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService, private selectedCountryService: SelectedCountryService) {
     this.dropdownValues = [];
 
   }
@@ -25,9 +26,38 @@ export class AddSoftwareFormComponent {
     this.loadDropdownValues();
     this.getSoftwareType();
     this.createForm();
-    this.setlocationId();
+    this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
+      localStorage.setItem('selectedCountry', selectedCountry);
+      this.setlocationId();
+    });
 
   }
+  getCurrentDate(): string {
+    const today = new Date();
+    const year = today.getFullYear();
+    let month = '' + (today.getMonth() + 1);
+    let day = '' + today.getDate();
+
+    if (month.length < 2) {
+      month = '0' + month;
+    }
+    if (day.length < 2) {
+      day = '0' + day;
+    }
+
+    return [year, month, day].join('-');
+  }
+
+
+  PurchasedDate(): string {
+    var isPurchasedOn = this.SoftwareForm.get('purchaseddate')?.value != '';
+    if (isPurchasedOn) {
+      return this.SoftwareForm.get('purchaseddate')?.value;
+    }
+    return '';
+  }
+
+
   getSoftwareType() {
     this.dataService.getSoftwareTypes().subscribe(
       (data) => {
@@ -54,7 +84,7 @@ export class AddSoftwareFormComponent {
       softwareId: [null, Validators.required],
       activationKey: [null, Validators.required],
       purchasedDate: [null, Validators.required],
-      expiryDate: [null, Validators.required],
+      expiryDate: [null],
       qty: [null, Validators.required],
       version: [null, Validators.required],
       assignedTo: [null],
@@ -188,10 +218,10 @@ export class AddSoftwareFormComponent {
     }
 
     else if (this.selectedTypeName == 'Validity') {
-      return this.SoftwareForm.get('purchasedDate')?.value != null && this.SoftwareForm.get('activationKey')?.value != null && this.SoftwareForm.get('qty')?.value != null && this.SoftwareForm.get('expiryDate')?.value != null;
+      return this.SoftwareForm.get('purchasedDate')?.value != null && this.SoftwareForm.get('activationKey')?.value != null && this.SoftwareForm.get('qty')?.value != null ;
     }
 
-    return this.SoftwareForm.get('purchasedDate')?.value != null && this.SoftwareForm.get('qty')?.value != null && this.SoftwareForm.get('expiryDate')?.value != null;
+    return this.SoftwareForm.get('purchasedDate')?.value != null && this.SoftwareForm.get('qty')?.value != null ;
   }
 
   onSubmit() {

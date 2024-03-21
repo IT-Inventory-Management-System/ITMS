@@ -10,7 +10,9 @@
                           [label]="'User'"
                           [placeholder]="'Search User by Name, CGI ID and Email Address'"
                           [options]="users"
-                          [assignAssetForm]="assignAssetForm">
+                          [assignAssetForm]="assignAssetForm"
+                          (userSelected)="userSelected($event)"
+                          >
           </app-search-box>
           <div class="stepper-container">
             <div class="stepper-stepper">
@@ -22,7 +24,7 @@
               <img class="vector-img" src="../../../assets/icons/Vector 16 (Stroke).svg" />
               <div class="stepper-stepper2">
                 <img *ngIf="currentStep === 1" src="../../../../assets/icons/Software-light.svg" />
-                <img *ngIf="currentStep === 2" src="../../../../assets/icons/Software.svg" />
+                <img *ngIf="currentStep === 2" src="../../../../assets/icons/Software.svg" class="software-icon-new" />
                 <img *ngIf="currentStep > 2" src="../../../assets/icons/completed.svg" />
                 <span class="stepper-text2"><span>Software</span></span>
               </div>
@@ -40,18 +42,23 @@
                              [LaptopOptions]="laptops"
                              [assignAssetForm]="assignAssetForm"
                              (cygidInputChange)="onCygidInputChangeStep1($event)"
+                             [class.disabled]="isUserSelected==false"
                              >
           </app-assign-laptop>
           <app-assign-software *ngIf="currentStep === 2"
                                [SoftwareOptions]="softwares"
                                [assignAssetForm]="assignAssetForm"
-                               (softwareIdInputChange)="onSoftwareIdInputChangeStep2($event)">
+                               (softwareIdInputChange)="onSoftwareIdInputChangeStep2($event)"
+                               [class.disabled]="isUserSelected==false"
+                               (softwareWarning)="softwareWarning($event)"
+                               >
           </app-assign-software>
           <app-assign-accessories *ngIf="currentStep === 3"
                                   [AccessoryOptions]="accessories"
                                   [assignAssetForm]="assignAssetForm"
                                   (accessoryIdInputChange)="onAccessoryIdInputChangeStep3($event)"
                                   [accessCYGIDs]="accessCYGIDs"
+                                  [class.disabled]="isUserSelected==false"
                                   >
           </app-assign-accessories>
           <div class="progress mt-3">
@@ -59,29 +66,46 @@
           </div>
         </div>
         <div class="footer">
-          <button type="button" class="btn btn-previous" *ngIf="currentStep !== 1" (click)="previousStep()">Previous</button>
+          <button type="button" class="btn btn-previous" *ngIf="currentStep !== 1" (click)="previousStep()"
+                   [class.disabled]="isUserSelected==false || softwareWarningCheck==true"
+                  >Previous</button>
           <div class="modal-footer">
-            <div class="button-container">
+            <!--<div class="button-container">-->
               <button type="button"
                       class="btn-skip"
                       *ngIf="currentStep !== 3"
                       (click)="skipStep()"
-                      [disabled]="!isNextButtonEnabled()">
+                      [disabled]="!isNextButtonEnabled()"
+                      [class.disabled]="isUserSelected==false || softwareWarningCheck==true"
+                      >
                       Skip
               </button>
               <button type="button"
                       class="btn-save"
                       [attr.data-bs-dismiss]="currentStep === 3 && assignAssetForm.valid ? 'modal' : null"
-                      (click)="currentStep !== 3 ? nextStep() : saveChanges()">
+                      (click)="currentStep !== 3 ? nextStep() : saveChanges()"
+                      [class.disabled]="isUserSelected==false || softwareWarningCheck==true"
+                      >
                       <!--[disabled]="
                       (currentStep === 1 && isCygidEmptyStep1) ||
                       (currentStep === 2 && isSoftwareIdEmptyStep2) ||
                       (currentStep === 3 && isAccessoryIdEmptyStep3)">-->
                       {{ getButtonText() }}
               </button>
-            </div>
+            <!--</div>-->
           </div>
         </div>
     </div>
 </div>
 </div>
+
+
+<!--<button type="button"
+        class="btn-save"
+        [attr.data-bs-dismiss]="currentStep === 3 && assignAssetForm.valid ? 'modal' : null"
+        (click)="currentStep !== 3 ? nextStep() : saveChanges()"
+        [class.disabled]="isUserSelected==false || softwareWarningCheck==true"
+        *ngIf="currentStep === 3"
+        data-bs-dismiss="modal" aria-label="Close">
+  {{ getButtonText() }}
+</button>-->

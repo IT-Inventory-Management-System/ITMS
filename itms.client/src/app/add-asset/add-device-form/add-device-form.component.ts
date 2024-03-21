@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import { DataService } from '../../../app/shared/services/data.service';
 import { ToastrService } from 'ngx-toastr';
+import { SelectedCountryService } from '../../shared/services/selected-country.service';
 
 
 @Component({
@@ -14,8 +15,6 @@ export class AddDeviceFormComponent implements OnInit {
   addDeviceForm: FormGroup;
   currentCygIdIndex: number | null = null;
   currentSerialIndex: number | null = null;
-
-  // cygIds: FormArray;
   errorMessage: string;
   showErrorMessage = false;
   dropdownValues: any[] = [];
@@ -29,30 +28,52 @@ export class AddDeviceFormComponent implements OnInit {
   invalidCygIndices: number[] = [];
   UserId: any;
   userDataJSON: any;
-  constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService) {
+  constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService, private selectedCountryService: SelectedCountryService) {
     this.dropdownValues = [];
   }
 
   currentStep: number = 1;
 
   ngOnInit(): void {
-    //console.log('selectedos : ', this.selectedOS);
     this.getlaptopids();
     this.loadDropdownValues();
-    //this.loadDeviceData();
-
     this.createForm();
-    this.setlocationId();
+    this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
+      localStorage.setItem('selectedCountry', selectedCountry);
+      this.setlocationId();
+    });
     this.setStatus();
     this.userDataJSON = localStorage.getItem('user');
-
-    // Parse the JSON string back into an object
     var userData = JSON.parse(this.userDataJSON);
-
-    // Access the 'id' property of the userData object
     this.UserId = userData.id;
 
   }
+
+  getCurrentDate(): string {
+    const today = new Date();
+    const year = today.getFullYear();
+    let month = '' + (today.getMonth() + 1);
+    let day = '' + today.getDate();
+
+    if (month.length < 2) {
+      month = '0' + month;
+    }
+    if (day.length < 2) {
+      day = '0' + day;
+    }
+
+    return [year, month, day].join('-');
+  }
+
+
+  PurchasedDate(): string {
+    var isPurchasedOn = this.addDeviceForm.get('purchaseddate')?.value != '';
+    if (isPurchasedOn) {
+      return this.addDeviceForm.get('purchaseddate')?.value;
+    }
+    return '';
+  }
+
 
   createForm() {
     this.addDeviceForm = this.fb.group({
@@ -107,17 +128,15 @@ export class AddDeviceFormComponent implements OnInit {
   updateCygId(index: number, event: Event) {
     this.hideErrorMessage();
     const value = (event.target as HTMLInputElement).value;
-
-    if (this.validateCygId(value, index)) {
-      // Remove index from the invalidCygIndices array if it exists
+    const value2 = 'CYG ' + value;
+    if (this.validateCygId(value2, index)) {
       const invalidIndexIndex = this.invalidCygIndices.indexOf(index);
       if (invalidIndexIndex !== -1) {
         this.invalidCygIndices.splice(invalidIndexIndex, 1);
       }
 
-      this.cygIds.at(index).setValue(value);
+      this.cygIds.at(index).setValue(value2);
     } else {
-      // Add index to the invalidCygIndices array if it's not already there
       if (!this.invalidCygIndices.includes(index)) {
         this.invalidCygIndices.push(index);
       }
@@ -139,7 +158,6 @@ export class AddDeviceFormComponent implements OnInit {
         for (var i = 0; i < data.length; i++) {
           if (data[i].type == localStorage.getItem('selectedCountry')) {
             this.locationId = data[i].id;
-            //alert(this.locationId);
             this.getlaptopids();
             break;
           }
@@ -168,10 +186,7 @@ export class AddDeviceFormComponent implements OnInit {
   getlaptopids() {
     this.dataService.getLaptopIDs().subscribe(
       (data) => {
-        this.deviceData = data;
-
-        //console.log(this.deviceData);
-        
+        this.deviceData = data;        
 
       },
       (error) => {
@@ -242,7 +257,10 @@ export class AddDeviceFormComponent implements OnInit {
   const isValid = serialNumbersArray.every((serialNumber) => serialNumber.trim() !== '' && !isExisting);
 
   return isValid;
-}
+  }
+
+
+
 
 checkCygIds(): boolean {
   const cygIdsArray = this.cygIds.controls.map((control) => control.value);

@@ -12,6 +12,28 @@
   line-height: 18.75px;
 }
 
+/*.received input[type="radio"] {
+  display: none;
+}
+
+.received label {
+  display: inline-block;
+  vertical-align: middle;  
+  cursor: pointer;
+  background-image: url('../../../assets/icons/Component 2.svg'); 
+  padding-left: 30px; 
+  background-repeat: no-repeat;
+  background-position: left center; 
+  background-size: 20px 20px;
+}
+
+
+.received input[type="radio"]:checked + label {
+  background-image: url('../../../assets/icons/Component 2_checked.svg') 
+}*/
+
+
+
 .user-details {
   display: flex;
   flex-direction: row;
@@ -51,7 +73,7 @@
   width: auto;
   border: 1px solid #B8DDE1;
   gap: 12px;
-  padding: 10px;
+  padding: 0.62rem 0.62rem 0.12rem 0.62rem;
   background-color: #F5F8FE;
   border-radius: 4px;
 }
@@ -84,6 +106,12 @@
 
 .accessory-recieved {
   margin-top: 1rem;
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 0.8125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
   .accessory-recieved input[type="radio"] {
@@ -96,6 +124,12 @@
       margin-right: 5rem;
       font-size: 16px;
       top: 0;
+      color: var(--Primary-Gray, #343435);
+      font-family: Roboto;
+      font-size: 0.8125rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
     }
 
 .star {
@@ -129,6 +163,12 @@
 
 .reason-options {
   margin-top: 1rem;
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 0.8125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
   .reason-options input[type="radio"] {
@@ -141,22 +181,32 @@
       margin-right: 3rem;
       font-size: 16px;
       top: 0;
+      color: var(--Primary-Gray, #343435);
+      font-family: Roboto;
+      font-size: 0.8125rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
     }
 
 .iconsOfModal {
   display: flex;
   align-items: center;
+  width:14rem;
 }
 
   .iconsOfModal img {
     margin-right: 0.5rem;
-    margin-bottom: 1.2rem;
+    margin-bottom: 0.5rem;
     height: 19px;
+  }
+  .iconsOfModal p {
+    margin-bottom: 0.5rem;
   }
 
 .CloseButton {
   width: 92px;
-  Height: 40px;
+  height: 40px;
   border-radius: 4px;
   Border: 1.8px solid #28519E;
   Padding: 12px, 8px, 12px, 8px;
@@ -167,7 +217,7 @@
 
 .SubmitButton {
   width: 92px;
-  Height: 40px;
+  height: 40px;
   border-radius: 4px;
   Border: 1.8px solid #28519E;
   Padding: 12px, 8px, 12px, 8px;
@@ -179,10 +229,39 @@
 
 .wiredNotWired {
   display: flex;
-  gap: 10rem;
 }
 
 .brand{
     display: flex;
-    gap: 8.6rem;
+}
+.mouse-img {
+  height: 19px;
+}
+.received input[type="radio"] {
+  display: none;
+}
+
+/* Style labels to use SVG icons as background images */
+.received label {
+  display: inline-block;
+  vertical-align: middle; /* Align the labels vertically with the image */
+  cursor: pointer;
+  background-image: url('../../../assets/icons/Component 2.svg'); /* Replace with path to your blue SVG icon */
+  padding-left: 30px; /* Adjust this value based on the width of your image */
+  background-repeat: no-repeat;
+  background-position: left center; /* Align the image to the left */
+  background-size: 20px 20px;
+}
+
+/* Style labels for checked state */
+.received input[type="radio"]:checked + label {
+  background-image: url('../../../assets/icons/Component 2_checked.svg') /* Replace with path to your blue checked SVG icon */
+}
+.received {
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 0.8125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }

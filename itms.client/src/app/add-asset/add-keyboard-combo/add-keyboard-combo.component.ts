@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataService } from '../../../app/shared/services/data.service';
 import { ToastrService } from 'ngx-toastr';
+import { SelectedCountryService } from '../../shared/services/selected-country.service';
 
 @Component({
   selector: 'app-add-keyboard-combo',
@@ -13,7 +14,7 @@ export class AddKeyboardComboComponent {
   prefix: string;
   UserId: any;
   userDataJSON: any;
-  constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService) {
+  constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService, private selectedCountryService: SelectedCountryService) {
 
   }
   ngOnChanges() {
@@ -33,7 +34,11 @@ export class AddKeyboardComboComponent {
     this.prefix = this.getPrefix(this.category);
 
     this.createForm();
-    this.setlocationId();
+    //this.setlocationId();
+    this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
+      localStorage.setItem('selectedCountry', selectedCountry);
+      this.setlocationId();
+    });
     this.setStatus();
     this.userDataJSON = localStorage.getItem('user');
 
@@ -59,6 +64,32 @@ export class AddKeyboardComboComponent {
   get counterValues(): number[] {
     return Array.from({ length: this.counterValue }, (_, i) => i + 1);
   }
+
+  getCurrentDate(): string {
+    const today = new Date();
+    const year = today.getFullYear();
+    let month = '' + (today.getMonth() + 1);
+    let day = '' + today.getDate();
+
+    if (month.length < 2) {
+      month = '0' + month;
+    }
+    if (day.length < 2) {
+      day = '0' + day;
+    }
+
+    return [year, month, day].join('-');
+  }
+
+
+  PurchasedDate(): string {
+    var isPurchasedOn = this.addDeviceForm.get('purchaseddate')?.value != '';
+    if (isPurchasedOn) {
+      return this.addDeviceForm.get('purchaseddate')?.value;
+    }
+    return '';
+  }
+
 
   setlocationId() {
     this.dataService.getLocation().subscribe(
@@ -103,7 +134,7 @@ export class AddKeyboardComboComponent {
       deviceModelId: [null, Validators.required],
       qty: [0, Validators.required],
       purchaseddate: ['', Validators.required],
-      warrantydate: [null, Validators.required],
+      warrantydate: [null],
       deviceId: this.fb.array([]),
       createdBy: [''],
       updatedBy: [''],
@@ -132,8 +163,8 @@ export class AddKeyboardComboComponent {
     var isDeviceId = this.addDeviceForm.get('deviceModelId')?.value != null;
     var isQuantity = this.counterValue > 0;
     var isPurchasedOn = this.addDeviceForm.get('purchaseddate')?.value != '';
-    var isWarrantyDate = this.addDeviceForm.get('warrantydate')?.value != null;
-    return isDeviceId && isQuantity && isPurchasedOn && isWarrantyDate;
+    //var isWarrantyDate = this.addDeviceForm.get('warrantydate')?.value != null;
+    return isDeviceId && isQuantity && isPurchasedOn ;
   }
   next() {
 

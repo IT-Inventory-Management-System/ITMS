@@ -16,7 +16,7 @@ export class NewCommentsComponent {
   commentsData: any[] = [];
   @Input() accessoryId: any;
   loading: boolean = true;
-
+  userDataJSON: any;
 
   constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService, private localTime: GetLocalTimeService) {
 
@@ -47,13 +47,9 @@ export class NewCommentsComponent {
     });
   }
   setCreatedBy() {
-    this.dataService.getFirstUser().subscribe(
-      (data) => {
-        this.deviceForm.get('createdBy')?.setValue(data.id);
-      },
-      (error) => {
-        console.log("User not found");
-      });
+    this.userDataJSON = localStorage.getItem('user');
+    var userData = JSON.parse(this.userDataJSON);
+    this.deviceForm.get('createdBy')?.setValue(userData.id);
   }
 
   onSubmit() {

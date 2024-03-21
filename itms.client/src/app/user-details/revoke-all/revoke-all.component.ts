@@ -17,6 +17,7 @@ export class RevokeAllComponent {
   @Input() laptopDetails: any;
   @Input() accessoriesDetails: any;
   @Input() softwareDetails: any;
+  @Input() revokePending: any;
   @Output() changeOnHoldBanner: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() changeArchiveBanner: EventEmitter<boolean> = new EventEmitter<boolean>();
 
@@ -170,7 +171,7 @@ export class RevokeAllComponent {
       this.accessoriesDetails[i].comment = '';
     }
 
-    this.revokeAllForm.reset();
+    //this.revokeAllForm.reset();
     this.updateButtonDisabledState();
   }
 
@@ -287,7 +288,7 @@ export class RevokeAllComponent {
 
 
         //console.log('Data saved successfully', response);
-        this.revokeAllForm.reset();
+        //this.revokeAllForm.reset();
         this.toastr.success('Exit Process Successful');
       },
       (error) => {

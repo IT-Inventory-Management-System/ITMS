@@ -1,18 +1,19 @@
 .modal-dialog {
   width: 32.75rem;
-  height: 41.25rem !important;
-  max-height: 41.25rem !important;
+  height: 35.75rem !important;
+  max-height: 35.75rem !important;
+  margin-top: 2.5rem;
 }
 
 .assign-asset-modal-outer-box {
   display: flex;
   width: 32.75rem;
   width: 32.75rem;
-  height: 41.25rem;
+  height: 35.75rem;
   padding: 1rem 1.5rem;
   flex-direction: column;
   gap: 16px;
-  position: relative; /* Add position relative */
+  position: relative;
 }
 .assign-asset-modal-header {
   padding: 0 0 2px 0;
@@ -20,6 +21,12 @@
   width: 29.75rem;
   align-items: center;
   gap: 18.25rem;
+}
+.disabled {
+  pointer-events: none;
+  opacity: 0.6;
+  cursor: not-allowed;
+
 }
 
 .assign-asset-modal-title {
@@ -42,7 +49,6 @@
   margin-left: auto;
 }
 
-/* MODAL BODY*/
 .modal-body {
   display: flex;
   flex-direction: column;
@@ -141,16 +147,29 @@ app-assign-accessories{
   background-color: transparent;
 }
 
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /*border:1px solid black;*/
+  min-height:2.6rem;
+}
+
 .button-container {
   display: flex;
   gap: 0.5rem;
 }
+
 
 .stepper {
   margin: 1.25rem 0rem 1.25rem 0rem !important;
   justify-content: space-between;
   display: flex;
 }
+
+/*.st {
+  border: 1px solid black;
+}*/
 
 
 .stepper-container {
@@ -253,11 +272,7 @@ app-assign-accessories{
   line-height: normal;
 }
 
-.footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+
 
 .btn-skip {
   width: 5.75rem;
@@ -303,3 +318,9 @@ app-assign-accessories{
     background-color: rgba(40, 81, 158, 0.7);
     cursor: not-allowed;
   }
+
+
+.software-icon-new {
+  width: 1.4rem;
+  height: 1.5rem;
+}

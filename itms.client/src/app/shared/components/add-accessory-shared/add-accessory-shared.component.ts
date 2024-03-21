@@ -2,6 +2,7 @@ import { Component, ElementRef, Input } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { SelectedCountryService } from '../../services/selected-country.service';
 
 @Component({
   selector: 'app-add-accessory-shared',
@@ -9,7 +10,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./add-accessory-shared.component.css']
 })
 export class AddAccessorySharedComponent {
-  constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService, private el: ElementRef) {
+  constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService, private el: ElementRef, private selectedCountryService: SelectedCountryService) {
 
   }
 
@@ -70,7 +71,11 @@ export class AddAccessorySharedComponent {
     this.getCgi();
     this.createForm();
     this.setStatus();
-    this.setlocationId();
+    // this.setlocationId();
+    this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
+      localStorage.setItem('selectedCountry', selectedCountry);
+      this.setlocationId();
+    });
     this.userDataJSON = localStorage.getItem('user');
     this.currentStep = 1;
     // Parse the JSON string back into an object
@@ -156,8 +161,8 @@ export class AddAccessorySharedComponent {
     var isDeviceId = this.addDeviceForm.get('deviceModelId')?.value != null;
     var isQuantity = this.counterValue > 0;
     var isPurchasedOn = this.addDeviceForm.get('purchaseddate')?.value != '';
-    var isWarrantyDate = this.addDeviceForm.get('warrantydate')?.value != null;
-    return isDeviceId && isQuantity && isPurchasedOn && isWarrantyDate;
+    //var isWarrantyDate = this.addDeviceForm.get('warrantydate')?.value != null;
+    return isDeviceId && isQuantity && isPurchasedOn ;
   }
   next() {
 
@@ -225,7 +230,7 @@ export class AddAccessorySharedComponent {
       deviceModelId: [null, Validators.required],
       qty: [0, Validators.required],
       purchaseddate: ['', Validators.required],
-      warrantydate: [null, Validators.required],
+      warrantydate: [null],
       deviceId: this.fb.array([]),
       createdBy: [''],
       updatedBy: [''],

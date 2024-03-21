@@ -5,7 +5,7 @@
   gap: 1rem;
   flex-shrink: 0;
   align-self: stretch;
-  max-height: 33.4375rem; 
+  height: 30rem; 
   overflow-y: auto; 
   position: relative;
   overflow-x: hidden;
@@ -19,6 +19,7 @@
   border: 1px solid #E9ECEB;
   display: flex;
   gap: 0.25rem;
+
 }
 
 .device-tag {
@@ -26,14 +27,14 @@
   justify-content: center;
   align-items: center;
   gap: 0.625rem;
- 
-  position:absolute;
-  top:0;
+  position: absolute;
+  top: 0;
   left: 0;
-  border-radius: 0rem 0.25rem;
+  border-radius:4px 0px 4px 0px;
   background: #ffb81c;
   z-index: 2;
   box-sizing: content-box;
+
 }
 
 .received-tag {
@@ -44,7 +45,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  border-radius: 0rem 0.25rem;
+  border-radius: 4px 0px 4px 0px;
   background: #479C6B;
   z-index: 2;
   box-sizing: content-box;
@@ -58,7 +59,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  border-radius: 0rem 0.25rem;
+  border-radius: 4px 0px 4px 0px;
   background: #CC1A07;
   z-index: 2;
   box-sizing: content-box;
@@ -71,7 +72,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  border-radius: 0rem 0.25rem;
+  border-radius: 4px 0px 4px 0px;
   background: #CC1A07;
   z-index: 2;
   box-sizing: content-box;
@@ -99,6 +100,7 @@
   font-weight: 500;
   line-height: normal;
   text-transform: uppercase;
+  
 }
 
 .received-tag-info {
@@ -193,4 +195,8 @@
   opacity: 0.5; 
   transition: opacity 0.3s ease; 
   color: black;
+}
+
+.mac-icon{
+    margin-bottom: 0.5rem;
 }

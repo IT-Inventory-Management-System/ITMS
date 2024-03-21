@@ -5,6 +5,7 @@ import * as XLSX from 'xlsx';
 import { LocationService } from '../shared/services/location.service';
 import { SelectedCountryService } from '../shared/services/selected-country.service';
 import { ToastrService } from 'ngx-toastr';
+import { formatDate } from '@angular/common';
 
 
 @Component({
@@ -99,13 +100,17 @@ export class SoftwareComponent implements OnInit {
         if (result) {
           this.softwaresData = result;
           this.filteredSoftware = this.softwaresData;
-          const parameters = {
-            name: result[0][0].name,
-            version: result[0][0].version,
-            location: this.selectedLocation,
-            type: result[0][0].type
-          };
-          this.onCardClicked(parameters, 0);
+          //-----------------------------------------
+          if (result && result[0] && result[0][0]) {
+            const parameters = {
+              name: result[0][0].name,
+              version: result[0][0].version,
+              location: this.selectedLocation,
+              type: result[0][0].type
+            };
+            this.onCardClicked(parameters, 0);
+          }
+          //-----------------------------------------
         } else {
          // console.log('No software found for parameters:', body);
         }
@@ -270,13 +275,17 @@ export class SoftwareComponent implements OnInit {
 
 
         this.filteredSoftware = this.softwaresData;
-        const parameters = {
-          name: data[0][0].name,
-          version: data[0][0].version,
-          location: this.selectedLocation,
-          type: data[0][0].type
-        };
-        this.onCardClicked(parameters, 0);
+        //-----------------------------------------
+        if (data && data[0] && data[0][0]) {
+          const parameters = {
+            name: data[0][0].name,
+            version: data[0][0].version,
+            location: this.selectedLocation,
+            type: data[0][0].type
+          };
+          this.onCardClicked(parameters, 0);
+        }
+        //------------------------------------------
       },
       error => {
         console.error('Error fetching software data', error);
@@ -341,11 +350,11 @@ export class SoftwareComponent implements OnInit {
         "Software Name": this.softwarestableData[i].name,
         "Version": this.softwarestableData[i].version,
         "Type": this.softwarestableData[i].type ,
-        "Date of Purchase": this.softwarestableData[i].purchasedDate,
-        "Expiry Date": this.softwarestableData[i].expireyDate,
+        "Date of Purchase": formatDate(this.softwarestableData[i].purchasedDate, 'dd-MM-yyyy', 'en-US'),
+        "Expiry Date": formatDate(this.softwarestableData[i].expireyDate, 'dd-MM-yyyy', 'en-US'),
         "Assigned To": this.softwarestableData[i].assignedTo,
         "Assigned By": this.softwarestableData[i].assignedBy,
-        "Assigned Date": this.softwarestableData[i].assignedDate,
+        "Assigned Date": formatDate(this.softwarestableData[i].assignedDate, 'dd-MM-yyyy', 'en-US'),
         "isArchived": this.softwarestableData[i].isArchived,
      
       }
@@ -363,7 +372,7 @@ export class SoftwareComponent implements OnInit {
     },
     { field: "Software Name",  resizable: false,  width: 150,  suppressMovable: true },
     {field: "Version",  width: 100,  resizable: false, suppressMovable: true },
-    { field: "Type", width: 100, resizable: false, suppressMovable: true, },
+    { field: "Type", width: 110, resizable: false, suppressMovable: true, },
     { field: "Date of Purchase", width: 170, resizable: false, suppressMovable: true, },
     { field: "Expiry Date", width: 150, resizable: false, suppressMovable: true, },
     { field: "Assigned To", width: 150, resizable: false, suppressMovable: true, },

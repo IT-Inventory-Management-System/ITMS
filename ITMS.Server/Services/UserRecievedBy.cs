@@ -69,7 +69,17 @@ namespace ITMS.Server.Services
                         }
                         
                     }
-             
+
+                    var softwareAllocation = await _context.SoftwareAllocations.FindAsync(deviceLog.SoftwareAllocation);
+
+                    if (softwareAllocation != null)
+                    {
+                        softwareAllocation.AssignedTo = null;
+                        softwareAllocation.AssignedDate = null;
+                        softwareAllocation.AssignedBy = null;
+                        _context.SoftwareAllocations.Update(softwareAllocation);
+                    }
+
                     var newDeviceLog = new DevicesLog
                     {
                         Id = Guid.NewGuid(),

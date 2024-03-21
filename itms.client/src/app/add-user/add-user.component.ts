@@ -3,6 +3,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { EmployeeService } from '../shared/services/Employee.service';
 import { DataService } from '../shared/services/data.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -28,7 +29,7 @@ export class AddUserComponent implements OnInit {
   //userForm: FormGroup[] = [];
   loggedUser: any;
 
-  constructor(private formBuilder: FormBuilder, private empService: EmployeeService, private deviceService: DataService, private toastr: ToastrService) {
+  constructor(private formBuilder: FormBuilder, private empService: EmployeeService, private deviceService: DataService, private toastr: ToastrService, private router: Router) {
     const storedUser = localStorage.getItem("user");
     if (storedUser !== null) {
       this.loggedUser = JSON.parse(storedUser);
@@ -130,17 +131,14 @@ export class AddUserComponent implements OnInit {
     
     this.addNew();
     for (let i = 0; i < this.list.length; i++) {
-    //  console.log(this.list[i].get("firstName"));
       const formValue = this.list[i].value;
 
-    //  console.log("selected location", this.selectedLocation)
       const formValueWithLocation = { ...formValue, location: this.selectedLocation };
 
       this.res.push(formValueWithLocation);
 
-     // console.log(formValueWithLocation);
-      //this.res.push(this.list[i].value);
-      //console.log(this.list[i].value);
+
+ 
     }
 
 
@@ -149,6 +147,7 @@ export class AddUserComponent implements OnInit {
         response => {
          // console.log('Post successful', response);
           this.toastr.success("Data posted successfully");
+          this.empService.notifyUserListChanged();
         },
         error => {
           console.error('Error posting data', error);
@@ -163,6 +162,8 @@ export class AddUserComponent implements OnInit {
     this.idx = 0;
     this.curr = 0;
     this.userAddedCount = 0;
+
+
 
   }
 

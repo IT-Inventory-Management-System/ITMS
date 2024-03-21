@@ -30,48 +30,49 @@
       <span class="text">Refine the assets by implementing specific criteria.</span>
     </div>
 
-    <app-accordion>
-      <app-accordion-item title="Type">
-        <div class="filter-checkbox-outer">
-          <div *ngFor="let status of Type" class="filter-checkbox">
-            <input class="filter-checkbox-input" type="checkbox" name="type" id="{{status}}" (change)="toggleCheckboxType(status)">
-            <label class="filter-checkbox-label" for="{{status}}">
-              <img *ngIf="IsWired === status" src="../../../../../assets/icons/checkbox-checked.svg" />
-              <img *ngIf="IsWired !== status" src="../../../../../assets/icons/checkbox-unchecked.svg" />
-              <span>{{status}}</span>
-            </label>
+    <div class="scrolling">
+      <app-accordion>
+        <app-accordion-item title="Type">
+          <div class="filter-checkbox-outer">
+            <div *ngFor="let status of Type" class="filter-checkbox">
+              <input class="filter-checkbox-input" type="checkbox" name="type" id="{{status}}" (change)="toggleCheckboxType(status)">
+              <label class="filter-checkbox-label" for="{{status}}">
+                <img *ngIf="IsWired === status" src="../../../../../assets/icons/checkbox-checked.svg" />
+                <img *ngIf="IsWired !== status" src="../../../../../assets/icons/checkbox-unchecked.svg" />
+                <span>{{status}}</span>
+              </label>
+            </div>
           </div>
-        </div>
-      </app-accordion-item>
-      <app-accordion-item title="Brand">
-        <div class="filter-checkbox-outer">
-          <div *ngFor="let status of Brand" class="filter-checkbox">
-            <input class="filter-checkbox-input" type="checkbox" id="{{status}}" (change)="toggleCheckboxStatus(status)">
-            <label class="filter-checkbox-label" for="{{status}}">
-              <img *ngIf="Availability === status" src="../../../../../assets/icons/checkbox-checked.svg" />
-              <img *ngIf="Availability !== status" src="../../../../../assets/icons/checkbox-unchecked.svg" />
-              <span>{{status}}</span>
-            </label>
+        </app-accordion-item>
+        <app-accordion-item title="Brand">
+          <div class="filter-checkbox-outer">
+            <div *ngFor="let status of Brand" class="filter-checkbox">
+              <input class="filter-checkbox-input" type="checkbox" id="{{status}}" (change)="toggleCheckboxStatus(status)">
+              <label class="filter-checkbox-label" for="{{status}}">
+                <img *ngIf="Availability === status" src="../../../../../assets/icons/checkbox-checked.svg" />
+                <img *ngIf="Availability !== status" src="../../../../../assets/icons/checkbox-unchecked.svg" />
+                <span>{{status}}</span>
+              </label>
+            </div>
           </div>
-        </div>
-      </app-accordion-item>
-      <app-accordion-item title="StockStatus">
-        <div class="filter-checkbox-outer">
-          <div *ngFor="let status of StockStatus" class="filter-checkbox">
-            <input class="filter-checkbox-input" type="checkbox" id="{{status}}" [checked]="isSelectedStock(status)" (change)="toggleCheckboxStock(status)">
-            <label class="filter-checkbox-label" for="{{status}}">
-              <img *ngIf="isSelectedStock(status)" src="../../../../../assets/icons/checkbox-checked.svg" />
-              <img *ngIf="!isSelectedStock(status)" src="../../../../../assets/icons/checkbox-unchecked.svg" />
-              <span>{{status}}</span>
-            </label>
+        </app-accordion-item>
+        <app-accordion-item title="Stock Status">
+          <div class="filter-checkbox-outer">
+            <div *ngFor="let status of StockStatus" class="filter-checkbox">
+              <input class="filter-checkbox-input" type="checkbox" id="{{status}}" [checked]="isSelectedStock(status)" (change)="toggleCheckboxStock(status)">
+              <label class="filter-checkbox-label" for="{{status}}">
+                <img *ngIf="isSelectedStock(status)" src="../../../../../assets/icons/checkbox-checked.svg" />
+                <img *ngIf="!isSelectedStock(status)" src="../../../../../assets/icons/checkbox-unchecked.svg" />
+                <span>{{status}}</span>
+              </label>
+            </div>
           </div>
-        </div>
-      </app-accordion-item>
+        </app-accordion-item>
 
 
 
-    </app-accordion>
-
+      </app-accordion>
+    </div>
   </div>
   <div class="filter-footer">
     <div class="save-cancel-button">

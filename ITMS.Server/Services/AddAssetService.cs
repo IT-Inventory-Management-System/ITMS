@@ -17,6 +17,7 @@ namespace ITMS.Server.Services
         Task<IEnumerable<monitorInputDTO>> getMonitorBrands();
         Task<IEnumerable<getCGIDTO>> getCGIIDKeyboard();
         Task<IEnumerable<getCGIDTO>> getCGIIDCommon(string categoryName);
+        Task<IEnumerable<getCGIDTO>> getCGIIDMobile(string BrandName);
         Task<IEnumerable<GetBrandDTO>> getKeyboardComboBrand(commonInputDTO commonDTO);
         Task<IEnumerable<getBrand>> getBrandFromName(string categoryName);
         Task postMonitorDetails(MonitorDTO monitorDTO);
@@ -312,6 +313,15 @@ namespace ITMS.Server.Services
             }
             return "0"; // Default value if no dash is found or it's the last character
         }
+        private static string GetNoAfterLastDash(string input)
+        {
+            int lastDashIndex = input.LastIndexOf(' ');
+            if (lastDashIndex != -1 && lastDashIndex < input.Length - 1)
+            {
+                return input.Substring(lastDashIndex + 1);
+            }
+            return "0"; // Default value if no dash is found or it's the last character
+        }
         // Example of a method to retrieve category name by ID (replace with your actual implementation)
         private async Task<string> GetCategoryNameById(Guid categoryId)
         {
@@ -340,6 +350,44 @@ namespace ITMS.Server.Services
             return result;
         }
 
+        public async Task<IEnumerable<getCGIDTO>> getCGIIDMobile(string BrandName)
+        {
+            Dictionary<string, string> _categoryPrefixMap = new Dictionary<string, string>
+        {
+            { "Android", "CGI-MAnD" },
+            { "iPhone X", "CGI-MiPhX" },
+            { "iPhone 11", "CGI-MIP11" },
+            { "iPhone 12", "CGI-MIP12" },
+            { "iPad Wi-Fi 7th Gen", "CGI-MiPad" },
+           
+        };
+            //var categoryName = await GetCategoryNameById(categoryId);
 
+
+            if (BrandName == null || !_categoryPrefixMap.TryGetValue(BrandName, out string prefix))
+            {
+                return new List<getCGIDTO> { new getCGIDTO { CGIID = "0" } };
+            }
+
+            var result = await (from c in _context.Devices
+                                where c.Cygid.StartsWith(prefix)
+                                select new getCGIDTO
+                                {
+                                    CGIID = GetNoAfterLastDash(c.Cygid)
+                                })
+                    .ToListAsync();
+
+            if (result.Count == 0)
+            {
+                return new List<getCGIDTO> { new getCGIDTO { CGIID = "0" } };
+            }
+            else
+            {
+                result = result.OrderByDescending(c => int.Parse(c.CGIID)).ToList();
+                return result.Take(1);
+            }
+        }
+
+       
     }
 }

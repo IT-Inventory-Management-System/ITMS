@@ -2,7 +2,7 @@
 <app-assign-asset></app-assign-asset>
 <app-exit-process (initiateExitProcess)="onInitiateExitProcess(userDetails.id)" [laptopDetails]="laptopDetails" [accessoriesDetails]="accessoriesDetails" [userId]="userDetails?.id" [firstName]="userDetails?.firstName" [lastName]="userDetails?.lastName" [cgiid]="userDetails?.cgiid" [userEmail]="userDetails?.email"></app-exit-process>
 <app-confirmation-modal [userId]="userDetails?.id" [firstName]="userDetails?.firstName" [lastName]="userDetails?.lastName" [cgiid]="userDetails?.cgiid"></app-confirmation-modal>
-<app-revoke-all [laptopDetails]="laptopDetails" [accessoriesDetails]="accessoriesDetails" [softwareDetails]="softwareDetails" [userId]="userDetails?.id" [firstName]="userDetails?.firstName" [lastName]="userDetails?.lastName" [cgiid]="userDetails?.cgiid" (changeArchiveBanner)="changeArchiveBanner($event)" (changeOnHoldBanner)="changeOnHoldBanner($event)"></app-revoke-all>
+<app-revoke-all [laptopDetails]="laptopDetails" [revokePending]="revokePending" [accessoriesDetails]="accessoriesDetails" [softwareDetails]="softwareDetails" [userId]="userDetails?.id" [firstName]="userDetails?.firstName" [lastName]="userDetails?.lastName" [cgiid]="userDetails?.cgiid" (changeArchiveBanner)="changeArchiveBanner($event)" (changeOnHoldBanner)="changeOnHoldBanner($event)"></app-revoke-all>
 
 
 
@@ -77,10 +77,10 @@
     <div class="archive-alert-on-hold" *ngIf="userDetails?.onHold && !archiveBanner">
       <div class="top-content">
         <img class="archive-alert-img" src="../../assets/icons/Vector-black.svg" />
-        <p class="archive-text-days">The process is on hold</p>
+        <p class="onHold-text-days">The process is on hold</p>
       </div>
     <div class="alert-hold-button">
-      <div class="btn btn-hold" data-bs-toggle="modal" data-bs-target="#revokeAllModal">
+      <div class="btn btn-hold" data-bs-toggle="modal" data-bs-target="#revokeAllModal" (click)="toggleRevokePending()">
         <img src="../../assets/icons/Revoke.svg" />
         <p class="revoke-btn-text">Revoke Pending</p>
       </div>
