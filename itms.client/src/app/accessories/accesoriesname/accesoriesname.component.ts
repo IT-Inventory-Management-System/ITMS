@@ -56,6 +56,10 @@ export class AccesoriesnameComponent {
         iconFileName = 'server-blue.svg';
         break;
 
+      case 'android cables':
+        iconFileName = 'android-cables-blue.svg';
+        break;
+
       case 'apple thunderbolt(lan)':
         iconFileName = 'apple-thunderboltlan-blue.svg';
         break;
