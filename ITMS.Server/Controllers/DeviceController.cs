@@ -330,12 +330,16 @@ namespace itms.server.controllers
                 List<OneTimeAddDeviceDTO> failedModels = await _deviceService.PutSingleDeviceModel(uniqueDevices);
                 failedItemsAll.AddRange(failedModels);
 
-                List<OneTimeAddDeviceDTO> failedItems = await _deviceService.importDeviceData(detailsList);
+                List<OneTimeAddDeviceDTO> newListForDevice = detailsList.Except(failedItemsAll).ToList();
+
+                List<OneTimeAddDeviceDTO> failedItems = await _deviceService.importDeviceData(newListForDevice);
                 failedItemsAll.AddRange(failedItems);
+
+                List<OneTimeAddDeviceDTO> newListForDevicesLogs = detailsList.Except(failedItemsAll).ToList();
 
                 List<OneTimeAddDeviceDTO> devicelogsToBeSaved = new List<OneTimeAddDeviceDTO>();
 
-                foreach (var d in detailsList)
+                foreach (var d in newListForDevicesLogs)
                 {
                     if (!string.IsNullOrEmpty(d.DeviceLog))
                     {
