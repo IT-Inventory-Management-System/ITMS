@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import { DataService } from '../../../app/shared/services/data.service';
 import { ToastrService } from 'ngx-toastr';
+import { SelectedCountryService } from '../../shared/services/selected-country.service';
 
 
 @Component({
@@ -27,7 +28,7 @@ export class AddDeviceFormComponent implements OnInit {
   invalidCygIndices: number[] = [];
   UserId: any;
   userDataJSON: any;
-  constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService) {
+  constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService, private selectedCountryService: SelectedCountryService) {
     this.dropdownValues = [];
   }
 
@@ -36,10 +37,11 @@ export class AddDeviceFormComponent implements OnInit {
   ngOnInit(): void {
     this.getlaptopids();
     this.loadDropdownValues();
-    //this.loadDeviceData();
-
     this.createForm();
-    this.setlocationId();
+    this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
+      localStorage.setItem('selectedCountry', selectedCountry);
+      this.setlocationId();
+    });
     this.setStatus();
     this.userDataJSON = localStorage.getItem('user');
     var userData = JSON.parse(this.userDataJSON);
