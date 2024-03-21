@@ -232,5 +232,11 @@ export class DataService {
   getComboBrands(CategoryName: any): Observable<any[]> {
     return this.http.post<any | null>(this.apiUrl + 'asset/getKeyboardComboBrand', CategoryName);
   }
+
+
+  postExcelLaptopData(formData: any): Observable<any> {
+    return this.http.post(this.apiUrl + 'Device/one-time-add-devices', formData);
+  }
+
 }
 

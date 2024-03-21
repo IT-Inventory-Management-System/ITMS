@@ -60,6 +60,7 @@ namespace ITMS.Server.Controllers
             try
             {
                 List<OneTimePutBagDTO> failedItems = await _accessoriesService.OneTimePutBagService(listOfBags);
+                return Ok(failedItems);
             }
             catch (Exception ex)
             {

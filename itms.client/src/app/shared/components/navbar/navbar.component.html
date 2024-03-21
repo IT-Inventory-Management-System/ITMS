@@ -1,6 +1,7 @@
 <app-assign-asset></app-assign-asset>
 <app-add-user [selectedLocation]="selectedLocation"></app-add-user>
 <app-add-user-csv></app-add-user-csv>
+<app-import-data></app-import-data>
 
 <nav class="navbar navbar-expand-lg my-navbar">
   <div class="container-fluid">
@@ -60,6 +61,10 @@
           <div class="dropdown-both dropdown-btn" (click)="isOptionsVisible = !isOptionsVisible" data-bs-toggle="modal" data-bs-target="#UserModal">
             <img src="../../../../assets/icons/laptop-solid 2 (1).svg" />
             Add User Manually
+          </div>
+          <div class="dropdown-both dropdown-btn" (click)="isOptionsVisible = !isOptionsVisible" data-bs-toggle="modal" data-bs-target="#importDataModal">
+            <img src="../../../../assets/icons/laptop-solid 2 (1).svg" />
+            Import Data
           </div>
 
         </div>
