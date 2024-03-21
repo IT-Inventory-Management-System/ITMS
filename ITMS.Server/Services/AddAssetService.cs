@@ -313,6 +313,15 @@ namespace ITMS.Server.Services
             }
             return "0"; // Default value if no dash is found or it's the last character
         }
+        private static string GetNoAfterLastDash(string input)
+        {
+            int lastDashIndex = input.LastIndexOf(' ');
+            if (lastDashIndex != -1 && lastDashIndex < input.Length - 1)
+            {
+                return input.Substring(lastDashIndex + 1);
+            }
+            return "0"; // Default value if no dash is found or it's the last character
+        }
         // Example of a method to retrieve category name by ID (replace with your actual implementation)
         private async Task<string> GetCategoryNameById(Guid categoryId)
         {
@@ -364,7 +373,7 @@ namespace ITMS.Server.Services
                                 where c.Cygid.StartsWith(prefix)
                                 select new getCGIDTO
                                 {
-                                    CGIID = GetNumberAfterLastDash(c.Cygid)
+                                    CGIID = GetNoAfterLastDash(c.Cygid)
                                 })
                     .ToListAsync();
 
