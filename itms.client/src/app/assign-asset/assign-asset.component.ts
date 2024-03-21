@@ -329,6 +329,7 @@ export class AssignAssetComponent {
 
   saveChanges(): void {
     this.removeNullIndexInstances();
+
     //console.log('Form Values:', this.assignAssetForm.value);
     const userData = localStorage.getItem('user');
     if (!userData) {

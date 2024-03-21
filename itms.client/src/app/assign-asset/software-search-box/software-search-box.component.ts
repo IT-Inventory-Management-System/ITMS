@@ -38,7 +38,7 @@ export class SoftwareSearchBoxComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['selectedOptionVersion']) {
-      alert("changed");
+      //alert("changed");
     }
   }
 

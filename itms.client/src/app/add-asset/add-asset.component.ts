@@ -35,7 +35,7 @@ export class AddAssetComponent {
   }
 
   handleStorageChange(event: StorageEvent): void {
-    alert(event.newValue);
+  //  alert(event.newValue);
     if (event.key === 'selectedCategory') {
       this.selectedCategory = event.newValue;
     }
