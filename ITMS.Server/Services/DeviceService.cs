@@ -930,6 +930,13 @@ public class DeviceService
         }
         return failedItems;
     }
+    public async Task<bool> CheckIfAssigned(string[] Devicelog)
+    {
+        string dl = Devicelog[Devicelog.Length - 1];
+        string trimmedDl = dl.Trim(' ');
+        return trimmedDl.ToLower() != "in stock";
+
+    }
     public async Task<List<OneTimeAddDeviceDTO>> PutSingleDevice_DeviceLog(List<OneTimeAddDeviceDTO> detailsList)
     {
         List<OneTimeAddDeviceDTO> failedItems = new List<OneTimeAddDeviceDTO>();
@@ -938,11 +945,15 @@ public class DeviceService
         {
             try
             {
-                string[] Devicelog = d.DeviceLog.Split('(',')');
+                string[] Devicelog = d.DeviceLog.Split(new char[] { '(', ')' }, StringSplitOptions.RemoveEmptyEntries);
+                var assignedTo = await CheckIfAssigned(Devicelog);
 
-                foreach (var dl in Devicelog)
+                for (var i=0;i<Devicelog.Length;i++)
                 {
+                    
+                    var dl = Devicelog[i];
                     string trimmedDl = dl.Trim(' ');
+
                     if (trimmedDl.ToLower() == "in stock"||string.IsNullOrEmpty(trimmedDl))
                     {
                         continue;
@@ -954,19 +965,22 @@ public class DeviceService
                             DeviceId = await _context.Devices.Where(dc => dc.Cygid == d.Cygid).Select(d => d.Id).FirstOrDefaultAsync(),
                             EmployeeId = await _context.Employees.Where(e => string.Concat(e.FirstName," ",e.LastName).ToLower() == trimmedDl.ToLower()).Select(e => e.Id).FirstOrDefaultAsync(),
                             AssignedBy = d.LoggedIn,
-                            RecievedBy = d.LoggedIn,
-                            RecievedDate = DateTime.UtcNow,
+                            RecievedBy = (i == Devicelog.Length-1) && (assignedTo==true)?null:d.LoggedIn,
+                            RecievedDate = (i == Devicelog.Length - 1) && (assignedTo == true) ? null : DateTime.UtcNow,
+                            AssignedDate = DateTime.UtcNow,
+                            AllotedDate = DateTime.UtcNow,
                             CreatedBy = d.LoggedIn,
                             UpdatedBy = d.LoggedIn,
                             CreatedAtUtc = DateTime.UtcNow,
                             UpdatedAtUtc = DateTime.UtcNow,
-                            ActionId = await _context.ActionTables.Where(a => a.ActionName.ToLower() == "submitted").Select(e => e.Id).FirstOrDefaultAsync(),
+                            ActionId = (i == Devicelog.Length - 1) && (assignedTo == true) ? await _context.ActionTables.Where(a => a.ActionName.ToLower() == "assigned").Select(e => e.Id).FirstOrDefaultAsync() : await _context.ActionTables.Where(a => a.ActionName.ToLower() == "submitted").Select(e => e.Id).FirstOrDefaultAsync(),
                         };
 
                         _context.DevicesLogs.Add(deviceLog);
                         await _context.SaveChangesAsync();
                     }catch(Exception ex)
                     {
+                        d.DeviceLog = dl; 
                         failedItems.Add(d);
                     }
                 }

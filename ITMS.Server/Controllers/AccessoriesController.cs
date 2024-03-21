@@ -54,17 +54,18 @@ namespace ITMS.Server.Controllers
 
         }
 
-        //[HttpPost("OneTimePutBag")]
-        //public async Task<ActionResult> OneTimePutBag([FromBody] List<OneTimePutBagDTO> listOfBags)
-        //{
-        //    try
-        //    {
-        //        List<OneTimePutBagDTO> failedItems = await _accessoriesService.OneTimePutBagService(listOfBags);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //}
+        [HttpPost("OneTimePutBag")]
+        public async Task<ActionResult> OneTimePutBag([FromBody] List<OneTimePutBagDTO> listOfBags)
+        {
+            try
+            {
+                List<OneTimePutBagDTO> failedItems = await _accessoriesService.OneTimePutBagService(listOfBags);
+                return Ok(failedItems);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
