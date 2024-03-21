@@ -84,7 +84,7 @@ export class AddSoftwareFormComponent {
       softwareId: [null, Validators.required],
       activationKey: [null, Validators.required],
       purchasedDate: [null, Validators.required],
-      expiryDate: [null, Validators.required],
+      expiryDate: [null],
       qty: [null, Validators.required],
       version: [null, Validators.required],
       assignedTo: [null],
@@ -218,10 +218,10 @@ export class AddSoftwareFormComponent {
     }
 
     else if (this.selectedTypeName == 'Validity') {
-      return this.SoftwareForm.get('purchasedDate')?.value != null && this.SoftwareForm.get('activationKey')?.value != null && this.SoftwareForm.get('qty')?.value != null && this.SoftwareForm.get('expiryDate')?.value != null;
+      return this.SoftwareForm.get('purchasedDate')?.value != null && this.SoftwareForm.get('activationKey')?.value != null && this.SoftwareForm.get('qty')?.value != null ;
     }
 
-    return this.SoftwareForm.get('purchasedDate')?.value != null && this.SoftwareForm.get('qty')?.value != null && this.SoftwareForm.get('expiryDate')?.value != null;
+    return this.SoftwareForm.get('purchasedDate')?.value != null && this.SoftwareForm.get('qty')?.value != null ;
   }
 
   onSubmit() {

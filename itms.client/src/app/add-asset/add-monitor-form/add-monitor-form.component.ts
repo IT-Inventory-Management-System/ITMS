@@ -149,8 +149,8 @@ if (this.counterValue > 0) {
     var isQuantity = this.counterValue > 0;
     var isPurchasedOn = this.deviceForm.get('purchaseddate')?.value != '';
     var screensize = this.deviceForm.get('screensize')?.value != '';
-    var isWarrantyDate = this.deviceForm.get('warrantydate')?.value != null;
-    return isDeviceId && isQuantity && isPurchasedOn && isWarrantyDate && screensize;
+   // var isWarrantyDate = this.deviceForm.get('warrantydate')?.value != null;
+    return isDeviceId && isQuantity && isPurchasedOn  && screensize;
   }
   next() {
 
@@ -272,7 +272,7 @@ if (this.counterValue > 0) {
     if (this.deviceForm.valid && this.showErrorMessage == false) {
 
 
-      //console.log(this.deviceForm.value);
+      console.log(this.deviceForm.value);
 
       this.dataService.postMonitorDetails(this.deviceForm.value).subscribe(
         response => {

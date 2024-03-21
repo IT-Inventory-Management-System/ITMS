@@ -154,8 +154,8 @@ export class AddMobileDevicesComponent {
     var isDeviceId = this.addDeviceForm.get('deviceModelId')?.value != null;
     var isQuantity = this.counterValue > 0;
     var isPurchasedOn = this.addDeviceForm.get('purchaseddate')?.value != '';
-    var isWarrantyDate = this.addDeviceForm.get('warrantydate')?.value != null;
-    return isDeviceId && isQuantity && isPurchasedOn && isWarrantyDate;
+    //var isWarrantyDate = this.addDeviceForm.get('warrantydate')?.value != null;
+    return isDeviceId && isQuantity && isPurchasedOn ;
   }
   next() {
 
