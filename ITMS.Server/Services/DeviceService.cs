@@ -955,7 +955,7 @@ public class DeviceService
                             UpdatedBy = d.LoggedIn,
                             CreatedAtUtc = DateTime.UtcNow,
                             UpdatedAtUtc = DateTime.UtcNow,
-                            ActionId = await _context.ActionTables.Where(a => a.ActionName == "Submitted").Select(e => e.Id).FirstOrDefaultAsync(),
+                            ActionId = await _context.ActionTables.Where(a => a.ActionName.ToLower() == "submitted").Select(e => e.Id).FirstOrDefaultAsync(),
                         };
 
                         _context.DevicesLogs.Add(deviceLog);
@@ -992,8 +992,8 @@ public class DeviceService
 
             else
             {
-                var status = getStatus(inputDto.DeviceLog); 
-                var assigned = getAssignedTo(inputDto.DeviceLog);
+                var status = await getStatus(inputDto.DeviceLog); 
+                var assigned = await getAssignedTo(inputDto.DeviceLog);
                 inputDto.SerialNo = RemoveTag(inputDto.SerialNo);
 
                 try
@@ -1010,7 +1010,7 @@ public class DeviceService
                     deviceItem.LocationId = inputDto.locationId;
                     deviceItem.Status = await _context.Statuses.Where(s => s.Type.ToLower() == status.ToLower()).Select(s => s.Id).FirstOrDefaultAsync();
                     deviceItem.DeviceModelId = await _context.DeviceModel.Where(dm => dm.DeviceName.ToLower() == inputDto.FullDeviceName.ToLower()).Select(d => d.Id).FirstOrDefaultAsync();
-                    deviceItem.AssignedTo = assigned == null ? null : await _context.Employees.Where(e => string.Concat(e.FirstName + " " + e.LastName).ToLower() == assigned.ToLower().Select(e => e.Id).FirstOrDefaultAsync();
+                    deviceItem.AssignedTo = assigned == null ? null : await _context.Employees.Where(e => string.Concat(e.FirstName, " ", e.LastName).ToLower() == assigned.ToLower()).Select(e => e.Id).FirstOrDefaultAsync();
                     deviceItem.AssignedDate = assigned == null ? null : DateTime.UtcNow;
                     deviceItem.AssignedBy = assigned == null ? null : inputDto.LoggedIn;
                     _context.Devices.Add(deviceItem);
@@ -1050,7 +1050,7 @@ public class DeviceService
         return input;
     }
 
-    static string getStatus(string input)
+    async static Task<string> getStatus(string input)
     {
         string pattern = @"\b(\w+\s+\w+)\b|\bIN Stock\b";
         var matches = new System.Collections.Generic.List<string>();
@@ -1071,7 +1071,7 @@ public class DeviceService
         return "Assigned";
     }
 
-    static string getAssignedTo(string input)
+    async static Task<string> getAssignedTo(string input)
     {
         string pattern = @"\b(\w+\s+\w+)\b|\bIN Stock\b";
         var matches = new System.Collections.Generic.List<string>();
