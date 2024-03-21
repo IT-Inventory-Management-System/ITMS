@@ -16,7 +16,7 @@ export class EmployeeComponent {
   accessoriesDetails: any;
   //archive users
   showArchiveUsers: boolean = false;
-
+  loading: boolean = true;
 
   constructor(private employeeService: EmployeeService) {
 
@@ -29,6 +29,7 @@ export class EmployeeComponent {
   }
 
   getDevices(userId: any): void {
+    this.loading = true;
     this.employeeService.getDevices(userId)
       .subscribe(
         (data: any) => {
@@ -39,6 +40,7 @@ export class EmployeeComponent {
           console.log(this.laptopDetails);
           console.log(this.softwareDetails);
           console.log(this.accessoriesDetails);
+          this.loading = false;
         },
         (error) => {
           console.error('Error fetching laptop details:', error);

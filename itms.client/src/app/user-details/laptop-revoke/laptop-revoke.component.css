@@ -227,25 +227,109 @@
   background-color: #28519E;
 }
 .received input[type="radio"] {
-  display: none;
+  color:blue;
+}
+#receivedYes {
+  height: 1rem;
+  width: 1rem;
+  bottom: 5rem;
+  accent-color: var(--primary-blue, #28519e);
+  vertical-align: middle;
+  display: inline-block;
 }
 
-/* Style labels to use SVG icons as background images */
-.received label {
+#receivedNo {
+  height: 1rem;
+  width: 1rem;
+  bottom: 5rem;
+  accent-color: var(--primary-blue, #28519e);
+  vertical-align: middle;
   display: inline-block;
-  vertical-align: middle; /* Align the labels vertically with the image */
-  cursor: pointer;
-  background-image: url('../../../assets/icons/Component 2.svg'); /* Replace with path to your blue SVG icon */
-  padding-left: 30px; /* Adjust this value based on the width of your image */
-  background-repeat: no-repeat;
-  background-position: left center; /* Align the image to the left */
-  background-size: 20px 20px;
 }
+
+#perfect {
+  height: 1rem;
+  width: 1rem;
+  bottom: 5rem;
+  accent-color: var(--primary-blue, #28519e);
+  vertical-align: middle;
+  display: inline-block;
+}
+
+#unassignable {
+  height: 1rem;
+  width: 1rem;
+  bottom: 5rem;
+  accent-color: var(--primary-blue, #28519e);
+  vertical-align: middle;
+  display: inline-block;
+}
+
+#submittedLater {
+  height: 1rem;
+  width: 1rem;
+  bottom: 5rem;
+  accent-color: var(--primary-blue, #28519e);
+  vertical-align: middle;
+  display: inline-block;
+}
+
+#lostNotReceived {
+  height: 1rem;
+  width: 1rem;
+  bottom: 5rem;
+  accent-color: var(--primary-blue, #28519e);
+  vertical-align: middle;
+  display: inline-block;
+}
+
+.yes {
+  font-family: Roboto;
+  font-size: 0.6125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.no {
+  font-family: Roboto;
+  font-size: 0.6125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.perfect {
+  font-family: Roboto;
+  font-size: 0.6125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 100;
+}
+
+.unassignable {
+  font-family: Roboto;
+  font-size: 0.6125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+/* Style labels to use SVG icons as background images */
+/*.received label {
+  display: inline-block;
+  vertical-align: middle;*/ /* Align the labels vertically with the image */
+  /*cursor: pointer;
+  background-image: url('../../../assets/icons/Component 2.svg');*/ /* Replace with path to your blue SVG icon */
+  /*padding-left: 30px;*/ /* Adjust this value based on the width of your image */
+  /*background-repeat: no-repeat;
+  background-position: left center;*/ /* Align the image to the left */
+  /*background-size: 20px 20px;
+}*/
 
 /* Style labels for checked state */
-.received input[type="radio"]:checked + label {
-  background-image: url('../../../assets/icons/Component 2_checked.svg') /* Replace with path to your blue checked SVG icon */
-}
+/*.received input[type="radio"]:checked + label {
+  background-image: url('../../../assets/icons/Component 2_checked.svg')*/ /* Replace with path to your blue checked SVG icon */
+/*}*/
 .received {
   color: var(--Primary-Gray, #343435);
   font-family: Roboto;

@@ -25,6 +25,11 @@
   animation: spin 1s linear infinite;
 }
 
+.spinner-loading{
+    margin-left:90%;
+    margin-top:55%;
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);
