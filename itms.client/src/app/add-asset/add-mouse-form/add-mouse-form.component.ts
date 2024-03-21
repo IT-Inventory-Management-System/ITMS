@@ -94,7 +94,7 @@ export class AddMouseFormComponent {
       deviceModelId: [null, Validators.required],
       qty: [0, Validators.required],
       purchaseddate: ['', Validators.required],
-      warrantydate: [null, Validators.required],
+      warrantydate: [null],
       deviceId: this.fb.array([]),
       createdBy: [''],
       updatedBy: [''],
@@ -147,8 +147,8 @@ export class AddMouseFormComponent {
     var isDeviceId = this.addDeviceForm.get('deviceModelId')?.value != null;
     var isQuantity = this.counterValue > 0;
     var isPurchasedOn = this.addDeviceForm.get('purchaseddate')?.value != '';
-    var isWarrantyDate = this.addDeviceForm.get('warrantydate')?.value != null;
-    return isDeviceId && isQuantity && isPurchasedOn && isWarrantyDate;
+   // var isWarrantyDate = this.addDeviceForm.get('warrantydate')?.value != null;
+    return isDeviceId && isQuantity && isPurchasedOn ;
   }
   next() {
    

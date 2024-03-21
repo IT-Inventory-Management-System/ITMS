@@ -60,7 +60,7 @@
         <div class="col-6 purchase-date-section">
           <label for="VEdate" class="form-label required-field">Expiry Date</label>
 
-          <input type="date" class="form-control" id="VEdate" placeholder="12-15-2023" formControlName="expiryDate" (focus)="hideErrorMessage()" [class.error-textarea]="showErrorMessage && !SoftwareForm.get('expiryDate')?.value" min="{{ PurchasedDate() }}"/>
+          <input type="date" class="form-control" id="VEdate" placeholder="12-15-2023" formControlName="expiryDate"  min="{{ PurchasedDate() }}"/>
           <img src="../../../assets/icons/calendar.svg" />
 
         </div>
@@ -108,7 +108,7 @@
         <div class="col-6 purchase-date-section">
           <label for="Edate" class="form-label required-field">Expiry Date</label>
 
-          <input type="date" class="form-control" id="Edate" placeholder="12-15-2023" formControlName="expiryDate" (focus)="hideErrorMessage()" [class.error-textarea]="showErrorMessage && !SoftwareForm.get('expiryDate')?.value" />
+          <input type="date" class="form-control" id="Edate" placeholder="12-15-2023" formControlName="expiryDate"  />
           <img src="../../../assets/icons/calendar.svg" />
 
         </div>
