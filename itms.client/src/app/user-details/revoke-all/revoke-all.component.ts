@@ -58,11 +58,11 @@ export class RevokeAllComponent {
   // Filter the details in ngOnChanges lifecycle hook
   ngOnChanges() {
     if (this['laptopDetails'] && Array.isArray(this['laptopDetails']))
-      this.filteredLaptopDetails = this['laptopDetails'].filter((laptop: any) => laptop.submitedBy === null || (laptop.actionName === 'Assigned' || laptop.actionName === 'assigned'));
+      this.filteredLaptopDetails = this['laptopDetails'].filter((laptop: any) => laptop.submitedBy === null || (laptop.actionName != 'Submitted' || laptop.actionName != 'submitted' || laptop.actionName != 'Unassignable' || laptop.actionName != 'unassignable' || laptop.actionName != 'Lost' || laptop.actionName != 'lost'));
     if (this['softwareDetails'] && Array.isArray(this['softwareDetails']))
       this.filteredSoftwareDetails = this['softwareDetails'].filter((software: any) => software.recievedBy === null);
     if (this['accessoriesDetails'] && Array.isArray(this['accessoriesDetails']))
-      this.filteredAccessoriesDetails = this['accessoriesDetails'].filter((accessory: any) => accessory.submittedBy === null || (accessory.actionName === 'Assigned' || accessory.actionName === 'assigned') );
+      this.filteredAccessoriesDetails = this['accessoriesDetails'].filter((accessory: any) => accessory.submittedBy === null || (accessory.actionName != 'Submitted' || accessory.actionName != 'submitted' || accessory.actionName != 'Unassignable' || accessory.actionName != 'unassignable' || accessory.actionName != 'Lost' || accessory.actionName != 'lost'));
   }
   constructor(private formBuilder: FormBuilder, private toastr: ToastrService, private revokeAllService: EmployeeService, private actionService: EmployeeService, private employeeService: EmployeeService, private cdr: ChangeDetectorRef) {
     this.revokeAllForm = this.formBuilder.group({
@@ -185,13 +185,7 @@ export class RevokeAllComponent {
 
     this.revokeAllService.revokeAll(formData).subscribe(
       (response) => {
-        // console.log("user id is: ", this.userId);
-        // console.log("response of recent is :", response);
-
-        // Set laptop details
-
-       // console.log("the recent response is ", response);
-       // console.log("laptop details is:", response.laptopResults);
+       
 
         const SubmitLaterActionId = this.actionsArray.find(a => a.actionName === 'Assigned' || a.actionName === 'assigned').id;
 
@@ -284,10 +278,6 @@ export class RevokeAllComponent {
         } else {
          // console.log("No software results found.");
         }
-
-
-        //console.log('Data saved successfully', response);
-        //this.revokeAllForm.reset();
         this.toastr.success('Exit Process Successful');
       },
       (error) => {
