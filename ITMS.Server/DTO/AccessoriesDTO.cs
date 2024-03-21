@@ -34,12 +34,16 @@
         public DateTime updatedAt { get; set; }
         public bool isArchived { get; set; }
         public DateTime purchaseddate { get; set; }
-        public DateTime warrantydate { get; set; }
+        public DateTime? warrantydate { get; set; }
 
     }
     public class getCGIDTO
     {
         public string CGIID { get; set; }
+    }
+    public class getCGIMobile
+    {
+        public string Brand { get; set; }
     }
     public class getBrand
     {
@@ -48,6 +52,10 @@
     public class commonInputDTO
     {
         public string? Name { get; set; }
+    }
+    public class mobileInputDTO
+    { 
+        public string Brand { get; set; }
     }
     public class getAccessoriesDTO
     {
@@ -102,7 +110,7 @@
         public DateTime updatedAt { get; set; }
         public bool isArchived { get; set; }
         public DateTime purchaseddate { get; set; }
-        public DateTime warrantydate { get; set; }
+        public DateTime? warrantydate { get; set; }
 
     }
     public class CommonDeviceDTO
@@ -118,7 +126,15 @@
         public DateTime updatedAt { get; set; }
         public bool isArchived { get; set; }
         public DateTime purchaseddate { get; set; }
-        public DateTime warrantydate { get; set; }
+        public DateTime? warrantydate { get; set; }
 
+    }
+
+    public class OneTimePutBagDTO
+    {
+        public DateTime? Purchaseddate { get; set; }
+        public string? AssignedTo { get; set; }
+        public Guid LoggedIn { get; set; }
+        public Guid locationId { get; set;}
     }
 }

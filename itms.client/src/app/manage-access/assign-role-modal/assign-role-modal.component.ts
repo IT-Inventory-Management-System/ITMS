@@ -3,6 +3,7 @@ import { DataService } from '../../shared/services/data.service';
 import { SelectedCountryService } from '../../shared/services/selected-country.service';
 import { DisplayDetailsService } from '../../shared/services/display-details.service';
 import { AdminDetailService } from '../../shared/services/admin-detail.service';
+import { EmployeeService } from '../../shared/services/Employee.service';
 
 @Component({
   selector: 'app-assign-role-modal',
@@ -10,7 +11,7 @@ import { AdminDetailService } from '../../shared/services/admin-detail.service';
   styleUrls: ['./assign-role-modal.component.css']
 })
 export class AssignRoleModalComponent {
-  constructor(private dataService: DataService, private selectedCountryService: SelectedCountryService, private displayingDetailsService: DisplayDetailsService, private adminDetailService: AdminDetailService) { }
+  constructor(private dataService: DataService, private selectedCountryService: SelectedCountryService, private displayingDetailsService: DisplayDetailsService, private adminDetailService: AdminDetailService, private userListChange: EmployeeService) { }
 
   userDataList: any[] = [];
   locationId: string = '';
@@ -69,7 +70,6 @@ export class AssignRoleModalComponent {
         for (var i = 0; i < data.length; i++) {
           if (data[i].type == localStorage.getItem('selectedCountry')) {
             this.locationId = data[i].id;
-            //alert(this.locationId);
             this.loadUserData();
             break;
           }
@@ -85,9 +85,7 @@ export class AssignRoleModalComponent {
     this.displayingDetailsService.getshowUserListData(this.locationId).subscribe(
       (data) => {
         this.userDataList = data;
-        this.userDataList = data.sort((a, b) => a.cgiid.localeCompare(b.cgiid));
-       // console.log(this.userDataList);
- 
+        this.userDataList = data.sort((a, b) => a.cgiid.localeCompare(b.cgiid)); 
       },
       (error) => {
         console.log('Error in API request : ', error);
@@ -106,11 +104,9 @@ export class AssignRoleModalComponent {
       newRole: this.selectedRole
     };
 
-   // console.log(userData);
-
     this.dataService.changeUserRole(userData).subscribe(
       (response) => {
-      //  console.log(response);
+        this.selectedUser = null;
         this.adminDetailService.notifyAdminListChanged();
       },
       (error) => {
@@ -122,6 +118,10 @@ export class AssignRoleModalComponent {
   ngOnInit(): void {
     this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
       localStorage.setItem('selectedCountry', selectedCountry);
+      this.getUserLocation();
+    });
+
+    this.userListChange.userListChanged$.subscribe(() => {
       this.getUserLocation();
     });
   }

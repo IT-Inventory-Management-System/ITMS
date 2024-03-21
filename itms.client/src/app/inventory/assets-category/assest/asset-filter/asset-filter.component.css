@@ -9,18 +9,26 @@
   gap: 1.25rem;
   margin-left: 74%;
   display: none;
-  margin-top: 4rem;
+  margin-top: 1.3rem; /* Move the modal up by 5rem */
   height: 35.75rem;
+  position: fixed;
+  top: 0;
+  right: 0; /* Position the modal to the right edge */
+  margin-left: calc(100% - 22.5rem); /* Adjust the value accordingly */
 }
 
-.criteria{
-  overflow-y: scroll;
-  margin-top: 1.25rem;
-  
+@media screen and (min-width: 1560px) {
+  #filterModal {
+    margin-left: 55.8% !important;
+    margin-top: 11rem !important;
+    height: 40.25rem !important;
+  }
 }
+
+
 .scrolling {
   overflow-y: scroll;
-  height: 35.75rem;
+  max-height: 25rem;
 }
 .filtersection {
   border-bottom: 1px solid var(--Secondary-Light-Gray, #E9ECEB);
@@ -29,6 +37,10 @@
   justify-content: space-between;
   align-items: flex-start;
   align-self: stretch;
+  position: fixed;
+  width: 100vw;
+  max-width: 22.5rem;
+  position: relative;
 }
 
 .tab {
@@ -38,6 +50,7 @@
   justify-content: space-between;
   align-items: center;
   flex: 1 0 0;
+  max-width: 5rem;
 }
 
 
@@ -63,8 +76,9 @@
   padding: 0rem 1rem;
   flex-direction: column;
   align-items: flex-end;
-  gap: 1.5rem;
+  gap: 1rem;
   align-self: stretch;
+  margin-top: 1rem;
 }
 
 .criteria-text {
@@ -248,6 +262,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   align-items: center;
   justify-content: center;
   gap: 0.625rem;
+  /*position: fixed;
+  bottom: 1rem;*/
+  position: absolute;
+  bottom: 0;
 }
 
 .save-cancel-button {
@@ -286,6 +304,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   gap: 0.5rem;
   flex: 1 0 0;
   border-radius: 0.25rem;
+  border:none;
   background: var(--Primary-Blue, #28519E);
 }
 

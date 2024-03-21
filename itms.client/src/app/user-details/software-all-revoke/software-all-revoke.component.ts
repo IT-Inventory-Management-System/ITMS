@@ -16,6 +16,7 @@ export class SoftwareAllRevokeComponent {
   @Input() actionsArray: any[];
   @Output() nextBtn: EventEmitter<boolean> = new EventEmitter<boolean>();
   SubmittedAction: any;
+  softwareCount: number = 0;
   constructor(private formBuilder: FormBuilder) { }
   ngOnChanges() {
   //  console.log(this.softwareDetails);
@@ -24,7 +25,17 @@ export class SoftwareAllRevokeComponent {
       this.SubmittedAction = this.actionsArray.find(a => a.actionName === 'Submitted' || a.actionName === 'submitted');
       this.initializeSoftwareFormArray();
     }
+
+    this.softwareCount = 0;
+    if (this.softwareDetails && this.softwareDetails.length) {
+      for (const software of this.softwareDetails) {
+        if (software.recievedBy === null) {
+          this.softwareCount++;
+        }
+      }
     }
+    
+ }
 
   initializeSoftwareFormArray() {
     const SoftwareArray = this.revokeAllForm.get('Software') as FormArray;

@@ -11,22 +11,32 @@
   gap: 1.25rem;
   margin-left: 74%;
   display: none;
-  margin-top: 4rem;
+  margin-top: 1.3rem;
   height: 35.75rem;
+  position: fixed;
+  top: 0;
+  right: 0; /* Position the modal to the right edge */
+  margin-left: calc(100% - 22.5rem); /* Adjust the value accordingly */
 }
 
-@media screen and (min-width: 2560px) {
+@media screen and (min-width: 1560px) {
   #filterModal {
-    margin-left: 100rem!important;
-    margin-top:9rem!important;
+    margin-left: 63.6% !important;
+    margin-top: 10rem !important;
+    height: 35.25rem !important;
   }
 }
 
 .criteria {
   overflow: scroll;
   margin-top: 1.25rem;
+  
 }
 
+.scrolling {
+  overflow-y: scroll;
+  max-height: 25rem;
+}
 .filtersection {
   border-bottom: 1px solid var(--Secondary-Light-Gray, #E9ECEB);
   display: flex;
@@ -34,6 +44,10 @@
   justify-content: space-between;
   align-items: flex-start;
   align-self: stretch;
+  position: fixed;
+  width: 100vw;
+  max-width: 22.5rem;
+  position: relative;
 }
 
 .tab {
@@ -43,6 +57,7 @@
   justify-content: space-between;
   align-items: center;
   flex: 1 0 0;
+  max-width: 5rem;
 }
 
 
@@ -70,6 +85,7 @@
   align-items: flex-end;
   gap: 1.5rem;
   align-self: stretch;
+  margin-top:1rem;
 }
 
 .criteria-text {
@@ -110,7 +126,9 @@
   gap: 0.5rem;
 }
 
-
+.close{
+    cursor:pointer;
+}
 
 .cancle-apply {
   display: flex;
@@ -253,7 +271,11 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   align-items: center;
   justify-content: center;
   gap: 0.625rem;
-  margin-left:1rem;
+  position: fixed;
+  bottom: 1rem;
+  margin-left: 1rem;
+  position: absolute;
+  bottom: 0;
 }
 
 .save-cancel-button {
@@ -294,6 +316,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   flex: 1 0 0;
   border-radius: 0.25rem;
   background: var(--Primary-Blue, #28519E);
+  border:none;
+
 }
 
   .filter-save-button span {

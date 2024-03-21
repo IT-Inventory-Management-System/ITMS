@@ -31,15 +31,18 @@
             <div class="stepper-stepper1">
               <img *ngIf="currentStep === 1" src="../../../assets/icons/Accessories-light.svg"/>
               <img *ngIf="currentStep === 2" src="../../../../assets/icons/Accessories-light.svg" />
-              <img *ngIf="currentStep === 3" src="../../../assets/icons/Accessories.svg" />
+              <img *ngIf="currentStep === 3" src="../../../assets/icons/accessories-primary-blue.svg" />
               <img *ngIf="currentStep > 3" src="../../../assets/icons/completed.svg" />
               <span class="stepper-text"><span>Accessories</span></span>
             </div>
           </div>
         </div>
+
         <app-laptop-all-revoke *ngIf="currentStep === 1" (nextBtn)="onVariable1Change($event)" [actionsArray]="actionsArray" [revokeAllForm]="revokeAllForm" [laptopDetails]="filteredLaptopDetails" [userId]="userId" [firstName]="firstName" [lastName]="lastName" [cgiid]="cgiid"></app-laptop-all-revoke>
         <app-accessories-all-revoke *ngIf="currentStep === 3" (saveBtn)="onVariable3Change($event)" [actionsArray]="actionsArray" [revokeAllForm]="revokeAllForm" [accessoriesDetails]="filteredAccessoriesDetails" [userId]="userId" [firstName]="firstName" [lastName]="lastName" [cgiid]="cgiid"></app-accessories-all-revoke>
         <app-software-all-revoke *ngIf="currentStep === 2" (nextBtn)="onVariable2Change" [actionsArray]="actionsArray" [revokeAllForm]="revokeAllForm" [softwareDetails]="filteredSoftwareDetails" [userId]="userId" [firstName]="firstName" [lastName]="lastName" [cgiid]="cgiid"></app-software-all-revoke>
+
+
       </div>
       <div class="modal-footer">
         <div class="footer">
@@ -55,7 +58,7 @@
                     class="btn-save"
                     [attr.data-bs-dismiss]="currentStep === 3 ? 'modal' : null"
                     (click)="currentStep === 3 ?  saveAndDismiss() : nextStep()"
-                    [disabled]="isButtonDisabled">
+                    >
               {{ getButtonText() }}
             </button>
           </div>

@@ -9,7 +9,7 @@
 
 <ng-template #content>
 
-    <div class="my-dashboard me-0 p-0" *ngIf="!loading && logsData">
+    <div class="my-dashboard me-0 p-0 " *ngIf="!loading && logsData">
       <div class="header ms-0 me-0">
         <div class="dashboard-title">
           Dashboard
@@ -18,12 +18,11 @@
           <div class="row lastupdaterow ">
             <span class="last-update ">
               Last Updated:
-              <span class="Time" *ngIf="logsData.length!=0">
+              <span class="Time" >
                 {{dashBoardTime()}}
                 <!--{{ selectedLocation === 'India' ? (indTime | date: 'MM-dd-yyyy')+", "+ localizeDateStr(indTime) :(indTime | date: 'MM-dd-yyyy')+", "+ localizeDateStr(usaTime) }}-->
                 <!--{{ selectedLocation === 'India' ? (indTime | date: 'MM-dd-yyyy, h:mm a') : (usaTime | date: 'MM-dd-yyyy, h:mm a') }}-->
               </span>
-              <span class="Time" *ngIf="logsData.length==0">00-00-0000, 00:00 AM</span>
             </span>
 
           </div>
@@ -167,15 +166,6 @@
             </div>
             <div class=" container-fluid Recent-Activity-Content m-0 p-0">
               <div class="Frame">
-                <!--<div class="Date">
-                  <hr class="h-line">
-                  <div class="Date-content">
-                    <img src="../../../assets/icons/dashboard/CalendarBlank.svg" />
-                    <span class="date-title">12-1-2024</span>
-                  </div>
-                  <hr class="h-line">
-
-                </div>-->
                 <div class="container-fluid" *ngIf="logsData.length!=0">
 
 
@@ -195,20 +185,6 @@
 
 
                   </div>
-                  <!--<div class="Date">
-                    <hr class="h-line">
-                    <div class="Date-content">
-                      <img src="../../../assets/icons/dashboard/CalendarBlank.svg" />
-                      <span class="date-title">12-1-2024</span>
-                    </div>
-                    <hr class="h-line">
-
-                  </div>-->
-                  <!--<div class=" row Section2 ">
-                    <app-recent-activity></app-recent-activity>
-
-
-                  </div>-->
                 </div>
               </div>
             </div>

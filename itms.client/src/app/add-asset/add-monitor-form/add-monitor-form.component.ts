@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DataService } from '../../shared/services/data.service';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { SelectedCountryService } from '../../shared/services/selected-country.service';
 
 @Component({
   selector: 'app-add-monitor-form',
@@ -30,7 +31,11 @@ export class AddMonitorFormComponent {
     
     this.getCgi();
     this.setStatus();
-    this.setlocationId();
+    //this.setlocationId();
+    this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
+      localStorage.setItem('selectedCountry', selectedCountry);
+      this.setlocationId();
+    });
     this.createForm(); 
     this.loadMouseBrand();
     this.userDataJSON = localStorage.getItem('user');
@@ -42,9 +47,36 @@ export class AddMonitorFormComponent {
     this.UserId = userData.id;
   }
  
-  constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService) {
+  constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService, private selectedCountryService: SelectedCountryService) {
 
   }
+
+  getCurrentDate(): string {
+    const today = new Date();
+    const year = today.getFullYear();
+    let month = '' + (today.getMonth() + 1);
+    let day = '' + today.getDate();
+
+    if (month.length < 2) {
+      month = '0' + month;
+    }
+    if (day.length < 2) {
+      day = '0' + day;
+    }
+
+    return [year, month, day].join('-');
+  }
+
+
+  PurchasedDate(): string {
+    var isPurchasedOn = this.deviceForm.get('purchaseddate')?.value != '';
+    if (isPurchasedOn) {
+      return this.deviceForm.get('purchaseddate')?.value;
+    }
+    return '';
+  }
+
+
   toggleDeviceDetailsForm() {
     this.ifChecked = !this.ifChecked;
     this.emitSelectedOptions();
@@ -117,8 +149,8 @@ if (this.counterValue > 0) {
     var isQuantity = this.counterValue > 0;
     var isPurchasedOn = this.deviceForm.get('purchaseddate')?.value != '';
     var screensize = this.deviceForm.get('screensize')?.value != '';
-    var isWarrantyDate = this.deviceForm.get('warrantydate')?.value != null;
-    return isDeviceId && isQuantity && isPurchasedOn && isWarrantyDate && screensize;
+   // var isWarrantyDate = this.deviceForm.get('warrantydate')?.value != null;
+    return isDeviceId && isQuantity && isPurchasedOn  && screensize;
   }
   next() {
 
@@ -240,7 +272,7 @@ if (this.counterValue > 0) {
     if (this.deviceForm.valid && this.showErrorMessage == false) {
 
 
-      //console.log(this.deviceForm.value);
+      console.log(this.deviceForm.value);
 
       this.dataService.postMonitorDetails(this.deviceForm.value).subscribe(
         response => {

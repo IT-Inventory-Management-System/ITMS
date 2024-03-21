@@ -116,6 +116,16 @@ ngx-avatars {
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  margin-right: -0.6rem;
+}
+.inforightdash {
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin-right: 2.6rem;
 }
 
 .no-assign-history {

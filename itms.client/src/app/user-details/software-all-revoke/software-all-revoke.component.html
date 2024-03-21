@@ -1,11 +1,12 @@
 <div class="heading-count">
-  <div class="assigned-software-heading">Assigned Software</div>
-  <div class="software-count">Count: {{ softwareDetails?.length }}</div>
+  <div class="assigned-software-heading"*ngIf="softwareCount != 0">Assigned Software</div>
+  <div class="software-count"*ngIf="softwareCount != 0">Count: {{ softwareDetails?.length }}</div>
+  <!--<div class="no-laptop-message" *ngIf="softwareCount === 0">No software assigned to this user</div>-->
 </div>
 
-<div class="software-alert">
+<div class="software-alert"*ngIf="softwareCount != 0">
   <img class ="software-alert-icon" src="../../../assets/icons/Vector-black.svg" />
-  <p class="software-alert-text">All the item below will be revoked</p>
+  <p class="software-alert-text" >All the item below will be revoked</p>
 </div>
 
 <div *ngFor="let software of softwareDetails">
@@ -20,7 +21,7 @@
           <p>{{software.version}}</p>
         </div>
         <div class="iconsOfModal">
-          <img src="../../../assets/icons/WiredVector.svg" />
+          <img src="../../../assets/icons/type.svg" />
           <p>{{software.typeName}}</p>
         </div>
       </div>

@@ -35,7 +35,7 @@
         <!-- Add more buttons if needed -->
         <div class="ram-other">
           <label for="otherRam">Other</label>
-          <input type="text" id="otherRam" class="ram-other-input-field" placeholder="Other" (input)="selectOtherRam($event)"/>
+          <input type="text" id="otherRam" class="ram-other-input-field" (click)="deselectAllButtons()" placeholder="Other"  (input)="selectOtherRam($event)" />
         </div>
 
       </div>
@@ -54,7 +54,7 @@
             <!-- Add more buttons if needed -->
         <div class="storage-other">
           <label for="otherStorage" >Other</label>
-          <input type="text" id="otherStorage" class="ram-other-input-field" placeholder="Other" (input)="selectOtherStorage($event)"/>
+          <input type="text" id="otherStorage" class="ram-other-input-field" placeholder="Other" (input)="selectOtherStorage($event)" (click)="deselctstoragebutton()" />
         </div>
 
       </div>

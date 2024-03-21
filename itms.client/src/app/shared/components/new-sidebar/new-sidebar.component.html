@@ -6,21 +6,16 @@
   </div>
 
   <div class="content" routerLink="/inventory" (click)="highlightIcon('Inventory')" [ngClass]="{'selected': isIconSelected('Inventory')}">
-    <img class="sidebar-icon" src="../../assets/icons/Assets.svg" alt="Sidebar Image" />
+    <img class="sidebar-icon" src="../../assets/icons/Laptop.svg" alt="Sidebar Image" />
     <span *ngIf="!isCollapsed">Assets</span>
   </div>
 
-  <!--<div class="content" routerLink="/inventory" (click)="highlightIcon('dashboard')" [ngClass]="{'selected': isIconSelected('dashboard')}">
-    <img class="sidebar-icon" src="../../assets/icons/Assets.svg" alt="Sidebar Image" />
-    <span *ngIf="!isCollapsed">Assets</span>
-  </div>-->
-
   <div class="content" routerLink="/software" (click)="highlightIcon('Software')" [ngClass]="{'selected': isIconSelected('Software')}">
-    <img class="sidebar-icon" src="../../assets/icons/Software.svg" alt="Sidebar Image" />
+    <img class="sidebar-icon" src="../../assets/icons/software-sidebar-icon.svg" alt="Sidebar Image" />
     <span *ngIf="!isCollapsed">Software</span>
   </div>
   <div class="content" routerLink="/accessories" (click)="highlightIcon('accessories')" [ngClass]="{'selected': isIconSelected('Accessories')}">
-    <img class="sidebar-icon" src="../../assets/icons/Accessories.svg" alt="Sidebar Image" />
+    <img class="sidebar-icon" src="../../assets/icons/accessories-sidebar-icon.svg" alt="Sidebar Image" id="accessories-sidebar-icon"/>
     <span *ngIf="!isCollapsed">Accesories</span>
   </div>
   <div class="content" routerLink="/employee" (click)="highlightIcon('Users')" [ngClass]="{'selected': isIconSelected('employee')}">
@@ -36,14 +31,6 @@
     <span *ngIf="!isCollapsed">Manage Acess</span>
   </div>
 
-  <!--<div class="content" routerLink="/Login" (click)="highlightIcon('access')" [ngClass]="{'selected': isIconSelected('manage-access')}">
-    <img class="sidebar-icon" src="../../../../assets/icons/access-icon.svg" alt="Sidebar Image" />
-    <span *ngIf="!isCollapsed">Manage Acess</span>
-  </div>-->
-
-
-
-
   <div class="content-collapse" (click)="toggleCollapse()">
     <img class="collapse-expand" src="../../assets/icons/collapse.svg" alt="Expanded Icon" *ngIf="!isCollapsed" />
     <img class="collapse-expand" src="../../assets/icons/expand.svg" alt="Collapsed Icon" *ngIf="isCollapsed" />
@@ -52,4 +39,3 @@
 
 </div>
 
-<!--manage-access-->

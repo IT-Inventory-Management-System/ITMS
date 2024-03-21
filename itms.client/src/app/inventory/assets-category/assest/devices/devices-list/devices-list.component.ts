@@ -13,6 +13,7 @@ import { formatDate } from '@angular/common';
 export class DevicesListComponent {
   @Input() device: any;
   @Input() isArchived: any;
+  @Input() index: number;
   DeviceData: any;
   DeviceInfo: any;
   DeviceLog: any;
@@ -44,21 +45,21 @@ export class DevicesListComponent {
   }
 
   ngOnChanges() {
-    this.selectFirstDevice();
-    //console.log("ssss",this.archivedCyg);
+    if (this.index == 0) {
+      this.selectFirstDevice();
+    }
   }
 
   ngOnDestroy() {
     this.archivedCyg = null;
-    //console.log("pppp", this.archivedCyg)
   }
 
   async showDevices() {
-      this.selectFirstDevice();
+    this.selectFirstDevice()
   }
 
   onDeviceClick(cygid: any, flag: boolean): void {
-    DevicesListComponent.selectedDeviceId = cygid; // Update the static variable
+    DevicesListComponent.selectedDeviceId = cygid;
     this.selectedDeviceId = cygid;
     this.isselectedDevice = true;
 
@@ -115,8 +116,6 @@ export class DevicesListComponent {
           logs[i].recievedDate = logs[i].recievedDate != null ? formatDate(logs[i].recievedDate, 'dd-MM-yyyy', 'en-US') : null;
         }
         this.deviceService.DeviceLog = logs;
-        //console.log('Device Logs:', logs);
-        //console.log(this.deviceService.DeviceLog.id);
       },
       (error) => {
         console.error('Error fetching device logs:', error);

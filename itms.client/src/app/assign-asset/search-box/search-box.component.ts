@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { AssignDataManagementService } from '../../shared/services/assign-data-management.service';
 
@@ -13,6 +13,9 @@ export class SearchBoxComponent implements OnInit, OnDestroy {
   @Input() options: any[] = [];
   @Input() assignAssetForm: FormGroup;
 
+  @Output() userSelected: EventEmitter<any> = new EventEmitter();
+
+
   selectedOption: any;
   constructor(private assignDataManagementService: AssignDataManagementService) { }
 
@@ -25,6 +28,7 @@ export class SearchBoxComponent implements OnInit, OnDestroy {
   }
   onSelectOption(option: any): void {
     this.assignAssetForm.get('assignedTo')?.setValue(option.id);
+    this.userSelected.emit({isUserSelected: true});
   }
   setSaveStateOnDestroy(): void {
     this.selectedOption = null;
@@ -32,5 +36,6 @@ export class SearchBoxComponent implements OnInit, OnDestroy {
 
   onClearSelection(): void {
     this.assignAssetForm.get('assignedTo')?.setValue(null);
+    this.userSelected.emit({ isUserSelected: false });
   }
 }

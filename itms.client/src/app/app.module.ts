@@ -131,6 +131,8 @@ import { AddKeyboardComboComponent } from './add-asset/add-keyboard-combo/add-ke
 import { AddKeyboardComboBrandFormComponent } from './add-asset/add-keyboard-combo/add-keyboard-combo-brand-form/add-keyboard-combo-brand-form.component';
 import { LoginComponent } from './login/login.component';
 import { TokenInterceptor } from './interceptors/token.interceptor';
+import { AddMobileDevicesComponent } from './add-asset/add-mobile-devices/add-mobile-devices.component';
+import { AddMobileModelComponent } from './add-asset/add-mobile-devices/add-mobile-model/add-mobile-model.component';
 
 
 @NgModule({
@@ -273,6 +275,8 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
       AddKeyboardComboBrandFormComponent,
 
       LoginComponent,
+        AddMobileDevicesComponent,
+        AddMobileModelComponent,
   ],
   imports: [
     BrowserModule,

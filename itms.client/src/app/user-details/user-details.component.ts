@@ -19,6 +19,8 @@ export class UserDetailsComponent {
   showAssignAsset: boolean = true;
   storedUser: any;
 
+  revokePending: boolean = false;
+
   constructor(private updateExitProcessInitiationService: EmployeeService, private displayingDetailsService: DisplayDetailsService, private employeeService: EmployeeService) {
     this.resetDropdown();
   }
@@ -91,6 +93,11 @@ export class UserDetailsComponent {
     this.isOptionsVisible = false;
     this.showAssignAsset = true;
   }
+
+  toggleRevokePending() {
+    this.revokePending = !this.revokePending; 
+  }
+
  
 
   selectItem(item: string) {
