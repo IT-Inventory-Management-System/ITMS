@@ -23,6 +23,7 @@ using System.IO.Compression;
 using log4net;
 using static MiNET.Net.McpeInteract;
 using System.Text.RegularExpressions;
+using System.Globalization;
 
 public class DeviceService
 
@@ -1017,10 +1018,14 @@ public class DeviceService
 
                 try
                 {
+                    //DateTime pd = DateTime.TryParseExact(inputDto.PurchasedDate, "dd-MM-yy", CultureInfo.InvariantCulture, DateTimeStyles.None, out pd);
+                    //new DateTime(inputDto.PurchasedDate)
+                    DateTime pd = DateTime.ParseExact(inputDto.PurchasedDate, "dd-MM-yy", CultureInfo.InvariantCulture);
+
                     Device deviceItem = new Device();
                     deviceItem.SerialNumber = inputDto.SerialNo;
                     deviceItem.Cygid = inputDto.Cygid;
-                    deviceItem.PurchasedDate = inputDto.PurchasedDate;
+                    deviceItem.PurchasedDate = pd;
                     deviceItem.CreatedBy = inputDto.LoggedIn;
                     deviceItem.UpdatedBy = inputDto.LoggedIn;
                     deviceItem.CreatedAtUtc = DateTime.UtcNow;
