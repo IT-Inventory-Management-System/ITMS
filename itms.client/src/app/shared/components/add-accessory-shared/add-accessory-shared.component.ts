@@ -230,7 +230,7 @@ export class AddAccessorySharedComponent {
       deviceModelId: [null, Validators.required],
       qty: [0, Validators.required],
       purchaseddate: ['', Validators.required],
-      warrantydate: [null, Validators.required],
+      warrantydate: [null],
       deviceId: this.fb.array([]),
       createdBy: [''],
       updatedBy: [''],
