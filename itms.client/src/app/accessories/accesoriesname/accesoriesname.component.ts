@@ -72,6 +72,14 @@ export class AccesoriesnameComponent {
         iconFileName = 'bag-blue.svg';
         break;
 
+      case 'mobile devices':
+        iconFileName = 'DeviceMobile.svg';
+        break;
+
+      case 'combo':
+        iconFileName = 'combo-blue.svg';
+        break;
+
       default:
         iconFileName = 'Ellipse.svg';
         break;
