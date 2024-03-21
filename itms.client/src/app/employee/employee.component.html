@@ -15,14 +15,25 @@
     </div>
 
 
+
     <div class="user-section">
       <div class="user-list">
         <app-user-list [showArchiveUsers]="showArchiveUsers" (userDetailsClicked)="onUserDetailsClicked($event)"></app-user-list>
       </div>
-      <div class="user-data">
-        <!-- Change col-md-8 to col-md-12 -->
-        <app-user-details [userDetails]="selectedUser" [laptopDetails]="laptopDetails" [softwareDetails]="softwareDetails" [accessoriesDetails]="accessoriesDetails" ></app-user-details>
+
+      <div *ngIf="loading; else content" class="spinner-loading">
+        <div class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
       </div>
+
+      <ng-template #content>
+        <div class="user-data">
+          <!-- Change col-md-8 to col-md-12 -->
+          <app-user-details [userDetails]="selectedUser" [laptopDetails]="laptopDetails" [softwareDetails]="softwareDetails" [accessoriesDetails]="accessoriesDetails"></app-user-details>
+        </div>
+      </ng-template>
+
     </div>
   </div>
 

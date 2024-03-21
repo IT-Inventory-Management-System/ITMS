@@ -70,10 +70,10 @@
 
               <p>Item Received <span class="star">*</span></p>
               <input type="radio" id="receivedYes" name="deviceReceived" value="Yes" (click)="showYesReasonOptions()">
-              <label for="receivedYes">Yes</label>
+              <label for="receivedYes" class="yes">Yes</label>
 
               <input type="radio" id="receivedNo" name="deviceReceived" value="No" (click)="showNoReasonOptions()">
-              <label for="receivedNo">No</label>
+              <label for="receivedNo" class="no">No</label>
             </div>
 
 
@@ -81,10 +81,10 @@
               <p>Condition <span class="star">*</span></p>
               <div>
                 <input type="radio" id="perfect" name="reasonOptions" value="Perfect" [(ngModel)]="selectedReason">
-                <label for="perfect">Perfect</label>
+                <label for="perfect" class="perfect">Perfect</label>
 
                 <input type="radio" id="unassignable" name="reasonOptions" value="Unassignable" [(ngModel)]="selectedReason">
-                <label for="unassignable">Unassignable</label>
+                <label for="unassignable" class="unassignable">Unassignable</label>
               </div>
             </div>
 
