@@ -326,7 +326,16 @@ namespace itms.server.controllers
             List<OneTimeAddDeviceDTO> failedItemsAll = new List<OneTimeAddDeviceDTO>();
             try
             {
-                List<OneTimeAddDeviceDTO> uniqueDevices = await _deviceService.GetUnique(detailsList);
+                List<OneTimeAddDeviceDTO> newListForDevicesModel = new List<OneTimeAddDeviceDTO>();
+                foreach (var item in detailsList)
+                {
+                    if (!string.IsNullOrEmpty(item.FullDeviceName))
+                    {
+                        newListForDevicesModel.Add(item);
+                    }
+                }
+
+                List<OneTimeAddDeviceDTO> uniqueDevices = await _deviceService.GetUnique(newListForDevicesModel);
                 List<OneTimeAddDeviceDTO> failedModels = await _deviceService.PutSingleDeviceModel(uniqueDevices);
                 failedItemsAll.AddRange(failedModels);
 

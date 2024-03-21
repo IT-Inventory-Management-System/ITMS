@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Asn1.Ocsp;
 using Org.BouncyCastle.Crypto.Prng.Drbg;
 using System;
+using System.Globalization;
 using System.Text;
 using Xamarin.Forms;
 
@@ -146,8 +147,8 @@ namespace ITMS.Server.Services
 
             try
             {
-                //var result = await _addAssetService.getCGIIDCommon("Bag");
-                //number = result?.FirstOrDefault()?.CGIID + 1;
+                //string pdLong = "15-Mar-21";
+                DateTime pd = DateTime.ParseExact(bag.Purchaseddate, "dd-MMM-yy", CultureInfo.InvariantCulture);
 
                 Models.Device device = new Models.Device
                 {
@@ -169,7 +170,7 @@ namespace ITMS.Server.Services
                     // e => e.FirstName.ToLower() + " " + e.LastName.ToLower() == bag.AssignedTo.ToLower()).Select(s => s.Id).FirstOrDefaultAsync(),
                     AssignedBy = string.IsNullOrEmpty(bag.AssignedTo) ? null : bag.LoggedIn,
                     AssignedDate = string.IsNullOrEmpty(bag.AssignedTo) ? null: DateTime.UtcNow,
-                    PurchasedDate = bag.Purchaseddate,
+                    PurchasedDate = pd,
                     LocationId = bag.locationId,
                     IsArchived = false,
                     Status = string.IsNullOrEmpty(bag.AssignedTo) ? await _context.Statuses.Where(s => s.Type.ToLower() == "not assigned").Select(s => s.Id).FirstOrDefaultAsync() : await _context.Statuses.Where(s => s.Type.ToLower() == "assigned").Select(s => s.Id).FirstOrDefaultAsync(),
