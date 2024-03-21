@@ -90,11 +90,9 @@
           <div class="purchase-date-section" [formGroup]="addDeviceForm">
 
             <label for="Warranty Year " class="purchaseDate">Warranty Date <span class="required">*</span></label>
-            <div [class.error-textarea]="showErrorMessage && !addDeviceForm.get('warrantydate')?.value" class="pdatee">
 
-              <input type="date" class="form-control" id="Warranty Year " name="Warranty Year " placeholder="15-12-2023" [class.disabled]="selectedmedium== ''" formControlName="warrantydate" (focus)="hideErrorMessage()" min="{{ PurchasedDate() }}">
+              <input type="date" class="form-control" id="Warranty Year " name="Warranty Year " placeholder="15-12-2023" [class.disabled]="selectedmedium== ''" formControlName="warrantydate"  min="{{ PurchasedDate() }}">
               <img src="../../../assets/icons/calendar.svg" />
-            </div>
           </div>
 
 

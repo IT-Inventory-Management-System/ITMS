@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {DataService} from '../../../app/shared/services/data.service';
 import { ToastrService } from 'ngx-toastr';
+import { SelectedCountryService } from '../../shared/services/selected-country.service';
 
 @Component({
   selector: 'app-add-mouse-form',
@@ -12,14 +13,18 @@ import { ToastrService } from 'ngx-toastr';
 export class AddMouseFormComponent {
   UserId: any;
   userDataJSON: any;
-  constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService) {
+  constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService, private selectedCountryService: SelectedCountryService) {
     
   }
 
   ngOnInit(): void {
     this.getCgi();
     this.createForm();
-    this.setlocationId();
+    //this.setlocationId();
+    this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
+      localStorage.setItem('selectedCountry', selectedCountry);
+      this.setlocationId();
+    });
     this.setStatus();
     this.userDataJSON = localStorage.getItem('user');
 
@@ -89,7 +94,7 @@ export class AddMouseFormComponent {
       deviceModelId: [null, Validators.required],
       qty: [0, Validators.required],
       purchaseddate: ['', Validators.required],
-      warrantydate: [null, Validators.required],
+      warrantydate: [null],
       deviceId: this.fb.array([]),
       createdBy: [''],
       updatedBy: [''],
@@ -142,8 +147,8 @@ export class AddMouseFormComponent {
     var isDeviceId = this.addDeviceForm.get('deviceModelId')?.value != null;
     var isQuantity = this.counterValue > 0;
     var isPurchasedOn = this.addDeviceForm.get('purchaseddate')?.value != '';
-    var isWarrantyDate = this.addDeviceForm.get('warrantydate')?.value != null;
-    return isDeviceId && isQuantity && isPurchasedOn && isWarrantyDate;
+   // var isWarrantyDate = this.addDeviceForm.get('warrantydate')?.value != null;
+    return isDeviceId && isQuantity && isPurchasedOn ;
   }
   next() {
    
