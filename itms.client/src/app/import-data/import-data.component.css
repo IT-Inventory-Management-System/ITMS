@@ -1,0 +1,227 @@
+#importDataModal {
+  margin-left: 3.1rem;
+  margin-top: 3rem;
+}
+
+
+
+.userwidth {
+  width: 32rem;
+}
+
+
+
+.hearder {
+  border-bottom: 1px solid var(--Secondary-Light-Gray, #E9ECEB);
+  display: flex;
+  padding: 0rem 1.5rem 0.75rem 1.5rem;
+  justify-content: space-between;
+  align-items: center;
+  align-self: stretch;
+  margin-top: 5rem !important;
+}
+
+
+.uploaduser-text {
+  color: #1E1E1E;
+  font-family: Roboto;
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 650;
+  line-height: 2rem; /* 177.778% */
+}
+
+.close {
+  margin-left: 14.8rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  cursor: pointer;
+  margin-top: -0.3rem;
+}
+
+.close-add-user {
+  cursor: pointer;
+}
+
+.content {
+  display: flex;
+  padding: 0rem 1.5rem;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1.25rem;
+  align-self: stretch;
+  height: 26.3125rem;
+}
+
+
+.content-text {
+  color: #23262B;
+  font-family: Roboto;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  align-self: stretch;
+  margin-top: 1.25rem;
+}
+
+
+.detail-text {
+  color: #23262B;
+  font-family: Roboto;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.25rem; /* 142.857% */
+  align-self: stretch;
+  /*  margin-top: 1rem;
+*/
+}
+
+.csv-file {
+  display: flex;
+  height: 2.5rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  align-self: stretch;
+}
+
+.inner-csv-file {
+  border-radius: 0.25rem;
+  border: 1px solid var(--Secondary-Gray, #B2B2B3);
+  background: var(--Primary-White, #FFF);
+  display: flex;
+  padding: 0rem 0.5rem;
+  align-items: center;
+  gap: 1rem;
+  flex: 1 0 0;
+  align-self: stretch;
+}
+
+.file-div {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1 0 0;
+}
+
+.file-name {
+  color: var(--Primary-Gray, #343435);
+  font-family: Roboto;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.125rem; /* 128.571% */
+}
+
+
+
+.drag-drop {
+  border-radius: 0.75rem;
+  border: 1px dashed rgba(37, 114, 204, 0.70);
+  background: var(--blue-8, rgba(40, 81, 158, 0.08));
+  display: flex;
+  padding: 1.5rem 0rem;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  align-self: stretch;
+  height: 13.8125rem;
+  width: 29.75rem;
+}
+
+.browse-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 16.5625rem;
+  height: 7.25rem;
+}
+
+.upload-icon {
+  display: flex;
+  width: 3.25rem;
+  height: 3.25rem;
+  padding: 0.325rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.325rem;
+}
+
+.drag-text {
+  color: var(--Black, #23262B);
+  text-align: center;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-family: Roboto;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.5rem; /* 171.429% */
+}
+
+.browse-text {
+  color: var(--White, #FFF);
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-family: Roboto;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.25rem; /* 142.857% */
+}
+
+.browse-csv-button {
+  border-radius: 0.25rem;
+  background: #28519E;
+  display: flex;
+  padding: 0.625rem 1.5rem 0.6875rem 1.5rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  border: none;
+  outline: none;
+}
+
+.cancle-save {
+  display: flex;
+  padding: 0rem 1.5rem;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 1rem;
+  align-self: stretch;
+  margin-top: 0.65rem;
+}
+
+.cancel-button {
+  display: flex;
+  width: 5.75rem;
+  height: 2.6875rem;
+  padding: 0.75rem 0.5rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 0.25rem;
+  border: 1px solid #28519E;
+  background-color: white;
+}
+
+
+
+.addclose {
+  display: flex;
+  width: 5.75rem;
+  height: 2.6875rem;
+  padding: 0.75rem 0.5rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 0.25rem;
+  border: 1px solid #28519E;
+  background: var(--Primary-Blue, #28519E);
+}
+
+.st {
+  border: 1px solid black;
+}

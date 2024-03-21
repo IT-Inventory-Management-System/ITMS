@@ -77,38 +77,38 @@ namespace ITMS.Server.Services
             }
         }
 
-        public async Task<List<OneTimePutBagDTO>> OneTimePutBagService(List<OneTimePutBagDTO> listOfBags)
-        {
-            List<OneTimePutBagDTO> failedItems = new List<OneTimePutBagDTO>();
+        //public async Task<List<OneTimePutBagDTO>> OneTimePutBagService(List<OneTimePutBagDTO> listOfBags)
+        //{
+        //    List<OneTimePutBagDTO> failedItems = new List<OneTimePutBagDTO>();
 
 
 
-            foreach (var b in listOfBags)
-            {
-                List<OneTimePutBagDTO> failedddSingleMouse = await AddSingleBag(b);
-                failedItems.AddRange(failedddSingleMouse);
+        //    foreach (var b in listOfBags)
+        //    {
+        //        List<OneTimePutBagDTO> failedddSingleMouse = await AddSingleBag(b);
+        //        failedItems.AddRange(failedddSingleMouse);
 
-                List<OneTimePutBagDTO> failedHistory = await AddSingleBagHistory(b);
+        //        List<OneTimePutBagDTO> failedHistory = await AddSingleBagHistory(b);
 
-            }
-        }
+        //    }
+        //}
 
-        public async Task<List<OneTimePutBagDTO>> AddSingleBagHistory(OneTimePutBagDTO bag)
-        {
-            DevicesLog dl = new DevicesLog
-            {
-                DeviceId = await _context.Devices.Where(dc => dc.Cygid == d.Cygid).Select(d => d.Id).FirstOrDefaultAsync(),
-                EmployeeId = await _context.Employees.Where(e => e.FirstName + " " + e.LastName == bag.AssignedTo).Select(e => e.Id).FirstOrDefaultAsync(),
-                AssignedBy = bag.LoggedIn,
-                RecievedBy = bag.LoggedIn,
-                RecievedDate = DateTime.UtcNow,
-                CreatedBy = bag.LoggedIn,
-                UpdatedBy = bag.LoggedIn,
-                CreatedAtUtc = DateTime.UtcNow,
-                UpdatedAtUtc = DateTime.UtcNow,
-                ActionId = await _context.ActionTables.Where(a => a.ActionName.ToLower() == "submitted").Select(e => e.Id).FirstOrDefaultAsync(),
-            };
-        }
+        //public async Task<List<OneTimePutBagDTO>> AddSingleBagHistory(OneTimePutBagDTO bag)
+        //{
+        //    DevicesLog dl = new DevicesLog
+        //    {
+        //        DeviceId = await _context.Devices.Where(dc => dc.Cygid == d.Cygid).Select(d => d.Id).FirstOrDefaultAsync(),
+        //        EmployeeId = await _context.Employees.Where(e => e.FirstName + " " + e.LastName == bag.AssignedTo).Select(e => e.Id).FirstOrDefaultAsync(),
+        //        AssignedBy = bag.LoggedIn,
+        //        RecievedBy = bag.LoggedIn,
+        //        RecievedDate = DateTime.UtcNow,
+        //        CreatedBy = bag.LoggedIn,
+        //        UpdatedBy = bag.LoggedIn,
+        //        CreatedAtUtc = DateTime.UtcNow,
+        //        UpdatedAtUtc = DateTime.UtcNow,
+        //        ActionId = await _context.ActionTables.Where(a => a.ActionName.ToLower() == "submitted").Select(e => e.Id).FirstOrDefaultAsync(),
+        //    };
+        //}
 
         public async Task<(int number, List<OneTimePutBagDTO> failedItems)> AddSinglebag(OneTimePutBagDTO bag)
         {
