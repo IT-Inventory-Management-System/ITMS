@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { DataService } from '../../shared/services/data.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { SelectedCountryService } from '../../shared/services/selected-country.service';
 @Component({
   selector: 'app-add-software-form',
   templateUrl: './add-software-form.component.html',
@@ -16,7 +17,7 @@ export class AddSoftwareFormComponent {
   softwareTypes: any[] = [];
   NewSoftwareID: any;
 
-  constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService) {
+  constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService, private selectedCountryService: SelectedCountryService) {
     this.dropdownValues = [];
 
   }
@@ -25,7 +26,10 @@ export class AddSoftwareFormComponent {
     this.loadDropdownValues();
     this.getSoftwareType();
     this.createForm();
-    this.setlocationId();
+    this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
+      localStorage.setItem('selectedCountry', selectedCountry);
+      this.setlocationId();
+    });
 
   }
   getCurrentDate(): string {

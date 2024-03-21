@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DataService } from '../../shared/services/data.service';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { SelectedCountryService } from '../../shared/services/selected-country.service';
 
 @Component({
   selector: 'app-add-monitor-form',
@@ -30,7 +31,11 @@ export class AddMonitorFormComponent {
     
     this.getCgi();
     this.setStatus();
-    this.setlocationId();
+    //this.setlocationId();
+    this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
+      localStorage.setItem('selectedCountry', selectedCountry);
+      this.setlocationId();
+    });
     this.createForm(); 
     this.loadMouseBrand();
     this.userDataJSON = localStorage.getItem('user');
@@ -42,7 +47,7 @@ export class AddMonitorFormComponent {
     this.UserId = userData.id;
   }
  
-  constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService) {
+  constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService, private selectedCountryService: SelectedCountryService) {
 
   }
 

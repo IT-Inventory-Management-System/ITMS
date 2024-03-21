@@ -2,6 +2,7 @@ import { Component, ElementRef, Input } from '@angular/core';
 import { DataService } from '../../shared/services/data.service';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { SelectedCountryService } from '../../shared/services/selected-country.service';
 
 @Component({
   selector: 'app-add-mobile-devices',
@@ -9,7 +10,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./add-mobile-devices.component.css']
 })
 export class AddMobileDevicesComponent {
-  constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService, private el: ElementRef) {
+  constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService, private el: ElementRef, private selectedCountryService: SelectedCountryService) {
 
   }
 
@@ -63,7 +64,11 @@ export class AddMobileDevicesComponent {
     //this.getCgi();
     this.createForm();
     this.setStatus();
-    this.setlocationId();
+    //this.setlocationId();
+    this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
+      localStorage.setItem('selectedCountry', selectedCountry);
+      this.setlocationId();
+    });
     this.userDataJSON = localStorage.getItem('user');
     this.currentStep = 1;
     // Parse the JSON string back into an object

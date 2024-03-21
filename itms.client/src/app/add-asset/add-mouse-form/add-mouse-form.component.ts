@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {DataService} from '../../../app/shared/services/data.service';
 import { ToastrService } from 'ngx-toastr';
+import { SelectedCountryService } from '../../shared/services/selected-country.service';
 
 @Component({
   selector: 'app-add-mouse-form',
@@ -12,14 +13,18 @@ import { ToastrService } from 'ngx-toastr';
 export class AddMouseFormComponent {
   UserId: any;
   userDataJSON: any;
-  constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService) {
+  constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService, private selectedCountryService: SelectedCountryService) {
     
   }
 
   ngOnInit(): void {
     this.getCgi();
     this.createForm();
-    this.setlocationId();
+    //this.setlocationId();
+    this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
+      localStorage.setItem('selectedCountry', selectedCountry);
+      this.setlocationId();
+    });
     this.setStatus();
     this.userDataJSON = localStorage.getItem('user');
 
