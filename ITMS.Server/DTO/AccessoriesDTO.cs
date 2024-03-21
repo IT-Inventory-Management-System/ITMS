@@ -34,7 +34,7 @@
         public DateTime updatedAt { get; set; }
         public bool isArchived { get; set; }
         public DateTime purchaseddate { get; set; }
-        public DateTime warrantydate { get; set; }
+        public DateTime? warrantydate { get; set; }
 
     }
     public class getCGIDTO
@@ -126,7 +126,7 @@
         public DateTime updatedAt { get; set; }
         public bool isArchived { get; set; }
         public DateTime purchaseddate { get; set; }
-        public DateTime warrantydate { get; set; }
+        public DateTime? warrantydate { get; set; }
 
     }
 
