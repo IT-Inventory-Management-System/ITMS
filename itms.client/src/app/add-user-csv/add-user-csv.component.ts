@@ -4,6 +4,7 @@ import { DataService } from '../shared/services/data.service';
 import * as XLSX from 'xlsx';
 import { EmployeeService } from '../shared/services/Employee.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 
 
@@ -23,7 +24,7 @@ export class AddUserCsvComponent {
     fileName: string;
   csvFileVisible: boolean = false;
 
-  constructor(private selectedCountryService: SelectedCountryService, private dataService: DataService, private empService: EmployeeService, private toastr: ToastrService) {
+  constructor(private selectedCountryService: SelectedCountryService, private dataService: DataService, private empService: EmployeeService, private toastr: ToastrService, private router: Router) {
     const storedUser = localStorage.getItem("user");
     if (storedUser !== null) {
       this.loggedUser = JSON.parse(storedUser);
@@ -107,6 +108,7 @@ export class AddUserCsvComponent {
       response => {
        // console.log('New Users added successfully', response);
         this.toastr.success("New users added successfully");
+        this.empService.notifyUserListChanged();
       },
       error => {
         console.error('Error posting data', error);
@@ -123,6 +125,8 @@ export class AddUserCsvComponent {
   saveData() {
     this.processData();
     this.csvFileVisible = false;
+    this.router.navigate(['/employee']);
+
 
   }
 

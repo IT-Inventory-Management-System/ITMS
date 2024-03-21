@@ -25,10 +25,9 @@ export class AdminListPanelComponent {
     });
     //this.loadAdminList();
     this.adminDetailService.adminListChanged$.subscribe(() => {
-      // Reload or fetch the updated admin list here
       this.getUserLocation();
     });
-
+    
   }
 
   getUserLocation() {
