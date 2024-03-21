@@ -895,6 +895,11 @@ public class DeviceService
         foreach (var d in uniqueDevices)
         {
             string[] Name = d.FullDeviceName.Split(' ');
+            string[] MACName = null;
+            if (Name[0].ToLower() == "apple")
+            {
+                MACName = d.FullDeviceName.Split('(',')');
+            }
 
             try
             {
@@ -902,7 +907,7 @@ public class DeviceService
                 {
                     CategoryId = await _context.Categories.Where(s => s.Name == "Laptop").Select(s => s.Id).FirstOrDefaultAsync(),
                     Brand = Name[0],
-                    ModelNo = Name[0] != "Apple" ? Name[2].Trim('(', ')') : Name[2],
+                    ModelNo = Name[0].ToLower() == "apple" ? MACName[1] : Name[2],
                     DeviceName = d.FullDeviceName,
                     CreatedBy = d.LoggedIn,
                     UpdatedBy = d.LoggedIn,
