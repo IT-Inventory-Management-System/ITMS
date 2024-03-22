@@ -906,7 +906,7 @@ public class DeviceService
             string[] Name = d.FullDeviceName.Split(' ');
             string[] MACName = null;
             
-            if (Name[0].ToLower() == "apple")
+            if ((Name[0].ToLower() == "apple") || (Name[0].ToLower() != "macbook"))
             {
                 MACName = d.FullDeviceName.Split('(',')');
             }
@@ -917,14 +917,14 @@ public class DeviceService
                 {
                     CategoryId = await _context.Categories.Where(s => s.Name == "Laptop").Select(s => s.Id).FirstOrDefaultAsync(),
                     Brand = Name[0],
-                    ModelNo = Name[0].ToLower() == "apple" ? MACName[1] : Name[2],
+                    ModelNo = (Name[0].ToLower() == "apple") || (Name[0].ToLower() != "macbook") ? MACName[1] : Name[2],
                     DeviceName = d.FullDeviceName,
                     CreatedBy = d.LoggedIn,
                     UpdatedBy = d.LoggedIn,
                     Processor = d.Processor,
                     Storage = d.Storage,
                     Ram = d.Ram,
-                    Os = Name[0] != "Apple" ? await _context.Ostypes.Where(o => o.Osname == "Windows").Select(s => s.Id).FirstOrDefaultAsync() : await _context.Ostypes.Where(o => o.Osname == "MAC").Select(s => s.Id).FirstOrDefaultAsync(),
+                    Os = (Name[0].ToLower() != "apple") || (Name[0].ToLower() != "macbook") ? await _context.Ostypes.Where(o => o.Osname == "Windows").Select(s => s.Id).FirstOrDefaultAsync() : await _context.Ostypes.Where(o => o.Osname == "MAC").Select(s => s.Id).FirstOrDefaultAsync(),
                     CreatedAtUtc = DateTime.UtcNow,
                     UpdatedAtUtc = DateTime.UtcNow,
                     IsArchived = false
@@ -1031,7 +1031,7 @@ public class DeviceService
 
             idx++;
 
-            if (isApple.ToLower() != "apple" && await IsCYGIDUnique(inputDto.Cygid, importDeviceInput) == false)
+            if (((isApple.ToLower() != "apple") ||(isApple.ToLower() == "macbook")) && await IsCYGIDUnique(inputDto.Cygid, importDeviceInput) == false)
             {
                     failedItems.Add(inputDto);
                     continue;
@@ -1048,7 +1048,7 @@ public class DeviceService
 
                     Device deviceItem = new Device();
                     deviceItem.SerialNumber = inputDto.SerialNo;
-                    deviceItem.Cygid = isApple.ToLower() == "apple" ? "CYG" + (MACCygidNumber + idx) : inputDto.Cygid;
+                    deviceItem.Cygid = (isApple.ToLower() == "apple") || (isApple.ToLower() == "macbook") ? "CYG" + (MACCygidNumber + idx) : inputDto.Cygid;
                     deviceItem.PurchasedDate = pd;
                     deviceItem.CreatedBy = inputDto.LoggedIn;
                     deviceItem.UpdatedBy = inputDto.LoggedIn;
