@@ -905,6 +905,7 @@ public class DeviceService
         {
             string[] Name = d.FullDeviceName.Split(' ');
             string[] MACName = null;
+            
             if (Name[0].ToLower() == "apple")
             {
                 MACName = d.FullDeviceName.Split('(',')');
@@ -1009,18 +1010,35 @@ public class DeviceService
         List<OneTimeAddDeviceDTO> failedItems = new List<OneTimeAddDeviceDTO>();
 
         var responseDto = new List<DeviceResponseDTO>();
+        string HighestCygid = await _context.Devices
+                          .OrderByDescending(s => s.CreatedAtUtc)
+                          .Select(s => s.Cygid)
+                          .FirstOrDefaultAsync();
+
+        int MACCygidNumber = 0;
+        if (!string.IsNullOrEmpty(HighestCygid) && HighestCygid.StartsWith("CYG"))
+        {
+            string numericPart = HighestCygid.Substring(3);
+            MACCygidNumber = int.Parse(numericPart);
+        }
+        var idx = 1;
+
 
         foreach (var inputDto in importDeviceInput)
         {
-            if (await IsCYGIDUnique(inputDto.Cygid, importDeviceInput) == false)
-            {
-                failedItems.Add(inputDto);
-                continue;
-            }
+            string[] splitFullName = inputDto.FullDeviceName.Split(' ');
+            var isApple = splitFullName[0].Trim(' ');
 
+            idx++;
+
+            if (isApple.ToLower() != "apple" && await IsCYGIDUnique(inputDto.Cygid, importDeviceInput) == false)
+            {
+                    failedItems.Add(inputDto);
+                    continue;
+            }
             else
             {
-                var status = await getStatus(inputDto.DeviceLog); 
+                var status = await getStatus(inputDto.DeviceLog);
                 var assigned = await getAssignedTo(inputDto.DeviceLog);
                 inputDto.SerialNo = await RemoveTag(inputDto.SerialNo);
 
@@ -1030,7 +1048,7 @@ public class DeviceService
 
                     Device deviceItem = new Device();
                     deviceItem.SerialNumber = inputDto.SerialNo;
-                    deviceItem.Cygid = inputDto.Cygid;
+                    deviceItem.Cygid = isApple.ToLower() == "apple" ? "CYG" + (MACCygidNumber + idx) : inputDto.Cygid;
                     deviceItem.PurchasedDate = pd;
                     deviceItem.CreatedBy = inputDto.LoggedIn;
                     deviceItem.UpdatedBy = inputDto.LoggedIn;
@@ -1045,7 +1063,8 @@ public class DeviceService
                     deviceItem.AssignedBy = assigned == null ? null : inputDto.LoggedIn;
                     _context.Devices.Add(deviceItem);
                     await _context.SaveChangesAsync();
-                }catch(Exception ex)
+                }
+                catch (Exception ex)
                 {
                     failedItems.Add(inputDto);
                 }
