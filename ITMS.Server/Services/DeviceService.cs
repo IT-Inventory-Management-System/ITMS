@@ -1004,7 +1004,7 @@ public class DeviceService
 
         foreach (var inputDto in importDeviceInput)
         {
-            if (!IsCYGIDUnique(inputDto.Cygid, importDeviceInput))
+            if (await IsCYGIDUnique(inputDto.Cygid, importDeviceInput) == false)
             {
                 failedItems.Add(inputDto);
                 continue;
@@ -1014,7 +1014,7 @@ public class DeviceService
             {
                 var status = await getStatus(inputDto.DeviceLog); 
                 var assigned = await getAssignedTo(inputDto.DeviceLog);
-                inputDto.SerialNo = RemoveTag(inputDto.SerialNo);
+                inputDto.SerialNo = await RemoveTag(inputDto.SerialNo);
 
                 try
                 {
@@ -1050,12 +1050,12 @@ public class DeviceService
     }
 
 
-    private bool IsCYGIDUnique(string cygId, List<OneTimeAddDeviceDTO> importDeviceInput)
+    async private Task<bool> IsCYGIDUnique(string cygId, List<OneTimeAddDeviceDTO> importDeviceInput)
     {
         return importDeviceInput.Count(dto => dto.Cygid == cygId) == 1;
     }
 
-    private string RemoveTag(string input)
+    async static Task<string> RemoveTag(string input)
     {
         if (string.IsNullOrWhiteSpace(input))
             return input;
