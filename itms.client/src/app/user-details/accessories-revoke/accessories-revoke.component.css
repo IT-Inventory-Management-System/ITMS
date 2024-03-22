@@ -208,9 +208,9 @@
   width: 92px;
   height: 40px;
   border-radius: 4px;
-  Border: 1.8px solid #28519E;
-  Padding: 12px, 8px, 12px, 8px;
-  Gap: 8px;
+  border: 1.8px solid #28519E;
+  padding: 12px, 8px, 12px, 8px;
+  gap: 8px;
   color: #28519E;
   font-weight: 600;
 }
@@ -219,9 +219,9 @@
   width: 92px;
   height: 40px;
   border-radius: 4px;
-  Border: 1.8px solid #28519E;
-  Padding: 12px, 8px, 12px, 8px;
-  Gap: 8px;
+  border: 1.8px solid #28519E;
+  padding: 12px, 8px, 12px, 8px;
+  gap: 8px;
   color: white;
   font-weight: 600;
   background-color: #28519E;
@@ -237,26 +237,88 @@
 .mouse-img {
   height: 19px;
 }
+
 .received input[type="radio"] {
-  display: none;
+  color: blue;
 }
+
+#receivedYes {
+  height: 1rem;
+  width: 1rem;
+  bottom: 5rem;
+  accent-color: var(--primary-blue, #28519e);
+  vertical-align: middle;
+  display: inline-block;
+}
+
+#receivedNo {
+  height: 1rem;
+  width: 1rem;
+  bottom: 5rem;
+  accent-color: var(--primary-blue, #28519e);
+  vertical-align: middle;
+  display: inline-block;
+}
+
+#perfect {
+  height: 1rem;
+  width: 1rem;
+  bottom: 5rem;
+  accent-color: var(--primary-blue, #28519e);
+  vertical-align: middle;
+  display: inline-block;
+}
+
+#unassignable {
+  height: 1rem;
+  width: 1rem;
+  bottom: 5rem;
+  accent-color: var(--primary-blue, #28519e);
+  vertical-align: middle;
+  display: inline-block;
+}
+
+#submittedLater {
+  height: 1rem;
+  width: 1rem;
+  bottom: 5rem;
+  accent-color: var(--primary-blue, #28519e);
+  vertical-align: middle;
+  display: inline-block;
+}
+
+#lostNotReceived {
+  height: 1rem;
+  width: 1rem;
+  bottom: 5rem;
+  accent-color: var(--primary-blue, #28519e);
+  vertical-align: middle;
+  display: inline-block;
+}
+
+
+/*.received input[type="radio"] {
+  display: none;
+}*/
 
 /* Style labels to use SVG icons as background images */
-.received label {
+/*.received label {
   display: inline-block;
-  vertical-align: middle; /* Align the labels vertically with the image */
-  cursor: pointer;
-  background-image: url('../../../assets/icons/Component 2.svg'); /* Replace with path to your blue SVG icon */
-  padding-left: 30px; /* Adjust this value based on the width of your image */
-  background-repeat: no-repeat;
-  background-position: left center; /* Align the image to the left */
-  background-size: 20px 20px;
-}
+  vertical-align: middle;*/ /* Align the labels vertically with the image */
+  /*cursor: pointer;
+  background-image: url('../../../assets/icons/Component 2.svg');*/ /* Replace with path to your blue SVG icon */
+  /*padding-left: 30px;*/ /* Adjust this value based on the width of your image */
+  /*background-repeat: no-repeat;
+  background-position: left center;*/ /* Align the image to the left */
+  /*background-size: 20px 20px;
+}*/
 
 /* Style labels for checked state */
-.received input[type="radio"]:checked + label {
-  background-image: url('../../../assets/icons/Component 2_checked.svg') /* Replace with path to your blue checked SVG icon */
-}
+/*.received input[type="radio"]:checked + label {
+  background-image: url('../../../assets/icons/Component 2_checked.svg')*/ /* Replace with path to your blue checked SVG icon */
+/*}*/
+
+
 .received {
   color: var(--Primary-Gray, #343435);
   font-family: Roboto;

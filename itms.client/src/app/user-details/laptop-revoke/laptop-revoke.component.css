@@ -208,9 +208,9 @@
   width: 92px;
   height: 40px;
   border-radius: 4px;
-  Border: 1.8px solid #28519E;
+  border: 1.8px solid #28519E;
   padding: 12px, 8px, 12px, 8px;
-  Gap: 8px;
+  gap: 8px;
   color: #28519E;
   font-weight: 600;
 }
@@ -219,9 +219,9 @@
   width: 92px;
   height: 40px;
   border-radius: 4px;
-  Border: 1.8px solid #28519E;
+  border: 1.8px solid #28519E;
   padding: 12px, 8px, 12px, 8px;
-  Gap: 8px;
+  gap: 8px;
   color: white;
   font-weight: 600;
   background-color: #28519E;
