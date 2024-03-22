@@ -128,7 +128,7 @@ namespace ITMS.Server.Services
                     UpdatedBy = bag.LoggedIn,
                     CreatedAtUtc = DateTime.UtcNow,
                     UpdatedAtUtc = DateTime.UtcNow,
-                    ActionId = await _context.ActionTables.Where(a => a.ActionName.ToLower() == "submitted").Select(e => e.Id).FirstOrDefaultAsync(),
+                    ActionId = await _context.ActionTables.Where(a => a.ActionName.ToLower() == "assigned").Select(e => e.Id).FirstOrDefaultAsync(),
                 };
                 _context.DevicesLogs.Add(dl);
                 await _context.SaveChangesAsync();
