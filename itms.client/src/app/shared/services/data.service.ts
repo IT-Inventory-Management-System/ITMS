@@ -238,5 +238,9 @@ export class DataService {
     return this.http.post(this.apiUrl + 'Device/one-time-add-devices', formData);
   }
 
+  postExcelBagData(formData: any[]): Observable<any> {
+    return this.http.post(this.apiUrl + 'Accessories/OneTimePutBag', formData);
+  }
+
 }
 
