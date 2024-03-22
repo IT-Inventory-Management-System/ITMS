@@ -887,8 +887,16 @@ public class DeviceService
 
     public async Task<List<OneTimeAddDeviceDTO>> GetUnique(List<OneTimeAddDeviceDTO> allNames)
     {
-        return await Task.FromResult(allNames.Distinct().ToList());
+        List<OneTimeAddDeviceDTO> res = new List<OneTimeAddDeviceDTO>();
+        var distinctNames = allNames.Select(x => x.FullDeviceName).Distinct().ToList();
+        foreach(var d in distinctNames)
+        {
+            res.Add(allNames.Where(x => distinctNames.Contains(x.FullDeviceName)).FirstOrDefault());
+        }
+        var uniqueDevices = allNames.Where(x => distinctNames.Contains(x.FullDeviceName)).ToList();
+        return await Task.FromResult(res);
     }
+
 
     public async Task<List<OneTimeAddDeviceDTO>> PutSingleDeviceModel(List<OneTimeAddDeviceDTO> uniqueDevices)
     {
@@ -1036,7 +1044,7 @@ public class DeviceService
                     deviceItem.AssignedDate = assigned == null ? null : DateTime.UtcNow;
                     deviceItem.AssignedBy = assigned == null ? null : inputDto.LoggedIn;
                     _context.Devices.Add(deviceItem);
-                    _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync();
                 }catch(Exception ex)
                 {
                     failedItems.Add(inputDto);

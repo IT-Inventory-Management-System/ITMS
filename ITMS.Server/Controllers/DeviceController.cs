@@ -322,7 +322,7 @@ namespace itms.server.controllers
         [HttpPost("one-time-add-devices")]
         public async Task<ActionResult> OneTimeAddDevice(List<OneTimeAddDeviceDTO> detailsList)
         {
-            List<OneTimeAddDeviceDTO> failedItemsAll = new List<OneTimeAddDeviceDTO>();
+            var failedItemsAll = new Dictionary<string, List<OneTimeAddDeviceDTO>>();
             try
             {
                 List<OneTimeAddDeviceDTO> newListForDevicesModel = new List<OneTimeAddDeviceDTO>();
@@ -336,14 +336,16 @@ namespace itms.server.controllers
 
                 List<OneTimeAddDeviceDTO> uniqueDevices = await _deviceService.GetUnique(newListForDevicesModel);
                 List<OneTimeAddDeviceDTO> failedModels = await _deviceService.PutSingleDeviceModel(uniqueDevices);
-                failedItemsAll.AddRange(failedModels);
+                //failedItemsAll.AddRange(failedModels);
+                failedItemsAll.Add("DeviceModel", failedModels);
 
-                List<OneTimeAddDeviceDTO> newListForDevice = newListForDevicesModel.Except(failedItemsAll).ToList();
+                List<OneTimeAddDeviceDTO> newListForDevice = newListForDevicesModel.Except(failedModels).ToList();
 
                 List<OneTimeAddDeviceDTO> failedItems = await _deviceService.importDeviceData(newListForDevice);
-                failedItemsAll.AddRange(failedItems);
+                //failedItemsAll.AddRange(failedItems);
+                failedItemsAll.Add("Device", failedItems);
 
-                List<OneTimeAddDeviceDTO> newListForDevicesLogs = detailsList.Except(failedItemsAll).ToList();
+                List<OneTimeAddDeviceDTO> newListForDevicesLogs = newListForDevicesModel.Except(failedItems).ToList();
 
                 List<OneTimeAddDeviceDTO> devicelogsToBeSaved = new List<OneTimeAddDeviceDTO>();
 
@@ -356,7 +358,8 @@ namespace itms.server.controllers
                 }
 
                 List<OneTimeAddDeviceDTO> failedLogs = await _deviceService.PutSingleDevice_DeviceLog(devicelogsToBeSaved);
-                failedItemsAll.AddRange(failedLogs);
+                //failedItemsAll.AddRange(failedLogs);
+                failedItemsAll.Add("DeviceLogs", failedLogs);
 
                 return Ok(failedItemsAll);
             }
