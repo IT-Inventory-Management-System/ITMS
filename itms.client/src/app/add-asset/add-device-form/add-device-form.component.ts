@@ -128,7 +128,7 @@ export class AddDeviceFormComponent implements OnInit {
   updateCygId(index: number, event: Event) {
     this.hideErrorMessage();
     const value = (event.target as HTMLInputElement).value;
-    const value2 = 'CYG ' + value;
+    const value2 = 'CYG' + value;
     if (this.validateCygId(value2, index)) {
       const invalidIndexIndex = this.invalidCygIndices.indexOf(index);
       if (invalidIndexIndex !== -1) {
