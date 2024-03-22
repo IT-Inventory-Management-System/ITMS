@@ -887,8 +887,16 @@ public class DeviceService
 
     public async Task<List<OneTimeAddDeviceDTO>> GetUnique(List<OneTimeAddDeviceDTO> allNames)
     {
-        return await Task.FromResult(allNames.Distinct().ToList());
+        List<OneTimeAddDeviceDTO> res = new List<OneTimeAddDeviceDTO>();
+        var distinctNames = allNames.Select(x => x.FullDeviceName).Distinct().ToList();
+        foreach(var d in distinctNames)
+        {
+            res.Add(allNames.Where(x => distinctNames.Contains(x.FullDeviceName)).FirstOrDefault());
+        }
+        var uniqueDevices = allNames.Where(x => distinctNames.Contains(x.FullDeviceName)).ToList();
+        return await Task.FromResult(res);
     }
+
 
     public async Task<List<OneTimeAddDeviceDTO>> PutSingleDeviceModel(List<OneTimeAddDeviceDTO> uniqueDevices)
     {
@@ -1004,7 +1012,7 @@ public class DeviceService
 
         foreach (var inputDto in importDeviceInput)
         {
-            if (!IsCYGIDUnique(inputDto.Cygid, importDeviceInput))
+            if (await IsCYGIDUnique(inputDto.Cygid, importDeviceInput) == false)
             {
                 failedItems.Add(inputDto);
                 continue;
@@ -1014,7 +1022,7 @@ public class DeviceService
             {
                 var status = await getStatus(inputDto.DeviceLog); 
                 var assigned = await getAssignedTo(inputDto.DeviceLog);
-                inputDto.SerialNo = RemoveTag(inputDto.SerialNo);
+                inputDto.SerialNo = await RemoveTag(inputDto.SerialNo);
 
                 try
                 {
@@ -1036,7 +1044,7 @@ public class DeviceService
                     deviceItem.AssignedDate = assigned == null ? null : DateTime.UtcNow;
                     deviceItem.AssignedBy = assigned == null ? null : inputDto.LoggedIn;
                     _context.Devices.Add(deviceItem);
-                    _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync();
                 }catch(Exception ex)
                 {
                     failedItems.Add(inputDto);
@@ -1050,12 +1058,12 @@ public class DeviceService
     }
 
 
-    private bool IsCYGIDUnique(string cygId, List<OneTimeAddDeviceDTO> importDeviceInput)
+    async private Task<bool> IsCYGIDUnique(string cygId, List<OneTimeAddDeviceDTO> importDeviceInput)
     {
         return importDeviceInput.Count(dto => dto.Cygid == cygId) == 1;
     }
 
-    private string RemoveTag(string input)
+    async static Task<string> RemoveTag(string input)
     {
         if (string.IsNullOrWhiteSpace(input))
             return input;

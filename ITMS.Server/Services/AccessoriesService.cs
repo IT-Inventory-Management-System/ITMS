@@ -148,7 +148,7 @@ namespace ITMS.Server.Services
             try
             {
                 //string pdLong = "15-Mar-21";
-                DateTime pd = DateTime.ParseExact(bag.Purchaseddate, "dd-MMM-yy", CultureInfo.InvariantCulture);
+                DateTime pd = DateTime.ParseExact(bag.Purchaseddate, "dd-MM-yyyy", CultureInfo.InvariantCulture);
 
                 Models.Device device = new Models.Device
                 {

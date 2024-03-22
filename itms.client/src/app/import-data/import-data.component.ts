@@ -77,7 +77,29 @@ export class ImportDataComponent {
       const data = new Uint8Array(this.arrayBuffer);
       const workbook = XLSX.read(data, { type: 'array' });
       console.log(workbook);
-      const sheetName = workbook.SheetNames[0];
+      //const sheetName = workbook.SheetNames[0];
+      //const sheet = workbook.Sheets[sheetName];
+      //const dataArray: any[][] = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+      //console.log(dataArray);
+      //const inputArray = dataArray.slice(1).map((row: any[]) => {
+      //  return {
+      //    locationId: this.locationId,
+      //    LoggedIn: this.loggedUser.id,
+      //    FullDeviceName: row[1] == null || row[1] == undefined ? null : row[1],
+      //    Processor: 'i7',
+      //    Ram: "16",
+      //    Storage: "512",
+      //    SerialNo: row[2] == null || row[2] == undefined ? null : row[2],
+      //    PurchasedDate: row[3] == null || row[3] == undefined ? null : row[3],
+      //    DeviceLog: row[4] == null || row[4] == undefined ? null : row[4],
+      //    Cygid: row[5] == null || row[5] == undefined ? null : row[5]
+      //  };
+      //});
+      //console.log(inputArray);
+      //this.postUserData(inputArray);
+
+
+      const sheetName = workbook.SheetNames[4];
       const sheet = workbook.Sheets[sheetName];
       const dataArray: any[][] = XLSX.utils.sheet_to_json(sheet, { header: 1 });
       console.log(dataArray);
@@ -85,18 +107,12 @@ export class ImportDataComponent {
         return {
           locationId: this.locationId,
           LoggedIn: this.loggedUser.id,
-          FullDeviceName: row[1] == null || row[1] == undefined ? null : row[1],
-          Processor: 'i7',
-          Ram: "16",
-          Storage: "512",
-          SerialNo: row[2] == null || row[2] == undefined ? null : row[2],
-          PurchasedDate: row[3] == null || row[3] == undefined ? null : row[3],
-          DeviceLog: row[4] == null || row[4] == undefined ? null : row[4],
-          Cygid: row[5] == null || row[5] == undefined ? null : row[5]
+          purchaseddate: row[1] == null || row[1] == undefined ? null : row[1],
+          assignedTo: row[2] == null || row[2] == undefined ? null : row[2]
         };
       });
       console.log(inputArray);
-      this.postUserData(inputArray);
+      this.postBagData(inputArray);
     };
 
     fileReader.readAsArrayBuffer(this.file);
@@ -111,6 +127,17 @@ export class ImportDataComponent {
       error => {
         console.error('Error posting data', error);
         //this.toastr.error("Error in posting new users");
+      }
+    );
+  }
+
+  postBagData(oldBagData: any[]) {
+    this.dataService.postExcelBagData(oldBagData).subscribe(
+      response => {
+        console.log(response);
+      },
+      error => {
+        console.error('Error posting data', error);
       }
     );
   }

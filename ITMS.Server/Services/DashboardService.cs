@@ -1,7 +1,9 @@
-﻿using ITMS.Server.DTO;
+﻿using FSharp.Data.Runtime.WorldBank;
+using ITMS.Server.DTO;
 using ITMS.Server.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using Xamarin.Forms;
 
@@ -52,67 +54,251 @@ namespace ITMS.Server.Services
             return allaccessories;
         }
 
+  
         public List<Softwares> GetSoftwares()
         {
-            var allSoftware = _context.SoftwareTypes
-     .Include(st => st.Softwares)
-         .ThenInclude(s => s.SoftwareAllocations)
-     .SelectMany(st => st.Softwares.Select(s => new Softwares
-     {
-         SoftwareThumbnail = s.SoftwareThumbnail,
-         Name = s.SoftwareName,
-         Version = s.SoftwareAllocations.Select(sa => sa.Version).FirstOrDefault(),
-         Type = st.TypeName,
-        
-         IndiaInventory = s.SoftwareAllocations
-             .Count(s=>s.Location != null && s.Location.Location1 == "India"),
+            var allSoftware = _context.Software
+    .Include(s => s.SoftwareType)
+    .SelectMany(s => s.SoftwareAllocations.Select(sa => new
+    {
+        SoftwareName = s.SoftwareName,
+        SoftwareThumbnail = s.SoftwareThumbnail,
+        SoftwareTypeName = s.SoftwareType.TypeName,
+        Version = sa.Version,
+        IsArchived = sa.IsArchived,
+        Location = sa.Location.Location1,
+        ExpiryDate = sa.ExpiryDate
+    }))
+    .GroupBy(sa => new
+    {
+        sa.SoftwareName,
+        sa.SoftwareThumbnail,
+        sa.SoftwareTypeName,
+        sa.Version,
+        sa.IsArchived
+    })
+    .Select(s => new 
+    {
+        SoftwareThumbnail = s.Key.SoftwareThumbnail,
+        Name = s.Key.SoftwareName,
+        Version = s.Key.Version,
+        Type = s.Key.SoftwareTypeName,
+        IndiaInventory = s.Count(sa => sa.Location == "India"),
+        UsaInventory = s.Count(sa => sa.Location == "USA"),
 
-         UsaInventory = s.SoftwareAllocations
-             .Count(s => s.Location != null && s.Location.Location1 == "USA"),
+        ExpDateIndia = s.Where(sa => sa.ExpiryDate.HasValue && sa.Location == "India")
+                               .Min(sa => sa.ExpiryDate),
 
-         IndiaAssigned = s.SoftwareAllocations
-             .Count(s => s.AssignedTo != null && s.Location != null && s.Location.Location1 == "India"),
+        //ExpiryDateCountIndia = s.Count(sa => sa.ExpiryDate == s && sa.ExpiryDate.HasValue && sa.Location == "India"),
 
-         UsaAssigned = s.SoftwareAllocations
-             .Count(s => s.AssignedTo != null && s.Location != null && s.Location.Location1 == "USA"),
+        ExpDateUsa = s.Where(sa => sa.ExpiryDate.HasValue && sa.Location == "USA")
+                             .Min(sa => sa.ExpiryDate),
 
-
-         ExpiryDateCountIndia = s.SoftwareAllocations
-    .Where(sa => sa.ExpiryDate.HasValue && sa.Location.Location1 == "India")
-    .OrderByDescending(sa => sa.ExpiryDate)
-    .AsEnumerable()
-    .GroupBy(sa => sa.ExpiryDate.Value)
-    .Select(group => group.Count())
-    .FirstOrDefault(),
-
-         ExpDateIndia = s.SoftwareAllocations
-            .Where(sa => sa.ExpiryDate.HasValue && sa.Location.Location1 == "India")
-            .OrderByDescending(sa => sa.ExpiryDate)
-            .Select(sa => sa.ExpiryDate.Value)
-            .FirstOrDefault(),
-
-
-
-
-         ExpiryDateCountUsa = s.SoftwareAllocations
-    .Where(sa => sa.ExpiryDate.HasValue && sa.Location.Location1 == "USA")
-    .OrderByDescending(sa => sa.ExpiryDate)
-    .AsEnumerable()
-    .GroupBy(sa => sa.ExpiryDate.Value)
-    .Select(group => group.Count())
-    .FirstOrDefault(),
-
-         ExpDateUsa = s.SoftwareAllocations
-            .Where(sa => sa.ExpiryDate.HasValue && sa.Location.Location1 == "USA")
-            .OrderByDescending(sa => sa.ExpiryDate)
-            .Select(sa => sa.ExpiryDate.Value)
-            .FirstOrDefault(),
-
-     }))
-     .ToList();
+        //ExpiryDateCountUsa = s.Count(sa => sa.ExpiryDate == ExpDateUsa && sa.ExpiryDate.HasValue && sa.Location == "USA"),
+    }).Select(s => new Softwares{
+        SoftwareThumbnail = s.SoftwareThumbnail,
+        Name = s.Name,
+        Version = s.Version,
+        Type = s.Type,
+        IndiaInventory = s.IndiaInventory,
+        UsaInventory = s.UsaInventory,
+        ExpDateIndia = s.ExpDateIndia,
+        ExpiryDateCountIndia = s.Type.ToLower() == "perpetual" ? 0: _context.SoftwareAllocations.Where(sa =>sa.Location.Location1.ToLower() == "india" && sa.Software.SoftwareName == s.Name && sa.Version == s.Version && sa.Software.SoftwareType.TypeName == s.Type && sa.ExpiryDate == s.ExpDateIndia).Count(),
+        ExpDateUsa = s.ExpDateUsa,
+        ExpiryDateCountUsa = s.Type.ToLower() == "perpetual" ? 0 : _context.SoftwareAllocations.Where(sa => sa.Location.Location1.ToLower() == "usa" && sa.Software.SoftwareName == s.Name && sa.Version == s.Version && sa.Software.SoftwareType.TypeName == s.Type && sa.ExpiryDate == s.ExpDateIndia).Count(),
+    })
+    .ToList();
 
 
-            return allSoftware;
+
+    return allSoftware;
+
+
+
+            //        var allSoftware = _context.Software
+            //.Include(s => s.SoftwareType)
+            //.SelectMany(s => s.SoftwareAllocations.Select(sa => new
+            //{
+            //    SoftwareName = s.SoftwareName,
+            //    SoftwareThumbnail = s.SoftwareThumbnail,
+            //    SoftwareTypeName = s.SoftwareType.TypeName,
+            //    Version = sa.Version,
+            //    IsArchived = sa.IsArchived,
+            //    Location = sa.Location.Location1,
+            //    ExpiryDate = sa.ExpiryDate
+            //}))
+            //.GroupBy(sa => new
+            //{
+            //    sa.SoftwareName,
+            //    sa.SoftwareThumbnail,
+            //    sa.SoftwareTypeName,
+            //    sa.Version,
+            //    sa.IsArchived
+            //})
+            //.Select(s => new Softwares
+            //{
+            //    SoftwareThumbnail = s.Key.SoftwareThumbnail,
+            //    Name = s.Key.SoftwareName,
+            //    Version = s.Key.Version,
+            //    Type = s.Key.SoftwareTypeName,
+            //    IndiaInventory = s.Count(sa => sa.Location == "India"),
+            //    UsaInventory = s.Count(sa => sa.Location == "USA"),
+
+            //    ExpiryDateCountIndia = s.Count(sa => sa.ExpiryDate.HasValue && sa.Location == "India" && sa.ExpiryDate == s.Where(s => s.ExpiryDate.HasValue && s.Location == "India").Min(s => s.ExpiryDate)),
+
+
+            //    // Filter SoftwareAllocations for India location and retrieve the most recent expiry date
+            //    //ExpDateIndia = s.Where(sa => sa.Location == "India" && sa.ExpiryDate.HasValue)
+            //    //                .OrderByDescending(sa => sa.ExpiryDate)
+            //    //                .Select(sa => sa.ExpiryDate.Value)
+            //    //                .FirstOrDefault(),
+            //    ExpDateIndia = s.Where(sa => sa.ExpiryDate.HasValue && sa.Location == "India")
+            //                    .Min(sa => sa.ExpiryDate),
+
+            //    ExpiryDateCountUsa = s.Count(sa => sa.ExpiryDate.HasValue && sa.Location == "USA"),
+            //    // Filter SoftwareAllocations for USA location and retrieve the most recent expiry date
+            //    //ExpDateUsa = s.Where(sa => sa.Location == "USA" && sa.ExpiryDate.HasValue)
+            //    //              .OrderByDescending(sa => sa.ExpiryDate)
+            //    //              .Select(sa => sa.ExpiryDate.Value)
+            //    //              .FirstOrDefault(),
+
+            //    ExpDateUsa = s.Where(sa => sa.ExpiryDate.HasValue && sa.Location == "USA")
+            //                   .Min(sa => sa.ExpiryDate),
+            //})
+            //.ToList();
+
+
+
+
+            //        var allSoftware = _context.Software
+            //.Include(s => s.SoftwareType)
+            //.SelectMany(s => s.SoftwareAllocations
+            //    //.Where(sa => sa.Location.Location1 == country && sa.IsArchived == archive)
+            //    .Select(sa => new
+            //    {
+            //        SoftwareName = s.SoftwareName,
+            //        SoftwareThumbnail = s.SoftwareThumbnail,
+            //        SoftwareTypeName = s.SoftwareType.TypeName,
+            //        Version = sa.Version,
+            //        IsArchived = sa.IsArchived
+            //    }))
+            //.GroupBy(sa => new
+            //{
+            //    sa.SoftwareName,
+            //    sa.SoftwareThumbnail,
+            //    sa.SoftwareTypeName,
+            //    sa.Version,
+            //    sa.IsArchived
+            //}).Select(s => new Softwares
+            //{
+            //    SoftwareThumbnail = s.Key.SoftwareThumbnail,
+            //    Name = s.Key.SoftwareName,
+            //    Version = s.Key.Version,
+            //    Type = s.Key.SoftwareTypeName,
+
+            //    IndiaInventory = s.SoftwareAllocations
+            //         .Count(s => s.Location != null && s.Location.Location1 == "India"),
+
+            //    UsaInventory = s.SoftwareAllocations
+            //         .Count(s => s.Location != null && s.Location.Location1 == "USA"),
+
+            //    IndiaAssigned = s.SoftwareAllocations
+            //         .Count(s => s.AssignedTo != null && s.Location != null && s.Location.Location1 == "India"),
+
+            //    UsaAssigned = s.SoftwareAllocations
+            //         .Count(s => s.AssignedTo != null && s.Location != null && s.Location.Location1 == "USA"),
+
+
+            //    ExpiryDateCountIndia = s.SoftwareAllocations
+            //.Where(sa => sa.ExpiryDate.HasValue && sa.Location.Location1 == "India")
+            //.OrderByDescending(sa => sa.ExpiryDate)
+            //.AsEnumerable()
+            //.GroupBy(sa => sa.ExpiryDate.Value)
+            //.Select(group => group.Count())
+            //.FirstOrDefault(),
+
+            //    ExpDateIndia = s.SoftwareAllocations
+            //        .Where(sa => sa.ExpiryDate.HasValue && sa.Location.Location1 == "India")
+            //        .OrderByDescending(sa => sa.ExpiryDate)
+            //        .Select(sa => sa.ExpiryDate.Value)
+            //        .FirstOrDefault(),
+
+
+
+
+            //    ExpiryDateCountUsa = s.SoftwareAllocations
+            //.Where(sa => sa.ExpiryDate.HasValue && sa.Location.Location1 == "USA")
+            //.OrderByDescending(sa => sa.ExpiryDate)
+            //.AsEnumerable()
+            //.GroupBy(sa => sa.ExpiryDate.Value)
+            //.Select(group => group.Count())
+            //.FirstOrDefault(),
+
+            //    ExpDateUsa = s.SoftwareAllocations
+            //        .Where(sa => sa.ExpiryDate.HasValue && sa.Location.Location1 == "USA")
+            //        .OrderByDescending(sa => sa.ExpiryDate)
+            //        .Select(sa => sa.ExpiryDate.Value)
+            //        .FirstOrDefault(),
+            //}).ToList();
+
+            //        var allSoftware = _context.SoftwareTypes
+            // .Include(st => st.Softwares)
+            //     .ThenInclude(s => s.SoftwareAllocations)
+            // .SelectMany(st => st.Softwares.Select(s => new Softwares
+            // {
+            //     SoftwareThumbnail = s.SoftwareThumbnail,
+            //     Name = s.SoftwareName,
+            //     Version = s.SoftwareAllocations.Select(sa => sa.Version).FirstOrDefault(),
+            //     Type = st.TypeName,
+
+            //     IndiaInventory = s.SoftwareAllocations
+            //         .Count(s=>s.Location != null && s.Location.Location1 == "India"),
+
+            //     UsaInventory = s.SoftwareAllocations
+            //         .Count(s => s.Location != null && s.Location.Location1 == "USA"),
+
+            //     IndiaAssigned = s.SoftwareAllocations
+            //         .Count(s => s.AssignedTo != null && s.Location != null && s.Location.Location1 == "India"),
+
+            //     UsaAssigned = s.SoftwareAllocations
+            //         .Count(s => s.AssignedTo != null && s.Location != null && s.Location.Location1 == "USA"),
+
+
+            //     ExpiryDateCountIndia = s.SoftwareAllocations
+            //.Where(sa => sa.ExpiryDate.HasValue && sa.Location.Location1 == "India")
+            //.OrderByDescending(sa => sa.ExpiryDate)
+            //.AsEnumerable()
+            //.GroupBy(sa => sa.ExpiryDate.Value)
+            //.Select(group => group.Count())
+            //.FirstOrDefault(),
+
+            //     ExpDateIndia = s.SoftwareAllocations
+            //        .Where(sa => sa.ExpiryDate.HasValue && sa.Location.Location1 == "India")
+            //        .OrderByDescending(sa => sa.ExpiryDate)
+            //        .Select(sa => sa.ExpiryDate.Value)
+            //        .FirstOrDefault(),
+
+
+
+
+            //     ExpiryDateCountUsa = s.SoftwareAllocations
+            //.Where(sa => sa.ExpiryDate.HasValue && sa.Location.Location1 == "USA")
+            //.OrderByDescending(sa => sa.ExpiryDate)
+            //.AsEnumerable()
+            //.GroupBy(sa => sa.ExpiryDate.Value)
+            //.Select(group => group.Count())
+            //.FirstOrDefault(),
+
+            //     ExpDateUsa = s.SoftwareAllocations
+            //        .Where(sa => sa.ExpiryDate.HasValue && sa.Location.Location1 == "USA")
+            //        .OrderByDescending(sa => sa.ExpiryDate)
+            //        .Select(sa => sa.ExpiryDate.Value)
+            //        .FirstOrDefault(),
+
+            // }))
+            // .ToList();
+
+
         }
         public List<List<Primary>> GetPrimary()
         {
