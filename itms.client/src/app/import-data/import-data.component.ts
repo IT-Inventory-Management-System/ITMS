@@ -85,14 +85,14 @@ export class ImportDataComponent {
         return {
           locationId: this.locationId,
           LoggedIn: this.loggedUser.id,
-          FullDeviceName: row[1],
+          FullDeviceName: row[1] == null || row[1] == undefined ? null : row[1],
           Processor: 'i7',
           Ram: "16",
           Storage: "512",
-          SerialNo: row[2],
-          PurchasedDate: row[3],
-          DeviceLog: row[4],
-          Cygid: row[5]
+          SerialNo: row[2] == null || row[2] == undefined ? null : row[2],
+          PurchasedDate: row[3] == null || row[3] == undefined ? null : row[3],
+          DeviceLog: row[4] == null || row[4] == undefined ? null : row[4],
+          Cygid: row[5] == null || row[5] == undefined ? null : row[5]
         };
       });
       console.log(inputArray);

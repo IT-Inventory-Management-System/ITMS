@@ -319,7 +319,6 @@ namespace itms.server.controllers
 
         }
 
-        [Authorize]
         [HttpPost("one-time-add-devices")]
         public async Task<ActionResult> OneTimeAddDevice(List<OneTimeAddDeviceDTO> detailsList)
         {
@@ -339,7 +338,7 @@ namespace itms.server.controllers
                 List<OneTimeAddDeviceDTO> failedModels = await _deviceService.PutSingleDeviceModel(uniqueDevices);
                 failedItemsAll.AddRange(failedModels);
 
-                List<OneTimeAddDeviceDTO> newListForDevice = detailsList.Except(failedItemsAll).ToList();
+                List<OneTimeAddDeviceDTO> newListForDevice = newListForDevicesModel.Except(failedItemsAll).ToList();
 
                 List<OneTimeAddDeviceDTO> failedItems = await _deviceService.importDeviceData(newListForDevice);
                 failedItemsAll.AddRange(failedItems);
@@ -367,7 +366,6 @@ namespace itms.server.controllers
             }
         }
 
-        [Authorize]
         [HttpPost("importDeviceData")]
         public async Task<List<OneTimeAddDeviceDTO>> importDevice([FromBody] List<OneTimeAddDeviceDTO> importDeviceInput)
         {
