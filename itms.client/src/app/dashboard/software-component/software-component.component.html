@@ -1,7 +1,7 @@
 <div  class="software">
   <div class="software-details">
 
-    <span *ngIf="(softwareData.expiryDateCountIndia > 0 && getRemainingDays(softwareData.expDateIndia) < 30 && selectedLocation==='India'); else noTotalText" class="warning-text">
+    <span *ngIf="(softwareData.expiryDateCountIndia > 0 && getRemainingDays(softwareData.expDateIndia) < 30 && selectedLocation==='India' && softwareData.type !== 'perpetual'); else noTotalText" class="warning-text">
       <div *ngIf="softwareData.type !== 'perpetual'" class="expiring-tag">
         <img src="../../../assets/icons/dashboard/Warning.svg" />
         <div *ngIf="getRemainingDays(softwareData.expDateIndia) < 30 && getRemainingDays(softwareData.expDateIndia) > 0">
