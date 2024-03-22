@@ -964,7 +964,7 @@ public class DeviceService
                         DevicesLog deviceLog = new DevicesLog
                         {
                             DeviceId = await _context.Devices.Where(dc => dc.Cygid == d.Cygid).Select(d => d.Id).FirstOrDefaultAsync(),
-                            EmployeeId = await _context.Employees.Where(e => string.Concat(e.FirstName," ",e.LastName).ToLower() == trimmedDl.ToLower()).Select(e => e.Id).FirstOrDefaultAsync(),
+                            EmployeeId = await _context.Employees.Where(e => string.Concat(e.FirstName," ",e.LastName) == trimmedDl).Select(e => e.Id).FirstOrDefaultAsync(),
                             AssignedBy = d.LoggedIn,
                             RecievedBy = (i == Devicelog.Length-1) && (assignedTo==true)?null:d.LoggedIn,
                             RecievedDate = (i == Devicelog.Length - 1) && (assignedTo == true) ? null : DateTime.UtcNow,
@@ -1018,7 +1018,7 @@ public class DeviceService
 
                 try
                 {
-                    DateTime pd = DateTime.ParseExact(inputDto.PurchasedDate, "dd-MM-yy", CultureInfo.InvariantCulture);
+                    DateTime pd = DateTime.ParseExact(inputDto.PurchasedDate, "dd-MM-yyyy", CultureInfo.InvariantCulture);
 
                     Device deviceItem = new Device();
                     deviceItem.SerialNumber = inputDto.SerialNo;

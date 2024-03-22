@@ -235,9 +235,9 @@ namespace ITMS.Server.DTO
 
     public class OneTimeAddDeviceDTO
     {
-        public string FullDeviceName { get; set; }
+        public string? FullDeviceName { get; set; }
         public string? Processor { get; set; }
-        public string DeviceLog { get; set; }
+        public string? DeviceLog { get; set; }
         public string? Ram { get; set; }
         public string? Storage { get; set; }
         public string? SerialNo { get; set; }
