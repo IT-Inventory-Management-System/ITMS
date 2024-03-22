@@ -189,15 +189,16 @@ export class RevokeAllComponent {
     
 
         const SubmitLaterActionId = this.actionsArray.find(a => a.actionName === 'Assigned' || a.actionName === 'assigned').id;
+        const LostActionId = this.actionsArray.find(a => a.actionName === 'Lost' || a.actionName === 'lost').id;
 
         let isSubmitLater = false; 
 
        
         if (formData.Laptop && formData.Laptop.length > 0) {
           for (const laptop of formData.Laptop) {
-            if (laptop.actionId === SubmitLaterActionId) {
-              isSubmitLater = true; // Set to true if any instance has the SubmitLaterActionId
-              break; // Exit loop if found
+            if (laptop.actionId === SubmitLaterActionId || laptop.actionId === LostActionId) {
+              isSubmitLater = true; 
+              break; 
             }
           }
         }
@@ -205,9 +206,9 @@ export class RevokeAllComponent {
       
         if (formData.Accessory && formData.Accessory.length > 0) {
           for (const accessory of formData.Accessory) {
-            if (accessory.actionId === SubmitLaterActionId) {
-              isSubmitLater = true; // Set to true if any instance has the SubmitLaterActionId
-              break; // Exit loop if found
+            if (accessory.actionId === SubmitLaterActionId || (accessory.actionId === LostActionId)) {
+              isSubmitLater = true; 
+              break; 
             }
           }
         }
