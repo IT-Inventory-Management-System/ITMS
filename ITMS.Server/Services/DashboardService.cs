@@ -30,20 +30,24 @@ namespace ITMS.Server.Services
             {
                 Accessories accessories = new Accessories();
                 accessories.Name = category.Name;
-                accessories.TotalIndia = category.DeviceModels
-                        .SelectMany(dm => dm.Devices)
-                        .Count(device => device.Location != null && device.Location.Location1 == "India");
-                accessories.AssignedIndia = category.DeviceModels
-            .SelectMany(dm => dm.Devices)
-            .Count(device => device.AssignedTo != null && device.Location != null && device.Location.Location1 == "India");
+                accessories.TotalIndia = _context.Devices.Count(d => d.DeviceModel.Category.Name == category.Name && d.Location != null && d.Location.Location1 == "India");
+                    //category.DeviceModels
+                    //    .SelectMany(dm => dm.Devices)
+                    //    .Count(device => device.Location != null && device.Location.Location1 == "India");
+                accessories.AssignedIndia = _context.Devices.Count(d => d.DeviceModel.Category.Name == category.Name && d.AssignedTo != null && d.Location != null && d.Location.Location1 == "India");
+                //        category.DeviceModels
+                //.SelectMany(dm => dm.Devices)
+                //.Count(device => device.AssignedTo != null && device.Location != null && device.Location.Location1 == "India");
 
 
-                accessories.TotalUSA = category.DeviceModels
-                      .SelectMany(dm => dm.Devices)
-                      .Count(device => device.Location != null && device.Location.Location1 == "USA");
-                accessories.AssignedUSA = category.DeviceModels
-            .SelectMany(dm => dm.Devices)
-            .Count(device => device.AssignedTo != null && device.Location != null && device.Location.Location1 == "USA");
+                accessories.TotalUSA = _context.Devices.Count(d => d.DeviceModel.Category.Name == category.Name && d.Location != null && d.Location.Location1 == "USA");
+                //category.DeviceModels
+                //  .SelectMany(dm => dm.Devices)
+                //  .Count(device => device.Location != null && device.Location.Location1 == "USA");
+                accessories.AssignedUSA = _context.Devices.Count(d => d.DeviceModel.Category.Name == category.Name && d.AssignedTo != null && d.Location != null && d.Location.Location1 == "USA");
+                //        category.DeviceModels
+                //.SelectMany(dm => dm.Devices)
+                //.Count(device => device.AssignedTo != null && device.Location != null && device.Location.Location1 == "USA");
 
 
 
