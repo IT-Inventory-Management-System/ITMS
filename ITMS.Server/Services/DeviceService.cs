@@ -891,7 +891,9 @@ public class DeviceService
         var distinctNames = allNames.Select(x => x.FullDeviceName).Distinct().ToList();
         foreach(var d in distinctNames)
         {
-            res.Add(allNames.Where(x => distinctNames.Contains(x.FullDeviceName)).FirstOrDefault());
+            res.Add(allNames.Where(x => x.FullDeviceName == d).FirstOrDefault());
+            //res.Add(allNames.Where(x => allNames.Contains(d)).FirstOrDefault());
+            //x => distinctNames.Contains(x.FullDeviceName)).FirstOrDefault());
         }
         var uniqueDevices = allNames.Where(x => distinctNames.Contains(x.FullDeviceName)).ToList();
         return await Task.FromResult(res);
@@ -905,7 +907,12 @@ public class DeviceService
         {
             string[] Name = d.FullDeviceName.Split(' ');
             string[] MACName = null;
-            
+
+            var chk1 = Name[0].ToLower() == "apple";
+            var chk2 = Name[0].ToLower() != "macbook";
+            var chk3 = Name[Name.Length - 1];
+
+
             if ((Name[0].ToLower() == "apple") || (Name[0].ToLower() != "macbook"))
             {
                 MACName = d.FullDeviceName.Split('(',')');
@@ -917,7 +924,8 @@ public class DeviceService
                 {
                     CategoryId = await _context.Categories.Where(s => s.Name == "Laptop").Select(s => s.Id).FirstOrDefaultAsync(),
                     Brand = Name[0],
-                    ModelNo = (Name[0].ToLower() == "apple") || (Name[0].ToLower() != "macbook") ? MACName[1] : Name[2],
+                    //ModelNo = (Name[0].ToLower() == "apple") || (Name[0].ToLower() != "macbook") ? MACName[1] : Name[2],
+                    ModelNo = Name[0].ToLower() == "apple"? MACName[1] : Name[0].ToLower() == "macbook" ? Name[Name.Length - 1] : Name[2],
                     DeviceName = d.FullDeviceName,
                     CreatedBy = d.LoggedIn,
                     UpdatedBy = d.LoggedIn,
@@ -1042,6 +1050,7 @@ public class DeviceService
                 var assigned = await getAssignedTo(inputDto.DeviceLog);
                 inputDto.SerialNo = await RemoveTag(inputDto.SerialNo);
 
+
                 try
                 {
                     DateTime pd = DateTime.ParseExact(inputDto.PurchasedDate, "dd-MM-yyyy", CultureInfo.InvariantCulture);
@@ -1049,6 +1058,9 @@ public class DeviceService
                     Device deviceItem = new Device();
                     deviceItem.SerialNumber = inputDto.SerialNo;
                     deviceItem.Cygid = (isApple.ToLower() == "apple") || (isApple.ToLower() == "macbook") ? "CYG" + (MACCygidNumber + idx) : inputDto.Cygid;
+                    if((isApple.ToLower() == "apple") || (isApple.ToLower() == "macbook")){
+                        inputDto.Cygid = "CYG" + (MACCygidNumber + idx);
+                    }
                     deviceItem.PurchasedDate = pd;
                     deviceItem.CreatedBy = inputDto.LoggedIn;
                     deviceItem.UpdatedBy = inputDto.LoggedIn;
