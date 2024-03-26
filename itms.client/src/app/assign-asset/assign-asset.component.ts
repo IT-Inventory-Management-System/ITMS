@@ -444,7 +444,8 @@ export class AssignAssetComponent {
             this.closeForm();
         this.assignAssetForm.reset();
         this.accessCYGIDs = [];
-            this.toastr.success('Assignment saved successfully');
+        this.toastr.success('Assignment saved successfully');
+        this.isUserSelected = false;
           },
           (error) => {
             this.closeForm();

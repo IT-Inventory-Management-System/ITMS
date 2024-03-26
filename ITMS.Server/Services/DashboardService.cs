@@ -89,6 +89,12 @@ namespace ITMS.Server.Services
         ExpDateIndia = s.Where(sa => sa.ExpiryDate.HasValue && sa.Location == "India")
                                .Min(sa => sa.ExpiryDate),
 
+        //IndiaAssigned = _context.SoftwareAllocations
+                 //.Count(s => s.AssignedTo != null && s.Location != null && s.Location.Location1 == "India"),
+
+        //UsaAssigned = _context.SoftwareAllocations
+                 //.Count(s => s.AssignedTo != null && s.Location != null && s.Location.Location1 == "USA"),
+
         //ExpiryDateCountIndia = s.Count(sa => sa.ExpiryDate == s && sa.ExpiryDate.HasValue && sa.Location == "India"),
 
         ExpDateUsa = s.Where(sa => sa.ExpiryDate.HasValue && sa.Location == "USA")
@@ -106,6 +112,8 @@ namespace ITMS.Server.Services
         ExpiryDateCountIndia = s.Type.ToLower() == "perpetual" ? 0: _context.SoftwareAllocations.Where(sa =>sa.Location.Location1.ToLower() == "india" && sa.Software.SoftwareName == s.Name && sa.Version == s.Version && sa.Software.SoftwareType.TypeName == s.Type && sa.ExpiryDate == s.ExpDateIndia).Count(),
         ExpDateUsa = s.ExpDateUsa,
         ExpiryDateCountUsa = s.Type.ToLower() == "perpetual" ? 0 : _context.SoftwareAllocations.Where(sa => sa.Location.Location1.ToLower() == "usa" && sa.Software.SoftwareName == s.Name && sa.Version == s.Version && sa.Software.SoftwareType.TypeName == s.Type && sa.ExpiryDate == s.ExpDateIndia).Count(),
+        IndiaAssigned = _context.SoftwareAllocations.Count(sa => sa.AssignedTo != null && sa.Location != null && sa.Location.Location1 == "India" && sa.Version==s.Version && sa.Software.SoftwareType.TypeName == s.Type),
+        UsaAssigned = _context.SoftwareAllocations.Count(sa => sa.AssignedTo != null && sa.Location != null && sa.Location.Location1 == "USA" && sa.Version == s.Version && sa.Software.SoftwareType.TypeName == s.Type),
     })
     .ToList();
 
