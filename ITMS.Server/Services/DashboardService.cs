@@ -90,7 +90,7 @@ namespace ITMS.Server.Services
                                .Min(sa => sa.ExpiryDate),
 
         //IndiaAssigned = _context.SoftwareAllocations
-                 //.Count(s => s.AssignedTo != null && s.Location != null && s.Location.Location1 == "India"),
+        //         .Count(sa => sa.AssignedTo != null && sa.Location != null && sa.Location.Location1 == "India" && sa.Version == s.Key.Version),
 
         //UsaAssigned = _context.SoftwareAllocations
                  //.Count(s => s.AssignedTo != null && s.Location != null && s.Location.Location1 == "USA"),
