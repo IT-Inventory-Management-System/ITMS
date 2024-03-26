@@ -89,8 +89,8 @@ export class LaptopAllRevokeComponent {
   createLaptopFormGroup(laptop: any) {
     return this.formBuilder.group({
       deviceLogId: [laptop.deviceLogId],
-      actionId: [null],
-      deviceComment: [null],
+      actionId: [laptop.actionId],
+      deviceComment: [laptop.comment],
       deviceId: [laptop.deviceId]
     });
   }

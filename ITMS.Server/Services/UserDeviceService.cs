@@ -92,12 +92,14 @@ public class UserDeviceService
                        .Where(action => action.Id == log.ActionId)
                        .Select(action => $"{action.ActionName}")
                        .FirstOrDefault(),
+                   ActionId = log.ActionId,
                    UpdatedBy = _dbContext.Employees
                        .Where(employee => employee.Id == log.UpdatedBy)
                        .Select(employee => $"{employee.FirstName} {employee.LastName}")
                        .FirstOrDefault(),
                    UpdatedAtUtc = log.UpdatedAtUtc,
-                   CreatedAtUtc = log.CreatedAtUtc
+                   CreatedAtUtc = log.CreatedAtUtc,
+                 
                })
                .ToList();
 
@@ -225,7 +227,8 @@ public class UserDeviceService
                            .Select(employee => $"{employee.FirstName} {employee.LastName}")
                            .FirstOrDefault(),
                     UpdatedAtUtc = log.UpdatedAtUtc,
-                    CreatedAtUtc = log.CreatedAtUtc
+                    CreatedAtUtc = log.CreatedAtUtc,
+                    ActionId = log.ActionId,
                 })
                 .ToList();
 
