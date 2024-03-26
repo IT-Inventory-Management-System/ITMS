@@ -125,7 +125,7 @@ namespace ITMS.Server.Services
                                                          .ToList(),
 
                                          ExpDate = s.SoftwareAllocations
-                                                  .Where(sa => sa.ExpiryDate.HasValue && sa.Location.Location1 == parameters.location && sa.Version == parameters.version)
+                                                  .Where(sa => sa.ExpiryDate.HasValue && sa.Location.Location1 == parameters.location && sa.Version == parameters.version && parameters.type == type.TypeName)
                                                   .OrderByDescending(sa => sa.ExpiryDate)
                                                   .Select(sa => sa.ExpiryDate)
                                                   .FirstOrDefault(),
