@@ -31,7 +31,7 @@ namespace ITMS.Server.Services
                 Accessories accessories = new Accessories();
                 accessories.Name = category.Name;
                 accessories.TotalIndia = _context.Devices.Count(d => d.DeviceModel.Category.Name == category.Name && d.Location != null && d.Location.Location1 == "India");
-                    //category.DeviceModels
+                    //     category.DeviceModels
                     //    .SelectMany(dm => dm.Devices)
                     //    .Count(device => device.Location != null && device.Location.Location1 == "India");
                 accessories.AssignedIndia = _context.Devices.Count(d => d.DeviceModel.Category.Name == category.Name && d.AssignedTo != null && d.Location != null && d.Location.Location1 == "India");
