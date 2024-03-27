@@ -924,7 +924,7 @@ public class DeviceService
                 {
                     CategoryId = await _context.Categories.Where(s => s.Name == "Laptop").Select(s => s.Id).FirstOrDefaultAsync(),
                     Brand = Name[0],
-                    //ModelNo = (Name[0].ToLower() == "apple") || (Name[0].ToLower() != "macbook") ? MACName[1] : Name[2],
+                    //ModelNo = (Name[0].ToLower() == "apple") || (Name[0].ToLower() != "macbook") ? MACName[1] : Name[2], 
                     ModelNo = Name[0].ToLower() == "apple" || (Name[0].ToLower() == "macbook" && MACName != null)? MACName[1] : Name[0].ToLower() == "macbook" ? Name[Name.Length - 1] : Name[2],
                     DeviceName = d.FullDeviceName,
                     CreatedBy = d.LoggedIn,
