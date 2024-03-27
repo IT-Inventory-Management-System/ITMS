@@ -19,14 +19,15 @@ export class AddSoftwareModelComponent {
   UserId: any;
   userDataJSON: any;
   softwareTypes: any[] = [];
-
+  dropdownValues: any;
+  showExistMessage: boolean = false;
   constructor(private fb: FormBuilder, private dataService: DataService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.createForm();
 
     this.getSoftwareType();
-
+    this.loadDropdownValues();
 
     this.ProfileDP = '../../../assets/icons/add_photo_alternate_outlined 1.svg';
 
@@ -96,6 +97,20 @@ export class AddSoftwareModelComponent {
     this.newSoftwareForm.get('updatedAtUtc')?.setValue(new Date().toISOString());
     this.newSoftwareForm.get('createdBy')?.setValue(this.UserId);
     this.newSoftwareForm.get('updatedBy')?.setValue(this.UserId);
+
+    const softwareName = this.newSoftwareForm.get('softwareName')?.value;
+    const softwareType = this.newSoftwareForm.get('softwareTypeId')?.value;
+
+    const matchingSoftware = this.dropdownValues.find((software: any) => {
+      return software.softwareName === softwareName && software.softwareTypeId === softwareType;
+    });
+
+    if (matchingSoftware) {
+     // this.toastr.error('Software with the same name and type already exists.');
+      this.showExistMessage = true;
+      return;
+    }
+
     if (this.newSoftwareForm.valid) {
       console.log(this.newSoftwareForm.value);
       //this.newSoftwareForm.reset();
@@ -177,7 +192,20 @@ export class AddSoftwareModelComponent {
   }
   hideErrorMessage() {
     this.showErrorMessage = false;
+    this.showExistMessage= false;
   }
+  loadDropdownValues() {
+    this.dataService.getSoftwares().subscribe(
+      (data) => {
+        this.dropdownValues = data;
+        console.log(data);
+      },
+      (error) => {
+        console.error('Error fetching software values', error);
+      }
+    );
+  }
+
 
 }
 
