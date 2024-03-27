@@ -93,7 +93,7 @@ export class AssignSoftwareComponent {
   SoftwareSearchBoxOptionSelected(event: any, index: number): void {
     this.selectedSoftwareNames[index] = event;
     this.currSelectedSoftware = this.selectedSoftwareNames[index];
-   // console.log("this.currSelectedSoftware", this.currSelectedSoftware);
+    // console.log("this.currSelectedSoftware", this.currSelectedSoftware);
     this.filterSoftwareVersions(index);
   }
 
