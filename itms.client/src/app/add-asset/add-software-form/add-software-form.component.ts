@@ -1,7 +1,9 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { DataService } from '../../shared/services/data.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { NgSelectComponent } from '@ng-select/ng-select';
+
 @Component({
   selector: 'app-add-software-form',
   templateUrl: './add-software-form.component.html',
@@ -15,6 +17,7 @@ export class AddSoftwareFormComponent {
   dropdownValues: any[] = [];
   softwareTypes: any[] = [];
   NewSoftwareID: any;
+  @ViewChild(NgSelectComponent) ngSelectComponent: NgSelectComponent;
 
   constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService) {
     this.dropdownValues = [];
@@ -271,6 +274,7 @@ export class AddSoftwareFormComponent {
     this.counterValue = 0;
     this.counterValue2 = 0;
     this.counterValue3 = 0;
+    this.ngSelectComponent.clearModel();
   }
   checkShowErrorMessage() {
     if (this.SoftwareForm.get('softwareId')?.value) {
