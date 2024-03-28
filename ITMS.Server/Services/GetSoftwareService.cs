@@ -23,12 +23,14 @@ namespace ITMS.Server.Services
             }
         public async Task<IEnumerable<GetSoftwareDTO>> listSoftware()
         {
+            var currentDate = DateTime.UtcNow;
             var result = await (from s in _context.Software
                                 join st in _context.SoftwareTypes
                                 on s.SoftwareTypeId equals st.Id
                                 join sa in _context.SoftwareAllocations
                                 on s.Id equals sa.SoftwareId
-                                where sa.IsArchived == false && sa.ExpiryDate >= new DateTime()
+                                where sa.IsArchived == false
+                                //&& sa.ExpiryDate >= currentDate
                                 select new GetSoftwareDTO
                                 {
                                     Id = s.Id,

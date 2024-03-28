@@ -229,6 +229,21 @@ export class AssignAssetComponent {
   getSoftwares(): void {
     this.deviceAssignService.getSoftware().subscribe(
       (data: any[]) => {
+
+        let currentDate = new Date();
+
+        data = data.filter(item => {
+          if (item.expiryDate) {
+            let expiryDate = new Date(item.expiryDate);
+            return expiryDate >= currentDate;
+          }
+          return true; 
+        });
+
+        //console.log(data); 
+
+
+        //console.log(data);
         this.totalSoftwaresData = data;
         this.dupSoftwares = data;
         this.softwares = data;
