@@ -428,7 +428,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
     this.dashboardService.GetAccessories().subscribe(
       data => {
-        console.log(data)
+        //console.log(data)
         this.accessoriesData = data;
         this.loading = false;
         this.cdr.detectChanges();
