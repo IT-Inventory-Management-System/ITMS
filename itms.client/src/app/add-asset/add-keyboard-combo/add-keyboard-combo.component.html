@@ -89,7 +89,7 @@
 
           <div class="purchase-date-section" [formGroup]="addDeviceForm">
 
-            <label for="Warranty Year " class="purchaseDate">Warranty Date <span class="required">*</span></label>
+            <label for="Warranty Year " class="purchaseDate">Warranty Date</label>
 
               <input type="date" class="form-control" id="Warranty Year " name="Warranty Year " placeholder="15-12-2023" [class.disabled]="selectedmedium== ''" formControlName="warrantydate"  min="{{ PurchasedDate() }}">
               <img src="../../../assets/icons/calendar.svg" />
