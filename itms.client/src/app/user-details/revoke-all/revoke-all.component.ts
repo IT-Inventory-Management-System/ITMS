@@ -59,11 +59,23 @@ export class RevokeAllComponent {
   // Filter the details in ngOnChanges lifecycle hook
   ngOnChanges() {
     if (this['laptopDetails'] && Array.isArray(this['laptopDetails']))
-      this.filteredLaptopDetails = this['laptopDetails'].filter((laptop: any) => laptop.submitedBy === null || (laptop.actionName === 'Assigned' || laptop.actionName === 'assigned'));
+      this.filteredLaptopDetails = this['laptopDetails'].map((laptop, index) => {
+        return {
+          ...laptop,
+          laptopIndex: index
+        }
+      });
+
     if (this['softwareDetails'] && Array.isArray(this['softwareDetails']))
       this.filteredSoftwareDetails = this['softwareDetails'].filter((software: any) => software.recievedBy === null);
+
     if (this['accessoriesDetails'] && Array.isArray(this['accessoriesDetails']))
-      this.filteredAccessoriesDetails = this['accessoriesDetails'].filter((accessory: any) => accessory.submittedBy === null || (accessory.actionName === 'Assigned' || accessory.actionName === 'assigned') );
+      this.filteredAccessoriesDetails = this['accessoriesDetails'].map((accessory, index) => {
+        return {
+          ...accessory,
+          accessoryIndex: index
+        }
+      });
   }
   constructor(private formBuilder: FormBuilder, private toastr: ToastrService, private revokeAllService: EmployeeService, private actionService: EmployeeService, private employeeService: EmployeeService, private cdr: ChangeDetectorRef) {
     this.revokeAllForm = this.formBuilder.group({
@@ -153,23 +165,23 @@ export class RevokeAllComponent {
   dismissModal() {
     this.currentStep = 1;
 
-    for (let i = 0; i < this.laptopDetails.length; i++) {
-      this.laptopDetails[i].received = null;
-      this.laptopDetails[i].perfect = null;
-      this.laptopDetails[i].unassignable = null;
-      this.laptopDetails[i].submittedLater = null;
-      this.laptopDetails[i].lostNotReceived = null;
-      this.laptopDetails[i].comment = '';
-    }
+    //for (let i = 0; i < this.laptopDetails.length; i++) {
+    //  this.laptopDetails[i].received = null;
+    //  this.laptopDetails[i].perfect = null;
+    //  this.laptopDetails[i].unassignable = null;
+    //  this.laptopDetails[i].submittedLater = null;
+    //  this.laptopDetails[i].lostNotReceived = null;
+    //  this.laptopDetails[i].comment = '';
+    //}
 
-    for (let i = 0; i < this.accessoriesDetails.length; i++) {
-      this.accessoriesDetails[i].received = null;
-      this.accessoriesDetails[i].perfect = null;
-      this.accessoriesDetails[i].unassignable = null;
-      this.accessoriesDetails[i].submittedLater = null;
-      this.accessoriesDetails[i].lostNotReceived = null;
-      this.accessoriesDetails[i].comment = '';
-    }
+    //for (let i = 0; i < this.accessoriesDetails.length; i++) {
+    //  this.accessoriesDetails[i].received = null;
+    //  this.accessoriesDetails[i].perfect = null;
+    //  this.accessoriesDetails[i].unassignable = null;
+    //  this.accessoriesDetails[i].submittedLater = null;
+    //  this.accessoriesDetails[i].lostNotReceived = null;
+    //  this.accessoriesDetails[i].comment = '';
+    //}
 
     //this.revokeAllForm.reset();
     this.updateButtonDisabledState();
@@ -186,24 +198,19 @@ export class RevokeAllComponent {
 
     this.revokeAllService.revokeAll(formData).subscribe(
       (response) => {
-        // console.log("user id is: ", this.userId);
-        // console.log("response of recent is :", response);
-
-        // Set laptop details
-
-       // console.log("the recent response is ", response);
-       // console.log("laptop details is:", response.laptopResults);
-
+       
         const SubmitLaterActionId = this.actionsArray.find(a => a.actionName === 'Assigned' || a.actionName === 'assigned').id;
+        const LostActionId = this.actionsArray.find(a => a.actionName === 'Lost' || a.actionName === 'lost').id;
 
-        let isSubmitLater = false; // Initialize the variable to false
+
+        let isSubmitLater = false;
 
         // Loop through laptop results
         if (formData.Laptop && formData.Laptop.length > 0) {
           for (const laptop of formData.Laptop) {
-            if (laptop.actionId === SubmitLaterActionId) {
-              isSubmitLater = true; // Set to true if any instance has the SubmitLaterActionId
-              break; // Exit loop if found
+            if (laptop.actionId === SubmitLaterActionId || laptop.actionId === LostActionId) {
+              isSubmitLater = true; 
+              break; 
             }
           }
         }
@@ -211,9 +218,9 @@ export class RevokeAllComponent {
         // Loop through accessory results
         if (formData.Accessory && formData.Accessory.length > 0) {
           for (const accessory of formData.Accessory) {
-            if (accessory.actionId === SubmitLaterActionId) {
-              isSubmitLater = true; // Set to true if any instance has the SubmitLaterActionId
-              break; // Exit loop if found
+            if (accessory.actionId === SubmitLaterActionId || (accessory.actionId === LostActionId)) {
+              isSubmitLater = true; 
+              break; 
             }
           }
         }

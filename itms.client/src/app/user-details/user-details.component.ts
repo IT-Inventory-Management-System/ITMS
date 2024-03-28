@@ -74,6 +74,7 @@ export class UserDetailsComponent {
     this.userDetails.onHold = value;
   }
 
+
   onInitiateExitProcess(userId: string) {
     this.userDetails.exitProcessInitiated= true;
     this.showAssignAsset = false; 
@@ -103,6 +104,28 @@ export class UserDetailsComponent {
   selectItem(item: string) {
     this.selectedItem = item;
   }
+
+  getDevicesList(userId: any): void {
+  
+    this.employeeService.getDevices(userId)
+      .subscribe(
+        (data: any) => {
+
+          this.laptopDetails = data.laptop;
+          this.softwareDetails = data.software;
+          this.accessoriesDetails = data.accessories;
+          console.log(this.laptopDetails);
+          console.log(this.softwareDetails);
+          console.log(this.accessoriesDetails);
+         
+        },
+        (error) => {
+          console.error('Error fetching laptop details:', error);
+        }
+      );
+  }
+
+
   updateExitProcessInitiation() {
      this.storedUser = localStorage.getItem("user");
     const body = {
