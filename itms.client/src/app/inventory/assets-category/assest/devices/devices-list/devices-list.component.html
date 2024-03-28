@@ -1,6 +1,6 @@
 <div class="devices-list-container">
 
-  <button #firstButton class="devices-list-container-items" (click)="onDeviceClick(device?.cygid, false) " [attr.data-name]="device?.cygid">
+  <button #firstButton class="devices-list-container-items" (click)="onDeviceClick(device?.cygid, false)" [attr.data-cygid]="device?.cygid" >
     <ng-container *ngIf="device.operatingSystem=='Windows'">
       <img src="../../../../../../assets/icons/Assets/windows.svg" />
     </ng-container>

@@ -1,0 +1,33 @@
+<div class="container" [formGroup]="deviceForm">
+  <div class="modal fade" id="assignable" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+
+      <div class="modal-content" style="padding: 2rem;">
+        <button type="button" class="close close_btn" data-dismiss="modal" aria-label="Close" (click)="closemodal()">
+          <img src="../../../../../../assets/icons/Close.svg" />
+        </button>
+        <img class="archive-img" src="../../../../../../assets/icons/laptop-solid 2.svg" />
+
+        <div class="modal-title archive_item_heading" id="exampleModalLabel">Assignable Item “{{cygid}}”</div>
+        <div class="modal-body ">
+          <div class="modal_text">
+            Are you sure you want to make this device assignable?
+          </div>
+          <div class="comment_input">
+            <label for="textarea" class="textarea_label">Comment <span class="required">*</span></label><br>
+            <textarea id="textarea" name="textarea" placeholder="Type here..." required formControlName="description" (input)="hideErrorMessage()" [ngClass]="{'error-textarea': ShowErrorMessage}"></textarea>
+            <span *ngIf="ShowErrorMessage" class="error-message">
+              This field is required
+            </span>
+          </div>
+        </div>
+
+        <div class="modal-footer ">
+          <button type="button" class="btn footer_bu" (click)="closemodal()">Cancel</button>
+          <button type="button" class="btn  footer_bu Archive_bu" (click)="onclick(); handleSelectionChange()">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

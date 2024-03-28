@@ -17,6 +17,7 @@
         public string? SubmittedBy { get; set; } //new 
         public DateTime? SubmittedByDate { get; set; } //new
         public string ActionName { get; set; } //new
+        public Guid? ActionId { get; set; }
 
         public string UpdatedBy { get; set; } //new
         public DateTime? CreatedAtUtc { get; set; } //new

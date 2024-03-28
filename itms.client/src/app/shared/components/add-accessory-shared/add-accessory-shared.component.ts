@@ -246,6 +246,13 @@ export class AddAccessorySharedComponent {
     this.showAccessoryBrandForm = false;
     this.ngOnInit();
   }
+  PurchasedDate(): string {
+    var isPurchasedOn = this.addDeviceForm.get('purchaseddate')?.value != '';
+    if (isPurchasedOn) {
+      return this.addDeviceForm.get('purchaseddate')?.value;
+    }
+    return '';
+  }
 
   onSubmit() {
 

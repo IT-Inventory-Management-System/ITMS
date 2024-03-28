@@ -14,7 +14,7 @@
         public Guid DeviceLogId { get; set; }
         public Guid DeviceId { get; set; }
         public Guid ActionId { get; set; }
-        public string DeviceComment { get; set; }
+        public string? DeviceComment { get; set; }
     }
 
     public class SoftwareRevokeDTO
@@ -30,6 +30,6 @@
         public Guid DeviceLogId { get; set; }
         public Guid DeviceId { get; set; }
         public Guid ActionId { get; set; }
-        public string DeviceComment { get; set; }
+        public string? DeviceComment { get; set; }
     }
 }

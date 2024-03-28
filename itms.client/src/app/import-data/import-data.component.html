@@ -1,0 +1,60 @@
+
+<div class="modal fade" id="importDataModal" tabindex="-1" role="dialog" aria-labelledby="importDataModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content userwidth  ">
+
+
+      <div class="modal-body">
+        <span class="uploaduser-text">Upload All Data CSV</span>
+        <img class="close" src="../../assets/icons/Close.svg" data-bs-dismiss="modal" (click)="cancle()" />
+        <div class="content-text m-2">
+          To add previous data, please upload the CSV / Excel file.
+        </div>
+        <div class="csv-file" *ngIf="csvFileVisible">
+          <div class="inner-csv-file">
+            <div class="file-div">
+              <img src="../../assets/icons/FileCsv.svg" />
+              <span class="file-name">{{ fileName }}</span>
+            </div>
+            <img src="../../assets/icons/User-Csv-close.svg" (click)="cancle()" class="close-add-user" />
+          </div>
+        </div>
+        <div class="drag-drop" *ngIf="!csvFileVisible">
+          <div class="browse-icon ">
+            <div class="upload-icon ">
+              <img src="../../assets/icons/upload-csv.svg" />
+
+            </div>
+            <span class="drag-text">
+              Drag and drop here
+              or click to select a file from your computer
+            </span>
+          </div>
+          <input type="file" style="display: none;" id="fileUpload2" (change)="onFileSelected($event)">
+
+          <button type="button" class="browse-csv-button" (click)="triggerFileInput()">
+            <span class="browse-text">Browse from your computer</span>
+          </button>
+        </div>
+
+
+        <div class="cancle-save">
+
+          <button class="cancel-button" data-bs-dismiss="modal" (click)="cancle()"><span>Cancel</span></button>
+          <button class="btn btn-primary addclose" data-bs-dismiss="modal" (click)="saveData()"><span>Save</span></button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+

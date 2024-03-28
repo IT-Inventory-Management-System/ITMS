@@ -196,11 +196,13 @@ input[type="checkbox"] {
   font-style: normal;
   font-weight: 400;
   line-height: 1rem; /* 133.333% */
+  width:fit-content;
+  margin-top:1.25rem;
 }
 .add-button {
   display: flex;
-  flex-direction: row-reverse;
-  justify-content: space-between;
+  
+  justify-content: flex-end;
   gap: 0.625rem;
   align-self: stretch;
  

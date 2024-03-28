@@ -77,7 +77,7 @@ export class LaptopAllRevokeComponent {
 
   initializeLaptopFormArray() {
     const laptopArray = this.revokeAllForm.get('Laptop') as FormArray;
-    //laptopArray.clear();
+    laptopArray.clear();
     if (laptopArray.length === 0) {
       this.laptopDetails.forEach((laptop: any) => {
         laptopArray.push(this.createLaptopFormGroup(laptop));
@@ -89,8 +89,8 @@ export class LaptopAllRevokeComponent {
   createLaptopFormGroup(laptop: any) {
     return this.formBuilder.group({
       deviceLogId: [laptop.deviceLogId],
-      actionId: [null],
-      deviceComment: [null],
+      actionId: [laptop.actionId],
+      deviceComment: [laptop.comment],
       deviceId: [laptop.deviceId]
     });
   }

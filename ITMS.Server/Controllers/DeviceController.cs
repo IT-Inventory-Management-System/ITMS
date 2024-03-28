@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using ITMS.Server.Models;
 using ITMS.Server.DTO;
 using static Azure.Core.HttpHeader;
-using System.Runtime.InteropServices;
+using System.Runtime.InteropServices; 
 using Microsoft.AspNetCore.Authorization;
 
 
@@ -317,6 +317,62 @@ namespace itms.server.controllers
             }
            
 
+        }
+
+        [HttpPost("one-time-add-devices")]
+        public async Task<ActionResult> OneTimeAddDevice(List<OneTimeAddDeviceDTO> detailsList)
+        {
+            var failedItemsAll = new Dictionary<string, List<OneTimeAddDeviceDTO>>();
+            try
+            {
+                List<OneTimeAddDeviceDTO> newListForDevicesModel = new List<OneTimeAddDeviceDTO>();
+                foreach (var item in detailsList)
+                {
+                    if (!string.IsNullOrEmpty(item.FullDeviceName))
+                    {
+                        newListForDevicesModel.Add(item);
+                    }
+                }
+
+                List<OneTimeAddDeviceDTO> uniqueDevices = await _deviceService.GetUnique(newListForDevicesModel);
+                List<OneTimeAddDeviceDTO> failedModels = await _deviceService.PutSingleDeviceModel(uniqueDevices);
+                //failedItemsAll.AddRange(failedModels);
+                failedItemsAll.Add("DeviceModel", failedModels);
+
+                List<OneTimeAddDeviceDTO> newListForDevice = newListForDevicesModel.Except(failedModels).ToList();
+
+                List<OneTimeAddDeviceDTO> failedItems = await _deviceService.importDeviceData(newListForDevice);
+                //failedItemsAll.AddRange(failedItems);
+                failedItemsAll.Add("Device", failedItems);
+
+                List<OneTimeAddDeviceDTO> newListForDevicesLogs = newListForDevicesModel.Except(failedItems).ToList();
+
+                List<OneTimeAddDeviceDTO> devicelogsToBeSaved = new List<OneTimeAddDeviceDTO>();
+
+                foreach (var d in newListForDevicesLogs)
+                {
+                    if (!string.IsNullOrEmpty(d.DeviceLog))
+                    {
+                        devicelogsToBeSaved.Add(d);
+                    }
+                }
+
+                List<OneTimeAddDeviceDTO> failedLogs = await _deviceService.PutSingleDevice_DeviceLog(devicelogsToBeSaved);
+                //failedItemsAll.AddRange(failedLogs);
+                failedItemsAll.Add("DeviceLogs", failedLogs);
+
+                return Ok(failedItemsAll);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPost("importDeviceData")]
+        public async Task<List<OneTimeAddDeviceDTO>> importDevice([FromBody] List<OneTimeAddDeviceDTO> importDeviceInput)
+        {
+            return await _deviceService.importDeviceData(importDeviceInput);
         }
     }
 

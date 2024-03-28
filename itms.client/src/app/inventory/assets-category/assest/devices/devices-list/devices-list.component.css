@@ -22,11 +22,11 @@
   transition: 0.3s ease-in-out;
 }
 
-  .devices-list-container-items:focus, .user-list-container-items:active {
+/*  .devices-list-container-items:focus, .user-list-container-items:active {
     border: 1px solid #28519E;
     background: #E3F3FC;
   }
-
+*/
 
 
 .devices-name {

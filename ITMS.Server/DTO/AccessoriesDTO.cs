@@ -132,7 +132,7 @@
 
     public class OneTimePutBagDTO
     {
-        public DateTime? Purchaseddate { get; set; }
+        public string? Purchaseddate { get; set; }
         public string? AssignedTo { get; set; }
         public Guid LoggedIn { get; set; }
         public Guid locationId { get; set;}
