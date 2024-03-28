@@ -76,9 +76,9 @@ export class ImportDataComponent {
       this.arrayBuffer = e.target.result;
       const data = new Uint8Array(this.arrayBuffer);
       const workbook = XLSX.read(data, { type: 'array' });
-      this.excelImportLaptop(workbook);
+      //this.excelImportLaptop(workbook);
       this.excelImportMacBook(workbook);
-      this.excelImportBag(workbook);
+      //this.excelImportBag(workbook);
     };
 
     fileReader.readAsArrayBuffer(this.file);

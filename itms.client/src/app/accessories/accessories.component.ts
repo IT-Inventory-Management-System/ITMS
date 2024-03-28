@@ -179,6 +179,7 @@ export class AccessoriesComponent {
           this.setRowData();
           // console.log('Accessories', [this.accessories[0]]);
           this.singleHistoryAccessory(this.locationId, this.accessories[0].cygid);
+
           this.selectedOption = this.accessories[0].isArchived ? 'Archived' : 'Active';
           this.cygid = this.accessories[0].cygid
         } else {

@@ -965,6 +965,7 @@ public class DeviceService
             {
                 string[] Devicelog = d.DeviceLog.Split(new char[] { '(', ')' }, StringSplitOptions.RemoveEmptyEntries);
                 var assignedTo = await CheckIfAssigned(Devicelog);
+                //string wow = getAssignedTo(d);
 
                 for (var i=0;i<Devicelog.Length;i++)
                 {
