@@ -172,7 +172,7 @@ export class AccessoriesComponent {
       .subscribe(accessories => {
         this.accessories = accessories;
         if (accessories.length != 0) {
-          //  console.log(this.accessories);
+            console.log(this.accessories);
           this.singleSelected = [this.accessories[0]];
           this.accessoryId = this.accessories[0].accessoryId;
 
