@@ -265,7 +265,7 @@ export class AddDeviceFormComponent implements OnInit {
 checkCygIds(): boolean {
   const cygIdsArray = this.cygIds.controls.map((control) => control.value);
   const isExisting = cygIdsArray.some(cygId => this.deviceData.some(device => device.cygId === cygId));
-  const isValid = cygIdsArray.every((cygId) => cygId.trim() !== '' && !isExisting);
+  const isValid = cygIdsArray.every((cygId) => cygId !== '' && !isExisting);
 
   return isValid;
 }

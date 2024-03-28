@@ -128,7 +128,7 @@
             <div class="serial-number-input">
               <label for="serialNumber">Serial Number<span class="required">*</span></label>
               <div [class.error-textarea]="showErrorMessage && !serialNumbers.controls[i].value" class="cyg-id">
-                <input type="text" id="serialNumber" name="serialNumber" (input)="updateSerialNumber(i, $event)" placeholder="Enter Serial No." />
+                <input type="text" id="serialNumber" name="serialNumber" (blur)="updateSerialNumber(i, $event)" placeholder="Enter Serial No." />
               </div>
               <span *ngIf=" showExistMessage  && invalidSerialIndices.includes(i)" class="error_text">
                 <img src="../../../assets/icons/error.svg" />
@@ -142,7 +142,7 @@
             <div [class.error-textarea]="showErrorMessage && !cygIds.controls[i].value" class="cyg-idd">
               <div class="outer">
                 <span class="cygdefault">CYG  </span>
-                <input type="text" id="cygId" name="cygId" (input)="updateCygId(i, $event)" />
+                <input type="text" id="cygId" name="cygId" (blur)="updateCygId(i, $event)" />
               </div>
               <!-- Placeholder text indicates "CYG" -->
             </div>

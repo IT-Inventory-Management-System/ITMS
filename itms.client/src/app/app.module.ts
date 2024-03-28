@@ -133,6 +133,7 @@ import { LoginComponent } from './login/login.component';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { AddMobileDevicesComponent } from './add-asset/add-mobile-devices/add-mobile-devices.component';
 import { AddMobileModelComponent } from './add-asset/add-mobile-devices/add-mobile-model/add-mobile-model.component';
+import { AssignableModalComponent } from './inventory/assets-category/assest/specification/assignable-modal/assignable-modal.component';
 
 
 @NgModule({
@@ -277,6 +278,7 @@ import { AddMobileModelComponent } from './add-asset/add-mobile-devices/add-mobi
       LoginComponent,
         AddMobileDevicesComponent,
         AddMobileModelComponent,
+        AssignableModalComponent,
   ],
   imports: [
     BrowserModule,

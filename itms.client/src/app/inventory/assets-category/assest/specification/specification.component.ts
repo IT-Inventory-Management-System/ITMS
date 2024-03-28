@@ -40,6 +40,7 @@ export class SpecificationComponent {
     const archiveModal = document.getElementById('exampleModa');
     const unarchiveModal = document.getElementById('unarchive');
     const unassignable = document.getElementById('unassignable');
+    const assignable = document.getElementById('assignable');
 
     if (selectedOption === 'Archive' && archiveModal) {
       archiveModal.classList.add('show');
@@ -51,6 +52,10 @@ export class SpecificationComponent {
     else if (selectedOption === 'Unassignable' && unassignable) {
       unassignable.classList.add('show');
       unassignable.style.display = 'block';
+    }
+    else if (selectedOption === 'assignable' && assignable) {
+      assignable.classList.add('show');
+      assignable.style.display = 'block';
     }
   }
  

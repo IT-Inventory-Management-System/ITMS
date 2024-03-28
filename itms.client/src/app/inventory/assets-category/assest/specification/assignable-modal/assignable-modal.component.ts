@@ -1,14 +1,14 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-
 import { DataService } from '../../../../../shared/services/data.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
+
 @Component({
-  selector: 'app-unassignable-modal',
-  templateUrl: './unassignable-modal.component.html',
-  styleUrls: ['./unassignable-modal.component.css']
+  selector: 'app-assignable-modal',
+  templateUrl: './assignable-modal.component.html',
+  styleUrls: ['./assignable-modal.component.css']
 })
-export class UnassignableModalComponent {
+export class AssignableModalComponent {
   @Input() cygid: any;
   @Output() modalClosed = new EventEmitter<void>();
   deviceForm: FormGroup;
@@ -34,7 +34,7 @@ export class UnassignableModalComponent {
       createdBy: [''],
       updatedBy: [''],
       description: [''],
-      isUnassignable: true
+      isUnassignable: false
     });
   }
 
@@ -46,23 +46,23 @@ export class UnassignableModalComponent {
     this.deviceForm.get('updatedBy')?.setValue(this.UserId);
 
     if (this.deviceForm.valid) {
-     // console.log(this.deviceForm.value);
+      // console.log(this.deviceForm.value);
 
 
 
       this.dataService.setDeviceUnassignable(this.deviceForm.value).subscribe(response => {
-          if (response) {
-            // console.log("Unassigned Device successfully");
-            this.closemodal();
+        if (response) {
+          // console.log("Unassigned Device successfully");
+          this.closemodal();
 
-          } else {
-            console.error("error in posting data");
-          }
+        } else {
+          console.error("error in posting data");
         }
+      }
 
-          , error => {
-            console.error('Error updating status', error);
-          });
+        , error => {
+          console.error('Error updating status', error);
+        });
     }
 
 
@@ -83,7 +83,7 @@ export class UnassignableModalComponent {
 
   }
   closemodal() {
-    const archiveModal = document.getElementById('unassignable');
+    const archiveModal = document.getElementById('assignable');
     if (archiveModal)
       archiveModal.style.display = 'none';
     this.deviceForm.get('description')?.setValue('');

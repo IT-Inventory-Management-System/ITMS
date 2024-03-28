@@ -1,6 +1,7 @@
 <app-archive-modal [cygid]="deviceDetails?.cygid" (modalClosed)="handleModalClosed()"></app-archive-modal>
 <app-unrchivemodal [cygid]="deviceDetails?.cygid" (modalClosed)="handleModalClosed()"></app-unrchivemodal>
 <app-unassignable-modal [cygid]="deviceDetails?.cygid" (modalClosed)="handleModalClosed()"></app-unassignable-modal>
+<app-assignable-modal [cygid]="deviceDetails?.cygid" (modalClosed)="handleModalClosed()"></app-assignable-modal>
 
 <div class="spec">
   <div class="mb-3 specification" *ngIf="!isArchived">
@@ -29,7 +30,11 @@
 
       Active
     </ng-option>
-    <!--<ng-option [value]="'Unassignable'">Unassignable</ng-option>-->
+    <ng-option [value]="'assignable'" *ngIf="deviceDetails?.status?.type === 'Unassignable'">
+      <img class="asset-image" src="../../../../../assets/icons/laptop-solid 2.svg" />
+
+      assignable
+    </ng-option>
 
     <ng-option *ngIf="!isArchived && deviceDetails?.status?.type!=='Discarded'" value="Archive" [disabled]="deviceDetails?.status?.type=='Assigned'">
       <img class="asset-image" src="../../../../../assets/icons/Assets/archive.svg" />
@@ -50,7 +55,7 @@
 
     </ng-option>
 
-    <ng-option [value]="'Discarded'"  *ngIf="deviceDetails?.status?.type == 'Discarded'">
+    <ng-option [value]="'Discarded'" *ngIf="deviceDetails?.status?.type == 'Discarded'">
       <img class="asset-image" src="../../../../../assets/icons/Assets/archive.svg" />
       Archived
     </ng-option>
@@ -71,7 +76,7 @@
 
 
   <div class="spec-outer">
-    <app-spec-info  (modelClicked)="selectModel($event)"></app-spec-info>
+    <app-spec-info (modelClicked)="selectModel($event)"></app-spec-info>
 
   </div>
 </div>
