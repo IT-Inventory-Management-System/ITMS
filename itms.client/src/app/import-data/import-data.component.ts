@@ -54,7 +54,7 @@ export class ImportDataComponent {
   }
 
   triggerFileInput() {
-    const fileInput = document.getElementById('fileUpload');
+    const fileInput = document.getElementById('fileUpload2');
     if (fileInput) {
       fileInput.click();
     }
@@ -65,7 +65,7 @@ export class ImportDataComponent {
     if (this.file) {
       this.fileName = this.file.name;
       this.csvFileVisible = !this.csvFileVisible;
-      // console.log('Selected file:', this.file);
+      console.log('Selected file:', this.file);
     }
   }
 

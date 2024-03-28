@@ -11,9 +11,8 @@ export class CommentCardComponent {
 
 
   get devicelog() {
-    return this.dataService.DeviceLog;
-  
-    
+    // Use safe navigation operator to handle null or undefined
+    return this.dataService.DeviceLog?.length > 0 ? this.dataService.DeviceLog : null;
   }
   get commentDetails() {
     return this.dataService.CommentDetails;

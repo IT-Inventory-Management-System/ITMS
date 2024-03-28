@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
+import { Component, Input, OnInit} from '@angular/core';
 import { DataService } from '../../../../../shared/services/data.service';
 import { lastValueFrom } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
@@ -25,7 +25,7 @@ export class DevicesListComponent {
   private static selectedDeviceId: string | null = null;
   @Input() archivedCyg: any;
 
-  constructor(private deviceService: DataService, private el: ElementRef, private renderer: Renderer2, private route: ActivatedRoute) { }
+  constructor(private deviceService: DataService, private route: ActivatedRoute) { }
 
   getDeviceLocation() {
     this.deviceService.getLocation().subscribe(
@@ -82,46 +82,65 @@ export class DevicesListComponent {
   }
 
   updateStyles() {
-    const outerCard = this.el.nativeElement.querySelector('.devices-list-container-items');
-    if (this.device.cygid === this.selectedDeviceId) {
-      this.renderer.setStyle(outerCard, 'background-color', '#E3F3FC');
-      this.renderer.setStyle(outerCard, 'border', '1px solid #28519E');
-      this.renderer.setStyle(outerCard, 'color', 'white');
-    }
+    const outerCards = document.querySelectorAll('.devices-list-container-items');
+    outerCards.forEach((outerCard: any) => {
+      const cardCygid = outerCard.getAttribute('data-cygid');
+      if (cardCygid === this.selectedDeviceId) {
+        outerCard.style.backgroundColor = '#E3F3FC';
+        outerCard.style.border = '1px solid #28519E';
+        outerCard.style.color = 'white';
+      } else {
+        outerCard.style.backgroundColor = '';
+        outerCard.style.border = '';
+        outerCard.style.color = '';
+      }
+    });
   }
+
+
 
   resetStyles() {
     if (this.isselectedDevice) {
-      // Reset styles for all cards
       const allCards = document.querySelectorAll('.devices-list-container-items');
-      allCards.forEach(card => {
-        this.renderer.removeStyle(card, 'background-color');
-        this.renderer.removeStyle(card, 'border');
-        this.renderer.removeStyle(card, 'color');
+      allCards.forEach((card: any) => {
+        try {
+          card.style.removeProperty('background-color');
+          card.style.removeProperty('border');
+          card.style.removeProperty('color');
+        } catch (error) {
+          // Handle the error here
+          console.error('An error occurred while removing styles:', error);
+        }
       });
     }
   }
+
   
   getDeviceLogs(Cygid: any): void {
-
     const inputData = {
       locationId: this.locationId,
       cygid: Cygid
-    }
+    };
 
     this.deviceService.getUserInfo(inputData).subscribe(
       (logs) => {
-        for (var i = 0; i < logs.length; i++) {
-          logs[i].assignedDate = formatDate(logs[i].assignedDate, 'dd-MM-yyyy', 'en-US');
-          logs[i].recievedDate = logs[i].recievedDate != null ? formatDate(logs[i].recievedDate, 'dd-MM-yyyy', 'en-US') : null;
+        if (Array.isArray(logs)) { // Check if logs is an array
+          // Process logs data
+          for (let i = 0; i < logs.length; i++) {
+            logs[i].assignedDate = formatDate(logs[i].assignedDate, 'dd-MM-yyyy', 'en-US');
+            logs[i].recievedDate = logs[i].recievedDate != null ? formatDate(logs[i].recievedDate, 'dd-MM-yyyy', 'en-US') : null;
+          }
+          this.deviceService.DeviceLog = logs; // Assign logs to DeviceLog
+        } else {
+          console.error('Error: Expected an array of logs, but received:', logs);
         }
-        this.deviceService.DeviceLog = logs;
       },
       (error) => {
         console.error('Error fetching device logs:', error);
       }
     );
   }
+
 
 
 
