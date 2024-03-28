@@ -70,11 +70,23 @@ export class AccessoriesComponent {
     this.singleHistoryAccessory(this.locationId, this.cygid);
     this.accessoryId = eventData.accessoryId;
    // console.log(this.accessoryId)
-    if (this.singleSelected[0]?.isArchived) {
+    //if (this.singleSelected[0]?.isArchived) {
+    //  this.selectedOption = 'Archived';
+    //} else {
+    //  this.selectedOption = 'Active';
+    //}
+    this.selectedOption = this.singleSelected[0].status;
+    if (this.selectedOption == 'Discarded') {
       this.selectedOption = 'Archived';
-    } else {
+    }
+    else if (this.selectedOption == 'Unassignable') {
+      this.selectedOption = 'Unassignable';
+
+    }
+    else {
       this.selectedOption = 'Active';
     }
+
   }
 
 
@@ -172,14 +184,25 @@ export class AccessoriesComponent {
       .subscribe(accessories => {
         this.accessories = accessories;
         if (accessories.length != 0) {
-          //  console.log(this.accessories);
+          console.log(this.accessories);
           this.singleSelected = [this.accessories[0]];
           this.accessoryId = this.accessories[0].accessoryId;
 
           this.setRowData();
           // console.log('Accessories', [this.accessories[0]]);
           this.singleHistoryAccessory(this.locationId, this.accessories[0].cygid);
-          this.selectedOption = this.accessories[0].isArchived ? 'Archived' : 'Active';
+          //this.selectedOption = this.accessories[0].isArchived ? 'Archived' : 'Active';
+          this.selectedOption = this.accessories[0].status;
+          if (this.selectedOption == 'Discarded') {
+            this.selectedOption = 'Archived';
+          }
+          else if (this.selectedOption == 'Unassignable') {
+            this.selectedOption = 'Unassignable';
+
+          }
+          else {
+            this.selectedOption = 'Active';
+          }
           this.cygid = this.accessories[0].cygid
         } else {
           this.singleSelected = [];
@@ -213,6 +236,7 @@ export class AccessoriesComponent {
     const archiveModal = document.getElementById('exampleModa');
     const unarchiveModal = document.getElementById('unarchive');
     const unassignable = document.getElementById('unassignable');
+    const assignable = document.getElementById('assignable');
 
     //console.log(selectedOption);
     if (selectedOption === 'Archive' && archiveModal) {
@@ -225,6 +249,10 @@ export class AccessoriesComponent {
     else if (selectedOption === 'Unassignable' && unassignable) {
       unassignable.classList.add('show');
       unassignable.style.display = 'block';
+    }
+    else if (selectedOption === 'assignable' && assignable) {
+      assignable.classList.add('show');
+      assignable.style.display = 'block';
     }
   }
 
