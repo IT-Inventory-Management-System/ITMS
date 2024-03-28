@@ -68,7 +68,7 @@
       <div class="alert-revoke-button">
         <div class="btn btn-revoke" data-bs-toggle="modal" data-bs-target="#revokeAllModal">
           <img src="../../assets/icons/Revoke.svg" />
-          <p class="revoke-btn-text">Revoke all items</p>
+          <p class="revoke-btn-text" (click)="getDevicesList(userDetails?.id)">Revoke all items</p>
         </div>
       </div>
     </div>

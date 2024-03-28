@@ -70,7 +70,7 @@ export class AccessoriesAllRevokeComponent {
 
   initializeAccessoryFormArray() {
     const accessoryArray = this.revokeAllForm.get('Accessory') as FormArray;
-    //laptopArray.clear();
+    accessoryArray.clear();
     if (accessoryArray.length === 0) {
       this.accessoriesDetails.forEach((accessory: any) => {
         accessoryArray.push(this.createAccessoryFormGroup(accessory));
