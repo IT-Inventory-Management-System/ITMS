@@ -50,9 +50,9 @@ export class AddSoftwareFormComponent {
 
 
   PurchasedDate(): string {
-    var isPurchasedOn = this.SoftwareForm.get('purchaseddate')?.value != '';
+    var isPurchasedOn = this.SoftwareForm.get('purchasedDate')?.value != '';
     if (isPurchasedOn) {
-      return this.SoftwareForm.get('purchaseddate')?.value;
+      return this.SoftwareForm.get('purchasedDate')?.value;
     }
     return '';
   }
