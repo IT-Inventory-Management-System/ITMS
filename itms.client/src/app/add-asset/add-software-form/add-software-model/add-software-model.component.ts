@@ -62,7 +62,7 @@ export class AddSoftwareModelComponent {
     this.dataService.getSoftwareTypes().subscribe(
       (data) => {
         this.softwareTypes = data;
-        console.log(data);
+        //console.log(data);
       },
       (error) => {
         console.error('Error fetching software values', error);
@@ -102,7 +102,7 @@ export class AddSoftwareModelComponent {
     const softwareType = this.newSoftwareForm.get('softwareTypeId')?.value;
 
     const matchingSoftware = this.dropdownValues.find((software: any) => {
-      return software.softwareName === softwareName && software.softwareTypeId === softwareType;
+      return software.softwareName.toLowerCase() === softwareName.toLowerCase() && software.softwareTypeId === softwareType;
     });
 
     if (matchingSoftware) {
@@ -112,12 +112,12 @@ export class AddSoftwareModelComponent {
     }
 
     if (this.newSoftwareForm.valid) {
-      console.log(this.newSoftwareForm.value);
+      //console.log(this.newSoftwareForm.value);
       //this.newSoftwareForm.reset();
 
       this.dataService.postNewSoftwareData(this.newSoftwareForm.value).subscribe(
         response => {
-          console.log('Post Software Data successful', response);
+          //console.log('Post Software Data successful', response);
           this.formSubmitted.emit(this.newSoftwareForm.value);
 
           this.hideErrorMessage();
@@ -198,7 +198,7 @@ export class AddSoftwareModelComponent {
     this.dataService.getSoftwares().subscribe(
       (data) => {
         this.dropdownValues = data;
-        console.log(data);
+        //console.log(data);
       },
       (error) => {
         console.error('Error fetching software values', error);
