@@ -242,5 +242,8 @@ export class DataService {
     return this.http.post(this.apiUrl + 'Accessories/OneTimePutBag', formData);
   }
 
+  getMobileCGIID(Brand: any): Observable<any[]> {
+    return this.http.post<any[]>(this.apiUrl + 'asset/getCGIIDsMobile', Brand);
+  }
 }
 

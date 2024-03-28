@@ -49,18 +49,21 @@
     <div class="checkboxes">
       <label for="type" class="form-label required-field">Software Type</label>
       <div class="software-checkbox-container">
-        <input type="radio" id="Perpetual" name="softwareType" value="Perpetual" (input)="changeSoftwareType($event); hideErrorMessage(); "  />
+        <input type="radio" id="Perpetual" name="softwareType" value="Perpetual" (input)="changeSoftwareType($event); hideErrorMessage(); " />
         <label for="Perpetual">Perpetual</label>
 
         <input type="radio" id="Validity" value="Validity" name="softwareType" (input)="changeSoftwareType($event); hideErrorMessage();" />
         <label for="Validity">Validity</label>
 
-        <input type="radio" id="Subscription" value="Subscription" name="softwareType" (input)="changeSoftwareType($event); hideErrorMessage();"/>
+        <input type="radio" id="Subscription" value="Subscription" name="softwareType" (input)="changeSoftwareType($event); hideErrorMessage();" />
         <label for="Subscription">Subscription</label>
       </div>
     </div>
+ 
     <div class="add-button">
-    
+      <div *ngIf="showExistMessage" class="alert-box-msg">
+        Software with the same name and type already exists.
+      </div>
 
       <button type="submit" class="software-form-add-button">Add</button>
     </div>

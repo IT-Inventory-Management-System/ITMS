@@ -31,11 +31,11 @@
         </div>
         <div class="mouse-model-input">
           <div class="mouse-model-select">
-            <div class="select-mouse-dropdown" [formGroup]="addDeviceForm">
+            <div class="select-mouse-dropdown" >
               <label for="MouseBrand">Brand <span class="required">*</span></label>
-              <ng-select formControlName="deviceModelId" placeholder="Select Device Brand" (focus)="hideErrorMessage()" [class.error-textarea]="showErrorMessage && !addDeviceForm.get('deviceModelId')?.value">
+              <ng-select  placeholder="Select Device Brand" (focus)="hideErrorMessage()" [class.error-textarea]="showErrorMessage && !addDeviceForm.get('deviceModelId')?.value" (change)="onBrandSelected($event)">
 
-                <ng-option *ngFor="let value of dropdownValues" [value]="value.id">
+                <ng-option *ngFor="let value of dropdownValues" [value]="value?.brand + '@' + value?.id" >
                   {{ value.brand }}
                 </ng-option>
               </ng-select>
@@ -76,11 +76,11 @@
           <div class="purchase-date-section" [formGroup]="addDeviceForm">
 
             <label for="Warranty Year " class="purchaseDate">Warranty Date <span class="required">*</span></label>
-            <div [class.error-textarea]="showErrorMessage && !addDeviceForm.get('warrantydate')?.value" class="pdatee">
+           
 
-              <input type="date" class="form-control" id="Warranty Year " name="Warranty Year " placeholder="15-12-2023" formControlName="warrantydate" (focus)="hideErrorMessage()">
+              <input type="date" class="form-control" id="Warranty Year " name="Warranty Year " placeholder="15-12-2023" formControlName="warrantydate" min="{{ PurchasedDate() }}" >
               <img src="../../../../assets/icons/calendar.svg" />
-            </div>
+            
           </div>
 
         </div>
@@ -102,7 +102,7 @@
             <div class="inner-cyg-div">
               <label for="cygId" class="label-cyg">Device ID</label>
 
-              <input type="text" id="cygId" name="cygId" placeholder="Enter CYG ID" [value]="prefix + (laststoredcgi+ ele)" disabled />
+              <input type="text" id="cygId" name="cygId" placeholder="Enter CYG ID" [value]="prefix+' '+ (laststoredcgi+ ele)" disabled />
             </div>
           </div>
 

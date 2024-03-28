@@ -141,7 +141,7 @@ namespace ITMS.Server.Controllers
         public async Task<IEnumerable<getCGIDTO>> getCGIIDMobile([FromBody] mobileInputDTO commonDto)
         {
 
-            return await _addAssetService.getCGIIDCommon(commonDto.Brand);
+            return await _addAssetService.getCGIIDMobile(commonDto.Brand);
         }
 
     }

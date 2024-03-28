@@ -5,6 +5,7 @@ import * as XLSX from 'xlsx';
 import { LocationService } from '../shared/services/location.service';
 import { SelectedCountryService } from '../shared/services/selected-country.service';
 import { ToastrService } from 'ngx-toastr';
+import { formatDate } from '@angular/common';
 
 
 @Component({
@@ -349,11 +350,11 @@ export class SoftwareComponent implements OnInit {
         "Software Name": this.softwarestableData[i].name,
         "Version": this.softwarestableData[i].version,
         "Type": this.softwarestableData[i].type ,
-        "Date of Purchase": this.softwarestableData[i].purchasedDate,
-        "Expiry Date": this.softwarestableData[i].expireyDate,
+        "Date of Purchase": formatDate(this.softwarestableData[i].purchasedDate, 'dd-MM-yyyy', 'en-US'),
+        "Expiry Date": formatDate(this.softwarestableData[i].expireyDate, 'dd-MM-yyyy', 'en-US'),
         "Assigned To": this.softwarestableData[i].assignedTo,
         "Assigned By": this.softwarestableData[i].assignedBy,
-        "Assigned Date": this.softwarestableData[i].assignedDate,
+        "Assigned Date": formatDate(this.softwarestableData[i].assignedDate, 'dd-MM-yyyy', 'en-US'),
         "isArchived": this.softwarestableData[i].isArchived,
      
       }
@@ -371,7 +372,7 @@ export class SoftwareComponent implements OnInit {
     },
     { field: "Software Name",  resizable: false,  width: 150,  suppressMovable: true },
     {field: "Version",  width: 100,  resizable: false, suppressMovable: true },
-    { field: "Type", width: 100, resizable: false, suppressMovable: true, },
+    { field: "Type", width: 110, resizable: false, suppressMovable: true, },
     { field: "Date of Purchase", width: 170, resizable: false, suppressMovable: true, },
     { field: "Expiry Date", width: 150, resizable: false, suppressMovable: true, },
     { field: "Assigned To", width: 150, resizable: false, suppressMovable: true, },

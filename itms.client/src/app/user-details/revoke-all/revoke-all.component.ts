@@ -17,6 +17,7 @@ export class RevokeAllComponent {
   @Input() laptopDetails: any;
   @Input() accessoriesDetails: any;
   @Input() softwareDetails: any;
+  @Input() revokePending: any;
   @Output() changeOnHoldBanner: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() changeArchiveBanner: EventEmitter<boolean> = new EventEmitter<boolean>();
 

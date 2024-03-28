@@ -3,6 +3,7 @@ import { DataService } from '../../shared/services/data.service';
 import { SelectedCountryService } from '../../shared/services/selected-country.service';
 import { DisplayDetailsService } from '../../shared/services/display-details.service';
 import { AdminDetailService } from '../../shared/services/admin-detail.service';
+import { EmployeeService } from '../../shared/services/Employee.service';
 
 @Component({
   selector: 'app-assign-role-modal',
@@ -10,7 +11,7 @@ import { AdminDetailService } from '../../shared/services/admin-detail.service';
   styleUrls: ['./assign-role-modal.component.css']
 })
 export class AssignRoleModalComponent {
-  constructor(private dataService: DataService, private selectedCountryService: SelectedCountryService, private displayingDetailsService: DisplayDetailsService, private adminDetailService: AdminDetailService) { }
+  constructor(private dataService: DataService, private selectedCountryService: SelectedCountryService, private displayingDetailsService: DisplayDetailsService, private adminDetailService: AdminDetailService, private userListChange: EmployeeService) { }
 
   userDataList: any[] = [];
   locationId: string = '';
@@ -117,6 +118,10 @@ export class AssignRoleModalComponent {
   ngOnInit(): void {
     this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
       localStorage.setItem('selectedCountry', selectedCountry);
+      this.getUserLocation();
+    });
+
+    this.userListChange.userListChanged$.subscribe(() => {
       this.getUserLocation();
     });
   }

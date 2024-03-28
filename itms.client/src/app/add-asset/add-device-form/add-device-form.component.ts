@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import { DataService } from '../../../app/shared/services/data.service';
 import { ToastrService } from 'ngx-toastr';
+import { SelectedCountryService } from '../../shared/services/selected-country.service';
 
 
 @Component({
@@ -27,7 +28,7 @@ export class AddDeviceFormComponent implements OnInit {
   invalidCygIndices: number[] = [];
   UserId: any;
   userDataJSON: any;
-  constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService) {
+  constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService, private selectedCountryService: SelectedCountryService) {
     this.dropdownValues = [];
   }
 
@@ -36,10 +37,11 @@ export class AddDeviceFormComponent implements OnInit {
   ngOnInit(): void {
     this.getlaptopids();
     this.loadDropdownValues();
-    //this.loadDeviceData();
-
     this.createForm();
-    this.setlocationId();
+    this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
+      localStorage.setItem('selectedCountry', selectedCountry);
+      this.setlocationId();
+    });
     this.setStatus();
     this.userDataJSON = localStorage.getItem('user');
     var userData = JSON.parse(this.userDataJSON);
@@ -126,7 +128,7 @@ export class AddDeviceFormComponent implements OnInit {
   updateCygId(index: number, event: Event) {
     this.hideErrorMessage();
     const value = (event.target as HTMLInputElement).value;
-    const value2 = 'CYG ' + value;
+    const value2 = 'CYG' + value;
     if (this.validateCygId(value2, index)) {
       const invalidIndexIndex = this.invalidCygIndices.indexOf(index);
       if (invalidIndexIndex !== -1) {
@@ -263,7 +265,7 @@ export class AddDeviceFormComponent implements OnInit {
 checkCygIds(): boolean {
   const cygIdsArray = this.cygIds.controls.map((control) => control.value);
   const isExisting = cygIdsArray.some(cygId => this.deviceData.some(device => device.cygId === cygId));
-  const isValid = cygIdsArray.every((cygId) => cygId.trim() !== '' && !isExisting);
+  const isValid = cygIdsArray.every((cygId) => cygId !== '' && !isExisting);
 
   return isValid;
 }

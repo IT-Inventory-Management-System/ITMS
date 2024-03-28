@@ -4,6 +4,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ToastrService } from 'ngx-toastr';
 import { NgSelectComponent } from '@ng-select/ng-select';
 
+import { SelectedCountryService } from '../../shared/services/selected-country.service';
+
 @Component({
   selector: 'app-add-software-form',
   templateUrl: './add-software-form.component.html',
@@ -19,7 +21,7 @@ export class AddSoftwareFormComponent {
   NewSoftwareID: any;
   @ViewChild(NgSelectComponent) ngSelectComponent: NgSelectComponent;
 
-  constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService) {
+  constructor(private dataService: DataService, private fb: FormBuilder, private toastr: ToastrService, private selectedCountryService: SelectedCountryService) {
     this.dropdownValues = [];
 
   }
@@ -28,7 +30,10 @@ export class AddSoftwareFormComponent {
     this.loadDropdownValues();
     this.getSoftwareType();
     this.createForm();
-    this.setlocationId();
+    this.selectedCountryService.selectedCountry$.subscribe((selectedCountry) => {
+      localStorage.setItem('selectedCountry', selectedCountry);
+      this.setlocationId();
+    });
 
   }
   getCurrentDate(): string {
@@ -49,9 +54,9 @@ export class AddSoftwareFormComponent {
 
 
   PurchasedDate(): string {
-    var isPurchasedOn = this.SoftwareForm.get('purchaseddate')?.value != '';
+    var isPurchasedOn = this.SoftwareForm.get('purchasedDate')?.value != '';
     if (isPurchasedOn) {
-      return this.SoftwareForm.get('purchaseddate')?.value;
+      return this.SoftwareForm.get('purchasedDate')?.value;
     }
     return '';
   }
@@ -83,7 +88,7 @@ export class AddSoftwareFormComponent {
       softwareId: [null, Validators.required],
       activationKey: [null, Validators.required],
       purchasedDate: [null, Validators.required],
-      expiryDate: [null, Validators.required],
+      expiryDate: [null],
       qty: [null, Validators.required],
       version: [null, Validators.required],
       assignedTo: [null],
@@ -217,10 +222,10 @@ export class AddSoftwareFormComponent {
     }
 
     else if (this.selectedTypeName == 'Validity') {
-      return this.SoftwareForm.get('purchasedDate')?.value != null && this.SoftwareForm.get('activationKey')?.value != null && this.SoftwareForm.get('qty')?.value != null && this.SoftwareForm.get('expiryDate')?.value != null;
+      return this.SoftwareForm.get('purchasedDate')?.value != null && this.SoftwareForm.get('activationKey')?.value != null && this.SoftwareForm.get('qty')?.value != null ;
     }
 
-    return this.SoftwareForm.get('purchasedDate')?.value != null && this.SoftwareForm.get('qty')?.value != null && this.SoftwareForm.get('expiryDate')?.value != null;
+    return this.SoftwareForm.get('purchasedDate')?.value != null && this.SoftwareForm.get('qty')?.value != null ;
   }
 
   onSubmit() {

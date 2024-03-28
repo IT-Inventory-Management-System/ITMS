@@ -134,6 +134,7 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
 import { AddMobileDevicesComponent } from './add-asset/add-mobile-devices/add-mobile-devices.component';
 import { AddMobileModelComponent } from './add-asset/add-mobile-devices/add-mobile-model/add-mobile-model.component';
 import { ImportDataComponent } from './import-data/import-data.component';
+import { AssignableModalComponent } from './inventory/assets-category/assest/specification/assignable-modal/assignable-modal.component';
 
 
 @NgModule({
@@ -279,6 +280,7 @@ import { ImportDataComponent } from './import-data/import-data.component';
         AddMobileDevicesComponent,
         AddMobileModelComponent,
         ImportDataComponent,
+        AssignableModalComponent,
   ],
   imports: [
     BrowserModule,

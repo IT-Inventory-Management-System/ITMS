@@ -273,7 +273,7 @@ namespace ITMS.Server.Services
                 };
                 
                 _context.DevicesLogs.Add(deviceLogEntry);
-                break;
+                //break;
             }
 
             _context.SaveChanges();
