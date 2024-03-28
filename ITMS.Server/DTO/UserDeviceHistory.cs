@@ -31,7 +31,8 @@ namespace ITMS.Server.DTO
 
         public DateTime? UpdatedAtUtc { get; set; } //new
         public DateTime? CreatedAtUtc { get; set; }
-        public List<CommentDto> Comments { get; set; }
+        public Guid? ActionId { get; set; }
+        public string Comments { get; set; }
 
 
 

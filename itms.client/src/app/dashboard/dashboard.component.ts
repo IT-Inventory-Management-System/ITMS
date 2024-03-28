@@ -213,18 +213,18 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       };
       this.assetMonitor = {
         name: "Monitor",
-        totalIndia: this.primaryData[2][0].totalIndia,
-        assignedIndia: this.primaryData[2][0].assignedIndia,
-        totalUSA: this.primaryData[2][0].totalUSA,
-        assignedUSA: this.primaryData[2][0].assignedUSA
-      };
-
-      this.assetMobile = {
-        name: "Mobile",
         totalIndia: this.primaryData[3][0].totalIndia,
         assignedIndia: this.primaryData[3][0].assignedIndia,
         totalUSA: this.primaryData[3][0].totalUSA,
         assignedUSA: this.primaryData[3][0].assignedUSA
+      };
+
+      this.assetMobile = {
+        name: "Mobile",
+        totalIndia: this.primaryData[2][0].totalIndia,
+        assignedIndia: this.primaryData[2][0].assignedIndia,
+        totalUSA: this.primaryData[2][0].totalUSA,
+        assignedUSA: this.primaryData[2][0].assignedUSA
       };
     }
 
@@ -247,18 +247,18 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         };
         this.assetMonitor = {
           name: "Monitor",
-          totalIndia: this.assetMonitor.totalIndia + this.primaryData[2][1].totalIndia,
-          assignedIndia: this.assetMonitor.assignedIndia + this.primaryData[2][1].assignedIndia,
-          totalUSA: this.assetMonitor.totalUSA + this.primaryData[2][1].totalUSA,
-          assignedUSA: this.assetMonitor.assignedUSA + this.primaryData[2][1].assignedUSA
+          totalIndia: this.assetMonitor.totalIndia + this.primaryData[3][1].totalIndia,
+          assignedIndia: this.assetMonitor.assignedIndia + this.primaryData[3][1].assignedIndia,
+          totalUSA: this.assetMonitor.totalUSA + this.primaryData[3][1].totalUSA,
+          assignedUSA: this.assetMonitor.assignedUSA + this.primaryData[3][1].assignedUSA
         };
 
         this.assetMobile = {
           name: "Mobile",
-          totalIndia: this.assetMobile.totalIndia + this.primaryData[3][1].totalIndia,
-          assignedIndia: this.assetMobile.assignedIndia + this.primaryData[3][1].assignedIndia,
-          totalUSA: this.assetMobile.totalUSA + this.primaryData[3][1].totalUSA,
-          assignedUSA: this.assetMobile.assignedUSA + this.primaryData[3][1].assignedUSA
+          totalIndia: this.assetMobile.totalIndia + this.primaryData[2][1].totalIndia,
+          assignedIndia: this.assetMobile.assignedIndia + this.primaryData[2][1].assignedIndia,
+          totalUSA: this.assetMobile.totalUSA + this.primaryData[2][1].totalUSA,
+          assignedUSA: this.assetMobile.assignedUSA + this.primaryData[2][1].assignedUSA
         };
       }
 
@@ -280,18 +280,18 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         };
         this.assetMonitor = {
           name: "Monitor",
-          totalIndia: this.assetMonitor.totalIndia + this.primaryData[2][2].totalIndia,
-          assignedIndia: this.assetMonitor.assignedIndia + this.primaryData[2][2].assignedIndia,
-          totalUSA: this.assetMonitor.totalUSA + this.primaryData[2][2].totalUSA,
-          assignedUSA: this.assetMonitor.assignedUSA + this.primaryData[2][2].assignedUSA
+          totalIndia: this.assetMonitor.totalIndia + this.primaryData[3][2].totalIndia,
+          assignedIndia: this.assetMonitor.assignedIndia + this.primaryData[3][2].assignedIndia,
+          totalUSA: this.assetMonitor.totalUSA + this.primaryData[3][2].totalUSA,
+          assignedUSA: this.assetMonitor.assignedUSA + this.primaryData[3][2].assignedUSA
         };
 
         this.assetMobile = {
           name: "Mobile",
-          totalIndia: this.assetMobile.totalIndia + this.primaryData[3][2].totalIndia,
-          assignedIndia: this.assetMobile.assignedIndia + this.primaryData[3][2].assignedIndia,
-          totalUSA: this.assetMobile.totalUSA + this.primaryData[3][2].totalUSA,
-          assignedUSA: this.assetMobile.assignedUSA + this.primaryData[3][2].assignedUSA
+          totalIndia: this.assetMobile.totalIndia + this.primaryData[2][2].totalIndia,
+          assignedIndia: this.assetMobile.assignedIndia + this.primaryData[2][2].assignedIndia,
+          totalUSA: this.assetMobile.totalUSA + this.primaryData[2][2].totalUSA,
+          assignedUSA: this.assetMobile.assignedUSA + this.primaryData[2][2].assignedUSA
         };
       }
 
@@ -313,18 +313,18 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         };
         this.assetMonitor = {
           name: "Monitor",
-          totalIndia: this.assetMonitor.totalIndia + this.primaryData[2][3].totalIndia,
-          assignedIndia: this.assetMonitor.assignedIndia + this.primaryData[2][3].assignedIndia,
-          totalUSA: this.assetMonitor.totalUSA + this.primaryData[2][3].totalUSA,
-          assignedUSA: this.assetMonitor.assignedUSA + this.primaryData[2][3].assignedUSA
+          totalIndia: this.assetMonitor.totalIndia + this.primaryData[3][3].totalIndia,
+          assignedIndia: this.assetMonitor.assignedIndia + this.primaryData[3][3].assignedIndia,
+          totalUSA: this.assetMonitor.totalUSA + this.primaryData[3][3].totalUSA,
+          assignedUSA: this.assetMonitor.assignedUSA + this.primaryData[3][3].assignedUSA
         };
 
         this.assetMobile = {
           name: "Mobile",
-          totalIndia: this.assetMobile.totalIndia + this.primaryData[3][3].totalIndia,
-          assignedIndia: this.assetMobile.assignedIndia + this.primaryData[3][3].assignedIndia,
-          totalUSA: this.assetMobile.totalUSA + this.primaryData[3][3].totalUSA,
-          assignedUSA: this.assetMobile.assignedUSA + this.primaryData[3][3].assignedUSA
+          totalIndia: this.assetMobile.totalIndia + this.primaryData[2][3].totalIndia,
+          assignedIndia: this.assetMobile.assignedIndia + this.primaryData[2][3].assignedIndia,
+          totalUSA: this.assetMobile.totalUSA + this.primaryData[2][3].totalUSA,
+          assignedUSA: this.assetMobile.assignedUSA + this.primaryData[2][3].assignedUSA
         };
       }
 
@@ -346,18 +346,18 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         };
         this.assetMonitor = {
           name: "Monitor",
-          totalIndia: this.assetMonitor.totalIndia + this.primaryData[2][4].totalIndia,
-          assignedIndia: this.assetMonitor.assignedIndia + this.primaryData[2][4].assignedIndia,
-          totalUSA: this.assetMonitor.totalUSA + this.primaryData[2][4].totalUSA,
-          assignedUSA: this.assetMonitor.assignedUSA + this.primaryData[2][4].assignedUSA
+          totalIndia: this.assetMonitor.totalIndia + this.primaryData[3][4].totalIndia,
+          assignedIndia: this.assetMonitor.assignedIndia + this.primaryData[3][4].assignedIndia,
+          totalUSA: this.assetMonitor.totalUSA + this.primaryData[3][4].totalUSA,
+          assignedUSA: this.assetMonitor.assignedUSA + this.primaryData[3][4].assignedUSA
         };
 
         this.assetMobile = {
           name: "Mobile",
-          totalIndia: this.assetMobile.totalIndia + this.primaryData[3][4].totalIndia,
-          assignedIndia: this.assetMobile.assignedIndia + this.primaryData[3][4].assignedIndia,
-          totalUSA: this.assetMobile.totalUSA + this.primaryData[3][4].totalUSA,
-          assignedUSA: this.assetMobile.assignedUSA + this.primaryData[3][4].assignedUSA
+          totalIndia: this.assetMobile.totalIndia + this.primaryData[2][4].totalIndia,
+          assignedIndia: this.assetMobile.assignedIndia + this.primaryData[2][4].assignedIndia,
+          totalUSA: this.assetMobile.totalUSA + this.primaryData[2][4].totalUSA,
+          assignedUSA: this.assetMobile.assignedUSA + this.primaryData[2][4].assignedUSA
         };
       }
     }
@@ -474,18 +474,18 @@ export class DashboardComponent implements OnInit, AfterViewInit {
           };
           this.assetMonitor = {
             name: "Monitor",
-            totalIndia: this.primaryData[2][0].totalIndia,
-            assignedIndia: this.primaryData[2][0].assignedIndia,
-            totalUSA: this.primaryData[2][0].totalUSA,
-            assignedUSA: this.primaryData[2][0].assignedUSA
-          };
-
-          this.assetMobile = {
-            name: "Mobile",
             totalIndia: this.primaryData[3][0].totalIndia,
             assignedIndia: this.primaryData[3][0].assignedIndia,
             totalUSA: this.primaryData[3][0].totalUSA,
             assignedUSA: this.primaryData[3][0].assignedUSA
+          };
+
+          this.assetMobile = {
+            name: "Mobile",
+            totalIndia: this.primaryData[2][0].totalIndia,
+            assignedIndia: this.primaryData[2][0].assignedIndia,
+            totalUSA: this.primaryData[2][0].totalUSA,
+            assignedUSA: this.primaryData[2][0].assignedUSA
           };
         }
       },

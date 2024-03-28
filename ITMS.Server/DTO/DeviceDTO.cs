@@ -207,19 +207,44 @@ namespace ITMS.Server.DTO
 
     }
 
+    public class DeviceInputDTO
+    {
+        public string? Model { get; set; }
+        public string? SerialNumber { get; set; }
+        public DateTime? DateOfPurchase { get; set; }
+        public string? AssignedTo { get; set; }
+        public string? CYGID { get; set; }
+        public DateTime? AssignedDate { get; set; }
+        public Guid CreatedBy { get; set; }
+        public Guid? UpdatedBy { get; set; }
+        public Guid locationId { get; set; }
+
+    }
+
+    public class ListDeviceInputDto
+    {
+        public List<DeviceInputDTO> Devices { get; set; }
+    }
+
+    public class DeviceResponseDTO
+    {
+        public string CYGID { get; set; }
+        public string ErrorMessage { get; set; }
+    }
+
 
     public class OneTimeAddDeviceDTO
     {
-        public string FullDeviceName { get; set; }
+        public string? FullDeviceName { get; set; }
         public string? Processor { get; set; }
-        public string DeviceLog { get; set; }
+        public string? DeviceLog { get; set; }
         public string? Ram { get; set; }
         public string? Storage { get; set; }
         public string? SerialNo { get; set; }
-        public DateTime? PurchasedDate { get; set; }
-        public DateTime? WarrantyDate { get; set; }
+        public string? PurchasedDate { get; set; }
         public string? Cygid { get; set; }
         public Guid LoggedIn { get; set; }
+        public Guid locationId { get; set; }
     }
 
     public class PutSingleDeviceModelDTO

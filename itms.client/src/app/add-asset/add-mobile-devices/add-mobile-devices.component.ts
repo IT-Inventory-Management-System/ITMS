@@ -278,6 +278,13 @@ export class AddMobileDevicesComponent {
 
   }
 
+  PurchasedDate(): string {
+    var isPurchasedOn = this.addDeviceForm.get('purchaseddate')?.value != '';
+    if (isPurchasedOn) {
+      return this.addDeviceForm.get('purchaseddate')?.value;
+    }
+    return '';
+  }
   hideErrorMessage() {
     this.showErrorMessage = false;
   }

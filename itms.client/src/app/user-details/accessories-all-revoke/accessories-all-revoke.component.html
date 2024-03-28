@@ -5,81 +5,86 @@
 </div>
 
 <div *ngFor="let accessory of accessoriesDetails; let i = index">
-  <div class="assigned-accessory-detail-box">
+  <div *ngIf="(accessory.submittedBy === null) || (accessory.actionName === 'Assigned' || accessory.actionName === 'assigned' || accessory.actionName === 'Lost' || accessory.actionName === 'lost')">
 
-    <div class="details">
-      <div class="iconsOfModal">
-        <img *ngIf="accessory.categoryName === 'Mouse'" src="../../../assets/icons/mouse-acc.svg" />
-        <img *ngIf="accessory.categoryName === 'Keyboard'" src="../../../assets/icons/KeyboardVector.svg" />
-        <p>{{accessory.categoryName}}</p>
-      </div>
 
-      <div class="brand">
-        <div class="iconsOfModal">
-          <img src="../../../assets//icons/number.svg" />
-          <p>{{accessory.cygid}}</p>
-        </div>
-        <div class="iconsOfModal">
-          <img src="../../../assets/icons/brand-acc.svg" /><p>{{accessory.brand}}</p>
-        </div>
-      </div>
+    <div class="assigned-accessory-detail-box">
 
-      <div class="wiredNotWired">
+      <div class="details">
         <div class="iconsOfModal">
-          <img src="../../../assets/icons/type-acc.svg" />
-          <p>
-            <ng-container *ngIf="accessory.isWired; else notWiredText">Wired</ng-container>
-            <ng-template #notWiredText>Not Wired</ng-template>
-          </p>
+          <img *ngIf="accessory.categoryName === 'Mouse'" src="../../../assets/icons/mouse-acc.svg" />
+          <img *ngIf="accessory.categoryName === 'Keyboard'" src="../../../assets/icons/KeyboardVector.svg" />
+          <p>{{accessory.categoryName}}</p>
         </div>
 
-        <div class="iconsOfModal">
-          <img src="../../../assets/icons/calendar-acc.svg" />
-          <p>{{accessory.assignedDate | date: 'MM-dd-yyyy'}}</p>
+        <div class="brand">
+          <div class="iconsOfModal">
+            <img src="../../../assets//icons/number.svg" />
+            <p>{{accessory.cygid}}</p>
+          </div>
+          <div class="iconsOfModal">
+            <img src="../../../assets/icons/brand-acc.svg" /><p>{{accessory.brand}}</p>
+          </div>
         </div>
-      </div>
+
+        <div class="wiredNotWired">
+          <div class="iconsOfModal">
+            <img src="../../../assets/icons/type-acc.svg" />
+            <p>
+              <ng-container *ngIf="accessory.isWired; else notWiredText">Wired</ng-container>
+              <ng-template #notWiredText>Not Wired</ng-template>
+            </p>
+          </div>
+
+          <div class="iconsOfModal">
+            <img src="../../../assets/icons/calendar-acc.svg" />
+            <p>{{accessory.assignedDate | date: 'MM-dd-yyyy'}}</p>
+          </div>
+        </div>
 
 
-      <!--<p>{{accessory.deviceLogId}}</p>
+        <!--<p>{{accessory.deviceLogId}}</p>
       <p>{{accessory.deviceId}}</p>-->
+      </div>
     </div>
-  </div>
-  <div class="accessory">
-    <div class="accessory-recieved">
+    <div class="accessory">
+      <div class="accessory-recieved">
 
-      <p>Item Received <span class="star">*</span></p>
-      <input type="radio" id="receivedYes{{i}}" name="accessoryReceived{{i}}" [checked]="isReceivedYes(accessory, i)" value="Yes" (click)="showYesReasonOptions(i)">
-      <label class="label" for="receivedYes{{i}}">Yes</label>
+        <p>Item Received <span class="star">*</span></p>
+       
+        <input type="radio" id="receivedYes{{i}}" name="accessoryReceived{{i}}" [(ngModel)]="accessory.received" value="Yes" (click)="showYesReasonOptions(i)">
+        <label class="label" for="receivedYes{{i}}">Yes</label>
 
-      <input type="radio" id="receivedNo{{i}}" name="accessoryReceived{{i}}" [checked]="isReceivedNo(accessory, i)" value="No" (click)="showNoReasonOptions(i)">
-      <label for="receivedNo{{i}}">No</label>
-    </div>
+        <input type="radio" id="receivedNo{{i}}" name="accessoryReceived{{i}}" [(ngModel)]="accessory.received" value="No" (click)="showNoReasonOptions(i)">
+        <label for="receivedNo{{i}}">No</label>
+      </div>
 
-    <div *ngIf="showYesReason[i]" class="reason-options">
-      <p>Condition <span class="star">*</span></p>
-        <input type="radio" id="perfect{{i}}" name="reasonOptions{{i}}" [checked]="isReasonSelected('Perfect', i)" value="Perfect" (change)="handleReasonSelection('Perfect', i)">
+      <div *ngIf="showYesReason[i]" class="reason-options">
+        <p>Condition <span class="star">*</span></p>
+        <input type="radio" id="perfect{{i}}" name="reasonOptions{{i}}"  [(ngModel)]="accessory.perfect" [checked]="isReasonSelected('Perfect', accessory.accessoryIndex)" value="Perfect" (change)="handleReasonSelection('Perfect', accessory.accessoryIndex)">
         <label for="perfect{{i}}">Perfect</label>
 
-        <input type="radio" id="unassignable{{i}}" name="reasonOptions{{i}}" [checked]="isReasonSelected('Unassignable', i)" value="Unassignable" (change)="handleReasonSelection('Unassignable', i)">
+        <input type="radio" id="unassignable{{i}}" name="reasonOptions{{i}}" [(ngModel)]="accessory.unassignable" [checked]="isReasonSelected('Unassignable', accessory.accessoryIndex)" value="Unassignable" (change)="handleReasonSelection('Unassignable', accessory.accessoryIndex)">
         <label for="unassignable{{i}}">Unassignable</label>
-      
-    </div>
-    <div *ngIf="showNoReason[i]" class="reason-options">
-      <p>Reason <span class="star">*</span></p>
-      
-        <input type="radio" id="submittedLater{{i}}" name="reasonOptions{{i}}" [checked]="isReasonSelected('Submitted Later', i)" value="Submitted Later" (change)="handleReasonSelection('Submitted Later', i)">
+
+      </div>
+      <div *ngIf="showNoReason[i]" class="reason-options">
+        <p>Reason <span class="star">*</span></p>
+
+        <input type="radio" id="submittedLater{{i}}" name="reasonOptions{{i}}" [(ngModel)]="accessory.submittedLater" [checked]="isReasonSelected('Submitted Later', accessory.accessoryIndex)" value="Submitted Later" (change)="handleReasonSelection('Submitted Later', accessory.accessoryIndex)">
         <label for="submittedLater{{i}}">Will be submitted later</label>
 
-        <input type="radio" id="lostNotReceived{{i}}" name="reasonOptions{{i}}" [checked]="isReasonSelected('Lost/Not Received', i)" value="Lost/Not Received" class="lost" (change)="handleReasonSelection('Lost/Not Received', i)">
+        <input type="radio" id="lostNotReceived{{i}}" name="reasonOptions{{i}}" [(ngModel)]="accessory.lostNotReceived" [checked]="isReasonSelected('Lost/Not Received', accessory.accessoryIndex)" value="Lost/Not Received" class="lost" (change)="handleReasonSelection('Lost/Not Received', accessory.accessoryIndex)">
         <label for="lostNotReceived{{i}}">Lost/Not Recieved</label>
-   
-    </div>
-  </div>
-  <div class="comment-box">
-    <p>Comment <span class="star">*</span></p>
-    <input type="text" class="input-box" placeholder="Type Here..." [(ngModel)]="accessory.comment" (input)="setDeviceComment($event, i)" />
-  </div>
 
+      </div>
+    </div>
+    <div class="comment-box">
+      <p>Comment <span class="star">*</span></p>
+      <input type="text" class="input-box" placeholder="Type Here..." [(ngModel)]="accessory.comment" (input)="setDeviceComment($event, i)" />
+    </div>
+
+  </div>
 
 </div>
 

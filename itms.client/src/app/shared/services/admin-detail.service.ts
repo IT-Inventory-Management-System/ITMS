@@ -48,4 +48,20 @@ export class AdminDetailService {
 
     return this.http.post<any | null>(this.apiUrl + 'DeviceLog/filterEmployeeLog', body);
   }
+
+
+  private selectedCardIndexActivitySubject = new BehaviorSubject<number>(0);
+  selectedCardIndexActivity$ = this.selectedCardIndexActivitySubject.asObservable();
+
+  private selectedAdminActivitySubject = new BehaviorSubject<any>(null);
+  selectedAdminActivity$ = this.selectedAdminActivitySubject.asObservable();
+
+  setSelectedCardIndexActivity(index: number) {
+    this.selectedCardIndexActivitySubject.next(index);
+  }
+
+  setSelectedAdminActivity(admin: any) {
+    this.selectedAdminActivitySubject.next(admin);
+  }
+
 }

@@ -70,7 +70,7 @@ export class AccessoriesAllRevokeComponent {
 
   initializeAccessoryFormArray() {
     const accessoryArray = this.revokeAllForm.get('Accessory') as FormArray;
-    //laptopArray.clear();
+    accessoryArray.clear();
     if (accessoryArray.length === 0) {
       this.accessoriesDetails.forEach((accessory: any) => {
         accessoryArray.push(this.createAccessoryFormGroup(accessory));
@@ -84,8 +84,8 @@ export class AccessoriesAllRevokeComponent {
   createAccessoryFormGroup(accessory: any) {
     return this.formBuilder.group({
       deviceLogId: [accessory.deviceLogId],
-      actionId: [null],
-      deviceComment: [null],
+      actionId: [accessory.actionId],
+      deviceComment: [accessory.comment],
       deviceId: [accessory.deviceId]
     });
   }

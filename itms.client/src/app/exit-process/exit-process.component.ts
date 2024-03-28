@@ -31,7 +31,7 @@ export class ExitProcessComponent {
     this.laptopCount = 0;
     if (this.laptopDetails && this.laptopDetails.length) {
       for (const laptop of this.laptopDetails) {
-        if (laptop.submitedBy === null) {
+        if (laptop.submitedBy === null || (laptop.actionName === 'Assigned' || laptop.actionName === 'assigned') || (laptop.actionName === 'Lost' || laptop.actionName === 'lost')) {
           this.laptopCount++;
         }
       }
@@ -40,7 +40,7 @@ export class ExitProcessComponent {
     this.accessoryCount = 0;
     if (this.accessoriesDetails && this.accessoriesDetails.length) {
       for (const accessory of this.accessoriesDetails) {
-        if (accessory.submittedBy === null) {
+        if (accessory.submittedBy === null || (accessory.actionName === 'Assigned' || accessory.actionName === 'assigned') || (accessory.actionName === 'Lost' || accessory.actionName === 'lost')) {
           this.accessoryCount++;
         }
       }

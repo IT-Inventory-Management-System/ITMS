@@ -275,7 +275,7 @@ namespace ITMS.Server.Services
 
                 Guid lastestLogId = await _context.DevicesLogs.Where(l => l.DeviceId == revokeDevice.DeviceId).OrderByDescending(l => l.CreatedAtUtc).Select(l => l.Id).FirstOrDefaultAsync();
 
-                    if(!isSoftware)
+                    if(!isSoftware && revokeDevice.DeviceComment != null)
                     {
                         UserCommentHistory commentDto = new UserCommentHistory
                         {

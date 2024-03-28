@@ -125,19 +125,31 @@ namespace ITMS.Server.Services
                                                          .ToList(),
 
                                          ExpDate = s.SoftwareAllocations
-                                                  .Where(sa => sa.ExpiryDate.HasValue && sa.Location.Location1 == parameters.location && sa.Version == parameters.version)
+                                                  .Where(sa => sa.ExpiryDate.HasValue && sa.Location.Location1 == parameters.location && sa.Version == parameters.version && parameters.type == type.TypeName)
                                                   .OrderByDescending(sa => sa.ExpiryDate)
                                                   .Select(sa => sa.ExpiryDate)
                                                   .FirstOrDefault(),
 
-                                         ExpiryDateCount = s.SoftwareAllocations
-                                                          .Where(sa => sa.ExpiryDate.HasValue && sa.Location.Location1 == parameters.location && sa.Version == parameters.version)
-                                                          .Select(sa => sa.ExpiryDate)
-                                                          .Distinct()
-                                                          .Count(),
+                                         //ExpiryDateCount = s.SoftwareAllocations
+                                         //                 .Where(sa => sa.ExpiryDate.HasValue && sa.Location.Location1 == parameters.location && sa.Version == parameters.version && parameters.type == type.TypeName)
+                                         //                 .Select(sa => sa.ExpiryDate)
+                                         //                 .Distinct()
+                                         //                 .Count(),
 
                                          isArchived = software.IsArchived
-                                     }).FirstOrDefault();
+                                     }).Select(s=> new SingleSoftwareSelected
+                                     {
+                                         Name = s.Name,
+                                         Version = s.Version,
+                                         Type = s.Type,
+                                         Assigned = s.Assigned,
+                                         Inventory = s.Inventory,
+                                         PurchaseDates = s.PurchaseDates,
+                                         ExpDate = s.ExpDate,
+                                         ExpiryDateCount = _context.SoftwareAllocations.Where(sa => sa.ExpiryDate == s.ExpDate && sa.Location.Location1 == parameters.location && sa.Version == parameters.version && parameters.type == sa.Software.SoftwareType.TypeName).Count(),
+                                         isArchived = s.isArchived,
+                                     })
+                                     .FirstOrDefault();
 
 
             return specsToBeReturned;

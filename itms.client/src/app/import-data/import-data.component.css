@@ -1,6 +1,6 @@
-#UsercsvModal {
-margin-left:3.1rem;
- margin-top:3rem;
+#importDataModal {
+  margin-left: 3.1rem;
+  margin-top: 3rem;
 }
 
 
@@ -18,11 +18,11 @@ margin-left:3.1rem;
   justify-content: space-between;
   align-items: center;
   align-self: stretch;
-  margin-top:5rem!important;
+  margin-top: 5rem !important;
 }
 
 
-.uploaduser-text{
+.uploaduser-text {
   color: #1E1E1E;
   font-family: Roboto;
   font-size: 1.125rem;
@@ -32,11 +32,11 @@ margin-left:3.1rem;
 }
 
 .close {
-  margin-left: 14.8rem;
+  margin-left: 17.8rem;
   width: 1.5rem;
   height: 1.5rem;
   cursor: pointer;
-  margin-top:-0.3rem;
+  margin-top: -0.3rem;
 }
 
 .close-add-user {
@@ -50,7 +50,7 @@ margin-left:3.1rem;
   align-items: flex-end;
   gap: 1.25rem;
   align-self: stretch;
-  height:26.3125rem;
+  height: 26.3125rem;
 }
 
 
@@ -62,7 +62,7 @@ margin-left:3.1rem;
   font-weight: 400;
   line-height: normal;
   align-self: stretch;
-  margin-top:1.25rem;
+  margin-top: 1.25rem;
 }
 
 
@@ -74,8 +74,9 @@ margin-left:3.1rem;
   font-weight: 500;
   line-height: 1.25rem; /* 142.857% */
   align-self: stretch;
-/*  margin-top: 1rem;
-*/}
+  /*  margin-top: 1rem;
+*/
+}
 
 .csv-file {
   display: flex;
@@ -97,6 +98,8 @@ margin-left:3.1rem;
   flex: 1 0 0;
   align-self: stretch;
 }
+
+
 
 .file-div {
   display: flex;
@@ -126,8 +129,8 @@ margin-left:3.1rem;
   align-items: center;
   gap: 1rem;
   align-self: stretch;
-  height:13.8125rem;
-  width:29.75rem;
+  height: 13.8125rem;
+  width: 29.75rem;
 }
 
 .browse-icon {
@@ -135,8 +138,8 @@ margin-left:3.1rem;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  width:16.5625rem;
-  height:7.25rem;
+  width: 16.5625rem;
+  height: 7.25rem;
 }
 
 .upload-icon {
@@ -179,12 +182,11 @@ margin-left:3.1rem;
   justify-content: center;
   align-items: center;
   gap: 0.625rem;
-  border:none;
-  outline:none;
+  border: none;
+  outline: none;
 }
 
 .cancle-save {
-
   display: flex;
   justify-content: flex-end;
   align-items: flex-start;
@@ -221,6 +223,6 @@ margin-left:3.1rem;
   background: var(--Primary-Blue, #28519E);
 }
 
-.st{
-    border:1px solid black;
+.st {
+  border: 1px solid black;
 }

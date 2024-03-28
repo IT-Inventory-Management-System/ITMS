@@ -128,7 +128,7 @@ export class AddDeviceFormComponent implements OnInit {
   updateCygId(index: number, event: Event) {
     this.hideErrorMessage();
     const value = (event.target as HTMLInputElement).value;
-    const value2 = 'CYG ' + value;
+    const value2 = 'CYG' + value;
     if (this.validateCygId(value2, index)) {
       const invalidIndexIndex = this.invalidCygIndices.indexOf(index);
       if (invalidIndexIndex !== -1) {
@@ -265,7 +265,7 @@ export class AddDeviceFormComponent implements OnInit {
 checkCygIds(): boolean {
   const cygIdsArray = this.cygIds.controls.map((control) => control.value);
   const isExisting = cygIdsArray.some(cygId => this.deviceData.some(device => device.cygId === cygId));
-  const isValid = cygIdsArray.every((cygId) => cygId.trim() !== '' && !isExisting);
+  const isValid = cygIdsArray.every((cygId) => cygId !== '' && !isExisting);
 
   return isValid;
 }

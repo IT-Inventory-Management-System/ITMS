@@ -22,6 +22,8 @@ using MiNET.Blocks;
 using System.IO.Compression;
 using log4net;
 using static MiNET.Net.McpeInteract;
+using System.Text.RegularExpressions;
+using System.Globalization;
 
 public class DeviceService
 
@@ -885,35 +887,73 @@ public class DeviceService
 
     public async Task<List<OneTimeAddDeviceDTO>> GetUnique(List<OneTimeAddDeviceDTO> allNames)
     {
-        return await Task.FromResult(allNames.Distinct().ToList());
+        List<OneTimeAddDeviceDTO> res = new List<OneTimeAddDeviceDTO>();
+        var distinctNames = allNames.Select(x => x.FullDeviceName).Distinct().ToList();
+        foreach(var d in distinctNames)
+        {
+            res.Add(allNames.Where(x => x.FullDeviceName == d).FirstOrDefault());
+            //res.Add(allNames.Where(x => allNames.Contains(d)).FirstOrDefault());
+            //x => distinctNames.Contains(x.FullDeviceName)).FirstOrDefault());
+        }
+        var uniqueDevices = allNames.Where(x => distinctNames.Contains(x.FullDeviceName)).ToList();
+        return await Task.FromResult(res);
     }
 
-    public async Task PutSingleDeviceModel(List<OneTimeAddDeviceDTO> uniqueDevices)
+
+    public async Task<List<OneTimeAddDeviceDTO>> PutSingleDeviceModel(List<OneTimeAddDeviceDTO> uniqueDevices)
     {
-        foreach(var d in uniqueDevices)
+        List<OneTimeAddDeviceDTO> failedItems = new List<OneTimeAddDeviceDTO>();
+        foreach (var d in uniqueDevices)
         {
             string[] Name = d.FullDeviceName.Split(' ');
+            string[] MACName = null;
 
-            DeviceModel deviceModel = new DeviceModel
+            var chk1 = Name[0].ToLower() == "apple";
+            var chk2 = Name[0].ToLower() != "macbook";
+            var chk3 = Name[Name.Length - 1];
+
+
+            if ((Name[0].ToLower() == "apple") || (Name[0].ToLower() != "macbook"))
             {
-                CategoryId = await _context.Categories.Where(s => s.Name == "Laptop").Select(s => s.Id).FirstOrDefaultAsync(),
-                Brand = Name[0],
-                ModelNo = Name[0] != "Apple"?Name[2].Trim('(',')'): Name[2],
-                DeviceName = d.FullDeviceName,
-                CreatedBy = d.LoggedIn,
-                UpdatedBy = d.LoggedIn,
-                Processor = d.Processor,
-                Storage = d.Storage,
-                Ram = d.Ram,
-                Os = Name[0] != "Apple" ? await _context.Ostypes.Where(o => o.Osname == "Windows").Select(s => s.Id).FirstOrDefaultAsync(): await _context.Ostypes.Where(o => o.Osname == "MAC").Select(s => s.Id).FirstOrDefaultAsync(),
-                CreatedAtUtc = DateTime.UtcNow,
-                UpdatedAtUtc = DateTime.UtcNow,
-                IsArchived = false
-            };
+                MACName = d.FullDeviceName.Split('(',')');
+            }
 
-            _context.DeviceModel.Add(deviceModel);
-            await _context.SaveChangesAsync();
+            try
+            {
+                DeviceModel deviceModel = new DeviceModel
+                {
+                    CategoryId = await _context.Categories.Where(s => s.Name == "Laptop").Select(s => s.Id).FirstOrDefaultAsync(),
+                    Brand = Name[0],
+                    //ModelNo = (Name[0].ToLower() == "apple") || (Name[0].ToLower() != "macbook") ? MACName[1] : Name[2], 
+                    ModelNo = Name[0].ToLower() == "apple" || (Name[0].ToLower() == "macbook" && MACName != null)? MACName[1] : Name[0].ToLower() == "macbook" ? Name[Name.Length - 1] : Name[2],
+                    DeviceName = d.FullDeviceName,
+                    CreatedBy = d.LoggedIn,
+                    UpdatedBy = d.LoggedIn,
+                    Processor = d.Processor,
+                    Storage = d.Storage,
+                    Ram = d.Ram,
+                    Os = (Name[0].ToLower() == "apple") || (Name[0].ToLower() == "macbook") ? await _context.Ostypes.Where(o => o.Osname.ToLower() == "mac").Select(s => s.Id).FirstOrDefaultAsync() : await _context.Ostypes.Where(o => o.Osname.ToLower() == "windows").Select(s => s.Id).FirstOrDefaultAsync(),
+                    CreatedAtUtc = DateTime.UtcNow,
+                    UpdatedAtUtc = DateTime.UtcNow,
+                    IsArchived = false
+                };
+
+                _context.DeviceModel.Add(deviceModel);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                failedItems.Add(d);
+            }
         }
+        return failedItems;
+    }
+    public async Task<bool> CheckIfAssigned(string[] Devicelog)
+    {
+        string dl = Devicelog[Devicelog.Length - 1];
+        string trimmedDl = dl.Trim(' ');
+        return trimmedDl.ToLower() != "in stock";
+
     }
     public async Task<List<OneTimeAddDeviceDTO>> PutSingleDevice_DeviceLog(List<OneTimeAddDeviceDTO> detailsList)
     {
@@ -923,11 +963,16 @@ public class DeviceService
         {
             try
             {
-                string[] Devicelog = d.DeviceLog.Split('(',')');
+                string[] Devicelog = d.DeviceLog.Split(new char[] { '(', ')' }, StringSplitOptions.RemoveEmptyEntries);
+                var assignedTo = await CheckIfAssigned(Devicelog);
+                //string wow = getAssignedTo(d);
 
-                foreach (var dl in Devicelog)
+                for (var i=0;i<Devicelog.Length;i++)
                 {
+                    
+                    var dl = Devicelog[i];
                     string trimmedDl = dl.Trim(' ');
+
                     if (trimmedDl.ToLower() == "in stock"||string.IsNullOrEmpty(trimmedDl))
                     {
                         continue;
@@ -937,21 +982,24 @@ public class DeviceService
                         DevicesLog deviceLog = new DevicesLog
                         {
                             DeviceId = await _context.Devices.Where(dc => dc.Cygid == d.Cygid).Select(d => d.Id).FirstOrDefaultAsync(),
-                            EmployeeId = await _context.Employees.Where(e => e.FirstName.ToLower() + " " + e.LastName.ToLower() == trimmedDl.ToLower()).Select(e => e.Id).FirstOrDefaultAsync(),
+                            EmployeeId = await _context.Employees.Where(e => string.Concat(e.FirstName," ",e.LastName) == trimmedDl).Select(e => e.Id).FirstOrDefaultAsync(),
                             AssignedBy = d.LoggedIn,
-                            RecievedBy = d.LoggedIn,
-                            RecievedDate = DateTime.UtcNow,
+                            RecievedBy = (i == Devicelog.Length-1) && (assignedTo==true)?null:d.LoggedIn,
+                            RecievedDate = (i == Devicelog.Length - 1) && (assignedTo == true) ? null : DateTime.UtcNow,
+                            AssignedDate = DateTime.UtcNow,
+                            AllotedDate = DateTime.UtcNow,
                             CreatedBy = d.LoggedIn,
                             UpdatedBy = d.LoggedIn,
                             CreatedAtUtc = DateTime.UtcNow,
                             UpdatedAtUtc = DateTime.UtcNow,
-                            ActionId = await _context.ActionTables.Where(a => a.ActionName == "Submitted").Select(e => e.Id).FirstOrDefaultAsync(),
+                            ActionId = (i == Devicelog.Length - 1) && (assignedTo == true) ? await _context.ActionTables.Where(a => a.ActionName.ToLower() == "assigned").Select(e => e.Id).FirstOrDefaultAsync() : await _context.ActionTables.Where(a => a.ActionName.ToLower() == "submitted").Select(e => e.Id).FirstOrDefaultAsync(),
                         };
 
                         _context.DevicesLogs.Add(deviceLog);
                         await _context.SaveChangesAsync();
                     }catch(Exception ex)
                     {
+                        d.DeviceLog = dl; 
                         failedItems.Add(d);
                     }
                 }
@@ -964,6 +1012,148 @@ public class DeviceService
 
         return failedItems;
     }
+
+
+    public async Task<List<OneTimeAddDeviceDTO>> importDeviceData(List<OneTimeAddDeviceDTO> importDeviceInput)
+    {
+        List<OneTimeAddDeviceDTO> failedItems = new List<OneTimeAddDeviceDTO>();
+
+        var responseDto = new List<DeviceResponseDTO>();
+        string HighestCygid = await _context.Devices
+                          .OrderByDescending(s => s.CreatedAtUtc)
+                          .Select(s => s.Cygid)
+                          .FirstOrDefaultAsync();
+
+        int MACCygidNumber = 0;
+        if (!string.IsNullOrEmpty(HighestCygid) && HighestCygid.StartsWith("CYG"))
+        {
+            string numericPart = HighestCygid.Substring(3);
+            MACCygidNumber = int.Parse(numericPart);
+        }
+        var idx = 1;
+
+
+        foreach (var inputDto in importDeviceInput)
+        {
+            string[] splitFullName = inputDto.FullDeviceName.Split(' ');
+            var isApple = splitFullName[0].Trim(' ');
+
+            idx++;
+
+            if (((isApple.ToLower() != "apple") ||(isApple.ToLower() == "macbook")) && await IsCYGIDUnique(inputDto.Cygid, importDeviceInput) == false)
+            {
+                    failedItems.Add(inputDto);
+                    continue;
+            }
+            else
+            {
+                var status = await getStatus(inputDto.DeviceLog);
+                var assigned = await getAssignedTo(inputDto.DeviceLog);
+                inputDto.SerialNo = await RemoveTag(inputDto.SerialNo);
+
+
+                try
+                {
+                    DateTime pd = DateTime.ParseExact(inputDto.PurchasedDate, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+
+                    Device deviceItem = new Device();
+                    deviceItem.SerialNumber = inputDto.SerialNo;
+                    deviceItem.Cygid = (isApple.ToLower() == "apple") || (isApple.ToLower() == "macbook") ? "CYG" + (MACCygidNumber + idx) : inputDto.Cygid;
+                    if((isApple.ToLower() == "apple") || (isApple.ToLower() == "macbook")){
+                        inputDto.Cygid = "CYG" + (MACCygidNumber + idx);
+                    }
+                    deviceItem.PurchasedDate = pd;
+                    deviceItem.CreatedBy = inputDto.LoggedIn;
+                    deviceItem.UpdatedBy = inputDto.LoggedIn;
+                    deviceItem.CreatedAtUtc = DateTime.UtcNow;
+                    deviceItem.UpdatedAtUtc = DateTime.UtcNow;
+                    deviceItem.IsArchived = false;
+                    deviceItem.LocationId = inputDto.locationId;
+                    deviceItem.Status = await _context.Statuses.Where(s => s.Type.ToLower() == status.ToLower()).Select(s => s.Id).FirstOrDefaultAsync();
+                    deviceItem.DeviceModelId = await _context.DeviceModel.Where(dm => dm.DeviceName.ToLower() == inputDto.FullDeviceName.ToLower()).Select(d => d.Id).FirstOrDefaultAsync();
+                    deviceItem.AssignedTo = assigned == null ? null : await _context.Employees.Where(e => string.Concat(e.FirstName, " ", e.LastName).ToLower() == assigned.ToLower()).Select(e => e.Id).FirstOrDefaultAsync();
+                    deviceItem.AssignedDate = assigned == null ? null : DateTime.UtcNow;
+                    deviceItem.AssignedBy = assigned == null ? null : inputDto.LoggedIn;
+                    _context.Devices.Add(deviceItem);
+                    await _context.SaveChangesAsync();
+                }
+                catch (Exception ex)
+                {
+                    failedItems.Add(inputDto);
+                }
+
+            }
+
+        }
+
+        return failedItems;
+    }
+
+
+    async private Task<bool> IsCYGIDUnique(string cygId, List<OneTimeAddDeviceDTO> importDeviceInput)
+    {
+        return importDeviceInput.Count(dto => dto.Cygid == cygId) == 1;
+    }
+
+    async static Task<string> RemoveTag(string input)
+    {
+        if (string.IsNullOrWhiteSpace(input))
+            return input;
+
+        int startIndex = input.IndexOf('(');
+        int endIndex = input.IndexOf(')');
+        if (startIndex != -1 && endIndex != -1 && endIndex > startIndex)
+        {
+            input = input.Remove(startIndex, endIndex - startIndex + 1).Trim();
+        }
+
+        input = input.Replace("Service Tag", "").Trim();
+
+        return input;
+    }
+
+    async static Task<string> getStatus(string input)
+    {
+        string pattern = @"\b(\w+\s+\w+)\b|\bIN Stock\b";
+        var matches = new System.Collections.Generic.List<string>();
+
+        MatchCollection matchesCollection = Regex.Matches(input, pattern);
+
+        foreach (Match match in matchesCollection)
+        {
+            matches.Add(match.Value.Trim());
+        }
+
+        string lastMatch = matches.LastOrDefault()?.ToLower();
+        if (lastMatch != null && (lastMatch == "in stock" || lastMatch == "instock" || lastMatch == "in"))
+        {
+            return "Not Assigned";
+        }
+
+        return "Assigned";
+    }
+
+    async static Task<string> getAssignedTo(string input)
+    {
+        string pattern = @"\b(\w+\s+\w+)\b|\bIN Stock\b";
+        var matches = new System.Collections.Generic.List<string>();
+
+        MatchCollection matchesCollection = Regex.Matches(input, pattern);
+
+        foreach (Match match in matchesCollection)
+        {
+            matches.Add(match.Value.Trim());
+        }
+
+        string lastMatch = matches.LastOrDefault()?.ToLower();
+        if (lastMatch != null && (lastMatch == "in stock" || lastMatch == "instock" || lastMatch == "in"))
+        {
+            return null;
+        }
+
+        return matches.LastOrDefault();
+    }
+
 }
 
 

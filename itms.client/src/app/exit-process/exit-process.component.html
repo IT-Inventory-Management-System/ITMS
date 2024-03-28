@@ -26,7 +26,7 @@
             Assigned Laptop
           </div>
           <div *ngFor="let laptop of laptopDetails">
-            <div *ngIf="laptop.submitedBy === null">
+            <div *ngIf="laptop.submitedBy === null || (laptop.actionName === 'Assigned' || laptop.actionName === 'assigned') || (laptop.actionName === 'Lost' || laptop.actionName === 'lost')">
 
               <div class="details">
                 <div class="device-model">
@@ -66,7 +66,7 @@
             Assigned Accessories
           </div>
           <div *ngFor="let accessory of accessoriesDetails">
-            <div *ngIf="accessory.submittedBy === null">
+            <div *ngIf="accessory.submittedBy === null || (accessory.actionName === 'Assigned' || accessory.actionName === 'assigned') || (accessory.actionName === 'Lost' || accessory.actionName === 'lost')">
               <div class="accessories-details">
 
                 <div class="accessories-model-details">

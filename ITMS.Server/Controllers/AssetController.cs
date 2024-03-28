@@ -7,6 +7,7 @@ using Microsoft.CodeAnalysis.Elfie.Serialization;
 using Microsoft.AspNetCore.Authorization;
 
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using Microsoft.AspNetCore.JsonPatch.Internal;
 namespace ITMS.Server.Controllers
 {
     [ApiController]
@@ -133,6 +134,8 @@ namespace ITMS.Server.Controllers
         {
             return await _addAssetService.getKeyboardComboBrand(commonDto);
         }
+
+        
 
         [HttpPost("getCGIIDsMobile")]
         public async Task<IEnumerable<getCGIDTO>> getCGIIDMobile([FromBody] mobileInputDTO commonDto)

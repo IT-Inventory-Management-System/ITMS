@@ -49,37 +49,6 @@ namespace ITMS.Server.Controllers
         }
 
 
-        //[HttpPost("one-time-add-devices")]
-        //public async Task<ActionResult> OneTimeAddDevice([FromBody] List<OneTimeAddDeviceDTO> detailsList)
-        //{
-        //    try
-        //    {
-        //        List<OneTimeAddDeviceDTO> uniqueDevices = await _deviceServiceMAIN.GetUnique(detailsList);
-        //        await _deviceServiceMAIN.PutSingleDeviceModel(uniqueDevices);
-
-        //        List<OneTimeAddDeviceDTO> devicelogsToBeSaved = new List<OneTimeAddDeviceDTO>();
-
-        //        foreach (var d in detailsList)
-        //        {
-        //            if (!string.IsNullOrEmpty(d.DeviceLog))
-        //            {
-        //                devicelogsToBeSaved.Add(d);
-        //            }
-        //        }
-
-        //        List<OneTimeAddDeviceDTO> failedLogs = await _deviceServiceMAIN.PutSingleDevice_DeviceLog(devicelogsToBeSaved);
-
-        //        return Ok(uniqueDevices);
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return BadRequest(e.Message);
-        //    }
-        //}
-
-
-
-
         [Authorize]
         [HttpPost("update")]
         public ActionResult PutDeviceModel([FromBody] PutDeviceModel model)
