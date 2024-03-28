@@ -49,7 +49,7 @@ export class ActivityPanelComponent {
   }
 
   ngOnInit() {
-    this.adminDetailService.selectedAdmin$.subscribe((admin) => {
+    this.adminDetailService.selectedAdminActivity$.subscribe((admin) => {
       if (admin) {
         this.selectedAdmin = admin;
         this.getAdminLogs(admin.id, admin.locationId);

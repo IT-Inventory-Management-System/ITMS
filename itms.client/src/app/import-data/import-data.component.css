@@ -32,7 +32,7 @@
 }
 
 .close {
-  margin-left: 14.8rem;
+  margin-left: 17.8rem;
   width: 1.5rem;
   height: 1.5rem;
   cursor: pointer;
@@ -98,6 +98,8 @@
   flex: 1 0 0;
   align-self: stretch;
 }
+
+
 
 .file-div {
   display: flex;
@@ -186,7 +188,6 @@
 
 .cancle-save {
   display: flex;
-  padding: 0rem 1.5rem;
   justify-content: flex-end;
   align-items: flex-start;
   gap: 1rem;

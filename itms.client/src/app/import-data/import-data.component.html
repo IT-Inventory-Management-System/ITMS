@@ -4,7 +4,7 @@
     <div class="modal-content userwidth  ">
 
 
-      <div class="modal-body ">
+      <div class="modal-body">
         <span class="uploaduser-text">Upload All Data CSV</span>
         <img class="close" src="../../assets/icons/Close.svg" data-bs-dismiss="modal" (click)="cancle()" />
         <div class="content-text m-2">
@@ -30,7 +30,7 @@
               or click to select a file from your computer
             </span>
           </div>
-          <input type="file" style="display: none;" id="fileUpload" (change)="onFileSelected($event)">
+          <input type="file" style="display: none;" id="fileUpload2" (change)="onFileSelected($event)">
 
           <button type="button" class="browse-csv-button" (click)="triggerFileInput()">
             <span class="browse-text">Browse from your computer</span>
@@ -38,7 +38,7 @@
         </div>
 
 
-        <div class="cancle-save ">
+        <div class="cancle-save">
 
           <button class="cancel-button" data-bs-dismiss="modal" (click)="cancle()"><span>Cancel</span></button>
           <button class="btn btn-primary addclose" data-bs-dismiss="modal" (click)="saveData()"><span>Save</span></button>

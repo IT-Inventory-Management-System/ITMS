@@ -159,11 +159,7 @@ export class AssestComponent {
     { field: "Storage", width: 103, resizable: false, suppressMovable: true, },
     { field: "Serial No", width: 160, resizable: false, suppressMovable: true, },
     { field: "CYG ID", width: 120, resizable: false, suppressMovable: true, },
-    /*{ field: "# Stock Count", width: 125, resizable: false, suppressMovable: true, },*/
     { field: "Date of Purchase", width: 170, resizable: false, suppressMovable: true, },
-    //{ field: "# Total", width: 100, resizable: false, suppressMovable: true, },
-    //{ field: "# Assigned", width: 109, resizable: false, suppressMovable: true, },
-    //{ field: "# Inventory", width: 142, resizable: false, suppressMovable: true, },
     { field: "Warranty (in Years)", width: 152, resizable: false, suppressMovable: true, },
     { field: "Assigned To", width: 140, resizable: false, suppressMovable: true, },
     { field: "Assigned Date", width: 129, resizable: false, suppressMovable: true, },
@@ -271,7 +267,7 @@ export class AssestComponent {
       resizable: false,
       suppressMovable: true,
     },
-    { field: "Stock Status", pinned: 'right', cellStyle: { 'border': 'none' }, width: 122, resizable: false, suppressMovable: true, cellRenderer: StockStatusCellComponent }
+    { field: "Stock Status", pinned: 'right', width: 122, resizable: false, suppressMovable: true, cellRenderer: StockStatusCellComponent }
 
   ];
 

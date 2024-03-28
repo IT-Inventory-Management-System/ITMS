@@ -932,7 +932,7 @@ public class DeviceService
                     Processor = d.Processor,
                     Storage = d.Storage,
                     Ram = d.Ram,
-                    Os = (Name[0].ToLower() == "apple") || (Name[0].ToLower() == "macbook") ? await _context.Ostypes.Where(o => o.Osname.ToLower() == "windows").Select(s => s.Id).FirstOrDefaultAsync() : await _context.Ostypes.Where(o => o.Osname.ToLower() == "mac").Select(s => s.Id).FirstOrDefaultAsync(),
+                    Os = (Name[0].ToLower() == "apple") || (Name[0].ToLower() == "macbook") ? await _context.Ostypes.Where(o => o.Osname.ToLower() == "mac").Select(s => s.Id).FirstOrDefaultAsync() : await _context.Ostypes.Where(o => o.Osname.ToLower() == "windows").Select(s => s.Id).FirstOrDefaultAsync(),
                     CreatedAtUtc = DateTime.UtcNow,
                     UpdatedAtUtc = DateTime.UtcNow,
                     IsArchived = false
